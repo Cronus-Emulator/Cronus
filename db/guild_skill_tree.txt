@@ -1,0 +1,34 @@
+//----------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//----------------------------------------------------------
+// Banco de Dados da Árvore de Habilidades dos Clãs
+//----------------------------------------------------------
+// Estrutura do banco de dados:
+// SkillID,MaxLv,PrereqSkillID1,PrereqSkillLv1,PrereqSkillID2,PrereqSkillLv2,PrereqSkillID3,PrereqSkillLv3,PrereqSkillID4,PrereqSkillLv4,PrereqSkillID5,PrereqSkillLv5	//GUILD SKILLNAME#Nome da Habilidade#
+//
+// 01. SkillID           ID da habilidade do clã.
+// 02. MaxLv             Nível máximo da habilidade do clã.
+// 03. PrereqSkillID     ID da habilidade necessária para esta ser habilitada.
+// 04. PrereqSkillLv     Nível da PrereqSkillID para liberar a habilidade.
+//---------------------------------------------------------
+
+10000,1,0,0,0,0,0,0,0,0,0,0						//GD_APPROVAL#Autorização Oficial#
+10001,1,10000,1,0,0,0,0,0,0,0,0					//GD_KAFRACONTRACT#Contrato com Kafra#
+10002,1,10000,1,0,0,0,0,0,0,0,0					//GD_GUARDRESEARCH#Comandar Guardiões#
+10003,3,0,0,0,0,0,0,0,0,0,0						//GD_GUARDUP#Fortalecer Guardiões#
+10004,10,0,0,0,0,0,0,0,0,0,0					//GD_EXTENSION#Expandir Clã#
+10005,0,0,0,0,0,0,0,0,0,0,0						//GD_GLORYGUILD#Glória da Guilda#
+10006,5,0,0,0,0,0,0,0,0,0,0						//GD_LEADERSHIP#Grande Liderança#
+10007,5,0,0,0,0,0,0,0,0,0,0						//GD_GLORYWOUNDS#Ferimentos de Glória#
+10008,5,10007,1,0,0,0,0,0,0,0,0					//GD_SOULCOLD#Coração Frio#
+10009,5,10006,1,0,0,0,0,0,0,0,0					//GD_HAWKEYES#Olhar Apurado#
+10010,1,10000,1,10004,2,0,0,0,0,0,0				//GD_BATTLEORDER#Comando de Batalha#
+10011,3,10000,1,10004,5,10010,1,0,0,0,0			//GD_REGENERATION#Regeneração#
+10012,1,10011,1,0,0,0,0,0,0,0,0					//GD_RESTORE#Restauração#
+10013,1,10000,1,10002,1,10004,5,10010,1,10011,1	//GD_EMERGENCYCALL#Chamado Urgente#
+10014,1,0,0,0,0,0,0,0,0,0,0						//GD_DEVELOPMENT#Desenvolvimento Permanente#

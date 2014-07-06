@@ -1,0 +1,127 @@
+#---------------------------------------------------------
+# _________                                    
+# \_   ___ \_______  ____   ____  __ __  ______
+# /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+# \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+#  \______  /|__|   \____/|___|  /____//____  >
+#         \/                   \/           \/  
+#----- Descrição: ----------------------------------------
+# Makefile para criação dos binários do emulador.
+#---------------------------------------------------------
+
+# @configure_input@
+
+@SET_MAKE@
+
+HAVE_MYSQL=@HAVE_MYSQL@
+ifeq ($(HAVE_MYSQL),yes)
+	ALL_DEPENDS=common_sql login_sql char_sql map_sql
+	SQL_DEPENDS=common_sql login_sql char_sql map_sql
+	COMMON_SQL_DEPENDS=mt19937ar libconfig
+	LOGIN_SQL_DEPENDS=mt19937ar libconfig common_sql
+	CHAR_SQL_DEPENDS=mt19937ar libconfig common_sql
+	MAP_SQL_DEPENDS=mt19937ar libconfig common_sql
+else
+	ALL_DEPENDS=needs_mysql
+	SQL_DEPENDS=needs_mysql
+	COMMON_SQL_DEPENDS=needs_mysql
+	LOGIN_SQL_DEPENDS=needs_mysql
+	CHAR_SQL_DEPENDS=needs_mysql
+	MAP_SQL_DEPENDS=needs_mysql
+endif
+
+
+MF_TARGETS = Makefile $(addsuffix /Makefile, src/common src/3rdparty/mt19937ar \
+             src/3rdparty/libconfig src/char src/login src/map)
+
+CC = @CC@
+export CC
+
+#####################################################################
+.PHONY: sql  \
+	common_sql \
+	mt19937ar \
+	login_sql \
+	char_sql \
+	map_sql \
+	clean \
+	buildclean \
+	distclean \
+	help
+
+all: $(ALL_DEPENDS)
+
+sql: $(SQL_DEPENDS)
+
+$(MF_TARGETS): %: %.in
+	@echo "	CONFIGURE"
+	@if [ -x config.status ]; then \
+		echo "Reconfiguring with options: $$(./config.status --config)"; \
+		./config.status; \
+	else \
+		echo "Unable to find a previous config.status.  ./configure will be re-run with the default options."; \
+		echo "If you want to use custom options, please press CTRL-C and run ./configure yourself"; \
+		for i in 1 2 3 4 5 6 7 8 9 10; do \
+			printf "\a. "; \
+			sleep 1; \
+		done; \
+		echo ""; \
+		./configure; \
+	fi;
+
+common_sql: $(COMMON_SQL_DEPENDS) src/common/Makefile
+	@echo "	MAKE	$@"
+	@$(MAKE) -C src/common sql
+
+mt19937ar: src/3rdparty/mt19937ar/Makefile
+	@echo "	MAKE	$@"
+	@$(MAKE) -C src/3rdparty/mt19937ar
+
+libconfig: src/3rdparty/libconfig/Makefile
+	@echo "	MAKE	$@"
+	@$(MAKE) -C src/3rdparty/libconfig
+
+login_sql: $(LOGIN_SQL_DEPENDS) src/login/Makefile
+	@echo "	MAKE	$@"
+	@$(MAKE) -C src/login sql
+
+char_sql: $(CHAR_SQL_DEPENDS) src/char/Makefile
+	@echo "	MAKE	$@"
+	@$(MAKE) -C src/char
+
+map_sql: $(MAP_SQL_DEPENDS) src/map/Makefile
+	@echo "	MAKE	$@"
+	@$(MAKE) -C src/map sql
+
+
+clean buildclean: $(MF_TARGETS)
+	@$(MAKE) -C src/common $@
+	@$(MAKE) -C src/3rdparty/mt19937ar $@
+	@$(MAKE) -C src/3rdparty/libconfig $@
+	@$(MAKE) -C src/login $@
+	@$(MAKE) -C src/char $@
+	@$(MAKE) -C src/map $@
+
+distclean: clean
+	@-rm -f $(MF_TARGETS) config.status config.log
+
+
+help: Makefile
+	@echo "'common_sql'  - Cria apenas o objeto para conexão à base de dados."
+	@echo "'mt19937ar'   - Cria o objeto para a dependência 'Mersenne Twister MT19937'"
+	@echo "'libconfig'   - Cria o objeto para a dependência 'LibConfig'"
+	@echo "'login_sql'   - Cria o módulo Login-Server"
+	@echo "'char_sql'    - Cria o módulo Char-Server"
+	@echo "'map_sql'     - Cria o módulo Map-Server"
+	@echo "'sql'         - Cria apenas binários do emulador."
+	@echo "'all'         - Cria todos os módulos"
+	@echo "'clean'       - Limpa os objetos e os executáveis"
+	@echo "'buildclean'  - Cria os arquivos-objeto sem substituir os executáveis"
+	@echo "'distclean'   - Limpa os arquivos gerados pelo ./configure"
+	@echo "'help'        - Mostra essa mensagem"
+
+#####################################################################
+
+needs_mysql:
+	@echo "MySQL não encontrado ou desativado pelo script de configuração."
+	@exit 1

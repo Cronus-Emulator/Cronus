@@ -1,0 +1,13 @@
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+//  Este Script é executado quando seu personagem acessa o servidor.
+-	script	CronusMOTD	-1,{
+	message strcharinfo(0),"Bem Vindo ao Cronus. Reporte todos os problemas que encontrar";
+	end;
+}

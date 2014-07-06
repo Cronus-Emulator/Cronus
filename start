@@ -1,0 +1,69 @@
+#!/bin/sh
+# Script criado por rowla
+# Modificado por shazeya@syafi.com (NL101541)
+# Traduzido e Incrementado por Chiron (diegopinheiro.sjc@hotmail.com)
+
+PATH=./:$PATH
+
+L_SRV=login
+C_SRV=char
+M_SRV=map
+
+print_start() {
+echo "Cronus Iniciando..."
+echo "Checando os Arquivos..."
+}
+
+check_files() {
+
+    for i in ${L_SRV} ${C_SRV} ${M_SRV}
+    do
+        if [ ! -f ./$i ]; then
+            echo "$i não existe ou está corrompido"
+            echo "Recompile os arquivos."
+            exit 1;
+        fi
+    done
+
+echo "Checagem Completa"
+}
+
+
+case $1 in
+    'Ligar')
+        print_start
+        check_files
+
+        exec ./${L_SRV}&
+	echo $! > .${L_SRV}.pid
+        exec ./${C_SRV}&
+	echo $! > .${C_SRV}.pid
+        exec ./${M_SRV}&
+	echo $! > .${M_SRV}.pid
+
+;;
+    'Atualizar')
+        if [ -f /usr/bin/yum ]; then
+			yum update -y
+			yum upgrade -y
+		else
+			apt-get update -y
+		fi
+;;
+    'Parar')
+	for i in .${L_SRV}.pid .${C_SRV}.pid .${M_SRV}.pid
+	    do
+		if [ -e ./$i ]; then
+		    kill $(cat $i)
+		    rm $i
+		fi
+	    done
+;;
+    'Reiniciar')
+        $0 Parar
+        $0 Ligar
+;;
+    *)
+        echo "Uso: start { Ligar | Parar | Reiniciar | Atualizar }"
+;;
+esac

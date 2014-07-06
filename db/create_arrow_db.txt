@@ -1,0 +1,426 @@
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//----- Descrição: ----------------------------------------
+// Banco de Dados da Habilidade Fabricar Flechas
+//---------------------------------------------------------
+// Estrutura do banco de dados:
+// SourceID,MakeID1,MakeAmount1,...,MakeID5,MakeAmount5
+//
+// 01. SourceID     ID do item consumido pelo Fabricar Flechas.
+// 02. MakeID       ID do item recebido do Fabricar Flechas.
+// 03. MakeAmount   Quantidade de MakeID recebida do Fabricar Flechas.
+//---------------------------------------------------------
+
+// Velha Caixa Azul --> Flecha Afiada (x50), Flecha Sonífera (x50)
+603,1764,50,1768,50
+
+// Galho Seco --> Flecha Emudecedora (x40)
+604,1769,40
+
+// Amuleto --> Flecha Amaldiçoada (x40)
+609,1761,40
+
+// Garrafa Vazia --> Flecha de Ferro (x2)
+713,1770,2
+
+// Emperium --> Flecha Incorpórea (x600), Flecha Emudecedora (x600), Flecha de Oridecon (x600)
+714,1757,600,1769,600,1765,600
+
+// Gema Amarela --> Flecha de Pedra (x30), Flecha Sonífera (x1)
+715,1756,30,1768,1
+
+// Gema Vermelha --> Flecha Enferrujada (x10), Flecha Envenenada (x1), Flecha Amaldiçoada (x1)
+716,1762,10,1763,1,1761,1
+
+// Gema Azul --> Flecha de Cristal (x30), Flecha Congelante (x1)
+717,1754,30,1759,1
+
+// Rubi Amaldiçoado --> Flecha Amaldiçoada (x50), Flecha Sonífera (x10)
+724,1761,50,1768,10
+
+// Diamante Quebrado --> Flecha Afiada (x50)
+733,1764,50
+
+// Minério de Oridecon --> Flecha de Oridecon (x50)
+756,1765,50
+
+// Minério de Elunium --> 200 Flecha de Aço, Flecha Atordoante (x5)
+757,1753,200,1758,5
+
+// Raíz de Árvore --> Flecha (x7)
+902,1750,7
+
+// Cauda de Escorpião --> Flecha Enferrujada (x3)
+904,1762,3
+
+// Jellopy --> Flecha (x4)
+909,1750,4
+
+// Garleta --> Flecha de Ferro (x12)
+910,1770,12
+
+// Scell --> Flecha de Aço (x8)
+911,1753,8
+
+// Zargonio --> Flecha de Prata (x50)
+912,1751,50
+
+// Dente de Morcego --> Flecha Sombria (x1)
+913,1767,1
+
+// Garra de Lobo --> Flecha de Ferro (x15)
+920,1770,15
+
+// Presa de Orc --> Flecha de Ferro (x30), Flecha de Aço (x5), Flecha de Pedra (x10)
+922,1770,30,1753,5,1756,10
+
+// Chifre Diabólico --> Flecha Sombria (x20), Flecha Luminosa (x10), Flecha Atordoante (x5)
+923,1767,20,1760,10,1758,5
+
+// Canino Venenoso --> Flecha Envenenada (x1)
+937,1763,1
+
+// Ferrão de Abelha --> Flecha Enferrujada (x1)
+939,1762,1
+
+// Chifre --> Flecha de Ferro (x35)
+947,1770,35
+
+// Espinho de Cacto --> Flecha (x50)
+952,1750,50
+
+// Guelra --> Flecha de Ferro (x80), Flecha de Cristal (x150)
+956,1770,80,1754,150
+
+// Unha Apodrecida --> Flecha Enferrujada (x1), Flecha Sombria (x1)
+957,1762,1,1767,1
+
+// Mandíbula Horrenda --> Flecha Sombria (x5)
+958,1767,5
+
+// Escama Fétida --> Flecha Envenenada (x1)
+959,1763,1
+
+// Insígnia do Herói --> Flecha de Oridecon (x1), Flecha Atordoante (x5)
+968,1765,1,1758,5
+
+// Ouro --> Flecha Luminosa (x50), Flecha de Oridecon (x50)
+969,1760,50,1765,50
+
+// Oridecon --> Flecha de Oridecon (x250)
+984,1765,250
+
+// Elunium --> Flecha de Aço (x1000), Flecha Atordoante (x50)
+985,1753,1000,1758,50
+
+// Sangue Escarlate --> Flecha de Fogo (x600)
+990,1752,600
+
+// Cristal Azul --> Flecha de Cristal (x150)
+991,1754,150
+
+// Frescor do Vento --> Flecha de Vento (x150)
+992,1755,150
+
+// Vida Verdejante --> Flecha de Pedra (x150)
+993,1756,150
+
+// Coração Flamejante --> Flecha de Fogo (x1800), Flecha Emudecedora (x5)
+994,1752,1800,1769,5
+
+// Gelo Místico --> Flecha de Cristal (x450), Flecha Congelante (x5)
+995,1754,450,1759,5
+
+// Vento Bruto --> Flecha de Vento (x450), Flecha Sonífera (x5)
+996,1755,450,1768,5
+
+// Natureza Grandiosa --> Flecha de Pedra (x450), Flecha Luminosa (x5)
+997,1756,450,1760,5
+
+// Ferro --> Flecha de Ferro (x100)
+998,1770,100
+
+// Aço --> Flecha de Aço (x100)
+999,1753,100
+
+// Fragmento Estelar --> Flecha Luminosa (x30)
+1000,1760,30
+
+// Poeira Estelar --> Flecha Luminosa (x10)
+1001,1760,10
+
+// Minério de Ferro --> Flecha de Ferro (x50)
+1002,1770,50
+
+// Carvão --> Flecha Sombria (x8)
+1003,1767,8
+
+// Fracon --> Flecha de Ferro (x50)
+1010,1770,50
+
+// Emveretarcon --> Flecha de Ferro (x200), Flecha de Prata (x40)
+1011,1770,200,1751,40
+
+// Garras de Toupeira --> Flecha de Ferro (x50), Flecha de Pedra (x60)
+1018,1770,50,1756,60
+
+// Tronco --> Flecha (x40)
+1019,1750,40
+
+// Chifre de Dokebi --> Flecha de Ferro (x40), Flecha Sombria (x2)
+1021,1770,40,1767,2
+
+// Espinho de Porco-Espinho --> Flecha (x70), Flecha de Pedra (x30)
+1027,1750,70,1756,30
+
+// Foice de Louva-a-Deus --> Flecha Afiada (x1)
+1031,1764,1
+
+// Canino de Dragão --> Flecha de Oridecon (x1), Flecha de Ferro (x50)
+1035,1765,1,1770,50
+
+// Pequeno Chifre Maligno --> Flecha Amaldiçoada (x2), Flecha de Ferro (x50)
+1038,1761,2,1770,50
+
+// Lampião --> Flecha de Ferro (x80)
+1041,1770,80
+
+// Garra de Orc --> Flecha de Aço (x10)
+1043,1753,10
+
+// Presa de Zenorc --> Flecha Enferrujada (x5)
+1044,1762,5
+
+// Dente Fossilizado --> Flecha de Aço (x20), Flecha de Cristal (x300)
+1053,1753,20,1754,300
+
+// Presa --> Flecha Afiada (x2), Flecha de Prata (x40)
+1063,1764,2,1751,40
+
+// Rédeas --> Flecha de Ferro (x100), Flecha de Aço (x50)
+1064,1770,100,1753,50
+
+// Tronco de Alta Qualidade --> Flecha (x20)
+1066,1750,20
+
+// Tronco Sólido --> Flecha (x20)
+1067,1750,20
+
+// Tronco Estéril --> Flecha (x20)
+1068,1750,20
+
+// Ponteiro --> Flecha Soníferas (x5), Flecha (x100)
+1095,1768,5,1750,100
+
+// Algema --> Flecha de Aço (x50)
+1098,1753,50
+
+// Chifre de Unicórnio --> Flecha de Prata (x1000)
+2257,1751,1000
+
+// Máscara do Fantasma --> Flecha de Aço (x200), Flecha Emudecedora (x40)
+2281,1753,200,1769,40
+
+// Máscara Assustadora --> Flecha Afiada (x200), Flecha de Aço (x300)
+2288,1764,200,1753,300
+
+// Máscara de Solda --> Flecha de Aço (x200), Flecha Atordoante (x40)
+2292,1753,200,1758,40
+
+// Jaqueta Brilhante --> Flecha Luminosa (x1000)
+2319,1760,1000
+
+// Armadura de Madeira --> Flecha (x700), Flecha de Ferro (x500)
+2328,1750,700,1770,500
+
+// Armadura de Madeira [1] --> Flecha (x1000), Flecha de Ferro (x700)
+2329,1750,1000,1770,700
+
+// Manto Prateado --> Flecha de Prata (x700)
+2332,1751,700
+
+// Manto Prateado [1] --> Flecha de Prata (x1000), Flecha Incorpórea (x10)
+2333,1751,1000,1757,10
+
+// Grilhões --> Flecha de Ferro (x700), Flecha de Aço (x50)
+2408,1770,700,1753,50
+
+// Coleira de Matyr --> Flecha de Vento (x150), Flecha de Aço (x100), Flecha Afiada (x10)
+2618,1755,150,1753,100,1764,10
+
+// Barbatanas --> Flecha de Cristal (x600), Flecha de Aço (x200)
+5014,1754,600,1753,200
+
+// Dente de Ogro --> Flecha de Aço (x30), Flecha Enferrujada (x5)
+7002,1753,30,1762,5
+
+// Chifre Firme --> Flecha Atordoante (x2)
+7008,1758,2
+
+// Cauda de Escorpião de Aço --> Flecha de Aço (x250), Flecha Envenenada (x1)
+7010,1753,250,1763,1
+
+// Graveto de Visco --> Flecha Emudecedora (x1000)
+7018,1769,1000
+
+// Sussurros de Loki --> Flecha Sombria (x1000)
+7019,1767,1000
+
+// Pesadelo Maternal --> Flecha Amaldiçoada (x1000)
+7020,1761,1000
+
+// Tolice de Cego --> Flecha Luminosa (x200)
+7021,1760,200
+
+// Bainha Velha --> Flecha de Oridecon (x1000)
+7022,1765,1000
+
+// Lâmina Perdida nas Trevas --> Flecha Afiada (x600), Flecha Sombria (x200)
+7023,1764,600,1767,200
+
+// Lâmina Ensanguentada --> Flecha Afiada (x600), Flecha Amaldiçoada (x200)
+7024,1764,600,1761,200
+
+// Lamento de Lúcifer --> Flecha Atordoante (x800), Flecha Emudecedora (x400), Flecha Soníferas (x800)
+7025,1758,800,1769,400,1768,800
+
+// Chave para a Torre do Relógio --> Flecha de Oridecon (x50)
+7026,1765,50
+
+// Chave para o Subterrâneo --> Flecha Sombria (x100)
+7027,1767,100
+
+// Palito de Fósforo --> Flecha de Fogo (x3000)
+7035,1752,3000
+
+// Presa de Hati --> Flecha de Cristal (x300)
+7036,1754,300
+
+//Novos ingredientes
+// Cubo de Gelo --> Flecha de Cristal (x100)
+7066,1754,100
+
+// Pedaço de Pedra --> Flecha de Pedra (x50), Flecha Atordoante (x30)
+7067,1756,50,1758,30
+
+// Madeira Queimada --> Flecha de Fogo (x250)
+7068,1752,250
+
+// Armadura Destruída --> Flecha de Aço (x150)
+7069,1753,150
+
+// Coração Incandescente --> Flecha de Fogo (x150)
+7097,1752,150
+
+// Lenha em Brasa --> Flecha de Fogo (x100)
+7098,1752,100
+
+// Folha Afiada --> Flecha Afiada (x30)
+7100,1764,30
+
+// Pedaço de Escudo Colossal --> Flecha de Aço (x100), Flecha de Oridecon (x100), Immaterial Arrows (x300)
+7108,1753,100,1765,100,1757,300
+
+// Lâmina de Lança Colossal --> Flecha de Oridecon (x100)
+7109,1765,100
+
+// Ferradura em Chamas --> Flecha de Aço (x100)
+7120,1753,100
+
+// Pele de Dragão --> Flecha de Aço (x10), Flecha Amaldiçoada (x50), Flecha Emudecedora (x50)
+7123,1753,10,1761,50,1769,50
+
+// Pedaço de Bambu --> Flecha (x100)
+7150,1750,100
+
+// Pele de Sapo --> Flecha Envenenada (x20)
+7155,1763,20
+
+// Antenas Afiadas --> Flecha Afiada (x20)
+7163,1764,20
+
+// Pêssego Petrificado --> Flecha Atordoante (x30)
+7164,1758,30
+
+// Garras de Leopardo --> Flecha Afiada (x10)
+7172,1764,10
+
+// Armadura de Dullahan --> Flecha Sombria (x150)
+7210,1767,150
+
+// Corrente --> Flecha de Aço (x50), Flecha Sombria (x50)
+7221,1753,50,1767,50
+
+// Olho de Gato --> Flecha de Vento (x200)
+7263,1755,200
+
+// Fragmento de Cristal Negro --> Flecha Amaldiçoada (x30), Flecha Sombria (x50)
+7315,1761,30,1767,50
+
+// Perna de Inseto --> Flecha Afiada (x10), Flecha Envenenadas (x50)
+7316,1764,10,1763,50
+
+// Picareta Velha --> Flecha Enferrujada (x100), Flecha de Aço (x50)
+7318,1762,100,1753,50
+
+// Placa de Ferro Usada --> Flecha Enferrujada (x100), Flecha de Aço (x100)
+7319,1762,100,1753,100
+
+// Fragmento de Cristal --> Flecha Luminosa (x10), Flecha Sonífera (x30)
+7321,1760,10,1768,30
+
+// Chaleira Surrada --> Flecha de Aço (x50)
+7323,1753,50
+
+// Desejo das Trevas --> Flecha Amaldiçoada (x30), Flecha Envenenada (x30), Flecha Sombria (x50)
+7340,1761,30,1763,30,1767,50
+
+// Ornamento Dourado --> Flecha de Prata (x200), Flecha Sagrada (x300)
+7435,1751,200,1772,300
+
+// Selo Maldito --> Flecha Amaldiçoada (x50), Flecha Emudecedora (x50)
+7442,1761,50,1769,50
+
+// Bijuteria Verde --> Flecha de Pedra (x100), Flecha Envenenada (x80)
+7445,1756,100,1763,80
+
+// Bijuteria Azul --> Flecha de Vento (x50), Flecha de Cristal (x50), Frozen Arrows (x80)
+7446,1755,50,1754,50,1759,80
+
+// Bijuteria Vermelha --> Flecha de Fogo (x100), Flecha Luminosa (x80)
+7447,1752,100,1760,80
+
+// Bijuteria Amarela --> Flecha de Prata (x50), Flecha Incorpórea (x50), Flecha Soníferas (x80)
+7448,1751,50,1757,50,1768,80
+
+// Pedaço de Armadura de Esqueleto --> Flecha Incorpórea (x500), Flecha Sombria (x200), Flecha de Oridecon (x100)
+7450,1757,500,1767,200,1765,100
+
+// Escama de Dragão de Fogo --> Flecha de Fogo (x300), Flecha Atordoante (x300)
+7451,1752,300,1758,300
+
+// Flor de Valhalla --> Flecha Incorpórea (x600), Flecha Sagrada (x600), Flecha Afiada (x600)
+7510,1757,600,1772,600,1764,600
+
+// Runa da Escuridão --> Flecha Sombria (x300), Flecha Luminosa (x150)
+7511,1767,300,1760,150
+
+// Coração Glacial --> Flecha de Cristal (x50), Frozen Arrows (x50)
+7561,1754,50,1759,50
+
+// Escama de Gelo --> Flecha de Cristal (x150), Frozen Arrows (x400), Flecha Emudecedora (x200)
+7562,1754,150,1759,400,1769,200
+
+// Desejo das Trevas Escarlate --> Flecha Amaldiçoada (x200), Flecha Envenenadas (x200), Flecha Sombria (x100)
+7566,1761,200,1763,200,1767,100
+
+// Crânio Atordoante --> Flecha Sombria (x50), Flecha Amaldiçoada (x50)
+7752,1767,50,1761,50
+
+// Utensílio Rural Quebrado --> Flecha Enferrujada (x50), Flecha de Ferro (x10), Flecha Amaldiçoada (x20)
+7753,1762,50,1770,10,1761,20

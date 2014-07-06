@@ -1,0 +1,3 @@
+#1404494956
+ALTER TABLE `interreg` ENGINE = MyISAM;
+INSERT INTO `sql_updates` (`timestamp`) VALUES (1404494956);
