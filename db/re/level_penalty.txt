@@ -1,18 +1,27 @@
-// Experience & Drop Rate Modifier Database
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// Banco de Dados de Modificadores de Experiência e Drop
+//---------------------------------------------------------
+// Estrutura do Arquivo:
+// Tipo,Raça,Diferença de nível,Taxa
 //
-// Structure of Database:
-// Type,Race,Level difference,Rate
+// TIPO:
+//   1=experiência, 2=drop de itens
+// RAÇA:
+//   0=Amorfo, 1=Morto-Vivo, 2=Bruto, 3=Planta, 4=Inseto,
+//   5=Peixe, 6=Demônio, 7=Humanoide, 8=Anjo, 9=Dragão, 
+//   10=Chefe, 11=Normal
 //
-// TYPE:
-//   1=experience, 2=item drop
-// RACE:
-//   0=Formless, 1=Undead, 2=Brute, 3=Plant, 4=Insect,
-//   5=Fish, 6=Demon, 7=Demi-Human, 8=Angel, 9=Dragon, 
-//   10=Boss monsters, 11=Normal monsters
-//
-// Note: RENEWAL_DROP and/or RENEWAL_EXP must be enabled.
+// Nota: RENEWAL_DROP e/ou RENEWAL_EXP deve estar habilitado.
+//---------------------------------------------------------
 
-// EXP modifiers due to level difference
+// Modificadores de experiência devido a diferença de nível
 1,11,16,40
 1,11,15,115
 1,11,14,120

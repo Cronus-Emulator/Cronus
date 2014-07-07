@@ -324,7 +324,7 @@ int mob_get_random_id(int type, int flag, int lv)
 	struct mob_db *monster;
 	int i=0, class_;
 	if(type < 0 || type >= MAX_RANDOMMONSTER) {
-		ShowError("mob_get_random_id: Invalid type (%d) of random monster.\n", type);
+		ShowError("Tipo inexistente (%d) para monstro aleatorio.\n", type);
 		return 0;
 	}
 	do {
@@ -408,7 +408,7 @@ bool mob_ksprotected(struct block_list *src, struct block_list *target) {
 		// Message to KS
 		if( DIFF_TICK(sd->ks_floodprotect_tick, tick) <= 0 )
 		{
-			sprintf(output, "[KS Warning!! - Owner : %s]", pl_sd->status.name);
+			sprintf(output, "[Tentativa de KS!! - Dono : %s]", pl_sd->status.name);
 			clif_disp_onlyself(sd, output, strlen(output));
 
 			sd->ks_floodprotect_tick = tick + 2000;
@@ -417,7 +417,7 @@ bool mob_ksprotected(struct block_list *src, struct block_list *target) {
 		// Message to Owner
 		if( DIFF_TICK(pl_sd->ks_floodprotect_tick, tick) <= 0 )
 		{
-			sprintf(output, "[Watch out! %s is trying to KS you!]", sd->status.name);
+			sprintf(output, "[Preste Atenção! %s está tentando aplicar KS em você!]", sd->status.name);
 			clif_disp_onlyself(pl_sd, output, strlen(output));
 
 			pl_sd->ks_floodprotect_tick = tick + 2000;
@@ -609,7 +609,7 @@ int mob_spawn_guardian_sub(int tid, int64 tick, int id, intptr_t data) {
 			md->guardian_data->guild_id = 0;
 			if (md->guardian_data->castle->guild_id) //Free castle up.
 			{
-				ShowNotice("Clearing ownership of castle %d (%s)\n", md->guardian_data->castle->castle_id, md->guardian_data->castle->castle_name);
+				ShowNotice("Removendo lider do castelo!  (CASID: %d | Nome: %s)\n", md->guardian_data->castle->castle_id, md->guardian_data->castle->castle_name);
 				guild->castledatasave(md->guardian_data->castle->castle_id, 1, 0);
 			}
 		} else {

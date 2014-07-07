@@ -1,50 +1,60 @@
-//id,range,hit,inf,element,nk,splash,max,list_num,castcancel,cast_defence_rate,inf2,maxcount,skill_type,blow_count,name,description
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+//ID,Alcance,Dano,Inf,Elemento,Nk,Splash,MaxLv,ListNum,CastCancel,ChanceDefCast,Inf2,MaxCount,TipoSkill,BlowCount,Nome,Descrição
 // 01 ID
-// 02 range (combo skills do not check for range when used,
-//           if range is < 5, the skill is considered melee-range)
-// 03 hit (8- repeated hitting, 6- single-hit)
-// 04 inf (0- passive, 1- enemy, 2- place, 4- self, 16- friend, 32- trap)
-// 05 element (0 - neutral, 1 - water, 2 - earth, 3 - fire, 4 - wind, 5 - poison,
-//             6 - holy, 7 - dark, 8 - ghost, 9 - undead, -1 - use weapon element
-//             -2 - use endowed element, -3 - use random element.)
-// 06 nk (skill damage properties):
-//    0x01 - No damage skill
-//    0x02 - Has splash area (requires source modification)
-//    0x04 - Damage should be split among targets (requires 0x02 in order to work)
-//    0x08 - Skill ignores caster's % damage cards (misc type always ignores)
-//    0x10 - Skill ignores elemental adjustments
-//    0x20 - Skill ignores target's defense (misc type always ignores)
-//    0x40 - Skill ignores target's flee (magic type always ignores)
-//    0x80 - Skill ignores target's def cards
-// 07 splash/effect range (-1 for screen-wide)
-// 08 MaxLv
-// 09 Number of hits (when positive, damage is increased by hits, 
-//    negative values just show number of hits without increasing total damage)
-// 10 Cast interrupted when hit?
-// 11 defense-reduction rate during cast.
-// 12 inf2 (skill information 2):
-//    0x0001- quest skill
-//    0x0002- npc skill
-//    0x0004- wedding skill
-//    0x0008- spirit skill
-//    0x0010- guild skill
-//    0x0020- song/dance
-//    0x0040- ensemble skill
-//    0x0080- trap
-//    0x0100- skill that damages/targets yourself
-//    0x0200- cannot be casted on self (if inf = 4, auto-select target skill)
-//    0x0400- usable only on party-members (and enemies if skill is offensive)
-//    0x0800- usable only on guild-mates (and enemies if skill is offensive)
-//    0x1000- disable usage on enemies (for non-offensive skills).
-//    0x2000- skill ignores land protector (e.g. arrow shower)
+// 02  Alcance	(Habilidades de combo não verificam pelo alcance
+//           Se o alcance < 5, então a habilidade é considerada melee)
+// 03 Dano (8- dano repetitivo, 6- dano único)
+// 04 inf (0- passivo, 1- inimigo, 2- local, 4- si próprio, 16- amigo, 32- armadilha)
+// 05 element (0 - neutro, 1 - água, 2 - terra, 3 - fogo, 4 - vento, 5 - veneno,
+//             6 - sagrado, 7 - sombrio, 8 - fantasma, 9 - morto-vivo, -1 - elemento da arma
+//             -2 - elemento endowed, -3 - elemento aleatório.)
+// 06 nk (Propriedade de Dano das Habilidades):
+//    0x01 - habilidade sem dano
+//    0x02 - tem área visual (necessária modificação na source)
+//    0x04 - dano dividido entre os alvos (necessário 0x02 em ordem de trabalho)
+//    0x08 - habilidade ignora dano bônus dado por cartas de quem a conjura
+//    0x10 - habilidade ignora bônus elementais
+//    0x20 - habilidade ignora a defesa do alvo (tipo variado sempre ingnora)
+//    0x40 - habilidade ignora a esquiva do alvo (tipo mágido sempre ignora)
+//    0x80 - habilidade ignora defesa do alvo dada por cartas
+// 07 Área de efeito (-1 para wide)
+// 08 Nível máximo da habilidade
+// 09 Número de danos (Quando positivo, acresenta o dano por dano, 
+//    valores negativos apenas mostraram o número de acertos, sem aumentar os danos totais)
+// 10 A conjuração pode ser cancelada?
+// 11 Redução de defesa durante conjuração.
+// 12 inf2 (Informações de Habilidades 2):
+//    0x0001- habilidade de quest
+//    0x0002- habilidade de npc
+//    0x0004- habilidade de casamento
+//    0x0008- habilidade de espírito
+//    0x0010- habilidade de clã
+//    0x0020- habilidade de música
+//    0x0040- habilidade de dueto
+//    0x0080- armadilha
+//    0x0100- habilidade que o alvo é quem invoca
+//    0x0200- não pode ser usada em si próprio
+//    0x0400- apenas pode ser usada em membros de grupo
+//    0x0800- apenas pode ser usada em membros de clã
+//    0x1000- não pode ser usada em inimigos
+//    0x2000- habilidade ignora proteção terrestre (exemplo: Chuva de Flechas)
 //    0x4000- chorus skill
-// 13 maxcount: max amount of skill instances to place on the ground when
-//    player_land_skill_limit/monster_land_skill_limit is enabled. For skills
-//    that attack using a path, this is the path length to be used.
-// 14 attack type (none, weapon, magic, misc)
+// 13 maxcount: Quantidade máxima de habilidades colocadas no chão.
+//    player_land_skill_limit/monster_land_skill_limit está ativo. Para Habilidades
+//    que atacam usando um caminho, este é o comprimento do caminho a ser utilizado.
+// 14 Tipo de Ataque (nenhum, arma, magia, misc)
 // 15 Blowcount (amount of tiles skill knockbacks)
-// 16 Name
-// 17 Description
+// 16 Nome
+// 17 Descrição
+//---------------------------------------------------------
+
 1,0,0,0,0,0,0,9,0,no,0,0,0,none,0,		NV_BASIC,Basic Skill
 2,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		SM_SWORD,Sword Mastery
 3,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		SM_TWOHAND,Two-Handed Sword Mastery

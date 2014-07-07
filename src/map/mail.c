@@ -190,7 +190,7 @@ void mail_deliveryfail(struct map_session_data *sd, struct mail_message *msg)
 // This function only check if the mail operations are valid
 bool mail_invalid_operation(struct map_session_data *sd) {
 	if( !map->list[sd->bl.m].flag.town && !pc->can_use_command(sd, "@mail") ) {
-		ShowWarning("Personagem '%s' trying to do invalid mail operations.\n", sd->status.name);
+		ShowWarning("Personagem '%s' tentando realizar o esquema de email inapropriadamente.\n", sd->status.name);
 		return true;
 	}
 
