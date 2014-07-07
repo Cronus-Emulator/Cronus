@@ -26,7 +26,6 @@
 #endif
 
 #ifdef WIN32
-
 typedef struct __declspec( align(64) ) SPIN_LOCK{
 	volatile LONG lock;
 	volatile LONG nest;

@@ -22,38 +22,38 @@
 //================
 // Al De Baran
 //================
-0,aldeg_cas01,Neuschwanstein,Agit#aldeg_cas01,1       // kRO : Noisyubantian
-1,aldeg_cas02,Hohenschwangau,Agit#aldeg_cas02,1       // kRO : Hohensyubangawoo
-2,aldeg_cas03,Nuernberg,Agit#aldeg_cas03,1            // kRO : Nyirenverk
-3,aldeg_cas04,Wuerzburg,Agit#aldeg_cas04,1            // kRO : Byirtsburi
-4,aldeg_cas05,Rothenburg,Agit#aldeg_cas05,1           // kRO : Rotenburk
+0,aldeg_cas01,Sirius,Agit#aldeg_cas01,1       // kRO : Noisyubantian
+1,aldeg_cas02,Astrum,Agit#aldeg_cas02,1       // kRO : Hohensyubangawoo
+2,aldeg_cas03,Canopus,Agit#aldeg_cas03,1      // kRO : Nyirenverk
+3,aldeg_cas04,Rigel,Agit#aldeg_cas04,1        // kRO : Byirtsburi
+4,aldeg_cas05,Acrux,Agit#aldeg_cas05,1        // kRO : Rotenburk
 
 //================
 // Geffen
 //================
-5,gefg_cas01,Repherion,Agit#gefg_cas01,1              // kRO : Reprion
-6,gefg_cas02,Eeyolbriggar,Agit#gefg_cas02,1           // kRO : Yolbriger
-7,gefg_cas03,Yesnelph,Agit#gefg_cas03,1               // kRO : Isinlife
-8,gefg_cas04,Bergel,Agit#gefg_cas04,1                 // kRO : Berigel
-9,gefg_cas05,Mersetzdeitz,Agit#gefg_cas05,1           // kRO : Melsedetsu
+5,gefg_cas01,Arsulf,Agit#gefg_cas01,1          // kRO : Reprion
+6,gefg_cas02,Trapesac,Agit#gefg_cas02,1        // kRO : Yolbriger
+7,gefg_cas03,Ruaden,Agit#gefg_cas03,1          // kRO : Isinlife
+8,gefg_cas04,Saffran,Agit#gefg_cas04,1         // kRO : Berigel
+9,gefg_cas05,Arima,Agit#gefg_cas05,1           // kRO : Melsedetsu
 
 //================
 // Payon
 //================
-10,payg_cas01,Bright Arbor,Agit#payg_cas01,1          // kRO : Mingting
-11,payg_cas02,Scarlet Palace,Agit#payg_cas02,1        // kRO : Tiantan
-12,payg_cas03,Holy Shadow,Agit#payg_cas03,1           // kRO : Fuying
-13,payg_cas04,Sacred Altar,Agit#payg_cas04,1          // kRO : Honglou
-14,payg_cas05,Bamboo Grove Hill,Agit#payg_cas05,1     // kRO : Zhulinxian
+10,payg_cas01,Palácio do Sol,Agit#payg_cas01,1            // kRO : Mingting
+11,payg_cas02,Palácio do Lago Sagrado,Agit#payg_cas02,1   // kRO : Tiantan
+12,payg_cas03,Palácio da Sombra,Agit#payg_cas03,1         // kRO : Fuying
+13,payg_cas04,Palácio Escarlate,Agit#payg_cas04,1      // kRO : Honglou
+14,payg_cas05,Palácio da Colina,Agit#payg_cas05,1         // kRO : Zhulinxian
 
 //================
 // Prontera
 //================
-15,prtg_cas01,Kriemhild,Agit#prtg_cas01,1             // kRO : Creamhilt
-16,prtg_cas02,Swanhild,Agit#prtg_cas02,1              // kRO : Sbanhealt
-17,prtg_cas03,Fadhgridh,Agit#prtg_cas03,1             // kRO : Lazrigees
-18,prtg_cas04,Skoegul,Agit#prtg_cas04,1               // kRO : Squagul
-19,prtg_cas05,Gondul,Agit#prtg_cas05,1                // kRO : Guindull
+15,prtg_cas01,Kriemhild,Agit#prtg_cas01,1          // kRO : Creamhilt
+16,prtg_cas02,Hrist,Agit#prtg_cas02,1              // kRO : Sbanhealt
+17,prtg_cas03,Brynhildr,Agit#prtg_cas03,1          // kRO : Lazrigees
+18,prtg_cas04,Skoegul,Agit#prtg_cas04,1            // kRO : Squagul
+19,prtg_cas05,Gondul,Agit#prtg_cas05,1             // kRO : Guindull
 
 //================
 // Novice Guilds
@@ -64,19 +64,19 @@
 23,nguild_prt,Fire,Agit_N04,2
 
 //================
-// Yuno
+// Juno
 //================
 24,schg_cas01,Himinn,Manager#schg_cas01,1             // kRO : Himinn
 25,schg_cas02,Andlangr,Manager#schg_cas02,1           // kRO : Andlangr
 26,schg_cas03,Viblainn,Manager#schg_cas03,1           // kRO : Viblainn
 27,schg_cas04,Hljod,Manager#schg_cas04,1              // kRO : Hljod
-28,schg_cas05,Skidbladnir,Manager#schg_cas05,1        // kRO : Skidbladnir
+28,schg_cas05,Skatyrnir,Manager#schg_cas05,1          // kRO : Skidbladnir
 
 //================
 // Rachel
 //================
 29,arug_cas01,Mardol,Manager#arug_cas01,1             // kRO : Mardol
-30,arug_cas02,Cyr,Manager#arug_cas02,1                // kRO : Cyr
+30,arug_cas02,Syr,Manager#arug_cas02,1                // kRO : Cyr
 31,arug_cas03,Horn,Manager#arug_cas03,1               // kRO : Horn
 32,arug_cas04,Gefn,Manager#arug_cas04,1               // kRO : Gefn
-33,arug_cas05,Bandis,Manager#arug_cas05,1             // kRO : Bandis
+33,arug_cas05,Vanadis,Manager#arug_cas05,1            // kRO : Bandis

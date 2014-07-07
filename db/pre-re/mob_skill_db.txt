@@ -1,58 +1,65 @@
-// Mob Skill Database 
-// Based on Aegis Episode 11.3
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// Banco de Dados das Habilidades dos Monstros
+//---------------------------------------------------------
+// Estrutura do banco de dados:
+// MobID,Nome,Estado,SkillID,SkillLv,Rate,CastTime,Delay,Cancelavel,Alvo,Condicao,ValorCondicao,Val1,Val2,Val3,Val4,Val5,Emotion,Chat
 //
-// Structure of Database:
-// MobID,Dummy value (info only),State,SkillID,SkillLv,Rate,CastTime,Delay,Cancelable,Target,Condition type,Condition value,val1,val2,val3,val4,val5,Emotion,Chat
+// RATE: a chance da habilidade ser conjurada quando a condição for cumprida (10000 = 100%).
+// DELAY: o tempo (em milésimos de segundo) antes de conjurar a mesma habilidade novamente.
 //
-// RATE: the chance of the skill being casted when the condition is fulfilled (10000 = 100%).
-// DELAY: the time (in milliseconds) before attempting to recast the same skill.
+// ESTADO:
+//	any (exeto morto) / idle (em espera) / walk (em movimento) / dead (em mortos) /
+//	loot /attack / angry (como ataque,exeto quando o jogador ainda não atacou o mostro) /
+//	chase (segue o alvo, depois de ser atacado) / follow (segue o alvo, antes de ser atacado) / anytarget (attack+angry+chase+follow)
 //
-// STATE:
-//	any (except dead) / idle (in standby) / walk (in movement) / dead (on killed) /
-//	loot /attack / angry (like attack, except player has not attacked mob yet) /
-//	chase (following target, after being attacked) / follow (following target,
-//	without being attacked) / anytarget (attack+angry+chase+follow)
+// Alvo:
+//	target (alvo atual) / self / friend / master / randomtarget (qualquer inimigo dentro do alcance da habilidade)
 //
-// TARGET:
-//	target (current target) / self / friend / master / randomtarget (any enemy within skill's range)
-//
-//	The following are for ground-skills, a random target tile is selected from the specified area:
-//	    around1 (3x3 area around self) / around2 (5x5 area around self) /
-//	    around3 (7x7 area around self) / around4 (9x9 area around self) /
-//	    around5 (3x3 area around target) / around6 (5x5 area around target) /
-//	    around7 (7x7 area around target) / around8 (9x9 area around target) /
+//	A Seguir estão as skills de área, um alvo aleatório é seleccionado a partir da área especificada:
+//	    around1 (área 3x3 ao redor do monstro) / around2 (área 5x5 ao redor do monstro) /
+//	    around3 (área 7x7 ao redor do monstro) / around4 (área 9x9 ao redor do monstro) /
+//	    around5 (área 3x3 ao redor do alvo) / around6 (área 5x5 ao redor do alvo) /
+//	    around7 (área 7x7 ao redor do alvo) / around8 (área 9x9 ao redor do alvo) /
 //	    around = around4
 //
-// CONDITION:
-//	always			Unconditional (no condition value).
-//	onspawn			When mob spawns/respawns (no condition value).
-//	myhpltmaxrate		When mob's HP drops to the specified %.
-//	myhpinrate		When mob's HP is in a certain % range (condition value = lower bound, val1 = upper bound).
-//	mystatuson		If mob has the specified abnormality in status.
-//	mystatusoff		If mob has ended the specified abnormality in status.
-//	friendhpltmaxrate	When mob's friend's HP drops to the specified %.
-//	friendhpinrate		When mob's friend's HP is in a certain % range (condition value = lower bound, val1 = upper bound).
-//	friendstatuson		If friend has the specified abnormality in status.
-//	friendstatusoff		If friend has ended the specified abnormality in status.
-//	attackpcgt		When attack PCs become greater than specified number.
-//	attackpcge		When attack PCs become greater than or equal to the specified number.
-//	slavelt			When number of slaves is less than the original specified number.
-//	slavele			When number of slaves is less than or equal to the original specified number.
-//	closedattacked		When close range melee attacked (no condition value).
-//	longrangeattacked	When long range attacked, ex. bows, guns, ranged skills (no condition value).
-//	skillused		When the specified skill is used on the mob.
-//	afterskill		After mob casts the specified skill.
-//	casttargeted		When a target is in cast range (no condition value).
-//	rudeattacked		When mob is rude attacked (no condition value).
+// CONDIÇÃO:
+//	always			Incondicional (sem valor de condição).
+//	onspawn			Quando o monstro é invocado (sem valor de condição).
+//	myhpltmaxrate		Quando o HP do monstro cai para uma porcentagem específica.
+//	myhpinrate		Quando o HP do monstro está em uma porcentagem específica (Valor da condição = limite inferior, val1 = limite superior).
+//	mystatuson		Se o monstro tem a anormalidade específica no status.
+//	mystatusoff		Se foi encerrada a anormalidade específica no status.
+//	friendhpltmaxrate	Quando o HP de um monstro amigável cai para uma porcentagem específica.
+//	friendhpinrate		Quand o HP de um monstro amigável está em um intervalo específico (Valor da condição = limite inferior, val1 = limite superior).
+//	friendstatuson		Se o amigo tem a anormalidade específica no status.
+//	friendstatusoff		Se foi encerrada a anormalidade específica no status.
+//	attackpcgt		Quando a quantidade de ataque se torna maior do que o número especificado.
+//	attackpcge		Quando a quantidade de ataque se torna maior ou igual ao número especificado.
+//	slavelt			Quando o número de escravos é menor do que o número original especificado.
+//	slavele			Quando o número de escravos é inferior ou igual ao número original especificado.
+//	closedattacked		Quando é atacado no corpo a corpo (sem valor de condição).
+//	longrangeattacked	Quando é atacado de longo alcance, ex. arcos, armas, habilidades de longo alcance (sem valor de condição).
+//	skillused		Quando a habilidade especificada é usada sobre o monstro.
+//	afterskill		Depois do monstro lançar a habilidade especificada.
+//	casttargeted		Quando um alvo está no intervalo de conjuração (sem valor de condição).
+//	rudeattacked		Quando o monstro é fortemente atacado (sem valor de condição).
 //
-//	Status abnormalities specified through the statuson/statusoff system:
-//	    anybad (any type of state change) / stone / freeze / stun / sleep /
+//	Status de anormalidades especificadas através do sistema statuson / statusoff:
+//	    anybad (qualquer tipo de mudança de estado) / stone / freeze / stun / sleep /
 //	    poison / curse / silence / confusion / blind / hiding / sight (unhidden)
 //
-// Note: if a negative MobID is provided, the skill will be treated as 'global':
-//	-1: added for all boss types.
-//	-2: added for all normal types.
-//	-4: added for all mobs.
+// Nota: Se o MobID fornecido for negativo, a habilidade será tratada como 'global':
+//	-1: adicionado para todos os tipos de chefe.
+//	-2: adicionado para todos os tipos normais.
+//	-4: acrescentado para todos os monstros.
+//---------------------------------------------------------
 
 1001,Scorpion@NPC_FIREATTACK,attack,186,1,2000,0,5000,yes,target,always,0,,,,,,,
 1001,Scorpion@NPC_POISON,attack,176,3,500,800,5000,no,target,always,0,,,,,,,

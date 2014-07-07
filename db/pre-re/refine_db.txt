@@ -1,31 +1,40 @@
-// Pre-renewal Version
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// Versão Pre-renovação
 //
-// Type,Stats per level,Random bonus start level,Random bonus value,Chance+1:Bonus+1,Chance+2:Bonus+2,Chance+3:Bonus+3,...
+// Tipo,Stats por nível,Bônus Inicial de Refinamento,Valor do Bônus,Chance+1:Bônus+1,Chance+2:Bônus+2,Chance+3:Bônus+3,...
 //
-// IMPORTANT: changing the number of upgrade levels requires modifying MAX_REFINE in status.h
+// IMPORTANTE: Alterar o Número máximo de Refinamento requer a modificação do MAX_REFINE no status.h
 //
-// For armors, values of 100 add 1 armor defense.
-// For weapons, values of 100 add 1 ATK.
+// Para Armaduras, Valores de 100 adicionam 1 ponto de defesa para Armadura.
+// Para Aras, valores de 100 adicionam 1 ponto de ATK.
 //
-// Type:
-// 0 - Armors
-// 1 - Level 1 weapons
-// 2 - Level 2 weapons
-// 3 - Level 3 weapons
-// 4 - Level 4 weapons
+// Tipo:
+// 0 - Armaduras
+// 1 - Armas Nível 1
+// 2 - Armas Nível 2
+// 3 - Armas Nível 3
+// 4 - Armas Nível 4
 //
-// Stats per level:
-// This value is applied for every upgrade level.
+// Stats por nível:
+// Esse valor é aplicado para cada nível de refinamento
 //
-// Random bonus start level:
-// This value specifies the start point for those levels that give a random bonus value.
+// Bônus Inicial de Refinamento:
+// Este valor especifica o ponto de partida para aqueles níveis que dão Bônus Inicial.
 //
-// Random bonus value:
-// A random number between 0 and (Random bonus start level - Upgrade level + 1) * this value is applied for all upgrades past
-// Random bonus start level (usually the first unsafe upgrade). This is only applied for weapons, and not displayed client-side.
+// Valor do Bônus:
+// Um número aleatório entre 0 e (Bônus Inicial de Refinamento - Nível de Refinamento + 1) * o valor aplicado a todos os refinamentos anteriores
+// Bônus Inicial de Refinamento (normalmente o primeiro refinamento inseguro). Isso só é aplicada para armas, e não exibido no cliente.
 //
 // Chance:
 // 100 = 100%
+//---------------------------------------------------------
 
 // Armors
 0,66,0,0,100:0,100:0,100:0,100:0,60:0,40:0,40:0,20:0,20:0,10:0

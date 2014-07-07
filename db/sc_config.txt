@@ -1,18 +1,27 @@
-// Status Change configuration database
-//
-// Structure of Database:
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// Banco de Dados de Configurações para Alterar Status
+//---------------------------------------------------------
+// Estrutura do banco de dados:
 // SC_NAME, flag
 //
-// flag    1  - SC cannot be removed by death.
-//         2  - SC cannot be saved.
-//         4  - SC cannot be reset by dispell.
-//         8  - SC cannot be reset by clearance.
-//         16 - SC considered as buff and be removed by Hermode and etc.
-//         32 - SC considered as debuff and be removed by Gospel and etc.
-//         64 - SC cannot be reset when MADO Gear is taken off.
-//        128 - SC cannot be reset by 'sc_end SC_ALL' and status change clear.
-//Example:
-//SC_ENDURE, 21 //SC_ENDURE: cannot be removed by death and dispell and cosidered as buff. (16 + 4 + 1 = 21)
+// flag    1  - SC não pode ser removido por morte.
+//         2  - SC não podem ser salvos.
+//         4  - SC não pode ser reposto por dispell.
+//         8  - SC não pode ser reposto pela depuração.
+//         16 - SC considerado como buff e ser removido por Hermode e etc
+//         32 - SC considerado como debuff e ser removido por Gospel e etc
+//         64 - SC não podem ser reiniciada quando MADO Gear é tirada.
+//        128 - SC não pode ser resetado por sc_end e não pode ser limpo
+//Exemplo:
+//SC_ENDURE, 21 //SC_ENDURE: não pode ser removido por morte e dispell e levado em conta os buffs. (16 + 4 + 1 = 21)
+//---------------------------------------------------------
 
 SC_PROVOKE, 32	
 SC_ENDURE, 21	

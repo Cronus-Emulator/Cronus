@@ -1,20 +1,28 @@
-// Skill Times Database
-//
-// Structure of Database:
-// SkillID,CastingTime,AfterCastActDelay,AfterCastWalkDelay,Duration1,Duration2,Cool Down
-//== Explained:
-// CastingTime : time to cast this skill, in miliseconds
-// AfterCastActDelay : "normal" delay, character cannot use skills, in miliseconds
-// AfterCastWalkDleay : amount of time before character can move again, in miliseconds
-// Duration1 / Duration2 : usually the durations used by the skill, at special cases it is used to hold special data
-// Cool Down : amount of time until character can re-use this skill, in miliseconds
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// Banco de Dados Temporal das Habilidades
+//---------------------------------------------------------
+// Estrutura do banco de dados:
+// SkillID,TempoConjuracao,AfterCastActDelay,AfterCastWalkDelay,Duracao1,Duracao2
+//== Explanando:
+// TempoConjuracao : tempo para lançar esta habilidade, em milissegundos.
+// AfterCastActDelay : atraso "normal",o personagem não pode usar habilidades,em milésimos de segundo.
+// AfterCastWalkDleay : tempo necessário para que o personagem possa mover-se novamente, em milésimos de segundo.
+// Duracao1 / Duracao2 : geralmente, o tempo ultilizado pela habilidade, em alguns casos é usado para salvar dados especiais.
+// Cool Down : tempo necessário até que o personagem possa voltar a usar essa habilidade, em milésimos de segundo.
 //== Extra
-// On all fields you can use ':' as a delimiter to level-specific values,
-// - Example using SM_PROVOKE
+// Em todos os campos você pode usar ":" como delimitador de valores específicos do nível,
+// - Exemplo usando SM_PROVOKE
 // - Original:6,0,0,0,30000,0,1000
-// - ModifiedTo:6,0,0,0,30000,0,1000:2500:3000:etc
-// - Makes lvl 1 have 1000 (1s) cool down, lvl 2 2500 (2.5s), lvl 3 3000, and so on.
-//==========================================
+// - Modificado:6,0,0,0,30000,0,1000:2500:3000:etc
+// - Faz no nível 1 ter 1000 (1s) cool down, lvl 2 2500 (2.5s), lvl 3 3000, e assim por diante.
+//---------------------------------------------------------
 
 
 //===== Swordman ===========================

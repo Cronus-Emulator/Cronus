@@ -1,30 +1,38 @@
-// Specific Item Drop Ratio Database
-// Overrides for global item_rate* values from conf/battle/drops.conf
-//
-// Structure of Database:
-// ItemID,Ratio{,MonsterID}
-//
-// Result:
-// ItemID base drop rates defined in mob_db will not get multiplied
-//  by global item_rate* values (aka drop rates) from
-//  conf/battle/drops.conf. Instead Ratio will be used (100 = 1x).
-// If no MonsterID is specified, all monsters will be affected,
-//  otherwise only listed ones.
-//
-// Examples:
-// 909,100 // Jellopies from monsters will drop with 1x drop rate regardless of global drop rate
-// 909,1000 // Jellopies from monsters will drop with 10x drop rate regardless of global drop rate
-// 909,100,1002 // Jellopies from Porings will drop with 1x drop rate. Other monsters that drop Jellopies are unaffected (use global drop rate).
-//
-// Notes:
-// - By default you can list up to 10 MonsterIDs per ItemID.
-//   It can be changed in src/map/mob.c by adjusting MAX_ITEMRATIO_MOBS.
-// - Only ItemIDs up to MAX_ITEMDB are supported (default: 32768).
-// - Does not override item_drop_*_min/max settings.
-// - Does not affect card/item-granted drops. To adjust card/item-granted
-//   drops, edit them in item_db.
-// - Does affect MVP prizes and Treasure Boxes.
-// - You can add only ONE line per ItemID. If you need various ratios
-//   for different monsters, override drop rate with Ratio=100 and edit
-//   base drop rates in mob_db.
-// - This file is reloaded by @reloadmobdb.
+//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// Banco de Dados de Substituição dos Valores de Drop Global
+// ver: conf/battle/drops.conf
+//---------------------------------------------------------
+// Estrutura do banco de dados:
+// ItemID,Taxa{,ModID}
+//---------------------------------------------------------
+
+// Resultado:
+// O drop definido em conf/battle/drops.conf(global item_rate*) não será usado,
+// em vez disso a Taxa aqui definida será usada da multiplicação
+// com o valor do mob_db.
+// Se o ModID Não for definido todos os monstros seram afetados
+
+//Exemplos:
+//909,100 //O Drop dos Jellopys sera 1x taxa de drop(mod_db) sem a interferência do global drop rate
+//909,100 //O Drop dos Jellopys sera 10x taxa de drop(mod_db) sem a interferência do global drop rate
+//909,100,1002 //Os Jellopys de Porings terão drop de 1x taxa de drop(mod_db). Outros monstros que dropem Jellops não serão afetados (usarão o global drop rates)
+
+//Notas:
+// - Originalmente você pode listar até 10 MobID por ItemID.
+// Você pode modificar o limite em src/map/mob.c alterando o MAX_ITEMRATIO_MOBS.
+// - Só são suportados ItemIDs até o limite definido em MAX_ITEMDB (Originalmente: 32768)
+// - Não Substitui os valores de item_drop_*_min/max.
+// - Não afeta itens adiquiridos por efeitos de cartas.Para ajustar
+// itens conseguidos por cartas os edite no item_db
+// - Afeta Premios de MVP e Caixas de Premios(velha caixa azul/Roxa e etc)
+// - Sò é permitido uma linha por ItemID. Se você pressisa de drops expecificos
+// para cada monstro, substitua o drop por taxa =100 e edite o drop base no
+// Mob_db.
+// - Você pode recarregar esse arquivo pelo comando @reloadmoddb.
