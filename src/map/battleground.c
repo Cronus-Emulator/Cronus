@@ -292,7 +292,7 @@ enum bg_queue_types bg_str2teamtype (const char *str) {
 		else if( strcasecmp(parse,"solo") == 0 )
 			type |= BGQT_INDIVIDUAL;
 		else {
-			ShowError("bg_str2teamtype: '%s' unknown type, skipping...\n",parse);
+			ShowError("Tipo indefinido para time da BG : '%s'. Ignorando...\n",parse);
 		}
 		parse = strtok(NULL,"|");
 	}
@@ -550,7 +550,7 @@ void bg_match_over(struct bg_arena *arena, bool canceled) {
 				bg->queue_pc_cleanup(sd);
 			}
 			if( canceled )
-				clif->colormes(sd->fd,COLOR_RED,"BG Match Canceled: not enough players");
+				clif->colormes(sd->fd,COLOR_RED,"Partida Cancelada: Jogadores Insuficientes.");
 			else {
 				pc_setglobalreg(sd, script->add_str(arena->delay_var), (unsigned int)time(NULL));
 			}
@@ -778,9 +778,9 @@ enum BATTLEGROUNDS_QUEUE_ACK bg_canqueue(struct map_session_data *sd, struct bg_
 	if ( ( tick = pc_readglobalreg(sd, script->add_str(bg->gdelay_var)) ) && tsec < tick ) {
 		char response[100];
 		if( (tick-tsec) > 60 )
-			sprintf(response, "You are a deserter! Wait %d minute(s) before you can apply again",(tick-tsec)/60);
+			sprintf(response, "Você é um desertor! Aguarde %d minuto(s)  antes de inscrever-se novamente.",(tick-tsec)/60);
 		else
-			sprintf(response, "You are a deserter! Wait %d seconds before you can apply again",(tick-tsec));
+			sprintf(response, "You are a deserter! Aguarde %d segundo(s) antes de inscrever-se novamente.",(tick-tsec));
 		clif->colormes(sd->fd,COLOR_RED,response);
 		return BGQA_FAIL_DESERTER;
 	}
@@ -788,9 +788,9 @@ enum BATTLEGROUNDS_QUEUE_ACK bg_canqueue(struct map_session_data *sd, struct bg_
 	if ( ( tick = pc_readglobalreg(sd, script->add_str(arena->delay_var)) ) && tsec < tick ) {
 		char response[100];
 		if( (tick-tsec) > 60 )
-			sprintf(response, "You can't reapply to this arena so fast. Apply to the different arena or wait %d minute(s)",(tick-tsec)/60);
+			sprintf(response, "Você não pode tentar inscrever-se novamente tão rapido. Acesse outra arena ou aguarde %d minuto(s)",(tick-tsec)/60);
 		else
-			sprintf(response, "You can't reapply to this arena so fast. Apply to the different arena or wait %d seconds",(tick-tsec));
+			sprintf(response, "Você não pode tentar inscrever-se novamente tão rapido. Acesse outra arena ou aguarde %d segundos",(tick-tsec));
 		clif->colormes(sd->fd,COLOR_RED,response);
 		return BGQA_FAIL_COOLDOWN;
 	}
@@ -812,7 +812,7 @@ enum BATTLEGROUNDS_QUEUE_ACK bg_canqueue(struct map_session_data *sd, struct bg_
 				if ( count < arena->min_team_players ) {
 					char response[100];
 					if( count != sd->guild->connect_member && sd->guild->connect_member >= arena->min_team_players )
-						sprintf(response, "Can't apply: not enough members in your team/guild, minimum is %d",arena->min_team_players);
+						sprintf(response, "Falha na inscrição!! Membros insuficientes no grupo/clã . O mínimo é de %d",arena->min_team_players);
 					clif->colormes(sd->fd,COLOR_RED,response);
 					return BGQA_FAIL_TEAM_COUNT;
 				}
@@ -842,7 +842,7 @@ enum BATTLEGROUNDS_QUEUE_ACK bg_canqueue(struct map_session_data *sd, struct bg_
 					if( count < arena->min_team_players ) {
 						char response[100];
 						if( count != p->party.count && p->party.count >= arena->min_team_players )
-						sprintf(response, "Can't apply: not enough members in your team/party, minimum is %d",arena->min_team_players);
+						sprintf(response, "Falha na inscrição!! Membros insuficientes no grupo/clã . O mínimo é de %d",arena->min_team_players);
 						clif->colormes(sd->fd,COLOR_RED,response);
 						return BGQA_FAIL_TEAM_COUNT;
 					}
@@ -854,7 +854,7 @@ enum BATTLEGROUNDS_QUEUE_ACK bg_canqueue(struct map_session_data *sd, struct bg_
 		case BGQT_INDIVIDUAL:/* already did */
 			break;
 		default:
-			ShowDebug("bg_canqueue: unknown/unsupported type %d\n",type);
+			ShowDebug("Tipo insuportado na Fila para BG %d\n",type);
 			return BGQA_DUPLICATE_REQUEST;
 	}
 	

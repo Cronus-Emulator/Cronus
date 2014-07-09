@@ -1703,7 +1703,7 @@ ACMD(monster)
 		size = SZ_MEDIUM;
 	
 	if (battle_config.etc_log)
-		ShowInfo("%s Monstro='%s' Nome='%s' ID=%d QNT=%d (%d,%d)\n", command, monster, name, mob_id, number, sd->bl.x, sd->bl.y);
+		ShowInfo("%s : (Monstro: '%s' | Nome: '%s' | ID: %d | QNT: %d | COORD: (%d,%d) )\n", command, monster, name, mob_id, number, sd->bl.x, sd->bl.y);
 	
 	count = 0;
 	range = (int)sqrt((float)number) +2; // calculation of an odd number (+ 4 area around)
@@ -9332,7 +9332,7 @@ void atcommand_basecommands(void) {
 	
 	for( i = 0; i < ARRAYLENGTH(atcommand_base); i++ ) {
 		if(!atcommand->add(atcommand_base[i].command,atcommand_base[i].func,false)) { // Should not happen if atcommand_base[] array is OK
-			ShowDebug("atcommand_basecommands: duplicate ACMD_DEF for '%s'.\n", atcommand_base[i].command);
+			ShowDebug("ACMD_DEF duplicado para '%s'.\n", atcommand_base[i].command);
 			continue;
 		}
 	}
