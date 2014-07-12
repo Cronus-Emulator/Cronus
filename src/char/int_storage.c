@@ -30,8 +30,6 @@
 #include "../common/sql.h"
 #include "../common/strlib.h" // StringBuf
 
-#define STORAGE_MEMINC	16
-
 /// Save storage data to sql
 int storage_tosql(int account_id, struct storage_data* p)
 {

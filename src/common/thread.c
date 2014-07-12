@@ -21,8 +21,7 @@
 
 #ifdef WIN32
 #	include "../common/winapi.h"
-#	define getpagesize() 4096 // @TODO: implement this properly (GetSystemInfo .. dwPageSize..). (Atm as on all supported win platforms its 4k its static.)
-#	define __thread __declspec( thread )
+#	define getpagesize() 4096  //Apenas Itanium possui 8K. Implementação de acordo com a demanda :)
 #else
 #	include <pthread.h>
 #	include <sched.h>

@@ -665,7 +665,6 @@ void chrif_authfail(int fd) {/* HELLO WORLD. ip in RFIFOL 15 is not being used (
  */
 int auth_db_cleanup_sub(DBKey key, DBData *data, va_list ap) {
 	struct auth_node *node = DB->data2ptr(data);
-	const char* states[] = { "Login", "Logout", "Map change" };
 	
 	if(DIFF_TICK(timer->gettick(),node->node_created)>60000) {
 		switch (node->state) {
@@ -676,7 +675,6 @@ int auth_db_cleanup_sub(DBKey key, DBData *data, va_list ap) {
 				break;
 			default:
 				//Clear data. any connected players should have timed out by now.
-				ShowInfo("auth_db: Node (state %s) timed out for %d:%d\n", states[node->state], node->account_id, node->char_id);
 				chrif->char_offline_nsd(node->account_id, node->char_id);
 				chrif->auth_delete(node->account_id, node->char_id, node->state);
 				break;

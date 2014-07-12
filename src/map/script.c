@@ -18531,9 +18531,8 @@ BUILDIN(stopselling) {
 BUILDIN(setcurrency) {
 	int val1 = script_getnum(st,2),
 	val2 = script_hasdata(st, 3) ? script_getnum(st,3) : 0;
-	struct npc_data *nd;
 
-	if( !(nd = map->id2nd(st->oid)) ) {
+	if(!map->id2nd(st->oid)) {
 		ShowWarning("buildin_setcurrency: trying to run without a proper NPC!\n");
 		return false;
 	}

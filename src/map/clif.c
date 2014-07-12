@@ -2726,7 +2726,7 @@ void read_channels_config(void) {
 		if( k < hChSys.colors_count ) {
 			hChSys.local_color = k;
 		} else {
-			ShowError("channels.conf: unknown color '%s' for 'map_local_channel_color', disabling '#%s'...\n",local_color,local_name);
+			ShowError("[Channels.conf]: Cor desconhecida ('%s') para 'map_local_channel_color'. Desativando '#%s'...\n",local_color,local_name);
 			hChSys.local = false;
 		}
 
@@ -2740,7 +2740,7 @@ void read_channels_config(void) {
 		if( k < hChSys.colors_count ) {
 			hChSys.ally_color = k;
 		} else {
-			ShowError("channels.conf: unknown color '%s' for 'ally_channel_color', disabling '#%s'...\n",ally_color,ally_name);
+			ShowError("[Channels.conf]: Cor desconhecida ('%s') para 'ally_channel_color'. Desativando '#%s'...\n",ally_color,ally_name);
 			hChSys.ally = false;
 		}
 
@@ -2758,11 +2758,11 @@ void read_channels_config(void) {
 						break;
 				}
 				if( k == hChSys.colors_count ) {
-					ShowError("channels.conf: unknown color '%s' for channel '%s', skipping channel...\n",color,name);
+					ShowError("[Channels.conf]: Cor desconhecida ('%s') para canal '%s'. Ignorando...\n",color,name);
 					continue;
 				}
 				if( strcasecmp(name,hChSys.local_name) == 0 || strcasecmp(name,hChSys.ally_name) == 0 || strdb_exists(clif->channel_db, name) ) {
-					ShowError("channels.conf: duplicate channel '%s', skipping channel...\n",name);
+					ShowError("[Channels.conf]: Canal duplicado '%s'. Ignorando...\n",name);
 					continue;
 
 				}
@@ -2775,7 +2775,7 @@ void read_channels_config(void) {
 			}
 		}
 
-		ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' channels in '"CL_WHITE"%s"CL_RESET"'.\n", db_size(clif->channel_db), config_filename);
+		ShowStatus("Finalizada leitura de '"CL_WHITE"%d"CL_RESET"' canais em '"CL_WHITE"%s"CL_RESET"'.\n", db_size(clif->channel_db), config_filename);
 		libconfig->destroy(&channels_conf);
 	}
 }
@@ -3060,7 +3060,7 @@ void clif_updatestatus(struct map_session_data *sd,int type)
 			break;
 
 		default:
-			ShowError("clif->updatestatus : unrecognized type %d\n",type);
+			ShowError("Tipo desconhecido %d para status de personagem. \n",type);
 			return;
 	}
 	WFIFOSET(fd,len);
@@ -3084,7 +3084,7 @@ void clif_changestatus(struct map_session_data* sd,int type,int val)
 			WBUFL(buf,8)=val;
 			break;
 		default:
-			ShowError("clif_changestatus : unrecognized type %d.\n",type);
+			ShowError("Tipo desconhecido %d para status de personagem (WOS).\n",type);
 			return;
 	}
 
@@ -3141,19 +3141,16 @@ void clif_changelook(struct block_list *bl,int type,int val)
 				if( !vd->cloth_color )
 					break;
 
-				if( sd ) {
-					if( sd->sc.option&OPTION_WEDDING && battle_config.wedding_ignorepalette )
-						vd->cloth_color = 0;
-					if( sd->sc.option&OPTION_XMAS && battle_config.xmas_ignorepalette )
-						vd->cloth_color = 0;
-					if( sd->sc.option&OPTION_SUMMER && battle_config.summer_ignorepalette )
-						vd->cloth_color = 0;
-					if( sd->sc.option&OPTION_HANBOK && battle_config.hanbok_ignorepalette )
-						vd->cloth_color = 0;
-					if( sd->sc.option&OPTION_OKTOBERFEST /* TODO: config? */ )
-						vd->cloth_color = 0;
-				}
-			break;
+
+				if  ( ( sd->sc.option&OPTION_WEDDING && battle_config.wedding_ignorepalette ) ||
+					  ( sd->sc.option&OPTION_XMAS && battle_config.xmas_ignorepalette ) ||
+					  ( sd->sc.option&OPTION_SUMMER && battle_config.summer_ignorepalette) ||
+					  ( sd->sc.option&OPTION_HANBOK && battle_config.hanbok_ignorepalette) ||
+					  ( sd->sc.option&OPTION_OKTOBERFEST) )
+					  vd->cloth_color = 0;
+					  break;
+					  
+			
 			case LOOK_HAIR:
 				vd->hair_style = val;
 			break;
@@ -3170,18 +3167,17 @@ void clif_changelook(struct block_list *bl,int type,int val)
 				vd->hair_color = val;
 			break;
 			case LOOK_CLOTHES_COLOR:
-				if( val && sd ) {
-					if( sd->sc.option&OPTION_WEDDING && battle_config.wedding_ignorepalette )
-						val = 0;
-					if( sd->sc.option&OPTION_XMAS && battle_config.xmas_ignorepalette )
-						val = 0;
-					if( sd->sc.option&OPTION_SUMMER && battle_config.summer_ignorepalette )
-						val = 0;
-					if( sd->sc.option&OPTION_HANBOK && battle_config.hanbok_ignorepalette )
-						val = 0;
-					if( sd->sc.option&OPTION_OKTOBERFEST /* TODO: config? */ )
+			
+				if(val) {
+				
+                if  ( ( sd->sc.option&OPTION_WEDDING && battle_config.wedding_ignorepalette ) ||
+					  ( sd->sc.option&OPTION_XMAS && battle_config.xmas_ignorepalette ) ||
+					  ( sd->sc.option&OPTION_SUMMER && battle_config.summer_ignorepalette) ||
+					  ( sd->sc.option&OPTION_HANBOK && battle_config.hanbok_ignorepalette) ||
+					  ( sd->sc.option&OPTION_OKTOBERFEST))
 						val = 0;
 				}
+				
 				vd->cloth_color = val;
 			break;
 			case LOOK_SHOES:
@@ -4981,7 +4977,6 @@ void clif_skill_fail(struct map_session_data *sd,uint16 skill_id,enum useskill_f
 	int fd;
 
 	if (!sd) {	//Since this is the most common nullpo....
-		ShowDebug("clif_skill_fail: Error, received NULL sd for skill %d\n", skill_id);
 		return;
 	}
 
@@ -5615,7 +5610,7 @@ void clif_broadcast(struct block_list* bl, const char* mes, size_t len, int type
  * Used by npc_globalmessage
  *------------------------------------------*/
 void clif_GlobalMessage(struct block_list* bl, const char* message) {
-	char buf[256];
+	unsigned char buf[256];
 	size_t len;
 	nullpo_retv(bl);
 
@@ -5625,7 +5620,7 @@ void clif_GlobalMessage(struct block_list* bl, const char* message) {
 	len = strlen(message)+1;
 
 	if( len > sizeof(buf)-8 ) {
-		ShowWarning("clif_GlobalMessage: Truncating too long message '%s' (len=%d).\n", message, len);
+		ShowWarning("Reduzindo mensagem global '%s' (Tamanho: %d).\n", message, len);
 		len = sizeof(buf)-8;
 	}
 
@@ -5633,7 +5628,7 @@ void clif_GlobalMessage(struct block_list* bl, const char* message) {
 	WBUFW(buf,2)=len+8;
 	WBUFL(buf,4)=bl->id;
 	safestrncpy((char *) WBUFP(buf,8),message,len);
-	clif->send((unsigned char *) buf,WBUFW(buf,2),bl,ALL_CLIENT);
+	clif->send(buf,WBUFW(buf,2),bl,ALL_CLIENT);
 
 }
 
@@ -6659,7 +6654,7 @@ void clif_party_message(struct party_data* p, int account_id, const char* mes, i
 
 		if( len > sizeof(buf)-8 )
 		{
-			ShowWarning("clif_party_message: Truncated message '%s' (len=%d, max=%d, party_id=%d).\n", mes, len, sizeof(buf)-8, p->party.party_id);
+			ShowWarning("Mensagem de grupo reduzida '%s' (Tamanho: %d | Max: %d | PID: %d).\n", mes, len, sizeof(buf)-8, p->party.party_id);
 			len = sizeof(buf)-8;
 		}
 
@@ -7785,7 +7780,7 @@ void clif_guild_message(struct guild *g,int account_id,const char *mes,int len)
 	}
 	else if( len > sizeof(buf)-5 )
 	{
-		ShowWarning("clif_guild_message: Truncated message '%s' (len=%d, max=%d, guild_id=%d).\n", mes, len, sizeof(buf)-5, g->guild_id);
+		ShowWarning("Mensagem de Guild reduzida '%s' (Tamanho: %d | Max: %d | GID: %d).\n", mes, len, sizeof(buf)-5, g->guild_id);
 		len = sizeof(buf)-5;
 	}
 
@@ -8045,7 +8040,7 @@ void clif_disp_message(struct block_list* src, const char* mes, size_t len, enum
 	if( len == 0 ) {
 		return;
 	} else if( len > sizeof(buf)-5 ) {
-		ShowWarning("clif_disp_message: Truncated message '%s' (len=%d, max=%d, aid=%d).\n", mes, len, sizeof(buf)-5, src->id);
+		ShowWarning("Mensagem de Guild reduzida '%s' (Tamanho: %d | Max: %d | AID: %d).\n", mes, len, sizeof(buf)-5, src->id);
 		len = sizeof(buf)-5;
 	}
 
@@ -8318,7 +8313,7 @@ void clif_messagecolor(struct block_list* bl, unsigned int color, const char* ms
 	nullpo_retv(bl);
 
 	if( msg_len > sizeof(buf)-12 ) {
-		ShowWarning("clif_messagecolor: Truncating too long message '%s' (len=%u).\n", msg, msg_len);
+		ShowWarning("Mensagem colorida reduzida '%s' (Tamanho: %u).\n", msg, msg_len);
 		msg_len = sizeof(buf)-12;
 	}
 
@@ -8339,7 +8334,7 @@ void clif_message(struct block_list* bl, const char* msg) {
 	nullpo_retv(bl);
 
 	if( msg_len > sizeof(buf)-8 ) {
-		ShowWarning("clif_message: Truncating too long message '%s' (len=%u).\n", msg, msg_len);
+		ShowWarning("Mensagem reduzida '%s' (Tamanho: %u).\n", msg, msg_len);
 		msg_len = sizeof(buf)-8;
 	}
 
@@ -8556,15 +8551,15 @@ void clif_charnameack (int fd, struct block_list *bl)
 				}
 			}
 			break;
-		case BL_CHAT:	//FIXME: Clients DO request this... what should be done about it? The chat's title may not fit... [Skotlex]
-	//		memcpy(WBUFP(buf,6), (struct chat*)->title, NAME_LENGTH);
-	//		break;
+		case BL_CHAT: // [Chiron] TODO: REVISAR
+			//memcpy(WBUFP(buf,6), ((struct chat_data*)bl)->title, NAME_LENGTH);
+	    	//break;
 			return;
 		case BL_ELEM:
 			memcpy(WBUFP(buf,6), ((TBL_ELEM*)bl)->db->name, NAME_LENGTH);
 			break;
 		default:
-			ShowError("clif_charnameack: bad type %d(%d)\n", bl->type, bl->id);
+			ShowError("Objeto desconhecido!!! %d(%d)\n", bl->type, bl->id);
 			return;
 	}
 
@@ -8667,7 +8662,7 @@ void clif_disp_overhead(struct block_list *bl, const char* mes)
 	size_t len_mes = strlen(mes)+1; //Account for \0
 
 	if (len_mes > sizeof(buf)-8) {
-		ShowError("clif_disp_overhead: Message too long (length %d)\n", len_mes);
+		ShowError("Mensagem anunciante reduzida (Tamanho: %d)\n", len_mes);
 		len_mes = sizeof(buf)-8; //Trunk it to avoid problems.
 	}
 	// send message to others
@@ -8793,7 +8788,7 @@ void clif_hate_info(struct map_session_data *sd, unsigned char hate_level,int cl
 	} else if( mob->db_checkid(class_) ) {
 		clif->starskill(sd, mob->db(class_)->jname, class_, hate_level, type ? 10 : 11);
 	} else {
-		ShowWarning("clif_hate_info: Received invalid class %d for this packet (char_id=%d, hate_level=%u, type=%u).\n", class_, sd->status.char_id, (unsigned int)hate_level, (unsigned int)type);
+		ShowWarning("Classe invalida %d para este pacote (Apenas Taekwon..) (CID: %d | HLV: %u | Tipo: %u).\n", class_, sd->status.char_id, (unsigned int)hate_level, (unsigned int)type);
 	}
 }
 
@@ -8960,7 +8955,7 @@ bool clif_process_message(struct map_session_data *sd, int format, char **name_,
 	// basic structure checks
 	if( packetlen < 4 + 1 )
 	{	// 4-byte header and at least an empty string is expected
-		ShowWarning("clif_process_message: Received malformed packet from player '%s' (no message data)!\n", sd->status.name);
+		ShowWarning("Recebido pacote estranho do jogador '%s' (Sem mensagem...)!\n", sd->status.name);
 		return false;
 	}
 
@@ -8978,7 +8973,7 @@ bool clif_process_message(struct map_session_data *sd, int format, char **name_,
 			name[namelen] != ' ' || name[namelen+1] != ':' || name[namelen+2] != ' ' ) // followed by ' : '
 		{
 			//Hacked message, or infamous "client desynchronize" issue where they pick one char while loading another.
-			ShowWarning("clif_process_message: Player '%s' sent a message using an incorrect name! Forcing a relog...\n", sd->status.name);
+			ShowWarning("Jogador '%s' enviou pacote com nickname incorreto!!! Desconectando...\n", sd->status.name);
 			set_eof(fd); // Just kick them out to correct it.
 			return false;
 		}
@@ -8990,7 +8985,7 @@ bool clif_process_message(struct map_session_data *sd, int format, char **name_,
 	{// name has fixed width
 		if( textlen < NAME_LENGTH + 1 )
 		{
-			ShowWarning("clif_process_message: Received malformed packet from player '%s' (packet length is incorrect)!\n", sd->status.name);
+			ShowWarning("Jogador '%s' enviou pacote com nickname de tamanho incorreto!!\n", sd->status.name);
 			return false;
 		}
 
@@ -9000,7 +8995,7 @@ bool clif_process_message(struct map_session_data *sd, int format, char **name_,
 
 		if( name[namelen] != '\0' )
 		{	// only restriction is that the name must be zero-terminated
-			ShowWarning("clif_process_message: Player '%s' sent an unterminated name!\n", sd->status.name);
+			ShowWarning("Jogador '%s' enviou pacote com nickname sem TNULL\n", sd->status.name);
 			return false;
 		}
 
@@ -9010,13 +9005,13 @@ bool clif_process_message(struct map_session_data *sd, int format, char **name_,
 
 	if( messagelen != strnlen(message, messagelen)+1 )
 	{	// the declared length must match real length
-		ShowWarning("clif_process_message: Received malformed packet from player '%s' (length is incorrect)!\n", sd->status.name);
+		ShowWarning("Jogador '%s' enviou pacote com mensagem de tamanho incorreto!!!\n", sd->status.name);
 		return false;
 	}
 	// verify <message> part of the packet
 	if( message[messagelen-1] != '\0' )
 	{	// message must be zero-terminated
-		ShowWarning("clif_process_message: Player '%s' sent an unterminated message string!\n", sd->status.name);
+		ShowWarning("Jogador '%s' enviou pacote com mensagem sem TNULL\n\n", sd->status.name);
 		return false;
 	}
 	if( messagelen > CHAT_SIZE_MAX-1 )
@@ -9025,7 +9020,7 @@ bool clif_process_message(struct map_session_data *sd, int format, char **name_,
 		// Also, the physical size of strings that use multibyte encoding can go multiple times over the chatbox capacity.
 		// Neither the official client nor server place any restriction on the length of the data in the packet,
 		// but we'll only allow reasonably long strings here. This also makes sure that they fit into the `chatlog` table.
-		ShowWarning("clif_process_message: Player '%s' sent a message too long ('%.*s')!\n", sd->status.name, CHAT_SIZE_MAX-1, message);
+		ShowWarning("Jogador '%s' enviou uma mensagem longa demais... ('%.*s')!\n", sd->status.name, CHAT_SIZE_MAX-1, message);
 		return false;
 	}
 
@@ -9098,10 +9093,9 @@ void clif_parse_WantToConnection(int fd, struct map_session_data* sd) {
 	int cmd, account_id, char_id, login_id1, sex;
 	unsigned int client_tick; //The client tick is a tick, therefore it needs be unsigned. [Skotlex]
 
-	if (sd) {
-		ShowError("clif_parse_WantToConnection : invalid request (character already logged in)\n");
-		return;
-	}
+	// Jogador encontra-se online... 
+	if (sd)
+	return;
 
 	// Only valid packet version get here
 
@@ -9120,7 +9114,7 @@ void clif_parse_WantToConnection(int fd, struct map_session_data* sd) {
 	//Check for double login.
 	bl = map->id2bl(account_id);
 	if(bl && bl->type != BL_PC) {
-		ShowError("clif_parse_WantToConnection: a non-player object already has id %d, please increase the starting account number\n", account_id);
+		ShowError("Objeto ja possui a ID %d. Aumente a escala de ID's para novas contas!!!! Desconectando...\n", account_id);
 		WFIFOHEAD(fd,packet_len(0x6a));
 		WFIFOW(fd,0) = 0x6a;
 		WFIFOB(fd,2) = 3; // Rejected by server
@@ -9453,7 +9447,7 @@ void clif_parse_LoadEndAck(int fd,struct map_session_data *sd) {
 
 		if( map->list[sd->bl.m].flag.allowks && !map_flag_ks(sd->bl.m) ) {
 			char output[128];
-			sprintf(output, "[ Kill Steal Protection Disabled. KS is allowed in this map ]");
+			sprintf(output, "[Proteção contra KS DESATIVADA!!]");
 			clif->broadcast(&sd->bl, output, strlen(output) + 1, BC_BLUE, SELF);
 		}
 
@@ -9749,7 +9743,7 @@ void clif_parse_GetCharNameRequest(int fd, struct map_session_data *sd) {
 		pc_get_group_level(sd) < battle_config.hack_info_GM_level
 	) {
 		char gm_msg[256];
-		sprintf(gm_msg, "Hack on NameRequest: character '%s' (account: %d) requested the name of an invisible target (id: %d).\n", sd->status.name, sd->status.account_id, id);
+		sprintf(gm_msg, "Jogador '%s' (AID: %d) solicita nome de um Objeto com ID %d.\n", sd->status.name, sd->status.account_id, id);
 		ShowWarning(gm_msg);
 		// information is sent to all online GMs
 		intif->wis_message_to_gm(map->wisp_server_name, battle_config.hack_info_GM_level, gm_msg);
@@ -11152,11 +11146,7 @@ void clif_parse_StatusUp(int fd,struct map_session_data *sd) {
 	int increase_amount;
 
 	increase_amount = RFIFOB(fd,4);
-	if( increase_amount < 0 )
-	{
-		ShowDebug("clif_parse_StatusUp: Negative 'increase' value sent by client! (fd: %d, value: %d)\n",
-			fd, increase_amount);
-	}
+	if( increase_amount > 0 )
 	pc->statusup(sd, RFIFOW(fd,2), increase_amount);
 }
 
@@ -11630,7 +11620,7 @@ void clif_parse_NpcSelectMenu(int fd,struct map_session_data *sd)
 		if( sd->npc_idle_timer != INVALID_TIMER ) {
 #endif
 			TBL_NPC* nd = map->id2nd(npc_id);
-			ShowWarning("Invalid menu selection on npc %d:'%s' - got %d, valid range is [%d..%d] (player AID:%d, CID:%d, name:'%s')!\n", npc_id, (nd)?nd->name:"invalid npc id", select, 1, sd->npc_menu, sd->bl.id, sd->status.char_id, sd->status.name);
+			ShowWarning("Menu invalido (NID: %d | Nome:'%s' | SEL: %d). Escala valida [%d..%d] (AID: %d | CID: %d | Nick: '%s')!\n", npc_id, (nd)?nd->name:"invalid npc id", select, 1, sd->npc_menu, sd->bl.id, sd->status.char_id, sd->status.name);
 			clif->GM_kick(NULL,sd);
 #ifdef SECURE_NPCTIMEOUT
 		}
@@ -12343,7 +12333,7 @@ void clif_PartyBookingUpdateNotify(struct map_session_data* sd, struct party_boo
 	int i;
 	uint8 buf[6+PARTY_BOOKING_JOBS*2];
 
-	if(pb_ad == NULL) return;
+	if(!pb_ad) return;
 
 	WBUFW(buf,0) = 0x80a;
 	WBUFL(buf,2) = pb_ad->index;
@@ -12496,9 +12486,7 @@ void clif_PartyRecruitDeleteAck(struct map_session_data* sd, int flag)
 void clif_parse_PartyRecruitUpdateReq(int fd, struct map_session_data *sd)
 {
 #ifdef PARTY_RECRUIT
-	const char *notice;
-
-	notice = (const char*)RFIFOP(fd, 2);
+	const char *notice = (const char*)RFIFOP(fd, 2);
 
 	party->recruit_update(sd, notice);
 #else
@@ -12511,9 +12499,9 @@ void clif_parse_PartyRecruitUpdateReq(int fd, struct map_session_data *sd)
 void clif_PartyRecruitInsertNotify(struct map_session_data* sd, struct party_booking_ad_info* pb_ad)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6+6+24+4+37+1];
+	unsigned char buf[80]; // Fuck Constant Folding :D  2+6+6+24+4+37+1
 
-	if (pb_ad == NULL)
+	if (!pb_ad)
 		return;
 
 	WBUFW(buf, 0) = 0x8ec;
@@ -12533,7 +12521,7 @@ void clif_PartyRecruitInsertNotify(struct map_session_data* sd, struct party_boo
 void clif_PartyRecruitUpdateNotify(struct map_session_data *sd, struct party_booking_ad_info* pb_ad)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6+37+1];
+	unsigned char buf[46]; // Fuck Constant Folding :D 2+6+37+1
 
 	WBUFW(buf, 0) = 0x8ed;
 	WBUFL(buf, 2) = pb_ad->index;
@@ -12550,7 +12538,7 @@ void clif_PartyRecruitUpdateNotify(struct map_session_data *sd, struct party_boo
 void clif_PartyRecruitDeleteNotify(struct map_session_data* sd, int index)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6+1];
+	unsigned char buf[9]; // Fuck Constant Folding :D 2+6+1
 
 	WBUFW(buf, 0) = 0x8ee;
 	WBUFL(buf, 2) = index;
@@ -12605,7 +12593,7 @@ void clif_parse_PartyBookingReqVolunteer(int fd, struct map_session_data *sd)
 void clif_PartyBookingVolunteerInfo(int index, struct map_session_data *sd)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+4+4+2+24+1];
+	unsigned char buf[37];  //Fuck Constant Folding :D 2+4+4+2+24+1
 
 	WBUFW(buf, 0) = 0x8f2;
 	WBUFL(buf, 2) = sd->status.account_id;
@@ -12673,7 +12661,7 @@ void clif_parse_PartyBookingRefuseVolunteer(int fd, struct map_session_data *sd)
 void clif_PartyBookingRefuseVolunteer(unsigned int aid, struct map_session_data *sd)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6];
+	unsigned char buf[8]; //Fuck Constant Folding :D 2+6
 
 	WBUFW(buf, 0) = 0x8fa;
 	WBUFL(buf, 2) = aid;
@@ -12700,7 +12688,7 @@ void clif_parse_PartyBookingCancelVolunteer(int fd, struct map_session_data *sd)
 void clif_PartyBookingCancelVolunteer(int index, struct map_session_data *sd)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6+1];
+	unsigned char buf[9]; //Fuck Constant Folding :D  2+6+1
 
 	WBUFW(buf, 0) = 0x909;
 	WBUFL(buf, 2) = index;
@@ -12715,7 +12703,7 @@ void clif_PartyBookingCancelVolunteer(int index, struct map_session_data *sd)
 void clif_PartyBookingAddFilteringList(int index, struct map_session_data *sd)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6+24+1];
+	unsigned char buf[33]; //Fuck Constant Folding :D 2+6+24+1
 
 	WBUFW(buf, 0) = 0x90b;
 	WBUFL(buf, 2) = sd->bl.id;
@@ -12731,7 +12719,7 @@ void clif_PartyBookingAddFilteringList(int index, struct map_session_data *sd)
 void clif_PartyBookingSubFilteringList(int gid, struct map_session_data *sd)
 {
 #ifdef PARTY_RECRUIT
-	unsigned char buf[2+6+24+1];
+	unsigned char buf[33];  //Fuck Constant Folding :D 2+6+24+1
 
 	WBUFW(buf, 0) = 0x90c;
 	WBUFL(buf, 2) = gid;
@@ -12767,9 +12755,9 @@ void clif_parse_CloseVending(int fd, struct map_session_data* sd)
 /// 0130 <account id>.L
 void clif_parse_VendingListReq(int fd, struct map_session_data* sd)
 {
-	if( sd->npc_id ) {// using an NPC
-		return;
-	}
+	if( sd->npc_id )
+	return;
+		
 	vending->list(sd,RFIFOL(fd,2));
 }
 
@@ -12896,7 +12884,7 @@ void clif_parse_GuildRequestInfo(int fd, struct map_session_data *sd)
 			clif->guild_expulsionlist(sd);
 			break;
 		default:
-			ShowError("clif: guild request info: unknown type %d\n", RFIFOL(fd,2));
+			ShowError("Tipo desconhecido %d (Aba Janela de Guild).\n", RFIFOL(fd,2));
 			break;
 	}
 }
@@ -13080,7 +13068,7 @@ void clif_parse_GuildChangeEmblem(int fd,struct map_session_data *sd)
 		return;
 
 	if( !clif->validate_emblem(emblem, emblem_len) ) {
-		ShowWarning("clif_parse_GuildChangeEmblem: Rejected malformed guild emblem (size=%lu, accound_id=%d, char_id=%d, guild_id=%d).\n", emblem_len, sd->status.account_id, sd->status.char_id, sd->status.guild_id);
+		ShowWarning("Emblema para Guild invalido. (Tamanho: %lu | AID: %d | CID: %d | GID: %d).\n", emblem_len, sd->status.account_id, sd->status.char_id, sd->status.guild_id);
 		return;
 	}
 
@@ -13109,7 +13097,8 @@ void clif_parse_GuildChangeNotice(int fd, struct map_session_data* sd)
 
 // Helper function for guild invite functions
 bool clif_sub_guild_invite(int fd, struct map_session_data *sd, struct map_session_data *t_sd) {
-	if ( t_sd == NULL )// not online or does not exist
+
+	if (!t_sd)// not online or does not exist
 		return false;
 
 	if ( map->list[sd->bl.m].flag.guildlock ) {
@@ -14015,7 +14004,7 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd) {
 	}
 
 	// Friend doesn't exist (no player with this name)
-	if (f_sd == NULL) {
+	if (!f_sd) {
 		clif->message(fd, msg_txt(3));
 		return;
 	}
@@ -14766,7 +14755,7 @@ void clif_Mail_refreshinbox(struct map_session_data *sd)
 
 	if( md->full ) {// TODO: is this official?
 		char output[100];
-		sprintf(output, "Inbox is full (Max %d). Delete some mails.", MAIL_MAX_INBOX);
+		sprintf(output, "[Email]: Caixa de Entrada encontra-se cheia!! (Max: %d). Apague alguns emails...", MAIL_MAX_INBOX);
 		clif_disp_onlyself(sd, output, strlen(output));
 	}
 }
@@ -14797,10 +14786,11 @@ void clif_Mail_read(struct map_session_data *sd, int mail_id)
 	int i, fd = sd->fd;
 
 	ARR_FIND(0, MAIL_MAX_INBOX, i, sd->mail.inbox.msg[i].id == mail_id);
+	
 	if( i == MAIL_MAX_INBOX ) {
 		clif->mail_return(sd->fd, mail_id, 1); // Mail doesn't exist
-		ShowWarning("clif_parse_Mail_read: char '%s' trying to read a message not the inbox.\n", sd->status.name);
 		return;
+		
 	} else {
 		struct mail_message *msg = &sd->mail.inbox.msg[i];
 		struct item *item = &msg->item;
@@ -15028,7 +15018,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 		return;
 
 	if( RFIFOW(fd,2) < 69 ) {
-		ShowWarning("Invalid Msg Len from account %d.\n", sd->status.account_id);
+		ShowWarning("[Email]: Tamanho de MSG Invalido!! (AID: %d).\n", sd->status.account_id);
 		return;
 	}
 
@@ -15189,12 +15179,12 @@ void clif_parse_Auction_setitem(int fd, struct map_session_data *sd)
 		sd->auction.amount = 0;
 
 	if( idx < 0 || idx >= MAX_INVENTORY ) {
-		ShowWarning("Character %s trying to set invalid item index in auctions.\n", sd->status.name);
+		ShowWarning("Jogador %s tentando marcar item inexistente para leiloar...\n", sd->status.name);
 		return;
 	}
 
 	if( amount != 1 || amount > sd->status.inventory[idx].amount ) { // By client, amount is always set to 1. Maybe this is a future implementation.
-		ShowWarning("Character %s trying to set invalid amount in auctions.\n", sd->status.name);
+		ShowWarning("Jogador %s tentando colocar quantidade incorreta para leiloar....\n", sd->status.name);
 		return;
 	}
 
@@ -15270,17 +15260,17 @@ void clif_parse_Auction_register(int fd, struct map_session_data *sd)
 
 	// Invalid Situations...
 	if( sd->auction.amount < 1 ) {
-		ShowWarning("Character %s trying to register auction without item.\n", sd->status.name);
+		ShowWarning("[Leil]: Jogador %s tentando registrar um item sem possui-lo.\n", sd->status.name);
 		return;
 	}
 
 	if( auction.price >= auction.buynow ) {
-		ShowWarning("Character %s trying to alter auction prices.\n", sd->status.name);
+		ShowWarning("[Leil]: Jogador %s tentando alterar o valor dos itens.\n", sd->status.name);
 		return;
 	}
 
 	if( auction.hours < 1 || auction.hours > 48 ) {
-		ShowWarning("Character %s trying to enter an invalid time for auction.\n", sd->status.name);
+		ShowWarning("[Leil]: Jogador %s tentando entrar com tempo invalido para item.\n", sd->status.name);
 		return;
 	}
 
@@ -15546,7 +15536,7 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
 
         if( len < 10 || len != 10 + count * 4)
         {
-            ShowWarning("Player %u sent incorrect cash shop buy packet (len %u:%u)!\n", sd->status.char_id, len, 10 + count * 4);
+            ShowWarning("Jogador (CID: %u) enviou pacote invalido para loja de cash!!! (Tamanho: %u | Esperado: %u)!\n", sd->status.char_id, len, 10 + count * 4);
             return;
         }
         fail = npc->cashshop_buylist(sd,points,count,item_list);
@@ -16593,7 +16583,7 @@ void clif_parse_ReqOpenBuyingStore(int fd, struct map_session_data* sd) {
 	// TODO: Make this check global for all variable length packets.
 	if( packet_len < 89 )
 	{// minimum packet length
-		ShowError("clif_parse_ReqOpenBuyingStore: Malformed packet (expected length=%u, length=%u, account_id=%d).\n", 89, packet_len, sd->bl.id);
+		ShowError(" Pacote Invalido para criar loja!!! (Esperado: 89 | Tamanho: %u | AID: %d).\n",packet_len, sd->bl.id);
 		return;
 	}
 
@@ -16607,7 +16597,7 @@ void clif_parse_ReqOpenBuyingStore(int fd, struct map_session_data* sd) {
 
 	if( packet_len%blocksize )
 	{
-		ShowError("clif_parse_ReqOpenBuyingStore: Unexpected item list size %u (account_id=%d, block size=%u)\n", packet_len, sd->bl.id, blocksize);
+		ShowError("Tamanho para Lista de itens inesperado: %u (AID: %d)\n", packet_len, sd->bl.id);
 		return;
 	}
 	count = packet_len/blocksize;
@@ -16764,7 +16754,7 @@ void clif_parse_ReqTradeBuyingStore(int fd, struct map_session_data* sd) {
 
 	if( packet_len < 12 )
 	{// minimum packet length
-		ShowError("clif_parse_ReqTradeBuyingStore: Malformed packet (expected length=%u, length=%u, account_id=%d).\n", 12, packet_len, sd->bl.id);
+		ShowError("Pacote Invalido para vender itens em uma loja!!! (Esperado: 12 | Tamanho: %u | AID: %d).\n",packet_len, sd->bl.id);
 		return;
 	}
 
@@ -16777,7 +16767,7 @@ void clif_parse_ReqTradeBuyingStore(int fd, struct map_session_data* sd) {
 
 	if( packet_len%blocksize )
 	{
-		ShowError("clif_parse_ReqTradeBuyingStore: Unexpected item list size %u (account_id=%d, buyer_id=%u, block size=%u)\n", packet_len, sd->bl.id, account_id, blocksize);
+		ShowError("Tamanho para Lista de itens inesperado: %u (AID: %d | AID (Comprador): %u)\n", packet_len, sd->bl.id, account_id);
 		return;
 	}
 	count = packet_len/blocksize;
@@ -16880,7 +16870,7 @@ void clif_parse_SearchStoreInfo(int fd, struct map_session_data* sd) {
 
 	if( packet_len < 15 )
 	{// minimum packet length
-		ShowError("clif_parse_SearchStoreInfo: Malformed packet (expected length=%u, length=%u, account_id=%d).\n", 15, packet_len, sd->bl.id);
+		ShowError("Pacote invalido para pesquisa de itens!!! (Esperado: 15 | Tamanho: %u | AID: %d).\n", packet_len, sd->bl.id);
 		return;
 	}
 
@@ -16897,14 +16887,14 @@ void clif_parse_SearchStoreInfo(int fd, struct map_session_data* sd) {
 
 	if( packet_len%blocksize )
 	{
-		ShowError("clif_parse_SearchStoreInfo: Unexpected item list size %u (account_id=%d, block size=%u)\n", packet_len, sd->bl.id, blocksize);
+		ShowError("Tamanho para lista de itens inesperado: %u (AID: %d)\n", packet_len, sd->bl.id);
 		return;
 	}
 	count = packet_len/blocksize;
 
 	if( count < item_count+card_count )
 	{
-		ShowError("clif_parse_SearchStoreInfo: Malformed packet (expected count=%u, count=%u, account_id=%d).\n", item_count+card_count, count, sd->bl.id);
+		ShowError("Pacote invalido para pesquisa de itens!!! (Esperado: %u | Tamanho: %u | AID: %d).\n", item_count+card_count, count, sd->bl.id);
 		return;
 	}
 
@@ -17046,27 +17036,6 @@ void clif_search_store_info_click_ack(struct map_session_data* sd, short x, shor
 }
 
 
-/// Parse function for packet debugging.
-void clif_parse_debug(int fd,struct map_session_data *sd) {
-	int cmd, packet_len;
-
-	// clif_parse ensures, that there is at least 2 bytes of data
-	cmd = RFIFOW(fd,0);
-
-	if( sd ) {
-		packet_len = packet_db[cmd].len;
-
-		if( packet_len == -1 ) {// variable length
-			packet_len = RFIFOW(fd,2);  // clif_parse ensures, that this amount of data is already received
-		}
-		ShowDebug("Packet debug of 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
-	} else {
-		packet_len = (int)RFIFOREST(fd);
-		ShowDebug("Packet debug of 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
-	}
-
-	ShowDump(RFIFOP(fd,0), packet_len);
-}
 /*==========================================
  * Server tells client to display a window similar to Magnifier (item) one
  * Server populates the window with available elemental converter options according to player's inventory
@@ -18437,7 +18406,7 @@ int do_init_clif(void) {
 
 	set_defaultparse(clif->parse);
 	if( make_listen_bind(clif->bind_ip,clif->map_port) == -1 ) {
-		ShowFatalError("Failed to bind to port '"CL_WHITE"%d"CL_RESET"'\n",clif->map_port);
+		ShowFatalError("Falha em atrelar a porta '"CL_WHITE"%d"CL_RESET"'\n",clif->map_port);
 		exit(EXIT_FAILURE);
 	}
 
@@ -19183,7 +19152,6 @@ void clif_defaults(void) {
 	clif->pSearchStoreInfoNextPage = clif_parse_SearchStoreInfoNextPage;
 	clif->pCloseSearchStoreInfo = clif_parse_CloseSearchStoreInfo;
 	clif->pSearchStoreInfoListItemClick = clif_parse_SearchStoreInfoListItemClick;
-	clif->pDebug = clif_parse_debug;
 	clif->pSkillSelectMenu = clif_parse_SkillSelectMenu;
 	clif->pMoveItem = clif_parse_MoveItem;
 	/* dull */

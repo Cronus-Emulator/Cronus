@@ -403,12 +403,12 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 /// Checks if an item is being bought in given player's buying store.
 bool buyingstore_search(struct map_session_data* sd, unsigned short nameid)
 {
-	unsigned int i;
-
 	if( !sd->state.buyingstore )
 	{// not buying
 		return false;
 	}
+	
+	unsigned int i;
 
 	ARR_FIND( 0, sd->buyingstore.slots, i, sd->buyingstore.items[i].nameid == nameid && sd->buyingstore.items[i].amount );
 	if( i == sd->buyingstore.slots )
