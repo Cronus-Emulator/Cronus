@@ -18184,6 +18184,28 @@ unsigned short clif_parse_cmd_optional( int fd, struct map_session_data *sd ) {
 	return cmd;
 }
 
+void clif_parse_debug(int fd,struct map_session_data *sd) {
+ int cmd, packet_len;
+
+ // clif_parse ensures, that there is at least 2 bytes of data
+ cmd = RFIFOW(fd,0);
+
+ if( sd ) {
+ packet_len = packet_db[cmd].len;
+
+ if( packet_len == -1 ) {// variable length
+ packet_len = RFIFOW(fd,2); // clif_parse ensures, that this amount of data is already received
+ }
+ ShowDebug("Packet debug of 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
+ } else {
+ packet_len = (int)RFIFOREST(fd);
+ ShowDebug("Packet debug of 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
+ }
+
+ ShowDump(RFIFOP(fd,0), packet_len);
+}
+
+
 /*==========================================
  * Main client packet processing function
  *------------------------------------------*/
@@ -19152,6 +19174,7 @@ void clif_defaults(void) {
 	clif->pSearchStoreInfoNextPage = clif_parse_SearchStoreInfoNextPage;
 	clif->pCloseSearchStoreInfo = clif_parse_CloseSearchStoreInfo;
 	clif->pSearchStoreInfoListItemClick = clif_parse_SearchStoreInfoListItemClick;
+	clif->pDebug = clif_parse_debug;
 	clif->pSkillSelectMenu = clif_parse_SkillSelectMenu;
 	clif->pMoveItem = clif_parse_MoveItem;
 	/* dull */
