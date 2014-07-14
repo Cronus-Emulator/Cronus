@@ -390,6 +390,8 @@ struct mmo_charstatus {
 	int father;
 	int mother;
 	int child;
+	bool cash_shop;
+	bool cash_sopen;
 
 	unsigned int base_exp,job_exp;
 	int zeny;

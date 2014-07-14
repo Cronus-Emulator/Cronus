@@ -669,6 +669,7 @@ INSERT INTO `sql_updates` (`timestamp`) VALUES (1395789302); -- 2014-03-25--23-5
 INSERT INTO `sql_updates` (`timestamp`) VALUES (1396893866); -- 2014-04-07--22-04.sql
 INSERT INTO `sql_updates` (`timestamp`) VALUES (1398477600); -- 2014-04-26--10-00.sql
 INSERT INTO `sql_updates` (`timestamp`) VALUES (1400256139); -- 2014-05-17--00-06.sql
+INSERT INTO `sql_updates` (`timestamp`) VALUES (1404494956); -- 2014-07-04--16-08.sql
 
 --
 -- Table structure for table `sstatus`

@@ -14,10 +14,8 @@
  40:#itemlist <nome do jogador> - Exibe todos os itens de um jogador.
  40:#storagelist <nome do jogador> - Exibe todos os itens no armazém de um jogador.
  40:#stats <nome do jogador> - Exibe os stats de um jogador.
- 60:#option <nome do jogador> <param1> <param2> <param3> <nome do jogador> - Semelhante ao @option, porém direcionado a um jogador.
  50:#mountpeco <nome do jogador> - Concede/remove a um jogador um PecoPeco (a profissão é obrigatória, porém a habilidade não).
  50:#petrename <nome do jogador> - Possibilita o jogador a renomear seu Bicho de Estimação.
- 60:#save <nome do jogador> <mapa> <x> <y>  - Muda o ponto de retorno de um jogador.
  60:#baselvl/#blvl <nome do jogador> <#>  - Modifica o nível de base de um jogador.
  60:#joblvl/#jlvl <nome do jogador> <#>  - Modifica o nível de classe de um jogador.
  60:#job/#jobchange <nome do jogador> <ID da classe>  - Modifica a profissão de um jogador.

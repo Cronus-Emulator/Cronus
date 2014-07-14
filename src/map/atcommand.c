@@ -514,44 +514,6 @@ ACMD(whogm)
 /*==========================================
  *
  *------------------------------------------*/
-ACMD(save) {
-	
-	pc->setsavepoint(sd, sd->mapindex, sd->bl.x, sd->bl.y);
-	if (sd->status.pet_id > 0 && sd->pd)
-		intif->save_petdata(sd->status.account_id, &sd->pd->pet);
-	
-	chrif->save(sd,0);
-	
-	clif->message(fd, msg_txt(6)); // Your save point has been changed.
-	
-	return true;
-}
-
-/*==========================================
- *
- *------------------------------------------*/
-ACMD(load) {
-	int16 m;
-		
-	m = map->mapindex2mapid(sd->status.save_point.map);
-	if (m >= 0 && map->list[m].flag.nowarpto && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE)) {
-		clif->message(fd, msg_txt(249)); // You are not authorized to warp to your save map.
-		return false;
-	}
-	if (sd->bl.m >= 0 && map->list[sd->bl.m].flag.nowarp && !pc_has_permission(sd, PC_PERM_WARP_ANYWHERE)) {
-		clif->message(fd, msg_txt(248)); // You are not authorized to warp from your current map.
-		return false;
-	}
-	
-	pc->setpos(sd, sd->status.save_point.map, sd->status.save_point.x, sd->status.save_point.y, CLR_OUTSIGHT);
-	clif->message(fd, msg_txt(7)); // Warping to save point..
-	
-	return true;
-}
-
-/*==========================================
- *
- *------------------------------------------*/
 ACMD(speed)
 {
 	int speed;
@@ -630,39 +592,6 @@ ACMD(guildstorage)
 	}
 
 	clif->message(fd, msg_txt(920)); // Guild storage opened.
-	return true;
-}
-
-/*==========================================
- *
- *------------------------------------------*/
-ACMD(option)
-{
-	int param1 = 0, param2 = 0, param3 = 0;
-	
-	if (!message || !*message || sscanf(message, "%d %d %d", &param1, &param2, &param3) < 1 || param1 < 0 || param2 < 0 || param3 < 0)
-	{// failed to match the parameters so inform the user of the options
-		const char* text;
-		
-		// attempt to find the setting information for this command
-		text = atcommand_help_string( info );
-		
-		// notify the user of the requirement to enter an option
-		clif->message(fd, msg_txt(921)); // Please enter at least one option.
-		
-		if( text ) {// send the help text associated with this command
-			clif->messageln( fd, text );
-		}
-		
-		return false;
-	}
-	
-	sd->sc.opt1 = param1;
-	sd->sc.opt2 = param2;
-	pc->setoption(sd, param3);
-	
-	clif->message(fd, msg_txt(9)); // Options changed.
-	
 	return true;
 }
 
@@ -1943,51 +1872,6 @@ ACMD(memo)
 }
 
 /*==========================================
- *
- *------------------------------------------*/
-ACMD(gat) {
-	int y;
-	
-	memset(atcmd_output, '\0', sizeof(atcmd_output));
-	
-	for (y = 2; y >= -2; y--) {
-		sprintf(atcmd_output, "%s (x= %d, y= %d) %02X %02X %02X %02X %02X",
-				map->list[sd->bl.m].name, sd->bl.x - 2, sd->bl.y + y,
-				map->getcell(sd->bl.m,  sd->bl.x - 2, sd->bl.y + y, CELL_GETTYPE),
-				map->getcell(sd->bl.m,  sd->bl.x - 1, sd->bl.y + y, CELL_GETTYPE),
-				map->getcell(sd->bl.m,  sd->bl.x,     sd->bl.y + y, CELL_GETTYPE),
-				map->getcell(sd->bl.m,  sd->bl.x + 1, sd->bl.y + y, CELL_GETTYPE),
-				map->getcell(sd->bl.m,  sd->bl.x + 2, sd->bl.y + y, CELL_GETTYPE));
-		
-		clif->message(fd, atcmd_output);
-	}
-	
-	return true;
-}
-
-/*==========================================
- *
- *------------------------------------------*/
-ACMD(displaystatus)
-{
-	int i, type, flag, tick, val1 = 0, val2 = 0, val3 = 0;
-	
-	if (!message || !*message || (i = sscanf(message, "%d %d %d %d %d %d", &type, &flag, &tick, &val1, &val2, &val3)) < 1) {
-		clif->message(fd, msg_txt(1009)); // Please enter a status type/flag (usage: @displaystatus <status type> <flag> <tick> {<val1> {<val2> {<val3>}}}).
-		return false;
-	}
-	if (i < 2) flag = 1;
-	if (i < 3) tick = 0;
-	
-	if( flag == 0 )
-		clif->sc_end(&sd->bl,sd->bl.id,AREA,type);
-	else
-		clif->status_change(&sd->bl, type, flag, tick, val1, val2, val3);
-	
-	return true;
-}
-
-/*==========================================
  * @stpoint (Rewritten by [Yor])
  *------------------------------------------*/
 ACMD(statuspoint)
@@ -3060,10 +2944,27 @@ ACMD(agitend2) {
 }
 
 /*==========================================
- * @mapexit - shuts down the map server
+ * @mapexit - (kickall+mapexit) Desliga o servidor da maneira correta.
  *------------------------------------------*/
 ACMD(mapexit) {
+
+    struct map_session_data* pl_sd;
+	struct s_mapiterator* iter;
+	
+	iter = mapit_getallusers();
+	for( pl_sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); pl_sd = (TBL_PC*)mapit->next(iter) )
+	{
+		if (pc_get_group_level(sd) >= pc_get_group_level(pl_sd)) { // you can kick only lower or same gm level
+			if (sd->status.account_id != pl_sd->status.account_id)
+				clif->GM_kick(NULL, pl_sd);
+		}
+	}
+	mapit->free(iter);
+	
+	clif->message(fd, msg_txt(195)); // All players have been kicked!
+	
 	map->do_shutdown();
+	
 	return true;
 }
 
@@ -3255,6 +3156,29 @@ ACMD(partyrecall)
 		sprintf(atcmd_output, msg_txt(1033), count); // Because you are not authorized to warp from some maps, %d player(s) have not been recalled.
 		clif->message(fd, atcmd_output);
 	}
+	
+	return true;
+}
+
+
+ACMD(reloadcash)
+{
+    struct s_mapiterator* sd_cash = mapit_getallusers();
+
+	for(sd = (TBL_PC*)mapit->first(sd_cash); mapit->exists(sd_cash); sd = (TBL_PC*)mapit->next(sd_cash)) {
+	   sd->status.cash_shop = true;
+	
+	   if (sd->status.cash_sopen) { 
+		clif->refresh(sd);
+		// Janela fecha quando sofre um refresh
+		sd->status.cash_sopen = false;
+	}
+	
+	}
+	
+	intif->broadcast(msg_txt(1500), strlen(msg_txt(1500)) + 1, 0);
+	clif->cashshop_load();
+	mapit->free(sd_cash);
 	
 	return true;
 }
@@ -9083,12 +9007,9 @@ void atcommand_basecommands(void) {
 		ACMD_DEF2("whomap2", who),
 		ACMD_DEF2("whomap3", who),
 		ACMD_DEF(whogm),
-		ACMD_DEF(save),
-		ACMD_DEF(load),
 		ACMD_DEF(speed),
 		ACMD_DEF(storage),
 		ACMD_DEF(guildstorage),
-		ACMD_DEF(option),
 		ACMD_DEF(hide), // + /hide
 		ACMD_DEF(jobchange),
 		ACMD_DEF(kill),
@@ -9123,8 +9044,6 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(refine),
 		ACMD_DEF(produce),
 		ACMD_DEF(memo),
-		ACMD_DEF(gat),
-		ACMD_DEF(displaystatus),
 		ACMD_DEF2("stpoint", statuspoint),
 		ACMD_DEF2("skpoint", skillpoint),
 		ACMD_DEF(zeny),
@@ -9163,6 +9082,7 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(broadcast), // + /b and /nb
 		ACMD_DEF(localbroadcast), // + /lb and /nlb
 		ACMD_DEF(recallall),
+		ACMD_DEF(reloadcash),
 		ACMD_DEF(reloaditemdb),
 		ACMD_DEF(reloadmobdb),
 		ACMD_DEF(reloadskilldb),

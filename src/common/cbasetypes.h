@@ -75,7 +75,7 @@
 #endif
 
 #if defined(_ILP64)
-#error "this specific 64bit architecture is not supported"
+#error "Arquitetura insuportada pelo emulador."
 #endif
 
 // debug mode
@@ -201,8 +201,6 @@ typedef uint64_t	uint64;
 //////////////////////////////////////////////////////////////////////////
 #ifdef WIN32
 #define strncmpi             strnicmp
-#define strncasecmp          strnicmp
-#define strcasecmp           strcmpi
 int      fileno(FILE *f);
 char*    strdup(const char* s);
 int      strcmpi (const char* s1, const char* s2);

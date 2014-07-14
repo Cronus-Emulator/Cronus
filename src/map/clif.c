@@ -17444,11 +17444,18 @@ void __attribute__ ((unused)) clif_parse_dull(int fd,struct map_session_data *sd
 }
 void clif_parse_CashShopOpen(int fd, struct map_session_data *sd) {
 
+    if(sd->status.cash_shop) {
+	 clif->colormes(fd,COLOR_RED,msg_txt(1501));
+	 return;
+	}
+
 	if( map->list[sd->bl.m].flag.nocashshop ) {
 		clif->colormes(fd,COLOR_RED,msg_txt(1489)); //Cash Shop is disabled in this map
 		return;
 	}
 
+	sd->status.cash_sopen = true;
+	
 	WFIFOHEAD(fd, 10);
 	WFIFOW(fd, 0) = 0x845;
 	WFIFOL(fd, 2) = sd->cashPoints; //[Ryuuzaki] - switched positions to reflect proper values
@@ -17457,7 +17464,7 @@ void clif_parse_CashShopOpen(int fd, struct map_session_data *sd) {
 }
 
 void clif_parse_CashShopClose(int fd, struct map_session_data *sd) {
-	/* TODO apply some state tracking */
+	sd->status.cash_sopen = false;
 }
 
 void clif_parse_CashShopSchedule(int fd, struct map_session_data *sd) {

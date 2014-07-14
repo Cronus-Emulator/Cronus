@@ -387,7 +387,7 @@ int quest_read_db(void) {
 
 	sprintf(line, "%s/quest_db.txt", map->db_path);
 	if ((fp=fopen(line,"r"))==NULL) {
-		ShowError("can't read %s\n", line);
+		ShowError("[Quest_db]: Falha na leitura de %s\n", line);
 		return -1;
 	}
 
@@ -404,7 +404,7 @@ int quest_read_db(void) {
 			} else if (str[0] == NULL) {
 				break;
 			} else {
-				ShowError("quest_read_db: insufficient columns in line %s\n", line);
+				ShowError("[Quest_db]: Colunas insuficientes em %s\n", line);
 				continue;
 			}
 		}
@@ -416,7 +416,7 @@ int quest_read_db(void) {
 		entry.id = atoi(str[0]);
 
 		if (entry.id < 0 || entry.id >= MAX_QUEST_DB) {
-			ShowError("quest_read_db: Invalid quest ID '%d' in line '%s' (min: 0, max: %d.)\n", entry.id, line, MAX_QUEST_DB);
+			ShowError("[Quest_db]: ID invalida ('%d') na linha '%s' !! (min: 0, max: %d.)\n", entry.id, line, MAX_QUEST_DB);
 			continue;
 		}
 
@@ -439,7 +439,7 @@ int quest_read_db(void) {
 		count++;
 	}
 	fclose(fp);
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, "quest_db.txt");
+	ShowStatus("Finalizada leitura de'"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", count, "quest_db.txt");
 	return 0;
 }
 
