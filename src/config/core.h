@@ -22,58 +22,52 @@
 /// Máximo de sugestões para comandos (Caso digite algum errado, o servidor envia uma lista com os mais parecidos)
 #define MAX_SUGGESTIONS 10
 
-/*
-/// Comment to disable the official walk path
-/// The official walkpath disables users from taking non-clear walk paths,
-/// e.g. if they want to get around an obstacle they have to walk around it,
-/// while with OFFICIAL_WALKPATH disabled if they click to walk around a obstacle the server will do it automatically
-*/
+/// Comente para desativar as configurações oficiais das possíveis células andáveis.
+/// O oficial bloqueia a possibilidade de transpor obstáculos visíveis (Realiza sempre um caminho linear)
+/// EX: Desativando essa definição, clicar de um outro lado do muro fará personagem realizar a trajetória automaticamente.
 #define OFFICIAL_WALKPATH
 
-/// leave this line uncommented to enable callfunc checks when processing scripts.
-/// while allowed, the script engine will attempt to match user-defined functions
-/// in scripts allowing direct function callback (without the use of callfunc.)
-/// this CAN affect performance, so if you find scripts running slower or find
-/// your map-server using more resources while this is active, comment the line
+/// Deixe esta linha ativa para ativar a funcionalidade para chamada automatizada de funções no processamento de scripts
+/// Enquanto ativada, a engine irá tentar procurar as funções definidas pelo usuário sem o uso da keyword callfunc
+/// Isso IRÁ atingir a performance, então se você achar que os scripts estão mais lentos ou achar que o servidor de mapas
+/// está usando mais recursos que normalmente, comente esta linha.
 #define SCRIPT_CALLFUNC_CHECK
 
-/// Comment to disable Hercules' console_parse
-/// CONSOLE_INPUT allows you to type commands into the server's console,
-/// Disabling it saves one thread.
+/// Comente para remover a funcionalidade de entrada de dados no console
+/// Ativo, você pode digitar comandos no console para manobrar certos elementos
 #define CONSOLE_INPUT
-/// Maximum number of characters 'CONSOLE_INPUT' will support per line.
+
+/// Máximo de caracteres suportados para entrada no console.
 #define MAX_CONSOLE_INPUT 150
 
 
-/// Uncomment to enable the Cell Stack Limit mod.
-/// It's only config is the battle_config cell_stack_limit.
-/// Only chars affected are those defined in BL_CHAR (mobs and players currently)
+/// Remova o comentário para ativar o limite para empilhamento de células.
+/// (Remove a possibilidade de dois objetos do tipo BL_CHAR (Monstros e personagens) de ocuparem a mesma célula)
 //#define CELL_NOSTACK
 
-/// Uncomment to enable circular area checks.
-/// By default, all range checks in Aegis are of Square shapes, so a weapon range
-/// - of 10 allows you to attack from anywhere within a 21x21 area.
-/// Enabling this changes such checks to circular checks, which is more realistic,
-/// - but is not the official behavior.
+
+/// Remova o comentário para habilitar checagem circular de área
+/// Por padrão, todas as checagens no aegis são quadráticas, então uma arma 10x10 atinge uma área 21x21 (Cálculo geométrico)
+/// Ativar esta definição fará o jogo ser mais realístico, porém não é o comportamento oficial
 //#define CIRCULAR_AREA
 
-//This is the distance at which @autoloot works,
-//if the item drops farther from the player than this,
-//it will not be autolooted. [Skotlex]
-//Note: The range is unlimited unless this define is set.
+
+/// Distância aplicada para funcionalidade do autoloot.
+/// Comentado: Infinito.
+/// Sem comentário: Área de visão.
 //#define AUTOLOOT_DISTANCE AREA_SIZE
 
-/// Uncomment to switch the way map zones' "skill_damage_cap" functions.
-/// When commented the cap takes place before modifiers, as to have them be useful.
-/// When uncommented the cap takes place after modifiers.
+
+/// Remova o comentário para alterar a funcionalidade do limite de dano aplicado por mapas.
+/// Quando comentado, o limite é processado ANTES dos modificadores de dano (Buff/Nerf)
+/// Quando sem o comentário, o limite é processado DEPOIS dos modificadores de dano (Buff/Nerf)
 //#define HMAP_ZONE_DAMAGE_CAP_TYPE
 
-/// Comment to disable Guild/Party Bound item system
+/// Comente para remover o sistema de itens vinculados em grupo/clã.
 #define GP_BOUND_ITEMS
 
-/// Uncomment to enable real-time server stats (in and out data and ram usage). [Ai4rei]
+/// Remova o comentário para visualizar o consumo de recursos do emulador (Memória, processamento e etc)
 //#define SHOW_SERVER_STATS
-
 
 /// Comente essa configuração caso queira remover o salvamento de informações sobre os @AT (O Servidor armazena as lojinhas caso ele sofra uma queda)
 #define AUTOTRADE_PERSISTENCY

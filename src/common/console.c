@@ -51,8 +51,24 @@ struct console_input_interface console_input_s;
 #ifdef WIN32
 
 static FARPROC LoadFunc(const char* type) {
-return GetProcAddress(GetModuleHandle("Kernel32.DLL"),type);
+return GetProcAddress(GetModuleHandle("kernel32.dll"),type);
 }
+
+static bool VistaCheck(void)
+{
+OSVERSIONINFO osVersion; 
+ZeroMemory(&osVersion, sizeof(OSVERSIONINFO));
+osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+ 
+if(!GetVersionEx(&osVersion))
+return false;
+ 
+if(osVersion.dwMajorVersion >= 6)
+return true;
+ 
+return false;
+}
+ 
 
 
 void SetFont (void) {
@@ -62,12 +78,12 @@ void SetFont (void) {
     if (!GetConsoleTitleA(title, sizeof(title)) || (!FindWindowA(0, title)))
     return;
   
-    if (!GetModuleHandle("Kernel32.DLL"))
+    if (!GetModuleHandle("kernel32.dll"))
     return;
 	
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	
-	if (LoadFunc("SetCurrentConsoleFontEx")) {
+	if (VistaCheck) {
 	
 	CONSOLE_FONT_INFOEX Font;
 	memset(&Font, 0, sizeof(CONSOLE_FONT_INFOEX));
@@ -75,15 +91,22 @@ void SetFont (void) {
     Font.dwFontSize.Y = 12;
     Font.FontWeight   = FW_NORMAL;
     wcscpy(Font.FaceName, L"Lucida Console");
-	SetCurrentConsoleFontEx (hOut, FALSE, &Font);
 	
+	typedef BOOL (WINAPI * pfSetCurrentConsoleFontEX)(HANDLE, BOOL,PCONSOLE_FONT_INFOEX);
+	pfSetCurrentConsoleFontEX pfSCFEX = (pfSetCurrentConsoleFontEX)LoadFunc("SetCurrentConsoleFontEx");
+
+    if (pfSCFEX)
+	pfSCFEX (hOut, FALSE, &Font);
+
 	 } else {
 	 
     typedef BOOL (WINAPI * pfSetConsoleFont)(HANDLE, DWORD);
     pfSetConsoleFont pfSCF = (pfSetConsoleFont)LoadFunc("SetConsoleFont");
+	
+	if (pfSCF)
     pfSCF(hOut, 12);
+	
    }
-   
 }
 
 #endif

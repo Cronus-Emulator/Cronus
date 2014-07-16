@@ -12,26 +12,26 @@
  40:--- COMANDOS DE PERSONAGEM ---
  40:#statsall <nome do jogador> - Exibe os status de todos os jogadores
  40:#itemlist <nome do jogador> - Exibe todos os itens de um jogador.
- 40:#storagelist <nome do jogador> - Exibe todos os itens no armaz√©m de um jogador.
+ 40:#storagelist <nome do jogador> - Exibe todos os itens no armazÈm de um jogador.
  40:#stats <nome do jogador> - Exibe os stats de um jogador.
- 50:#mountpeco <nome do jogador> - Concede/remove a um jogador um PecoPeco (a profiss√£o √© obrigat√≥ria, por√©m a habilidade n√£o).
- 50:#petrename <nome do jogador> - Possibilita o jogador a renomear seu Bicho de Estima√ß√£o.
- 60:#baselvl/#blvl <nome do jogador> <#>  - Modifica o n√≠vel de base de um jogador.
- 60:#joblvl/#jlvl <nome do jogador> <#>  - Modifica o n√≠vel de classe de um jogador.
- 60:#job/#jobchange <nome do jogador> <ID da classe>  - Modifica a profiss√£o de um jogador.
- 60:#zeny <nome do jogador> <quantidade> - D√°/retira zenys de um jogador.
- 60:#cash <nome do jogador> <quantidade> - D√°/retira pontos de cash de um jogador.
- 60:#points <nome do jogador> <quantidade> - D√°/retira pontos Kafra de um jogador.
- 60:#stpoint <nome do jogador> <quantidade> - D√°/retira pontos de atributo de um jogador.
- 60:#skpoint <nome do jogador> <quantidade> - D√°/retira pontos de habilidade de um jogador.
+ 50:#mountpeco <nome do jogador> - Concede/remove a um jogador um PecoPeco (a profiss„o È obrigatÛria, porÈm a habilidade n„o).
+ 50:#petrename <nome do jogador> - Possibilita o jogador a renomear seu Bicho de EstimaÁ„o.
+ 60:#baselvl/#blvl <nome do jogador> <#>  - Modifica o nÌvel de base de um jogador.
+ 60:#joblvl/#jlvl <nome do jogador> <#>  - Modifica o nÌvel de classe de um jogador.
+ 60:#job/#jobchange <nome do jogador> <ID da classe>  - Modifica a profiss„o de um jogador.
+ 60:#zeny <nome do jogador> <quantidade> - D·/retira zenys de um jogador.
+ 60:#cash <nome do jogador> <quantidade> - D·/retira pontos de cash de um jogador.
+ 60:#points <nome do jogador> <quantidade> - D·/retira pontos Kafra de um jogador.
+ 60:#stpoint <nome do jogador> <quantidade> - D·/retira pontos de atributo de um jogador.
+ 60:#skpoint <nome do jogador> <quantidade> - D·/retira pontos de habilidade de um jogador.
  60:#skreset <nome do jogador> - Reseta as habilidades de um jogador.
  60:#streset <nome do jogador> - Reseta os atributos de um jogador.
  60:#reset <nome do jogador> - Resta os atributos E as habilidades de um jogador.
- 60:#questskill <nome do jogador> <#>  - Habilita uma habilidade de quest espec√≠fica a um jogador.
- 60:#lostskill <nome do jogador> <#>  - Desabilita uma habilidade de quest espec√≠fica de um jogador.
+ 60:#questskill <nome do jogador> <#>  - Habilita uma habilidade de quest especÌfica a um jogador.
+ 60:#lostskill <nome do jogador> <#>  - Desabilita uma habilidade de quest especÌfica de um jogador.
  60:#delitem <nome do jogador> <nome_do_item/ID> <quantidade>  - Retira um item de um personagem.
  50:#model <nome do jogador> <tipo de cabelo> <cor do cabelo> <cor de roupa>  - Modifica o estilo de um personagem.
- 60:#disguise <nome do jogador>  <nome_do_monstro/ID> - Disfar√ßa um jogador.
+ 60:#disguise <nome do jogador>  <nome_do_monstro/ID> - DisfarÁa um jogador.
  60:#undisguise <nome do jogador> - Retira o disfarce de um jogador.
  60:#changesex <nome do jogador> - Muda o sexo da conta do jogador.
- 60:#warp/#rura <nome do jogador> <mapa> <x> <y> <nome do jogador> - Move um jogador para certa localiza√ß√£o.
+ 60:#warp/#rura <nome do jogador> <mapa> <x> <y> <nome do jogador> - Move um jogador para certa localizaÁ„o.

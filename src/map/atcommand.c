@@ -3160,6 +3160,7 @@ ACMD(partyrecall)
 	return true;
 }
 
+#if PACKETVER >= 20110718
 
 ACMD(reloadcash)
 {
@@ -3182,6 +3183,8 @@ ACMD(reloadcash)
 	
 	return true;
 }
+
+#endif
 
 /*==========================================
  *
@@ -9082,7 +9085,9 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(broadcast), // + /b and /nb
 		ACMD_DEF(localbroadcast), // + /lb and /nlb
 		ACMD_DEF(recallall),
+#if PACKETVER >= 20110718
 		ACMD_DEF(reloadcash),
+#endif
 		ACMD_DEF(reloaditemdb),
 		ACMD_DEF(reloadmobdb),
 		ACMD_DEF(reloadskilldb),

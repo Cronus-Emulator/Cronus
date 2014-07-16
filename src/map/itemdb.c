@@ -700,7 +700,7 @@ void itemdb_read_groups(void) {
 	libconfig->destroy(&item_group_conf);
 	aFree(gsize);
 	
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, config_filename);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", count, config_filename);
 }
 /* [Ind/Hercules] - HCache for Packages */
 void itemdb_write_cached_packages(const char *config_filename) {
@@ -893,7 +893,7 @@ bool itemdb_read_cached_packages(const char *config_filename) {
 	
 	fclose(file);
 	
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"' ("CL_GREEN"C"CL_RESET").\n", pcount, config_filename);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"' ("CL_GREEN"C"CL_RESET").\n", pcount, config_filename);
 
 	return true;
 }
@@ -1124,7 +1124,7 @@ void itemdb_read_packages(void) {
 	if( HCache->enabled )
 		itemdb->write_cached_packages(config_filename);
 	
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, config_filename);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", count, config_filename);
 }
 
 void itemdb_read_chains(void) {
@@ -1192,7 +1192,7 @@ void itemdb_read_chains(void) {
 	else
 		itemdb->chain_cache[ECC_ORE] = i;
 	
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, config_filename);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", count, config_filename);
 }
 
 /**
@@ -1332,7 +1332,7 @@ void itemdb_read_combos() {
 	
 	fclose(fp);
 	
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"item_combo_db"CL_RESET"'.\n", count);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"item_combo_db"CL_RESET"'.\n", count);
 		
 	return;
 }
@@ -1956,7 +1956,7 @@ int itemdb_readdb_libconfig(const char *filename) {
 			duplicate[nameid] = true;
 	}
 	libconfig->destroy(&item_db_conf);
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, filename);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", count, filename);
 		
 	return count;
 }
@@ -1995,7 +1995,7 @@ int itemdb_readdb_sql(const char *tablename) {
 	// free the query result
 	SQL->FreeResult(map->mysql_handle);
 
-	ShowStatus("Done reading '"CL_WHITE"%lu"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, tablename);
+	ShowStatus("Finalizada leitura de '"CL_WHITE"%lu"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", count, tablename);
 
 	return count;
 }

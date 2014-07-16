@@ -960,7 +960,7 @@ static int inter_config_read(const char* cfgName)
 	}
 	fclose(fp);
 
-	ShowInfo ("Done reading %s.\n", cfgName);
+	ShowInfo ("Finalizada leitura de %s.\n", cfgName);
 
 	return 0;
 }
