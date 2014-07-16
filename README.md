@@ -5,32 +5,43 @@
 
 Seja bem vindo ao repositório oficial do Cronus-Emulator.
 
-Atualmente o desenvolvimento deste projeto encontra-se finalizado. Após 9 longos anos, nós decidimos que o melhor para o projeto era finalizar o desenvolvimento, uma vez em que a comunidade não se encontra mais disposta a contribuir com a manutenção e tradução deste projeto.
 
+#### Introdução:
+===============
 
-Todo o código fonte deste projeto foi removido para nos dedicarmos unicamente à tradução do emulador.
+O Cronus-Emulator é um projeto de desenvolvimento colaborativo com objetivo de oferecer um emulador de Ragnarok para
+a comunidade Brasileira.
 
-
-Procure ajuda em nosso forum. Qualquer bug deve ser reportado atraves do email contato@cronus-emulator.com
-
-
-
---------------
-Estado da compilação atual:
-
-[![Build Status](https://travis-ci.org/Cronus-Emulator/Cronus.png?branch=master)](https://travis-ci.org/Cronus-Emulator/Cronus)
-
---------------
-Agradecimentos
---------------
 Nossos agradecimentos especiais a equipe do eAthena por desenvolver a base deste emulador e a todos que contribuem ou um dia contribuiram ao Cronus-Emulator.
 
-Special thanks to eAthena team for the development of the emulator base and to everyone that contribute or that contributed in the past to Cronus-Emulator.
+Qualquer bug encontrado deve ser postado em: http://forum.cronus-emulator.com/tracker/
 
 
-Equipe de Gestão
+#### Requisitos:
+===============
+ 
+###### Windows:
+- Versões: Windows XP SP3 ~ Windows 8.
+- Compilador: https://github.com/Cronus-Emulator/clang.
 
-------
+---------------------
+
+###### Linux:
+ - Compilador gcc (4.5v++) ou clang (3.1v++) 
+ - make (Padrão)
+ - mysql (Arquivos base para o mysql)
+ - mysql-devel (Cabeçalhos/Bibliotecas)
+ - mysql-server (Servidor para a base de dados)
+ - pcre-devel (Dependência 3rdparty)
+ - zlib-devel (Dependência 3rdparty)
+ 
+PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura correta na sua distribuição linux.
+
+
+--------------
+Equipe Atual
+--------------
+
 ### Administradores
 - Raizen	- Carlos Lain
 - Roberto	- Roberto Oliveira
@@ -40,4 +51,9 @@ Equipe de Gestão
 - Wolf		- João Victor Senos
 
 ### Desenvolvedores
-- xChiron
+- xChiron - Diego da Silva Pinheiro
+- Cainho
+- Schrwaizer
+- Shermie
+- SoulBlaker
+- MaatSF
