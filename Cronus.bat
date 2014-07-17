@@ -13,7 +13,7 @@
 
 CLS
 @ECHO OFF
-color 0A
+color 0B
 
 SETLOCAL EnableExtensions
 SETLOCAL EnableDelayedExpansion
@@ -22,12 +22,12 @@ set LF=^
 
 
 :: ----- Compilador: -------------------------------------
-set flags= -march=native -O2 -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter -Wno-switch -Wno-sign-compare -Wno-gnu-zero-variadic-macro-arguments -Wno-empty-translation-unit -fno-strict-aliasing -Wshadow -Wcast-qual -Werror-implicit-function-declaration -Wno-format-non-iso -Wpointer-arith -Wshorten-64-to-32 -Winline -DFD_SETSIZE=1024
+set flags= -march=native -O2 -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter -Wno-switch -Wno-sign-compare -Wno-gnu-zero-variadic-macro-arguments -Wno-empty-translation-unit -fno-strict-aliasing -Wshadow -Wcast-qual -Werror-implicit-function-declaration -Wno-format-non-iso -Wshorten-64-to-32 -Winline -Wstrict-prototypes -DFD_SETSIZE=1024
 :: ----- Nomes: ------------------------------------------
 :: Você pode alterar o nome de todo mundo aqui (Caso modifique, altere o arquivo start.bat)
-set CharServer=char-server.exe
-set LoginServer=login-server.exe
-set MapServer=map-server.exe
+set CharServer=char-server
+set LoginServer=login-server
+set MapServer=map-server
 
 :: ----- Pastas: ------------------------------------------
 set charF=%~dp0src\char\
@@ -72,7 +72,7 @@ echo --------- We can do it with Batch Scripts--------------!LF!
 
 
 call:DepExist
-call:ProcessRunning %CharServer% %LoginServer% %MapServer%
+call:ProcessRunning
 call:CreateObjects
 call:LinkObjects
 call:End
@@ -89,12 +89,13 @@ goto:eof
 :: Checa a existência de processos existentes com os mesmos que serão gerados pelo processo
 :: Caso exista, os mesmos são finalizados para o processo (Forçadamente)
 echo !LF![Cronus]: Checando Processos ativos...
-for %%s in (%1 %2 %3) do (
-tasklist /FI "IMAGENAME eq %%s.exe" >nul 2>&1
+for %%s in (%CharServer% %LoginServer% %MapServer%) do (
+tasklist /FI "IMAGENAME eq %%s.exe" |find ":" >nul 2>&1
 If ERRORLEVEL 1 (
-echo [Cronus]: %%s está em execução... Finalizando.
-taskkill /f /im %%s.exe >nul 2>&1
+echo [Cronus]: Finalizando %%s ...
+taskkill /s localhost /f /im %%s.exe >nul 2>&1
 )
+del /q %%s.exe >nul 2>&1
 )
 goto:eof
 
@@ -157,14 +158,14 @@ goto:eof
 :: DO NOT TOUCH...
 cd %CharF%
 echo [Cronus]: Gerando emulador... Aguarde.
-clang -s -o %CharServer% %ArgCharS% %ArgsharedS% %ArgDepS% %mtS%.o %myLib% -lws2_32
-move %CharServer% %~dp0
+clang -s -o %CharServer%.exe %ArgCharS% %ArgsharedS% %ArgDepS% %mtS%.o %myLib% -lws2_32
+move %CharServer%.exe %~dp0
 cd %LoginF%
-clang -s -o %LoginServer% %ArgLoginS% %ArgsharedS% %ArgDepS% %mtS%.o %myLib% -lws2_32
-move %LoginServer% %~dp0
+clang -s -o %LoginServer%.exe %ArgLoginS% %ArgsharedS% %ArgDepS% %mtS%.o %myLib% -lws2_32
+move %LoginServer%.exe %~dp0
 cd %MapF%
-clang -s -o %MapServer% %ArgMapS% %ArgsharedS% %ArgDepS% %mtS%.o %myLib% %zlibLib% %pcreLib% -lws2_32
-move %MapServer% %~dp0
+clang -s -o %MapServer%.exe %ArgMapS% %ArgsharedS% %ArgDepS% %mtS%.o %myLib% %zlibLib% %pcreLib% -lws2_32
+move %MapServer%.exe %~dp0
 goto:eof
 
 
@@ -182,7 +183,7 @@ exit
 :FileExists
 :: Não Existe? Acabou....Finaliza o script caso o arquivo falte.
 if exist "%2" (
-echo [Cronus]: Objeto gerado para %1
+echo [Cronus]: Objeto gerado - %1
 ) else (
 echo [Cronus]: Falha no arquivo %1
 goto End

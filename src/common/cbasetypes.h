@@ -192,9 +192,15 @@ typedef uint64_t	uint64;
 		typedef uint32 usysint;
 	#endif
 #else
-	#error Compiler / Platform is unsupported.
+	#error Plataforma/Compilador insuportado.
 #endif
 
+//////////////////////////////////////////////////////////////////////////
+// Ponteiros sizeof(int) ***TEMP***                                     //
+//////////////////////////////////////////////////////////////////////////
+
+typedef intptr_t intptr;
+typedef uintptr_t uintptr;
 
 //////////////////////////////////////////////////////////////////////////
 // Mapeando algumas funções para compatibilidade com Windows            //
