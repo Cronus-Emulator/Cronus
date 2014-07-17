@@ -6,7 +6,7 @@
 #  \______  /|__|   \____/|___|  /____//____  >
 #         \/                   \/           \/  
 #----- Descrição: ----------------------------------------
-# Makefile para criação dos binários do emulador.
+# Makefile para criação dos binários do emulador para Linux
 #---------------------------------------------------------
 
 # @configure_input@
@@ -107,14 +107,14 @@ distclean: clean
 
 
 help: Makefile
-	@echo "'common_sql'  - Cria apenas o objeto para conexão à base de dados."
-	@echo "'mt19937ar'   - Cria o objeto para a dependência 'Mersenne Twister MT19937'"
-	@echo "'libconfig'   - Cria o objeto para a dependência 'LibConfig'"
-	@echo "'login_sql'   - Cria o módulo Login-Server"
-	@echo "'char_sql'    - Cria o módulo Char-Server"
-	@echo "'map_sql'     - Cria o módulo Map-Server"
-	@echo "'sql'         - Cria apenas binários do emulador."
-	@echo "'all'         - Cria todos os módulos"
+	@echo "'common_sql'  - Cria apenas o objeto para lidar com a base de dados MySQL"
+	@echo "'mt19937ar'   - Cria o objeto para a Dep. 'Mersenne Twister MT19937'"
+	@echo "'libconfig'   - Cria o objeto para a Dep. 'LibConfig'"
+	@echo "'login_sql'   - Gera o Servidor de Autenticação"
+	@echo "'char_sql'    - Gera o Servidor de Personagens"
+	@echo "'map_sql'     - Gera o Servidor de Mapas"
+	@echo "'sql'         - Gera o emulador."
+	@echo "'all'         - Gera o emulador."
 	@echo "'clean'       - Limpa os objetos e os executáveis"
 	@echo "'buildclean'  - Cria os arquivos-objeto sem substituir os executáveis"
 	@echo "'distclean'   - Limpa os arquivos gerados pelo ./configure"
@@ -123,5 +123,5 @@ help: Makefile
 #####################################################################
 
 needs_mysql:
-	@echo "MySQL não encontrado ou desativado pelo script de configuração."
+	@echo "Falha em encontrar MySQL. Instale o pacote corretamente!! "
 	@exit 1
