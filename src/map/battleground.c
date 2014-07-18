@@ -152,13 +152,13 @@ int bg_team_leave(struct map_session_data *sd, enum bg_team_leave_type flag) {
 		switch( flag ) {
 			default:
 			case BGTL_QUIT:
-				sprintf(output, "Server : %s has quit the game...", sd->status.name);
+				sprintf(output, "Servidor: %s saiu da partida...", sd->status.name);
 				break;
 			case BGTL_LEFT:
-				sprintf(output, "Server : %s is leaving the battlefield...", sd->status.name);
+				sprintf(output, "Servidor: %s está abandonando a arena de batalha...", sd->status.name);
 				break;
 			case BGTL_AFK:
-				sprintf(output, "Server : %s has been afk-kicked from the battlefield...", sd->status.name);
+				sprintf(output, "Servidor: %s foi removido da arena por inatividade...", sd->status.name);
 				break;
 		}
 		clif->bg_message(bgd, 0, "Server", output, strlen(output) + 1);

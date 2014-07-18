@@ -67,7 +67,7 @@ int inter_pet_tosql(int pet_id, struct s_pet* p)
 	}
 
 	if (save_log)
-		ShowInfo("Pet saved %d - %s.\n", pet_id, p->name);
+		ShowInfo("Salvando Bicho de estimacao! (PETID: %d | Nome: %s) .\n", pet_id, p->name);
 	return 1;
 }
 
@@ -77,7 +77,7 @@ int inter_pet_fromsql(int pet_id, struct s_pet* p)
 	size_t len;
 
 #ifdef NOISY
-	ShowInfo("Loading pet (%d)...\n",pet_id);
+	ShowInfo("Carregando Bicho de estimacao! (PETID: %d) .\n",pet_id);
 #endif
 	memset(p, 0, sizeof(struct s_pet));
 
@@ -110,7 +110,7 @@ int inter_pet_fromsql(int pet_id, struct s_pet* p)
 		p->intimate = cap_value(p->intimate, 0, 1000);
 
 		if( save_log )
-			ShowInfo("Pet loaded (%d - %s).\n", pet_id, p->name);
+			ShowInfo("Bicho de estimacao carregado. (PETID: %d | Nome: %s).\n", pet_id, p->name);
 	}
 	return 0;
 }
@@ -127,7 +127,7 @@ void inter_pet_sql_final(void){
 }
 //----------------------------------
 int inter_pet_delete(int pet_id){
-	ShowInfo("delete pet request: %d...\n",pet_id);
+	ShowInfo("Pedido para remover Bicho de estimacao. (PETID: %d). \n",pet_id);
 
 	if( SQL_ERROR == SQL->Query(sql_handle, "DELETE FROM `%s` WHERE `pet_id`='%d'", pet_db, pet_id) )
 		Sql_ShowDebug(sql_handle);
@@ -142,7 +142,7 @@ int mapif_pet_created(int fd, int account_id, struct s_pet *p)
 	if(p!=NULL){
 		WFIFOW(fd, 6) = p->class_;
 		WFIFOL(fd, 8) = p->pet_id;
-		ShowInfo("int_pet: created pet %d - %s\n", p->pet_id, p->name);
+		ShowInfo("Bicho de estimacao criado! (PETID: %d | Nome: %s). \n", p->pet_id, p->name);
 	}else{
 		WFIFOB(fd, 6) = 0;
 		WFIFOL(fd, 8) = 0;
@@ -260,7 +260,7 @@ int mapif_save_pet(int fd, int account_id, struct s_pet *data) {
 	RFIFOHEAD(fd);
 	len=RFIFOW(fd, 2);
 	if(sizeof(struct s_pet)!=len-8) {
-		ShowError("inter pet: data size error %d %d\n", sizeof(struct s_pet), len-8);
+		ShowError("[Inter_Pet]: Dados corrompidos (%d != %d). \n", sizeof(struct s_pet), len-8);
 	}
 
 	else{

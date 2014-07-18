@@ -105,8 +105,8 @@ int npc_get_new_npc_id(void) {
 				return npc_id++;// available
 		}
 		// full loop, nothing available
-		ShowFatalError("npc_get_new_npc_id: All ids are taken. Exiting...");
-		exit(1);
+		ShowFatalError("[NPC] -  Todos as ID's em uso. Abortando...");
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -188,7 +188,7 @@ int npc_enable(const char* name, int flag)
 	struct npc_data* nd = npc->name2id(name);
 
 	if ( nd == NULL ) {
-		ShowError("npc_enable: Attempted to %s a non-existing NPC '%s' (flag=%d).\n", (flag&3) ? "show" : "hide", name, flag);
+		ShowError("[NPC] - Tentativa de %s em um NPC inexistente NPC (Nome: '%s' | flag: %d).\n", (flag&3) ? "mostrar" : "esconder", name, flag);
 		return 0;
 	}
 
@@ -294,7 +294,6 @@ int npc_event_dequeue(struct map_session_data* sd)
 		return 0; //Nothing to dequeue
 
 	if (!pc->addeventtimer(sd,100,sd->eventqueue[0])) { //Failed to dequeue, couldn't set a timer.
-		ShowWarning("npc_event_dequeue: event timer is full !\n");
 		return 0;
 	}
 	//Event dequeued successfully, shift other elements.
@@ -464,7 +463,7 @@ int npc_event_do_clock(int tid, int64 tick, int id, intptr_t data) {
  **/
 void npc_event_do_oninit( bool reload )
 {
-	ShowStatus("Event '"CL_WHITE"OnInit"CL_RESET"' executed with '"CL_WHITE"%d"CL_RESET"' NPCs."CL_CLL"\n", npc->event_doall("OnInit"));
+	ShowStatus("Evento '"CL_WHITE"OnInit"CL_RESET"' executado com '"CL_WHITE"%d"CL_RESET"' NPC's."CL_CLL"\n", npc->event_doall("OnInit"));
 
 	// This interval has already been added on startup
 	if( !reload )
@@ -519,13 +518,13 @@ int npc_timerevent(int tid, int64 tick, int id, intptr_t data) {
 	struct timer_event_data *ted = (struct timer_event_data*)data;
 	struct map_session_data *sd=NULL;
 
-	if( nd == NULL ) {
-		ShowError("npc_timerevent: NPC not found??\n");
+	if(!nd) {
+		ShowError("[NPC] - NPC inexistente. \n");
 		return 0;
 	}
 
 	if( ted->rid && !(sd = map->id2sd(ted->rid)) ) {
-		ShowError("npc_timerevent: Attached player not found.\n");
+		ShowError("[NPC] - RID inexistente.\n");
 		ers_free(npc->timer_event_ers, ted);
 		return 0;
 	}
@@ -4305,19 +4304,19 @@ int npc_ev_label_db_clear_sub(DBKey key, DBData *data, va_list args)
 void npc_process_files( int npc_min ) {
 	struct npc_src_list *file; // Current file
 
-	ShowStatus("Loading NPCs...\r");
+	ShowStatus("Carregando NPC's...\r");
 	for( file = npc->src_files; file != NULL; file = file->next ) {
-		ShowStatus("Loading NPC file: %s"CL_CLL"\r", file->name);
+		ShowStatus("NPC: %s"CL_CLL"\r", file->name);
 		if (npc->parsesrcfile(file->name, false) != EXIT_SUCCESS)
 			map->retval = EXIT_FAILURE;
 	}
-	ShowInfo ("Done loading '"CL_WHITE"%d"CL_RESET"' NPCs:"CL_CLL"\n"
-		"\t-'"CL_WHITE"%d"CL_RESET"' Warps\n"
-		"\t-'"CL_WHITE"%d"CL_RESET"' Shops\n"
+	ShowInfo ("Finalizada leitura de '"CL_WHITE"%d"CL_RESET"' NPC's:"CL_CLL"\n"
+		"\t-'"CL_WHITE"%d"CL_RESET"' Locais\n"
+		"\t-'"CL_WHITE"%d"CL_RESET"' Lojas\n"
 		"\t-'"CL_WHITE"%d"CL_RESET"' Scripts\n"
-		"\t-'"CL_WHITE"%d"CL_RESET"' Spawn sets\n"
-		"\t-'"CL_WHITE"%d"CL_RESET"' Mobs Cached\n"
-		"\t-'"CL_WHITE"%d"CL_RESET"' Mobs Not Cached\n",
+		"\t-'"CL_WHITE"%d"CL_RESET"' Hordas\n"
+		"\t-'"CL_WHITE"%d"CL_RESET"' Monstros (Cache)\n"
+		"\t-'"CL_WHITE"%d"CL_RESET"' Monstros (Delay) \n",
 		npc_id - npc_min, npc_warp, npc_shop, npc_script, npc_mob, npc_cache_mob, npc_delay_mob);
 }
 
@@ -4408,8 +4407,8 @@ int npc_reload(void) {
 	// Execute rest of the startup events if connected to char-server. [Lance]
 	// Executed when connection is established with char-server in chrif_connectack
 	if( !intif->CheckForCharServer() ) {
-		ShowStatus("Event '"CL_WHITE"OnInterIfInit"CL_RESET"' executed with '"CL_WHITE"%d"CL_RESET"' NPCs.\n", npc->event_doall("OnInterIfInit"));
-		ShowStatus("Event '"CL_WHITE"OnInterIfInitOnce"CL_RESET"' executed with '"CL_WHITE"%d"CL_RESET"' NPCs.\n", npc->event_doall("OnInterIfInitOnce"));
+		ShowStatus("Evento '"CL_WHITE"OnInterIfInit"CL_RESET"' executado com '"CL_WHITE"%d"CL_RESET"' NPC's.\n", npc->event_doall("OnInterIfInit"));
+		ShowStatus("Evento '"CL_WHITE"OnInterIfInitOnce"CL_RESET"' executado com '"CL_WHITE"%d"CL_RESET"' NPC's.\n", npc->event_doall("OnInterIfInitOnce"));
 	}
 	// Refresh guild castle flags on both woe setups
 	// These events are only executed after receiving castle information from char-server
@@ -4538,7 +4537,7 @@ int do_init_npc(void) {
 
 		map->zone_init();
 	
-		npc->motd = npc->name2id("HerculesMOTD"); /* [Ind/Hercules] */
+		npc->motd = npc->name2id("CronusMOTD");
 	
 		// set up the events cache
 		memset(script_event, 0, sizeof(script_event));

@@ -370,10 +370,10 @@ void log_sql_init(void) {
 	// log db connection
 	logs->mysql_handle = SQL->Malloc();
 	
-	ShowInfo(""CL_WHITE"[SQL]"CL_RESET": Conectando-se na base de dados para registro "CL_WHITE"%s"CL_RESET" em "CL_WHITE"%s"CL_RESET"...\n",logs->db_name,logs->db_ip);
+	ShowInfo(""CL_WHITE"[SQL]"CL_RESET": Conectando-se na base de dados "CL_WHITE"%s"CL_RESET" em "CL_WHITE"%s"CL_RESET"...\n",logs->db_name,logs->db_ip);
 	if ( SQL_ERROR == SQL->Connect(logs->mysql_handle, logs->db_id, logs->db_pw, logs->db_ip, logs->db_port, logs->db_name) )
 		exit(EXIT_FAILURE);
-	ShowStatus(""CL_WHITE"[SQL]"CL_RESET": Successfully '"CL_GREEN"connected"CL_RESET"' to Database '"CL_WHITE"%s"CL_RESET"'.\n", logs->db_name);
+	ShowStatus(""CL_WHITE"[SQL]"CL_RESET": "CL_GREEN"CONECTADO"CL_RESET" com sucesso na base de dados '"CL_WHITE"%s"CL_RESET"'.\n", logs->db_name);
 	
 	if( strlen(map->default_codepage) > 0 )
 		if ( SQL_ERROR == SQL->SetEncoding(logs->mysql_handle, map->default_codepage) )
@@ -472,10 +472,10 @@ int log_config_read(const char* cfgName) {
 		const char* target = logs->config.sql_logs ? "table" : "file";
 
 		if( logs->config.enable_logs && logs->config.filter ) {
-			ShowInfo("Logging item transactions to %s '%s'.\n", target, logs->config.log_pick);
+			ShowInfo("Registrando movimento de itens para %s '%s'.\n", target, logs->config.log_pick);
 		}
 		if( logs->config.branch ) {
-			ShowInfo("Logging monster summon item usage to %s '%s'.\n", target, logs->config.log_pick);
+			ShowInfo("Registrando uso de itens para invocar monstros em %s '%s'.\n", target, logs->config.log_pick);
 		}
 		if( logs->config.chat ) {
 			ShowInfo("Registrando Conversas para %s '%s'.\n", target, logs->config.log_chat);
@@ -484,13 +484,13 @@ int log_config_read(const char* cfgName) {
 			ShowInfo("Registrando Comandos para %s '%s'.\n", target, logs->config.log_gm);
 		}
 		if( logs->config.mvpdrop ) {
-			ShowInfo("Registrando Itens deixados por Chefes para %s '%s'.\n", target, logs->config.log_mvpdrop);
+			ShowInfo("Registrando Itens deixados por Monstros Chefes para %s '%s'.\n", target, logs->config.log_mvpdrop);
 		}
 		if( logs->config.npc ) {
 			ShowInfo("Registrando Conversas de NPC's para %s '%s'.\n", target, logs->config.log_npc);
 		}
 		if( logs->config.zeny ) {
-			ShowInfo("Logging Zeny transactions to %s '%s'.\n", target, logs->config.log_zeny);
+			ShowInfo("Registrando movimento de zeny para %s '%s'.\n", target, logs->config.log_zeny);
 		}
 		logs->config_done();
 	}

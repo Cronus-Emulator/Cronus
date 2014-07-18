@@ -82,7 +82,7 @@ int storage_fromsql(int account_id, struct storage_data* p)
 	p->storage_amount = i;
 	SQL->FreeResult(sql_handle);
 
-	ShowInfo("storage load complete from DB - id: %d (total: %d)\n", account_id, p->storage_amount);
+	ShowInfo("Carregamento completo do armazem finalizado! (AID: %d | Total de itens: %d).\n", account_id, p->storage_amount);
 	return 1;
 }
 
@@ -90,7 +90,7 @@ int storage_fromsql(int account_id, struct storage_data* p)
 int guild_storage_tosql(int guild_id, struct guild_storage* p)
 {
 	memitemdata_to_sql(p->items, MAX_GUILD_STORAGE, guild_id, TABLE_GUILD_STORAGE);
-	ShowInfo ("guild storage save to DB - guild: %d\n", guild_id);
+	ShowInfo ("Salvamento dos dados do armazem de guild completado! (GID: %d).\n", guild_id);
 	return 0;
 }
 
@@ -139,7 +139,7 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 	p->storage_amount = i;
 	SQL->FreeResult(sql_handle);
 
-	ShowInfo("guild storage load complete from DB - id: %d (total: %d)\n", guild_id, p->storage_amount);
+	ShowInfo("Carregamento completo do armazem de guild finalizado! (GID: %d | Total de itens: %d)\n", guild_id, p->storage_amount);
 	return 0;
 }
 
@@ -230,7 +230,7 @@ int mapif_parse_SaveGuildStorage(int fd)
 
 	if( sizeof(struct guild_storage) != len - 12 )
 	{
-		ShowError("inter storage: data size error %d != %d\n", sizeof(struct guild_storage), len - 12);
+		ShowError("[Inter_st]: Dados corrompidos (%d != %d)\n", sizeof(struct guild_storage), len - 12);
 	}
 	else
 	{

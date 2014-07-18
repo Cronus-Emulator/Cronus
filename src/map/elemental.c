@@ -190,7 +190,7 @@ int elemental_summon_end_timer(int tid, int64 tick, int id, intptr_t data) {
 		return 1;
 
 	if( ed->summon_timer != tid ) {
-		ShowError("elemental_summon_end_timer %d != %d.\n", ed->summon_timer, tid);
+		//ShowError("elemental_summon_end_timer %d != %d.\n", ed->summon_timer, tid);
 		return 0;
 	}
 
@@ -331,7 +331,7 @@ int elemental_clean_single_effect(struct elemental_data *ed, uint16 skill_id) {
 				if( bl ) status_change_end(bl,type,INVALID_TIMER);
 				break;
 			default:
-				ShowWarning("Invalid SC=%d in elemental_clean_single_effect\n",type);
+				ShowWarning("[Elemental]: Status invalido (%d) na lista \n",type);
 				break;
 		}
 	}
@@ -784,7 +784,7 @@ int read_elementaldb(void) {
 
 	fp = fopen(line, "r");
 	if( !fp ) {
-		ShowError("read_elementaldb : can't read elemental_db.txt\n");
+		ShowError("[Elemental]: Falha na leitura do arquivo elemental_db.txt\n");
 		return -1;
 	}
 
@@ -803,7 +803,7 @@ int read_elementaldb(void) {
 			p = strtok(NULL, ",");
 		}
 		if( i < 26 ) {
-			ShowError("read_elementaldb : Incorrect number of columns at elemental_db.txt line %d.\n", k);
+			ShowError("[Elemental]: No de colunas incorreto na linha %d.\n", k);
 			continue;
 		}
 
@@ -838,11 +838,11 @@ int read_elementaldb(void) {
 		estatus->def_ele = ele%10;
 		estatus->ele_lv = ele/20;
 		if( estatus->def_ele >= ELE_MAX ) {
-			ShowWarning("Elemental %d has invalid element type %d (max element is %d)\n", db->class_, estatus->def_ele, ELE_MAX - 1);
+			ShowWarning("Elemental (Classe: %d) possui um elemento invalido (Ele: %d | Max: %d). Padronizando para Neutro \n", db->class_, estatus->def_ele, ELE_MAX - 1);
 			estatus->def_ele = ELE_NEUTRAL;
 		}
 		if( estatus->ele_lv < 1 || estatus->ele_lv > 4 ) {
-			ShowWarning("Elemental %d has invalid element level %d (max is 4)\n", db->class_, estatus->ele_lv);
+			ShowWarning("Elemental %d possui um nivel de elemento invalido (LV: %d | Max: 4). Padronizando para UM \n", db->class_, estatus->ele_lv);
 			estatus->ele_lv = 1;
 		}
 
@@ -873,7 +873,7 @@ int read_elemental_skilldb(void) {
 	sprintf(line, "%s/%s", map->db_path, "elemental_skill_db.txt");
 	fp = fopen(line, "r");
 	if( !fp ) {
-		ShowError("read_elemental_skilldb : can't read elemental_skill_db.txt\n");
+		ShowError("[Elemental]: Falha na leitura do arquivo elemental_skill_db.txt\n");
 		return -1;
 	}
 
@@ -892,20 +892,20 @@ int read_elemental_skilldb(void) {
 			p = strtok(NULL, ",");
 		}
 		if( i < 4 ) {
-			ShowError("read_elemental_skilldb : Incorrect number of columns at elemental_skill_db.txt line %d.\n", k);
+			ShowError("[Elemental]: No de colunas incorreto na linha %d.\n", k);
 			continue;
 		}
 
 		class_ = atoi(str[0]);
 		ARR_FIND(0, MAX_ELEMENTAL_CLASS, i, class_ == elemental->db[i].class_);
 		if( i == MAX_ELEMENTAL_CLASS ) {
-			ShowError("read_elemental_skilldb : Class not found in elemental_db for skill entry, line %d.\n", k);
+			ShowError("[Elemental]: Classe inexistente para registro da habilidade na linha %d.\n", k);
 			continue;
 		}
 
 		skill_id = atoi(str[1]);
 		if( skill_id < EL_SKILLBASE || skill_id >= EL_SKILLBASE + MAX_ELEMENTALSKILL ) {
-			ShowError("read_elemental_skilldb : Skill out of range, line %d.\n", k);
+			ShowError("[Elemental]: Habilidade fora de contexto na linha %d.\n", k);
 			continue;
 		}
 
@@ -914,12 +914,12 @@ int read_elemental_skilldb(void) {
 
 		skillmode = atoi(str[3]);
 		if( skillmode < EL_SKILLMODE_PASIVE || skillmode > EL_SKILLMODE_AGGRESSIVE ) {
-			ShowError("read_elemental_skilldb : Skillmode out of range, line %d.\n",k);
+			ShowError("[Elemental]: Modo da habilidade fora de contexto na linha %d.\n",k);
 			continue;
 		}
 		ARR_FIND( 0, MAX_ELESKILLTREE, i, db->skill[i].id == 0 || db->skill[i].id == skill_id );
 		if( i == MAX_ELESKILLTREE ) {
-			ShowWarning("Unable to load skill %d into Elemental %d's tree. Maximum number of skills per elemental has been reached.\n", skill_id, class_);
+			ShowWarning("[Elemental]: Falha em carregar habilidade (ID: %d) na lista do Elemental (%d's). Limite de habilidades excedido!! \n", skill_id, class_);
 			continue;
 		}
 		db->skill[i].id = skill_id;
