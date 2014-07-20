@@ -1,0 +1,163 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Hugel
+//----- Por: -------------------------------------------------
+//= erKURITA; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.3
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Hugel.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 Started the script. [erKURITA]
+//= 1.1 Removed Duplicates [Silent]
+//= 1.2 Rescripted to official 10.3 standards. [L0ne_W0lf]
+//= 1.3 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+hugel,98,56,3	script	Vovó Guia de Hugel#huge	4_F_LGTGRAND,0,0,{
+	mes "[Vovó Guia de Hugel]";
+	mes "Oh, olá! Você é um aventureiro com muita energia.";
+	mes "Bem-vindo a Hugel. Eu recebi a honra de ser a sua guia em sua visita a essa bela vila.";
+	mes "Se essa é a primeira vez que você usa nossos Serviços de guia, por que não consulta o menu 'Aviso' primeiro?";
+	while(1) {
+		next;
+		switch (select ("Guia da Vila:Limpar as indicações do Minimapa:Aviso:Cancelar")) {
+		case 1:
+			mes "[Vovó Guia de Hugel]";
+			mes "Eu posso dizer a você onde fica cada edifício que procura, desde que ele fique em Hugel.";
+			mes "E então, onde você gostaria de ir?";
+			if (.@compass_check == 0) {
+				mes "Você gostaria que eu";
+				mes "indicasse os locais";
+				mes "em seu Minimapa?";
+				next;
+ 				if (select ("Sim:Não") == 1) set .@compass_check,1;
+			}
+			set .@loop,1;
+			while(.@loop) {
+				if (.@wait_button_chk == 0) set .@wait_button_chk,1;
+				else next;
+				switch (select ("Igreja:Pousada:Taverna:Aeroporto:Loja de Armas:Loja de Utilidades:Loja de Artigos de Festa:^3131FFLocal de Mudança de Classe de Caçador^000000:^3131FFPalácio da Expedição ao Templo^000000:Arena de Corrida de Monstros:Sala de Bingo:Cancelar")) {
+				case 1:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Bem, para mim, essa Igreja é um lugar para pessoas velhas como eu, sabe...";
+					if (.@compass_check)
+						viewpoint 1,156,116,2,0xFF0000;
+					break;
+				case 2:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Mas o dever antes da diversão.";
+					mes "É melhor desfazer suas malas antes de começar a passear pela";
+					mes "É o prédio bem ao meu lado.";
+					if (.@compass_check)
+						viewpoint 1,104,79,3,0xFF00FF;
+					break;
+				case 3:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Sim, quando você viaja, é uma boa coisa parar em uma Taverna e fazer novas amizades.";
+					mes "Siga para leste e você encontrará a Taverna.";
+					if (.@compass_check)
+						viewpoint 1,129,66,4,0x99FFFF;
+					break;
+				case 4:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Há algum tempo, estrangeiros vieram até nossa vila e construíram essa coisa estranha parecida com um aeroporto...";
+					mes "Como eles chamam mesmo essas coisas voadoras? Aeroplanos?";
+					if (.@compass_check)
+						viewpoint 1,178,146,5,0x0000FF;
+					break;
+				case 5:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Bem, nós temos uma Loja de Armas no centro da vila.";
+					mes "Mas não sei se encontrará nela alguma arma que seja útil para você.";
+					if (.@compass_check)
+						viewpoint 1,70,158,6,0x00FF00;
+					break;
+				case 6:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Sim, eu amo as Poções Vermelhas típicas de Hugel. Mas eu ainda não experimentei as Poções Vermelhas de outros lugares... hohoho. ";
+					mes "A Loja de Utilidades está localizada no centro da vila.";
+					if (.@compass_check)
+						viewpoint 1,93,167,7,0x00FF00;
+					break;
+				case 7:
+					mes "[Vovó Guia de Hugel]";
+  					mes "A Loja de Suprimentos para Festas fica perto do centro da vila.";
+					mes "Mas lembre-se de não usar fogos de artifício e outros explosivos perto das pessoas, pois isso pode ser perigoso, sabe?";
+					if (.@compass_check)
+						viewpoint 1,91,105,8,0xFF99FF;
+					break;
+				case 8:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Oh, você quer se tornar um Caçador?";
+					mes "Então vá para nordeste, seguindo a praia, e você encontrará o Local de Mudança de Classe de Caçador.";
+					if (.@compass_check)
+						viewpoint 1,206,228,9,0xFF9900;
+					break;
+				case 9:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Ouvi dizer que a Expedição do Templo está ficando em uma casa a oeste.";
+					mes "Eles colocaram algum tipo de placa no meio da vila, então acho que eles estão contratando pessoas para algum tipo de trabalho...";
+					mes "Eu me pergunto o que eles estão aprontando por lá... hmmm.";
+					if (.@compass_check)
+						viewpoint 1,52,91,10,0xFFFFFF;
+					break;
+				case 10:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Eu também gosto de participar dos jogos de Corrida de Monstros. É bem divertido, sabe?";
+					mes "Oh, você ainda não experimentou? Não?! Então é melhor não perder mais tempo. Acredite, você vai gostar.";
+					if (.@compass_check)
+						viewpoint 1,58,72,11,0xFF9900;
+					break;
+				case 11:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Você gosta de bingo? Se gostar, você pode visitar a Sala de Bingo Euklan.";
+					if (.@compass_check)
+						viewpoint 1,55,209,12,0x66FFFF;
+					break;
+				case 12:
+					mes "[Vovó Guia de Hugel]";
+  					mes "Se você quiser remover todas essas marcas de localização de seu mapa,";
+					mes "é só vir falar comigo novamente e escolher 'Limpar as indicações do Minimapa' no menu.";
+					set .@loop,0;
+				}
+			}
+			break;
+		case 2:
+			viewpoint 2,156,116,2,0xFF0000;
+			viewpoint 2,104,79,3,0xFF00FF;
+			viewpoint 2,129,66,4,0x99FFFF;
+			viewpoint 2,178,146,5,0x0000FF;
+			viewpoint 2,70,158,6,0x00FF00;
+			viewpoint 2,93,167,7,0x00FF00;
+			viewpoint 2,91,105,8,0xFF99FF;
+			viewpoint 2,206,228,9,0xFF9900;
+			viewpoint 2,52,91,10,0xFFFFFF;
+			viewpoint 2,58,72,11,0xFF9900;
+			viewpoint 2,55,209,12,0x66FFFF;
+			set .@compass_check,0;
+			mes "[Vovó Guia de Hugel]";
+			mes "Pronto, elas já sumiram. Se você quiser informações sobre outros lugares, é só falar comigo.";
+			break;
+		case 3:
+			mes "[Vovó Guia de Hugel]";
+			mes "Quando você usa o menu Guia da Vila, ";
+			mes "lembre-se que a posição dos lugares que você procura será marcada em seu mapa, no canto superior direito da tela.";
+			mes "Se você não estiver vendo seu mapa, use a tecla de atalho 'ctrl+tab' ou pressione o botão 'Mapa' em sua janela de informações básicas, tudo bem?";
+			mes "E você também pode aproximar a visão de seu mapa usando o botão '-' caso você não consiga visualizar o mapa da vila inteiro.";
+			break;
+
+		case 4:
+			mes "[Vovó Guia de Hugel]";
+			mes "Esse trabalho de guia é realmente muito empolgante. Hohoho";
+			close;
+		}
+	}
+}

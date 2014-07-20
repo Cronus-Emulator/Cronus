@@ -1,0 +1,126 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Izlude
+//----- Por: -------------------------------------------------
+//= kobra_k88; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.6
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Izlude.
+//----- Comentários Adicionais: ------------------------------
+//= 1.2 Optimized, updated common guide names [Lupus]
+//= 1.3 Updated the guide according to how it is on iRO, thanks [MasterOfMuppets]
+//=     to Muad_Dib
+//= 1.4 Fitted the many lines into 1 or 2, and corrected some typos [erKURITA]
+//= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
+//= 1.5a Fixed some errors with the loop[Samuray22]
+//	-Thanks to $ephiroth.
+//= 1.6 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+izlude,121,87,6	script	Guia#iz	8W_SOLDIER,{
+	cutin "prt_soldier",2;
+	mes "[Guia de Izlude]";
+	mes "Bem-vind"+(Sex?"o":"a")+" a Izlude, a cidade-satelite de Prontera.";
+	mes "Nós estamos aqui para ajudar os visitantes da cidade. Se você tem alguma dúvida, consulte-nos.";
+	set .@loop1,1;
+	while(.@loop1) {
+		next;
+		switch (select ("Indicações:Limpar indicações:Tutorial:Cancelar.")) {
+		case 1:
+			mes "[Guia de Izlude]";
+			mes "Por favor, selecione uma das opções.";
+			if (.@compass_check == 0) {
+				mes "Você gostaria que as indicações permaneçam no mini-mapa?";
+				next;
+				if (select ("Sim.:Não.") == 1) set .@compass_check,1;
+			}
+			set .@loop2,1;
+			while(.@loop2) {
+				if (.@wait_button_chk == 0) set .@wait_button_chk,1;
+				else next;
+				
+				switch (select("^FF0000Associação dos Espadachins^000000:Sede dos Espadachins:Arena:Porto de Izlude:Loja de Armas:Loja de Ferramentas:Cancelar")) {
+				case 1:
+					mes "[Guia de Izlude]";
+					mes "A Associação se encontra na ilhinha do extremo oeste.";
+					if (.@compass_check)
+						viewpoint 1,52,140,0,0xFF0000;
+					break;
+				case 2:
+					mes "[Guia de Izlude]";
+					mes "A Sede se encontra na ilhinha do extremo leste.";
+					if (.@compass_check)
+						viewpoint 1,214,130,1,0x00FF00;
+					break;
+				case 3:
+					mes "[Guia de Izlude]";
+					mes "A Arena se encontra no extremo norte de Izlude.";
+					mes "Porém ela ainda não está funcionando.";
+					if (.@compass_check)
+						viewpoint 1,128,225,2,0x00FF00;
+					break;
+				case 4:
+					mes "[Guia de Izlude]";						
+					mes "Do Porto é possível ir até Alberta ou a ilha de Byalan, nosso calabouço. Ela se localiza ao nordeste.";
+					if (.@compass_check)
+						viewpoint 1,200,180,3,0xFF0000;
+					break;
+				case 5:
+					mes "[Guia de Izlude]";
+					mes "A Loja de Armas se encontra ao noroeste do centro da cidade.";
+					if (.@compass_check)
+						viewpoint 1,111,149,4,0xFF00FF;
+					break;
+				case 6:
+					mes "[Guia de Izlude]";
+					mes "A Loja de Ferramentas se encontra ao nordeste do centro da cidade.";
+					if (.@compass_check)
+						viewpoint 1,148,148,5,0xFF00FF;
+					break;
+				case 7:
+					mes "[Guia de Izlude]";
+					mes "Se você deseja apagar as indicações do seu mini-mapa, por favor selecione 'Limpar indicações'.";
+					set .@loop2,0;
+					break;
+				}
+			}
+			break;
+		case 2:
+			viewpoint 2,237,41,0,0x00FF00;
+			viewpoint 2,237,41,1,0x0000FF;
+			viewpoint 2,46,345,2,0x00FF00;
+			viewpoint 2,175,220,3,0xFF0000;
+			viewpoint 2,134,221,4,0xFF0000;
+			viewpoint 2,204,214,5,0xFF0000;
+			set .@compass_check,0;
+			break;
+		case 3:
+			mes "[Guia de Izlude]";
+			mes "Nós fomos exaustivamente treinados para servi-l"+(Sex?"o":"a")+" da melhor maneira possivel e sem falhas.";
+			mes "Assim você tem a garantia das melhores indicações possiveis.";
+			next;					
+			mes "[Guia de Izlude]";
+			mes "As indicações que lhe daremos podem ser marcadas no seu mini-mapa.";
+			mes "Para visualizar o seu mini-mapa, aperte 'ctrl+tab', ou clique no botão 'mapa' no menu principal.";
+			mes "Controle o seu 'zoom' no mini-mapa por meio dos símbolos '+' e '-'.";
+			break;
+				
+		case 4:
+			mes "[Guia de Izlude]";
+			mes "Espero que você tenha uma jornada segura e aproveite sua estadia.";
+			close2;
+			set .@loop1,0;
+			break;
+		}
+	}
+	cutin "prt_soldier",255;
+	end;
+}

@@ -1,0 +1,114 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Rachel
+//----- Por: -------------------------------------------------
+//= L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.3
+//----- Descrição: -------------------------------------------
+// [Conversão Oficial]
+//= Guias da cidade de Rachel.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First version. [L0ne_W0lf]
+//= 1.1 Change the while loops a bit. [L0ne_W0lf]
+//= 1.2 Deleted an Unnecessary "next;" [Samuray22]
+//	-Thanks to $ephiroth.
+//= 1.2a Fixed some errors with the loop[Samuray22]
+//	-Thanks to $ephiroth.
+//= 1.2b Deleted a unnecessary "end". [Samuray22]
+//= 1.3 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+rachel,138,146,5	script	Guia de Rachel	4_M_RASWORD,{
+	mes "[Guia de Rachel]";
+	mes "Bem-vindo à capital de Arunafeltz, Rachel, onde contamos com a proteção de nossa deusa Freya.";
+	mes "Se essa é a primeira vez que você usa nossos Serviços de guia, por que não consulta o menu 'Aviso' primeiro?";
+	set .@loop1,1;
+	while(.@loop1) {
+		next;
+		switch (select ("Guia da Vila:Limpar as indicações do Minimapa:Aviso:Cancelar")) {
+		case 1:
+			mes "[Guia de Rachel]";
+			mes "Eu posso dizer a você onde fica cada edifício que procura, desde que ele fique em Rachel.";
+			mes "E então, onde você gostaria de ir?";
+			if (.@compass_check == 0) {
+				mes "Você gostaria que eu";
+				mes "indicasse os locais";
+				mes "em seu Minimapa?";
+				next;
+				if (select ("Sim:Não") == 1) set .@compass_check,1;
+			}
+			set .@loop2,1;
+			while(.@loop2) {
+				if (.@wait_button_chk == 0) set .@wait_button_chk,1;
+				else next;
+
+				switch (select ("Cheshrumnir:Pousada:Loja de Armas:Loja de Utilidades:Aeroporto:Cancelar")) {
+				case 1:
+					mes "[Guia de Rachel]";
+					mes "Cheshrumnir é uma área sagrada onde se encontra a papisa, a incarmação da deusa Freya.";
+  					mes "Pegue a rua ao norte para encontrar o edifício.";
+					if (.@compass_check == 1) viewpoint 1,150,249,1,0xFF0000;
+					break;
+				case 2:
+					mes "[Guia de Rachel]";
+					mes "Você pode descansar na Pousada. O edifício a minha esquerda é a Pousada de Rachel.";
+					if (.@compass_check == 1) viewpoint 1,115,149,2,0xFF00FF;
+					break;
+				case 3:
+					mes "[Guia de Rachel]";
+					mes "Você gostaria de verificar as armas que são vendidas em Rachel? A Loja de Armas está localizada próxima ao portão oeste.";
+					if (.@compass_check == 1) viewpoint 1,42,87,3,0x99FFFF;
+					break;
+				case 4:
+					mes "[Guia de Rachel]";
+					mes "A Loja de Utilidades de Rachel vende poções da melhor qualidade. Ela está localizada perto do portão oeste.";
+					if (.@compass_check == 1) viewpoint 1,83,78,4,0x0000FF;
+					break;
+				case 5:
+					mes "[Guia de Rachel]";
+					mes "O Aeroporto está localizado do lado de fora do portão leste.";
+					if (.@compass_check == 1) viewpoint 1,273,125,5,0x00FF00;
+					break;
+				case 6:
+					mes "[Guia de Rachel]";
+					mes "Se você quiser limpar as marcações no seu MiniMapa,";
+					mes "fale comigo novamente e escolha a opção 'Limpar as indicações do Minimapa'.";
+					set .@loop2,0;
+					break;
+				}
+			}
+			break;
+
+		case 2:
+			viewpoint 2,150,249,1,0xFF0000;
+			viewpoint 2,115,149,2,0xFF00FF;
+			viewpoint 2,42,87,3,0x99FFFF;
+			viewpoint 2,83,78,4,0x0000FF;
+			viewpoint 2,273,125,5,0x00FF00;
+			mes "[Guia de Rachel]";
+			mes "Pronto, elas foram eliminadas. Se você quiser mais indicações é só pedir.";
+			break;
+		case 3:
+			mes "[Guia de Rachel]";
+			mes "Quando você usar o menu 'Guia da Vila' ";
+			mes "certifique-se que as localizações dos edifícios serão marcadas no seu mini-mapa no canto direito e acima de sua tela.";
+			mes "Se você não puder ver seu mini-mapa utilize o comando 'ctrl+tab' ou o botão 'Mapa' da janela de informações básicas.";
+			mes "E você também pode ajustar o zoom de seu mini-mapa utilizando o botão '-' caso você não consiga ver o mapa inteiro da Vila.";
+			break;
+		case 4:
+			mes "[Guia de Rachel]";
+			mes "Desejo uma ótima estadia em Arunafeltz.";
+			close2;
+			set .@loop1,0;
+			break;
+		}
+	}
+	close;
+}

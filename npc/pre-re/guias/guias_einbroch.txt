@@ -1,0 +1,251 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Einbroch/Einbech
+//----- Por: -------------------------------------------------
+//= Muad_dib; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.6
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Einbroch/Einbech.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0b missing tabs, fixed Guide coords [Lupus]
+//= 1.1 added 1 more Guide NPC, thanx to Justin84 [Lupus]
+//= 1.2 Optimized, updated common guide names [Lupus]
+//= 1.3 Fitted the many lines into 1 or 2, and corrected some typos [erKURITA]
+//= 1.4 Removed Duplicates [Silent]
+//= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
+//= 1.6 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+einbroch,72,202,4	script	Guia#ein::EinGuide	4_M_EIN_SOLDIER,{
+	cutin "ein_soldier",2;
+	mes "[Guia de Einbroch]";
+	mes "Bem-vindo a Einbroch,";
+	mes "a Cidade do Aço.";
+	mes "Nós estamos aqui para ajudar os turistas. Então, por favor, sintam-se à vontade para fazer as perguntas que quiserem.";
+	set .@loop1,1;
+	while (.@loop1) {
+		next;
+		switch(select("Guia da Cidade.:Limpar as indicações do minimapa.:Aviso.:Cancelar.")) {
+		case 1:
+			mes "[Guia de Einbroch]";
+			mes "Basta escolher no menu a seguir:";
+			if (.@compass_check == 0) {
+				mes "Você gostaria";
+				mes "que eu indicasse os locais";
+				mes "em seu Minimapa?";
+				next;
+				if (select("Sim.:Não.") == 1) set .@compass_check,1;
+			}
+			set .@loop2,1;
+			while(.@loop2) {
+				if (.@wait_button_chk == 0) set .@wait_button_chk,1;
+				else next;
+				switch(select("^FF0000Aeroporto^000000:Estação de Trem:Fábrica:Praça:Hotel:Loja de Armas:Laboratório:Guilda dos Ferreiros:Torre de Einbroch:Cancelar")) {
+				case 1:
+					mes "[Guia de Einbroch]";
+					mes "O ^FF0000Aeroporto^000000 está localizado a Noroeste. Lá você poderá usar a alegria e o orgulho de nossa cidade, o Aeroplano. Lembre-se de que você precisará pagar uma taxa de admissão para o Aeroplano.";
+					if (.@compass_check)
+						viewpoint 1,63,228,2,0xFF0000;
+					break;
+				case 2:
+					mes "[Guia de Einbroch]";
+					mes "A Estação de Trem está a Nordeste. Nós estamos operando trens para Einbech.";
+					if (.@compass_check)
+						viewpoint 1,236,279,3,0xFF00FF;
+					break;
+				case 3:
+					mes "[Guia de Einbroch]";
+					mes "A Fábrica é a instalação mais importante em Einbech. Fica na parte sul de nossa cidade.";
+					if (.@compass_check)
+						viewpoint 1,158,78,4,0xFF00FF;
+					break;
+				case 4:
+					mes "[Guia de Einbroch]";
+					mes "A Praça está localizada a leste do centro da cidade, aonde fica nossa maior zona comercial.";
+					if (.@compass_check)
+						viewpoint 1,232,190,5,0xFF00FF;
+					break;
+				case 5:
+					mes "[Guia de Einbroch]";
+					mes "O Hotel fica a leste da Praça e oferece acomodações de alto nível. Aproveite sua estadia em Einbroch com conforto";
+					if (.@compass_check)
+						viewpoint 1,260,201,6,0x00FF00;
+					break;
+				case 6:
+					mes "[Guia de Einbroch]";
+					mes "A Loja de Armas";
+					mes "está localizada ao norte";
+					mes "da Praça.";
+					if (.@compass_check)
+						viewpoint 1,215,221,7,0x00FF00;
+					break;
+				case 7:
+					mes "[Guia de Einbroch]";
+					mes "O laboratório é um anexo da fábrica e está localizado na esquina sudeste.";
+					if (.@compass_check)
+						viewpoint 1,36,49,8,0x00FF;
+					break;
+				case 8:
+					mes "[Guia de Einbroch]";
+					mes "A Guilda dos Ferreiros está localizada a sudeste. Você poderá aperfeiçoar seus itens com os serviços que eles prestam.";
+					if (.@compass_check)
+						viewpoint 1,244,90,9,0x00FF00;
+					break;
+				case 9:
+					mes "[Guia de Einbroch]";
+					mes "A Torre de Einbroch está no centro de Einbroch. Você pode visualizar a cidade toda do topo da torre.";
+					if (.@compass_check)
+						viewpoint 1,174,195,10,0xFFFF00;
+					break;
+				case 10:
+					mes "[Guia de Einbroch]";
+					mes "Por favor, escolha a opção 'Limpar as Indicações do menu do Minimapa' caso você não deseje mais ter as indicações dos locais em seu minimapa.";
+					set .@loop2,0;
+				}
+			}
+			break;
+		case 2:
+			viewpoint 2,63,228,2,0xFF0000;
+			viewpoint 2,236,279,3,0xFF00FF;
+			viewpoint 2,158,78,4,0xFF00FF;
+			viewpoint 2,232,190,5,0xFF00FF;
+			viewpoint 2,260,201,6,0x00FF00;
+			viewpoint 2,215,221,7,0x00FF00;
+			viewpoint 2,36,49,8,0x00FF00;
+			viewpoint 2,244,90,9,0x00FF00;
+			viewpoint 2,174,195,10,0xFFFF00;
+			set .@compass_check,0;
+			mes "[Guia de Einbroch]";
+			mes "As indicações em seu minimapa foram removidas.";
+			mes "Volte sempre.";
+			break;
+		case 3:
+			mes "[Guia de Einbroch]";
+			mes "Nós atualizamos nosso sistema de informações de analógico para o digital mais avançado. Esse novo sistema permite indicar os locais no minimapa para uma navegação mais simples.";
+			mes "Por favor, utilize esse novo sistema de acordo com a sua necessidade e vivencie a extraordinária tecnologia de magia e ciência da República de Schwaltzwald.";
+			next;
+			mes "[Guia de Einbroch]";
+			mes "Antes de começar, visualize o mapa no canto superior direito. Se não houver um minimapa em sua tela, aperte '^3355FFCtrl+Tab^000000,' ou clique no botão ‘mapa’ na janela Informações Básicas.";
+			mes "Agora, se você conseguir visualizar o minimapa, clique no ícone '^3355FF-^000000' várias vezes para visualizar a cidade inteira.";
+			break;
+		case 4:
+			mes "[Guia de Einbroch]";
+			mes "Esperamos que você aproveite sua viagem.";
+			mes "Ah, por favor, tenha em mente que nós costumamos ter uma 'Situação de Emergência de Poluição do Ar'.";
+			close2;
+			set .@loop1,0;
+		}
+	}
+	cutin "ein_soldier",255;
+	end;
+}
+
+einbroch,155,43,4	duplicate(EinGuide)	Guia#2ein	4_M_EIN_SOLDIER
+einbroch,162,317,4	duplicate(EinGuide)	Guia#3ein	4_M_EIN_SOLDIER
+
+einbech,67,37,4	script	Guia#4ein::EinGuide2	4_M_EIN_SOLDIER,{
+	cutin "ein_soldier",2;
+	mes "[Guia de Einbech]";
+	mes "Bem-vindo a Einbech,";
+	mes "Nós estamos aqui para ajudar os turistas, então por favor sintam-se a vontade para fazer as perguntas que quiserem.";
+	set .@loop1,1;
+	while (.@loop1) {
+		next;
+		switch(select("Guia da Cidade.:Limpar as indicações do minimapa:Aviso.:Cancelar.")) {
+		case 1:
+			mes "[Guia de Einbech]";
+			mes "Basta escolher no menu a seguir:";
+			if (.@compass_check == 0) {
+				mes "Você gostaria de deixar as marcações de local do seu minimapa?";
+				next;
+				if (select("Sim.:Não.") == 1) set .@compass_check,1;
+			}
+			set .@loop2,1;
+			while (.@loop2) {
+				if (.@wait_button_chk == 0) set .@wait_button_chk,1;
+				else next;
+				switch(select("Estação de Trem:Taverna:Loja de Utilidades:Guilda dos Espadachins:Mina:Cancelar")) {
+				case 1:
+					mes "[Guia de Einbech]";
+					mes "As Estações de Trem estão localizadas a nordeste e a noroeste. Nós temos linhas que operam de Einbech para Einbroch.";
+					if (.@compass_check)
+						viewpoint 1,43,213,2,0xFF0000;
+					break;
+				case 2:
+					mes "[Guia de Einbech]";
+					mes "A Taverna fica na parte sul de nossa cidade. É um bom local para relaxar após um longo dia.";
+					if (.@compass_check)
+						viewpoint 1,142,112,3,0xFF00FF;
+					break;
+				case 3:
+					mes "[Guia de Einbech]";
+					mes "A Loja de Utilidades está localizada no centro de Einbech, aonde você poderá comprar diversas ferramentas que irá precisar.";
+					if (.@compass_check)
+						viewpoint 1,176,136,4,0xFF00FF;
+					break;
+				case 4:
+					mes "[Guia de Einbech]";
+					mes "A Guilda dos Espadachins está localizada na parte mais a leste de Einbech. Ela está em construção e eles ainda não estão aceitando inscrições.";
+					if (.@compass_check)
+						viewpoint 1,250,110,5,0xFF00FF;
+					break;
+				case 5:
+					mes "[Guia de Einbech]";
+					mes "A Mina está localizada ao norte, e ainda está ativa. É lá que conseguimos todos os nossos minerais, apesar de alguns monstros tentarem às vezes interferir em nossa indústria.";
+					if (.@compass_check)
+						viewpoint 1,138,251,6,0x00FF00;
+					break;
+				case 6:
+					mes "[Guia de Einbech]";
+					mes "Por favor, escolha a 'Limpar as Indicações do menu do Minimapa' se você não deseja mais ter as indicações dos locais em seu minimapa.";
+					set .@loop2,0;
+				}
+			}
+			break;
+		case 2:
+			viewpoint 2,43,213,2,0xFF0000;
+			viewpoint 2,142,112,3,0xFF00FF;
+			viewpoint 2,176,136,4,0xFF00FF;
+			viewpoint 2,250,110,5,0xFF00FF;
+			viewpoint 2,138,251,6,0x00FF00;
+			set .@compass_check,0;
+			mes "[Guia de Einbroch]";
+			mes "As indicações em seu";
+			mes "minimapa foram";
+			mes "removidas. Por favor,";
+			mes "volte de novo.";
+			break;
+		case 3:
+			mes "[Guia de Einbech]";
+			mes "Nós atualizamos nosso sistema de informações de analógico para o digital mais avançado.  Esse novo sistema nos permite indicar os locais no minimapa para uma navegação mais simples.";
+			mes "Por favor, utilize esse novo sistema de acordo com suas necessidades e vivencie a extraordinária tecnologia de magia e ciência da República de Schwaltzwald.";
+			next;
+			mes "[Guia de Einbech]";
+			mes "Antes de começar, visualize o mapa no canto superior direito. Se não houver um minimapa em sua tela, aperte '^3355FFCtrl+Tab^000000,' ou clique no botão ‘mapa’ na janela Informações Básicas.";
+			mes "Agora, se você conseguir visualizar o minimapa, clique no ícone '^3355FF-^000000' várias vezes para visualizar a cidade inteira.";
+			break;
+		case 4:
+			mes "[Guia de Einbech]";
+			mes "Esperamos que você ";
+			mes "aproveite a sua viagem.";
+			mes "E, por favor, tome";
+			mes "cuidado se ficarmos sob";
+			mes "Estado de Emergência";
+			mes "pela Poluição do Ar";
+			close2;
+			set .@loop1,0;
+		}
+	}
+	cutin "ein_soldier",255;
+	end;
+}
+
+einbech,48,214,4	duplicate(EinGuide2)	Guia#5ein	4_M_EIN_SOLDIER

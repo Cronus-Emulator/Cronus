@@ -1,0 +1,140 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Comodo
+//----- Por: -------------------------------------------------
+//= kobra_k88; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.6
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Comodo.
+//----- Comentários Adicionais: ------------------------------
+//= Fully working
+//= 1.1 Now using duplicate command.
+//= 1.2 Optimized, updated common guide names [Lupus]
+//= 1.3 Updated the guide according to how it is on iRO, thanks
+//=     to Muad_Dib [MasterOfMuppets]
+//= 1.4 Removed 3 guides, and converted to use functions.
+//= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
+//= 1.6 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+comodo,322,178,4	script	Guia Turístico#cmd::CmdGuide	8_F_GIRL,{
+	callfunc "F_CmdGuide","Aborígene Kokomo";
+}
+
+comodo,176,350,4	script	Guia Turístico#2cmd	8_F_GIRL,{
+	callfunc "F_CmdGuide","Aborígene Nukoko";
+}
+
+comodo,37,219,4	script	Guia Turístico#2cmd2	8_F_GIRL,{
+	callfunc "F_CmdGuide","Aborígine Papaya";
+}
+
+function	script	F_CmdGuide	{
+	mes "["+getarg(0)+"]";
+	mes "A Cidade da Alegria, Capital da Diversão...";
+	mes "Terra dos Sonhos e da Fantasia!";
+	mes "Bem vindo a Comodo.";
+	mes "Estou ao seu dispor para lhe mostar a cidade...";
+	mes "Onde você quiser ir...";
+	mes "Basta me dizer...";
+	next;
+	switch (select ("Cassino:Show de Hula Hula ^3355FF(Guilda das Odaliscas)^000000:Loja de Armas:Loja de Utilidades:Loja das Conchas:Filial Oeste das Kafras:Casa do Prefeito:Bar:Acampamento:Sair")) {
+	case 1:
+		viewpoint 1,140,98,0,0xFF6633;
+		mes "^FF6633+^000000 ->O Cassino...";
+		mes "é o que faz Comodo ser Comodo!";
+		mes "A diversão não pára...";
+		mes "dia ou noite no...";
+		mes "Cassino de Comodo";
+		close;
+
+	case 2:
+		viewpoint 1,188,168,1,0x0000FF;
+		mes "^0000FF+^000000 ->Show de Hula Hula.";
+		mes "Hula! Hula! Hula! Hula!";
+		mes "Quer conhecer as nossas odaliscas...";
+		mes "Elas são uma das grandes atrações de Comodo!";
+		mes "Você tem interesse em Hula Hula?";
+		mes "^3355FFGuilda das Odaliscas^000000.";
+		close;
+
+	case 3:
+		viewpoint 1,266,70,2,0x00FFFF;
+		mes "^00FFFF+^000000 ->Loja de Armas.";
+		mes "Temos coisas especiais em Comodo...";
+		mes "Itens especiais...";
+		mes "Loja de Armas de Comodo";
+		close;
+
+	case 4:
+		viewpoint 1,86,128,3,0x515151;
+		mes "^515151+^000000 ->Loja de Utilidades.";
+		mes "Temos coisas especiais em Comodo...";
+		mes "Itens especiais...";
+		mes "Loja de Utilidades de Comodo";
+		close;
+
+	case 5:
+		viewpoint 1,298,124,4,0x3355FF;
+		mes "^3355FF+^000000 ->Loja das Conchas.";
+		mes "Temos coisas especiais em Comodo...";
+		mes "Itens especiais...";
+		mes "Loja de Souveniers de Comodo";
+		close;
+
+	case 6:
+		viewpoint 1,136,202,5,0xFF5555;
+		mes "^FF5555+^000000 ->Filial Oeste das Kafras.";
+		mes "É responsável pela região Oeste de Rune-Midgard.";
+		mes "O maior centro de serviços do mundo!";
+		mes "A Filial Oeste da Central Kafra...";
+		mes "Fica em Comodo...";
+		close;
+
+	case 7:
+		viewpoint 1,114,294,5,0xFF5555;
+		mes "^FF5555+^000000 ->Casa do Prefeito.";
+		mes "Onde mora o prefeito de Comodo...";
+		mes "Se você tem interesse...";
+		mes "em Comodo...";
+		mes "Vá lá e visite o prefeito...";
+		mes "Seria muito simpático...";
+		close;
+
+	case 8:
+		viewpoint 1,166,298,5,0xFF5555;
+		mes "^FF5555+^000000 ->Bar.";
+		mes "Um adorável lugar...";
+		mes "para a interação das pessoas.";
+		mes "O tradicional Bar de Comodo...";
+		mes "Um lugar especial...";
+		close;
+	case 9:
+		viewpoint 1,210,308,5,0xFF5555;
+		mes "^FF5555+^000000 -> Acampamento.";
+		mes "Venha acampe com sua família ou namorada...";
+		mes "Viva momentos para guardar por toda a vida...";
+		mes "e delicie-se com nosso Camping Churrasco!";
+		mes "Costeletas de porco na brasa são um prato tradicional da culinária de Comodo,";
+		mes "e só aqui você pode encontrá-la!";
+		close;
+
+	case 10:
+		mes "["+getarg(0)+"]";
+		mes "Comodo fica em uma caverna...";
+		mes "Então a luz do sol nunca brilha aqui...";
+		mes "O turismo de Comodo se baseia nisso.";
+		mes "24 horas de vida noturna!";
+		mes "A melhor de toda Rune-Midgard!";
+		mes "É o jeito que ganhamos a vida...";
+		close;
+	}
+}

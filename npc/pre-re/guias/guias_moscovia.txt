@@ -1,0 +1,85 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Moscóvia
+//----- Por: -------------------------------------------------
+//= Kisuka
+//----- Versão Atual: ----------------------------------------
+//= 1.2
+//----- Descrição: -------------------------------------------
+//= Guias da cidade de Moscóvia.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First Version. [Kisuka]
+//= 1.2 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+moscovia,161,76,4	script	Guia de Moscóvia#mosk	4_F_RUSWOMAN1,{
+	mes "[Guia de Moscóvia]";
+	mes "Bem-vindo à Moscóvia.";
+	mes "Este é o paraíso em meio ao mar sem fim.";
+	mes "Você vai adorar as belas paisagens e a luz do sol!";
+	next;
+	mes "[Guia de Moscóvia]";
+	mes "Eu fui mandada pelo Palácio de Moscóvia";
+	mes "para guiar os turistas ";
+	mes "e dar informações sobre esta cidade.";
+	mes "Se tiver alguma pergunta, por favor me diga.";
+	next;
+	switch(select("Perguntar aonde posso ir.:Apagar todas as marcas do mapa.:Cancelar.")) {
+		case 1:
+			mes "[Guia de Moscóvia]";
+			mes "Aonde você gostaria de ir?";
+			next;
+			switch(select("O Palácio:Loja de Armas:Loja de Utilidades:Uma Estalagem:Cancelar")) {
+				case 1:
+					mes "[Guia de Moscóvia]";
+					mes "O palácio é ao fim do mar Norte de Rune-Midgard.";
+					mes " é onde ficam o nosso Senhor Czar de Moscóvia ";
+					mes "e seus vassalos.";
+					close2;
+					viewpoint 1,257,138,1,0xFF0000;
+					end;
+				case 2:
+					viewpoint 1,185,187,2,0x00FF00;
+					mes "[Guia de Moscóvia]";
+					mes "A Loja de Armas é o lugar onde";
+					mes "Você pode comprar armas feitas pelos melhores fabricantes de Moscóvia.";
+					close;
+				case 3:
+					mes "[Guia de Moscóvia]";
+					mes "A Loja de Utilidades é o lugar onde";
+					mes "Você pode se preparar com o que precisa para as suas viagens.";
+					close2;
+					viewpoint 1,223,174,3,0x00FF00;
+					end;
+				case 4:
+					mes "[Guia de Moscóvia]";
+					mes "A Estalagem é um lugar para descansar.";
+					mes "Espero que você passe uma noite lá.";
+					close2;
+					viewpoint 1,229,208,4,0x3355FF;
+					end;
+				case 5:
+					close;
+			}
+		case 2:
+			mes "[Guia de Moscóvia]";
+			mes "Eu apaguei todas as marcas do mapa.";
+			mes "Quando quiser colocar as marcas no mapa, pode pedir para mim.";
+			viewpoint 2,257,138,1,0xFF0000;
+			viewpoint 2,185,187,2,0x00FF00;
+			viewpoint 2,223,174,3,0x00FF00;
+			viewpoint 2,229,208,4,0x3355FF;
+			close;
+		
+		case 3:
+			mes "[Guia de Moscóvia]";
+			mes "Uma caminhada a sós também é muito bom. Cuide-se.";
+			close;
+	}
+}

@@ -1,0 +1,219 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Louyang
+//----- Por: -------------------------------------------------
+//= jAthena/Tsuyuki; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.3
+//----- Descrição: -------------------------------------------
+//= Guias da cidade de Louyang.
+//----- Comentários Adicionais: ------------------------------
+//= 0.5 Added first, Japanese version [Tsuyuki]
+//= 1.0 Translated to English from iRO NPC Dialogue (100% Official) [Tsuyuki]
+//= 1.1 Rescripted official 10.3 standards. [L0ne_W0lf]
+//= 1.2 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
+//= 1.3 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+louyang,213,213,3	script	Soldado#BA::LouGuide	4_M_CHNSOLDIER,{
+	mes "[Soldado]";
+	mes "Este é o castelo do Dragão.";
+	mes "Um lugar como esse possui uma longa história de orgulho e espírito de guerra.";
+	mes "Porém, de uns tempos para cá, ";
+	mes "temos focado nossos esforços em desenvolver mais nosso comércio";
+	mes "com terras distantes.";
+	mes "Por esse motivo, estrangeiros podem entrar e sair mais facilmente desta região.";
+	next;
+	mes "[Soldado]";
+	mes "Com uma história tão antiga, há ";
+	mes "muitas coisas para se ver.";
+	mes "Como nós nunca tínhamos negociado antes";
+	mes "Deve haver algumas coisa agradáveis ";
+	mes "e valiosas que ";
+	mes "não poderei lhe mostrar.";
+	mes "Por favor, fique quanto tempo quiser.";
+	next;
+	switch(select("Se quiser apagar as indicações no minimapa, selecione no menu.:Limpar todas as indicações.:Cancelar.")) {
+	case 1:
+		mes "[Soldado]";
+		mes "O que você gostaria de conhecer?";
+		next;
+		switch (select ("O Castelo:O Hospital:A Sede do Governo:A Loja de Utilidades:A Loja de Armas:A Taverna:Cancelar")) {
+		case 1:
+			mes "[Soldado]";
+			mes "O castelo está localizado em ^FF3355+^000000.";
+			mes "O castelo é o lar do seu senhor e hospeda";
+			mes "muitas pessoas de alta classe. Se for um convidad"+(Sex?"o":"a")+" aqui,";
+			mes "primeiro vá até lá e faça uma visita.";
+			mes "Isso é uma boa etiqueta, não acha?";
+			viewpoint 1,218,255,2,0xFF3355;
+			break;
+		case 2:
+			mes "[Soldado]";
+			mes "Tem um famoso professor de medicina oriental no castelo.";
+			mes "^CE6300+^000000";
+			mes "Dizem que não há nada que ele não cure,";
+			mes "mas não sei";
+			mes "se isso é verdade ou não.";
+			viewpoint 1,263,94,3,0xCE6300;
+			break;
+		case 3:
+			mes "[Soldado]";
+			mes "Existe uma sede do governo";
+			mes "em Castelo do Dragão.";
+			mes "A sede se localiza em ^A5BAAD+^000000.";
+			mes "Se estiver em apuros, vá direto para a sede do governo.";
+			viewpoint 1,309,80,4,0xA5BAAD;
+			break;
+		case 4:
+			mes "[Soldado]";
+			mes "A loja de utilidades está localizada em ^55FF33+^000000.";
+			mes "Lá você encontra as melhores armas";
+			mes "feitas por ferreiros experientes.";
+			viewpoint 1,145,174,5,0x55FF33;
+			break;
+		case 5:
+			mes "[Soldado]";
+			mes "A loja de armas está localizada em ^3355FF+^000000.";
+			mes "Para vencer sempre, conheça o seu inimigo!";
+			mes "Você precisa estar sempre preparad"+(Sex?"o":"a")+".";
+			mes "E não perca tempo filosofando... Haha.";
+			viewpoint 1,135,98,6,0x3355FF;
+			break;
+		case 6:
+			mes "[Soldado]";
+			mes "Se ficar cansad"+(Sex?"o":"a")+" das suas viagens, descanse na Taverna Oriental.";
+			mes "A Taverna Oriental está localizada em ^00FF00+^000000.";
+			mes "Lá se pode escutar muitas histórias de outros viajantes.";
+			viewpoint 1,280,167,7,0x00FF00;
+			break;
+		case 7:
+			mes "[Soldado]";
+			mes "Se quiser apagar as indicações no minimapa,";
+			mes "selecione no menu";
+			mes "'Limpar todas as indicações'.";
+		}
+		break;
+	case 2:
+		viewpoint 2,218,255,2,0xFF00FF;
+		viewpoint 2,263,94,3,0xFF00FF;
+		viewpoint 2,309,80,4,0xFF00FF;
+		viewpoint 2,145,174,5,0xFF00FF;
+		viewpoint 2,135,98,6,0xFF00FF;
+		viewpoint 2,280,167,7,0xFF00FF;
+		mes "[Soldado]";
+		mes "Eu apaguei todas as indicações do minimapa.";
+		mes "Se quiser marcá-las de novo, fale novamente comigo.";
+		break;
+	case 3:
+		mes "[Soldado]";
+		mes "Você pode viajar sozinh"+(Sex?"o":"a")+", o que também é bastante emocionante. Mas, tome cuidado.";
+	}
+	close;
+}
+
+louyang,160,175,3	duplicate(LouGuide)	Soldado#BB	4_M_CHNSOLDIER
+
+louyang,224,104,3	script	Mensageiro#lou	4_F_CHNWOMAN,{
+	mes "[Mensageiro]";
+	mes "Olá você chegou ao Castelo do Dragão, aqui você irá ouvir";
+	mes "uma história longa e vigorosa.";
+	mes "Nós desenvolvemos um modo novo ";
+	mes "de negociar com estrangeiros.";
+	mes "Depois disso, os estrangeiros ";
+	mes "puderam ir e vir com mais facilidade.";
+	next;
+	mes "[Mensageiro]";
+	mes "Com uma história tão antiga, há ";
+	mes "muitas coisas para se ver.";
+	mes "Como nós nunca tínhamos negociado antes";
+	mes "Deve haver algumas coisas agradáveis ";
+	mes "e valiosas que ";
+	mes "não poderei lhe mostrar.";
+	mes "Por favor, fique quanto tempo quiser.";
+	next;
+	switch (select ("Pergunte sobre o mapa.:Limpar todas as indicações.:Cancelar.")) {
+	case 1:
+		set .@compass_check,1;
+		mes "[Mensageiro]";
+		mes "O que você gostaria de conhecer?";
+		next;
+		switch (select ("O Castelo:O Hospital:A Sede do Governo:A Loja de Armas:A Loja de Utilidades:A Taverna:Cancelar")) {
+		case 1:
+			mes "O castelo está localizado em ^FF3355+^000000.";
+			mes "O castelo é o lar do seu senhor e hospeda";
+			mes "muitas pessoas de alta classe. Se for um convidado aqui,";
+			mes "primeiro vá até lá e faça uma visita.";
+			mes "Isso é uma boa etiqueta, não acha?";
+			viewpoint 1,218,255,2,0xFFFF33;
+			break;
+		case 2:
+			mes "[Mensageiro]";
+			mes "Tem um famoso doutor de medicina oriental no castelo.";
+			mes "^CE6300+^000000";
+			mes "Dizem que não há nada que ele não cure";
+			mes "mas não sei";
+			mes "se isso é verdade ou não.";
+			viewpoint 1,263,94,3,0xFFCE63;
+			break;
+		case 3:
+			mes "[Mensageiro]";
+			mes "Existe uma sede do governo";
+			mes "no Castelo do Dragão.";
+			mes "A sede se localiza em ^A5BAAD+^000000";
+			mes "Se estiver em apuros, vá direto para a sede do governo.";
+			viewpoint 1,309,80,4,0xFF00FF;
+			break;
+		case 4:
+			mes "[Mensageiro]";
+			mes "A loja de armas está localizada em ^55FF33+^000000.";
+			mes "Lá você encontra as melhores armas";
+			mes "feitas por ferreiros experientes.";
+			viewpoint 1,145,174,5,0xFF55FF;
+			break;
+		case 5:
+			mes "[Mensageiro]";
+			mes "A loja de utilidades está localizada em ^3355FF+^000000.";
+			mes "Para vencer sempre, conheça o seu inimigo!";
+			mes "Você precisa estar sempre preparad"+(Sex?"o":"a")+".";
+			mes "E não perca tempo filosofando. Haha.";
+			viewpoint 1,135,98,6,0xFF3355;
+			break;
+		case 6:
+			mes "[Mensageiro]";
+			mes "Se ficar cansad"+(Sex?"o":"a")+" das suas viagens, descanse na Taverna Oriental.";
+			mes "A Taverna Oriental está localizada em ^00FF00+^000000.";
+			mes "Lá se pode escutar muitas histórias de outros viajantes.";
+			viewpoint 1,280,167,7,0xFF00FF;
+			break;
+		case 7:
+			mes "[Mensageiro]";
+			mes "Se quiser apagar as indicações no minimapa,";
+			mes "selecione no menu";
+			mes "'Limpar todas as indicações'.";
+		}
+		break;
+	case 2:
+		viewpoint 2,218,255,2,0xFF00FF;
+		viewpoint 2,263,94,3,0xFF00FF;
+		viewpoint 2,309,80,4,0xFF00FF;
+		viewpoint 2,145,174,5,0xFF00FF;
+		viewpoint 2,135,98,6,0xFF00FF;
+		viewpoint 2,280,167,7,0xFF00FF;
+		mes "[Mensageiro]";
+		mes "Eu apaguei todas as indicações do minimapa.";
+		mes "Se quer marcá-las de novo, fale novamente comigo.";
+		break;
+	case 3:
+		mes "[Mensageiro]";
+		mes "Você pode viajar sozinh"+(Sex?"o":"a")+", o que também é bastante emocionante. Mas, tome cuidado.";
+		break;
+	}
+	close;
+}

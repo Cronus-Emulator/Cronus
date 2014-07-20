@@ -1,21 +1,29 @@
-//===== Hercules Script ======================================
-//= Alberta Town Pre-Renewal
-//===== By: ==================================================
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Cidade de Alberta Pre-Renovação.
+//----- Por: -------------------------------------------------
 //= Euphy
-//===== Current Version: =====================================
-//= 1.0
-//===== Description: =========================================
-//= [Official Conversion]
-//= Alberta town NPCs.
-//===== Additional Comments: =================================
+//----- Versão Atual: ----------------------------------------
+//= 1.0a
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= NPCs da cidade de Alberta.
+//----- Comentários Adicionais: ------------------------------
 //= 1.0 First Version.
-//============================================================
+//= 1.0a Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
 
-// cities/amatsu.txt
+// cidades/amatsu.txt
 //============================================================
-alberta,245,93,3	duplicate(Sea_Captain_amatsu)	Sea Captain#ama1	4_M_SEAMAN
+alberta,245,93,3	duplicate(Sea_Captain_amatsu)	Capitão#ama1	4_M_SEAMAN
 
-// cities/ayothaya.txt
+// cidades/ayothaya.txt
 //============================================================
 alberta,247,42,3	duplicate(Aibakthing_ayothaya)	Aibakthing#ayo	4_M_THAIONGBAK
 
@@ -27,9 +35,9 @@ alberta,245,69,3	duplicate(Kunlun_Envoy_gonryun)	Kunlun Envoy#gon	4_M_TWMIDMAN
 //============================================================
 alberta,245,45,3	duplicate(Girl_louyang)	Girl#0lou	4_F_CHNDRESS1
 
-// cities/moscovia.txt
+// cidades/moscovia.txt
 //============================================================
-alberta,245,66,4	duplicate(PR_Officer_moscovia)	Moscovia P.R. Officer#1	4_F_RUSWOMAN2
+alberta,245,66,4	duplicate(PR_Officer_moscovia)	Relações Públicas#1	4_F_RUSWOMAN2
 
 // quests/quests_alberta.txt
 //============================================================

@@ -1,0 +1,95 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Amatsu
+//----- Por: -------------------------------------------------
+//= MasterOfMuppets; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.4a
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Amatsu.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First version [MasterOfMuppets]
+//= 1.1 Removed Duplicates [Silent]
+//= 1.3 Rescripted to official 10.3 standards. [L0ne_W0lf]
+//= 1.4 Aplicada otimização realizada por mkbu95. [Cainho]
+//= 1.4a Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+amatsu,207,89,3	script	Recepcionista#ama	4_F_JPN,{
+	mes "[Amachang]";
+	mes "Bem vindo a Amatsu,";
+	mes "a cidade dos cidadãos gentis";
+	mes "e das belas flores de cerejeiras.";
+	next;
+	mes "[Amachang]";
+	mes "Meu nome é Amachang,";
+	mes "sou a 13ª Miss Amatsu.";
+	mes "Como uma das minhas funções,";
+	mes "eu te guiarei pela cidade.";
+	mes "Se você precisar de algo,";
+	mes "é só me dizer, por favor.";
+	next;
+	callfunc "F_GuiaAmatsu", "Palácio:Loja de Utilidades:Loja de Armas:Bar";
+}
+	
+amatsu,251,283,4	script	Guia#2ama	8_M_JPNSOLDIER,{
+	mes "[Guia]";
+  	mes "Bem Vindo(a), turista de outro continente.";
+  	mes "Eu sou o Guia de Amatsu,";
+  	mes "a cidade das belas cerejeiras.";
+  	next;
+  	mes "[Guia]";
+  	mes "O que você está procurando?";
+	next;
+	callfunc "F_GuiaAmatsu", "Palácio:Loja de Utilidades:Loja de Armas:Bar";
+}
+
+function	script	F_GuiaAmatsu	{
+
+	switch (select (getarg(0)))
+	{
+		case 1:
+			viewpoint 1,85,235,0,0xFF3355;
+			mes "[Amachang]";
+     			mes "No mini-mapa,";
+        		mes "vá para ^FF3355+^000000";
+        		mes "para visitar o Palácio.";
+        		mes "Aproveite a estadia";
+        		mes "em Amatsu.";
+			close;
+		case 2:
+			viewpoint 1,96,118,1,0xCE6300;
+			mes "[Amachang]";
+			mes "No mini-mapa,";
+			mes "vá para ^FF3355+^000000";
+			mes "para chegar à Loja de Utilidades.";
+			mes "Aproveite a estadia";
+			mes "em Amatsu.";
+			close;
+		case 3:
+			viewpoint 1,132,117,2,0x55FF33;
+			mes "[Amachang]";
+			mes "No mini-mapa,";
+        	  	mes "vá para ^55FF33+^000000";
+        	  	mes "e encontrará a Loja de Armas.";
+        	  	mes "Aproveite a estadia";
+        	  	mes "em Amatsu.";
+			close;
+		case 4:
+			viewpoint 1,217,116,3,0x3355FF;
+			mes "[Amachang]";
+			mes "No mini-mapa,";
+        	 	mes "vá para ^3355FF+^000000";
+        	  	mes "e chegará ao Bar.";
+        	  	mes "Aproveite a estadia";
+        	  	mes "em Amatsu.";
+			close;
+	}
+}

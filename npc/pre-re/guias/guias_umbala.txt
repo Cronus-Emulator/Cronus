@@ -1,0 +1,100 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Umbala
+//----- Por: -------------------------------------------------
+//= Dizzy, Translated by Celest; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.3
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Umbala.
+//----- Comentários Adicionais: ------------------------------
+//= 1.1 Fixed location command format [Lupus]
+//= 1.2 Optimized, updated common guide names [Lupus]
+//= 1.4 Fitted the many lines into 1 or 2, and corrected some typos [erKURITA]
+//= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
+//= 1.6 Corrected activating ontouch. [L0ne_W0lf]
+//= 1.3 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+umbala,128,94,4	script	Explorador#um	4_F_GON,{
+	mes "[Explorador]";
+	mes "Este lugar é muito estranho...";
+	mes "Todas essas trilhas e estradinhas são confusas.";
+	mes "Acho que é o que podemos esperar de uma cultura primitiva como a de Umbala.";
+	next;
+	mes "[Explorador]";
+	mes "Eu estou aqui há alguns meses,";
+	mes "conhecendo a vila e seus habitantes.";
+	mes "Se você tiver alguma pergunta sobre Umbala, posso responder pra você. ";
+	next;
+	switch (select ("Indicações:Apagar indicações:Cancelar")) {
+	case 1:
+		mes "[Explorador]";
+		mes "O que você quer localizar?";
+		next;
+		switch (select ("Casa do Chefe:Casa do Xamã :Loja de Armas:Loja de Utilidades:O Bungee Jumping:Cancelar")) {
+		case 1:
+			mes "[Explorador]";
+			mes "A casa do chefe da cidade fica em ^FF3355+^000000.";
+			mes "Só o chefe fala a nossa língua. ";
+			mes "Por isso, é melhor você falar com ele antes de mais nada.";
+			viewpoint 1,66,250,2,0xFF3355;
+			break;
+		case 2:
+			mes "[Explorador]";
+			mes "O xamã tem misteriosos poderes.";
+			mes "Sua casa fica em ^CE6300+^000000.";
+			mes "Eu ouvi dizer que ele consegue combinar ou desfazer";
+			mes "propriedades da natureza...";
+			viewpoint 1,217,186,3,0xCE6300;
+			break;
+		case 3:
+			mes "[Explorador]";
+			mes "A loja de armas fica em ^55FF33+^000000.";
+			mes "os nativos têm um grande número de armas";
+			mes "no estoque, por causa de invasores estrangeiros.";
+			viewpoint 1,126,154,4,0x55FF33;
+			break;
+		case 4:
+			mes "[Explorador]";
+			mes "A loja de utilidades fica em ^3355FF+^000000.";
+			mes "Eles vendem várias coisas que podem te ajudar em sua jornada.";
+			viewpoint 1,136,127,5,0x3355FF;
+			break;
+		case 5:
+			mes "[Explorador]";
+			mes "Em Umbala existe uma coisa que não se vê em nenhum outro lugar em Rune-Midgard, um Bungee Jumping.";
+			mes "Ele fica em ^00FF00+^000000.";
+			mes "Você pode tentar pular, se tiver coragem pra isso.";
+			viewpoint 1,139,198,6,0x00FF00;
+			break;
+		case 6:
+			mes "[Explorador]";
+			mes "Se quiser apagar as indicações no minimapa,";
+			mes "Selecione 'Apagar indicações'.";
+		}
+		break;
+	case 2:
+		viewpoint 2,66,250,2,0xFF3355;
+		viewpoint 2,217,186,3,0xCE6300;
+		viewpoint 2,126,154,4,0x55FF33;
+		viewpoint 2,136,127,5,0x3355FF;
+		viewpoint 2,139,198,6,0x00FF00;
+		mes "[Explorador]";
+		mes "Ok, removi as indicações no mapa.";
+		mes "Se precisar achar algum outro lugar, é só pedir.";
+		break;
+	case 3:
+		mes "[Explorador]";
+		mes "Ok, aproveite para conhecer a cidade e a cultura de Umbala. Cuide-se.";
+		break;
+	}
+	close;
+}

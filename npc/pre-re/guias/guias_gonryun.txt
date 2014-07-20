@@ -1,0 +1,105 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Kunlun
+//----- Por: -------------------------------------------------
+//= kobra_k88; L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.1a
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Kunlun.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First version [L0ne_W0lf]
+//= 1.1 Adicionado Guia de Kunlun conforme bRO. [Cainho]
+//= 1.1a Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+gonryun,163,60,4	script	Guia de Kunlun#gon	8_M_TWSOLDIER,{
+	mes "[WonChi Ha]";
+	mes "Bem vindo a KunLun, uma cidade";
+	mes "cheia de paixão e energia! Você pode sentir";
+	mes "a alegria só de passear pela cidade!";
+	next;
+	mes "[WonChi Ha]";
+	mes "Eu sou responsável por responder";
+	mes "suas dúvidas sobre a cidade.";
+	mes "Por favor, sinta-se à vontade para perguntar.";
+	next;
+	switch (select ("Residência do chefe","Vendedor de Utilidades","Vendedor de Armas","Vendedor de Armaduras","Loja de vinhos")) {
+	case 1:
+		viewpoint 1,109,131,0,0xFF3355;
+		mes "[WonChi Ha]";
+		mes "Veja seu mini-mapa.";
+		mes "Se você for a ^FF3355+^000000";
+		mes "encontrará o governador.";
+		mes "Aproveite sua estada na";
+		mes "adorável KunLun!";
+		close;
+	case 2:
+		viewpoint 1,147,82,1,0xCE6300;
+		mes "[WonChi Ha]";
+		mes "Veja seu mini-mapa.";
+		mes "Se você for a ^CE6300+^000000";
+		mes "você encontrará um Vendedor de Utilidades.";
+		mes "Aproveite sua estada na";
+		mes "adorável KunLun!";
+		close;
+	case 3:
+		viewpoint 1,174,104,2,0x55FF33;
+		mes "[WonChi Ha]";
+		mes "Veja seu mini-mapa.";
+		mes "Se você for a ^55FF33+^000000";
+		mes "você encontrará um Vendedor de Armas.";
+		mes "Aproveite sua estada na";
+		mes "adorável KunLun!";
+		close;
+	case 4:
+		viewpoint 1,173,84,3,0x3355FF;
+		mes "[WonChi Ha]";
+		mes "Veja seu mini-mapa.";
+		mes "Se você for a ^3355FF+^000000";
+		mes "você encontrará um Vendedor de Armaduras.";
+		mes "Aproveite sua estada na";
+		mes "adorável KunLun!";
+		close;
+	case 5:
+		viewpoint 1,215,114,3,0xCD69C9;
+		mes "[WonChi Ha]";
+		mes "Veja seu mini-mapa.";
+		mes "Se você for a ^FFFFFF+^000000";
+		mes "você encontrará uma loja de vinhos.";
+		mes "Aproveite sua estada na";
+		mes "adorável KunLun!";
+		close;
+	}
+}
+
+gonryun,169,71,3	script	Guia#kun1	770,{
+	
+	mes "[LeeHee Min]";
+	mes "Bem vindo!";
+	mes "Você gostou da paisagem";
+	mes "no seu caminho para cá? ";
+	mes "O que achou daquelas pequenas";
+	mes "construções no caminho?";
+	next;
+	mes "[LeeHee Min]";
+	mes "São miniaturas das cidades";
+	mes "do reino de Rune-Midgard.";
+	mes "Você pode olhar para todas as";
+	mes "cidades de uma só vez.";
+	mes "Foi um trabalho muito difícil. ";
+	mes "Mas não é uma obra de arte?";
+	next;
+	mes "[LeeHee Min]";
+	mes "Se você souber apreciar,";
+	mes "você verá muitas paisagens";
+	mes "bonitas pela cidade.";
+	close;
+	
+}

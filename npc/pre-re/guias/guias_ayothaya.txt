@@ -1,0 +1,100 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Guias de Ayothaya
+//----- Por: -------------------------------------------------
+//= MasterOfMuppets
+//----- Versão Atual: ----------------------------------------
+//= 1.1
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Guias da cidade de Ayothaya.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First version [L0ne_W0lf]
+//= 1.1 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+ayothaya,203,169,3	script	Noi#ayo	4_F_THAIGIRL,{
+	mes "[Noi]";
+	mes "Bem-vind"+(Sex?"o":"a")+" a Ayothaya!";
+	mes "Ayothaya foi construída sobre a água e você pode ver a floresta densa cercando a cidade ao fundo.";
+	next;
+	mes "[Noi]";
+	mes "Há muitas atrações turísticas na vila";
+	mes "que você raramente vê em outros locais, como mercados de peixe";
+	mes "ou edifícios construídos de maneira singular.";
+	mes "Sinta-se livre para passear por Ayothaya.";
+	next;
+	switch (select ("Localização dos Prédios:Limpar as indicações do minimapa:Cancelar.")) {
+	case 1:
+		mes "[Noi]";
+		mes "Where would";
+		mes "you like to visit?";
+		next;
+		switch(select("Loja de Armas:Loja de Utilidades:Taverna:Templo:Pesqueiro:Cancelar")) {
+		case 1:
+			mes "[Noi]";
+			mes "A loja de armas está localizada em ^55FF33+^000000.";
+			mes "Você encontrará as armas favoritas dos marinheiros";
+			mes "de Ayothaya na loja.";
+			viewpoint 1,165,90,2,0x55FF33;
+			close;
+		case 2:
+			mes "[Noi]";
+			mes "A Loja de Utilidades está localizada em ^3355FF+^000000.";
+			mes "Nós, habitantes de Ayothaya, sempre";
+			mes "nos organizamos com perfeição antes de irmos viajar.";
+			mes "Mal não vai fazer, não é?";
+			viewpoint 1,129,86,3,0x3355FF;
+			close;
+		case 3:
+			mes "[Noi]";
+			mes "É claro que você tem de dar uma passada na Taverna.";
+			mes "Ela está localizada em ^00FF00+^000000.";
+			mes "Dizem que o básico de uma aventura é obter informações.";
+			mes "A Taverna é onde se pode conhecer pessoas de todos os lugares.";
+			mes "Garanto que você obterá ótimas informações para a sua jornada.";
+			viewpoint 1,232,76,4,0x00FF00;
+			close;
+		case 4:
+			mes "[Noi]";
+			mes "Se você desejar rezar para Deus por paz de espírito,";
+			mes "sugiro que visite o nosso Templo em ^00FF00+^000000.";
+			viewpoint 1,208,283,5,0x00FF00;
+			close;
+		case 5:
+			mes "[Noi]";
+			mes " Ayothaya tornou-se o local favorito dos pescadores,";
+			mes "já que foi construída sobre a água e fica próxima à praia.";
+			mes "O Pesqueiro localizado em ^00FF00+^000000 é, de longe, o lugar mais famoso da cidade.";
+			mes "Se estiver interessado em pescar, que tal pegarmos alguns peixes hoje à noite?";
+			viewpoint 1,253,99,6,0x00FF00;
+			close;
+		case 6:
+			mes "[Noi]";
+			mes "Se quiser remover as marcações de local do seu minimapa,";
+			mes "selecione 'Remover marcações do minimapa'";
+			mes "no menu.";
+			close;
+		}
+	case 2:
+		viewpoint 2,165,90,2,0x55FF33;
+		viewpoint 2,129,86,3,0x3355FF;
+		viewpoint 2,232,76,4,0x00FF00;
+		viewpoint 2,208,283,5,0x00FF00;
+		viewpoint 2,253,99,6,0x00FF00;
+		mes "[Noi]";
+		mes "Todas as marcações de local foram removidas do seu minimapa.";
+		mes "Obrigado.";
+		close;
+	case 3:
+		mes "[Noi]";
+		mes "Aproveite a viagem.";
+		close;
+	}
+}
