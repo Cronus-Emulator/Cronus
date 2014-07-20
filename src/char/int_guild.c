@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "../config/core.h" // DBPATH
 #include "int_guild.h"
@@ -86,7 +104,7 @@ static int guild_save_timer(int tid, int64 tick, int id, intptr_t data) {
 		if( g->save_flag == GS_REMOVE )
 		{// Nothing to save, guild is ready for removal.
 			if (save_log)
-				ShowInfo("Guild removida! (GID: %d | Nome: %s)\n", g->guild_id, g->name);
+				ShowInfo("Guild removida! (GID:%d | Nome:%s)\n", g->guild_id, g->name);
 			db_remove(guild_db_, key);
 		}
 	}
@@ -137,7 +155,7 @@ int inter_guild_tosql(struct guild *g,int flag)
 	if (g->guild_id<=0 && g->guild_id != -1) return 0;
 
 #ifdef NOISY
-	ShowInfo("Pedido para salvar Guild (GID: "CL_BOLD"%d"CL_RESET" | Tipo 0x%x).",g->guild_id, flag);
+	ShowInfo("Pedido para salvar guild! (GID:"CL_BOLD"%d"CL_RESET" | Tipo:0x%x).",g->guild_id, flag);
 #endif
 
 	SQL->EscapeStringLen(sql_handle, esc_name, g->name, strnlen(g->name, NAME_LENGTH));
@@ -342,7 +360,7 @@ int inter_guild_tosql(struct guild *g,int flag)
 	}
 
 	if (save_log)
-		ShowInfo("Guild salva! (GID: %d | Nome: %s):%s.\n",g->guild_id,g->name,t_info);
+		ShowInfo("Guild salva! (GID:%d | Nome:%s):%s.\n",g->guild_id,g->name,t_info);
 	return 1;
 }
 
@@ -363,7 +381,7 @@ struct guild * inter_guild_fromsql(int guild_id)
 		return g;
 
 #ifdef NOISY
-	ShowInfo("Pedido para salvar Guild (GID: %d).\n", guild_id);
+	ShowInfo("Pedido para salvar guild! (GID:%d).\n", guild_id);
 #endif
 
 	if( SQL_ERROR == SQL->Query(sql_handle, "SELECT g.`name`,c.`name`,g.`guild_lv`,g.`connect_member`,g.`max_member`,g.`average_lv`,g.`exp`,g.`next_exp`,g.`skill_point`,g.`mes1`,g.`mes2`,g.`emblem_len`,g.`emblem_id`,g.`emblem_data` "
@@ -386,7 +404,7 @@ struct guild * inter_guild_fromsql(int guild_id)
 	SQL->GetData(sql_handle,  4, &data, NULL); g->max_member = atoi(data);
 	if( g->max_member > MAX_GUILD )
 	{	// Fix reduction of MAX_GUILD [PoW]
-		ShowWarning("Guild (GID: %d | Nome: %s) possui capacidade (%d) maior que o permitido (%d)!! Reduzindo...\n", guild_id, g->name, g->max_member, MAX_GUILD);
+		ShowWarning("Guild (GID:%d | Nome:%s) possui capacidade (%d) maior que o permitido (%d) !! Reduzindo...\n", guild_id, g->name, g->max_member, MAX_GUILD);
 		g->max_member = MAX_GUILD;
 	}
 	SQL->GetData(sql_handle,  5, &data, NULL); g->average_lv = atoi(data);
@@ -530,7 +548,7 @@ struct guild * inter_guild_fromsql(int guild_id)
 	g->save_flag |= GS_REMOVE; //But set it to be removed, in case it is not needed for long.
 
 	if (save_log)
-		ShowInfo("Guild carregada com sucesso (GID: %d | Nome: %s).\n", guild_id, g->name);
+		ShowInfo("Guild carregada com sucesso! (GID:%d | Nome:%s)\n", guild_id, g->name);
 
 	return g;
 }
@@ -552,7 +570,7 @@ int inter_guildcastle_tosql(struct guild_castle *gc)
 	if (SQL_ERROR == SQL->Query(sql_handle, StrBuf->Value(&buf)))
 		Sql_ShowDebug(sql_handle);
 	else if(save_log)
-		ShowInfo("Salvando castelo de Guild (CASID: %d).\n", gc->castle_id);
+		ShowInfo("Salvando castelo de guild! (CASID:%d)\n", gc->castle_id);
 
 	StrBuf->Destroy(&buf);
 	return 0;
@@ -604,7 +622,7 @@ static struct guild_castle* inter_guildcastle_fromsql(int castle_id)
 	idb_put(castle_db, castle_id, gc);
 
 	if (save_log)
-		ShowInfo("Castelo de Guild carregado (CASID: %d | GID: %d)\n", castle_id, gc->guild_id);
+		ShowInfo("Castelo de Guild carregado! (CASID: %d | GID: %d)\n", castle_id, gc->guild_id);
 
 	return gc;
 }
@@ -654,7 +672,7 @@ int inter_guild_CharOnline(int char_id, int guild_id) {
 
 	g = inter_guild_fromsql(guild_id);
 	if(!g) {
-		ShowError("Personagem (CID: %d) da guild (GID: %d) inexistente!\n", char_id, guild_id);
+		ShowError("Personagem (CID:%d) da guild (GID:%d) inexistente!\n", char_id, guild_id);
 		return 0;
 	}
 
@@ -849,7 +867,7 @@ int guild_calcinfo(struct guild *g)
 	g->max_member = 16 + guild_checkskill(g, GD_EXTENSION) * 6;
 	if(g->max_member > MAX_GUILD)
 	{
-		ShowError("Guild (GID: %d | Nome: %s) tem uma quantidade de personagens (%d) que excede o limite (%d).\n", g->guild_id, g->name, g->max_member, MAX_GUILD);
+		ShowError("Guild (GID:%d | Nome:%s) tem uma quantidade de personagens (%d) que excede o limite (%d).\n", g->guild_id, g->name, g->max_member, MAX_GUILD);
 		g->max_member = MAX_GUILD;
 	}
 
@@ -867,7 +885,7 @@ int guild_calcinfo(struct guild *g)
 			}
 			else
 			{
-				ShowWarning("Guild (GID: %d | Nome: %s): Membro (CID: %d | Nome: %s) tem um LV estranho %d\n", g->guild_id, g->name, g->member[i].char_id, g->member[i].name, g->member[i].lv);
+				ShowWarning("Guild (GID:%d | Nome:%s): Membro (CID:%d | Nome:%s) tem um LV estranho %d\n", g->guild_id, g->name, g->member[i].char_id, g->member[i].name, g->member[i].lv);
 			}
 
 			if(g->member[i].online)
@@ -899,7 +917,7 @@ int mapif_guild_created(int fd,int account_id,struct guild *g)
 	if(g != NULL)
 	{
 		WFIFOL(fd,6)=g->guild_id;
-		ShowInfo("Guild Criada!! (GID: %d | Nome: %s)\n",g->guild_id,g->name);
+		ShowInfo("Guild Criada!! (GID:%d | Nome:%s)\n",g->guild_id,g->name);
 	} else
 		WFIFOL(fd,6)=0;
 
@@ -914,7 +932,7 @@ int mapif_guild_noinfo(int fd,int guild_id)
 	WBUFW(buf,0)=0x3831;
 	WBUFW(buf,2)=8;
 	WBUFL(buf,4)=guild_id;
-	ShowWarning("Falha em encontrar dados sobre Guild (GID: %d).\n",guild_id);
+	ShowWarning("Falha em encontrar dados sobre guild! (GID:%d)\n",guild_id);
 	if(fd<0)
 		mapif_sendall(buf,8);
 	else
@@ -961,7 +979,7 @@ int mapif_guild_withdraw(int guild_id,int account_id,int char_id,int flag, const
 	memcpy(WBUFP(buf,15),mes,40);
 	memcpy(WBUFP(buf,55),name,NAME_LENGTH);
 	mapif_sendall(buf,55+NAME_LENGTH);
-	ShowInfo("Removendo membro de guild (GID: %d | AID: %d | Nick: %s | MSG: %s)\n",guild_id,account_id,name,mes);
+	ShowInfo("Removendo membro da guild! (GID: %d | AID: %d | Nick: %s | MSG: %s)\n",guild_id,account_id,name,mes);
 	return 0;
 }
 
@@ -988,7 +1006,7 @@ int mapif_guild_broken(int guild_id,int flag)
 	WBUFL(buf,2)=guild_id;
 	WBUFB(buf,6)=flag;
 	mapif_sendall(buf,7);
-	ShowInfo("Guild desfeita (GID: %d).\n",guild_id);
+	ShowInfo("Guild desfeita! (GID:%d).\n",guild_id);
 	return 0;
 }
 
@@ -1144,10 +1162,10 @@ int mapif_parse_CreateGuild(int fd,int account_id,char *name,struct guild_member
 	struct guild *g;
 	int i=0;
 #ifdef NOISY
-	ShowInfo("Criando Guild (Nome: %s).\n", name);
+	ShowInfo("Criando guild! (Nome: %s)\n", name);
 #endif
 	if(search_guildname(name) != 0){
-		ShowInfo("Guild existente com o mesmo nome (Nome: %s).\n",name);
+		ShowInfo("Guild existente com o mesmo nome! (Nome:%s)\n",name);
 		mapif_guild_created(fd,account_id,NULL);
 		return 0;
 	}
@@ -1197,12 +1215,12 @@ int mapif_parse_CreateGuild(int fd,int account_id,char *name,struct guild_member
 	// Create the guild
 	if (!inter_guild_tosql(g,GS_BASIC|GS_POSITION|GS_SKILL|GS_MEMBER)) {
 		//Failed to Create guild....
-		ShowError("Falha em criar Guild %s (Dono da Guild: %s).\n", g->name, g->master);
+		ShowError("Falha em criar guild! (Nome:%s | Dono:%s)\n", g->name, g->master);
 		mapif_guild_created(fd,account_id,NULL);
 		aFree(g);
 		return 0;
 	}
-	ShowInfo("Guild criada com sucesso! (GID: %d | Nome: %s | Dono da Guild: %s)\n", g->guild_id, g->name, g->master);
+	ShowInfo("Guild criada com sucesso! (GID:%d | Nome:%s | Dono:%s)\n", g->guild_id, g->name, g->master);
 
 	//Add to cache
 	idb_put(guild_db_, g->guild_id, g);
@@ -1212,7 +1230,7 @@ int mapif_parse_CreateGuild(int fd,int account_id,char *name,struct guild_member
 	mapif_guild_info(fd,g);
 
 	if(log_inter)
-		inter_log("Guild %s (GID: %d) criada por %s (AID: %d)\n",
+		inter_log("Guild (Nome:%s | GID: %d) criada por %s (AID: %d).\n",
 			name, g->guild_id, master->name, master->account_id );
 
 	return 0;
@@ -1421,7 +1439,7 @@ int mapif_parse_BreakGuild(int fd,int guild_id)
 	mapif_guild_broken(guild_id,0);
 
 	if(log_inter)
-		inter_log("Guild (Nome: %s | GID: %d) desfeita.\n",g->name,guild_id);
+		inter_log("Guild (Nome:%s | GID:%d) desfeita! \n",g->name,guild_id);
 
 	//Remove the guild from memory. [Skotlex]
 	idb_remove(guild_db_, guild_id);
@@ -1482,7 +1500,7 @@ int mapif_parse_GuildBasicInfoChange(int fd, int guild_id, int type, const void 
 			break;
 
 		default:
-			ShowError("Tipo desconhecido (%d) para atualizar dados sobre Guild.",type);
+			ShowError("Tipo desconhecido (%d) para atualizar dados sobre Guild.\n",type);
 			return 0;
 	}
 	mapif_guild_info(-1,g);
@@ -1511,7 +1529,7 @@ int mapif_parse_GuildMemberInfoChange(int fd,int guild_id,int account_id,int cha
 
 	// Not Found
 	if(i==g->max_member){
-		ShowWarning("Falha em encontrar membro (AID: %d | CID: %d) na guild (GID: %d | Nome: %s) para atualizar dados.\n",
+		ShowWarning("Falha em encontrar membro (AID:%d | CID:%d) na guild (GID:%d | Nome:%s) para atualizar dados.\n",
 			account_id,char_id,guild_id,g->name);
 		return 0;
 	}
@@ -1594,7 +1612,7 @@ int mapif_parse_GuildMemberInfoChange(int fd,int guild_id,int account_id,int cha
 			break;
 		}
 		default:
-		  ShowError("Tipo desconhecido (%d) para atualizar dados dos membros de guild. \n",type);
+		  ShowError("Tipo desconhecido (%d) para atualizar dados dos membros de guild.\n",type);
 		  break;
 	}
 	return 0;
@@ -1613,14 +1631,14 @@ int inter_guild_charname_changed(int guild_id,int account_id, int char_id, char 
 	g = inter_guild_fromsql(guild_id);
 	if( g == NULL )
 	{
-		ShowError("Guild (GID: %d) inexistente para atualizar nome de personagem.\n", guild_id);
+		ShowError("Guild (GID:%d) inexistente para atualizar nome de personagem.\n", guild_id);
 		return 0;
 	}
 
 	ARR_FIND(0, g->max_member, i, g->member[i].char_id == char_id);
 	if( i == g->max_member )
 	{
-		ShowError("Falha em encontrar personagem (CID: %d) na guild para renomear.\n", char_id);
+		ShowError("Falha em encontrar personagem (CID:%d) na guild para renomear.\n", char_id);
 		return 0;
 	}
 
@@ -1786,7 +1804,7 @@ int mapif_parse_GuildCastleDataSave(int fd, int castle_id, int index, int value)
 	struct guild_castle *gc = inter_guildcastle_fromsql(castle_id);
 
 	if (gc == NULL) {
-		ShowError("Falha em localizar o castelo (CASID: %d).\n", castle_id);
+		ShowError("Falha em localizar o castelo! (CASID:%d)\n", castle_id);
 		return 0;
 	}
 
@@ -1813,7 +1831,7 @@ int mapif_parse_GuildCastleDataSave(int fd, int castle_id, int index, int value)
 				gc->guardian[index-10].visible = value;
 				break;
 			}
-			ShowError("Falha em encontrar tipo de dado sobre o castelo para armazenar (Index: %d)\n", index);
+			ShowError("Falha em encontrar tipo de dado sobre o castelo! (Index:%d)\n", index);
 			return 0;
 	}
 	inter_guildcastle_tosql(gc);
@@ -1852,7 +1870,7 @@ int mapif_parse_GuildMasterChange(int fd, int guild_id, const char* name, int le
 	if (len < NAME_LENGTH)
 		g->master[len] = '\0';
 
-	ShowInfo("Dono da Guild alterado para %s (GID: %d | Nome: %s).\n",g->master, guild_id, g->name);
+	ShowInfo("Dono alterado para %s (GID:%d | Nome:%s).\n",g->master, guild_id, g->name);
 	g->save_flag |= (GS_BASIC|GS_MEMBER); //Save main data and member data.
 	return mapif_guild_master_changed(g, g->member[0].account_id, g->member[0].char_id);
 }

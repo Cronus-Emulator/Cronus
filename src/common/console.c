@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 
 #include "../config/core.h" // CONSOLE_INPUT, MAX_CONSOLE_INPUT
@@ -121,8 +139,8 @@ void display_title(void) {
 	ShowMessage (""CL_XXBL"          ("CL_BT_YELLOW"       Equipe Cronus de Desenvolvimento Apresenta        "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage (""CL_XXBL"          ("CL_BOLD"      _________                                          "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage (""CL_XXBL"          ("CL_BOLD"      \\_   ___ \\_______  ____   ____  __ __  ______      "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
-	ShowMessage (""CL_XXBL"          ("CL_BOLD"      /    \\  \\/\\_  __ \\/  _ \\ /    \\|  |  \\/  ___/      "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
-	ShowMessage (""CL_XXBL"          ("CL_BOLD"      \\     \\____|  | \\(  <_> )   |  \\  |  /\\___ \\       "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"      /    \\  \\/\\_  __ \\/    \\ /    \\|  |  \\/  ___/      "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"      \\     \\____|  | \\(  ( ) )   |  \\  |  /\\___ \\       "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage (""CL_XXBL"          ("CL_BOLD"       \\______  /|__|   \\____/|___|  /____//____  >      "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage (""CL_XXBL"          ("CL_BOLD"              \\/                   \\/           \\/       "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage (""CL_XXBL"          ("CL_BOLD"                  www.cronus-emulator.com                "CL_XXBL")"CL_CLL""CL_NORMAL"\n");

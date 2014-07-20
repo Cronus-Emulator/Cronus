@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "int_party.h"
 
@@ -136,7 +154,7 @@ int inter_party_tosql(struct party *p, int flag, int index)
 	party_id = p->party_id;
 
 #ifdef NOISY
-	ShowInfo("Pedido para salvar grupo (PID: "CL_BOLD"%d"CL_RESET" | Nome: %s).\n", party_id, p->name);
+	ShowInfo("Pedido para salvar grupo! (PID: "CL_BOLD"%d"CL_RESET" | Nome:%s)\n", party_id, p->name);
 #endif
 	SQL->EscapeStringLen(sql_handle, esc_name, p->name, strnlen(p->name, NAME_LENGTH));
 
@@ -194,7 +212,7 @@ int inter_party_tosql(struct party *p, int flag, int index)
 	}
 
 	if( save_log )
-		ShowInfo("Grupo salvo (PID: %d | Nome: %s).\n", party_id, p->name);
+		ShowInfo("Grupo salvo! (PID:%d | Nome:%s)\n", party_id, p->name);
 	return 1;
 }
 
@@ -210,7 +228,7 @@ struct party_data *inter_party_fromsql(int party_id)
 	int i;
 
 #ifdef NOISY
-	ShowInfo("Pedido para carregar grupo (PID: "CL_BOLD"%d"CL_RESET").\n", party_id);
+	ShowInfo("Pedido para carregar grupo! (PID:"CL_BOLD"%d"CL_RESET")\n", party_id);
 #endif
 	if( party_id <= 0 )
 		return NULL;
@@ -261,7 +279,7 @@ struct party_data *inter_party_fromsql(int party_id)
 	SQL->FreeResult(sql_handle);
 
 	if( save_log )
-		ShowInfo("Grupo carregado (PID: %d | Nome: %s).\n", party_id, p->party.name);
+		ShowInfo("Grupo carregado! (PID:%d | Nome:%s)\n", party_id, p->party.name);
 	//Add party to memory.
 	CREATE(p, struct party_data, 1);
 	memcpy(p, party_pt, sizeof(struct party_data));
@@ -350,7 +368,7 @@ int mapif_party_created(int fd,int account_id,int char_id,struct party *p)
 		WFIFOB(fd,10)=0;
 		WFIFOL(fd,11)=p->party_id;
 		memcpy(WFIFOP(fd,15),p->name,NAME_LENGTH);
-		ShowInfo("Grupo criado (PID: %d | Nome: %s).\n",p->party_id,p->name);
+		ShowInfo("Grupo criado! (PID:%d | Nome:%s)\n",p->party_id,p->name);
 	}else{
 		WFIFOB(fd,10)=1;
 		WFIFOL(fd,11)=0;
@@ -370,7 +388,7 @@ static void mapif_party_noinfo(int fd, int party_id, int char_id)
 	WFIFOL(fd,4) = char_id;
 	WFIFOL(fd,8) = party_id;
 	WFIFOSET(fd,12);
-	ShowWarning("Falha em localizar dados sobre o grupo! (PID: %d | CID: %d)\n", party_id, char_id);
+	ShowWarning("Falha em localizar dados sobre grupo! (PID:%d | CID:%d)\n", party_id, char_id);
 }
 
 //Digest party information
@@ -454,7 +472,6 @@ int mapif_party_broken(int party_id,int flag)
 	WBUFL(buf,2)=party_id;
 	WBUFB(buf,6)=flag;
 	mapif_sendall(buf,7);
-	//printf("int_party: broken %d\n",party_id);
 	return 0;
 }
 
@@ -754,7 +771,7 @@ int mapif_parse_PartyLeaderChange(int fd,int party_id,int account_id,int char_id
 
 
 // Communication from the map server
-//-Analysis that only one packet
+// Analysis that only one packet
 // Data packet length is set to inter.c that you
 // Do NOT go and check the packet length, RFIFOSKIP is done by the caller
 // Return :
@@ -812,7 +829,7 @@ int inter_party_CharOnline(int char_id, int party_id)
 	
 	p = inter_party_fromsql(party_id);
 	if(!p) {
-		ShowError("Personagem (CID: %d) do grupo (PID: %d) inexistente no grupo!\n", char_id, party_id);
+		ShowError("Personagem (CID:%d) do grupo (PID:%d) inexistente no grupo!\n", char_id, party_id);
 		return 0;
 	}
 

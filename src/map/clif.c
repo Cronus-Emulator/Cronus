@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "../config/core.h" // ANTI_MAYAP_CHEAT, RENEWAL, SECURE_NPCTIMEOUT
 #include "clif.h"
@@ -76,8 +94,6 @@ static struct packet_viewequip_ack viewequip_list;
 static struct packet_npc_market_result_ack npcmarket_result;
 static struct packet_npc_market_open npcmarket_open;
 #endif
-//#define DUMP_UNKNOWN_PACKET
-//#define DUMP_INVALID_PACKET
 
 //Converts item type in case of pet eggs.
 static inline int itemtype(int type) {
@@ -18208,8 +18224,6 @@ void clif_parse_debug(int fd,struct map_session_data *sd) {
  packet_len = (int)RFIFOREST(fd);
  ShowDebug("Packet debug of 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
  }
-
- ShowDump(RFIFOP(fd,0), packet_len);
 }
 
 
@@ -18267,9 +18281,6 @@ int clif_parse(int fd) {
 		// filter out invalid / unsupported packets
 		if( cmd > MAX_PACKET_DB || cmd < MIN_PACKET_DB || packet_db[cmd].len == 0 ) {
 			ShowWarning("clif_parse: Received unsupported packet (packet 0x%04x (0x%04x), %d bytes received), disconnecting session #%d.\n", cmd, RFIFOW(fd,0), RFIFOREST(fd), fd);
-#ifdef DUMP_INVALID_PACKET
-			ShowDump(RFIFOP(fd,0), RFIFOREST(fd));
-#endif
 			set_eof(fd);
 			return 0;
 		}
@@ -18283,9 +18294,6 @@ int clif_parse(int fd) {
 			packet_len = RFIFOW(fd,2);
 			if (packet_len < 4 || packet_len > 32768) {
 				ShowWarning("clif_parse: Received packet 0x%04x specifies invalid packet_len (%d), disconnecting session #%d.\n", cmd, packet_len, fd);
-#ifdef DUMP_INVALID_PACKET
-				ShowDump(RFIFOP(fd,0), RFIFOREST(fd));
-#endif
 				set_eof(fd);
 
 				return 0;
@@ -18313,36 +18321,6 @@ int clif_parse(int fd) {
 				else
 					packet_db[cmd].func(fd, sd);
 		}
-#ifdef DUMP_UNKNOWN_PACKET
-		else {
-			const char* packet_txt = "save/packet.txt";
-			FILE* fp;
-
-			if( ( fp = fopen( packet_txt , "a" ) ) != NULL ) {
-				if( sd ) {
-					fprintf(fp, "Unknown packet 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
-				} else {
-					fprintf(fp, "Unknown packet 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
-				}
-
-				WriteDump(fp, RFIFOP(fd,0), packet_len);
-				fprintf(fp, "\n");
-				fclose(fp);
-			} else {
-				ShowError("Failed to write '%s'.\n", packet_txt);
-
-				// Dump on console instead
-				if( sd ) {
-					ShowDebug("Unknown packet 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
-				} else {
-					ShowDebug("Unknown packet 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
-				}
-
-				ShowDump(RFIFOP(fd,0), packet_len);
-			}
-		}
-#endif
-
 		RFIFOSKIP(fd, packet_len);
 
 	}; // main loop end

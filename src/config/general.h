@@ -31,29 +31,27 @@
 |                                                                          |
 |-------------------------------------------------------------------------*/
 
-#ifndef MAP_MAIL_H
-#define MAP_MAIL_H
+#ifndef CONFIG_GENERAL_H
+#define CONFIG_GENERAL_H
+ 
+ /**
+ * Comportamento para reflexão de habilidade mágicas
+ * - Quando refletido, o dano da reflexão depende dos equipamentos do conjurador, ao invés do alvo. (Oficial)
+ * - Quando esta configuração é desativada, o dano da reflexão depende dos equipamentos do alvo, ao invés do conjurador. (Eathena)
+ * @values 1 (enabled) or 0 (disabled)
+ **/
+#define MAGIC_REFLECTION_TYPE 1
 
-#include "../common/cbasetypes.h"
+/**
+ * Limite de esferas espirituais
+ **/
+#define MAX_SPIRITBALL 15
 
-struct item;
-struct mail_message;
-struct map_session_data;
+ /**
+ * Quando ativado, o dano refletido não é suprimido pela redenção (O templário também sofre o dano)
+ * Remova // para ativar
+ **/
+//#define DEVOTION_REFLECT_DAMAGE
 
-struct mail_interface {
-	void (*clear) (struct map_session_data *sd);
-	int (*removeitem) (struct map_session_data *sd, short flag);
-	int (*removezeny) (struct map_session_data *sd, short flag);
-	unsigned char (*setitem) (struct map_session_data *sd, int idx, int amount);
-	bool (*setattachment) (struct map_session_data *sd, struct mail_message *msg);
-	void (*getattachment) (struct map_session_data* sd, int zeny, struct item* item);
-	int (*openmail) (struct map_session_data *sd);
-	void (*deliveryfail) (struct map_session_data *sd, struct mail_message *msg);
-	bool (*invalid_operation) (struct map_session_data *sd);
-};
 
-struct mail_interface *mail;
-
-void mail_defaults(void);
-
-#endif /* _MAP_MAIL_H_ */
+#endif // CONFIG_GENERAL_H

@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 
 #include "../config/core.h"
@@ -107,7 +125,7 @@ static BOOL WINAPI console_handler(DWORD c_event) {
 
 static void cevents_init() {
 	if (SetConsoleCtrlHandler(console_handler,TRUE)==FALSE)
-		ShowWarning ("Falha em instalar o tratador de eventos de console\n");
+		ShowWarning ("Falha em inicializar o tratador de eventos para console.\n");
 }
 #endif
 
@@ -137,7 +155,7 @@ static void sig_proc(int sn) {
 	#ifndef _WIN32
 		case SIGXFSZ:
 			// ignore and allow it to set errno to EFBIG
-			ShowWarning ("Tamanho limite excedido\n");
+			ShowWarning ("Tamanho limite excedido.\n");
 			//run_flag = 0;	// should we quit?
 			break;
 		case SIGPIPE:

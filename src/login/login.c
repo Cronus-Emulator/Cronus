@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "login.h"
 
@@ -306,7 +324,7 @@ int login_lan_config_read(const char *lancfgName)
 	char line[1024], w1[64], w2[64], w3[64], w4[64];
 
 	if((fp = fopen(lancfgName, "r")) == NULL) {
-		ShowWarning("Arquivo .conf para redes LAN inexistente: %s\n", lancfgName);
+		ShowWarning("Arquivo LAN inexistente: %s\n", lancfgName);
 		return 1;
 	}
 
@@ -318,7 +336,7 @@ int login_lan_config_read(const char *lancfgName)
 
 		if(sscanf(line,"%[^:]: %[^:]:%[^:]:%[^\r\n]", w1, w2, w3, w4) != 4)
 		{
-			ShowWarning("Erro de sintaxe: Arquivo %s na linha %d \n", lancfgName, line_num);
+			ShowWarning("Erro de sintaxe! (Arquivo:%s | Linha:%d) \n", lancfgName, line_num);
 			continue;
 		}
 
@@ -330,7 +348,7 @@ int login_lan_config_read(const char *lancfgName)
 
 			if( (subnet[subnet_count].char_ip & subnet[subnet_count].mask) != (subnet[subnet_count].map_ip & subnet[subnet_count].mask) )
 			{
-				ShowError("%s: O Servidor de Personagens (%s) e o Servidor de Mapas (%s) existem em subredes diferentes!\n", lancfgName, w3, w4);
+				ShowError("O Servidor de Personagens (%s) e o Servidor de Mapas (%s) existem em subredes diferentes!\n",w3, w4);
 				continue;
 			}
 
@@ -357,7 +375,7 @@ int parse_fromchar(int fd)
 	ARR_FIND( 0, ARRAYLENGTH(server), id, server[id].fd == fd );
 	if( id == ARRAYLENGTH(server) )
 	{// not a char server
-		ShowDebug("Falha de Escrita #%d.\n", fd);
+		ShowDebug("Falha de Escrita em #%d.\n", fd);
 		set_eof(fd);
 		do_close(fd);
 		return 0;
@@ -425,7 +443,7 @@ int parse_fromchar(int fd)
 			}
 			else
 			{// authentication not found
-				ShowStatus("'%s': Falha em autenticar. %d Recusado (IP: %s).\n", server[id].name, account_id, ip);
+				ShowStatus("'%s': Falha em autenticar! (AID:%d | IP:%s Recusado)\n", server[id].name, account_id, ip);
 				WFIFOHEAD(fd,33);
 				WFIFOW(fd,0) = 0x2713;
 				WFIFOL(fd,2) = account_id;
@@ -453,7 +471,7 @@ int parse_fromchar(int fd)
 			// how many users on world? (update)
 			if( server[id].users != users )
 			{
-				ShowStatus("Contagem de Contas Ativas %s : %d\n", server[id].name, users);
+				ShowStatus("Contagem de contas ativas em %s : %d\n", server[id].name, users);
 
 				server[id].users = (uint16)users;
 			}
@@ -472,13 +490,13 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,46);
 
 			if( e_mail_check(email) == 0 )
-				ShowNotice("Servidor de Personagens '%s': Attempt to create an e-mail on an account with a default e-mail REFUSED - e-mail is invalid (Conta: %d | IP: %s)\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha em alterar e-mail (e-mail invalido) ! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			if( !accounts->load_num(accounts, &acc, account_id) || strcmp(acc.email, "a@a.com") == 0 || acc.email[0] == '\0' )
-				ShowNotice("Servidor de Personagens '%s': Attempt to create an e-mail on an account with a default e-mail REFUSED - account doesn't exist or e-mail of account isn't default e-mail (Conta: %d, ip: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha em alterar e-mail! (Conta inexistente ou email diferente do padronizado) (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else {
 				memcpy(acc.email, email, 40);
-				ShowNotice("Servidor de Personagens '%s': Create an e-mail on an account with a default e-mail (Conta: %d | Novo Email: %s | IP: %s).\n", server[id].name, account_id, email, ip);
+				ShowNotice("'%s': Troca de e-mail! (AID:%d | Novo e-mail:%s | IP:%s)\n", server[id].name, account_id, email, ip);
 				// Save
 				accounts->save(accounts, &acc);
 			}
@@ -501,7 +519,7 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,6);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Servidor de Personagens '%s': Conta (AID: %d) inexistente (IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Conta inexistente! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else {
 				safestrncpy(email, acc.email, sizeof(email));
 				expiration_time = acc.expiration_time;
@@ -550,22 +568,22 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd, 86);
 
 			if( e_mail_check(actual_email) == 0 )
-				ShowNotice("Servidor de Personagens '%s': Attempt to modify an e-mail on an account (@email GM command), but actual email is invalid (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Tentativa de alterar e-mail (@email). E-mail atual encontra-se invalido! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			if( e_mail_check(new_email) == 0 )
-				ShowNotice("Servidor de Personagens '%s': Attempt to modify an e-mail on an account (@email GM command) with a invalid new e-mail (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Tentativa de alterar e-mail (@email). E-mail novo encontra-se invalido! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			if( strcasecmp(new_email, "a@a.com") == 0 )
-				ShowNotice("Servidor de Personagens '%s': Attempt to modify an e-mail on an account (@email GM command) with a default e-mail (AID: %d | IP: %s)\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Tentativa de alterar e-mail (@email). E-mail solicitado precisa ser diferente de a@a.com ! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Servidor de Personagens '%s': Attempt to modify an e-mail on an account (@email GM command), but account doesn't exist (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Tentativa de alterar e-mail (@email). Conta inexistente! (AID:%d | IP:%s).\n", server[id].name, account_id, ip);
 			else
 			if( strcasecmp(acc.email, actual_email) != 0 )
-				ShowNotice("Servidor de Personagens '%s': Attempt to modify an e-mail on an account (@email GM command),  (AID: %d (%s) | Email Atual: %s | Email proposto: %s | IP: %s).\n", server[id].name, account_id, acc.userid, acc.email, actual_email, ip);
+				ShowNotice("'%s': Tentativa de alterar e-mail (@email). E-mail solicitado igual ao atual! (AID:%d (%s) | IP:%s)\n", server[id].name, account_id, acc.userid, ip);
 			else {
 				safestrncpy(acc.email, new_email, 40);
-				ShowNotice("Servidor de Personagens '%s': Modify an e-mail on an account (@email GM command) (account: %d (%s), new e-mail: %s, ip: %s).\n", server[id].name, account_id, acc.userid, new_email, ip);
+				ShowNotice("'%s': Alterando e-mail (@email)! (AID:%d (%s) | E-mail atual:%s | IP:%s)\n", server[id].name, account_id, acc.userid, new_email, ip);
 				// Save
 				accounts->save(accounts, &acc);
 			}
@@ -583,12 +601,12 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,10);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Servidor de Personagens '%s': Falha da troca de status! Conta Inexistente!! (AID: %d | Status: %d | IP: %s).\n", server[id].name, account_id, state, ip);
+				ShowNotice("'%s': Falha da troca de status! Conta Inexistente! (AID: %d | Status: %d | IP: %s)\n", server[id].name, account_id, state, ip);
 			else
 			if( acc.state == state )
-				ShowNotice("Servidor de Personagens '%s': Falha da troca de status! Status atual!! (AID: %d | Status %d | IP: %s).\n", server[id].name, account_id, state, ip);
+				ShowNotice("'%s': Falha da troca de status! Status atual! (AID: %d | Status %d | IP: %s)\n", server[id].name, account_id, state, ip);
 			else {
-				ShowNotice("Servidor de Personagens '%s': Troca de status (AID: %d | Novo Status %d | IP: %s).\n", server[id].name, account_id, state, ip);
+				ShowNotice("'%s': Trocando status (AID: %d | Novo Status %d | IP: %s)\n", server[id].name, account_id, state, ip);
 
 				acc.state = state;
 				// Save
@@ -623,7 +641,7 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,18);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Servidor de Personagens '%s': Falha no pedido de ban! Conta inexistente!! (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha no pedido de ban! Conta inexistente!! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			{
 				time_t timestamp;
@@ -641,16 +659,16 @@ int parse_fromchar(int fd)
 				tmtime->tm_sec  = tmtime->tm_sec + sec;
 				timestamp = mktime(tmtime);
 				if (timestamp == -1)
-					ShowNotice("Servidor de Personagens '%s': Falha no pedido de ban! Data invalida!! (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+					ShowNotice("'%s': Falha no pedido de ban! Data invalida!! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 				else
 				if( timestamp <= time(NULL) || timestamp == 0 )
-					ShowNotice("Servidor de Personagens '%s': Falha no pedido de ban! Data digitada libera o jogador!! (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+					ShowNotice("'%s': Falha no pedido de ban! Data digitada libera o jogador!! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 				else
 				{
 					uint8 buf[11];
 					char tmpstr[24];
 					timestamp2string(tmpstr, sizeof(tmpstr), timestamp, login_config.date_format);
-					ShowNotice("Servidor de Personagens '%s': Pedido para banir (AID: %d | Nova data de julgamento: %d (%s) | IP: %s).\n", server[id].name, account_id, timestamp, tmpstr, ip);
+					ShowNotice("'%s': Pedido para banir (AID:%d | Julgamento: %d (%s) | IP:%s).\n", server[id].name, account_id, timestamp, tmpstr, ip);
 
 					acc.unban_time = timestamp;
 
@@ -677,16 +695,16 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,6);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Servidor de Personagens '%s': Falha na troca de sexo! Conta inexistente!! (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha na troca de sexo! Conta inexistente!! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			if( acc.sex == 'S' )
-				ShowNotice("Servidor de Personagens '%s': Falha na troca de sexo! Conta [S] pertence ao servidor!! (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha na troca de sexo! Conta [S] pertence ao servidor!! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			{
 				unsigned char buf[7];
 				char sex = ( acc.sex == 'M' ) ? 'F' : 'M'; //Change gender
 
-				ShowNotice("Servidor de Personagens '%s': Troca de sexo! (AID: %d | Sexo: %c | IP: %s).\n", server[id].name, account_id, sex, ip);
+				ShowNotice("'%s': Troca de sexo! (AID:%d | Sexo:%c | IP:%s)\n", server[id].name, account_id, sex, ip);
 
 				acc.sex = sex;
 				// Save
@@ -710,7 +728,7 @@ int parse_fromchar(int fd)
 			int account_id = RFIFOL(fd,4);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowStatus("Servidor de Personagens '%s': Conta Inexistente (account_reg2) (AID: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowStatus("'%s': Conta inexistente (account_reg2) (AID:%d | IP:%s).\n", server[id].name, account_id, ip);
 			else {
 				mmo_save_accreg2(accounts,fd,account_id,RFIFOL(fd, 8));
 			}
@@ -728,13 +746,13 @@ int parse_fromchar(int fd)
 			RFIFOSKIP(fd,6);
 
 			if( !accounts->load_num(accounts, &acc, account_id) )
-				ShowNotice("Servidor de Personagens '%s': Falha em desbloquear! (Conta: %d inexistente | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha em desbloquear! (AID:%d inexistente | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			if( acc.unban_time == 0 )
-				ShowNotice("Servidor de Personagens '%s': Falha em desbloquear! (Conta: %d Tempo de ban consta como ZERO | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Falha em desbloquear! (AID:%d Tempo de ban consta como ZERO | IP:%s)\n", server[id].name, account_id, ip);
 			else
 			{
-				ShowNotice("Servidor de Personagens '%s': Pedido para desbloquear conta (Conta: %d | IP: %s).\n", server[id].name, account_id, ip);
+				ShowNotice("'%s': Pedido para desbloquear conta! (AID:%d | IP:%s)\n", server[id].name, account_id, ip);
 				acc.unban_time = 0;
 				accounts->save(accounts, &acc);
 			}
@@ -794,12 +812,12 @@ int parse_fromchar(int fd)
 			if( RFIFOREST(fd) < 6 )
 				return 0;
 			server[id].ip = ntohl(RFIFOL(fd,2));
-			ShowInfo("IP do Servidor foi atualizado #%d para %d.%d.%d.%d.\n",id, CONVIP(server[id].ip));
+			ShowInfo("IP do Servidor #%d foi atualizado para %d.%d.%d.%d.\n",id, CONVIP(server[id].ip));
 			RFIFOSKIP(fd,6);
 		break;
 
 		case 0x2737: //Request to set all offline.
-			ShowInfo("Desconectando personagens do Servidor de Personagens %d .\n", id);
+			ShowInfo("Desconectando personagens do Servidor de Personagens %d.\n", id);
 			online_db->foreach(online_db, online_db_setoffline, id);
 			RFIFOSKIP(fd,2);
 		break;
@@ -915,7 +933,7 @@ int mmo_auth_new(const char* userid, const char* pass, const char sex, const cha
 	if( new_reg_tick == 0 )
 		new_reg_tick = timer->gettick();
 	if( DIFF_TICK(tick, new_reg_tick) < 0 && num_regs >= allowed_regs ) {
-		ShowNotice("Limite de registros excedido.\n");
+		ShowNotice("Limite de tempo para novos registros excedido.\n");
 		return 3;
 	}
 
@@ -928,7 +946,7 @@ int mmo_auth_new(const char* userid, const char* pass, const char sex, const cha
 
 	// check if the account doesn't exist already
 	if( accounts->load_str(accounts, &acc, userid) ) {
-		ShowNotice("Tentativa de criar uma conta existente negada (Conta: %s_%c | Senha: %s | Senha Recebida: %s)\n", userid, sex, acc.pass, pass);
+		ShowNotice("Tentativa de criar uma conta existente negada (Conta:%s_%c | Senha:%s | Senha Recebida:%s)\n", userid, sex, acc.pass, pass);
 		return 1; // 1 = Incorrect Password
 	}
 
@@ -982,7 +1000,7 @@ int mmo_auth(struct login_session_data* sd, bool isServer) {
 		for( dnsbl_serv = strtok(login_config.dnsbl_servs,","); dnsbl_serv != NULL; dnsbl_serv = strtok(NULL,",") ) {
 			sprintf(ip_dnsbl, "%s.%s", r_ip, trim(dnsbl_serv));
 			if( host2ip(ip_dnsbl) ) {
-				ShowInfo(" IP (%s) na lista negra. Acesso Negado.\n", r_ip);
+				ShowInfo(" IP (%s) na lista negra! Acesso negado.\n", r_ip);
 				return 3;
 			}
 		}
@@ -1014,24 +1032,24 @@ int mmo_auth(struct login_session_data* sd, bool isServer) {
 	}
 	
 	if( !accounts->load_str(accounts, &acc, sd->userid) ) {
-		ShowNotice("Conta desconhecida (Conta: %s | Senha Recebida: %s | IP: %s)\n", sd->userid, sd->passwd, ip);
+		ShowNotice("Conta desconhecida (Conta:%s | Senha Recebida:%s | IP:%s)\n", sd->userid, sd->passwd, ip);
 		return 0; // 0 = Unregistered ID
 	}
 
 	if( !check_password(sd->md5key, sd->passwdenc, sd->passwd, acc.pass) ) {
-		ShowNotice("Senha Incorreta (Conta: '%s' | Senha: '%s' | Senha Recebida: '%s', IP: %s)\n", sd->userid, acc.pass, sd->passwd, ip);
+		ShowNotice("Senha incorreta (Conta:'%s' | Senha:'%s' | Senha Recebida:'%s' | IP:%s)\n", sd->userid, acc.pass, sd->passwd, ip);
 		return 1; // 1 = Incorrect Password
 	}
 
 	if( acc.unban_time != 0 && acc.unban_time > time(NULL) ) {
 		char tmpstr[24];
 		timestamp2string(tmpstr, sizeof(tmpstr), acc.unban_time, login_config.date_format);
-		ShowNotice("Conta Bloqueada tentando efetuar acesso (Conta: %s | Senha : %s | Tempo de Bloqueio: %s | IP: %s)\n", sd->userid, sd->passwd, tmpstr, ip);
+		ShowNotice("Conta bloqueada tentando efetuar acesso (Conta:%s | Senha :%s | Tempo de Bloqueio:%s | IP:%s)\n", sd->userid, sd->passwd, tmpstr, ip);
 		return 6; // 6 = Your are Prohibited to log in until %s
 	}
 
 	if( acc.state != 0 ) {
-		ShowNotice("Tentativa em conectar mal sucedida (Conta: %s | Senha: %s | Estado: %d | IP: %s)\n", sd->userid, sd->passwd, acc.state, ip);
+		ShowNotice("Tentativa em conectar malsucedida (Conta:%s | Senha:%s | Estado:%d | IP:%s)\n", sd->userid, sd->passwd, acc.state, ip);
 		return acc.state - 1;
 	}
 	
@@ -1055,19 +1073,20 @@ int mmo_auth(struct login_session_data* sd, bool isServer) {
 			int i;
 
 			if( !sd->has_client_hash ) {
-				ShowNotice("Cliente esqueceu de enviar o hash (Conta: %s | Senha: %s | IP: %s)\n", sd->userid, sd->passwd, acc.state, ip);
+			    // Sim, ele sofre lapsos de memória rsrs
+				ShowNotice("Cliente esqueceu de enviar o hash! (Conta:%s | Senha:%s | IP:%s)\n", sd->userid, sd->passwd, acc.state, ip);
 				return 5;
 			}
 
 			for( i = 0; i < 16; i++ )
 				sprintf(&smd5[i * 2], "%02x", sd->client_hash[i]);
 
-			ShowNotice("Cliente enviou Hash incorreto (Conta: %s | Senha: %s | MD5 Enviado: %d | IP: %s)\n", sd->userid, sd->passwd, smd5, ip);
+			ShowNotice("Cliente enviou hash incorreto! (Conta:%s | Senha:%s | MD5 Enviado:%d | IP:%s)\n", sd->userid, sd->passwd, smd5, ip);
 			return 5;
 		}
 	}
 
-	ShowNotice("Conta autenticada com sucesso!! (Conta: %s | ID: %d | IP: %s)\n", sd->userid, acc.account_id, ip);
+	ShowNotice("Conta autenticada com sucesso!! (Conta:%s | ID:%d | IP:%s)\n", sd->userid, acc.account_id, ip);
 
 	// update session data
 	sd->account_id = acc.account_id;
@@ -1113,14 +1132,14 @@ void login_auth_ok(struct login_session_data* sd)
 	}
 
 	if( login_config.group_id_to_connect >= 0 && sd->group_id != login_config.group_id_to_connect ) {
-		ShowStatus("Falha ao conectar: Apenas o grupo pode aceder (%d) (Conta: %s | Grupo: %d).\n", login_config.group_id_to_connect, sd->userid, sd->group_id);
+		ShowStatus("Falha ao conectar: Apenas o grupo pode aceder (%d) (Conta:%s | Grupo:%d).\n", login_config.group_id_to_connect, sd->userid, sd->group_id);
 		WFIFOHEAD(fd,3);
 		WFIFOW(fd,0) = 0x81;
 		WFIFOB(fd,2) = 1; // 01 = Server closed
 		WFIFOSET(fd,3);
 		return;
 	} else if( login_config.min_group_id_to_connect >= 0 && login_config.group_id_to_connect == -1 && sd->group_id < login_config.min_group_id_to_connect ) {
-		ShowStatus("Falha ao conectar: Grupo base para aceder (%d) (Conta: %s | Grupo: %d).\n", login_config.min_group_id_to_connect, sd->userid, sd->group_id);
+		ShowStatus("Falha ao conectar: Grupo base para aceder (%d) (Conta:%s | Grupo:%d).\n", login_config.min_group_id_to_connect, sd->userid, sd->group_id);
 		WFIFOHEAD(fd,3);
 		WFIFOW(fd,0) = 0x81;
 		WFIFOB(fd,2) = 1; // 01 = Server closed
@@ -1135,7 +1154,7 @@ void login_auth_ok(struct login_session_data* sd)
 
 	if( server_num == 0 )
 	{// if no char-server, don't send void list of servers, just disconnect the player with proper message
-		ShowStatus("Falha ao conectar: Servidor de Login inexistente (Conta: %s).\n", sd->userid);
+		ShowStatus("Falha ao conectar: Servidor de Login inexistente (Conta:%s).\n", sd->userid);
 		WFIFOHEAD(fd,3);
 		WFIFOW(fd,0) = 0x81;
 		WFIFOB(fd,2) = 1; // 01 = Server closed
@@ -1315,7 +1334,7 @@ int parse_login(int fd)
 
 	if( session[fd]->flag.eof )
 	{
-		ShowInfo("Processo finalizado (IP: '"CL_WHITE"%s"CL_RESET"').\n", ip);
+		ShowInfo("Processo finalizado (IP:'"CL_WHITE"%s"CL_RESET"').\n", ip);
 		do_close(fd);
 		return 0;
 	}
@@ -1325,7 +1344,7 @@ int parse_login(int fd)
 		// Perform ip-ban check
 		if( login_config.ipban && ipban_check(ipl) )
 		{
-			ShowStatus("IP bloqueado (IP: %s) tentando autenticar.Recusando...\n", ip);
+			ShowStatus("IP bloqueado (IP:%s) tentando autenticar. Recusando...\n", ip);
 			login_log(ipl, "unknown", -3, "ip banned");
 			WFIFOHEAD(fd,23);
 			WFIFOW(fd,0) = 0x6a;
@@ -1435,7 +1454,7 @@ int parse_login(int fd)
 			safestrncpy(sd->userid, username, NAME_LENGTH);
 			if( israwpass )
 			{
-				ShowStatus("Conta %s com IP (ip: %s) conectando-se ao Servidor de Login.\n", sd->userid, ip);
+				ShowStatus("Conta %s (IP:%s) conectando-se ao Servidor de Login.\n", sd->userid, ip);
 				safestrncpy(sd->passwd, password, PASSWD_LEN);
 				if( login_config.use_md5_passwds )
 					MD5_String(sd->passwd, sd->passwd);
@@ -1443,7 +1462,7 @@ int parse_login(int fd)
 			}
 			else
 			{
-				ShowStatus("Conta %s com IP (ip: %s) conectando-se ao Servidor de Login usando senha encriptada\n", sd->userid, ip);
+				ShowStatus("Conta %s (IP:%s) conectando-se ao Servidor de Login usando senha encriptada.\n", sd->userid, ip);
 				bin2hex(sd->passwd, passhash, 16); // raw binary data here!
 				sd->passwdenc = PASSWORDENC;
 			}
@@ -1502,7 +1521,7 @@ int parse_login(int fd)
 			new_ = RFIFOW(fd,84);
 			RFIFOSKIP(fd,86);
 
-			ShowInfo("Conectando-se ao Servidor de Personagens '%s' @ %u.%u.%u.%u:%u (Conta: '%s', Senha: '%s', IP: '%s')\n", server_name, CONVIP(server_ip), server_port, sd->userid, sd->passwd, ip);
+			ShowInfo("Conectando-se ao Servidor de Personagens '%s' @ %u.%u.%u.%u:%u (Conta:'%s' | Senha:'%s' | IP:'%s')\n", server_name, CONVIP(server_ip), server_port, sd->userid, sd->passwd, ip);
 			sprintf(message, "charserver - %s@%u.%u.%u.%u:%u", server_name, CONVIP(server_ip), server_port);
 			login_log(session[fd]->client_addr, sd->userid, 100, message);
 
@@ -1544,7 +1563,7 @@ int parse_login(int fd)
 		return 0; // processing will continue elsewhere
 
 		default:
-			ShowNotice("(IP: %s)! Falha em processar login. Pacote desconhecido 0x%x\n", ip, command);
+			ShowNotice("(IP: %s): Falha em processar login! Pacote desconhecido 0x%x.\n", ip, command);
 			set_eof(fd);
 			return 0;
 		}
@@ -1590,7 +1609,7 @@ int login_config_read(const char* cfgName)
 	char line[1024], w1[1024], w2[1024];
 	FILE* fp = fopen(cfgName, "r");
 	if (fp == NULL) {
-		ShowError("Arquivo .conf Inexistente: %s.\n", cfgName);
+		ShowError("Arquivo inexistente: %s.\n", cfgName);
 		return 1;
 	}
 	while(fgets(line, sizeof(line), fp)) {
@@ -1822,12 +1841,12 @@ int do_init(int argc, char** argv)
 	// Account database init
 	accounts = account_engine[0].db;
 	if( accounts == NULL ) {
-		ShowFatalError("Motor de contas inexistente. Processo Encerrado\n");
+		ShowFatalError("Motor de contas inexistente. Processo Encerrado!! \n");
 		exit(EXIT_FAILURE);
 	} else {
 
 		if(!accounts->init(accounts)) {
-			ShowFatalError("Falha em inicializar o motor de contas SQL. Processo Encerrado\n");
+			ShowFatalError("Falha em inicializar o motor de contas SQL. Processo Encerrado!!\n");
 			exit(EXIT_FAILURE);
 		}
 	}

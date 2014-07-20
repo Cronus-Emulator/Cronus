@@ -24,20 +24,13 @@
 /* [HCache] 1-byte key to ensure our method is the latest, we can modify to ensure the method matches */
 #define HCACHE_KEY 'k'
 
-// generate a hex dump of the first 'length' bytes of 'buffer'
-void WriteDump(FILE* fp, const void* buffer, size_t length);
-void ShowDump(const void* buffer, size_t length);
-
-void findfile(const char *p, const char *pat, void (func)(const char*));
-bool exists(const char* filename);
-
 //Caps values to min/max
 #define cap_value(a, min, max) (((a) >= (max)) ? (max) : ((a) <= (min)) ? (min) : (a))
 
-/// calculates the value of A / B, in percent (rounded down)
-unsigned int get_percentage(const unsigned int A, const unsigned int B);
 
+unsigned int get_percentage(const unsigned int A, const unsigned int B); // (A/B -> Rounded down)
 const char* timestamp2string(char* str, size_t size, time_t timestamp, const char* format);
+bool exists(const char* filename);
 
 //////////////////////////////////////////////////////////////////////////
 // byte word dword access [Shinomori]

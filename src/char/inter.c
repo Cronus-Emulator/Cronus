@@ -1,18 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
-
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "inter.h"
 
@@ -107,7 +124,7 @@ bool msg_config_read(const char *cfg_name, bool allow_override) {
 	static int called = 1;
 
 	if ((fp = fopen(cfg_name, "r")) == NULL) {
-		ShowError("Arquivo .conf inexistente: %s\n", cfg_name);
+		ShowError("Arquivo inexistente: %s\n", cfg_name);
 		return 1;
 	}
 
@@ -130,7 +147,7 @@ bool msg_config_read(const char *cfg_name, bool allow_override) {
 			if (msg_number >= 0 && msg_number < MAX_JOB_NAMES) {
 				if (msg_table[msg_number] != NULL) {
 					if (!allow_override) {
-						ShowError("Mensagem duplicada: ID '%d' usada por '%s'. Mensagem '%s' ignorada\n",
+						ShowError("Mensagem duplicada! (ID:'%d' | Uso:'%s'). Mensagem '%s' ignorada.\n",
 						          msg_number, w2, msg_table[msg_number]);
 						continue;
 					}
@@ -454,7 +471,7 @@ const char* geoip_getcountry(uint32 ipnum){
 		}
 		offset = x;
 	}
-	ShowError("[GeoDB]: Falha em localizar registro relativo ao IP %d. Arquivo provavelmente corrompido!! \n", ipnum);
+	ShowError("[GeoDB] - Falha em localizar registro relativo ao IP %d. Arquivo provavelmente corrompido!!\n", ipnum);
 
 	return geoip_countryname[0];
 }
@@ -471,7 +488,7 @@ void geoip_final(bool shutdown) {
 
 	if (geoip.active) {
 		if (!shutdown)
-			ShowStatus("[GeoDB]: GeoIP "CL_RED"desativado"CL_RESET".\n");
+			ShowStatus("[GeoDB]: GeoIP "CL_RED"DESATIVADO"CL_RESET".\n");
 		geoip.active = false;
 	}
 }
@@ -492,19 +509,19 @@ void geoip_init(void) {
 
 	db = fopen("./db/GeoIP.dat","rb");
 	if( db == NULL ) {
-		ShowError("[GeoDB]: Falha de leitura na base de dados GeoIP!\n");
+		ShowError("[GeoDB] - Falha de leitura na base de dados GeoIP!\n");
 		geoip_final(false);
 		return;
 	}
 	fno = fileno(db);
 	if( fstat(fno, &bufa) < 0 ) {
-		ShowError("[GeoDB]: Falha em determinar tamanho do arquivo. Erro %d\n", errno);
+		ShowError("[GeoDB] - Falha em determinar tamanho do arquivo!\n");
 		geoip_final(false);
 		return;
 	}
 	geoip.cache = aMalloc( (sizeof(geoip.cache) * bufa.st_size) );
 	if( fread(geoip.cache, 1, bufa.st_size, db) != bufa.st_size ) {
-		ShowError("[GeoDB]: Leitura Incompleta do arquivo GeoIP. \n");
+		ShowError("[GeoDB]: Leitura incompleta do arquivo GeoIP!\n");
 		fclose(db);
 		geoip_final(false);
 		return;
@@ -526,9 +543,9 @@ void geoip_init(void) {
 
 	if( db_type != 1 ) {
 		if( db_type )
-			ShowError("[GeoDB]: Arquivo insuportado (Tipo: %d)!\n", db_type);
+			ShowError("[GeoDB] - Arquivo insuportado! (Tipo: %d)\n", db_type);
 		else
-			ShowError("[GeoDB]: Arquivo CORROMPIDO. \n");
+			ShowError("[GeoDB] - Arquivo CORROMPIDO. \n");
 
 		geoip_final(false);
 		return;
@@ -759,10 +776,8 @@ int inter_accreg_fromsql(int account_id,int char_id, int fd, int type)
 				Sql_ShowDebug(sql_handle);
 			break;
 		case 1: //account2 reg
-			ShowError("inter_accreg_fromsql: Char server shouldn't handle type 1 registry values (##). That is the login server's work!\n");
 			return 0;
 		default:
-			ShowError("inter_accreg_fromsql: Invalid type %d\n", type);
 			return 0;
 	}
 	
@@ -842,7 +857,6 @@ int inter_accreg_fromsql(int account_id,int char_id, int fd, int type)
 				Sql_ShowDebug(sql_handle);
 			break;
 		case 1: //account2 reg
-			ShowError("inter_accreg_fromsql: Char server shouldn't handle type 1 registry values (##). That is the login server's work!\n");
 			return 0;
 	}
 
@@ -922,7 +936,7 @@ static int inter_config_read(const char* cfgName)
 
 	fp = fopen(cfgName, "r");
 	if(fp == NULL) {
-		ShowError("Arquivo .conf inexistente: %s\n", cfgName);
+		ShowError("Arquivo inexistente: %s\n", cfgName);
 		return 1;
 	}
 
@@ -1010,7 +1024,7 @@ int inter_init_sql(const char *file)
 
 	//DB connection initialized
 	sql_handle = SQL->Malloc();
-	ShowInfo("Conectando-se a base de dados do Servidor de Personagens... \n");
+	ShowInfo("Conectando-se a base de dados do Servidor de Personagens...\n");
 	if( SQL_ERROR == SQL->Connect(sql_handle, char_server_id, char_server_pw, char_server_ip, (uint16)char_server_port, char_server_db) )
 	{
 		Sql_ShowDebug(sql_handle);
@@ -1116,12 +1130,6 @@ int mapif_wis_end(struct WisData *wd, int flag)
 	return 0;
 }
 
-// Account registry transfer to map-server
-//static void mapif_account_reg(int fd, unsigned char *src)
-//{
-//	WBUFW(src,0)=0x3804; //NOTE: writing to RFIFO
-//	mapif_sendallwos(fd, src, WBUFW(src,2));
-//}
 
 // Send the requested account_reg
 int mapif_account_reg_reply(int fd,int account_id,int char_id, int type) {
@@ -1206,10 +1214,10 @@ int mapif_parse_WisRequest(int fd)
 	if ( fd <= 0 ) {return 0;} // check if we have a valid fd
 
 	if (RFIFOW(fd,2)-52 >= sizeof(wd->msg)) {
-		ShowWarning("[Inter]: Mensagem de sussuro (Privada) longa demais...\n");
+		ShowWarning("Mensagem privada longa demais...\n");
 		return 0;
 	} else if (RFIFOW(fd,2)-52 <= 0) { // normally, impossible, but who knows...
-		ShowError("[Inter]: Mensagem de sussuro (Privada) inexistente.\n");
+		ShowError("Mensagem privada inexistente.\n");
 		return 0;
 	}
 
@@ -1339,7 +1347,7 @@ int mapif_parse_Registry(int fd)
 					break;
 					
 				default:
-					ShowError("mapif_parse_Registry: unknown type %d\n",RFIFOB(fd, cursor - 1));
+					ShowError("Tipo desconhecido %d.\n",RFIFOB(fd, cursor - 1));
 					return 1;
 			}
 

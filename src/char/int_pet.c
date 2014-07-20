@@ -1,18 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
-
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "int_pet.h"
 
@@ -67,7 +84,7 @@ int inter_pet_tosql(int pet_id, struct s_pet* p)
 	}
 
 	if (save_log)
-		ShowInfo("Salvando Bicho de estimacao! (PETID: %d | Nome: %s) .\n", pet_id, p->name);
+		ShowInfo("Salvando mascote! (PETID:%d | Nome:%s)\n", pet_id, p->name);
 	return 1;
 }
 
@@ -77,7 +94,7 @@ int inter_pet_fromsql(int pet_id, struct s_pet* p)
 	size_t len;
 
 #ifdef NOISY
-	ShowInfo("Carregando Bicho de estimacao! (PETID: %d) .\n",pet_id);
+	ShowInfo("Carregando mascote! (PETID:%d).\n",pet_id);
 #endif
 	memset(p, 0, sizeof(struct s_pet));
 
@@ -110,7 +127,7 @@ int inter_pet_fromsql(int pet_id, struct s_pet* p)
 		p->intimate = cap_value(p->intimate, 0, 1000);
 
 		if( save_log )
-			ShowInfo("Bicho de estimacao carregado. (PETID: %d | Nome: %s).\n", pet_id, p->name);
+			ShowInfo("Mascote carregado! (PETID:%d | Nome:%s)\n", pet_id, p->name);
 	}
 	return 0;
 }
@@ -127,7 +144,7 @@ void inter_pet_sql_final(void){
 }
 //----------------------------------
 int inter_pet_delete(int pet_id){
-	ShowInfo("Pedido para remover Bicho de estimacao. (PETID: %d). \n",pet_id);
+	ShowInfo("Pedido para remover mascote! (PETID:%d)\n",pet_id);
 
 	if( SQL_ERROR == SQL->Query(sql_handle, "DELETE FROM `%s` WHERE `pet_id`='%d'", pet_db, pet_id) )
 		Sql_ShowDebug(sql_handle);
@@ -142,7 +159,7 @@ int mapif_pet_created(int fd, int account_id, struct s_pet *p)
 	if(p!=NULL){
 		WFIFOW(fd, 6) = p->class_;
 		WFIFOL(fd, 8) = p->pet_id;
-		ShowInfo("Bicho de estimacao criado! (PETID: %d | Nome: %s). \n", p->pet_id, p->name);
+		ShowInfo("Mascote criado! (PETID:%d | Nome:%s)\n", p->pet_id, p->name);
 	}else{
 		WFIFOB(fd, 6) = 0;
 		WFIFOL(fd, 8) = 0;
@@ -260,7 +277,7 @@ int mapif_save_pet(int fd, int account_id, struct s_pet *data) {
 	RFIFOHEAD(fd);
 	len=RFIFOW(fd, 2);
 	if(sizeof(struct s_pet)!=len-8) {
-		ShowError("[Inter_Pet]: Dados corrompidos (%d != %d). \n", sizeof(struct s_pet), len-8);
+		ShowError("[Inter_Pet] - Dados corrompidos! (%d != %d)\n", sizeof(struct s_pet), len-8);
 	}
 
 	else{

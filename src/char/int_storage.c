@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 
 #include "../config/core.h" // GP_BOUND_ITEMS
@@ -82,7 +100,7 @@ int storage_fromsql(int account_id, struct storage_data* p)
 	p->storage_amount = i;
 	SQL->FreeResult(sql_handle);
 
-	ShowInfo("Carregamento completo do armazem finalizado! (AID: %d | Total de itens: %d).\n", account_id, p->storage_amount);
+	ShowInfo("Armazem carregado! (AID:%d | Total de itens:%d).\n", account_id, p->storage_amount);
 	return 1;
 }
 
@@ -90,7 +108,7 @@ int storage_fromsql(int account_id, struct storage_data* p)
 int guild_storage_tosql(int guild_id, struct guild_storage* p)
 {
 	memitemdata_to_sql(p->items, MAX_GUILD_STORAGE, guild_id, TABLE_GUILD_STORAGE);
-	ShowInfo ("Salvamento dos dados do armazem de guild completado! (GID: %d).\n", guild_id);
+	ShowInfo ("Salvamento dos dados do armazem de guild completado! (GID:%d).\n", guild_id);
 	return 0;
 }
 
@@ -139,7 +157,7 @@ int guild_storage_fromsql(int guild_id, struct guild_storage* p)
 	p->storage_amount = i;
 	SQL->FreeResult(sql_handle);
 
-	ShowInfo("Carregamento completo do armazem de guild finalizado! (GID: %d | Total de itens: %d)\n", guild_id, p->storage_amount);
+	ShowInfo("Armazem de guild carregado! (GID:%d | Total de itens:%d)\n", guild_id, p->storage_amount);
 	return 0;
 }
 
@@ -230,7 +248,7 @@ int mapif_parse_SaveGuildStorage(int fd)
 
 	if( sizeof(struct guild_storage) != len - 12 )
 	{
-		ShowError("[Inter_st]: Dados corrompidos (%d != %d)\n", sizeof(struct guild_storage), len - 12);
+		ShowError("[Inter_Stor] - Dados corrompidos! (%d != %d)\n", sizeof(struct guild_storage), len - 12);
 	}
 	else
 	{

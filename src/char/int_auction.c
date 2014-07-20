@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "int_auction.h"
 
@@ -124,7 +142,7 @@ unsigned int auction_create(struct auction_data *auction)
 
 		auction->auction_id = (unsigned int)SQL->StmtLastInsertId(stmt);
 		auction->auction_end_timer = timer->add( timer->gettick() + tick , auction_end_timer, auction->auction_id, 0);
-		ShowInfo("Novo Leilao! (AUID: %u | Tempo Restante: %u ms | Vendedor: %s).\n", auction->auction_id, tick, auction->seller_name);
+		ShowInfo("Nova Hasta! (AUID:%u | Tempo Restante:%u ms | Vendedor:%s).\n", auction->auction_id, tick, auction->seller_name);
 
 		CREATE(auction_, struct auction_data, 1);
 		memcpy(auction_, auction, sizeof(struct auction_data));
@@ -160,7 +178,7 @@ static int auction_end_timer(int tid, int64 tick, int id, intptr_t data) {
 		else
 			mail_sendmail(0, "Gerente do Leilão", auction->seller_id, auction->seller_name, "Leilão", "Nenhum jogador deu lance no seu item", 0, &auction->item);
 		
-		ShowInfo("Fim do Leilao (ID %u).\n", auction->auction_id);
+		ShowInfo("Fim da Hasta! (AUID:%u).\n", auction->auction_id);
 
 		auction->auction_end_timer = INVALID_TIMER;
 		auction_delete(auction);

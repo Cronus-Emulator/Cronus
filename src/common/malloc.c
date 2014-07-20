@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "malloc.h"
 
@@ -26,56 +44,6 @@
 
 struct malloc_interface iMalloc_s;
 
-////////////// Memory Libraries //////////////////
-
-#if defined(MEMWATCH)
-
-#	include <string.h>
-#	include "memwatch.h"
-#	define MALLOC(n,file,line,func)    mwMalloc((n),(file),(line))
-#	define CALLOC(m,n,file,line,func)  mwCalloc((m),(n),(file),(line))
-#	define REALLOC(p,n,file,line,func) mwRealloc((p),(n),(file),(line))
-#	define STRDUP(p,file,line,func)    mwStrdup((p),(file),(line))
-#	define FREE(p,file,line,func)      mwFree((p),(file),(line))
-#	define MEMORY_USAGE()              (size_t)0
-#	define MEMORY_VERIFY(ptr)          mwIsSafeAddr((ptr), 1)
-#	define MEMORY_CHECK()              CHECK()
-
-#elif defined(DMALLOC)
-
-#	include <string.h>
-#	include <stdlib.h>
-#	include "dmalloc.h"
-#	define MALLOC(n,file,line,func)    dmalloc_malloc((file),(line),(n),DMALLOC_FUNC_MALLOC,0,0)
-#	define CALLOC(m,n,file,line,func)  dmalloc_malloc((file),(line),(m)*(n),DMALLOC_FUNC_CALLOC,0,0)
-#	define REALLOC(p,n,file,line,func) dmalloc_realloc((file),(line),(p),(n),DMALLOC_FUNC_REALLOC,0)
-#	define STRDUP(p,file,line,func)    strdup(p)
-#	define FREE(p,file,line,func)      free(p)
-#	define MEMORY_USAGE()              dmalloc_memory_allocated()
-#	define MEMORY_VERIFY(ptr)          (dmalloc_verify(ptr) == DMALLOC_VERIFY_NOERROR)
-#	define MEMORY_CHECK()              do { dmalloc_log_stats(); dmalloc_log_unfreed() } while(0)
-
-#elif defined(GCOLLECT)
-
-#	include "gc.h"
-#	ifdef GC_ADD_CALLER
-#		define RETURN_ADDR 0,
-#	else
-#		define RETURN_ADDR
-#	endif
-#	define MALLOC(n,file,line,func)    GC_debug_malloc((n), RETURN_ADDR (file),(line))
-#	define CALLOC(m,n,file,line,func)  GC_debug_malloc((m)*(n), RETURN_ADDR (file),(line))
-#	define REALLOC(p,n,file,line,func) GC_debug_realloc((p),(n), RETURN_ADDR (file),(line))
-#	define STRDUP(p,file,line,func)    GC_debug_strdup((p), RETURN_ADDR (file),(line))
-#	define FREE(p,file,line,func)      GC_debug_free(p)
-#	define MEMORY_USAGE()              GC_get_heap_size()
-#	define MEMORY_VERIFY(ptr)          (GC_base(ptr) != NULL)
-#	define MEMORY_CHECK()              GC_gcollect()
-
-#	undef RETURN_ADDR
-
-#else
-
 #	define MALLOC(n,file,line,func)    malloc(n)
 #	define CALLOC(m,n,file,line,func)  calloc((m),(n))
 #	define REALLOC(p,n,file,line,func) realloc((p),(n))
@@ -84,8 +52,6 @@ struct malloc_interface iMalloc_s;
 #	define MEMORY_USAGE()              (size_t)0
 #	define MEMORY_VERIFY(ptr)          true
 #	define MEMORY_CHECK()
-
-#endif
 
 void* aMalloc_(size_t size, const char *file, int line, const char *func)
 {
@@ -832,15 +798,6 @@ void malloc_final (void) {
 void malloc_init (void) {
 	memmgr_usage_bytes_t = 0;
 	memmgr_usage_bytes = 0;
-#if defined(DMALLOC) && defined(CYGWIN)
-	// http://dmalloc.com/docs/latest/online/dmalloc_19.html
-	dmalloc_debug_setup(getenv("DMALLOC_OPTIONS"));
-#endif
-#ifdef GCOLLECT
-	// don't garbage collect, only report inaccessible memory that was not deallocated
-	GC_find_leak = 1;
-	GC_INIT();
-#endif
 #ifdef USE_MEMMGR
 	memmgr_init ();
 #endif

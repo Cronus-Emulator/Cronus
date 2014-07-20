@@ -1,17 +1,35 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+/*-------------------------------------------------------------------------|
+| _________                                                                |
+| \_   ___ \_______  ____   ____  __ __  ______                            |
+| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
+| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
+|  \______  /|__|   \____/|___|  /____//____  >                            |
+|         \/                   \/           \/                             |
+|--------------------------------------------------------------------------|
+| Copyright (C) <2014>  <Cronus - Emulator>                                |
+|	                                                                       |
+| Copyright Portions to eAthena, jAthena and Hercules Project              |
+|                                                                          |
+| This program is free software: you can redistribute it and/or modify     |
+| it under the terms of the GNU General Public License as published by     |
+| the Free Software Foundation, either version 3 of the License, or        |
+| (at your option) any later version.                                      |
+|                                                                          |
+| This program is distributed in the hope that it will be useful,          |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
+| GNU General Public License for more details.                             |
+|                                                                          |
+| You should have received a copy of the GNU General Public License        |
+| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
+|                                                                          |
+|----- Descrição: ---------------------------------------------------------| 
+|                                                                          |
+|--------------------------------------------------------------------------|
+|                                                                          |
+|----- ToDo: --------------------------------------------------------------| 
+|                                                                          |
+|-------------------------------------------------------------------------*/
 
 #include "../config/core.h" // CONSOLE_INPUT
 #include "char.h"
@@ -388,7 +406,7 @@ void set_all_offline(int id)
 	if (id < 0)
 		ShowNotice("Desconectando todos os personagens...\n");
 	else
-		ShowNotice("Desconectando todos os personagens do Servidor de Mapas %d.\n",id);
+		ShowNotice("Desconectando todos os personagens no Servidor de Mapas %d.\n",id);
 	online_char_db->foreach(online_char_db,char_db_kickoffline,id);
 
 	if (id >= 0 || login_fd <= 0 || session[login_fd]->flag.eof)
@@ -706,7 +724,7 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 		
 	StrBuf->Destroy(&buf);
 	if (save_status[0]!='\0' && save_log)
-		ShowInfo("Personagem Salvo! (CID:%d | Nick:%s:%s).\n", char_id, p->name, save_status);
+		ShowInfo("Personagem salvo! (CID:%d | Nome:%s | Status:%s).\n", char_id, p->name, save_status);
 	if (!errors)
 		memcpy(cp, p, sizeof(struct mmo_charstatus));
 	return 0;
@@ -1121,7 +1139,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 
 	memset(p, 0, sizeof(struct mmo_charstatus));
 
-	if (save_log) ShowInfo("Pedido para coletar dados de personagem (CID: %d).\n", char_id);
+	if (save_log) ShowInfo("Pedido para coletar dados de personagem (CID:%d).\n", char_id);
 
 	stmt = SQL->StmtMalloc(sql_handle);
 	if( stmt == NULL )
@@ -1205,7 +1223,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	}
 	if( SQL_ERROR == SQL->StmtNextRow(stmt) )
 	{
-		ShowError("Pedido de personagem inexistente (CID: %d!).\n", char_id);
+		ShowError("Pedido de personagem inexistente! (CID:%d).\n", char_id);
 		SQL->StmtFree(stmt);
 		return 0;
 	}
@@ -1335,7 +1353,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 		if( skillid2idx[tmp_skill.id] )
 			memcpy(&p->skill[skillid2idx[tmp_skill.id]], &tmp_skill, sizeof(tmp_skill));
 		else
-			ShowWarning("Ignorando habilidade inexistente (ID: %u | LV: %u) do personagem %s (AID: %d | CID: %d).\n", tmp_skill.id, tmp_skill.lv, p->name, p->account_id, p->char_id);
+			ShowWarning("Ignorando habilidade inexistente (ID:%u | LV:%u) do personagem %s (AID:%d | CID:%d).\n", tmp_skill.id, tmp_skill.lv, p->name, p->account_id, p->char_id);
 	}
 	strcat(t_msg, " skills");
 
@@ -1370,7 +1388,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 		if( hotkey_num >= 0 && hotkey_num < MAX_HOTKEYS )
 			memcpy(&p->hotkeys[hotkey_num], &tmp_hotkey, sizeof(tmp_hotkey));
 		else
-			ShowWarning("Ignorando atalho inexistente (Atalho: %d | Tipo: %u | ID: %u | LV: %u) do personagem %s (AID: %d | CID: %d).\n", hotkey_num, tmp_hotkey.type, tmp_hotkey.id, tmp_hotkey.lv, p->name, p->account_id, p->char_id);
+			ShowWarning("Ignorando atalho inexistente (Atalho: %d | Tipo: %u | ID: %u | LV: %u) do personagem %s (AID:%d | CID:%d).\n", hotkey_num, tmp_hotkey.type, tmp_hotkey.id, tmp_hotkey.lv, p->name, p->account_id, p->char_id);
 	}
 	strcat(t_msg, " hotkeys");
 #endif
@@ -1395,7 +1413,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	if( SQL_SUCCESS == SQL->StmtNextRow(stmt) )
 		strcat(t_msg, " accdata");
 
-	if (save_log) ShowInfo("Personagem carregado (CID: %d - Nick: %s): %s\n", char_id, p->name, t_msg);	//ok. all data load successfully!
+	if (save_log) ShowInfo("Personagem carregado (CID: %d | Nome: %s): %s\n", char_id, p->name, t_msg);	//ok. all data load successfully!
 	SQL->StmtFree(stmt);
 	StrBuf->Destroy(&buf);
 
@@ -1531,19 +1549,11 @@ int check_char_name(char * name, char * esc_name)
 {
 	int i;
 
-	// check length of character name
-	if( name[0] == '\0' )
+	// check empty name, length of character name (Avoid exploit) and control characters
+	if( name[0] == '\0' || strlen(name) < 4 || remove_control_chars(name) )
 		return -2; // empty character name
-	/**
-	 * The client does not allow you to create names with less than 4 characters, however,
-	 * the use of WPE can bypass this, and this fixes the exploit.
-	 **/
-	if( strlen( name ) < 4 )
-		return -2;
-	// check content of character name
-	if( remove_control_chars(name) )
-		return -2; // control chars in name
 
+		
 	// check for reserved names
 	if( strcasecmp(name, wisp_server_name) == 0 )
 		return -1; // nick reserved for internal server messages
@@ -1689,7 +1699,7 @@ int make_new_char_sql(struct char_session_data* sd, char* name_, int str, int ag
 		}
 	}
 
-	ShowInfo("Personagem Criado!! (AID: %d | CID: %d | SLOT: %d | Nome: %s).\n", sd->account_id, char_id, slot, name);
+	ShowInfo("Personagem criado! (AID:%d | CID:%d | Slot:%d | Nome:%s).\n", sd->account_id, char_id, slot, name);
 	return char_id;
 }
 
@@ -1757,7 +1767,7 @@ int delete_char_sql(int char_id)
 	if( ( char_del_level > 0 && base_level >= char_del_level )
 	 || ( char_del_level < 0 && base_level <= -char_del_level )
 	) {
-			ShowInfo("Falha no pedido para remover de personagem! (Nick: %s | LV: %i).\n", name, base_level);
+			ShowInfo("Falha no pedido para remover de personagem! (Nick:%s | LV:%i).\n", name, base_level);
 			return -1;
 	}
 
@@ -2258,7 +2268,7 @@ int parse_fromlogin(int fd) {
 
 	// only process data from the login-server
 	if( fd != login_fd ) {
-		ShowDebug("(Servidor de Login): Falha de escrita em #%d.\n", fd);
+		ShowDebug("[Login] - Falha de escrita em #%d.\n", fd);
 		do_close(fd);
 		return 0;
 	}
@@ -2294,13 +2304,12 @@ int parse_fromlogin(int fd) {
 					return 0;
 
 				if (RFIFOB(fd,2)) {
-					//printf("connect login server error : %d\n", RFIFOB(fd,2));
 					ShowError("Falha ao conectar no Servidor de Login\n");
 					ShowError("A conta-mestre (s1/p1) inexistente ou configurada de maneira incorreta.\n");
 					set_eof(fd);
 					return 0;
 				} else {
-					ShowStatus("Conectado ao Servidor de Login (FD: #%d).\n", fd);
+					ShowStatus("Sincronizado ao Servidor de Login (FD: #%d).\n", fd);
 					loginif_on_ready();
 				}
 				RFIFOSKIP(fd,3);
@@ -2374,7 +2383,7 @@ int parse_fromlogin(int fd) {
 					sd->group_id = RFIFOB(fd,50);
 					sd->char_slots = RFIFOB(fd,51);
 					if( sd->char_slots > MAX_CHARS ) {
-						ShowError("Os slots de personagem na conta (AID: %d) excedem o limite permitido (Slots: %d). Reduzindo... \n",sd->account_id,sd->char_slots);
+						ShowError("Os slots de personagem na conta (AID:%d) excedem o limite permitido (Slots:%d).Reduzindo... \n",sd->account_id,sd->char_slots);
 						sd->char_slots = MAX_CHARS;/* cap to maximum */
 					} else if ( sd->char_slots <= 0 )/* no value aka 0 in sql */
 						sd->char_slots = MAX_CHARS;/* cap to maximum */
@@ -2590,7 +2599,7 @@ int parse_fromlogin(int fd) {
 				if (new_ip && new_ip != char_ip)
 				{	//Update ip.
 					char_ip = new_ip;
-					ShowInfo("Atualizando IP para [%s].\n", char_ip_str);
+					ShowInfo("Atualizando IP para %s.\n", char_ip_str);
 					// notify login server about the change
 					WFIFOHEAD(fd,6);
 					WFIFOW(fd,0) = 0x2736;
@@ -2934,7 +2943,7 @@ int parse_frommap(int fd)
 
 	ARR_FIND( 0, ARRAYLENGTH(server), id, server[id].fd == fd );
 	if( id == ARRAYLENGTH(server) ) {// not a map server
-		ShowDebug("(Servidor de Mapas): Falha de Escrita (FD: #%d).\n", fd);
+		ShowDebug("[Mapas] - Falha de Escrita (FD: #%d).\n", fd);
 		do_close(fd);
 		return 0;
 	}
@@ -4367,7 +4376,7 @@ int parse_char(int fd)
 						cd->last_point.x = 94;
 						cd->last_point.y = 103;
 					} else {
-						ShowInfo("Falha! Nenhum Servidor de Mapas presente possui uma cidade principal. Finalizando '%s'.\n", mapindex_id2name(cd->last_point.map));
+						ShowInfo("Nenhum Servidor de Mapas presente possui uma cidade principal. Finalizando '%s'.\n", mapindex_id2name(cd->last_point.map));
 						WFIFOHEAD(fd,3);
 						WFIFOW(fd,0) = 0x81;
 						WFIFOB(fd,2) = 1; // 01 = Server closed
@@ -4457,7 +4466,7 @@ int parse_char(int fd)
 						case -5: WFIFOB(fd,2) = 0x02; break; // 'Symbols in Character Names are forbidden'
 
 						default:
-							ShowWarning("Resultado desconhecido para criar personagens...!\n");
+							ShowWarning("Resultado desconhecido para criar personagem !\n");
 							WFIFOB(fd,2) = 0xFF;
 							break;
 					}
@@ -5004,7 +5013,7 @@ int char_lan_config_read(const char *lancfgName)
 	char line[1024], w1[64], w2[64], w3[64], w4[64];
 
 	if((fp = fopen(lancfgName, "r")) == NULL) {
-		ShowWarning("Arquivo .conf para redes LAN inexistente: %s\n", lancfgName);
+		ShowWarning("Arquivo para LAN inexistente: %s\n", lancfgName);
 		return 1;
 	}
 
@@ -5015,7 +5024,7 @@ int char_lan_config_read(const char *lancfgName)
 
 		if(sscanf(line,"%[^:]: %[^:]:%[^:]:%[^\r\n]", w1, w2, w3, w4) != 4) {
 
-			ShowWarning("Erro de sintaxe: Arquivo %s na linha %d.\n", lancfgName, line_num);
+			ShowWarning("Erro de sintaxe! (Arquivo:%s | Linha:%d) .\n", lancfgName, line_num);
 			continue;
 		}
 
@@ -5032,7 +5041,7 @@ int char_lan_config_read(const char *lancfgName)
 
 			if( (subnet[subnet_count].char_ip & subnet[subnet_count].mask) != (subnet[subnet_count].map_ip & subnet[subnet_count].mask) )
 			{
-				ShowError("%s: O Servidor de Personagens (%s) e o Servidor de Mapas (%s) existem em subredes diferentes!\n", lancfgName, w3, w4);
+				ShowError("O Servidor de Personagens (%s) e o Servidor de Mapas (%s) existem em subredes diferentes!\n", w3, w4);
 				continue;
 			}
 
@@ -5053,7 +5062,7 @@ void sql_config_read(const char* cfgName)
 	FILE* fp;
 
 	if ((fp = fopen(cfgName, "r")) == NULL) {
-		ShowError("Arquivo Inexistente (SQL): %s\n", cfgName);
+		ShowError("Arquivo inexistente: %s\n", cfgName);
 		return;
 	}
 
@@ -5162,7 +5171,7 @@ int char_config_read(const char* cfgName)
 	FILE* fp = fopen(cfgName, "r");
 
 	if (fp == NULL) {
-		ShowError("Arquivo .conf Inexistente: %s.\n", cfgName);
+		ShowError("Arquivo inexistente: %s.\n", cfgName);
 		return 1;
 	}
 
@@ -5214,7 +5223,7 @@ int char_config_read(const char* cfgName)
 			if (bind_ip) {
 				char ip_str[16];
 				safestrncpy(bind_ip_str, w2, sizeof(bind_ip_str));
-				ShowStatus("Servidor de Personagens ligando IP : %s -> %s\n", w2, ip2str(bind_ip, ip_str));
+				ShowStatus("Servidor de Personagens relacionando IP : %s -> %s\n", w2, ip2str(bind_ip, ip_str));
 			}
 		} else if (strcasecmp(w1, "char_port") == 0) {
 			char_port = atoi(w2);
@@ -5243,7 +5252,7 @@ int char_config_read(const char* cfgName)
 				continue;
 			start_point.map = mapindex->name2id(map);
 			if (!start_point.map)
-				ShowError("Ponto para iniciar especificado %s inexistente no cache de mapas.\n", map);
+				ShowError("Ponto para iniciar especificado em %s inexistente no cache de mapas.\n", map);
 			start_point.x = x;
 			start_point.y = y;
 		} else if (strcasecmp(w1, "start_items") == 0) {
@@ -5433,9 +5442,9 @@ int do_init(int argc, char **argv) {
 		ip2str(sockt->addr_[0], ip_str);
 
 		if (sockt->naddr_ > 1)
-			ShowStatus("Muitas interfaces detectadas! Usando %s como IP\n", ip_str);
+			ShowStatus("Muitas interfaces detectadas! Usando %s como IP.\n", ip_str);
 		else
-			ShowStatus("Padronizando %s como IP\n", ip_str);
+			ShowStatus("Padronizando %s como IP.\n", ip_str);
 		if (!login_ip) {
 			safestrncpy(login_ip_str, ip_str, sizeof(login_ip_str));
 			login_ip = str2ip(login_ip_str);
