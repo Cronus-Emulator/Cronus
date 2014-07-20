@@ -43,17 +43,17 @@ Equipe Atual
 --------------
 
 ### Administradores
-- Raizen	- Carlos Lain
-- Roberto	- Roberto Oliveira
+- Raizen	    - Carlos Lain
+- Roberto	   - Roberto Oliveira
 
 ### Coordenadores
-- Kooler	- Gustavo Bucci
-- Wolf		- João Victor Senos
+- Kooler	    - Gustavo Bucci
+- Wolf		     - João Victor Senos
 
 ### Desenvolvedores
-- xChiron - Diego da Silva Pinheiro
-- Cainho
-- Schrwaizer
+- xChiron    - Diego da Silva Pinheiro
+- Cainho     - Caio Mateus
+- Schrwaizer - Junior Backes 
 - Shermie
-- SoulBlaker
-- MaatSF
+- SoulBlaker - Romulo
+- MaatSF     - Matheus Freitas
