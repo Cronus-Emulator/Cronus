@@ -6,25 +6,17 @@
 //  \______  /|__|   \____/|___|  /____//____  >
 //         \/                   \/           \/  
 //------------------------------------------------------------
-// Kafras ( Cidades / Campos / Cavernas )
+// Cidade de Jawaii Pre-Renovação.
 //----- Por: -------------------------------------------------
 //= Daegaladh
 //----- Versão Atual: ----------------------------------------
 //= 1.0a
 //----- Descrição: -------------------------------------------
-//= Argument settings for callfunc "F_Kafra":
-//=  arg(0): 0 - Default Kafra message
-//=          1 - Niflhiem Kafra message
-//=          2 - Guild Kafra message
-//=  arg(1): 1 - Disable teleport menu
-//=  arg(2): 1 - Disable info menu
-//=  arg(3): Cost of Storage service
-//=  arg(4): Cost of Rent a Pushcart service
+//= [Conversão Oficial]
+//= NPCs da cidade de Jawaii.
 //----- Comentários Adicionais: ------------------------------
-//= 1.0 First version.
+//= 1.0 First Version.
 //= 1.0a Aplicada tradução para português(pt_BR). [Cainho]
 //------------------------------------------------------------
 
-// Izlude
-//============================================================
-izlude,134,87,3	duplicate(kaf_izlude)	Funcionária Kafra#iz	4_F_KAFRA1
+izlude,171,185,3	duplicate(Honeymoon_Helper_Izlude)	Agente Matrimonial#Izl	1_F_LIBRARYGIRL

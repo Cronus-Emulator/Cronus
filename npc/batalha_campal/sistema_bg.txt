@@ -1,0 +1,570 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Batalha Campal
+//----- Por: -------------------------------------------------
+//= ????, L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.5
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= NPCs Batalha Campal:
+//= - Generais e Auxiliares
+//= - Transportadora
+//= - Kafra e Reparador.
+//= - NPC de Gerenciamento GM (Desabilitado por Padrão)
+//= - Troca de Emblemas (Tierra and Flavius)
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First Version.
+//= 1.1 Updated several NPCs to Official.
+//= 1.2 Updated Repairman NPC
+//= 1.3 Optimized "Erundek" NPC. [Euphy]
+//= 1.4 Added GM management function. [Euphy]
+//= 1.5 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+// Generais
+//============================================================
+bat_room,161,158,3	script	Pajem de Guillaume#01	4_M_KY_HEAD,{ end; }
+bat_room,161,160,3	script	Pajem de Guillaume#03	4_M_KY_HEAD,{ end; }
+
+bat_room,160,141,3	script	Príncipe Croix	4_M_CRU_CRUA,{
+	cutin "bat_crua1",2;
+	mes "[Príncipe Croix]";
+	mes "Sábio aventureiro, pode nos ceder seu poder para atingirmos a vitória?";
+	next;
+	switch(select("Qual é o motivo da batalha?:Fale-me do General Guillaume")) {
+	case 1:
+		cutin "bat_crua2",2;
+		mes "[Príncipe Croix]";
+		mes "O grande rei de Maroll, Marcel Marollo VII, anda muito doente.";
+		mes "Sua Majestade declarou que deixará o futuro de Maroll nas minhas mãos ou nas do 3o. príncipe, General Guillaume.";
+		next;
+		mes "[Príncipe Croix]";
+		mes "O General Guillaume pode ter vantagem nesta batalha, já que é o grande general de Maroll, mas isso não quer dizer que fatalmente ele vá vencer.";
+		mes "Quero vencer esta batalha para poder trazer o povo de Maroll. eles já sofreram demais com a guerra...";
+		next;
+		switch(select("Sim, quero me juntar a você.:Terminar Conversa")) {
+		case 1:
+			cutin "bat_crua1",2;
+			mes "[Príncipe Croix]";
+			mes "Muito obrigado. Sinto que posso vencer com a ajuda de aventureiros como você.";
+			mes "Agora, por favor desça as escadas e se junte aos seus camaradas que estão se preparando para lutar contra o inimigo.";
+			break;
+		case 2:
+			mes "[Príncipe Croix]";
+			mes "Por Maroll!";
+			break;
+		}
+		break;
+	case 2:
+		cutin "bat_crua2",2;
+		mes "[Príncipe Croix]";
+		mes "O 3o. Príncipe, Guillaume, é o grande general de Maroll.";
+		mes "Não preciso perder tempo lhe explicando o quanto ele é um grande líder e chefe de guerra, já que ele comanda o grande poder militar de Maroll.";
+		next;
+		mes "[Príncipe Croix]";
+		mes "Infelizmente, há algo que ele e seus seguidores não percebem:";
+		mes "O povo de Maroll quer mesmo gastar dinheiro em poder militar?";
+		mes "Já sofremos muito com as guerras.";
+		mes "Não acredito que as armas sejam a melhor maneira de trazer prosperidade a uma nação.";
+		next;
+		mes "[Príncipe Croix]";
+		mes "Não quero derramar sangue, mas não tenho escolha senão lutar pela chance de paz e pelo bem do meu povo.";
+		next;
+		switch(select("Sim, quero me juntar a você.:Terminar Conversa")) {
+		case 1:
+			cutin "bat_crua1",2;
+			mes "[Príncipe Croix]";
+			mes "Muito obrigado. Sinto que posso vencer com a ajuda de aventureiros como você.";
+			mes "Agora, por favor desça as escadas e se junte aos seus camaradas que estão se preparando para lutar contra o inimigo.";
+			break;
+		case 2:
+			mes "[Príncipe Croix]";
+			mes "Por Maroll!";
+			break;
+		}
+		break;
+	}
+	close2;
+	cutin "bat_crua1",255;
+	cutin "bat_crua2",255;
+	end;
+}
+
+bat_room,161,140,3	script	Pajem de Croix#01	4_M_CRU_HEAD,{ end; }
+bat_room,161,142,3	script	Pajem de Croix#02	4_M_CRU_HEAD,{ end; }
+
+bat_room,160,159,3	script	General Guillaume	4_M_KY_KIYOM,{
+	cutin "bat_kiyom2",2;
+	mes "[General Guillaume]";
+	mes "Precisamos da sua habilidade, ó aventureiro valente, para vencer esta batalha.";
+	next;
+	switch(select("Qual é o motivo da batalha?:Fale-me sobre o Príncipe Croix")) {
+	case 1:
+		cutin "bat_kiyom1",2;
+		mes "[General Guillaume]";
+		mes "Nosso grande rei, Marcel Marollo VII, anda muito doente.";
+		mes "Sua Majestade declarou que, entre seus 9 filhos, escolherá a mim ou ao Príncipe Croix como o próximo rei.";
+		next;
+		mes "[General Guillaume]";
+		mes "Dois reis não podem compartilhar uma nação! Somente quem sair vitorioso da batalha determinada por Sua Majestade será coroado.";
+		next;
+		mes "[General Guillaume]";
+		mes "No entanto esta não é apenas uma batalha entre nós dois. Esta batalha vai determinar o futuro deste país.";
+		mes "Juro por minha honra que vou provar ser quem pode proteger Maroll das ameaças externas.";
+		next;
+		switch(select("Sim, quero me juntar a você.:Terminar Conversa")) {
+		case 1:
+			cutin "bat_kiyom2",2;
+			mes "[General Guillaume]";
+			mes "Bem-vindo ao meu exército, camarada.";
+			mes "Seus olhos me dizem que posso confiar em você como soldado.";
+			next;
+			mes "[General Guillaume]";
+			mes "Agora, suba as escadas e prepare-se para a batalha com seus companheiros.";
+			mes "Sei que eles vão lhe dar as boas vindas de coração!";
+			break;
+		case 2:
+			mes "[General Guillaume]";
+			mes "Serei eu quem vai capturar a bandeira!";
+			break;
+		}
+		break;
+	case 2:
+		cutin "bat_kiyom1",2;
+		mes "[General Guillaume]";
+		mes "O 5o. Príncipe Croix atualmente é o Primeiro Ministro de Maroll.";
+		mes "Ele acha que todos os assuntos nacionais podem ser discutidos e resolvidos em cima de uma mesa,";
+		mes "e acredita na co-existência pacífica com outros países.";
+		next;
+		mes "[General Guillaume]";
+		mes "Ele é ignorante demais para admitir que essa tal paz se constrói com as incontáveis vidas sacrificadas nas guerras, enquanto os cidadãos comuns e nobres vivem sem pensar nos horrores que permitem que eles continuem vivendo.";
+		next;
+		mes "[General Guillaume]";
+		mes "Ele é ingênuo demais para entender a realidade...";
+		mes "Não posso deixar Maroll nas mãos de alguém como ele, que vive em um sonho!";
+		next;
+		mes "[General Guillaume]";
+		mes "Suas crenças irreais afundarão este país na pobreza, e deixarão o povo fraco. Se ele se tornar rei, Maroll nunca vai descansar dos massacres causados por outros países.";
+		mes "Quero ensinar ele o que faz este pequeno país tão poderoso e próspero: o poder militar!";
+		next;
+		switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
+		case 1:
+			cutin "bat_kiyom2",2;
+			mes "[General Guillaume]";
+			mes "Bem-vindo ao meu exército, camarada.";
+			mes "Seus olhos me dizem que posso confiar em você como soldado.";
+			next;
+			mes "[General Guillaume]";
+			mes "Agora, suba as escadas e prepare-se para a batalha com seus companheiros.";
+			mes "Sei que eles vão lhe dar as boas vindas de coração!";
+			break;
+		case 2:
+			mes "[General Guillaume]";
+			mes "Serei eu quem vai capturar a bandeira!";
+			break;
+		}
+		break;
+	}
+	close2;
+	cutin "bat_kiyom1",255;
+	cutin "bat_kiyom2",255;
+	end;
+}
+
+// Bandeiras
+//============================================================
+//bat_room,140,160,3	script	Guillaume Base#roomflag1	1_FLAG_LION,{ end; }
+//bat_room,167,160,3	script	Guillaume Base#roomflag2	1_FLAG_LION,{ end; }
+//bat_room,140,139,3	script	Croix Base#roomflag1	1_FLAG_EAGLE,{ end; }
+//bat_room,167,139,3	script	Croix Base#roomflag2	1_FLAG_EAGLE,{ end; }
+
+// Transportadora da Batalha Campal
+//============================================================
+bat_room,148,150,5	script	Transportadora	4_F_TELEPORTER,{
+	mes "[Transportadora]";
+	mes "Quer deixar o campo de batalha? Use meu serviço para voltar à cidade.";
+	next;
+	switch(select("Ir Embora:Não Ir Embora")) {
+	case 1:
+		mes "[Transportadora]";
+		switch(bat_return) {
+		default:
+		case 1:
+			setarray .@mapname$[0],"Prontera.","prontera";
+			setarray .@xy[0],116,72;
+			break;
+		case 2:
+			setarray .@mapname$[0],"Morroc","moc_ruins";
+			setarray .@xy[0],152,48;
+			break;
+		case 3:
+			setarray .@mapname$[0],"Al De Baran.","aldebaran";
+			setarray .@xy[0],168,112;
+			break;
+		case 4:
+			setarray .@mapname$[0],"Geffen.","geffen";
+			setarray .@xy[0],120,39;
+			break;
+		case 5:
+			setarray .@mapname$[0],"Payon.","payon";
+			setarray .@xy[0],161,58;
+			break;
+		case 6:
+			setarray .@mapname$[0],"Lighthalzen.","lighthalzen";
+			setarray .@xy[0],159,93;
+			break;
+		case 7:
+			setarray .@mapname$[0],"Rachel.","rachel";
+			setarray .@xy[0],115,124;
+			break;
+		}
+		mes "Vou mandar você de volta para "+.@mapname$[0]+".";
+		close2;
+		warp .@mapname$[1],.@xy[0],.@xy[1];
+		break;
+	case 2:
+		mes "[Transportadora]";
+		mes "Estarei aqui se você precisar de meus serviços.";
+		close;
+	}
+	end;
+}
+
+-	script	Emissária de Maroll::BatRecruit	4_F_JOB_KNIGHT,{
+	mes "[Emissária de Maroll]";
+	mes "Bom dia, aventureiro.";
+	mes "Sou uma amazona de um país distante chamado Reino de Maroll.";
+	next;
+	mes "[Emissária de Maroll]";
+	mes "Os dois príncipes do reino estão batalhando pelo trono, e precisam de soldados experientes como você.";
+	mes "Quer colocar seu poder a serviço de um dos príncipes do Reino de Maroll?";
+	next;
+	switch(select("Participar:Não Participar")) {
+	case 1:
+		mes "[Emissária de Maroll]";
+		mes "Que o deus da guerra o abençoe.";
+		close2;
+		getmapxy(.@mapname$,.@x,.@y,1);
+		if (.@mapname$ == "prontera")
+			set bat_return,1;
+		else if (.@mapname$ == "moc_ruins")
+			set bat_return,2;
+		else if (.@mapname$ == "aldebaran")
+			set bat_return,3;
+		else if (.@mapname$ == "geffen")
+			set bat_return,4;
+		else if (.@mapname$ == "payon")
+			set bat_return,5;
+		else if (.@mapname$ == "lighthalzen")
+			set bat_return,6;
+		else if (.@mapname$ == "rachel")
+			set bat_return,7;
+		else
+			set bat_return,1;
+		warp "bat_room",154,150;
+		break;
+	case 2:
+		mes "[Emissária de Maroll]";
+		mes "Sempre estarei aqui, esperando por mais soldados. Fique à vontade para voltar, se você se interessar.";
+		close;
+	}
+	end;
+}
+
+prontera,123,83,3	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit1	4_F_JOB_KNIGHT
+moc_ruins,75,162,3	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit2	4_F_JOB_KNIGHT
+aldebaran,146,109,3	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit3	4_F_JOB_KNIGHT
+geffen,109,66,3	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit4	4_F_JOB_KNIGHT
+payon,189,105,3	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit5	4_F_JOB_KNIGHT
+lighthalzen,153,86,5	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit6	4_F_JOB_KNIGHT
+rachel,149,138,3	duplicate(BatRecruit)	Emissária de Maroll::BatRecruit7	4_F_JOB_KNIGHT
+
+// Portais Adicionais
+// Vazio
+bat_room,57,81,0	warp	bat1	1,1,bat_room,154,149
+bat_room,57,90,0	warp	bat2	1,1,bat_room,154,149
+// Vazio
+bat_room,85,81,0	warp	bat5	1,1,bat_room,154,149
+bat_room,85,90,0	warp	bat6	1,1,bat_room,154,149
+// BG Livre
+bat_room,113,81,0	warp	bat9	1,1,bat_room,154,149
+bat_room,113,90,0	warp	bat10	1,1,bat_room,154,149
+// BG Livre
+bat_room,141,81,0	warp	bat13	1,1,bat_room,154,149
+bat_room,141,90,0	warp	bat14	1,1,bat_room,154,149
+// BG Livre
+bat_room,169,81,0	warp	bat17	1,1,bat_room,154,149
+bat_room,169,90,0	warp	bat18	1,1,bat_room,154,149
+// BG Livre
+bat_room,197,81,0	warp	bat21	1,1,bat_room,154,149
+bat_room,197,90,0	warp	bat22	1,1,bat_room,154,149
+// BG Livre
+bat_room,225,81,0	warp	bat25	1,1,bat_room,154,149
+bat_room,225,90,0	warp	bat26	1,1,bat_room,154,149
+// Vazio
+bat_room,253,81,0	warp	bat29	1,1,bat_room,154,149
+bat_room,253,90,0	warp	bat30	1,1,bat_room,154,149
+// Vazio
+bat_room,253,220,0	warp	bat31	1,1,bat_room,154,149
+bat_room,253,211,0	warp	bat32	1,1,bat_room,154,149
+
+// Kafra
+//============================================================
+bat_room,148,147,4	script	Funcionária Kafra::kaf_bat	4_F_KAFRA9,{
+	cutin "kafra_09",2;
+	callfunc "F_Kafra",0,2,1,150,0;
+}
+
+// Reparador
+//============================================================
+bat_room,138,144,4	script	Reparador#bg	4_M_04,{
+	callfunc "repairmain","Repairman";
+	end;
+}
+
+// NPC de Gerenciamento GM
+//============================================================
+bat_room,1,151,3	script	Switch#batgnd	4_DOG01,{
+	set .@i, callfunc("F_GM_NPC",1854,0);
+	if (.@i == -1) {
+		mes "O comando foi cancelado.";
+		close;
+	} else if (.@i == 0) {
+		end;
+	} else {
+		mes "Posso te ajudar?";
+		next;
+		switch(select("Fechar campo de batalha:Abrir campo de batalha:Recomeçar a01:Recomeçar b01:Recomeçar a02:Recomeçar b02")) {
+		case 1:
+			disablenpc "Tierra Gorge Officer#01a";
+			disablenpc "Tierra Gorge Officer#02a";
+			disablenpc "Tierra Gorge Officer#01b";
+			disablenpc "Tierra Gorge Officer#02b";
+			disablenpc "Flavius Officer#01a";
+			disablenpc "Flavius Officer#01b";
+			disablenpc "Flavius Officer#02a";
+			disablenpc "Flavius Officer#02b";
+			break;
+		case 2:
+			enablenpc "Tierra Gorge Officer#01a";
+			enablenpc "Tierra Gorge Officer#02a";
+			enablenpc "Tierra Gorge Officer#01b";
+			enablenpc "Tierra Gorge Officer#02b";
+			enablenpc "Flavius Officer#01a";
+			enablenpc "Flavius Officer#01b";
+			enablenpc "Flavius Officer#02a";
+			enablenpc "Flavius Officer#02b";
+			break;
+		case 3:
+			donpcevent "start#bat_a01::OnEnable";
+			break;
+		case 4:
+			donpcevent "start#bat_b01::OnEnable";
+			break;
+		case 5:
+			donpcevent "start#bat_a02::OnEnable";
+			break;
+		case 6:
+			donpcevent "start#bat_b02::OnEnable";
+			break;
+		}
+		mes "Pronto!";
+		close;
+	}
+}
+
+// Troca de Emblemas
+//============================================================
+bat_room,160,150,3	script	Erundek	4_M_MANAGER,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Erundek]";
+	mes "Você tem emblemas do campo de batalha?";
+	mes "Posso trocar Emblemas da Bravura e de Valor por itens de recompensa.";
+	next;
+	switch(select("Trocar Emblemas:Ver o Catálogo")) {
+	case 1:
+		mes "[Erundek]";
+		mes "Você quer trocar emblemas por quais tipos de itens?";
+		mes "Para obter mais informações sobre os itens de recompensa, use nosso ^3131FFCatálogo^000000.";
+		next;
+		switch(select("Arma:Armadura:Accessório:Consumível")) {
+		case 1:
+			mes "[Erundek]";
+			mes "Você escolheu ^3131FFArma^000000.";
+			mes "As seguintes armas estão disponíveis em troca de emblemas.";
+			mes "Note que itens que custam ^3131FFEmblemas da Bravura são indicados por (EB)^000000, e os que valem ^3131FFEmblemas de Valor como (EV)^000000.";
+			next;
+			switch(select("Adaga, Espadas e Lança de Duas Mãos:Cajado, Maça, Machado de Duas Mãos e Shuriken:Arco, Katar, Instrumento Musical e Chicote:Livros e Garras:Revólver, Rifle, Gatling, Espingarda e Lança-Granadas")) {
+			case 1:
+				mes "[Erundek]";
+				mes "As seguintes armas estão disponíveis na categoria ^3131FFAdaga, Espada de Uma Mão, Espada de Duas Mãos e Lança de Duas Mãos.^000000";
+				next;
+				setarray .@Weapons[0],13036,7828,13037,7829,13411,7828,13410,7829,1183,7828,1184,7829,1425,7828,1482,7829;
+				break;
+			case 2:
+				mes "[Erundek]";
+				mes "As seguintes armas estão disponíveis na categoria ^3131FFCajado, Maça, Machado de Duas Mãos, e Shuriken Huuma.^000000";
+				next;
+				setarray .@Weapons[0],1632,7828,1633,7829,1634,7828,1635,7829,1543,7828,1542,7829,1380,7828,1379,7829,13305,7828,13306,7829;
+				break;
+			case 3:
+				mes "[Erundek]";
+				mes "As seguintes armas estão disponíveis na categoria ^3131FFArco, Katar, Instrumento Musical e Chicote.^000000";
+				next;
+				setarray .@Weapons[0],1739,7828,1738,7829,1279,7828,1280,7829,1924,7828,1923,7829,1978,7828,1977,7829;
+				break;
+			case 4:
+				mes "[Erundek]";
+				mes "As seguintes armas estão disponíveis na categoria ^3131FFLivros e Garras.^000000";
+				next;
+				setarray .@Weapons[0],1574,7828,1575,7829,1824,7828,1823,7829;
+				break;
+			case 5:
+				mes "[Erundek]";
+				mes "As seguintes armas estão disponíveis na categoria ^3131FFRevólver, Rifle, Gatling, Espingarda e Lança-Granadas.^000000";
+				next;
+				setarray .@Weapons[0],13108,7828,13171,7829,13172,7828,13173,7829,13174,7829;
+				break;
+			}
+			set .@menu$,"";
+			for(set .@i,0; .@i<getarraysize(.@Weapons); set .@i,.@i+2)
+				set .@menu$, .@menu$+getitemname(.@Weapons[.@i])+((.@Weapons[.@i+1]==7828)?"(EB)":"(EV)")+":";
+			set .@i, (select(.@menu$)-1)*2;
+			set .@type$, ((.@Weapons[.@i+1]==7828)?"(EB)":"(EV)");
+			mes "[Erundek]";
+			mes "Você escolheu ^3131FF"+getitemname(.@Weapons[.@i])+.@type$+"^000000.";
+			mes "Você pode trocar ^FF0000100 "+getitemname(.@Weapons[.@i+1])+"^000000 por este item.";
+			mes "Quer trocar?";
+			next;
+			switch(select("Não trocar:Trocar")) {
+			case 1:
+				break;
+			case 2:
+				mes "[Erundek]";
+				mes "Quer trocar ^FF0000100 "+getitemname(.@Weapons[.@i+1])+"^000000 por uma ^3131FF"+getitemname(.@Weapons[.@i])+.@type$+"^000000?";
+				next;
+				mes "[Erundek]";
+				mes "Lembre-se, os itens de recompensa da batalha campal são ^FF0000Intransferíveis^000000. Tem certeza de que quer este item?";
+				next;
+				switch(select("Sim:Não")) {
+				case 1:
+					mes "[Erundek]";
+					if (countitem(.@Weapons[.@i+1]) >= 100) {
+						mes "Obrigado por trocar.";
+						delitem .@Weapons[.@i+1],100;
+						getitem .@Weapons[.@i],1;
+					}
+					else mes "Desculpe, mas você não tem emblemas suficientes.";
+					close;
+				case 2:
+					break;
+				}
+				break;
+			}
+			mes "[Erundek]";
+			mes "Precisa de mais tempo para verificar os itens?";
+			close;
+		case 2:
+			mes "[Erundek]";
+			mes "Você escolheu ^3131FFArmadura.^000000";
+			mes "As seguintes armaduras estão disponíveis em troca de emblemas.";
+			next;
+			switch(select("Capas e Sapatos:Armaduras")) {
+			case 1:
+				setarray .@items[0],2538,50,2539,50,2540,50,2435,50,2436,50,2437,50;
+				break;
+			case 2:
+				setarray .@items[0],2376,80,2377,80,2378,80,2379,80,2380,80,2381,80,2382,80;
+				break;
+			}
+			break;
+		case 3:
+			mes "[Erundek]";
+			mes "Você escolheu ^3131FFAcessório.^000000";
+			mes "Você pode trocar Emblemas pela Medalha de Honra apropriada à sua classe:";
+			next;
+			setarray .@items[0],2733,500,2720,500,2721,500,2722,500,2723,500,2724,500,2725,500;
+			set .@menu1$,"Justiceiro:Espadachim, Mestre Taekwon:Gatuno:Noviço:Mago:Arqueiro:Mercador";
+			break;
+		case 4:
+			mes "[Erundek]";
+			mes "Você escolheu ^3131FFConsumível^000000.";
+			mes "Os seguintes itens comsumíveis estão disponíveis em troca de emblemas:";
+			next;
+			setarray .@items[0],12269,10,12270,10,12271,5,12272,10,12273,10;
+			break;
+		}
+		break;
+	case 2:
+		mes "[Erundek]";
+		mes "Temos muitos itens; fique à vontade para olhar antes de comprar.";
+		close2;
+		readbook 11010,1;
+		end;
+	}
+	set .@menu$,"";
+	if (.@menu1$ != "") set .@menu$, .@menu1$;
+	else for(set .@i,0; .@i<getarraysize(.@items); set .@i,.@i+2)
+		set .@menu$, .@menu$+getitemname(.@items[.@i])+":";
+	set .@i, (select(.@menu$)-1)*2;
+	mes "[Erundek]";
+	mes "Você escolheu ^3131FF"+getitemname(.@items[.@i])+"^000000.";
+	switch(.@items[.@i]) {
+		case 2720: mes "Este item serve somente para Espadachins."; break;
+		case 2721: mes "Este item serve somente para Gatunos."; break;
+		case 2722: mes "Este item serve somente para Noviços."; break;
+		case 2723: mes "Este item serve somente para Magos."; break;
+		case 2724: mes "Este item serve somente para Arqueiros."; break;
+		case 2725: mes "Este item serve somente para Mercadores."; break;
+		case 2733: mes "Este item serve somente para Justiceiros."; break;
+		default: break;
+	}
+	mes "Você pode trocar ^FF0000"+.@items[.@i+1]+" "+getitemname(7828)+" ou "+.@items[.@i+1]+" "+getitemname(7829)+"^000000 por este item..";
+	mes "Quer trocar?";
+	next;
+	switch(select("Não trocar:Trocar")) {
+	case 1:
+		mes "[Erundek]";
+		mes "Precisa de mais tempo para verificar os itens?";
+		break;
+	case 2:
+		mes "[Erundek]";
+		mes "Qual Emblema você quer usar para trocar?";
+		mes "Você precisa de ^3131FF"+.@items[.@i+1]+" Emblemas^000000 para trocar.";
+		next;
+		if (.@item[0] < 12269 || .@item[0] > 12273 ) {
+			mes "[Erundek]";
+			mes "Lembre-se, os itens de recompensa da batalha campal são ^FF0000Intransferíveis^000000. Tem certeza de que quer este item?";
+			next;
+		}
+		set .@j, select("Emblemas de Bravura:Emblemas de Valor:Cancelar");
+		mes "[Erundek]";
+		if (.@j == 3) {
+			mes "Você cancelou a troca.";
+			break;
+		}
+		set .@cost, ((.@j==1)?7828:7829);
+		if (countitem(.@cost) >= .@items[.@i+1]) {
+			mes "Obrigado por trocar.";
+			delitem .@cost, .@items[.@i+1];
+			getitem .@items[.@i],1;
+		}
+		else mes "Você não tem "+getitemname(.@cost)+" suficientes.";
+		break;
+	}
+	close;
+}

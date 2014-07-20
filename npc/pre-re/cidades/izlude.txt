@@ -6,25 +6,25 @@
 //  \______  /|__|   \____/|___|  /____//____  >
 //         \/                   \/           \/  
 //------------------------------------------------------------
-// Kafras ( Cidades / Campos / Cavernas )
+// Cidade de Izlude Pre-Renovação.
 //----- Por: -------------------------------------------------
 //= Daegaladh
 //----- Versão Atual: ----------------------------------------
 //= 1.0a
 //----- Descrição: -------------------------------------------
-//= Argument settings for callfunc "F_Kafra":
-//=  arg(0): 0 - Default Kafra message
-//=          1 - Niflhiem Kafra message
-//=          2 - Guild Kafra message
-//=  arg(1): 1 - Disable teleport menu
-//=  arg(2): 1 - Disable info menu
-//=  arg(3): Cost of Storage service
-//=  arg(4): Cost of Rent a Pushcart service
+//= [Conversão Oficial]
+//= NPCs da cidade de Izlude.
 //----- Comentários Adicionais: ------------------------------
-//= 1.0 First version.
+//= 1.0 First Version.
 //= 1.0a Aplicada tradução para português(pt_BR). [Cainho]
 //------------------------------------------------------------
 
-// Izlude
-//============================================================
-izlude,134,87,3	duplicate(kaf_izlude)	Funcionária Kafra#iz	4_F_KAFRA1
+izlude,201,181,2	duplicate(Sailor_izlude)	Marinheiro#Izl	4W_SAILOR
+izlude,55,74,2	duplicate(Bonne_izlude)	Paula#Izl	4_F_01
+izlude,135,78,2	duplicate(Charfri_izlude)	Charfri#Izl	4_F_02
+izlude,119,121,2	duplicate(Cuskoal_izlude)	Cuskoal#Izl	4_F_TELEPORTER
+izlude,150,118,2	duplicate(Dega_izlude)	Dega#Izl	4_M_02
+izlude,150,143,2	duplicate(Kylick_izlude)	Kylick#Izl	4W_M_01
+izlude,56,126,2	duplicate(Red_izlude)	Red#Izl	4_M_03
+izlude,58,126,2	duplicate(Cebalis_izlude)	Cebalis#Izl	4W_M_02
+izlude,124,178,2	duplicate(Soldier_izlude)	Soldado#Izl	8W_SOLDIER

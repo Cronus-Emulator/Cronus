@@ -6,25 +6,23 @@
 //  \______  /|__|   \____/|___|  /____//____  >
 //         \/                   \/           \/  
 //------------------------------------------------------------
-// Kafras ( Cidades / Campos / Cavernas )
+// Cidade de Juno Pre-Renovação.
 //----- Por: -------------------------------------------------
-//= Daegaladh
+//= Euphy
 //----- Versão Atual: ----------------------------------------
 //= 1.0a
 //----- Descrição: -------------------------------------------
-//= Argument settings for callfunc "F_Kafra":
-//=  arg(0): 0 - Default Kafra message
-//=          1 - Niflhiem Kafra message
-//=          2 - Guild Kafra message
-//=  arg(1): 1 - Disable teleport menu
-//=  arg(2): 1 - Disable info menu
-//=  arg(3): Cost of Storage service
-//=  arg(4): Cost of Rent a Pushcart service
+//= [Conversão Oficial]
+//= NPCs da cidade de Juno.
 //----- Comentários Adicionais: ------------------------------
 //= 1.0 First version.
 //= 1.0a Aplicada tradução para português(pt_BR). [Cainho]
 //------------------------------------------------------------
 
-// Izlude
-//============================================================
-izlude,134,87,3	duplicate(kaf_izlude)	Funcionária Kafra#iz	4_F_KAFRA1
+yuno,150,283,4	duplicate(JunoSoldier1)	Soldado de Juno#juno	8W_SOLDIER
+yuno,165,283,4	duplicate(JunoSoldier2)	Soldado de Juno#2juno	8W_SOLDIER
+yuno,227,292,4	duplicate(JunoSoldier3)	Soldado de Juno#3juno	8W_SOLDIER
+yuno,165,228,4	duplicate(JunoSoldier4)	Soldado de Juno#4juno	8W_SOLDIER
+yuno,150,228,4	duplicate(JunoSoldier5)	Soldado de Juno#5juno	8W_SOLDIER
+yuno,334,182,4	duplicate(JunoSoldier6)	Soldado de Juno#6juno	8W_SOLDIER
+yuno,263,320,4	duplicate(JunoSoldier7)	Soldado de Juno#7juno	8W_SOLDIER

@@ -458,7 +458,7 @@
 
 // Inside Izlude
 //============================================================
-izlude_in,125,164,2	script	Aaron#izlude	1_M_YOUNGKNIGHT,{
+izlude_in,125,164,2	script	Aaron#Izl	1_M_YOUNGKNIGHT,{
 	mes "[Aaron]";
 	mes "Don't you think Strong VIT and training in a unique breathing method which enables quick HP recovery are the greatest advantages for a Swordman?";
 	next;
