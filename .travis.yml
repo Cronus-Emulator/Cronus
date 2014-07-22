@@ -1,0 +1,12 @@
+language: c
+compiler:
+  - clang
+  - gcc
+  
+before_script:
+  - uname -a
+
+script:
+  - sh configure
+  - make clean
+  - make sql
