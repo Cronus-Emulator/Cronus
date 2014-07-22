@@ -7,6 +7,14 @@ before_script:
   - uname -a
 
 script:
-  - sh configure
+  - chmod 777 configure
+  - ./configure --enable-debug && make sql -j3
   - make clean
-  - make sql
+  - ./configure --disable-renewal --enable-debug && make sql -j3
+  
+notifications:
+  email: false
+  
+branches:
+  only:
+    - master
