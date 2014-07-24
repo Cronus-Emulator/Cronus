@@ -39,20 +39,9 @@
 #define ALC_MARK __FILE__, __LINE__, __func__
 
 
-// default use of the built-in memory manager
-#if !defined(NO_MEMMGR) && !defined(USE_MEMMGR)
-#if defined(MEMWATCH) || defined(DMALLOC) || defined(GCOLLECT)
-// disable built-in memory manager when using another memory library
-#define NO_MEMMGR
-#else
-// use built-in memory manager by default
-#define USE_MEMMGR
-#endif
-#endif
-
-
 //////////////////////////////////////////////////////////////////////
 // Enable memory manager logging by default
+#define USE_MEMMGR
 #define LOG_MEMMGR
 
 

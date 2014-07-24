@@ -1,4 +1,4 @@
-:: ------------------------------------------------------------------
+﻿:: ------------------------------------------------------------------
 :: _________                                    
 :: \_   ___ \_______  ____   ____  __ __  ______
 :: /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
@@ -22,7 +22,7 @@ set LF=^
 
 
 :: ----- Compilador: -------------------------------------
-set flags= -march=native -O2 -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter -Wno-switch -Wno-sign-compare -Wno-gnu-zero-variadic-macro-arguments -Wno-empty-translation-unit -fno-strict-aliasing -Wshadow -Wcast-qual -Werror-implicit-function-declaration -Wno-format-non-iso -Wshorten-64-to-32 -Winline -Wstrict-prototypes -DFD_SETSIZE=1024
+set flags= -march=native -O2 -pipe -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter -Wno-switch -Wno-sign-compare -Wno-gnu-zero-variadic-macro-arguments -Wno-empty-translation-unit -fno-strict-aliasing -Wshadow -Wcast-qual -Werror-implicit-function-declaration -Wno-format-non-iso -Wshorten-64-to-32 -Winline -Wstrict-prototypes -DFD_SETSIZE=1024
 :: ----- Nomes: ------------------------------------------
 :: Você pode alterar o nome de todo mundo aqui (Caso modifique, altere o arquivo start.bat)
 set CharServer=char-server

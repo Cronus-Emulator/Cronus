@@ -36,7 +36,7 @@
 
 #include "../common/cbasetypes.h"
 
-enum kind {year,month,day,hour,min,sec};
+enum kind {dyear,dmonth,dday,dhour,dmin,dsec};
 int GetTime(enum kind type);
 
 //São usados como ponteiros para função em pc.h ... Permanecer como (void)

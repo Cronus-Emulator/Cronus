@@ -1,6 +1,8 @@
 ﻿Cronus-Emulator
 ===============
 
+Status: [![Build Status](https://travis-ci.org/Cronus-Emulator/Cronus.png?branch=master)](https://travis-ci.org/Cronus-Emulator/Cronus)
+
 * Forum: (https://forum.cronus-emulator.com/)
 
 Seja bem vindo ao repositório oficial do Cronus-Emulator.

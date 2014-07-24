@@ -40,12 +40,12 @@ int GetTime(enum kind type)
 	time_t t = time(NULL);
 	struct tm* lt = localtime(&t);
 	switch(type) {
-	case year:  return lt->tm_year+1900;
-	case month: return lt->tm_mon+1;
-	case day:   return lt->tm_mday;
-	case hour:  return lt->tm_hour;
-	case min:   return lt->tm_min;
-	case sec:   return lt->tm_sec;
+	case dyear:  return lt->tm_year+1900;
+	case dmonth: return lt->tm_mon+1;
+	case dday:   return lt->tm_mday;
+	case dhour:  return lt->tm_hour;
+	case dmin:   return lt->tm_min;
+	case dsec:   return lt->tm_sec;
 	default: return 0;
     }
 }
@@ -53,16 +53,16 @@ int GetTime(enum kind type)
 
 bool is_day_of_moon(void)
 {
-   return GetTime(day)%2 == 1;
+   return GetTime(dday)%2 == 1;
 }
 
 bool is_day_of_star(void)
 {
-   return GetTime(day)%5 == 0;
+   return GetTime(dday)%5 == 0;
 }
 
 bool is_day_of_sun(void)
 {
-  return GetTime(day)%2 == 0;
+  return GetTime(dday)%2 == 0;
 }
 

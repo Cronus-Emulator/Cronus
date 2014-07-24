@@ -18250,15 +18250,15 @@ int clif_parse(int fd) {
 					//Disassociate character from the socket connection.
 					session[fd]->session_data = NULL;
 					sd->fd = 0;
-					ShowInfo("Character '"CL_WHITE"%s"CL_RESET"' logged off (using @autotrade).\n", sd->status.name);
+					ShowInfo("Personagem '"CL_WHITE"%s"CL_RESET"' desconectado (Usando @autotrade).\n", sd->status.name);
 				} else
 					if (sd->state.active) {
 						// Player logout display [Valaris]
-						ShowInfo("Character '"CL_WHITE"%s"CL_RESET"' logged off.\n", sd->status.name);
+						ShowInfo("Personagem '"CL_WHITE"%s"CL_RESET"' desconectou-se.\n", sd->status.name);
 						clif->quitsave(fd, sd);
 					} else {
 						//Unusual logout (during log on/off/map-changer procedure)
-						ShowInfo("Player AID:%d/CID:%d logged off.\n", sd->status.account_id, sd->status.char_id);
+						ShowInfo("Jogador (AID:%d | CID:%d) saiu do jogo.\n", sd->status.account_id, sd->status.char_id);
 						map->quit(sd);
 					}
 			} else {

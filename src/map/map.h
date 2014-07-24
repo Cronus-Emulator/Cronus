@@ -882,7 +882,6 @@ struct map_interface {
 	
 	int port;
 	int users;
-	int enable_grf;	//To enable/disable reading maps from GRF files, bypassing mapcache [blackhole89]
 	bool ip_set;
 	bool char_ip_set;
 
@@ -1078,10 +1077,7 @@ struct map_interface {
 	int (*nick_db_final) (DBKey key, DBData *data, va_list args);
 	int (*cleanup_db_sub) (DBKey key, DBData *data, va_list va);
 	int (*abort_sub) (struct map_session_data *sd, va_list ap);
-	void (*helpscreen) (bool do_exit);
-	bool (*arg_next_value) (const char *option, int i, int argc, bool must);
-	void (*addblcell) (struct block_list *bl);
-	void (*delblcell) (struct block_list *bl);
+	void (*updatecell) (struct block_list *bl, bool up);
 	int (*get_new_bonus_id) (void);
 	void (*add_questinfo) (int m, struct questinfo *qi);
 	bool (*remove_questinfo) (int m, struct npc_data *nd);
