@@ -61,7 +61,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/malloc.h"
 #include "../common/mmo.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
@@ -105,7 +104,7 @@ enum homun_type homunculus_class2type(int class_) {
 }
 
 void homunculus_addspiritball(struct homun_data *hd, int max) {
-    nullpo_retv(hd);
+    if (!hd) return;
 
     if (max > MAX_SKILL_LEVEL)
         max = MAX_SKILL_LEVEL;
@@ -122,7 +121,7 @@ void homunculus_addspiritball(struct homun_data *hd, int max) {
 }
 
 void homunculus_delspiritball(struct homun_data *hd, int count, int type) {
-    nullpo_retv(hd);
+    if (!hd) return;
 
     if (hd->homunculus.spiritball <= 0) {
         hd->homunculus.spiritball = 0;
@@ -166,7 +165,7 @@ int homunculus_dead(struct homun_data *hd) {
 int homunculus_vaporize(struct map_session_data *sd, enum homun_state flag) {
 	struct homun_data *hd;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	hd = sd->hd;
 	if (!hd || hd->homunculus.vaporize != HOM_ST_ACTIVE)
@@ -193,7 +192,7 @@ int homunculus_vaporize(struct map_session_data *sd, enum homun_state flag) {
 //Emote is the emotion the master should use, send negative to disable.
 int homunculus_delete(struct homun_data *hd, int emote) {
 	struct map_session_data *sd;
-	nullpo_ret(hd);
+	if (!hd) return 0;
 	sd = hd->master;
 
 	if (!sd)
@@ -215,7 +214,7 @@ int homunculus_calc_skilltree(struct homun_data *hd, int flag_evolve) {
 	int j, f = 1;
 	int c = 0;
 
-	nullpo_ret(hd);
+	if (!hd) return 0;
 	/* load previous homunculus form skills first. */
 	if( hd->homunculus.prev_class != 0 ) {
 		c = hd->homunculus.prev_class - HM_CLASS_BASE;
@@ -287,7 +286,7 @@ int homunculus_skill_tree_get_max(int id, int b_class) {
 
 void homunculus_skillup(struct homun_data *hd,uint16 skill_id) {
 	int i = 0 ;
-	nullpo_retv(hd);
+	if (!hd) return;
 
 	if(hd->homunculus.vaporize != HOM_ST_ACTIVE)
 		return;
@@ -402,7 +401,7 @@ bool homunculus_evolve(struct homun_data *hd) {
 	struct s_homunculus *hom;
 	struct h_stats *max, *min;
 	struct map_session_data *sd;
-	nullpo_ret(hd);
+	if (!hd) return false;
 
 	sd = hd->master;
 	if (!sd)
@@ -455,7 +454,7 @@ bool homunculus_mutate(struct homun_data *hd, int homun_id) {
 	struct map_session_data *sd;
 	int prev_class = 0;
 	enum homun_type m_class, m_id;
-	nullpo_ret(hd);
+	if (!hd) return false;
 
 	sd = hd->master;
 	if (!sd)
@@ -577,9 +576,9 @@ void homunculus_save(struct homun_data *hd) {
 }
 
 unsigned char homunculus_menu(struct map_session_data *sd,unsigned char menu_num) {
-	nullpo_ret(sd);
-	if (sd->hd == NULL)
-		return 1;
+
+	if (!sd) return 1; // Isso existe? o_o
+	if (!sd->hd) return 1;
 
 	switch(menu_num) {
 		case 0:
@@ -681,7 +680,7 @@ int homunculus_hunger_timer(int tid, int64 tick, int id, intptr_t data) {
 }
 
 void homunculus_hunger_timer_delete(struct homun_data *hd) {
-	nullpo_retv(hd);
+	if (!hd) return;
 	if(hd->hungry_timer != INVALID_TIMER) {
 		timer->delete(hd->hungry_timer,homun->hunger_timer);
 		hd->hungry_timer = INVALID_TIMER;
@@ -691,7 +690,8 @@ void homunculus_hunger_timer_delete(struct homun_data *hd) {
 int homunculus_change_name(struct map_session_data *sd,char *name) {
 	int i;
 	struct homun_data *hd;
-	nullpo_retr(1, sd);
+	
+	if (!sd) return 1;
 
 	hd = sd->hd;
 	if (!homun_alive(hd))
@@ -752,9 +752,8 @@ bool homunculus_create(struct map_session_data *sd, struct s_homunculus *hom) {
 	struct homun_data *hd;
 	int i = 0;
 
-	nullpo_retr(false, sd);
-
-	Assert((sd->status.hom_id == 0 || sd->hd == 0) || sd->hd->master == sd);
+	if (!sd) return false;
+	if ((sd->status.hom_id != 0 || sd->hd != 0) || sd->hd->master != sd) return false;
 
 	i = homun->db_search(hom->class_,HOMUNCULUS_CLASS);
 	if(i < 0) {
@@ -897,7 +896,7 @@ bool homunculus_creation_request(struct map_session_data *sd, int class_) {
 	struct h_stats *base;
 	int i;
 
-	nullpo_retr(false, sd);
+	if (!sd) return false;
 
 	i = homun->db_search(class_,HOMUNCULUS_CLASS);
 	if(i < 0) return false;
@@ -929,7 +928,8 @@ bool homunculus_creation_request(struct map_session_data *sd, int class_) {
 
 bool homunculus_ressurect(struct map_session_data* sd, unsigned char per, short x, short y) {
 	struct homun_data* hd;
-	nullpo_retr(false,sd);
+	
+	if (!sd) return false;
 
 	if (!sd->status.hom_id)
 		return false; // no homunculus

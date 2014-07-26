@@ -18,7 +18,7 @@
 
 /**
  * Renovação: Definição Mestre.
- * Remova o comentário para ativar o modulo pré renovação (Também conhecido como gold times)
+ * Remova o comentário para ativar o modo pré-renovação (Também conhecido como gold times)
  * PS: Ativando essa definição, automaticamente, todas as definições abaixo serão removidas.
  */
 //#define DISABLE_RENEWAL

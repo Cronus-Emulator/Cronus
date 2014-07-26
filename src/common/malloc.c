@@ -49,15 +49,11 @@ struct malloc_interface iMalloc_s;
 #	define REALLOC(p,n,file,line,func) realloc((p),(n))
 #	define STRDUP(p,file,line,func)    strdup(p)
 #	define FREE(p,file,line,func)      free(p)
-#	define MEMORY_USAGE()              (size_t)0
-#	define MEMORY_VERIFY(ptr)          true
-#	define MEMORY_CHECK()
 
 void* aMalloc_(size_t size, const char *file, int line, const char *func)
 {
 	void *ret = MALLOC(size, file, line, func);
-	// ShowMessage("%s:%d: in func %s: aMalloc %d\n",file,line,func,size);
-	if (ret == NULL){
+	if (!ret){
 		ShowFatalError("%s:%d: in func %s: aMalloc error out of memory!\n",file,line,func);
 		exit(EXIT_FAILURE);
 	}
@@ -67,8 +63,7 @@ void* aMalloc_(size_t size, const char *file, int line, const char *func)
 void* aCalloc_(size_t num, size_t size, const char *file, int line, const char *func)
 {
 	void *ret = CALLOC(num, size, file, line, func);
-	// ShowMessage("%s:%d: in func %s: aCalloc %d %d\n",file,line,func,num,size);
-	if (ret == NULL){
+	if (!ret){
 		ShowFatalError("%s:%d: in func %s: aCalloc error out of memory!\n", file, line, func);
 		exit(EXIT_FAILURE);
 	}
@@ -77,8 +72,7 @@ void* aCalloc_(size_t num, size_t size, const char *file, int line, const char *
 void* aRealloc_(void *p, size_t size, const char *file, int line, const char *func)
 {
 	void *ret = REALLOC(p, size, file, line, func);
-	// ShowMessage("%s:%d: in func %s: aRealloc %p %d\n",file,line,func,p,size);
-	if (ret == NULL){
+	if (!ret){
 		ShowFatalError("%s:%d: in func %s: aRealloc error out of memory!\n",file,line,func);
 		exit(EXIT_FAILURE);
 	}
@@ -87,8 +81,7 @@ void* aRealloc_(void *p, size_t size, const char *file, int line, const char *fu
 char* aStrdup_(const char *p, const char *file, int line, const char *func)
 {
 	char *ret = STRDUP(p, file, line, func);
-	// ShowMessage("%s:%d: in func %s: aStrdup %p\n",file,line,func,p);
-	if (ret == NULL){
+	if (!ret){
 		ShowFatalError("%s:%d: in func %s: aStrdup error out of memory!\n", file, line, func);
 		exit(EXIT_FAILURE);
 	}
@@ -96,19 +89,13 @@ char* aStrdup_(const char *p, const char *file, int line, const char *func)
 }
 void aFree_(void *p, const char *file, int line, const char *func)
 {
-	// ShowMessage("%s:%d: in func %s: aFree %p\n",file,line,func,p);
 	if (p)
 		FREE(p, file, line, func);
+        p = NULL;
 }
 
 
 #ifdef USE_MEMMGR
-
-#if defined(DEBUG)
-#define DEBUG_MEMMGR
-#endif
-
-/* USE_MEMMGR */
 
 /*
 * Memory manager
@@ -208,7 +195,7 @@ static size_t hash2size( unsigned short hash )
 	}
 }
 
-void* _mmalloc(size_t size, const char *file, int line, const char *func )
+void* atmalloc(size_t size, const char *file, int line, const char *func )
 {
 	struct block *block;
 	short size_hash = size2hash( size );
@@ -229,7 +216,7 @@ void* _mmalloc(size_t size, const char *file, int line, const char *func )
 	if(hash2size(size_hash) > BLOCK_DATA_SIZE - sizeof(struct unit_head)) {
 		struct unit_head_large* p = MALLOC(sizeof(struct unit_head_large)+size,file,line,func);
 		memmgr_usage_bytes_t += size+sizeof(struct unit_head_large);
-		if(p != NULL) {
+		if(p) {
 			p->size            = size;
 			p->unit_head.block = NULL;
 			p->unit_head.size  = 0;
@@ -284,28 +271,6 @@ void* _mmalloc(size_t size, const char *file, int line, const char *func )
 		block->unfill_prev = NULL;
 	}
 
-#ifdef DEBUG_MEMMGR
-	{
-		size_t i, sz = hash2size( size_hash );
-		for( i=0; i<sz; i++ )
-		{
-			if( ((unsigned char*)head)[ sizeof(struct unit_head) - sizeof(long) + i] != 0xfd )
-			{
-				if( head->line != 0xfdfd )
-				{
-					ShowError("Memory manager: freed-data is changed. (freed in %s line %d)\n", head->file,head->line);
-				}
-				else
-				{
-					ShowError("Memory manager: not-allocated-data is changed.\n");
-				}
-				break;
-			}
-		}
-		memset( (char *)head + sizeof(struct unit_head) - sizeof(long), 0xcd, sz );
-	}
-#endif
-
 	head->block = block;
 	head->file  = file;
 	head->line  = (unsigned short)line;
@@ -314,60 +279,64 @@ void* _mmalloc(size_t size, const char *file, int line, const char *func )
 	return (char *)head + sizeof(struct unit_head) - sizeof(long);
 }
 
-void* _mcalloc(size_t num, size_t size, const char *file, int line, const char *func )
+void* atcalloc(size_t num, size_t size, const char *file, int line, const char *func )
 {
 	void *p = iMalloc->malloc(num * size,file,line,func);
 	memset(p,0,num * size);
 	return p;
 }
 
-void* _mrealloc(void *memblock, size_t size, const char *file, int line, const char *func )
+void* atrealloc(void *memblock, size_t size, const char *file, int line, const char *func )
 {
-	size_t old_size;
-	if(memblock == NULL) {
-		return iMalloc->malloc(size,file,line,func);
-	}
 
-	old_size = ((struct unit_head *)((char *)memblock - sizeof(struct unit_head) + sizeof(long)))->size;
+	if(!memblock) 
+		return iMalloc->malloc(size,file,line,func);
+
+	size_t old_size = ((struct unit_head *)((char *)memblock - sizeof(struct unit_head) + sizeof(long)))->size;
+	
 	if( old_size == 0 ) {
 		old_size = ((struct unit_head_large *)((char *)memblock - sizeof(struct unit_head_large) + sizeof(long)))->size;
 	}
+	
 	if(old_size > size) {
 		// Size reduction - return> as it is (negligence)
 		return memblock;
 	}  else {
 		// Size Large
 		void *p = iMalloc->malloc(size,file,line,func);
-		if(p != NULL) {
-			memcpy(p,memblock,old_size);
-		}
+		
+		if(p) 
+		memcpy(p,memblock,old_size);
+		
 		iMalloc->free(memblock,file,line,func);
 		return p;
 	}
 }
 
 /* a _mrealloc clone with the difference it 'z'eroes the newly created memory */
-void* _mreallocz(void *memblock, size_t size, const char *file, int line, const char *func ) {
-	size_t old_size;
+void* atreallocz(void *memblock, size_t size, const char *file, int line, const char *func ) {
+
 	void *p = NULL;
 	
-	if(memblock == NULL) {
+	if(!memblock) {
 		p = iMalloc->malloc(size,file,line,func);
 		memset(p,0,size);
 		return p;
 	}
 	
-	old_size = ((struct unit_head *)((char *)memblock - sizeof(struct unit_head) + sizeof(long)))->size;
+	size_t old_size = ((struct unit_head *)((char *)memblock - sizeof(struct unit_head) + sizeof(long)))->size;
+	
 	if( old_size == 0 ) {
 		old_size = ((struct unit_head_large *)((char *)memblock - sizeof(struct unit_head_large) + sizeof(long)))->size;
 	}
+	
 	if(old_size > size) {
 		// Size reduction - return> as it is (negligence)
 		return memblock;
 	}  else {
 		// Size Large
 		p = iMalloc->malloc(size,file,line,func);
-		if(p != NULL) {
+		if(p) {
 			memcpy(p,memblock,old_size);
 			memset((char*)p+old_size,0,size-old_size);
 		}
@@ -377,23 +346,22 @@ void* _mreallocz(void *memblock, size_t size, const char *file, int line, const 
 }
 
 
-char* _mstrdup(const char *p, const char *file, int line, const char *func )
+char* atstrdup(const char *p, const char *file, int line, const char *func )
 {
-	if(p == NULL) {
-		return NULL;
-	} else {
-		size_t len = strlen(p);
-		char *string  = (char *)iMalloc->malloc(len + 1,file,line,func);
-		memcpy(string,p,len+1);
-		return string;
-	}
+	if(!p)
+	return NULL;
+	
+	char *string  = iMalloc->malloc(strlen(p) + 1,file,line,func);
+	memcpy(string,p,strlen(p)+1);
+	return string;
+
 }
 
-void _mfree(void *ptr, const char *file, int line, const char *func )
+void atfree(void *ptr, const char *file, int line, const char *func )
 {
 	struct unit_head *head;
 
-	if (ptr == NULL)
+	if (!ptr)
 		return;
 
 	head = (struct unit_head *)((char *)ptr - sizeof(struct unit_head) + sizeof(long));
@@ -417,10 +385,7 @@ void _mfree(void *ptr, const char *file, int line, const char *func )
 			}
 			memmgr_usage_bytes -= head_large->size;
 			memmgr_usage_bytes_t -= head_large->size + sizeof(struct unit_head_large);
-#ifdef DEBUG_MEMMGR
-			// set freed memory to 0xfd
-			memset(ptr, 0xfd, head_large->size);
-#endif
+
 			FREE(head_large,file,line,func);
 		}
 	} else {
@@ -435,11 +400,7 @@ void _mfree(void *ptr, const char *file, int line, const char *func )
 		} else {
 			memmgr_usage_bytes -= head->size;
 			head->block         = NULL;
-#ifdef DEBUG_MEMMGR
-			memset(ptr, 0xfd, block->unit_size - sizeof(struct unit_head) + sizeof(long) );
-			head->file = file;
-			head->line = (unsigned short)line;
-#endif
+
 			memmgr_assert( block->unit_used > 0 );
 			if(--block->unit_used == 0) {
 				/* Release of the block */
@@ -473,13 +434,15 @@ static struct block* block_malloc(unsigned short hash)
 	} else {
 		/* Newly allocated space for the block */
 		p = MALLOC(sizeof(struct block) * (BLOCK_ALLOC), __FILE__, __LINE__, __func__ );
-		memmgr_usage_bytes_t += sizeof(struct block) * (BLOCK_ALLOC);
-		if(p == NULL) {
+
+		if(!p) {
 			ShowFatalError("Memory manager::block_alloc failed.\n");
 			exit(EXIT_FAILURE);
 		}
+		
+		memmgr_usage_bytes_t += sizeof(struct block) * (BLOCK_ALLOC);
 
-		if(block_first == NULL) {
+		if(!block_first) {
 			/* First ensure */
 			block_first = p;
 		} else {
@@ -513,9 +476,7 @@ static struct block* block_malloc(unsigned short hash)
 	p->unit_used    = 0;
 	p->unit_unfill  = 0xFFFF;
 	p->unit_maxused = 0;
-#ifdef DEBUG_MEMMGR
-	memset( p->data, 0xfd, sizeof(p->data) );
-#endif
+	
 	return p;
 }
 
@@ -542,29 +503,6 @@ size_t memmgr_usage (void)
 	return memmgr_usage_bytes / 1024;
 }
 
-#ifdef LOG_MEMMGR
-static char memmer_logfile[128];
-static FILE *log_fp;
-
-static void memmgr_log (char *buf)
-{
-	if( !log_fp ) {
-		time_t raw;
-		struct tm* t;
-
-		log_fp = fopen(memmer_logfile,"at");
-		if (!log_fp) log_fp = stdout;
-
-		time(&raw);
-		t = localtime(&raw);
-		fprintf(log_fp, "\nMemory manager: Memory leaks found at %d/%02d/%02d %02dh%02dm%02ds \n",
-			(t->tm_year+1900), (t->tm_mon+1), t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-	}
-	fprintf(log_fp, "%s", buf);
-	return;
-}
-#endif /* LOG_MEMMGR */
-
 /// Returns true if the memory location is active.
 /// Active means it is allocated and points to a usable part.
 ///
@@ -575,7 +513,7 @@ bool memmgr_verify(void* ptr)
 	struct block* block = block_first;
 	struct unit_head_large* large = unit_head_large_first;
 
-	if( ptr == NULL )
+	if(!ptr)
 		return false;// never valid
 
 	// search small blocks
@@ -616,10 +554,6 @@ static void memmgr_final (void)
 	struct block *block = block_first;
 	struct unit_head_large *large = unit_head_large_first;
 
-#ifdef LOG_MEMMGR
-	int count = 0;
-#endif /* LOG_MEMMGR */
-
 	while (block) {
 		if (block->unit_used) {
 			int i;
@@ -627,13 +561,6 @@ static void memmgr_final (void)
 				struct unit_head *head = block2unit(block, i);
 				if(head->block != NULL) {
 					char* ptr = (char *)head + sizeof(struct unit_head) - sizeof(long);
-#ifdef LOG_MEMMGR
-					char buf[1024];
-					sprintf (buf,
-						"%04d : %s line %d size %lu address 0x%p\n", ++count,
-						head->file, head->line, (unsigned long)head->size, ptr);
-					memmgr_log (buf);
-#endif /* LOG_MEMMGR */
 					// get block pointer and free it [celest]
 					iMalloc->free(ptr, ALC_MARK);
 				}
@@ -644,26 +571,12 @@ static void memmgr_final (void)
 
 	while(large) {
 		struct unit_head_large *large2;
-#ifdef LOG_MEMMGR
-		char buf[1024];
-		sprintf (buf,
-			"%04d : %s line %d size %lu address 0x%p\n", ++count,
-			large->unit_head.file, large->unit_head.line, (unsigned long)large->size, &large->unit_head.checksum);
-		memmgr_log (buf);
-#endif /* LOG_MEMMGR */
 		large2 = large->next;
 		FREE(large,file,line,func);
 		large = large2;
 	}
-#ifdef LOG_MEMMGR
-	if(count == 0) {
-		ShowInfo("Memory manager: No memory leaks found.\n");
-	} else {
-		ShowWarning("Memory manager: Memory leaks found and fixed.\n");
-		fclose(log_fp);
-	}
-#endif /* LOG_MEMMGR */
 }
+
 /* [Ind/Hercules] */
 void memmgr_report (int extra) {
 	struct block *block = block_first;
@@ -747,78 +660,27 @@ void memmgr_report (int extra) {
 
 static void memmgr_init (void)
 {
-#ifdef LOG_MEMMGR
-	sprintf(memmer_logfile, "log/%s.leaks", SERVER_NAME);
-	ShowStatus("Memory manager initialized: "CL_WHITE"%s"CL_RESET"\n", memmer_logfile);
-	memset(hash_unfill, 0, sizeof(hash_unfill));
-#endif /* LOG_MEMMGR */
+// Deixar em branco para uso posterior.
 }
 #endif /* USE_MEMMGR */
 
 
-/*======================================
-* Initialize
-*--------------------------------------
-*/
-
-
-/// Tests the memory for errors and memory leaks.
-void malloc_memory_check(void)
-{
-	MEMORY_CHECK();
-}
-
-
-/// Returns true if a pointer is valid.
-/// The check is best-effort, false positives are possible.
-bool malloc_verify_ptr(void* ptr) {
-#ifdef USE_MEMMGR
-	return memmgr_verify(ptr) && MEMORY_VERIFY(ptr);
-#else
-	return MEMORY_VERIFY(ptr);
-#endif
-}
-
-
-size_t malloc_usage (void) {
-#ifdef USE_MEMMGR
-	return memmgr_usage ();
-#else
-	return MEMORY_USAGE();
-#endif
-}
-
-void malloc_final (void) {
-#ifdef USE_MEMMGR
-	memmgr_final ();
-#endif
-	MEMORY_CHECK();
-}
-
-void malloc_init (void) {
-	memmgr_usage_bytes_t = 0;
-	memmgr_usage_bytes = 0;
-#ifdef USE_MEMMGR
-	memmgr_init ();
-#endif
-}
-
 void malloc_defaults(void) {
 	iMalloc = &iMalloc_s;
-	iMalloc->init = malloc_init;
-	iMalloc->final = malloc_final;
-	iMalloc->memory_check = malloc_memory_check;
-	iMalloc->usage = malloc_usage;
-	iMalloc->verify_ptr = malloc_verify_ptr;
 
 // Athena's built-in Memory Manager
 #ifdef USE_MEMMGR
-	iMalloc->malloc  =	 _mmalloc;
-	iMalloc->calloc  =	 _mcalloc;
-	iMalloc->realloc =	 _mrealloc;
-	iMalloc->reallocz=	 _mreallocz;
-	iMalloc->astrdup =	 _mstrdup;
-	iMalloc->free    =	 _mfree;
+    iMalloc->init = memmgr_init;
+	iMalloc->final = memmgr_final;
+	iMalloc->usage = memmgr_usage;
+	iMalloc->verify_ptr = memmgr_verify;
+	iMalloc->report =  memmgr_report;
+	iMalloc->malloc  =	 atmalloc;
+	iMalloc->calloc  =	 atcalloc;
+	iMalloc->realloc =	 atrealloc;
+	iMalloc->reallocz=	 atreallocz;
+	iMalloc->astrdup =	 atstrdup;
+	iMalloc->free    =	 atfree;
 #else
 	iMalloc->malloc  =	aMalloc_;
 	iMalloc->calloc  =	aCalloc_;

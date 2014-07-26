@@ -53,7 +53,6 @@
 #include "unit.h"
 #include "../common/cbasetypes.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -252,8 +251,10 @@ int quest_update_objective_sub(struct block_list *bl, va_list ap) {
 	struct map_session_data *sd;
 	int mob_id, party_id;
 
-	nullpo_ret(bl);
-	nullpo_ret(sd = (struct map_session_data *)bl);
+	if (!bl) return 0;
+	sd = (struct map_session_data *)bl;
+	
+	if (!sd) return 0;
 
 	party_id = va_arg(ap,int);
 	mob_id = va_arg(ap,int);
@@ -471,7 +472,7 @@ int quest_read_db(void) {
 int quest_reload_check_sub(struct map_session_data *sd, va_list ap) {
 	int i, j;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	j = 0;
 	for (i = 0; i < sd->num_quests; i++) {

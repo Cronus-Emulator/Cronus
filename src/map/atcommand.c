@@ -74,7 +74,6 @@
 #include "../common/core.h"
 #include "../common/malloc.h"
 #include "../common/mmo.h" // MAX_CARTS
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
@@ -1681,11 +1680,11 @@ ACMD(monster)
  *------------------------------------------*/
 int atkillmonster_sub(struct block_list *bl, va_list ap)
 {
-	struct mob_data *md;
-	int flag;
+	struct mob_data *md = (struct mob_data *)bl;
+	int flag = va_arg(ap, int);
 	
-	nullpo_ret(md=(struct mob_data *)bl);
-	flag = va_arg(ap, int);
+	if (!md) 
+	return 0;
 	
 	if (md->guardian_data)
 		return 0; //Do not touch WoE mobs!
@@ -2963,27 +2962,11 @@ ACMD(agitend2) {
 }
 
 /*==========================================
- * @mapexit - (kickall+mapexit) Desliga o servidor da maneira correta.
+ * @mapexit - Finaliza o servidor de mapas.
  *------------------------------------------*/
 ACMD(mapexit) {
-
-    struct map_session_data* pl_sd;
-	struct s_mapiterator* iter;
-	
-	iter = mapit_getallusers();
-	for( pl_sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); pl_sd = (TBL_PC*)mapit->next(iter) )
-	{
-		if (pc_get_group_level(sd) >= pc_get_group_level(pl_sd)) { // you can kick only lower or same gm level
-			if (sd->status.account_id != pl_sd->status.account_id)
-				clif->GM_kick(NULL, pl_sd);
-		}
-	}
-	mapit->free(iter);
-	
-	clif->message(fd, msg_txt(195)); // All players have been kicked!
-	
+    // do_shutdown já remove os jogadores.
 	map->do_shutdown();
-	
 	return true;
 }
 
@@ -5747,9 +5730,9 @@ ACMD(mobsearch)
  * @cleanarea - cleans items on the ground within an specified area
  *------------------------------------------*/
 int atcommand_cleanfloor_sub(struct block_list *bl, va_list ap) {
-	nullpo_ret(bl);
+
+	if (!bl) return 0; // Nada para limpar :o
 	map->clearflooritem(bl);
-	
 	return 0;
 }
 
@@ -9417,8 +9400,8 @@ bool atcommand_exec(const int fd, struct map_session_data *sd, const char *messa
 
 	TBL_PC * ssd = NULL; //sd for target
 	AtCommandInfo * info;
-
-	nullpo_retr(false, sd);
+	
+	if (!sd) return false;
 
 	//Shouldn't happen
 	if ( !message || !*message )

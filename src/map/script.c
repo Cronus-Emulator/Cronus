@@ -74,7 +74,6 @@
 #include "../common/malloc.h"
 #include "../common/md5calc.h"
 #include "../common/mmo.h" // NEW_CARTS
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h" // usage: getcharip
@@ -307,12 +306,11 @@ void script_reportfunc(struct script_state* st)
 /*==========================================
  * Output error message
  *------------------------------------------*/
-static void disp_error_message2(const char *mes,const char *pos,int report) analyzer_noreturn;
 static void disp_error_message2(const char *mes,const char *pos,int report) {
 	script->error_msg = aStrdup(mes);
 	script->error_pos = pos;
 	script->error_report = report;
-	longjmp( script->error_jump, 1 );
+	longjmp( script->error_jump, 1 );  //Piada, né? [TODO]
 }
 #define disp_error_message(mes,pos) (disp_error_message2((mes),(pos),1))
 
@@ -408,7 +406,6 @@ unsigned int calc_hash_ci(const char* p) {
 /// Looks up string using the provided id.
 const char* script_get_str(int id)
 {
-	Assert( id >= LABEL_START && id < script->str_size );
 	return script->str_buf+script->str_data[id].str;
 }
 
@@ -461,7 +458,6 @@ const char *script_casecheck_add_str_sub(struct casecheck_data *ccd, const char 
 	} else {
 		const char *s = NULL;
 		for( i = ccd->str_hash[h]; ; i = ccd->str_data[i].next ) {
-			Assert( i >= 0 && i < ccd->str_size );
 			s = ccd->str_buf+ccd->str_data[i].str;
 			if( strcasecmp(s,p) == 0 ) {
 				return s; // string already in list
@@ -3260,7 +3256,7 @@ void script_free_vars(struct DBMap* var_storage) {
 
 void script_free_code(struct script_code* code)
 {
-	nullpo_retv(code);
+	if (!code) return;
 
 	if( code->instances )
 		script->stop_instances(code);
@@ -6419,7 +6415,7 @@ BUILDIN(checkweight2)
 	int nb_it, nb_nb; //array size
 
 	TBL_PC *sd = script->rid2sd(st);
-	nullpo_retr(false,sd);
+	if (!sd) return false;
 
 	data_it = script_getdata(st, 2);
 	data_nb = script_getdata(st, 3);
@@ -9778,13 +9774,18 @@ int buildin_announce_sub(struct block_list *bl, va_list ap)
 /* Runs item effect on attached character.
  * itemeffect <item id>;
  * itemeffect "<item name>"; */
+ 
 BUILDIN(itemeffect) {
 	TBL_NPC *nd;
 	TBL_PC *sd;
 	struct item_data *item_data;
+	
+	sd = script->rid2sd(st);
+	if (!sd) return false;
+	
+	nd = (TBL_NPC *)map->id2bl(sd->npc_id);
+	if (!nd) return false;
 
-	nullpo_retr( false, ( sd = script->rid2sd( st ) ) );
-	nullpo_retr( false, ( nd = (TBL_NPC *)map->id2bl( sd->npc_id ) ) );
 
 	if( script_isstringtype(st, 2) ) {
 		const char *name = script_getstr(st, 2);
@@ -16262,7 +16263,7 @@ BUILDIN(setquest) {
 	struct map_session_data *sd = script->rid2sd(st);
 	unsigned short i;
 	int quest_id;
-	nullpo_retr(false,sd);
+	if (!sd) return false;
 
 	quest_id = script_getnum(st, 2);
 
@@ -16285,7 +16286,7 @@ BUILDIN(setquest) {
 
 BUILDIN(erasequest) {
 	struct map_session_data *sd = script->rid2sd(st);
-	nullpo_retr(false,sd);
+	if (!sd) return false;
 
 	quest->delete(sd, script_getnum(st, 2));
 	return true;
@@ -16293,7 +16294,7 @@ BUILDIN(erasequest) {
 
 BUILDIN(completequest) {
 	struct map_session_data *sd = script->rid2sd(st);
-	nullpo_retr(false,sd);
+	if (!sd) return false;
 
 	quest->update_status(sd, script_getnum(st, 2), Q_COMPLETE);
 	return true;
@@ -16301,7 +16302,7 @@ BUILDIN(completequest) {
 
 BUILDIN(changequest) {
 	struct map_session_data *sd = script->rid2sd(st);
-	nullpo_retr(false,sd);
+	if (!sd) return false;
 
 	quest->change(sd, script_getnum(st, 2),script_getnum(st, 3));
 	return true;
@@ -16311,7 +16312,7 @@ BUILDIN(checkquest) {
 	struct map_session_data *sd = script->rid2sd(st);
 	enum quest_check_type type = HAVEQUEST;
 
-	nullpo_retr(false,sd);
+	if (!sd) return false;
 
 	if( script_hasdata(st, 3) )
 		type = (enum quest_check_type)script_getnum(st, 3);
@@ -17687,7 +17688,9 @@ BUILDIN(getrandgroupitem) {
 /* cleanmap <map_name>;
  * cleanarea <map_name>, <x0>, <y0>, <x1>, <y1>; */
 int script_cleanfloor_sub(struct block_list *bl, va_list ap) {
-	nullpo_ret(bl);
+   
+    // Eu já vi essa função em algum lugar D:
+	if (!bl) return 0;
 	map->clearflooritem(bl);
 
 	return 0;

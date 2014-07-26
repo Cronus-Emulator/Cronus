@@ -57,7 +57,7 @@
 #include "../common/utils.h"
 
 
-#ifndef _WIN32
+#ifndef WIN32
 #	include <unistd.h>
 #else
 #	include "../common/winapi.h" // Console close event handling
@@ -106,7 +106,7 @@ sigfunc *compat_signal(int signo, sigfunc *func) {
 /*======================================
  *	CORE : Console events for Windows
  *--------------------------------------*/
-#ifdef _WIN32
+#ifdef WIN32
 static BOOL WINAPI console_handler(DWORD c_event) {
 	switch(c_event) {
 		case CTRL_CLOSE_EVENT:
@@ -152,7 +152,7 @@ static void sig_proc(int sn) {
 			compat_signal(sn, SIG_DFL);
 			raise(sn);
 			break;
-	#ifndef _WIN32
+	#ifndef WIN32
 		case SIGXFSZ:
 			// ignore and allow it to set errno to EFBIG
 			ShowWarning ("Tamanho limite excedido.\n");
@@ -168,11 +168,10 @@ static void sig_proc(int sn) {
 void signals_init (void) {
 	compat_signal(SIGTERM, sig_proc);
 	compat_signal(SIGINT, sig_proc);
-#ifndef _DEBUG // need unhandled exceptions to debug on Windows
 	compat_signal(SIGSEGV, sig_proc);
 	compat_signal(SIGFPE, sig_proc);
-#endif
-#ifndef _WIN32
+
+#ifndef WIN32
 	compat_signal(SIGILL, SIG_DFL);
 	compat_signal(SIGXFSZ, sig_proc);
 	compat_signal(SIGPIPE, sig_proc);
@@ -211,36 +210,28 @@ int main (int argc, char **argv) {
 		arg_c = argc;
 		arg_v = argv;
 	}
-	core_defaults();
 	
+	core_defaults();
 	iMalloc->init();// needed for Show* in display_title() [FlavioJS]
-
 #ifdef WIN32
 	console->SetFont();
 #endif
-	 
     console->display_title();
-	
 	set_server_type();
 	Sql_Init();
 	rathread_init();
 	DB->init();
 	signals_init();
-	
 #ifdef WIN32
 	cevents_init();
 #endif
 
 	timer->init();
-
-	/* timer first */
 	rnd_init();
 	srand((unsigned int)timer->gettick());
 	
 	console->init();
-	
 	HCache->init();
-
 	sockt->init();
 	
 	do_init(argc,argv);
@@ -253,16 +244,13 @@ int main (int argc, char **argv) {
 	}
 
 	console->final();
-	
 	retval = do_final();
 	timer->final();
 	sockt->final();
 	DB->final();
 	rathread_final();
 	ers_final();
-
-
 	iMalloc->final();
-
+	
 	return retval;
 }

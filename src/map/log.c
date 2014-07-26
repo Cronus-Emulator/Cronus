@@ -42,7 +42,6 @@
 #include "mob.h"
 #include "pc.h"
 #include "../common/cbasetypes.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/sql.h" 
 #include "../common/strlib.h"
@@ -147,7 +146,7 @@ void log_branch_sub_txt(struct map_session_data* sd) {
 
 /// logs items, that summon monsters
 void log_branch(struct map_session_data* sd) {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( !logs->config.branch )
 		return;
@@ -181,7 +180,7 @@ void log_pick_sub_txt(int id, int16 m, e_log_pick_type type, int amount, struct 
 }
 /// logs item transactions (generic)
 void log_pick(int id, int16 m, e_log_pick_type type, int amount, struct item* itm, struct item_data *data) {
-	nullpo_retv(itm);
+	if (!itm) return;
 	if( ( logs->config.enable_logs&type ) == 0 ) {// disabled
 		return;
 	}
@@ -194,14 +193,14 @@ void log_pick(int id, int16 m, e_log_pick_type type, int amount, struct item* it
 
 /// logs item transactions (players)
 void log_pick_pc(struct map_session_data* sd, e_log_pick_type type, int amount, struct item* itm, struct item_data *data) {
-	nullpo_retv(sd);
+	if (!sd) return;
 	log_pick(sd->status.char_id, sd->bl.m, type, amount, itm, data ? data : itemdb->exists(itm->nameid));
 }
 
 
 /// logs item transactions (monsters)
 void log_pick_mob(struct mob_data* md, e_log_pick_type type, int amount, struct item* itm, struct item_data *data) {
-	nullpo_retv(md);
+	if (!md) return;
 	log_pick(md->class_, md->bl.m, type, amount, itm, data ? data : itemdb->exists(itm->nameid));
 }
 void log_zeny_sub_sql(struct map_session_data* sd, e_log_pick_type type, struct map_session_data* src_sd, int amount) {
@@ -227,7 +226,7 @@ void log_zeny_sub_txt(struct map_session_data* sd, e_log_pick_type type, struct 
 /// logs zeny transactions
 void log_zeny(struct map_session_data* sd, e_log_pick_type type, struct map_session_data* src_sd, int amount)
 {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( !logs->config.zeny || ( logs->config.zeny != 1 && abs(amount) < logs->config.zeny ) )
 		return;
@@ -257,7 +256,7 @@ void log_mvpdrop_sub_txt(struct map_session_data* sd, int monster_id, int* log_m
 /// logs MVP monster rewards
 void log_mvpdrop(struct map_session_data* sd, int monster_id, int* log_mvp)
 {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( !logs->config.mvpdrop )
 		return;
@@ -295,7 +294,7 @@ void log_atcommand_sub_txt(struct map_session_data* sd, const char* message) {
 /// logs used atcommands
 void log_atcommand(struct map_session_data* sd, const char* message)
 {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( !logs->config.commands ||
 	    !pc->should_log_commands(sd) )
@@ -333,7 +332,7 @@ void log_npc_sub_txt(struct map_session_data *sd, const char *message) {
 /// logs messages passed to script command 'logmes'
 void log_npc(struct map_session_data* sd, const char* message)
 {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( !logs->config.npc )
 		return;
@@ -398,7 +397,7 @@ void log_sql_init(void) {
 			Sql_ShowDebug(logs->mysql_handle);
 }
 void log_sql_final(void) {
-	ShowStatus("Close Log DB Connection....\n");
+	ShowStatus("Finalizando base de dados para registros...\n");
 	SQL->Free(logs->mysql_handle);
 	logs->mysql_handle = NULL;
 }
@@ -423,7 +422,7 @@ int log_config_read(const char* cfgName) {
 		log_set_defaults();
 
 	if( ( fp = fopen(cfgName, "r") ) == NULL ) {
-		ShowError("Log configuration file not found at: %s\n", cfgName);
+		ShowError("Arquivo inexistente: %s\n", cfgName);
 		return 1;
 	}
 
@@ -480,7 +479,7 @@ int log_config_read(const char* cfgName) {
 			else if( strcasecmp(w1,"import") == 0 )
 				log_config_read(w2);
 			else
-				ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
+				ShowWarning("Dado desconhecido '%s' no arquivo %s.\n", w1, cfgName);
 		}
 	}
 
@@ -490,22 +489,22 @@ int log_config_read(const char* cfgName) {
 		const char* target = logs->config.sql_logs ? "table" : "file";
 
 		if( logs->config.enable_logs && logs->config.filter ) {
-			ShowInfo("Registrando movimento de itens para %s '%s'.\n", target, logs->config.log_pick);
+			ShowInfo("Registrando movimento de itens para %s -> '%s'.\n", target, logs->config.log_pick);
 		}
 		if( logs->config.branch ) {
-			ShowInfo("Registrando uso de itens para invocar monstros em %s '%s'.\n", target, logs->config.log_pick);
+			ShowInfo("Registrando uso de itens para invocar monstros em %s -> '%s'.\n", target, logs->config.log_pick);
 		}
 		if( logs->config.chat ) {
-			ShowInfo("Registrando Conversas para %s '%s'.\n", target, logs->config.log_chat);
+			ShowInfo("Registrando conversas para %s '%s'.\n", target, logs->config.log_chat);
 		}
 		if( logs->config.commands ) {
-			ShowInfo("Registrando Comandos para %s '%s'.\n", target, logs->config.log_gm);
+			ShowInfo("Registrando comandos para %s '%s'.\n", target, logs->config.log_gm);
 		}
 		if( logs->config.mvpdrop ) {
-			ShowInfo("Registrando Itens deixados por Monstros Chefes para %s '%s'.\n", target, logs->config.log_mvpdrop);
+			ShowInfo("Registrando itens deixados por MVP's para %s '%s'.\n", target, logs->config.log_mvpdrop);
 		}
 		if( logs->config.npc ) {
-			ShowInfo("Registrando Conversas de NPC's para %s '%s'.\n", target, logs->config.log_npc);
+			ShowInfo("Registrando conversas de NPC's para %s '%s'.\n", target, logs->config.log_npc);
 		}
 		if( logs->config.zeny ) {
 			ShowInfo("Registrando movimento de zeny para %s '%s'.\n", target, logs->config.log_zeny);

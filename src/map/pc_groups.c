@@ -41,7 +41,6 @@
 #include "../common/conf.h"
 #include "../common/db.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h" // strcmp
 
@@ -154,7 +153,7 @@ static void read_config(void) {
 			
 		}
 		group_count = libconfig->setting_length(groups); // Save number of groups
-		assert(group_count == db_size(pcg->db));
+		if (group_count != db_size(pcg->db)) return; // 
 		
 		// Check if all commands and permissions exist
 		iter = db_iterator(pcg->db);

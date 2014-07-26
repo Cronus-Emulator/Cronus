@@ -56,7 +56,6 @@
 #include "../common/db.h"
 #include "../common/ers.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
@@ -69,7 +68,7 @@ struct pet_interface pet_s;
 
 int pet_hungry_val(struct pet_data *pd)
 {
-	nullpo_ret(pd);
+	if (!pd) return 0;
 
 	if(pd->pet.hungry > 90)
 		return 4;
@@ -88,7 +87,8 @@ void pet_set_intimate(struct pet_data *pd, int value)
 	int intimate;
 	struct map_session_data *sd;
 
-	nullpo_retv(pd);
+	if (!pd) return;
+	
 	intimate = pd->pet.intimate;
 	sd = pd->msd;
 
@@ -114,7 +114,7 @@ int pet_create_egg(struct map_session_data *sd, int item_id)
 
 int pet_unlocktarget(struct pet_data *pd)
 {
-	nullpo_ret(pd);
+	if (!pd) return 0;
 
 	pd->target_id=0;
 	pet_stop_attack(pd);
@@ -159,9 +159,9 @@ int pet_target_check(struct map_session_data *sd,struct block_list *bl,int type)
 
 	pd = sd->pd;
 	
-	Assert((pd->msd == 0) || (pd->msd->pd == pd));
+	if ((pd->msd != 0) || (pd->msd->pd != pd)) return 0;
 
-	if( bl == NULL || bl->type != BL_MOB || bl->prev == NULL
+	if(!bl || bl->type != BL_MOB || !bl->prev 
 	 || pd->pet.intimate < battle_config.pet_support_min_friendly
 	 || pd->pet.hungry < 1
 	 || pd->pet.class_ == status->get_class(bl))
@@ -200,10 +200,10 @@ int pet_sc_check(struct map_session_data *sd, int type)
 {
 	struct pet_data *pd;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 	pd = sd->pd;
 
-	if( pd == NULL
+	if( !pd
 	||  (battle_config.pet_equip_required && pd->pet.equip == 0)
 	||  pd->recovery == NULL
 	||  pd->recovery->timer != INVALID_TIMER
@@ -287,7 +287,7 @@ int search_petDB_index(int key,int type)
 
 int pet_hungry_timer_delete(struct pet_data *pd)
 {
-	nullpo_ret(pd);
+	if (!pd) return 0;
 	if(pd->pet_hungry_timer != INVALID_TIMER) {
 		timer->delete(pd->pet_hungry_timer,pet->hungry);
 		pd->pet_hungry_timer = INVALID_TIMER;
@@ -344,9 +344,7 @@ int pet_data_init(struct map_session_data *sd, struct s_pet *petinfo)
 	struct pet_data *pd;
 	int i=0,interval=0;
 
-	nullpo_retr(1, sd);
-
-	Assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->msd == sd);
+	if (!sd) return 1;
 
 	if(sd->status.account_id != petinfo->account_id || sd->status.char_id != petinfo->char_id) {
 		sd->status.pet_id = 0;
@@ -415,9 +413,7 @@ int pet_data_init(struct map_session_data *sd, struct s_pet *petinfo)
 
 int pet_birth_process(struct map_session_data *sd, struct s_pet *petinfo)
 {
-	nullpo_retr(1, sd);
-
-	Assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->msd == sd);
+	if (!sd) return 1;
 
 	if(sd->status.pet_id && petinfo->incubate == 1) {
 		sd->status.pet_id = 0;
@@ -445,7 +441,6 @@ int pet_birth_process(struct map_session_data *sd, struct s_pet *petinfo)
 		clif->send_petdata(NULL, sd->pd, 3, sd->pd->vd.head_bottom);
 		clif->send_petstatus(sd);
 	}
-	Assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->msd == sd);
 
 	return 0;
 }
@@ -493,7 +488,8 @@ int pet_recv_petdata(int account_id,struct s_pet *p,int flag) {
 
 int pet_select_egg(struct map_session_data *sd,short egg_index)
 {
-	nullpo_ret(sd);
+
+	if (!sd) return 0;
 
 	if(egg_index < 0 || egg_index >= MAX_INVENTORY)
 		return 0; //Forged packet!
@@ -508,7 +504,7 @@ int pet_select_egg(struct map_session_data *sd,short egg_index)
 
 int pet_catch_process1(struct map_session_data *sd,int target_class)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	sd->catch_target_class = target_class;
 	clif->catch_process(sd);
@@ -520,7 +516,7 @@ int pet_catch_process2(struct map_session_data* sd, int target_id) {
 	struct mob_data* md;
 	int i = 0, pet_catch_rate = 0;
 
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	md = (struct mob_data*)map->id2bl(target_id);
 	if(!md || md->bl.type != BL_MOB || md->bl.prev == NULL) {
@@ -619,9 +615,8 @@ bool pet_get_egg(int account_id, short pet_class, int pet_id ) {
 int pet_menu(struct map_session_data *sd,int menunum)
 {
 	struct item_data *egg_id;
-	nullpo_ret(sd);
-	if (sd->pd == NULL)
-		return 1;
+	if (!sd) return 1;
+	if (!sd->pd) return 1;
 	
 	//You lost the pet already.
 	if(!sd->status.pet_id || sd->pd->pet.intimate <= 0 || sd->pd->pet.incubate)
@@ -659,7 +654,7 @@ int pet_change_name(struct map_session_data *sd,char *name)
 {
 	int i;
 	struct pet_data *pd;
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	pd = sd->pd;
 	if((pd == NULL) || (pd->pet.rename_flag == 1 && !battle_config.pet_rename))
@@ -697,7 +692,7 @@ int pet_equipitem(struct map_session_data *sd,int index) {
 	struct pet_data *pd;
 	int nameid;
 
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 	pd = sd->pd;
 	if (!pd)  return 1;
 	
@@ -820,9 +815,8 @@ int pet_food(struct map_session_data *sd, struct pet_data *pd)
 }
 
 int pet_randomwalk(struct pet_data *pd, int64 tick) {
-	nullpo_ret(pd);
+	if (!pd) return 0;
 
-	Assert((pd->msd == 0) || (pd->msd->pd == pd));
 
 	if(DIFF_TICK(pd->next_walktime,tick) < 0 && unit->can_move(&pd->bl)) {
 		const int retrycount=20;

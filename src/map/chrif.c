@@ -57,8 +57,7 @@
 #include "storage.h"
 #include "../common/cbasetypes.h"
 #include "../common/ers.h"
-#include "../common/malloc.h"
-#include "../common/nullpo.h"
+#include "../common/malloc.h" 
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -274,8 +273,9 @@ int chrif_isconnected(void) {
  * Flag = 2: Character is changing map-servers
  *------------------------------------------*/
 bool chrif_save(struct map_session_data *sd, int flag) {
-	nullpo_ret(sd);
-
+   
+	if (!sd) return false;
+	
 	pc->makesavestatus(sd);
 
 	if (flag && sd->state.active) { //Store player data which is quitting
@@ -389,7 +389,8 @@ void chrif_save_ack(int fd) {
 
 // request to move a character between mapservers
 bool chrif_changemapserver(struct map_session_data* sd, uint32 ip, uint16 port) {
-	nullpo_ret(sd);
+
+	if (!sd) return false;
 
 	if (chrif->other_mapserver_count < 1) {//No other map servers are online!
 		clif->authfail_fd(sd->fd, 0);
@@ -712,7 +713,8 @@ int auth_db_cleanup(int tid, int64 tick, int id, intptr_t data) {
  * Request char selection
  *------------------------------------------*/
 bool chrif_charselectreq(struct map_session_data* sd, uint32 s_ip) {
-	nullpo_ret(sd);
+	
+	if (!sd) return false;
 
 	if( !sd->bl.id || !sd->login_id1 )
 		return false;

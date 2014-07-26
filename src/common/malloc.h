@@ -42,12 +42,6 @@
 //////////////////////////////////////////////////////////////////////
 // Enable memory manager logging by default
 #define USE_MEMMGR
-#define LOG_MEMMGR
-
-
-#if defined(LOG_MEMMGR)
-	#undef LOG_MEMMGR
-#endif
 
 #	define aMalloc(n)    (iMalloc->malloc((n),ALC_MARK))
 #	define aCalloc(m,n)  (iMalloc->calloc((m),(n),ALC_MARK))
@@ -82,8 +76,15 @@
 void malloc_defaults(void);
 
 struct malloc_interface {
+// Será usado de qualquer maneira, mas não custa nada deixar da maneira correta caso não usar :)
+#ifdef USE_MEMMGR
 	void	(*init) (void);
 	void	(*final) (void);
+	void	(*memory_check)(void);
+	bool	(*verify_ptr)(void* ptr);
+	size_t	(*usage) (void);
+	void    (*report) (int extra);
+#endif
 	/* */
 	void* (*malloc	)(size_t size, const char *file, int line, const char *func);
 	void* (*calloc	)(size_t num, size_t size, const char *file, int line, const char *func);
@@ -91,13 +92,9 @@ struct malloc_interface {
 	void* (*reallocz)(void *p, size_t size, const char *file, int line, const char *func);
 	char* (*astrdup	)(const char *p, const char *file, int line, const char *func);
 	void  (*free	)(void *p, const char *file, int line, const char *func);
-	/* */
-	void	(*memory_check)(void);
-	bool	(*verify_ptr)(void* ptr);
-	size_t	(*usage) (void);
+
 } iMalloc_s;
 
-void memmgr_report (int extra);
 struct malloc_interface *iMalloc;
 
 #endif /* COMMON_MALLOC_H */

@@ -460,7 +460,7 @@ int send_from_fifo(int fd)
 /// Best effort - there's no warranty that the data will be sent.
 void flush_fifo(int fd)
 {
-	if(session[fd] != NULL)
+	if(session[fd])
 		session[fd]->func_send(fd);
 }
 
@@ -719,7 +719,7 @@ int WFIFOSET(int fd, size_t len)
 	size_t newreserve;
 	struct socket_data* s = session[fd];
 
-	if( !sockt->session_isValid(fd) || s->wdata == NULL )
+	if( !sockt->session_isValid(fd) || !s->wdata)
 		return 0;
 
 	// we have written len bytes to the buffer already before calling WFIFOSET
@@ -879,10 +879,6 @@ int do_sockets(int next)
 			}
 		}
 
-#ifdef __clang_analyzer__
-		// Let Clang's static analyzer know this never happens (it thinks it might because of a NULL check in session_isValid)
-		if (!session[i]) continue;
-#endif // __clang_analyzer__
 		session[i]->func_parse(i);
 
 		if(!session[i])
@@ -902,7 +898,7 @@ int do_sockets(int next)
 		char buf[1024];
 		
 		sprintf(buf, "In: %.03f kB/s (%.03f kB/s, Q: %.03f kB) | Out: %.03f kB/s (%.03f kB/s, Q: %.03f kB) | RAM: %.03f MB", socket_data_i/1024., socket_data_ci/1024., socket_data_qi/1024., socket_data_o/1024., socket_data_co/1024., socket_data_qo/1024., iMalloc->usage()/1024.);
-#ifdef _WIN32
+#ifdef WIN32
 		SetConsoleTitle(buf);
 #else
 		ShowMessage("\033[s\033[1;1H\033[2K%s\033[u", buf);

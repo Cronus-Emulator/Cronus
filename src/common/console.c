@@ -179,7 +179,7 @@ int console_parse_key_pressed(void) {
  * Stops server
  **/
 CPCMD_C(exit,server) {
-	runflag = 0;
+	runflag = CORE_ST_STOP;
 }
 
 /**
@@ -193,7 +193,7 @@ CPCMD_C(ers_report,server) {
  * Displays memory usage
  **/
 CPCMD_C(mem_report,server) {
-	memmgr_report(line?atoi(line):0);
+	iMalloc->report(line?atoi(line):0);
 }
 
 /**

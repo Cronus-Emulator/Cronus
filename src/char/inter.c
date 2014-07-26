@@ -508,7 +508,7 @@ void geoip_init(void) {
 	geoip.active = true;
 
 	db = fopen("./db/GeoIP.dat","rb");
-	if( db == NULL ) {
+	if(!db) {
 		ShowError("[GeoDB] - Falha de leitura na base de dados GeoIP!\n");
 		geoip_final(false);
 		return;
@@ -530,7 +530,7 @@ void geoip_init(void) {
 	// Search database type
 	fseek(db, -3l, SEEK_END);
 	for( i = 0; i < GEOIP_STRUCTURE_INFO_MAX_SIZE; i++ ) {
-		fread(delim, sizeof(delim[0]), 3, db);
+		(void)fread(delim, sizeof(delim[0]), 3, db); //(void) para remover aquele warning chato
 		if( delim[0] == 255 && delim[1] == 255 && delim[2] == 255 ) {
 			fread(&db_type, sizeof(db_type), 1, db);
 			break;

@@ -87,19 +87,15 @@
 #include <sys/param.h>
 #endif // __NETBSD__
 
+#if defined(_ILP64)
+#error "Arquitetura insuportada pelo emulador."
+#endif
+
 // 64bit OS
 #if defined(_M_IA64) || defined(_M_X64) || defined(_WIN64) || defined(_LP64) || defined(__LP64__) || defined(__ppc64__)
 #define __64BIT__
 #endif
 
-#if defined(_ILP64)
-#error "Arquitetura insuportada pelo emulador."
-#endif
-
-// debug mode
-#if defined(_DEBUG) && !defined(DEBUG)
-#define DEBUG
-#endif
 
 // debug function name
 #ifndef __NETBSD__
@@ -210,7 +206,7 @@ typedef uint64_t	uint64;
 		typedef uint32 usysint;
 	#endif
 #else
-	#error Plataforma/Compilador insuportado.
+	#error "Plataforma/Compilador insuportado."
 #endif
 
 //////////////////////////////////////////////////////////////////////////
@@ -236,13 +232,6 @@ int      strnicmp (const char* s1, const char* s2, size_t size);
 
 #define forceinline __attribute__((always_inline)) inline
 #define ra_align(n) __attribute__(( aligned(n) ))
-
-// Directives for the (clang) static analyzer
-#ifdef __clang__
-#define analyzer_noreturn __attribute__((analyzer_noreturn))
-#else
-#define analyzer_noreturn
-#endif
 
 #ifndef __bool_true_false_are_defined
 typedef char bool;

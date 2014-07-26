@@ -65,7 +65,6 @@
 #include "../common/db.h"
 #include "../common/ers.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
@@ -607,7 +606,7 @@ int mob_spawn_guardian_sub(int tid, int64 tick, int id, intptr_t data) {
 	struct guild* g;
 	int guardup_lv;
 
-	if (bl == NULL) //It is possible mob was already removed from map when the castle has no owner. [Skotlex]
+	if (!bl) //It is possible mob was already removed from map when the castle has no owner. [Skotlex]
 		return 0;
 
 	if (bl->type != BL_MOB)
@@ -617,10 +616,10 @@ int mob_spawn_guardian_sub(int tid, int64 tick, int id, intptr_t data) {
 	}
 
 	md = (struct mob_data*)bl;
-	nullpo_ret(md->guardian_data);
+	if (!md || md->guardian_data) return 0;
 	g = guild->search((int)data);
 
-	if (g == NULL)
+	if (!g)
 	{	//Liberate castle, if the guild is not found this is an error! [Skotlex]
 		ShowError("mob_spawn_guardian_sub: Couldn't load guild %d!\n", (int)data);
 		if (md->class_ == MOBID_EMPERIUM && md->guardian_data)
@@ -695,7 +694,7 @@ int mob_spawn_guardian(const char* mapname, short x, short y, const char* mobnam
 		return 0;
 
 	gc=guild->mapname2gc(map->list[m].name);
-	if (gc == NULL) {
+	if (!gc) {
 		ShowError("mob_spawn_guardian: No castle set at map %s\n", map->list[m].name);
 		return 0;
 	}
@@ -802,8 +801,8 @@ int mob_can_reach(struct mob_data *md,struct block_list *bl,int range, int state
 {
 	int easy = 0;
 
-	nullpo_ret(md);
-	nullpo_ret(bl);
+	if (!md || !bl) return 0;
+
 	switch (state) {
 		case MSS_RUSH:
 		case MSS_FOLLOW:
@@ -826,7 +825,8 @@ int mob_linksearch(struct block_list *bl,va_list ap) {
 	struct block_list *target;
 	int64 tick;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
+	
 	md=(struct mob_data *)bl;
 	class_ = va_arg(ap, int);
 	target = va_arg(ap, struct block_list *);
@@ -912,7 +912,7 @@ int mob_count_sub(struct block_list *bl, va_list ap) {
 	ARR_FIND(0, 10, i, (mobid[i] = va_arg(ap, int)) == 0); //fetch till 0
 	if (mobid[0]) { //if there one let's check it otherwise go backward
 		TBL_MOB *md = BL_CAST(BL_MOB, bl);
-		nullpo_ret(md);
+		if (!md) return 0;
 		ARR_FIND(0, 10, i, md->class_ == mobid[i]);
 		return (i < 10) ? 1 : 0;
 	}
@@ -1048,8 +1048,8 @@ int mob_can_changetarget(struct mob_data* md, struct block_list* target, int mod
  *------------------------------------------*/
 int mob_target(struct mob_data *md,struct block_list *bl,int dist)
 {
-	nullpo_ret(md);
-	nullpo_ret(bl);
+
+	if (!md || !bl) return 0;
 
 	// Nothing will be carried out if there is no mind of changing TAGE by TAGE ending.
 	if(md->target_id && !mob->can_changetarget(md, bl, status_get_mode(&md->bl)))
@@ -1077,7 +1077,8 @@ int mob_ai_sub_hard_activesearch(struct block_list *bl,va_list ap)
 	int mode;
 	int dist;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
+	
 	md=va_arg(ap,struct mob_data *);
 	target= va_arg(ap,struct block_list**);
 	mode= va_arg(ap,int);
@@ -1135,7 +1136,7 @@ int mob_ai_sub_hard_changechase(struct block_list *bl,va_list ap) {
 	struct mob_data *md;
 	struct block_list **target;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
 	md=va_arg(ap,struct mob_data *);
 	target= va_arg(ap,struct block_list**);
 
@@ -1161,7 +1162,7 @@ int mob_ai_sub_hard_bg_ally(struct block_list *bl,va_list ap) {
 	struct mob_data *md;
 	struct block_list **target;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
 	md=va_arg(ap,struct mob_data *);
 	target= va_arg(ap,struct block_list**);
 
@@ -1309,7 +1310,7 @@ int mob_ai_sub_hard_slavemob(struct mob_data *md, int64 tick) {
  * unreachable.
  *------------------------------------------*/
 int mob_unlocktarget(struct mob_data *md, int64 tick) {
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	switch (md->state.skillstate) {
 	case MSS_WALK:
@@ -1352,7 +1353,7 @@ int mob_randomwalk(struct mob_data *md, int64 tick) {
 	int i,x,y,c,d;
 	int speed;
 
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	if(DIFF_TICK(md->next_walktime,tick)>0 ||
 	   !unit->can_move(&md->bl) ||
@@ -1723,7 +1724,7 @@ int mob_ai_sub_foreachclient(struct map_session_data *sd, va_list ap) {
 int mob_ai_sub_lazy(struct mob_data *md, va_list args) {
 	int64 tick;
 
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	if(md->bl.prev == NULL)
 		return 0;
@@ -1911,9 +1912,11 @@ int mob_deleteslave_sub(struct block_list *bl,va_list ap)
 	struct mob_data *md;
 	int id;
 
-	nullpo_ret(bl);
-	nullpo_ret(md = (struct mob_data *)bl);
-
+	if (!bl) return 0;
+	md = (struct mob_data *)bl; 
+	
+	if (!md) return 0;
+	
 	id=va_arg(ap,int);
 	if(md->master_id > 0 && md->master_id == id )
 		status_kill(bl);
@@ -1924,7 +1927,7 @@ int mob_deleteslave_sub(struct block_list *bl,va_list ap)
  *
  *------------------------------------------*/
 int mob_deleteslave(struct mob_data *md) {
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	map->foreachinmap(mob->deleteslave_sub, md->bl.m, BL_MOB,md->bl.id);
 	return 0;
@@ -2690,7 +2693,7 @@ void mob_revive(struct mob_data *md, unsigned int hp)
 int mob_guardian_guildchange(struct mob_data *md)
 {
 	struct guild *g;
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	if (!md->guardian_data)
 		return 0;
@@ -2733,7 +2736,7 @@ int mob_guardian_guildchange(struct mob_data *md)
  *------------------------------------------*/
 int mob_random_class (int *value, size_t count)
 {
-	nullpo_ret(value);
+	if (!value) return 0;
 
 	// no count specified, look into the array manually, but take only max 5 elements
 	if (count < 1) {
@@ -2758,7 +2761,7 @@ int mob_class_change (struct mob_data *md, int class_)
 	int64 tick = timer->gettick(), c = 0;
 	int i, hp_rate;
 
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	if( md->bl.prev == NULL )
 		return 0;
@@ -2901,8 +2904,7 @@ int mob_summonslave(struct mob_data *md2,int *value,int amount,uint16 skill_id)
 	struct spawn_data data;
 	int count = 0,k=0,hp_rate=0;
 
-	nullpo_ret(md2);
-	nullpo_ret(value);
+	if (!md2 || !value) return 0;
 
 	memset(&data, 0, sizeof(struct spawn_data));
 	data.m = md2->bl.m;
@@ -3035,11 +3037,12 @@ int mob_getfriendhprate_sub(struct block_list *bl,va_list ap)
 		(*fr) = bl;
 	return 1;
 }
+
 struct block_list *mob_getfriendhprate(struct mob_data *md,int min_rate,int max_rate) {
 	struct block_list *fr=NULL;
 	int type = BL_MOB;
 
-	nullpo_retr(NULL, md);
+	if (!md) return NULL;
 
 	if (md->special_state.ai) //Summoned creatures. [Skotlex]
 		type = BL_PC;
@@ -3068,9 +3071,11 @@ int mob_getfriendstatus_sub(struct block_list *bl,va_list ap)
 	struct mob_data **fr, *md, *mmd;
 	int flag=0;
 
-	nullpo_ret(bl);
-	nullpo_ret(md=(struct mob_data *)bl);
-	nullpo_ret(mmd=va_arg(ap,struct mob_data *));
+	if (!bl) return 0;
+	md=(struct mob_data *)bl;
+	if (!md) return 0;
+	mmd=va_arg(ap,struct mob_data *);
+	if (!mmd) return 0;
 
 	if( mmd->bl.id == bl->id && !(battle_config.mob_ai&0x10) )
 		return 0;
@@ -3096,7 +3101,7 @@ int mob_getfriendstatus_sub(struct block_list *bl,va_list ap)
 
 struct mob_data *mob_getfriendstatus(struct mob_data *md,int cond1,int cond2) {
 	struct mob_data* fr = NULL;
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	map->foreachinrange(mob->getfriendstatus_sub, &md->bl, 8,BL_MOB, md,cond1,cond2,&fr);
 	return fr;
@@ -3106,15 +3111,18 @@ struct mob_data *mob_getfriendstatus(struct mob_data *md,int cond1,int cond2) {
  * Skill use judging
  *------------------------------------------*/
 int mobskill_use(struct mob_data *md, int64 tick, int event) {
-	struct mob_skill *ms;
+	struct mob_skill *ms = NULL;
 	struct block_list *fbl = NULL; //Friend bl, which can either be a BL_PC or BL_MOB depending on the situation. [Skotlex]
-	struct block_list *bl;
+	struct block_list *bl = NULL;
 	struct mob_data *fmd = NULL;
 	int i,j,n;
 	short skill_target;
 
-	nullpo_ret(md);
-	nullpo_ret(ms = md->db->skill);
+	if (!md) return 0;
+	
+	ms = md->db->skill;
+	
+	if (!ms) return 0;
 
 	if (!battle_config.mob_skill_rate || md->ud.skilltimer != INVALID_TIMER || !md->db->maxskill)
 		return 0;
@@ -3376,7 +3384,7 @@ int mob_clone_spawn(struct map_session_data *sd, int16 m, int16 x, int16 y, cons
 	struct mob_db* db;
 	struct status_data *mstatus;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if(pc_isdead(sd) && master_id && flag&1)
 		return 0;

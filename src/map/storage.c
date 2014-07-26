@@ -50,7 +50,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/db.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 
 struct storage_interface storage_s;
 struct guild_storage_interface gstorage_s;
@@ -75,12 +74,11 @@ int storage_comp_item(const void *_i1, const void *_i2)
 //Sort item by storage_comp_item (nameid)
 void storage_sortitem(struct item* items, unsigned int size)
 {
-	nullpo_retv(items);
+	if (!items) return;
 
 	if( battle_config.client_sort_storage )
-	{
 		qsort(items, size, sizeof(struct item), storage->comp_item);
-	}
+
 }
 
 /**
@@ -108,8 +106,8 @@ void do_reconnect_storage(void) {
  *------------------------------------------*/
 int storage_storageopen(struct map_session_data *sd)
 {
-	nullpo_ret(sd);
-
+	if (!sd) return 0;
+	
 	if(sd->state.storage_flag)
 		return 1; //Already open?
 	
@@ -231,7 +229,8 @@ int storage_delitem(struct map_session_data* sd, int n, int amount)
  *	1 : success
  *------------------------------------------*/
 int storage_storageadd(struct map_session_data* sd, int index, int amount) {
-	nullpo_ret(sd);
+
+    if (!sd) return 0;
 
 	if( sd->status.storage.storage_amount > MAX_STORAGE )
 		return 0; // storage full
@@ -290,7 +289,7 @@ int storage_storageget(struct map_session_data* sd, int index, int amount)
  *------------------------------------------*/
 int storage_storageaddfromcart(struct map_session_data* sd, int index, int amount)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( sd->status.storage.storage_amount > MAX_STORAGE )
   		return 0; // storage full / storage closed
@@ -319,7 +318,7 @@ int storage_storageaddfromcart(struct map_session_data* sd, int index, int amoun
  *------------------------------------------*/
 int storage_storagegettocart(struct map_session_data* sd, int index, int amount) {
 	int flag = 0;
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( index < 0 || index >= MAX_STORAGE )
 		return 0;
@@ -345,8 +344,9 @@ int storage_storagegettocart(struct map_session_data* sd, int index, int amount)
  * Modified By Valaris to save upon closing [massdriller]
  *------------------------------------------*/
 void storage_storageclose(struct map_session_data* sd) {
-	nullpo_retv(sd);
 
+	if (!sd) return;
+	
 	clif->storageclose(sd);
 
 	if( map->save_settings&4 )
@@ -359,7 +359,8 @@ void storage_storageclose(struct map_session_data* sd) {
  * When quitting the game.
  *------------------------------------------*/
 void storage_storage_quit(struct map_session_data* sd, int flag) {
-	nullpo_retv(sd);
+
+	if (!sd) return;
 	
 	if (map->save_settings&4)
 		chrif->save(sd, flag); //Invokes the storage saving as well.
@@ -407,7 +408,7 @@ int storage_guild_storageopen(struct map_session_data* sd)
 {
 	struct guild_storage *gstor;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if(sd->status.guild_id <= 0)
 		return 2;
@@ -448,10 +449,8 @@ int guild_storage_additem(struct map_session_data* sd, struct guild_storage* sto
 {
 	struct item_data *data;
 	int i;
-
-	nullpo_retr(1, sd);
-	nullpo_retr(1, stor);
-	nullpo_retr(1, item_data);
+	
+	if (!sd || !stor || !item_data) return 1;
 
 	if(item_data->nameid <= 0 || amount <= 0)
 		return 1;
@@ -509,8 +508,7 @@ int guild_storage_additem(struct map_session_data* sd, struct guild_storage* sto
  *------------------------------------------*/
 int guild_storage_delitem(struct map_session_data* sd, struct guild_storage* stor, int n, int amount)
 {
-	nullpo_retr(1, sd);
-	nullpo_retr(1, stor);
+	if (!sd || !stor) return 0;
 
 	if(stor->items[n].nameid==0 || stor->items[n].amount<amount)
 		return 1;
@@ -537,8 +535,11 @@ int storage_guild_storageadd(struct map_session_data* sd, int index, int amount)
 {
 	struct guild_storage *stor;
 
-	nullpo_ret(sd);
-	nullpo_ret(stor=gstorage->id2storage2(sd->status.guild_id));
+	if (!sd) return 0;
+	
+	stor=gstorage->id2storage2(sd->status.guild_id);
+	
+	if (!stor) return 0;
 		
 	if( !stor->storage_status || stor->storage_amount > MAX_GUILD_STORAGE )
 		return 0;
@@ -577,8 +578,12 @@ int storage_guild_storageget(struct map_session_data* sd, int index, int amount)
 	struct guild_storage *stor;
 	int flag;
 
-	nullpo_ret(sd);
-	nullpo_ret(stor=guild2storage2(sd->status.guild_id));
+	if (!sd) return 0;
+	
+	stor=guild2storage2(sd->status.guild_id);
+	
+	if (!stor) return 0;
+	
 
 	if(!stor->storage_status)
   		return 0;
@@ -601,7 +606,6 @@ int storage_guild_storageget(struct map_session_data* sd, int index, int amount)
 		gstorage->delitem(sd,stor,index,amount);
 	else //inform fail
 		clif->additem(sd,0,0,flag);
-//	log_fromstorage(sd, index, 1);
 
 	return 0;
 }
@@ -617,8 +621,11 @@ int storage_guild_storageaddfromcart(struct map_session_data* sd, int index, int
 {
 	struct guild_storage *stor;
 
-	nullpo_ret(sd);
-	nullpo_ret(stor=guild2storage2(sd->status.guild_id));
+	if (!sd) return 0;
+	
+	stor=guild2storage2(sd->status.guild_id);
+	
+	if (!stor) return 0;
 
 	if( !stor->storage_status || stor->storage_amount > MAX_GUILD_STORAGE )
 		return 0;
@@ -649,8 +656,10 @@ int storage_guild_storagegettocart(struct map_session_data* sd, int index, int a
 {
 	struct guild_storage *stor;
 
-	nullpo_ret(sd);
-	nullpo_ret(stor=guild2storage2(sd->status.guild_id));
+	if (!sd) return 0;
+	stor=guild2storage2(sd->status.guild_id);
+	if (!stor) return 0;
+
 
 	if(!stor->storage_status)
 	  	return 0;
@@ -715,8 +724,10 @@ int storage_guild_storagesaved(int guild_id)
 int storage_guild_storageclose(struct map_session_data* sd) {
 	struct guild_storage *stor;
 
-	nullpo_ret(sd);
-	nullpo_ret(stor=gstorage->id2storage2(sd->status.guild_id));
+	if (!sd) return 0;
+	stor=gstorage->id2storage2(sd->status.guild_id);
+	
+	if (!stor) return 0;
 
 	clif->storageclose(sd);
 	if (stor->storage_status) {
@@ -734,8 +745,10 @@ int storage_guild_storageclose(struct map_session_data* sd) {
 int storage_guild_storage_quit(struct map_session_data* sd, int flag) {
 	struct guild_storage *stor;
 
-	nullpo_ret(sd);
-	nullpo_ret(stor=gstorage->id2storage2(sd->status.guild_id));
+	if (!sd) return 0;
+	stor=gstorage->id2storage2(sd->status.guild_id);
+	
+	if (!stor) return 0;
 	
 	if(flag) {
 		//Only during a guild break flag is 1 (don't save storage)

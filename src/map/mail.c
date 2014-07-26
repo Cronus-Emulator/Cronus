@@ -41,7 +41,6 @@
 #include "itemdb.h"
 #include "log.h"
 #include "pc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 
 struct mail_interface mail_s;
@@ -58,7 +57,7 @@ void mail_clear(struct map_session_data *sd)
 
 int mail_removeitem(struct map_session_data *sd, short flag)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( sd->mail.amount )
 	{
@@ -76,7 +75,7 @@ int mail_removeitem(struct map_session_data *sd, short flag)
 
 int mail_removezeny(struct map_session_data *sd, short flag)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if (flag && sd->mail.zeny > 0)
 	{  //Zeny send
@@ -126,9 +125,8 @@ unsigned char mail_setitem(struct map_session_data *sd, int idx, int amount) {
 bool mail_setattachment(struct map_session_data *sd, struct mail_message *msg)
 {
 	int n;
-
-	nullpo_retr(false,sd);
-	nullpo_retr(false,msg);
+	
+	if (!sd || !msg) return false;
 
 	if( sd->mail.zeny < 0 || sd->mail.zeny > sd->status.zeny )
 		return false;
@@ -176,7 +174,7 @@ void mail_getattachment(struct map_session_data* sd, int zeny, struct item* item
 
 int mail_openmail(struct map_session_data *sd)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( sd->state.storage_flag || sd->state.vending || sd->state.buyingstore || sd->state.trading )
 		return 0;
@@ -188,8 +186,7 @@ int mail_openmail(struct map_session_data *sd)
 
 void mail_deliveryfail(struct map_session_data *sd, struct mail_message *msg)
 {
-	nullpo_retv(sd);
-	nullpo_retv(msg);
+	if (!sd || !msg) return;
 
 	if( msg->item.amount > 0 )
 	{

@@ -52,7 +52,7 @@ set mtS=mt19937ar
 :: LibConfig
 set DepS=libconfig grammar scanctx strbuf scanner
 ::Obj_all
-set sharedS=sql conf db ers mapindex md5calc mutex nullpo random showmsg strlib thread timer utils console core malloc socket
+set sharedS=sql conf db ers mapindex md5calc mutex random showmsg strlib thread timer utils console core malloc socket
 :: Char-Server
 set CharS=char int_auction int_elemental int_guild int_homun int_mail int_mercenary int_party int_pet int_quest int_storage inter pincode
 :: Login-Server

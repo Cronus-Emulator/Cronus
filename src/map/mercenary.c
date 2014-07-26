@@ -60,7 +60,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/malloc.h"
 #include "../common/mmo.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
@@ -96,7 +95,7 @@ int merc_create(struct map_session_data *sd, int class_, unsigned int lifetime)
 	struct s_mercenary merc;
 	struct s_mercenary_db *db;
 	int i;
-	nullpo_retr(0,sd);
+	if (!sd) return 0;
 
 	if( (i = mercenary->search_index(class_)) < 0 )
 		return 0;
@@ -119,18 +118,18 @@ int merc_create(struct map_session_data *sd, int class_, unsigned int lifetime)
 int mercenary_get_lifetime(struct mercenary_data *md)
 {
 	const struct TimerData * td;
-	if( md == NULL || md->contract_timer == INVALID_TIMER )
+	if(!md || md->contract_timer == INVALID_TIMER )
 		return 0;
 
 	td = timer->get(md->contract_timer);
-	return (td != NULL) ? DIFF_TICK32(td->tick, timer->gettick()) : 0;
+	return (td) ? DIFF_TICK32(td->tick, timer->gettick()) : 0;
 }
 
 int mercenary_get_guild(struct mercenary_data *md)
 {
 	int class_;
 
-	if( md == NULL || md->db == NULL )
+	if(!md  || !md->db)
 		return -1;
 
 	class_ = md->db->class_;
@@ -150,7 +149,7 @@ int mercenary_get_faith(struct mercenary_data *md)
 	struct map_session_data *sd;
 	int class_;
 
-	if( md == NULL || md->db == NULL || (sd = md->master) == NULL )
+	if( !md  || md->db || (sd = md->master) == NULL )
 		return 0;
 
 	class_ = md->db->class_;
@@ -295,7 +294,7 @@ int merc_delete(struct mercenary_data *md, int reply)
 
 void merc_contract_stop(struct mercenary_data *md)
 {
-	nullpo_retv(md);
+	if (!md) return;
 	if( md->contract_timer != INVALID_TIMER )
 		timer->delete(md->contract_timer, mercenary->contract_end_timer);
 	md->contract_timer = INVALID_TIMER;

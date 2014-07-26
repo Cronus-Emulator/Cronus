@@ -156,7 +156,7 @@ racond racond_create(){
 	struct racond *c;
 	
 	c = aMalloc( sizeof(struct racond) );
-	if(c == NULL){
+	if(!c){
 		ShowFatalError("racond_create: OOM while allocating %u bytes\n", sizeof(struct racond));
 		return NULL;
 	}

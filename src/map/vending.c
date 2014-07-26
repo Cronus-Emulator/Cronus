@@ -46,7 +46,6 @@
 #include "path.h"
 #include "pc.h"
 #include "skill.h"
-#include "../common/nullpo.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
 
@@ -61,7 +60,7 @@ static inline unsigned int getid(void) {
  * Close shop
  *------------------------------------------*/
 void vending_closevending(struct map_session_data* sd) {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( sd->state.vending ) {
 		sd->state.vending = false;
@@ -75,7 +74,7 @@ void vending_closevending(struct map_session_data* sd) {
  *------------------------------------------*/
 void vending_vendinglistreq(struct map_session_data* sd, unsigned int id) {
 	struct map_session_data* vsd;
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( (vsd = map->id2sd(id)) == NULL )
 		return;
@@ -102,7 +101,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 	struct s_vending vend[MAX_VENDING]; // against duplicate packets
 	struct map_session_data* vsd = map->id2sd(aid);
 
-	nullpo_retv(sd);
+	if (!sd) return;
 	if( vsd == NULL || !vsd->state.vending || vsd->bl.id == sd->bl.id )
 		return; // invalid shop
 
@@ -253,7 +252,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 void vending_openvending(struct map_session_data* sd, const char* message, const uint8* data, int count) {
 	int i, j;
 	int vending_skill_lvl;
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if ( pc_isdead(sd) || !sd->state.prevend || pc_istrading(sd))
 		return; // can't open vendings lying dead || didn't use via the skill (wpe/hack) || can't have 2 shops at once

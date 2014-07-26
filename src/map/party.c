@@ -52,7 +52,6 @@
 #include "status.h"
 #include "../common/cbasetypes.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h" // last_tick
@@ -80,9 +79,9 @@ void party_fill_member(struct party_member* member, struct map_session_data* sd,
 /// Return -1 if not in party.
 int party_getmemberid(struct party_data* p, struct map_session_data* sd) {
 	int member_id;
-	nullpo_retr(-1, p);
-	if( sd == NULL )
-		return -1;// no player
+
+	if (!p || !sd) return -1;
+
 	ARR_FIND(0, MAX_PARTY, member_id,
 		p->party.member[member_id].account_id == sd->status.account_id &&
 		p->party.member[member_id].char_id == sd->status.char_id);
@@ -97,7 +96,8 @@ int party_getmemberid(struct party_data* p, struct map_session_data* sd) {
 struct map_session_data* party_getavailablesd(struct party_data *p)
 {
 	int i;
-	nullpo_retr(NULL, p);
+	if (!p) return NULL;
+
 	ARR_FIND(0, MAX_PARTY, i, p->data[i].sd != NULL);
 	return( i < MAX_PARTY ) ? p->data[i].sd : NULL;
 }
@@ -136,8 +136,7 @@ int party_db_final(DBKey key, DBData *data, va_list ap) {
 /// Party data lookup using party id.
 struct party_data* party_search(int party_id)
 {
-	if(!party_id)
-		return NULL;
+	if(!party_id) return NULL;
 	return (struct party_data*)idb_get(party->db,party_id);
 }
 
@@ -263,7 +262,7 @@ int party_recv_info(struct party* sp, int char_id)
 	int i,j;
 	int member_id;
 
-	nullpo_ret(sp);
+	if (!sp) return 0;
 
 	p = (struct party_data*)idb_get(party->db, sp->party_id);
 	if( p != NULL ) {// diff members
@@ -345,7 +344,7 @@ int party_invite(struct map_session_data *sd,struct map_session_data *tsd)
 	struct party_data *p;
 	int i;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( ( p = party->search(sd->status.party_id) ) == NULL )
 		return 0;
@@ -633,7 +632,7 @@ int party_broken(int party_id)
 
 int party_changeoption(struct map_session_data *sd,int exp,int item)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( sd->status.party_id==0)
 		return 0;
@@ -914,7 +913,7 @@ int party_send_xy_clear(struct party_data *p)
 {
 	int i;
 
-	nullpo_ret(p);
+	if (!p) return 0;
 
 	for(i=0;i<MAX_PARTY;i++){
 		if(!p->data[i].sd) continue;
@@ -934,7 +933,7 @@ int party_exp_share(struct party_data* p, struct block_list* src, unsigned int b
 	unsigned int job_exp_bonus, base_exp_bonus;
 #endif
 
-	nullpo_ret(p);
+	if (!p) return 0;
 
 	// count the number of players eligible for exp sharing
 	for (i = c = 0; i < MAX_PARTY; i++) {
@@ -1083,7 +1082,7 @@ int party_vforeachsamemap(int (*func)(struct block_list*,va_list), struct map_se
 	int blockcount=0;
 	int total = 0; //Return value.
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if((p=party->search(sd->status.party_id))==NULL)
 		return 0;

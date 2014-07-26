@@ -46,7 +46,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/conf.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
@@ -499,7 +498,7 @@ int itemdb_isequip(int nameid)
  * Alternate version of itemdb_isequip
  *------------------------------------------*/
 int itemdb_isequip2(struct item_data *data) {
-	nullpo_ret(data);
+	if (!data) return 0;
 	switch(data->type) {
 		case IT_WEAPON:
 		case IT_ARMOR:
@@ -532,7 +531,7 @@ int itemdb_isstackable(int nameid)
  *------------------------------------------*/
 int itemdb_isstackable2(struct item_data *data)
 {
-  nullpo_ret(data);
+  if (!data) return 0;
   switch(data->type) {
 	  case IT_WEAPON:
 	  case IT_ARMOR:
@@ -619,6 +618,7 @@ int itemdb_isidentified(int nameid) {
 }
 /* same as itemdb_isidentified but without a lookup */
 int itemdb_isidentified2(struct item_data *data) {
+
 	switch (data->type) {
 		case IT_WEAPON:
 		case IT_ARMOR:
@@ -642,7 +642,7 @@ void itemdb_read_groups(void) {
 	unsigned int *gsize = NULL;
 
 	if (libconfig->read_file(&item_group_conf, config_filename)) {
-		ShowError("can't read %s\n", config_filename);
+		ShowError("Falha na leitura de %s\n", config_filename);
 		return;
 	}
 		

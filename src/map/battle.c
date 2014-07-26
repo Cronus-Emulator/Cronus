@@ -58,7 +58,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/ers.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
@@ -115,7 +114,8 @@ int battle_gettargeted_sub(struct block_list *bl, va_list ap) {
 struct block_list* battle_gettargeted(struct block_list *target) {
 	struct block_list *bl_list[24];
 	int c = 0;
-	nullpo_retr(NULL, target);
+	
+	if (!target) return NULL;
 
 	memset(bl_list, 0, sizeof(bl_list));
 	map->foreachinrange(battle->get_targeted_sub, target, AREA_SIZE, BL_CHAR, bl_list, &c, target->id);
@@ -277,8 +277,8 @@ int battle_delay_damage_sub(int tid, int64 tick, int id, intptr_t data) {
 int battle_delay_damage(int64 tick, int amotion, struct block_list *src, struct block_list *target, int attack_type, uint16 skill_id, uint16 skill_lv, int64 damage, enum damage_lv dmg_lv, int ddelay, bool additional_effects) {
 	struct delay_damage *dat;
 	struct status_change *sc;
-	nullpo_ret(src);
-	nullpo_ret(target);
+	
+	if (!src || !target) return 0;
 
 	sc = status->get_sc(target);
 
@@ -626,7 +626,7 @@ int64 battle_addmastery(struct map_session_data *sd,struct block_list *target,in
 	int weapon, skill_lv;
 	damage = dmg;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if((skill_lv = pc->checkskill(sd,AL_DEMONBANE)) > 0 &&
 		target->type == BL_MOB && //This bonus doesn't work against players.
@@ -736,8 +736,7 @@ int64 battle_calc_masteryfix(struct block_list *src, struct block_list *target, 
 	struct map_session_data *sd;
 	struct status_data *tstatus;
 
-	nullpo_ret(src);
-	nullpo_ret(target);
+	if (!src || !target) return 0;
 	
 	sc = status->get_sc(src);
 	sd = BL_CAST(BL_PC, src);
@@ -863,8 +862,7 @@ int64 battle_calc_masteryfix(struct block_list *src, struct block_list *target, 
 int64 battle_calc_elefix(struct block_list *src, struct block_list *target, uint16 skill_id, uint16 skill_lv, int64 damage, int nk, int n_ele, int s_ele, int s_ele_, bool left, int flag){
 	struct status_data *tstatus;
 	
-	nullpo_ret(src);
-	nullpo_ret(target);
+	if (!src || !target) return 0;
 
 	tstatus = status->get_status_data(target);
 	
@@ -922,8 +920,7 @@ int64 battle_calc_cardfix(int attack_type, struct block_list *src, struct block_
 	if( !damage )
 		return 0;
 	
-	nullpo_ret(src);
-	nullpo_ret(target);
+	if (!src || !target) return 0;
 
 	sd = BL_CAST(BL_PC, src);
 	tsd = BL_CAST(BL_PC, target);
@@ -1227,8 +1224,7 @@ int64 battle_calc_defense(int attack_type, struct block_list *src, struct block_
 	if( !damage )
 		return 0;
 	
-	nullpo_ret(src);
-	nullpo_ret(target);
+	if (!src || !target) return 0;
 	
 	sd = BL_CAST(BL_PC, src);
 	tsd = BL_CAST(BL_PC, target);
@@ -1419,8 +1415,7 @@ int battle_calc_skillratio(int attack_type, struct block_list *src, struct block
 	struct map_session_data *sd, *tsd;
 	struct status_data *st, *tst;
 
-	nullpo_ret(src);
-	nullpo_ret(target);
+	if (!src || !target) return 0;
 
 	sd = BL_CAST(BL_PC, src);
 	tsd = BL_CAST(BL_PC, target);
@@ -2592,12 +2587,10 @@ int64 battle_calc_damage(struct block_list *src,struct block_list *bl,struct Dam
 	struct status_change_entry *sce;
 	int div_ = d->div_, flag = d->flag;
 
-	nullpo_ret(bl);
-
-	if( !damage )
-		return 0;
-	if( battle_config.ksprotection && mob->ksprotected(src, bl) )
-		return 0;
+	if (!bl) return 0; //Sem gente
+	if( !damage ) return 0; // Sem dano
+	if( battle_config.ksprotection && mob->ksprotected(src, bl) ) return 0; //Proteção contra KS
+		
 	if (bl->type == BL_PC) {
 		sd=(struct map_session_data *)bl;
 		//Special no damage states
@@ -3308,9 +3301,8 @@ struct Damage battle_calc_magic_attack(struct block_list *src,struct block_list 
 
 	memset(&ad,0,sizeof(ad));
 	memset(&flag,0,sizeof(flag));
-
-	nullpo_retr(ad, src);
-	nullpo_retr(ad, target);
+	
+	if (!src || !target) return ad;
 
 	//Initial Values
 	ad.damage = 1;
@@ -3643,8 +3635,7 @@ struct Damage battle_calc_misc_attack(struct block_list *src,struct block_list *
 	
 	memset(&md,0,sizeof(md));
 
-	nullpo_retr(md, src);
-	nullpo_retr(md, target);
+	if (!src || !target) return md;
 
 	//Some initial values
 	md.amotion=skill->get_inf(skill_id)&INF_GROUND_SKILL?0:sstatus->amotion;
@@ -4078,8 +4069,7 @@ struct Damage battle_calc_weapon_attack(struct block_list *src,struct block_list
 	memset(&wd,0,sizeof(wd));
 	memset(&flag,0,sizeof(flag));
 
-	nullpo_retr(wd, src);
-	nullpo_retr(wd, target);
+	if (!src || !target) return wd;
 
 	//Initial flag
 	flag.rh=1;
@@ -5565,7 +5555,7 @@ int battle_damage_area(struct block_list *bl, va_list ap) {
 	int amotion, dmotion, damage;
 	struct block_list *src;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
 
 	tick = va_arg(ap, int64);
 	src=va_arg(ap,struct block_list *);
@@ -5601,11 +5591,8 @@ enum damage_lv battle_weapon_attack(struct block_list* src, struct block_list* t
 	int skillv;
 	struct Damage wd;
 
-	nullpo_retr(ATK_NONE, src);
-	nullpo_retr(ATK_NONE, target);
-
-	if (src->prev == NULL || target->prev == NULL)
-		return ATK_NONE;
+	if (!src || !target) return ATK_NONE;
+	if (!src->prev || !target->prev) return ATK_NONE;
 
 	sd = BL_CAST(BL_PC, src);
 	tsd = BL_CAST(BL_PC, target);
@@ -6031,8 +6018,7 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 	int strip_enemy = 1; //Flag which marks whether to remove the BCT_ENEMY status if it's also friend/ally.
 	struct block_list *s_bl = src, *t_bl = target;
 
-	nullpo_ret(src);
-	nullpo_ret(target);
+	if (!src || !target) return 0;
 
 	m = target->m;
 
@@ -6351,8 +6337,8 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 bool battle_check_range(struct block_list *src, struct block_list *bl, int range)
 {
 	int d;
-	nullpo_retr(false, src);
-	nullpo_retr(false, bl);
+	
+	if (!src || !bl) return false;
 
 	if( src->m != bl->m )
 		return false;

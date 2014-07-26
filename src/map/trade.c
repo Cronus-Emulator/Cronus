@@ -48,7 +48,6 @@
 #include "path.h"
 #include "pc.h"
 #include "storage.h"
-#include "../common/nullpo.h"
 #include "../common/socket.h"
 
 struct trade_interface trade_s;
@@ -58,14 +57,14 @@ struct trade_interface trade_s;
  *------------------------------------------*/
 void trade_traderequest(struct map_session_data *sd, struct map_session_data *target_sd)
 {
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if (map->list[sd->bl.m].flag.notrade) {
 		clif->message (sd->fd, msg_txt(272));
 		return; //Can't trade in notrade mapflag maps.
 	}
 
-	if (target_sd == NULL || sd == target_sd) {
+	if (!target_sd || sd == target_sd) {
 		clif->tradestart(sd, 1); // character does not exist
 		return;
 	}
@@ -130,7 +129,7 @@ void trade_traderequest(struct map_session_data *sd, struct map_session_data *ta
  *------------------------------------------*/
 void trade_tradeack(struct map_session_data *sd, int type) {
 	struct map_session_data *tsd;
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if (sd->state.trading || !sd->trade_partner)
 		return; //Already trading or no partner set.
@@ -206,7 +205,7 @@ int impossible_trade_check(struct map_session_data *sd)
 	char message_to_gm[200];
 	int i, index;
 
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	if(sd->deal.zeny > sd->status.zeny) {
 		return -1;
@@ -353,7 +352,7 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 	int trade_i, trade_weight;
 	int src_lv, dst_lv;
 
-	nullpo_retv(sd);
+	if (!sd) return;
 	if( !sd->state.trading || sd->state.deal_locked > 0 )
 		return; //Can't add stuff.
 
@@ -445,7 +444,7 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 void trade_tradeaddzeny(struct map_session_data* sd, int amount)
 {
 	struct map_session_data* target_sd;
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	if( !sd->state.trading || sd->state.deal_locked > 0 )
 		return; //Can't add stuff.

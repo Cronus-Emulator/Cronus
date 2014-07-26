@@ -77,7 +77,6 @@
 
 #include "../common/cbasetypes.h"
 #include "../common/malloc.h" // CREATE, RECREATE, aMalloc, aFree
-#include "../common/nullpo.h"
 #include "../common/showmsg.h" // ShowMessage, ShowError, ShowFatalError, CL_BOLD, CL_NORMAL
 
 #ifndef DISABLE_ERS
@@ -320,7 +319,7 @@ static void ers_obj_destroy(ERS self)
 void ers_cache_size(ERS self, unsigned int new_size) {
 	struct ers_instance_t *instance = (struct ers_instance_t *)self;
 	
-	nullpo_retv(instance);
+	if (!instance) return;
 	
 	if( !(instance->Cache->Options&ERS_OPT_FLEX_CHUNK) ) {
 		ShowWarning("ers_cache_size: '%s' has adjusted its chunk size to '%d', however ERS_OPT_FLEX_CHUNK is missing!\n",instance->Name,new_size);

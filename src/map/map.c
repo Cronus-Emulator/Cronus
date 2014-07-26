@@ -77,7 +77,6 @@
 #include "../common/core.h"
 #include "../common/ers.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h" // WFIFO*()
@@ -86,7 +85,7 @@
 #include "../common/utils.h"
 #include "../3rdparty/zlib/include/zlib.h"
 
-#ifndef _WIN32
+#ifndef WIN32
 #include <unistd.h>
 #endif
 
@@ -131,13 +130,14 @@ int map_usercount(void) {
  * Attempt to free a map blocklist
  *------------------------------------------*/
 int map_freeblock (struct block_list *bl) {
-	nullpo_retr(map->block_free_lock, bl);
+
+	if (!bl) return map->block_free_lock;
 		
 	if (map->block_free_lock == 0) {
 		if( bl->type == BL_ITEM )
 			ers_free(map->flooritem_ers, bl);
 		else
-			aFree(bl);
+		aFree(bl);
 		bl = NULL;
 	} else {
 		
@@ -222,7 +222,7 @@ int map_addblock(struct block_list* bl)
 	int16 m, x, y;
 	int pos;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
 
 	if (bl->prev != NULL) {
 		ShowError("map_addblock: bl->prev != NULL\n");
@@ -268,7 +268,7 @@ int map_addblock(struct block_list* bl)
 int map_delblock(struct block_list* bl)
 {
 	int pos;
-	nullpo_ret(bl);
+	if (!bl) return 0;
 
 	// blocklist (2ways chainlist)
 	if (bl->prev == NULL) {
@@ -1504,7 +1504,7 @@ int map_addflooritem(struct item *item_data,int amount,int16 m,int16 x,int16 y,i
 	int r;
 	struct flooritem_data *fitem=NULL;
 
-	nullpo_ret(item_data);
+	if (!item_data) return 0;
 
 	if(!map->searchrandfreecell(m,&x,&y,flags&2?1:0))
 		return 0;
@@ -1609,7 +1609,7 @@ void map_reqnickdb(struct map_session_data * sd, int charid)
 	struct charid_request* req;
 	struct map_session_data* tsd;
 
-	nullpo_retv(sd);
+	if (!sd) return;
 
 	tsd = map->charid2sd(charid);
 	if( tsd ) {
@@ -1634,7 +1634,7 @@ void map_reqnickdb(struct map_session_data * sd, int charid)
  *------------------------------------------*/
 void map_addiddb(struct block_list *bl)
 {
-	nullpo_retv(bl);
+	if (!bl) return;
 
 	if( bl->type == BL_PC )
 	{
@@ -1662,7 +1662,7 @@ void map_addiddb(struct block_list *bl)
  *------------------------------------------*/
 void map_deliddb(struct block_list *bl)
 {
-	nullpo_retv(bl);
+	if (!bl) return;
 
 	if( bl->type == BL_PC )
 	{
@@ -1791,9 +1791,9 @@ int map_quit(struct map_session_data *sd) {
 		}
 	}
 
-	if( sd->state.vending ) {
-		idb_remove(vending->db, sd->status.char_id);
-	}
+	if( sd->state.vending ) 
+	   idb_remove(vending->db, sd->status.char_id);
+	
 	
 	party->booking_delete(sd); // Party Booking [Spiria]
 	pc->makesavestatus(sd);
@@ -1872,18 +1872,17 @@ struct map_session_data* map_charid2sd(int charid)
 struct map_session_data * map_nick2sd(const char *nick)
 {
 	struct map_session_data* sd;
-	struct map_session_data* found_sd;
+	struct map_session_data* found_sd = NULL;
 	struct s_mapiterator* iter;
 	size_t nicklen;
 	int qty = 0;
 
-	if( nick == NULL )
+	if(!nick)
 		return NULL;
 
 	nicklen = strlen(nick);
 	iter = mapit_getallusers();
 
-	found_sd = NULL;
 	for( sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); sd = (TBL_PC*)mapit->next(iter) )
 	{
 		if( battle_config.partial_name_scan )
@@ -2158,8 +2157,8 @@ struct s_mapiterator* mapit_alloc(enum e_mapitflags flags, enum bl_type types) {
 ///
 /// @param iter Iterator
 void mapit_free(struct s_mapiterator* iter) {
-	nullpo_retv(iter);
 
+	if (!iter) return;
 	dbi_destroy(iter->dbi);
 	ers_free(map->iterator_ers, iter);
 }
@@ -2172,7 +2171,7 @@ void mapit_free(struct s_mapiterator* iter) {
 struct block_list* mapit_first(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	nullpo_retr(NULL,iter);
+	if (!iter) return NULL;
 
 	for( bl = (struct block_list*)dbi_first(iter->dbi); bl != NULL; bl = (struct block_list*)dbi_next(iter->dbi) ) {
 		if( MAPIT_MATCHES(iter,bl) )
@@ -2189,7 +2188,7 @@ struct block_list* mapit_first(struct s_mapiterator* iter) {
 struct block_list* mapit_last(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	nullpo_retr(NULL,iter);
+	if (!iter) return NULL;
 
 	for( bl = (struct block_list*)dbi_last(iter->dbi); bl != NULL; bl = (struct block_list*)dbi_prev(iter->dbi) ) {
 		if( MAPIT_MATCHES(iter,bl) )
@@ -2206,11 +2205,11 @@ struct block_list* mapit_last(struct s_mapiterator* iter) {
 struct block_list* mapit_next(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	nullpo_retr(NULL,iter);
+	if (!iter) return NULL;
 
 	for( ; ; ) {
 		bl = (struct block_list*)dbi_next(iter->dbi);
-		if( bl == NULL )
+		if(!bl)
 			break;// end
 		if( MAPIT_MATCHES(iter,bl) )
 			break;// found a match
@@ -2227,11 +2226,11 @@ struct block_list* mapit_next(struct s_mapiterator* iter) {
 struct block_list* mapit_prev(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	nullpo_retr(NULL,iter);
+	if (!iter) return NULL;
 
 	for( ; ; ) {
 		bl = (struct block_list*)dbi_prev(iter->dbi);
-		if( bl == NULL )
+		if(!bl)
 			break;// end
 		if( MAPIT_MATCHES(iter,bl) )
 			break;// found a match
@@ -2245,7 +2244,7 @@ struct block_list* mapit_prev(struct s_mapiterator* iter) {
 /// @param iter Iterator
 /// @return true if it exists
 bool mapit_exists(struct s_mapiterator* iter) {
-	nullpo_retr(false,iter);
+	if (!iter) return false;
 
 	return dbi_exists(iter->dbi);
 }
@@ -2254,7 +2253,7 @@ bool mapit_exists(struct s_mapiterator* iter) {
  * Add npc-bl to id_db, basically register npc to map
  *------------------------------------------*/
 bool map_addnpc(int16 m,struct npc_data *nd) {
-	nullpo_ret(nd);
+	if (!nd) return false;
 
 	if( m < 0 || m >= map->count )
 		return false;
@@ -2307,7 +2306,7 @@ void map_spawnmobs(int16 m) {
 int map_removemobs_sub(struct block_list *bl, va_list ap)
 {
 	struct mob_data *md = (struct mob_data *)bl;
-	nullpo_ret(md);
+	if (!md) return 0;
 
 	//When not to remove mob:
 	// doesn't respawn and is not a slave
@@ -2391,7 +2390,7 @@ int map_mapname2ipport(unsigned short name, uint32* ip, uint16* port) {
 	struct map_data_other_server *mdos;
 
 	mdos = (struct map_data_other_server*)uidb_get(map->map_db,(unsigned int)name);
-	if(mdos==NULL || mdos->cell) //If gat isn't null, this is a local map.
+	if(!mdos || mdos->cell) //If gat isn't null, this is a local map.
 		return -1;
 	*ip=mdos->ip;
 	*port=mdos->port;
@@ -2426,7 +2425,7 @@ uint8 map_calc_dir(struct block_list* src, int16 x, int16 y)
 	uint8 dir = 0;
 	int dx, dy;
 
-	nullpo_ret(src);
+	if (!src) return 0;
 
 	dx = x-src->x;
 	dy = y-src->y;
@@ -2562,7 +2561,7 @@ int map_getcell(int16 m,int16 x,int16 y,cell_chk cellchk) {
 int map_getcellp(struct map_data* m,int16 x,int16 y,cell_chk cellchk) {
 	struct mapcell cell;
 
-	nullpo_ret(m);
+	if (!m) return 0;
 
 	//NOTE: this intentionally overrides the last row and column
 	if(x<0 || x>=m->xs-1 || y<0 || y>=m->ys-1)
@@ -2874,7 +2873,7 @@ char *map_init_mapcache(FILE *fp) {
 	char *buffer;
 
 	// No file open? Return..
-	nullpo_ret(fp);
+	if (!fp) return 0;
 
 	// Get file size
 	fseek(fp, 0, SEEK_END);
@@ -2885,7 +2884,7 @@ char *map_init_mapcache(FILE *fp) {
 	CREATE(buffer, char, size);
 
 	// No memory? Return..
-	nullpo_ret(buffer);
+	if (!buffer) return 0;
 
 	// Read file into buffer..
 	if(fread(buffer, 1, size, fp) != size) {
@@ -5114,7 +5113,7 @@ int nick_db_final(DBKey key, DBData *data, va_list args)
 }
 
 int cleanup_sub(struct block_list *bl, va_list ap) {
-	nullpo_ret(bl);
+	if (!bl) return 0;
 
 	switch(bl->type) {
 		case BL_PC:
@@ -5155,7 +5154,7 @@ int do_final(void) {
 	struct map_session_data* sd;
 	struct s_mapiterator* iter;
 
-	ShowStatus("Finalizando...\n");
+	ShowStatus("Finalizando Servidor de Mapas...\n");
 	
 	hChSys.closing = true;
 	

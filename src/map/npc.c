@@ -60,7 +60,6 @@
 #include "../common/db.h"
 #include "../common/ers.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -175,10 +174,11 @@ int npc_ontouch2_event(struct map_session_data *sd, struct npc_data *nd)
  *------------------------------------------*/
 int npc_enable_sub(struct block_list *bl, va_list ap)
 {
-	struct npc_data *nd;
+	struct npc_data *nd = va_arg(ap,struct npc_data *);
 
-	nullpo_ret(bl);
-	nullpo_ret(nd=va_arg(ap,struct npc_data *));
+	if (!bl) return 0;
+	if (!nd) return 0;
+	
 	if(bl->type == BL_PC)
 	{
 		TBL_PC *sd = (TBL_PC*)bl;
@@ -205,7 +205,7 @@ int npc_enable(const char* name, int flag)
 {
 	struct npc_data* nd = npc->name2id(name);
 
-	if ( nd == NULL ) {
+	if (!nd) {
 		ShowError("[NPC] - Tentativa de %s em um NPC inexistente NPC (Nome: '%s' | flag: %d).\n", (flag&3) ? "mostrar" : "esconder", name, flag);
 		return 0;
 	}
@@ -294,7 +294,7 @@ int npc_rr_secure_timeout_timer(int tid, int64 tick, int id, intptr_t data) {
  *------------------------------------------*/
 int npc_event_dequeue(struct map_session_data* sd)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if(sd->npc_id) { //Current script is aborted.
 		if(sd->state.using_fake_npc){
@@ -311,9 +311,8 @@ int npc_event_dequeue(struct map_session_data* sd)
 	if (!sd->eventqueue[0][0])
 		return 0; //Nothing to dequeue
 
-	if (!pc->addeventtimer(sd,100,sd->eventqueue[0])) { //Failed to dequeue, couldn't set a timer.
-		return 0;
-	}
+	if (!pc->addeventtimer(sd,100,sd->eventqueue[0])) return 0;
+	
 	//Event dequeued successfully, shift other elements.
 	memmove(sd->eventqueue[0], sd->eventqueue[1], (MAX_EVENTQUEUE-1)*sizeof(sd->eventqueue[0]));
 	sd->eventqueue[MAX_EVENTQUEUE-1][0]=0;
@@ -366,13 +365,11 @@ int npc_event_sub(struct map_session_data* sd, struct event_data* ev, const char
 void npc_event_doall_sub(void *key, void *data, va_list ap)
 {
 	struct event_data* ev = data;
-	int* c;
-	const char* name;
-	int rid;
+	int* c = va_arg(ap, int*);
+	const char* name =  va_arg(ap, const char*);
+	int rid = va_arg(ap, int);
 
-	nullpo_retv(c = va_arg(ap, int*));
-	nullpo_retv(name = va_arg(ap, const char*));
-	rid = va_arg(ap, int);
+	if (!c || !name) return;
 
 	if (ev /* && !ev->nd->src_id */) // Do not run on duplicates. [Paradox924X]
 	{
@@ -601,7 +598,7 @@ int npc_timerevent_start(struct npc_data* nd, int rid) {
 	int64 tick = timer->gettick();
 	struct map_session_data *sd = NULL; //Player to whom script is attached.
 
-	nullpo_ret(nd);
+	if (!nd) return 0;
 
 	// Check if there is an OnTimer Event
 	ARR_FIND( 0, nd->u.scr.timeramount, j, nd->u.scr.timer_event[j].timer > nd->u.scr.timer );
@@ -654,7 +651,7 @@ int npc_timerevent_stop(struct npc_data* nd)
 	const struct TimerData *td = NULL;
 	int *tid;
 
-	nullpo_ret(nd);
+	if (!nd) return 0;
 
 	if( nd->u.scr.rid && !(sd = map->id2sd(nd->u.scr.rid)) ) {
 		ShowError("npc_timerevent_stop: Attached player not found!\n");
@@ -751,7 +748,7 @@ void npc_timerevent_quit(struct map_session_data* sd)
  *------------------------------------------*/
 int64 npc_gettimerevent_tick(struct npc_data* nd) {
 	int64 tick;
-	nullpo_ret(nd);
+	if (!nd) return 0;
 
 	// TODO: Get player attached timer's tick. Now we can just get it by using 'getnpctimer' inside OnTimer event.
 
@@ -771,7 +768,7 @@ int npc_settimerevent_tick(struct npc_data* nd, int newtimer)
 	int old_rid;
 	//struct map_session_data *sd = NULL;
 
-	nullpo_ret(nd);
+	if (!nd) return 0;
 
 	// TODO: Set player attached timer's tick.
 
@@ -823,7 +820,7 @@ int npc_event(struct map_session_data* sd, const char* eventname, int ontouch)
 	struct event_data* ev = (struct event_data*)strdb_get(npc->ev_db, eventname);
 	struct npc_data *nd;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	if( ev == NULL || (nd = ev->nd) == NULL ) {
 		if( !ontouch )
@@ -852,8 +849,10 @@ int npc_touch_areanpc_sub(struct block_list *bl, va_list ap) {
 	int pc_id;
 	char *name;
 
-	nullpo_ret(bl);
-	nullpo_ret((sd = map->id2sd(bl->id)));
+	if (!bl) return 0;
+	sd = map->id2sd(bl->id);
+	
+	if (!sd) return 0;
 
 	pc_id = va_arg(ap,int);
 	name = va_arg(ap,char*);
@@ -908,7 +907,7 @@ int npc_touch_areanpc(struct map_session_data* sd, int16 m, int16 x, int16 y)
 	int i;
 	int j, found_warp = 0;
 
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	// Why not enqueue it? [Inkfish]
 	//if(sd->npc_id)
@@ -1109,9 +1108,10 @@ struct npc_data* npc_checknear(struct map_session_data* sd, struct block_list* b
 {
 	struct npc_data *nd;
 
-	nullpo_retr(NULL, sd);
-	if(bl == NULL) return NULL;
+	if (!sd) return NULL;
+	if (!bl) return NULL;
 	if(bl->type != BL_NPC) return NULL;
+	
 	nd = (TBL_NPC*)bl;
 
 	if(sd->state.using_fake_npc && sd->npc_id == bl->id)
@@ -1175,7 +1175,7 @@ void run_tomb(struct map_session_data* sd, struct npc_data* nd) {
  *------------------------------------------*/
 int npc_click(struct map_session_data* sd, struct npc_data* nd)
 {
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	// This usually happens when the player clicked on a NPC that has the view id
 	// of a mob, to activate this kind of npc it's needed to be in a 2,2 range
@@ -1229,7 +1229,7 @@ int npc_click(struct map_session_data* sd, struct npc_data* nd)
  *------------------------------------------*/
 int npc_scriptcont(struct map_session_data* sd, int id, bool closing) {
 	struct block_list *target = map->id2bl(id);
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	if( id != sd->npc_id ){
 		TBL_NPC* nd_sd=(TBL_NPC*)map->id2bl(sd->npc_id);
@@ -1279,7 +1279,7 @@ int npc_scriptcont(struct map_session_data* sd, int id, bool closing) {
 int npc_buysellsel(struct map_session_data* sd, int id, int type) {
 	struct npc_data *nd;
 
-	nullpo_retr(1, sd);
+	if (!sd) return 1;
 
 	if ((nd = npc->checknear(sd,map->id2bl(id))) == NULL)
 		return 1;
@@ -1757,12 +1757,11 @@ int npc_buylist(struct map_session_data* sd, int n, unsigned short* item_list) {
 	int i,j,w,skill_t,new_, idx = skill->get_index(MC_DISCOUNT);
 	unsigned short shop_size = 0;
 	
-	nullpo_retr(3, sd);
-	nullpo_retr(3, item_list);
-	
+	if (!sd || !item_list) return 3;
+		
 	nd = npc->checknear(sd,map->id2bl(sd->npc_shopid));
-	if( nd == NULL )
-		return 3;
+	
+	if(!nd) return 3;
 	
 	if( nd->subtype != SHOP ) {
 		if( nd->subtype == SCRIPT && nd->u.scr.shop && nd->u.scr.shop->type == NST_ZENY ) {
@@ -1882,12 +1881,12 @@ int npc_market_buylist(struct map_session_data* sd, unsigned short list_size, st
 	int i,j,w,new_;
 	unsigned short shop_size = 0;
 	
-	nullpo_retr(1, sd);
-	nullpo_retr(1, p);
+	if (!sd) return 1;
+	if (!p) return 1;
 
 	nd = npc->checknear(sd,map->id2bl(sd->npc_shopid));
 
-	if( nd == NULL || nd->subtype != SCRIPT || !list_size || !nd->u.scr.shop || nd->u.scr.shop->type != NST_MARKET )
+	if( !nd || nd->subtype != SCRIPT || !list_size || !nd->u.scr.shop || nd->u.scr.shop->type != NST_MARKET )
 		return 1;
 
 	shop = nd->u.scr.shop->item;
@@ -2048,8 +2047,8 @@ int npc_selllist(struct map_session_data* sd, int n, unsigned short* item_list) 
 	int i,skill_t, skill_idx = skill->get_index(MC_OVERCHARGE);
 	struct npc_data *nd;
 
-	nullpo_retr(1, sd);
-	nullpo_retr(1, item_list);
+	if (!sd) return 1;
+	if (!item_list) return 1;
 
 	if( ( nd = npc->checknear(sd, map->id2bl(sd->npc_shopid)) ) == NULL ) {
 		return 1;
@@ -2134,7 +2133,7 @@ int npc_selllist(struct map_session_data* sd, int n, unsigned short* item_list) 
 //This doesn't remove it from map_db
 int npc_remove_map(struct npc_data* nd) {
 	int16 m,i;
-	nullpo_retr(1, nd);
+	if (!nd) return 1;
 
 	if(nd->bl.prev == NULL || nd->bl.m < 0)
 		return 1; //Not assigned to a map.
@@ -2202,7 +2201,7 @@ void npc_unload_duplicates(struct npc_data* nd) {
 int npc_unload(struct npc_data* nd, bool single) {
 
 	
-	nullpo_ret(nd);
+	if (!nd) return 0;
 
 	npc->remove_map(nd);
 	map->deliddb(&nd->bl);
@@ -3284,7 +3283,7 @@ void npc_movenpc(struct npc_data* nd, int16 x, int16 y)
 /// @param newname New display name
 void npc_setdisplayname(struct npc_data* nd, const char* newname)
 {
-	nullpo_retv(nd);
+	if (!nd) return;
 
 	safestrncpy(nd->name, newname, sizeof(nd->name));
 	if( map->list[nd->bl.m].users )
@@ -3296,7 +3295,7 @@ void npc_setdisplayname(struct npc_data* nd, const char* newname)
 /// @param nd Target npc
 /// @param class_ New display class
 void npc_setclass(struct npc_data* nd, short class_) {
-	nullpo_retv(nd);
+	if (!nd) return;
 
 	if( nd->class_ == class_ )
 		return;
@@ -3318,9 +3317,9 @@ int npc_do_atcmd_event(struct map_session_data* sd, const char* command, const c
 	int i = 0, j = 0, k = 0;
 	char *temp;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
-	if( ev == NULL || (nd = ev->nd) == NULL ) {
+	if(!ev || (nd = ev->nd) == NULL ) {
 		ShowError("npc_event: event not found [%s]\n", eventname);
 		return 0;
 	}
@@ -3389,11 +3388,11 @@ const char* npc_parse_function(char* w1, char* w2, char* w3, char* w4, const cha
 	++script_start;
 
 	end = npc->skip_script(script_start,buffer,filepath, retval);
-	if( end == NULL )
+	if(!end)
 		return NULL;// (simple) parse error, don't continue
 
 	scriptroot = script->parse(script_start, filepath, strline(buffer,start-buffer), SCRIPT_RETURN_EMPTY_SCRIPT, retval);
-	if( scriptroot == NULL )// parse error, continue
+	if(!scriptroot)// parse error, continue
 		return end;
 
 	func_db = script->userfunc_db;

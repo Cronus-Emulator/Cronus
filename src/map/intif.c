@@ -58,7 +58,6 @@
 #include "quest.h"
 #include "storage.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -217,7 +216,7 @@ int intif_main_message(struct map_session_data* sd, const char* message)
 {
 	char output[256];
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	// format the message for main broadcasting
 	snprintf( output, sizeof(output), msg_txt(386), sd->status.name, message );
@@ -234,7 +233,7 @@ int intif_main_message(struct map_session_data* sd, const char* message)
 // The transmission of Wisp/Page to inter-server (player not found on this server)
 int intif_wis_message(struct map_session_data *sd, char *nick, char *mes, size_t mes_len)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 	if (intif->CheckForCharServer())
 		return 0;
 
@@ -413,7 +412,7 @@ int intif_saveregistry(struct map_session_data *sd) {
 //Request the registries for this player.
 int intif_request_registry(struct map_session_data *sd, int flag)
 {
-	nullpo_ret(sd);
+	if (!sd) return 0;
 
 	/* if char server ain't online it doesn't load, shouldn't we kill the session then? */
 	if (intif->CheckForCharServer())
@@ -461,7 +460,8 @@ int intif_create_party(struct party_member *member,char *name,int item,int item2
 {
 	if (intif->CheckForCharServer())
 		return 0;
-	nullpo_ret(member);
+		
+	if (!member) return 0;
 
 	WFIFOHEAD(inter_fd,64);
 	WFIFOW(inter_fd,0) = 0x3020;
@@ -606,7 +606,8 @@ int intif_guild_create(const char *name,const struct guild_member *master)
 {
 	if (intif->CheckForCharServer())
 		return 0;
-	nullpo_ret(master);
+		
+	if (!master) return 0;
 
 	WFIFOHEAD(inter_fd,sizeof(struct guild_member)+(8+NAME_LENGTH));
 	WFIFOW(inter_fd,0)=0x3030;

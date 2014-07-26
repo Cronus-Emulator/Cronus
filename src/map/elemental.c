@@ -60,7 +60,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/malloc.h"
 #include "../common/mmo.h"
-#include "../common/nullpo.h"
 #include "../common/random.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
@@ -93,7 +92,7 @@ int elemental_create(struct map_session_data *sd, int class_, unsigned int lifet
 	struct s_elemental_db *db;
 	int i;
 
-	nullpo_retr(1,sd);
+	if (!sd) return 1;
 
 	if( (i = elemental->search_index(class_)) < 0 )
 		return 0;
@@ -173,11 +172,11 @@ int elemental_create(struct map_session_data *sd, int class_, unsigned int lifet
 
 int elemental_get_lifetime(struct elemental_data *ed) {
 	const struct TimerData * td;
-	if( ed == NULL || ed->summon_timer == INVALID_TIMER )
+	if( !ed || ed->summon_timer == INVALID_TIMER )
 		return 0;
 
 	td = timer->get(ed->summon_timer);
-	return (td != NULL) ? DIFF_TICK32(td->tick, timer->gettick()) : 0;
+	return (td) ? DIFF_TICK32(td->tick, timer->gettick()) : 0;
 }
 
 int elemental_save(struct elemental_data *ed) {
@@ -219,7 +218,7 @@ int elemental_summon_end_timer(int tid, int64 tick, int id, intptr_t data) {
 }
 
 void elemental_summon_stop(struct elemental_data *ed) {
-	nullpo_retv(ed);
+	if (!ed) return;
 	if( ed->summon_timer != INVALID_TIMER )
 		timer->delete(ed->summon_timer, elemental->summon_end_timer);
 	ed->summon_timer = INVALID_TIMER;
@@ -227,7 +226,7 @@ void elemental_summon_stop(struct elemental_data *ed) {
 
 int elemental_delete(struct elemental_data *ed, int reply) {
 	struct map_session_data *sd;
-	nullpo_ret(ed);
+	if (!ed) return 0;
 
 	sd = ed->master;
 	ed->elemental.life_time = 0;
@@ -314,7 +313,7 @@ int elemental_clean_single_effect(struct elemental_data *ed, uint16 skill_id) {
 	struct block_list *bl;
 	sc_type type = status->skill2sc(skill_id);
 
-	nullpo_ret(ed);
+	if (!ed) return 0;
 
 	bl = battle->get_master(&ed->bl);
 
@@ -360,7 +359,7 @@ int elemental_clean_single_effect(struct elemental_data *ed, uint16 skill_id) {
 int elemental_clean_effect(struct elemental_data *ed) {
 	struct map_session_data *sd;
 
-	nullpo_ret(ed);
+	if (!ed) return 0;
 
 	// Elemental side
 	status_change_end(&ed->bl, SC_TROPIC, INVALID_TIMER);
@@ -422,8 +421,8 @@ int elemental_action(struct elemental_data *ed, struct block_list *bl, int64 tic
 	uint16 skill_id, skill_lv;
 	int i;
 
-	nullpo_ret(ed);
-	nullpo_ret(bl);
+	if (!ed) return 0;
+	if (!bl) return 0;
 
 	if( !ed->master )
 		return 0;
@@ -503,7 +502,7 @@ int elemental_change_mode_ack(struct elemental_data *ed, int mode) {
 	uint16 skill_id, skill_lv;
 	int i;
 
-	nullpo_ret(ed);
+	if (!ed) return 0;
 
 	if( !bl )
 		return 0;
@@ -541,7 +540,7 @@ int elemental_change_mode_ack(struct elemental_data *ed, int mode) {
  * Change elemental mode.
  *-------------------------------------------------------------*/
 int elemental_change_mode(struct elemental_data *ed, int mode) {
-	nullpo_ret(ed);
+	if (!ed) return 0;
 
 	// Remove target
 	elemental->unlocktarget(ed);
@@ -575,7 +574,7 @@ int elemental_dead(struct elemental_data *ed) {
 }
 
 int elemental_unlocktarget(struct elemental_data *ed) {
-	nullpo_ret(ed);
+	if (!ed) return 0;
 
 	ed->target_id = 0;
 	elemental_stop_attack(ed);
@@ -585,7 +584,8 @@ int elemental_unlocktarget(struct elemental_data *ed) {
 
 int elemental_skillnotok(uint16 skill_id, struct elemental_data *ed) {
 	int idx = skill->get_index(skill_id);
-	nullpo_retr(1,ed);
+	
+	if (!ed) return 1;
 
 	if (idx == 0)
 		return 1; // invalid skill id
@@ -614,8 +614,8 @@ struct skill_condition elemental_skill_get_requirements(uint16 skill_id, uint16 
 int elemental_set_target( struct map_session_data *sd, struct block_list *bl ) {
 	struct elemental_data *ed = sd->ed;
 
-	nullpo_ret(ed);
-	nullpo_ret(bl);
+	if (!ed) return 0;
+	if (!bl) return 0;
 
 	if( ed->bl.m != bl->m || !check_distance_bl(&ed->bl, bl, ed->db->range2) )
 		return 0;
@@ -634,7 +634,7 @@ int elemental_ai_sub_timer_activesearch(struct block_list *bl, va_list ap) {
 	struct block_list **target;
 	int dist;
 
-	nullpo_ret(bl);
+	if (!bl) return 0;
 
 	ed = va_arg(ap,struct elemental_data *);
 	target = va_arg(ap,struct block_list**);
@@ -669,8 +669,8 @@ int elemental_ai_sub_timer(struct elemental_data *ed, struct map_session_data *s
 	struct block_list *target = NULL;
 	int master_dist, view_range, mode;
 
-	nullpo_ret(ed);
-	nullpo_ret(sd);
+	if (!ed) return 0;
+	if (!sd) return 0;
 
 	if( ed->bl.prev == NULL || sd == NULL || sd->bl.prev == NULL )
 		return 0;

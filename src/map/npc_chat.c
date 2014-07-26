@@ -47,7 +47,6 @@
 #include "pc.h" // struct map_session_data
 #include "script.h" // set_var()
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
 #include "../common/timer.h"
@@ -126,26 +125,27 @@ void finalize_pcrematch_entry(struct pcrematch_entry* e)
 struct pcrematch_set* lookup_pcreset(struct npc_data* nd, int setid) {
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	if (npcParse == NULL)
+	
+	if (!npcParse)
 		nd->chatdb = npcParse = (struct npc_parse *)aCalloc(sizeof(struct npc_parse), 1);
 	
 	pcreset = npcParse->active;
 	
-	while (pcreset != NULL) {
+	while (pcreset) {
 		if (pcreset->setid == setid)
 		break;
 		pcreset = pcreset->next;
 	}
-	if (pcreset == NULL)
+	if (!pcreset)
 		pcreset = npcParse->inactive;
 	
-	while (pcreset != NULL) {
+	while (pcreset) {
 		if (pcreset->setid == setid)
 		break;
 		pcreset = pcreset->next;
 	}
 	
-	if (pcreset == NULL) {
+	if (!pcreset) {
 		pcreset = (struct pcrematch_set *)aCalloc(sizeof(struct pcrematch_set), 1);
 		pcreset->next = npcParse->inactive;
 		if (pcreset->next != NULL)
@@ -167,15 +167,15 @@ void activate_pcreset(struct npc_data* nd, int setid)
 {
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	if (npcParse == NULL)
+	if (!npcParse)
 		return; // Nothing to activate...
 	pcreset = npcParse->inactive;
-	while (pcreset != NULL) {
+	while (pcreset) {
 		if (pcreset->setid == setid)
 			break;
 		pcreset = pcreset->next;
 	}
-	if (pcreset == NULL)
+	if (!pcreset)
 		return; // not in inactive list
 	if (pcreset->next != NULL)
 		pcreset->next->prev = pcreset->prev;
@@ -186,7 +186,7 @@ void activate_pcreset(struct npc_data* nd, int setid)
 	
 	pcreset->prev = NULL;
 	pcreset->next = npcParse->active;
-	if (pcreset->next != NULL)
+	if (pcreset->next)
 		pcreset->next->prev = pcreset;
 	npcParse->active = pcreset;
 }
@@ -200,7 +200,7 @@ void deactivate_pcreset(struct npc_data* nd, int setid)
 {
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	if (npcParse == NULL)
+	if (!npcParse)
 		return; // Nothing to deactivate...
 	if (setid == -1) {
 		while(npcParse->active != NULL)
@@ -208,12 +208,12 @@ void deactivate_pcreset(struct npc_data* nd, int setid)
 		return;
 	}
 	pcreset = npcParse->active;
-	while (pcreset != NULL) {
+	while (pcreset) {
 		if (pcreset->setid == setid)
 			break;
 		pcreset = pcreset->next;
 	}
-	if (pcreset == NULL)
+	if (!pcreset)
 		return; // not in active list
 	if (pcreset->next != NULL)
 		pcreset->next->prev = pcreset->prev;
@@ -237,29 +237,34 @@ void delete_pcreset(struct npc_data* nd, int setid)
 	int active = 1;
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	if (npcParse == NULL)
+	
+	if (!npcParse)
 		return; // Nothing to deactivate...
 	pcreset = npcParse->active;
-	while (pcreset != NULL) {
+	
+	while (pcreset) {
 		if (pcreset->setid == setid)
 			break;
 		pcreset = pcreset->next;
 	}
-	if (pcreset == NULL) {
+	if (!pcreset) {
 		active = 0;
 		pcreset = npcParse->inactive;
-		while (pcreset != NULL) {
+		
+		while (pcreset) {
 			if (pcreset->setid == setid)
 				break;
 			pcreset = pcreset->next;
 		}
 	}
-	if (pcreset == NULL)
+	
+	if (!pcreset)
 		return;
 	
-	if (pcreset->next != NULL)
+	if (pcreset->next)
 		pcreset->next->prev = pcreset->prev;
-	if (pcreset->prev != NULL)
+		
+	if (pcreset->prev)
 		pcreset->prev->next = pcreset->next;
 	
 	if(active)
@@ -294,13 +299,13 @@ struct pcrematch_entry* create_pcrematch_entry(struct pcrematch_set* set)
 	// items defined later. as a result, we have to do some work up front.
 	
 	/*  if we are the first pattern, stick us at the end */
-	if (last == NULL) {
+	if (!last) {
 		set->head = e;
 		return e;
 	}
 	
 	/* Look for the last entry */
-	while (last->next != NULL)
+	while (last->next)
 		last = last->next;
 	
 	last->next = e;
@@ -334,7 +339,8 @@ void npc_chat_def_pattern(struct npc_data* nd, int setid, const char* pattern, c
 void npc_chat_finalize(struct npc_data* nd)
 {
 	struct npc_parse *npcParse = nd->chatdb;
-	if (npcParse == NULL)
+	
+	if (!npcParse)
 		return;
 	
 	while(npcParse->active)
@@ -362,7 +368,7 @@ int npc_chat_sub(struct block_list* bl, va_list ap)
 	struct pcrematch_entry* e;
 	
 	// Not interested in anything you might have to say...
-	if (npcParse == NULL || npcParse->active == NULL)
+	if (!npcParse || !npcParse->active)
 		return 0;
 	
 	msg = va_arg(ap,char*);

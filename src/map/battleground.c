@@ -50,7 +50,6 @@
 #include "../common/cbasetypes.h"
 #include "../common/conf.h"
 #include "../common/malloc.h"
-#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -66,7 +65,7 @@ struct battleground_data* bg_team_search(int bg_id) {
 
 struct map_session_data* bg_getavailablesd(struct battleground_data *bgd) {
 	int i;
-	nullpo_retr(NULL, bgd);
+	if (!bgd) return NULL;
 	ARR_FIND(0, MAX_BG_MEMBERS, i, bgd->members[i].sd != NULL);
 	return( i < MAX_BG_MEMBERS ) ? bgd->members[i].sd : NULL;
 }
@@ -77,7 +76,8 @@ bool bg_team_delete(int bg_id) {
 	struct map_session_data *sd;
 	struct battleground_data *bgd = bg->team_search(bg_id);
 
-	if( bgd == NULL ) return false;
+	if(!bgd) return false;
+	
 	for( i = 0; i < MAX_BG_MEMBERS; i++ ) {
 		if( (sd = bgd->members[i].sd) == NULL )
 			continue;
@@ -93,7 +93,7 @@ bool bg_team_delete(int bg_id) {
 bool bg_team_warp(int bg_id, unsigned short map_index, short x, short y) {
 	int i;
 	struct battleground_data *bgd = bg->team_search(bg_id);
-	if( bgd == NULL ) return false;
+	if(!bgd) return false;
 	for( i = 0; i < MAX_BG_MEMBERS; i++ )
 		if( bgd->members[i].sd != NULL ) pc->setpos(bgd->members[i].sd, map_index, x, y, CLR_TELEPORT);
 	return true;
@@ -110,7 +110,7 @@ bool bg_team_join(int bg_id, struct map_session_data *sd) {
 	struct battleground_data *bgd = bg->team_search(bg_id);
 	struct map_session_data *pl_sd;
 
-	if( bgd == NULL || sd == NULL || sd->bg_id ) return false;
+	if( !bgd || !sd || sd->bg_id ) return false;
 
 	ARR_FIND(0, MAX_BG_MEMBERS, i, bgd->members[i].sd == NULL);
 	if( i == MAX_BG_MEMBERS ) return false; // No free slots
@@ -147,9 +147,10 @@ int bg_team_leave(struct map_session_data *sd, enum bg_team_leave_type flag) {
 	int i, bg_id;
 	struct battleground_data *bgd;
 	char output[128];
-
-	if( sd == NULL || !sd->bg_id )
-		return 0;
+	
+	if (!sd) return 0;
+	if (!sd->bg_id ) return 0;
+		
 	bg->send_dot_remove(sd);
 	bg_id = sd->bg_id;
 	sd->bg_id = 0;
@@ -225,7 +226,9 @@ int bg_create(unsigned short map_index, short rx, short ry, const char *ev, cons
 }
 
 int bg_team_get_id(struct block_list *bl) {
-	nullpo_ret(bl);
+
+	if (!bl) return 0;
+	
 	switch( bl->type ) {
 		case BL_PC:
 			return ((TBL_PC*)bl)->bg_id;
@@ -259,7 +262,8 @@ int bg_team_get_id(struct block_list *bl) {
 bool bg_send_message(struct map_session_data *sd, const char *mes, int len) {
 	struct battleground_data *bgd;
 
-	nullpo_ret(sd);
+	if (!sd) return 0;
+	
 	if( sd->bg_id == 0 || (bgd = bg->team_search(sd->bg_id)) == NULL )
 		return false; // Couldn't send message
 	clif->bg_message(bgd, sd->bl.id, sd->status.name, mes, len);
@@ -273,7 +277,9 @@ int bg_send_xy_timer_sub(DBKey key, DBData *data, va_list ap) {
 	struct battleground_data *bgd = DB->data2ptr(data);
 	struct map_session_data *sd;
 	int i;
-	nullpo_ret(bgd);
+	
+	if (!bgd) return 0;
+	
 	for( i = 0; i < MAX_BG_MEMBERS; i++ ) {
 		if( (sd = bgd->members[i].sd) == NULL )
 			continue;
