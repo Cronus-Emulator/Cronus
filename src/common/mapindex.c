@@ -162,7 +162,7 @@ const char* mapindex_id2name_sub(unsigned short id,const char *file, int line, c
 	return mapindex->list[id].name;
 }
 
-int mapindex_init(void) {
+void mapindex_init(void) {
 	FILE *fp;
 	char line[1024];
 	int last_index = -1;
@@ -197,8 +197,6 @@ int mapindex_init(void) {
 	if( !strdb_iget(mapindex->db, MAP_DEFAULT) ) {
 		ShowError("Falha em encontrar MAP_DEFAULT '%s' no arquivo de index!\n",MAP_DEFAULT);
 	}
-	
-	return total;
 }
 
 void mapindex_removemap(int index){

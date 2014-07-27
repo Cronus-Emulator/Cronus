@@ -23,6 +23,8 @@ set LF=^
 
 :: ----- Compilador: -------------------------------------
 set flags= -march=native -O2 -pipe -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter -Wno-switch -Wno-sign-compare -Wno-gnu-zero-variadic-macro-arguments -Wno-empty-translation-unit -fno-strict-aliasing -Wshadow -Wcast-qual -Werror-implicit-function-declaration -Wno-format-non-iso -Wshorten-64-to-32 -Winline -Wstrict-prototypes -DFD_SETSIZE=1024
+:: Para testes com GCC... (Não toque)
+::set flags= -march=native -O3 -pipe -std=c99 -Wall -Wextra -pedantic -Wno-unused-parameter -Wno-switch -Wno-sign-compare -fno-strict-aliasing -Wshadow -Werror-implicit-function-declaration -DFD_SETSIZE=1024
 :: ----- Nomes: ------------------------------------------
 :: Você pode alterar o nome de todo mundo aqui (Caso modifique, altere o arquivo start.bat)
 set CharServer=char-server
@@ -56,7 +58,7 @@ set sharedS=sql conf db ers mapindex md5calc mutex random showmsg strlib thread 
 :: Char-Server
 set CharS=char int_auction int_elemental int_guild int_homun int_mail int_mercenary int_party int_pet int_quest int_storage inter pincode
 :: Login-Server
-set LoginS=account ipban login loginlog
+set LoginS=account login loginlog
 :: Map-Server
 set MapS=atcommand battle battleground buyingstore chat chrif clif date duel elemental guild intif itemdb log mail map mapreg homunculus instance mercenary mob npc npc_chat party path pc pc_groups pet quest script searchstore skill status storage trade unit vending
 

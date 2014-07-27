@@ -32,7 +32,10 @@
 |-------------------------------------------------------------------------*/
 
 #include "../config/core.h" // CONSOLE_INPUT
+
 #include "account.h"
+#include "login.h"
+#include "loginlog.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -47,51 +50,37 @@
 #include "../common/strlib.h"
 #include "../common/timer.h"
 
-/// global defines
-#define ACCOUNT_SQL_DB_VERSION 20110114
+static char   global_db_hostname[32] = "127.0.0.1";
+static uint16 global_db_port = 3306;
+static char   global_db_username[32] = "ragnarok";
+static char   global_db_password[32] = "ragnarok";
+static char   global_db_database[32] = "ragnarok";
+static char   global_codepage[32] = "";
 
 /// internal structure
 typedef struct AccountDB_SQL
 {
 	AccountDB vtable;    // public interface
-
-	Sql* accounts;       // SQL accounts storage
-
-	// global sql settings
-	char   global_db_hostname[32];
-	uint16 global_db_port;
-	char   global_db_username[32];
-	char   global_db_password[32];
-	char   global_db_database[32];
-	char   global_codepage[32];
-	// local sql settings
-	char   db_hostname[32];
-	uint16 db_port;
-	char   db_username[32];
-	char   db_password[32];
-	char   db_database[32];
-	char   codepage[32];
-	// other settings
 	bool case_sensitive;
 	char account_db[32];
 	char global_acc_reg_num_db[32];
 	char global_acc_reg_str_db[32];
-
-
+	
 } AccountDB_SQL;
 
 /// internal structure
 typedef struct AccountDBIterator_SQL
 {
-	AccountDBIterator vtable;    // public interface
-
+	AccountDBIterator vtable; 
 	AccountDB_SQL* db;
 	int last_account_id;
+	
 } AccountDBIterator_SQL;
 
 /// internal functions
 static bool account_db_sql_init(AccountDB* self);
-static void account_db_sql_destroy(AccountDB* self);
+static void account_db_sql_destroy(void);
+
 static bool account_db_sql_get_property(AccountDB* self, const char* key, char* buf, size_t buflen);
 static bool account_db_sql_set_property(AccountDB* self, const char* option, const char* value);
 static bool account_db_sql_create(AccountDB* self, struct mmo_account* acc);
@@ -102,9 +91,137 @@ static bool account_db_sql_load_str(AccountDB* self, struct mmo_account* acc, co
 static AccountDBIterator* account_db_sql_iterator(AccountDB* self);
 static void account_db_sql_iter_destroy(AccountDBIterator* self);
 static bool account_db_sql_iter_next(AccountDBIterator* self, struct mmo_account* acc);
-
 static bool mmo_auth_fromsql(AccountDB_SQL* db, struct mmo_account* acc, int account_id);
 static bool mmo_auth_tosql(AccountDB_SQL* db, const struct mmo_account* acc, bool is_new);
+
+
+// globals
+static Sql* sql_handle = NULL;
+static int cleanup_timer_id = INVALID_TIMER;
+static bool ipban_inited = false;
+
+int ipban_cleanup(int tid, int64 tick, int id, intptr_t data); // Timerfunc
+
+
+// initialize
+void ipban_init(void)
+{
+	ipban_inited = true;
+
+	if( !login_config.ipban )
+		return;// ipban disabled
+		
+	if( login_config.ipban_cleanup_interval > 0 )
+	{ 
+		timer->add_func_list(ipban_cleanup, "ipban_cleanup");
+		cleanup_timer_id = timer->add_interval(timer->gettick()+10, ipban_cleanup, 0, 0, login_config.ipban_cleanup_interval*1000);
+	} else 
+		ipban_cleanup(0,0,0,0);
+}
+
+// finalize
+void ipban_final(void)
+{
+	if( !login_config.ipban )
+		return;
+
+	if( login_config.ipban_cleanup_interval > 0 )
+		timer->delete(cleanup_timer_id, ipban_cleanup);
+	
+	ipban_cleanup(0,0,0,0); // always clean up on login-server stop
+}
+
+// load configuration options
+bool ipban_config_read(const char* key, const char* value)
+{
+	const char* signature;
+
+	if( ipban_inited )
+		return false;// settings can only be changed before init
+
+	signature = "ipban.";
+	if( strncmpi(key, signature, strlen(signature)) == 0 )
+	{
+		key += strlen(signature);
+		if( strcasecmp(key, "enable") == 0 )
+			login_config.ipban = (bool)config_switch(value);
+		else
+		if( strcasecmp(key, "dynamic_pass_failure_ban_interval") == 0 )
+			login_config.dynamic_pass_failure_ban_interval = atoi(value);
+		else
+		if( strcasecmp(key, "dynamic_pass_failure_ban_limit") == 0 )
+			login_config.dynamic_pass_failure_ban_limit = atoi(value);
+		else
+		if( strcasecmp(key, "dynamic_pass_failure_ban_duration") == 0 )
+			login_config.dynamic_pass_failure_ban_duration = atoi(value);
+		else
+			return false;// not found
+		return true;
+	}
+
+	return false;// not found
+}
+
+// check ip against active bans list
+bool ipban_check(uint32 ip)
+{
+	uint8* p = (uint8*)&ip;
+	char* data = NULL;
+	int matches;
+
+	if( !login_config.ipban )
+		return false;// ipban disabled
+
+	if( SQL_ERROR == SQL->Query(sql_handle, "SELECT count(*) FROM `ipbanlist` WHERE `rtime` > NOW() AND (`list` = '%u.*.*.*' OR `list` = '%u.%u.*.*' OR `list` = '%u.%u.%u.*' OR `list` = '%u.%u.%u.%u')",
+		p[3], p[3], p[2], p[3], p[2], p[1], p[3], p[2], p[1], p[0]) )
+	{
+		Sql_ShowDebug(sql_handle);
+		// close connection because we can't verify their connectivity.
+		return true;
+	}
+
+	if( SQL_ERROR == SQL->NextRow(sql_handle) )
+		return true;// Shouldn't happen, but just in case...
+
+	SQL->GetData(sql_handle, 0, &data, NULL);
+	matches = atoi(data);
+	SQL->FreeResult(sql_handle);
+
+	return( matches > 0 );
+}
+
+// log failed attempt
+void ipban_log(uint32 ip)
+{
+	unsigned long failures;
+
+	if( !login_config.ipban )
+		return;// ipban disabled
+
+	failures = loginlog_failedattempts(ip, login_config.dynamic_pass_failure_ban_interval);// how many times failed account? in one ip.
+
+	// if over the limit, add a temporary ban entry
+	if( failures >= login_config.dynamic_pass_failure_ban_limit )
+	{
+		uint8* p = (uint8*)&ip;
+		if( SQL_ERROR == SQL->Query(sql_handle, "INSERT INTO `ipbanlist`(`list`,`btime`,`rtime`,`reason`) VALUES ('%u.%u.%u.*', NOW() , NOW() +  INTERVAL %d MINUTE ,'Password error ban')",
+			p[3], p[2], p[1], login_config.dynamic_pass_failure_ban_duration) )
+			Sql_ShowDebug(sql_handle);
+	}
+}
+
+// remove expired bans
+int ipban_cleanup(int tid, int64 tick, int id, intptr_t data) {
+
+	if( !login_config.ipban )
+		return 0;// ipban disabled
+
+	if( SQL_ERROR == SQL->Query(sql_handle, "DELETE FROM `ipbanlist` WHERE `rtime` <= NOW()") )
+		Sql_ShowDebug(sql_handle);
+
+	return 0;
+}
+
 
 /// public constructor
 AccountDB* account_db_sql(void)
@@ -122,28 +239,12 @@ AccountDB* account_db_sql(void)
 	db->vtable.load_num     = &account_db_sql_load_num;
 	db->vtable.load_str     = &account_db_sql_load_str;
 	db->vtable.iterator     = &account_db_sql_iterator;
-
-	// initialize to default values
-	db->accounts = NULL;
-	// global sql settings
-	safestrncpy(db->global_db_hostname, "127.0.0.1", sizeof(db->global_db_hostname));
-	db->global_db_port = 3306;
-	safestrncpy(db->global_db_username, "ragnarok", sizeof(db->global_db_username));
-	safestrncpy(db->global_db_password, "ragnarok", sizeof(db->global_db_password));
-	safestrncpy(db->global_db_database, "ragnarok", sizeof(db->global_db_database));
-	safestrncpy(db->global_codepage, "", sizeof(db->global_codepage));
-	// local sql settings
-	safestrncpy(db->db_hostname, "", sizeof(db->db_hostname));
-	db->db_port = 3306;
-	safestrncpy(db->db_username, "", sizeof(db->db_username));
-	safestrncpy(db->db_password, "", sizeof(db->db_password));
-	safestrncpy(db->db_database, "", sizeof(db->db_database));
-	safestrncpy(db->codepage, "", sizeof(db->codepage));
-	// other settings
+	
 	db->case_sensitive = false;
-	safestrncpy(db->account_db, "login", sizeof(db->account_db));
-	safestrncpy(db->global_acc_reg_num_db, "global_acc_reg_num_db", sizeof(db->global_acc_reg_num_db));
-	safestrncpy(db->global_acc_reg_str_db, "global_acc_reg_str_db", sizeof(db->global_acc_reg_str_db));
+
+    safestrncpy(db->account_db, "login", sizeof(db->account_db));
+    safestrncpy(db->global_acc_reg_num_db, "global_acc_reg_num_db", sizeof(db->global_acc_reg_num_db));
+    safestrncpy(db->global_acc_reg_str_db, "global_acc_reg_str_db", sizeof(db->global_acc_reg_str_db));
 
 	return &db->vtable;
 }
@@ -155,143 +256,55 @@ AccountDB* account_db_sql(void)
 /// establishes database connection
 static bool account_db_sql_init(AccountDB* self)
 {
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle;
-	const char* username;
-	const char* password;
-	const char* hostname;
-	uint16      port;
-	const char* database;
-	const char* codepage;
+	sql_handle = SQL->Malloc();
 
-	db->accounts = SQL->Malloc();
-	sql_handle = db->accounts;
-
-	if( db->db_hostname[0] != '\0' )
-	{// local settings
-		username = db->db_username;
-		password = db->db_password;
-		hostname = db->db_hostname;
-		port     = db->db_port;
-		database = db->db_database;
-		codepage = db->codepage;
-	}
-	else
-	{// global settings
-		username = db->global_db_username;
-		password = db->global_db_password;
-		hostname = db->global_db_hostname;
-		port     = db->global_db_port;
-		database = db->global_db_database;
-		codepage = db->global_codepage;
-	}
-
-	if( SQL_ERROR == SQL->Connect(sql_handle, username, password, hostname, port, database) )
+	if( SQL_ERROR == SQL->Connect(sql_handle, global_db_username, global_db_password, global_db_hostname, global_db_port, global_db_database) )
 	{
 		Sql_ShowDebug(sql_handle);
-		SQL->Free(db->accounts);
-		db->accounts = NULL;
+		account_db_sql_destroy();
+		// login.c deita o emulador caso a conexão não funcione.
 		return false;
 	}
 
-	if( codepage[0] != '\0' && SQL_ERROR == SQL->SetEncoding(sql_handle, codepage) )
+	if( global_codepage[0] != '\0' && SQL_ERROR == SQL->SetEncoding(sql_handle, global_codepage) )
 		Sql_ShowDebug(sql_handle);
 
 	return true;
 }
 
 /// disconnects from database
-static void account_db_sql_destroy(AccountDB* self)
+static void account_db_sql_destroy(void)
 {
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-
-	SQL->Free(db->accounts);
-	db->accounts = NULL;
-	aFree(db);
+	SQL->Free(sql_handle);
+	sql_handle = NULL;
 }
 
 /// Gets a property from this database.
 static bool account_db_sql_get_property(AccountDB* self, const char* key, char* buf, size_t buflen)
 {
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	const char* signature;
 
-	signature = "engine.";
-	if( strncmpi(key, signature, strlen(signature)) == 0 )
-	{
-		key += strlen(signature);
-		if( strcasecmp(key, "name") == 0 )
-			safesnprintf(buf, buflen, "sql");
-		else
-		if( strcasecmp(key, "version") == 0 )
-			safesnprintf(buf, buflen, "%d", ACCOUNT_SQL_DB_VERSION);
-		else
-		if( strcasecmp(key, "comment") == 0 )
-			safesnprintf(buf, buflen, "SQL Account Database");
-		else
-			return false;// not found
-		return true;
-	}
+	 const char* signature = "sql.";
 
-	signature = "sql.";
 	if( strncmpi(key, signature, strlen(signature)) == 0 )
 	{
 		key += strlen(signature);
 		if( strcasecmp(key, "db_hostname") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_db_hostname);
+			safesnprintf(buf, buflen, "%s", global_db_hostname);
 		else
 		if( strcasecmp(key, "db_port") == 0 )
-			safesnprintf(buf, buflen, "%d", db->global_db_port);
+			safesnprintf(buf, buflen, "%d", global_db_port);
 		else
 		if( strcasecmp(key, "db_username") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_db_username);
+			safesnprintf(buf, buflen, "%s", global_db_username);
 		else
 		if(	strcasecmp(key, "db_password") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_db_password);
+			safesnprintf(buf, buflen, "%s", global_db_password);
 		else
 		if( strcasecmp(key, "db_database") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_db_database);
+			safesnprintf(buf, buflen, "%s", global_db_database);
 		else
 		if( strcasecmp(key, "codepage") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_codepage);
-		else
-			return false;// not found
-		return true;
-	}
-
-	signature = "account.sql.";
-	if( strncmpi(key, signature, strlen(signature)) == 0 )
-	{
-		key += strlen(signature);
-		if( strcasecmp(key, "db_hostname") == 0 )
-			safesnprintf(buf, buflen, "%s", db->db_hostname);
-		else
-		if( strcasecmp(key, "db_port") == 0 )
-			safesnprintf(buf, buflen, "%d", db->db_port);
-		else
-		if( strcasecmp(key, "db_username") == 0 )
-			safesnprintf(buf, buflen, "%s", db->db_username);
-		else
-		if(	strcasecmp(key, "db_password") == 0 )
-			safesnprintf(buf, buflen, "%s", db->db_password);
-		else
-		if( strcasecmp(key, "db_database") == 0 )
-			safesnprintf(buf, buflen, "%s", db->db_database);
-		else
-		if( strcasecmp(key, "codepage") == 0 )
-			safesnprintf(buf, buflen, "%s", db->codepage);
-		else
-		if( strcasecmp(key, "case_sensitive") == 0 )
-			safesnprintf(buf, buflen, "%d", (db->case_sensitive ? 1 : 0));
-		else
-		if( strcasecmp(key, "account_db") == 0 )
-			safesnprintf(buf, buflen, "%s", db->account_db);
-		else
-		if( strcasecmp(key, "global_acc_reg_str_db") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_acc_reg_str_db);
-		else
-		if( strcasecmp(key, "global_acc_reg_num_db") == 0 )
-			safesnprintf(buf, buflen, "%s", db->global_acc_reg_num_db);
+			safesnprintf(buf, buflen, "%s", global_codepage);
 		else
 			return false;// not found
 		return true;
@@ -300,78 +313,39 @@ static bool account_db_sql_get_property(AccountDB* self, const char* key, char* 
 	return false;// not found
 }
 
-/// if the option is supported, adjusts the internal state
+
 static bool account_db_sql_set_property(AccountDB* self, const char* key, const char* value)
 {
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	const char* signature;
 
+     const char* signature = "sql.";
 
-	signature = "sql.";
-	if( strncmp(key, signature, strlen(signature)) == 0 )
-	{
-		key += strlen(signature);
-		if( strcasecmp(key, "db_hostname") == 0 )
-			safestrncpy(db->global_db_hostname, value, sizeof(db->global_db_hostname));
-		else
-		if( strcasecmp(key, "db_port") == 0 )
-			db->global_db_port = (uint16)strtoul(value, NULL, 10);
-		else
-		if( strcasecmp(key, "db_username") == 0 )
-			safestrncpy(db->global_db_username, value, sizeof(db->global_db_username));
-		else
-		if( strcasecmp(key, "db_password") == 0 )
-			safestrncpy(db->global_db_password, value, sizeof(db->global_db_password));
-		else
-		if( strcasecmp(key, "db_database") == 0 )
-			safestrncpy(db->global_db_database, value, sizeof(db->global_db_database));
-		else
-		if( strcasecmp(key, "codepage") == 0 )
-			safestrncpy(db->global_codepage, value, sizeof(db->global_codepage));
-		else
+        if( strncmp(key, signature, strlen(signature)) == 0 ) {
+           key += strlen(signature);
+		   
+        if( strcasecmp(key, "db_hostname") == 0 )
+          safestrncpy(global_db_hostname, value, sizeof(global_db_hostname));
+        else
+        if( strcasecmp(key, "db_port") == 0 )
+          global_db_port = (uint16)strtoul(value, NULL, 10);
+        else
+        if( strcasecmp(key, "db_username") == 0 )
+           safestrncpy(global_db_username, value, sizeof(global_db_username));
+        else
+        if( strcasecmp(key, "db_password") == 0 )
+          safestrncpy(global_db_password, value, sizeof(global_db_password));
+        else
+        if( strcasecmp(key, "db_database") == 0 )
+          safestrncpy(global_db_database, value, sizeof(global_db_database));
+        else
+        if( strcasecmp(key, "codepage") == 0 )
+          safestrncpy(global_codepage, value, sizeof(global_codepage));
+		 else
 			return false;// not found
-		return true;
-	}
+			
+       return true;
+	   }
 
-	signature = "account.sql.";
-	if( strncmp(key, signature, strlen(signature)) == 0 )
-	{
-		key += strlen(signature);
-		if( strcasecmp(key, "db_hostname") == 0 )
-			safestrncpy(db->db_hostname, value, sizeof(db->db_hostname));
-		else
-		if( strcasecmp(key, "db_port") == 0 )
-			db->db_port = (uint16)strtoul(value, NULL, 10);
-		else
-		if( strcasecmp(key, "db_username") == 0 )
-			safestrncpy(db->db_username, value, sizeof(db->db_username));
-		else
-		if( strcasecmp(key, "db_password") == 0 )
-			safestrncpy(db->db_password, value, sizeof(db->db_password));
-		else
-		if( strcasecmp(key, "db_database") == 0 )
-			safestrncpy(db->db_database, value, sizeof(db->db_database));
-		else
-		if( strcasecmp(key, "codepage") == 0 )
-			safestrncpy(db->codepage, value, sizeof(db->codepage));
-		else
-		if( strcasecmp(key, "case_sensitive") == 0 )
-			db->case_sensitive = (bool)config_switch(value);
-		else
-		if( strcasecmp(key, "account_db") == 0 )
-			safestrncpy(db->account_db, value, sizeof(db->account_db));
-		else
-		if( strcasecmp(key, "global_acc_reg_str_db") == 0 )
-			safestrncpy(db->global_acc_reg_str_db, value, sizeof(db->global_acc_reg_str_db));
-		else
-		if( strcasecmp(key, "global_acc_reg_num_db") == 0 )
-			safestrncpy(db->global_acc_reg_num_db, value, sizeof(db->global_acc_reg_num_db));
-		else
-			return false;// not found
-		return true;
-	}
-
-	return false;// not found
+return false;// not found
 }
 
 /// create a new account entry
@@ -380,7 +354,6 @@ static bool account_db_sql_set_property(AccountDB* self, const char* key, const 
 static bool account_db_sql_create(AccountDB* self, struct mmo_account* acc)
 {
 	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
 
 	// decide on the account id to assign
 	int account_id;
@@ -406,7 +379,7 @@ static bool account_db_sql_create(AccountDB* self, struct mmo_account* acc)
 		}
 
 		SQL->GetData(sql_handle, 0, &data, &len);
-		account_id = ( data != NULL ) ? atoi(data) : 0;
+		account_id = (data) ? atoi(data) : 0;
 		SQL->FreeResult(sql_handle);
 
 		if( account_id < START_ACCOUNT_NUM )
@@ -431,7 +404,6 @@ static bool account_db_sql_create(AccountDB* self, struct mmo_account* acc)
 static bool account_db_sql_remove(AccountDB* self, const int account_id)
 {
 	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
 	bool result = false;
 
 	if( SQL_SUCCESS != SQL->QueryStr(sql_handle, "START TRANSACTION")
@@ -466,7 +438,7 @@ static bool account_db_sql_load_num(AccountDB* self, struct mmo_account* acc, co
 static bool account_db_sql_load_str(AccountDB* self, struct mmo_account* acc, const char* userid)
 {
 	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql* sql_handle = db->accounts;
+
 	char esc_userid[2*NAME_LENGTH+1];
 	int account_id;
 	char* data;
@@ -532,7 +504,6 @@ static bool account_db_sql_iter_next(AccountDBIterator* self, struct mmo_account
 {
 	AccountDBIterator_SQL* iter = (AccountDBIterator_SQL*)self;
 	AccountDB_SQL* db = (AccountDB_SQL*)iter->db;
-	Sql* sql_handle = db->accounts;
 	char* data;
 
 	// get next account ID
@@ -563,7 +534,6 @@ static bool account_db_sql_iter_next(AccountDBIterator* self, struct mmo_account
 
 static bool mmo_auth_fromsql(AccountDB_SQL* db, struct mmo_account* acc, int account_id)
 {
-	Sql* sql_handle = db->accounts;
 	char* data;
 
 	// retrieve login entry for the specified account
@@ -605,7 +575,7 @@ static bool mmo_auth_fromsql(AccountDB_SQL* db, struct mmo_account* acc, int acc
 
 static bool mmo_auth_tosql(AccountDB_SQL* db, const struct mmo_account* acc, bool is_new)
 {
-	Sql* sql_handle = db->accounts;
+
 	SqlStmt* stmt = SQL->StmtMalloc(sql_handle);
 	bool result = false;
 
@@ -682,15 +652,16 @@ static bool mmo_auth_tosql(AccountDB_SQL* db, const struct mmo_account* acc, boo
 }
 
 Sql* account_db_sql_up(AccountDB* self) {
-	AccountDB_SQL* db = (AccountDB_SQL*)self;
-	Sql_HerculesUpdateCheck(db->accounts);
+
+	Sql_HerculesUpdateCheck(sql_handle);
 #ifdef CONSOLE_INPUT
-	console->input->setSQL(db->accounts);
+	console->input->setSQL(sql_handle);
 #endif
-	return db->accounts;
+	return sql_handle;
 }
+
 void mmo_save_accreg2(AccountDB* self, int fd, int account_id, int char_id) {
-	Sql* sql_handle = ((AccountDB_SQL*)self)->accounts;
+
 	AccountDB_SQL* db = (AccountDB_SQL*)self;
 	int count = RFIFOW(fd, 12);
 	
@@ -740,7 +711,6 @@ void mmo_save_accreg2(AccountDB* self, int fd, int account_id, int char_id) {
 
 }
 void mmo_send_accreg2(AccountDB* self, int fd, int account_id, int char_id) {
-	Sql* sql_handle = ((AccountDB_SQL*)self)->accounts;
 	AccountDB_SQL* db = (AccountDB_SQL*)self;
 	char* data;
 	int plen = 0;

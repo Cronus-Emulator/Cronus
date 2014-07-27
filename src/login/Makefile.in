@@ -22,9 +22,9 @@ MT19937AR_OBJ = $(MT19937AR_D)/mt19937ar.o
 MT19937AR_H = $(MT19937AR_D)/mt19937ar.h
 MT19937AR_INCLUDE = -I$(MT19937AR_D)
 
-LOGIN_C = account.c ipban.c login.c loginlog.c
+LOGIN_C = account.c login.c loginlog.c
 LOGIN_OBJ = $(addprefix obj_sql/, $(patsubst %.c,%.o,$(LOGIN_C)))
-LOGIN_H = login.h account.h ipban.h loginlog.h
+LOGIN_H = login.h account.h loginlog.h
 
 HAVE_MYSQL=@HAVE_MYSQL@
 ifeq ($(HAVE_MYSQL),yes)

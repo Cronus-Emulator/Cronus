@@ -100,7 +100,7 @@ struct mapindex_interface {
 		char name[MAP_NAME_LENGTH];
 	} list[MAX_MAPINDEX];
 	/* */
-	int (*init) (void);
+	void (*init) (void);
 	void (*final) (void);
 	/* */
 	int (*addmap) (int index, const char* name);

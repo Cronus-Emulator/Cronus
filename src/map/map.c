@@ -5397,7 +5397,6 @@ void map_load_defaults(void) {
 
 int do_init(int argc, char *argv[]) {
 
-        int i;
 
 	    map_load_defaults();
 		map->config_read(map->MAP_CONF_NAME);
@@ -5456,7 +5455,7 @@ int do_init(int argc, char *argv[]) {
 		if (logs->config.sql_logs)
 			logs->sql_init();
 
-	i = mapindex->init();
+    mapindex->init();
 
 	map->readallmaps();
 

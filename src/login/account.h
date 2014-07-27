@@ -94,7 +94,7 @@ struct AccountDB
 	/// Destroys this database, releasing all allocated memory (including itself).
 	///
 	/// @param self Database
-	void (*destroy)(AccountDB* self);
+	void (*destroy)(void);
 
 	/// Gets a property from this database.
 	/// These read-only properties must be implemented:
@@ -165,6 +165,12 @@ struct AccountDB
 };
 
 Sql *account_db_sql_up(AccountDB* self);
+
+void ipban_init(void);
+void ipban_final(void);
+bool ipban_check(uint32 ip);
+void ipban_log(uint32 ip);
+bool ipban_config_read(const char* key, const char* value);
 
 void mmo_send_accreg2(AccountDB* self, int fd, int account_id, int char_id);
 void mmo_save_accreg2(AccountDB* self, int fd, int account_id, int char_id);

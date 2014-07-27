@@ -38,7 +38,6 @@
 #include <string.h>
 
 #include "account.h"
-#include "ipban.h"
 #include "loginlog.h"
 
 #include "../common/cbasetypes.h"
@@ -1710,6 +1709,7 @@ int login_config_read(const char* cfgName)
 			AccountDB* db = account_engine[0].db;
 			if( db )
 				db->set_property(db, w1, w2);
+				
 			ipban_config_read(w1, w2);
 			loginlog_config_read(w1, w2);
 		}
@@ -1743,7 +1743,7 @@ int do_final(void) {
 
 	if( account_engine[0].db )
 	{// destroy account engine
-		account_engine[0].db->destroy(account_engine[0].db);
+		account_engine[0].db->destroy();
 		account_engine[0].db = NULL;
 	}
 	accounts = NULL; // destroyed in account_engine
