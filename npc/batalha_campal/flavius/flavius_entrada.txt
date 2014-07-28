@@ -1,0 +1,380 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Batalha Campal - Entrada de Flavius
+//----- Por: -------------------------------------------------
+//= L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.1
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Entrada da Batalha Campal de Flavius.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First Version.
+//= 1.1 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+// Flavius Officer - Guillaume
+//============================================================
+bat_room,133,178,5	script	Oficial de Flavius#01a	4_M_KY_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Guillaume]";
+	mes "Vamos mostrar o poder do Exército de Guillaume aos malditos Croixs!";
+	next;
+	switch (select ("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Guillaume]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Guillaume]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2070,PLAYTIME);
+				if ((.@chk_urtime == 0) || (.@chk_urtime == 1)) {
+					mes "[Oficial de Guillaume]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2070;
+					set .@mapcount2,getmapusers("bat_b01");
+					if (.@mapcount2 > 0) {
+						mes "[Oficial de Guillaume]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Croixs.";
+						mes "Porque não espera mais um pouco? Por hora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@FlaviusBG1 > 0) {
+							mes "[Oficial de Guillaume]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por hora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Guillaume]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Croixs o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",85,223;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Guillaume]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
+
+bat_room,133,121,1	script	Oficial de Flavius#01b	4_M_CRU_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Croix]";
+	mes "Vamos mostrar aos Guillaumes o poder do Exército de Croix!";
+	next;
+	switch (select ("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Croix]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Croix]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2070,PLAYTIME);
+				if ((.@chk_urtime == 0)|| (.@chk_urtime == 1)) {
+					mes "[Oficial de Croix]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2070;
+					set .@mapcount2,getmapusers("bat_b01");
+					if (.@mapcount2 > 0) {
+						mes "[Oficial de Croix]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Guillaumes.";
+						mes "Porque não espera mais um pouco? Por hora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@FlaviusBG1 > 0) {
+							mes "[Oficial de Croix]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por hora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Croix]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Guillaumes o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",85,207;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Croix]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
+
+bat_room,135,178,5	script	Cavaleiro de Guillaume#3	4_M_KY_SOLD,{
+	mes "[Cavaleiro de Guillaume]";
+	mes "O objetivo da Batalha de Flavius é marcar 2 pontos antes do seu inimigo, destruindo os cristais.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Os cristais de ambos os exércitos são protegidos por barricadas especiais que não podem ser destruídas por ataques diretos.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Mas elas podem ser removidas se você destruir os Guardiões que protegem a base do exército inimigo.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Os cristais são imunes a qualquer tipo de habilidade; ataques físicos são a única escolha para destruir os cristais do inimigo.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+bat_room,151,178,5	script	Cavaleiro de Guillaume#4	4_M_KY_SOLD,{
+	mes "[Cavaleiro de Guillaume]";
+	mes "O objetivo da Batalha de Flavius é marcar 2 pontos antes do seu inimigo, destruindo os cristais.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Os cristais de ambos os exércitos são protegidos por barricadas especiais que não podem ser destruídas por ataques diretos.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Mas elas podem ser removidas se você destruir os Guardiões que protegem a base do exército inimigo.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Os cristais são imunes a qualquer tipo de habilidade; ataques físicos são a única escolha para destruir os cristais do inimigo.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+bat_room,135,121,1	script	Cavaleiro de Croix#3	4_M_CRU_SOLD,{
+	mes "[Cavaleiro de Croix]";
+	mes "O objetivo da Batalha de Flavius é marcar 2 pontos antes do seu inimigo, destruindo os cristais.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Os cristais de ambos os exércitos são protegidos por barricadas especiais que não podem ser destruídas por ataques diretos.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Mas elas podem ser removidas se você destruir os Guardiões que protegem a base do exército inimigo.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Os cristais são imunes a qualquer tipo de habilidade; ataques físicos são a única escolha para destruir os cristais do inimigo.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+bat_room,151,121,1	script	Cavaleiro de Croix#4	4_M_CRU_SOLD,{
+	mes "[Cavaleiro de Croix]";
+	mes "O objetivo da Batalha de Flavius é marcar 2 pontos antes do seu inimigo, destruindo os cristais.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Os cristais de ambos os exércitos são protegidos por barricadas especiais que não podem ser destruídas por ataques diretos.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Mas elas podem ser removidas se você destruir os Guardiões que protegem a base do exército inimigo.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Os cristais são imunes a qualquer tipo de habilidade; ataques físicos são a única escolha para destruir os cristais do inimigo.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+// Flavius Officer - Croix
+//============================================================
+bat_room,148,178,5	script	Oficial de Flavius#02a	4_M_KY_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Guillaume]";
+	mes "Vamos mostrar o poder do Exército de Guillaume aos malditos Croixs!";
+	next;
+	switch (select ("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Guillaume]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Guillaume]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2070,PLAYTIME);
+				if ((.@chk_urtime == 0)|| (.@chk_urtime == 1)) {
+					mes "[Oficial de Guillaume]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2070;
+					set .@mapcount2,getmapusers("bat_b02");
+					if (.@mapcount2 > 0) {
+						mes "[Oficial de Guillaume]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Croixs.";
+						mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@FlaviusBG2 > 0) {
+							mes "[Oficial de Guillaume]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Guillaume]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Croixs o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",141,224;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Guillaume]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
+
+bat_room,148,121,1	script	Oficial de Flavius#02b	4_M_CRU_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Croix]";
+	mes "Vamos mostrar o poder do Exército de Croix aos malditos Guillaumes!";
+	next;
+	switch (select ("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Croix]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Croix]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2070,PLAYTIME);
+				if ((.@chk_urtime == 0)|| (.@chk_urtime == 1)) {
+					mes "[Oficial de Croix]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2070;
+					set .@mapcount2,getmapusers("bat_b02");
+					if (.@mapcount2 > 0) {
+						mes "[Oficial de Croix]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Guillaumes.";
+						mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@FlaviusBG2 > 0) {
+							mes "[Oficial de Croix]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Croix]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Guillaumes o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",141,207;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Croix]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}

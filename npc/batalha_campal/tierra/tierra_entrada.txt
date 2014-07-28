@@ -1,0 +1,389 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+// Batalha Campal - Entrada do Desfiladeiro de Tierra
+//----- Por: -------------------------------------------------
+//= L0ne_W0lf
+//----- Versão Atual: ----------------------------------------
+//= 1.2
+//----- Descrição: -------------------------------------------
+//= [Conversão Oficial]
+//= Entrada da Batalha Campal do Desfiladeiro de Tierra.
+//----- Comentários Adicionais: ------------------------------
+//= 1.0 First Version.
+//= 1.1 Fixed silly copy paste errors. (bugreport:4401)
+//= 1.2 Aplicada tradução para português(pt_BR). [Cainho]
+//------------------------------------------------------------
+
+// First Tierra Gorge Officers - Guillaume
+//============================================================
+bat_room,124,178,5	script	Oficial do Desfiladeiro::01a	4_M_KY_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Guillaume]";
+	mes "Vamos mostrar o poder do Exército de Guillaume aos malditos Croixs!";
+	next;
+	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Guillaume]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Guillaume]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Croix, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2069,PLAYTIME);
+				if ((.@chk_urtime == 0)|| (.@chk_urtime == 1)) {
+					mes "[Oficial de Guillaume]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2069;
+					set .@mapcount,getmapusers("bat_a01");
+					if (.@mapcount > 0) {
+						mes "[Oficial de Guillaume]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Croixs.";
+						mes "Porque não espera mais um pouco? Por hora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@TierraBG1) {
+							mes "[Oficial de Guillaume]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Guillaume]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Croixs o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",57,223;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Guillaume]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
+
+bat_room,140,178,5	script	Oficial do Desfiladeiro::02a	4_M_KY_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Croix]";
+	mes "Vamos mostrar o poder do Exército de Croix aos malditos Guillaumes!";
+	next;
+	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Croix]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Croix]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2069,PLAYTIME);
+				if (.@chk_urtime == 1) {
+					mes "[Oficial de Croix]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2069;
+					set .@mapcount,getmapusers("bat_a02");
+					if (.@mapcount > 0) {
+						mes "[Oficial de Croix]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Guillaumes.";
+						mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@TierraBG2) {
+							mes "[Oficial de Croix]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por hora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Croix]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Guillaumes o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",114,223;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Croix]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
+
+bat_room,127,178,5	script	Cavaleiro de Guillaume#111	4_M_KY_SOLD,{
+	mes "[Cavaleiro de Guillaume]";
+	mes "O Desfiladeiro de Tierra consiste de duas encostas verticais, e tem armazéns de comida para os Exércitos de Guillaume e de Croix a noroeste e a sudoeste.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "A batalha começa no navio do seu exército, e o objetivo é avançar e destruír os armazéns de comida do seu inimigo antes que ele destrua os seus.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "O curandeiro do campo de batalha irá ressuscitar soldados a cada 25 segundos, para que voltem à batalha.";
+	mes "O exército que capturar a bandeira neutra no centro do campo de batalha será recompensado com pontos de renegeração extra, ou seja, ele terá mais soldados ressuscitados, o que será uma vantagem.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Os dois depósitos são conectados entre sí por caminhos curtos e estreitos, mas os portões são bloqueados com barricadas.";
+	mes "Pense e mexa-se o mais rápido que puder. A vitória do seu exército depende da sua contribuição.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+bat_room,143,178,5	script	Cavaleiro de Guillaume#222	4_M_KY_SOLD,{
+	mes "[Cavaleiro de Guillaume]";
+	mes "O Desfiladeiro de Tierra consiste de duas encostas verticais, e tem armazéns de comida para os Exércitos de Guillaume e de Croix a noroeste e a sudoeste.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "A batalha começa no navio do seu exército, e o objetivo é avançar e destruír os armazéns de comida do seu inimigo antes que ele destrua os seus.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "O curandeiro do campo de batalha irá ressuscitar soldados a cada 25 segundos, para que voltem à batalha.";
+	mes "O exército que capturar a bandeira neutra no centro do campo de batalha será recompensado com pontos de renegeração extra, ou seja, ele terá mais soldados ressuscitados, o que será uma vantagem.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Os dois depósitos são conectados entre sí por caminhos curtos e estreitos, mas os portões são bloqueados com barricadas.";
+	mes "Pense e mexa-se o mais rápido que puder. A vitória do seu exército depende da sua contribuição.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Guillaume]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+bat_room,127,121,1	script	Cavaleiro de Croix#333	4_M_CRU_SOLD,{
+	mes "[Cavaleiro de Croix]";
+	mes "O Desfiladeiro de Tierra consiste de duas encostas verticais, e tem armazéns de comida para os Exércitos de Guillaume e de Croix a noroeste e a sudoeste.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "A batalha começa no navio do seu exército, e o objetivo é avançar e destruír os armazéns de comida do seu inimigo antes que ele destrua os seus.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "O curandeiro do campo de batalha irá ressuscitar soldados a cada 25 segundos, para que voltem à batalha.";
+	mes "O exército que capturar a bandeira neutra no centro do campo de batalha será recompensado com pontos de renegeração extra, ou seja, ele terá mais soldados ressuscitados, o que será uma vantagem.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Os dois depósitos são conectados entre sí por caminhos curtos e estreitos, mas os portões são bloqueados com barricadas.";
+	mes "Pense e mexa-se o mais rápido que puder. A vitória do seu exército depende da sua contribuição.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+bat_room,143,121,1	script	Cavaleiro de Croix#444	4_M_CRU_SOLD,{
+	mes "[Cavaleiro de Croix]";
+	mes "O Desfiladeiro de Tierra consiste de duas encostas verticais, e tem armazéns de comida para os Exércitos de Guillaume e de Croix a noroeste e a sudoeste.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "A batalha começa no navio do seu exército, e o objetivo é avançar e destruír os armazéns de comida do seu inimigo antes que ele destrua os seus.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "O curandeiro do campo de batalha irá ressuscitar soldados a cada 25 segundos, para que voltem à batalha.";
+	mes "O exército que capturar a bandeira neutra no centro do campo de batalha será recompensado com pontos de renegeração extra, ou seja, ele terá mais soldados ressuscitados, o que será uma vantagem.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Os dois depósitos são conectados entre sí por caminhos curtos e estreitos, mas os portões são bloqueados com barricadas.";
+	mes "Pense e mexa-se o mais rápido que puder. A vitória do seu exército depende da sua contribuição.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Por favor, lembre-se: quando você entrar na batalha, receberá um sinal que indica o período no qual você não pode participar do mesmo tipo de batalha.";
+	mes "Você pode verificar a duração pressionando Alt+U.";
+	next;
+	mes "[Cavaleiro de Croix]";
+	mes "Está pronto para a batalha? Então aliste-se com o recrutador ao meu lado!";
+	close;
+}
+
+// Second Tierra Gorge Officers - Croix
+//============================================================
+bat_room,125,121,1	script	Oficial do Desfiladeiro::01b	4_M_CRU_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Croix]";
+	mes "Vamos mostrar o poder do Exército de Croix aos malditos Guillaumes!";
+	next;
+	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Croix]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Croix]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2069,PLAYTIME);
+				if ((.@chk_urtime == 0)|| (.@chk_urtime == 1)) {
+					mes "[Oficial de Croix]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2069;
+					set .@mapcount,getmapusers("bat_a02");
+					if (.@mapcount > 0) {
+						mes "[Oficial de Croix]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Guillaumes.";
+						mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@TierraBG1) {
+							mes "[Oficial de Croix]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Croix]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Guillaumes o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",57,207;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Croix]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
+
+bat_room,140,121,1	script	Oficial do Desfiladeiro::02b	4_M_CRU_KNT,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Oficial de Croix]";
+	mes "Vamos mostrar o poder do Exército de Croix aos malditos Guillaumes!";
+	next;
+	switch(select("Quero entrar em seu exército!:Terminar Conversa")) {
+	case 1:
+		if ((Class == Job_Novice) || (BaseClass == Job_SuperNovice)) {
+			mes "[Oficial de Croix]";
+			mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+		}
+		else {
+			if (BaseLevel < 80) {
+				mes "[Oficial de Croix]";
+				mes "Fico feliz em ver que você quer se juntar a nós contra o Exército de Guillaume, mas sinto muito: não posso mandar um novato como você para morrer em um campo de batalha tão cruel.";
+			}
+			else {
+				set .@chk_urtime,checkquest(2069,PLAYTIME);
+				if (.@chk_urtime == 1) {
+					mes "[Oficial de Croix]";
+					mes "Parece que você acaba de voltar do campo de batalha.";
+					mes "É cedo demais para você sair de novo. Vá descansar, e deixe os inimigos conosco!";
+				}
+				else {
+					if (.@chk_urtime == 2)
+						erasequest 2069;
+					set .@mapcount,getmapusers("bat_a02");
+					if (.@mapcount > 0) {
+						mes "[Oficial de Croix]";
+						mes "Recebi um relatório informando que um grupo de elite já foi mandado para o campo de batalha para enfrentar os Guillaumes.";
+						mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+					}
+					else {
+						if ($@TierraBG2) {
+							mes "[Oficial de Croix]";
+							mes "Um grupo de elite já está aguardando para ser enviado ao campo de batalha.";
+							mes "Porque não espera mais um pouco? Por ora, sugiro que você afie suas armas e prepare seus equipamentos.";
+						}
+						else {
+							mes "[Oficial de Croix]";
+							mes "Você parece estar pronto para a batalha!";
+							mes "Vá mostrar aos Guillaumes o que é medo de verdade!";
+							mes "Hoje, o nosso grito da vitória ecoará por todo o campo de batalha!";
+							close2;
+							warp "bat_room",114,207;
+							end;
+						}
+					}
+				}
+			}
+		}
+		break;
+	case 2:
+		mes "[Oficial de Croix]";
+		mes "Hoje, seremos vitoriosos!";
+		break;
+	}
+	close;
+}
