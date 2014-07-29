@@ -355,9 +355,11 @@ int unit_walktoxy_timer(int tid, int64 tick, int id, intptr_t data) {
 int unit_delay_walktoxy_timer(int tid, int64 tick, int id, intptr_t data) {
 	struct block_list *bl = map->id2bl(id);
 
-	if (!bl || bl->prev == NULL)
+	if (!bl || !bl->prev)
 		return 0;
+		
 	unit->walktoxy(bl, (short)((data>>16)&0xffff), (short)(data&0xffff), 0);
+	
 	return 1;
 }
 
@@ -1552,14 +1554,7 @@ int unit_skilluse_pos2( struct block_list *src, short skill_x, short skill_y, ui
 	ud->state.skillcastcancel = castcancel&&casttime>0?1:0;
 	if( !sd || sd->skillitem != skill_id || skill->get_cast(skill_id,skill_lv) )
 		ud->canact_tick  = tick + casttime + 100;
-//	if( sd )
-//	{
-//		switch( skill_id )
-//		{
-//		case ????:
-//			sd->canequip_tick = tick + casttime;
-//		}
-//	}
+
 	ud->skill_id      = skill_id;
 	ud->skill_lv      = skill_lv;
 	ud->skillx       = skill_x;
@@ -1845,7 +1840,7 @@ int unit_attack_timer_sub(struct block_list* src, int tid, int64 tick) {
 		return 0;
 	if( ud->attacktimer != tid )
 	{
-		ShowError("unit_attack_timer %d != %d\n",ud->attacktimer,tid);
+		ShowError("Temporizador de ataque continuo encontra-se desproporcional (%d != %d).\n",ud->attacktimer,tid);
 		return 0;
 	}
 
@@ -2221,7 +2216,7 @@ int unit_remove_map(struct block_list *bl, clr_type clrtype, const char* file, i
 
 			if( map->list[bl->m].users <= 0 || sd->state.debug_remove_map ) {
 				// this is only place where map users is decreased, if the mobs were removed too soon then this function was executed too many times [FlavioJS]
-				if( sd->debug_file == NULL || !(sd->state.debug_remove_map) ) {
+				if( !sd->debug_file || !(sd->state.debug_remove_map) ) {
 					sd->debug_file = "";
 					sd->debug_line = 0;
 					sd->debug_func = "";
@@ -2416,19 +2411,19 @@ int unit_free(struct block_list *bl, clr_type clrtype) {
 				}
 				sd->sc_display_count = 0;
 			}
-			if( sd->sc_display != NULL ) {
+			if(sd->sc_display) {
 				aFree(sd->sc_display);
 				sd->sc_display = NULL;
 			}
-			if( sd->instance != NULL ) {
+			if(sd->instance) {
 				aFree(sd->instance);
 				sd->instance = NULL;
 			}
-			if( sd->queues != NULL ) {
+			if(sd->queues) {
 				aFree(sd->queues);
 				sd->queues = NULL;
 			}
-			if( sd->quest_log != NULL ) {
+			if(sd->quest_log) {
 				aFree(sd->quest_log);
 				sd->quest_log = NULL;
 				sd->num_quests = sd->avail_quests = 0;
@@ -2441,6 +2436,7 @@ int unit_free(struct block_list *bl, clr_type clrtype) {
 			struct pet_data *pd = (struct pet_data*)bl;
 			struct map_session_data *sd = pd->msd;
 			pet->hungry_timer_delete(pd);
+			
 			if( pd->a_skill )
 			{
 				aFree(pd->a_skill);

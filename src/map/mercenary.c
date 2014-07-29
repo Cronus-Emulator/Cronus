@@ -149,7 +149,7 @@ int mercenary_get_faith(struct mercenary_data *md)
 	struct map_session_data *sd;
 	int class_;
 
-	if( !md  || md->db || (sd = md->master) == NULL )
+	if( !md  || !md->db || (sd = md->master) == NULL )
 		return 0;
 
 	class_ = md->db->class_;
@@ -169,7 +169,7 @@ int mercenary_set_faith(struct mercenary_data *md, int value)
 	struct map_session_data *sd;
 	int class_, *faith;
 
-	if( md == NULL || md->db == NULL || (sd = md->master) == NULL )
+	if( !md || !md->db || (sd = md->master) == NULL )
 		return 0;
 
 	class_ = md->db->class_;
@@ -195,7 +195,7 @@ int mercenary_get_calls(struct mercenary_data *md)
 	struct map_session_data *sd;
 	int class_;
 
-	if( md == NULL || md->db == NULL || (sd = md->master) == NULL )
+	if( !md || !md->db || (sd = md->master) == NULL )
 		return 0;
 
 	class_ = md->db->class_;
@@ -215,7 +215,7 @@ int mercenary_set_calls(struct mercenary_data *md, int value)
 	struct map_session_data *sd;
 	int class_, *calls;
 
-	if( md == NULL || md->db == NULL || (sd = md->master) == NULL )
+	if( !md  || !md->db || (sd = md->master) == NULL )
 		return 0;
 
 	class_ = md->db->class_;
@@ -256,7 +256,7 @@ int merc_contract_end_timer(int tid, int64 tick, int id, intptr_t data) {
 
 	if( md->contract_timer != tid )
 	{
-		ShowError("Fim do contrato de ajudante: %d != %d.\n", md->contract_timer, tid);
+		ShowError("Fim do contrato de ajudante. (%d != %d)\n", md->contract_timer, tid);
 		return 0;
 	}
 
@@ -359,7 +359,7 @@ int merc_data_received(struct s_mercenary *merc, bool flag) {
 		mercenary->set_calls(md, 1);
 	sd->status.mer_id = merc->mercenary_id;
 
-	if( md && md->bl.prev == NULL && sd->bl.prev != NULL ) {
+	if( md && !md->bl.prev && sd->bl.prev) {
 		map->addblock(&md->bl);
 		clif->spawn(&md->bl);
 		clif->mercenary_info(sd);
@@ -457,11 +457,11 @@ bool read_mercenarydb_sub(char* str[], int columns, int current) {
 	mstatus->def_ele = ele%10;
 	mstatus->ele_lv = ele/20;
 	if( mstatus->def_ele >= ELE_MAX ) {
-		ShowWarning("Mercenary %d has invalid element type %d (max element is %d)\n", db->class_, mstatus->def_ele, ELE_MAX - 1);
+		ShowWarning("Ajudante (MERCID:%d) possui um tipo de elemento invalido (%d)!! Padronizando para Neutro...\n", db->class_, mstatus->def_ele);
 		mstatus->def_ele = ELE_NEUTRAL;
 	}
 	if( mstatus->ele_lv < 1 || mstatus->ele_lv > 4 ) {
-		ShowWarning("Mercenary %d has invalid element level %d (max is 4)\n", db->class_, mstatus->ele_lv);
+		ShowWarning("Ajudante (MERCID:%d) possui elemento de NV %d (max: 4)!! Reduzindo para 1...\n", db->class_, mstatus->ele_lv);
 		mstatus->ele_lv = 1;
 	}
 

@@ -537,10 +537,6 @@ int skillnotok (uint16 skill_id, struct map_session_data *sd)
 		case MC_VENDING:
 		case ALL_BUYING_STORE:
 			if( npc->isnear(&sd->bl) ) {
-				// uncomment for more verbose message.
-				//char output[150];
-				//sprintf(output, msg_txt(862), battle_config.min_npc_vendchat_distance); // "You're too close to a NPC, you must be at least %d cells away from any NPC."
-				//clif->message(sd->fd, output);
 				clif->skill_fail(sd,skill_id,USESKILL_FAIL_THERE_ARE_NPC_AROUND,0);
 				return 1;
 			}
@@ -15630,7 +15626,7 @@ int skill_get_new_group_id(void)
 		}
 		// full loop, nothing available
 		ShowFatalError("skill_get_new_group_id: All ids are taken. Exiting...");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -15698,17 +15694,13 @@ int skill_delunitgroup(struct skill_unit_group *group, const char* file, int lin
 	struct unit_data *ud;
 	int i,j;
 
-	if( group == NULL ) {
-		ShowDebug("skill_delunitgroup: group is NULL (source=%s:%d, %s)! Please report this! (#3504)\n", file, line, func);
-		return 0;
-	}
+	if(!group) return 0;
+
 
 	src=map->id2bl(group->src_id);
 	ud = unit->bl2ud(src);
-	if(!src || !ud) {
-		ShowError("skill_delunitgroup: Group's source not found! (src_id: %d skill_id: %d)\n", group->src_id, group->skill_id);
-		return 0;
-	}
+	
+	if(!src || !ud) return 0;
 
 	if( !status->isdead(src) && ((TBL_PC*)src)->state.warping && !((TBL_PC*)src)->state.changemap ) {
 		switch( group->skill_id ) {
@@ -16816,10 +16808,6 @@ int skill_produce_mix(struct map_session_data *sd, uint16 skill_id, int nameid, 
 			}
 		}
 
-//		if(log_config.produce > 0)
-//			log_produce(sd,nameid,slot1,slot2,slot3,1);
-//TODO update PICKLOG
-
 		if(equip){
 			clif->produce_effect(sd,0,nameid);
 			clif->misceffect(&sd->bl,3);
@@ -16926,10 +16914,7 @@ int skill_produce_mix(struct map_session_data *sd, uint16 skill_id, int nameid, 
 			return 1;
 		}
 	}
-	//Failure
-//	if(log_config.produce)
-//		log_produce(sd,nameid,slot1,slot2,slot3,0);
-//TODO update PICKLOG
+
 
 	if(equip){
 		clif->produce_effect(sd,1,nameid);
@@ -17450,7 +17435,8 @@ int skill_blockpc_start_(struct map_session_data *sd, uint16 skill_id, int tick)
 	}
 	
 	if( cd->cursor == MAX_SKILL_TREE ) {
-		ShowError("skill_blockpc_start: '%s' got over '%d' skill cooldowns, no room to save!\n",sd->status.name,MAX_SKILL_TREE);
+	    // Tem alguma tradução decente para cooldown? '-'
+		ShowError("Habilidade '%s' ultrapassou '%d' cooldowns. Falha em armazenar!\n",sd->status.name,MAX_SKILL_TREE);
 		return -1;
 	}
 	
@@ -17638,7 +17624,7 @@ void skill_init_unit_layout (void) {
 		switch (skill->db[i].nameid) {
 			case MG_FIREWALL:
 			case WZ_ICEWALL:
-			case WL_EARTHSTRAIN://Warlock
+			case WL_EARTHSTRAIN: //Warlock
 				// these will be handled later
 				break;
 			case PR_SANCTUARY:
@@ -17782,7 +17768,7 @@ void skill_init_unit_layout (void) {
 				}
 				break;
 			default:
-				ShowError("unknown unit layout at skill %d\n",i);
+				ShowError("Unidade desconhecida na habilidade %d\n",i);
 				break;
 		}
 		if (!skill->unit_layout[pos].count)
@@ -18025,7 +18011,7 @@ bool skill_parse_row_skilldb(char* split[], int columns, int current) {
 	||  (skill_id >= HM_SKILLRANGEMIN && skill_id <= HM_SKILLRANGEMAX)
 	||  (skill_id >= MC_SKILLRANGEMIN && skill_id <= MC_SKILLRANGEMAX)
 	||  (skill_id >= EL_SKILLRANGEMIN && skill_id <= EL_SKILLRANGEMAX) ) {
-		ShowWarning("skill_parse_row_skilldb: Skill id %d is forbidden (interferes with guild/homun/mercenary skill mapping)!\n", skill_id);
+		ShowWarning("Habilidade insuportada (SKID: %d)!!! Refere-se aos outros tipos de objeto!! Revertendo...\n", skill_id);
 		return false;
 	}
 
@@ -18273,11 +18259,11 @@ bool skill_parse_row_spellbookdb(char* split[], int columns, int current) {
 	int nameid = atoi(split[2]);
 
 	if( !skill->get_index(skill_id) || !skill->get_max(skill_id) )
-		ShowError("spellbook_db: Invalid skill ID %d\n", skill_id);
+		ShowError("Habilidade inexistente (Livro.Arq)(SKID:%d)\n", skill_id);
 	if ( !skill->get_inf(skill_id) )
-		ShowError("spellbook_db: Passive skills cannot be memorized (%d/%s)\n", skill_id, skill->get_name(skill_id));
+		ShowError("Habilidade passiva? (Livro.Arq)(SKID:%d | Nome:%s)\n", skill_id, skill->get_name(skill_id));
 	if( points < 1 )
-		ShowError("spellbook_db: PreservePoints have to be 1 or above! (%d/%s)\n", skill_id, skill->get_name(skill_id));
+		ShowError("Pontos para habilidade precisam ser acima de 1 (Livro.Arq) (SKID:%d | Nome:%s)\n", skill_id, skill->get_name(skill_id));
 	else {
 		skill->spellbook_db[current].skill_id = skill_id;
 		skill->spellbook_db[current].point = points;
@@ -18288,41 +18274,43 @@ bool skill_parse_row_spellbookdb(char* split[], int columns, int current) {
 
 	return false;
 }
+
 bool skill_parse_row_improvisedb(char* split[], int columns, int current) {
 // SkillID,Rate
 	uint16 skill_id = atoi(split[0]);
 	short j = atoi(split[1]);
 
 	if( !skill->get_index(skill_id) || !skill->get_max(skill_id) ) {
-		ShowError("skill_improvise_db: Invalid skill ID %d\n", skill_id);
+		ShowError("Habilidade inexistente (Hab. Improviso) (SKID:%d) \n", skill_id);
 		return false;
 	}
 	if ( !skill->get_inf(skill_id) ) {
-		ShowError("skill_improvise_db: Passive skills cannot be casted (%d/%s)\n", skill_id, skill->get_name(skill_id));
+		ShowError("Habilidade passiva? (Hab. Improviso) (SKID:%d | Nome:%s)\n", skill_id, skill->get_name(skill_id));
 		return false;
 	}
 	if( j < 1 ) {
-		ShowError("skill_improvise_db: Chances have to be 1 or above! (%d/%s)\n", skill_id, skill->get_name(skill_id));
+		ShowError("Chance de uso da habilidade precisa ser acima de 1 (Hab. Improviso) (SKID:%d | Nome:%s)\n", skill_id, skill->get_name(skill_id));
 		return false;
 	}
 	if( current >= MAX_SKILL_IMPROVISE_DB ) {
-		ShowError("skill_improvise_db: Maximum amount of entries reached (%d), increase MAX_SKILL_IMPROVISE_DB\n",MAX_SKILL_IMPROVISE_DB);
+		ShowError("Nro de habilidades excedem o definido em MAX_SKILL_IMPROVISE_DB (Lim:%d) (Hab. Improviso)\n",MAX_SKILL_IMPROVISE_DB);
 	}
 	skill->improvise_db[current].skill_id = skill_id;
 	skill->improvise_db[current].per = j; // Still need confirm it.
 
 	return true;
 }
+
 bool skill_parse_row_magicmushroomdb(char* split[], int column, int current) {
 // SkillID
 	uint16 skill_id = atoi(split[0]);
 
 	if( !skill->get_index(skill_id) || !skill->get_max(skill_id) ) {
-		ShowError("Habilidade inexistente (%d) para o uso no Cogumelo \n", skill_id);
+		ShowError("Habilidade inexistente (SKID:%d) para o uso no cogumelo.\n", skill_id);
 		return false;
 	}
 	if ( !skill->get_inf(skill_id) ) {
-		ShowError("Habilidade passiva no Cogumelo? Falha (%d/%s)\n", skill_id, skill->get_name(skill_id));
+		ShowError("Habilidade passiva no cogumelo? Falha (SKID:%d | Nome:%s)\n", skill_id, skill->get_name(skill_id));
 		return false;
 	}
 

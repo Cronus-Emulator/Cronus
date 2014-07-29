@@ -79,7 +79,7 @@ struct status_interface status_s;
 sc_type status_skill2sc(int skill_id) {
 	int idx;
 	if( (idx = skill->get_index(skill_id)) == 0 ) {
-		ShowError("status_skill2sc: Unsupported skill id %d\n", skill_id);
+		ShowError("Habilidade insuportada (SKID: %d).\n", skill_id);
 		return SC_NONE;
 	}
 	return status->Skill2SCTable[idx];
@@ -94,7 +94,7 @@ sc_type status_skill2sc(int skill_id) {
 int status_sc2skill(sc_type sc)
 {
 	if( sc < 0 || sc >= SC_MAX ) {
-		ShowError("status_sc2skill: Unsupported status change id %d\n", sc);
+		ShowError("Status insuportado (STID: %d).\n", sc);
 		return 0;
 	}
 
@@ -109,7 +109,7 @@ int status_sc2skill(sc_type sc)
 unsigned int status_sc2scb_flag(sc_type sc)
 {
 	if( sc < 0 || sc >= SC_MAX ) {
-		ShowError("status_sc2scb_flag: Unsupported status change id %d\n", sc);
+		ShowError("Status insuportado (STID (Flag): %d\n", sc);
 		return SCB_NONE;
 	}
 
@@ -124,7 +124,7 @@ unsigned int status_sc2scb_flag(sc_type sc)
 int status_type2relevant_bl_types(int type)
 {
 	if( type < 0 || type >= SI_MAX ) {
-		ShowError("status_type2relevant_bl_types: Unsupported type %d\n", type);
+		ShowError("Status insuportado (STID (SI): %d\n", type);
 		return BL_NUL;
 	}
 
@@ -134,11 +134,11 @@ int status_type2relevant_bl_types(int type)
 static void set_sc(uint16 skill_id, sc_type sc, int icon, unsigned int flag) {
 	uint16 idx;
 	if( (idx = skill->get_index(skill_id)) == 0 ) {
-		ShowError("set_sc: Unsupported skill id %d\n", skill_id);
+		ShowError("Habilidade insuportada (SKID: %d)\n", skill_id);
 		return;
 	}
 	if( sc < 0 || sc >= SC_MAX ) {
-		ShowError("set_sc: Unsupported status change id %d\n", sc);
+		ShowError("Status insuportado (STID: %d).\n", sc);
 		return;
 	}
 
@@ -2228,7 +2228,7 @@ int status_calc_mob_(struct mob_data* md, enum e_status_calc_opt opt) {
 		struct guild_castle *gc;
 		gc=guild->mapname2gc(map->list[md->bl.m].name);
 		if (!gc)
-			ShowError("status_calc_mob: No castle set at map %s\n", map->list[md->bl.m].name);
+			ShowError("Sem castelo pronto no mapa %s\n", map->list[md->bl.m].name);
 		else
 			if(gc->castle_id < 24 || md->class_ == MOBID_EMPERIUM) {
 #ifdef RENEWAL
@@ -3859,10 +3859,6 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag) {
 			unit->stop_walking(bl,1);
 	}
 
-	// No status changes alter these yet.
-	//	if(flag&SCB_SIZE)
-	// if(flag&SCB_RACE)
-	// if(flag&SCB_RANGE)
 
 	if(flag&SCB_MAXHP) {
 		if( bl->type&BL_PC ) {
@@ -4562,9 +4558,6 @@ unsigned short status_calc_batk(struct block_list *bl, struct status_change *sc,
 		batk -= batk * 25/100;
 	if( sc->data[SC_ZANGETSU] )
 		batk += sc->data[SC_ZANGETSU]->val2;
-	//Curse shouldn't effect on this?  <- Curse OR Bleeding??
-	//	if(sc->data[SC_BLOODING])
-	//		batk -= batk * 25/100;
 	if(sc->data[SC_HLIF_FLEET])
 		batk += batk * sc->data[SC_HLIF_FLEET]->val3/100;
 	if(sc->data[SC__ENERVATION])
@@ -5903,6 +5896,7 @@ int status_get_lv(struct block_list *bl) {
 struct regen_data *status_get_regen_data(struct block_list *bl)
 {
 	if (!bl) return NULL;
+	
 	switch (bl->type) {
 		case BL_PC:  return &((TBL_PC*)bl)->regen;
 		case BL_HOM: return &((TBL_HOM*)bl)->regen;
@@ -6202,7 +6196,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			} else if (vd)
 				memcpy(&sd->vd, vd, sizeof(struct view_data));
 			else
-				ShowError("status_set_viewdata (PC): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo Jogador.\n", class_);
 		}
 		break;
 	case BL_MOB:
@@ -6211,7 +6205,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				md->vd = vd;
 			else
-				ShowError("status_set_viewdata (MOB): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo Monstro.\n", class_);
 		}
 		break;
 	case BL_PET:
@@ -6228,7 +6222,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 					}
 				}
 			} else
-				ShowError("status_set_viewdata (PET): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo Mascote.\n", class_);
 		}
 		break;
 	case BL_NPC:
@@ -6237,7 +6231,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				nd->vd = vd;
 			else
-				ShowError("status_set_viewdata (NPC): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo NPC.\n", class_);
 		}
 		break;
 	case BL_HOM:		//[blackhole89]
@@ -6246,7 +6240,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				hd->vd = vd;
 			else
-				ShowError("status_set_viewdata (HOMUNCULUS): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo Homunculo.\n", class_);
 		}
 		break;
 	case BL_MER:
@@ -6255,7 +6249,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				md->vd = vd;
 			else
-				ShowError("status_set_viewdata (MERCENARY): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo Ajudante.\n", class_);
 		}
 		break;
 	case BL_ELEM:
@@ -6264,7 +6258,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				ed->vd = vd;
 			else
-				ShowError("status_set_viewdata (ELEMENTAL): No view data for class %d\n", class_);
+				ShowError("Falha em visualizar dados para classe %d do tipo Elemental.\n", class_);
 		}
 		break;
 	}
@@ -6773,7 +6767,7 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 	st = status->get_status_data(bl);
 
 	if( type <= SC_NONE || type >= SC_MAX ) {
-		ShowError("status_change_start: invalid status change (%d)!\n", type);
+		ShowError("Status insuportado!! (STID: %d)\n", type);
 		return 0;
 	}
 
@@ -8384,15 +8378,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			case SC_KAIZEL:
 				val2 = 10*val1; //% of life to be revived with
 				break;
-				// case SC_ARMORPROPERTY:
-				// case SC_ARMOR_RESIST:
-				// Mod your resistance against elements:
-				// val1 = water | val2 = earth | val3 = fire | val4 = wind
-				// break;
-				//case ????:
-				//Place here SCs that have no SCB_* data, no skill associated, no ICON
-				//associated, and yet are not wrong/unknown. [Skotlex]
-				//break;
 
 			case SC_MER_FLEE:
 			case SC_MER_ATK:
@@ -8677,10 +8662,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 				tick_time = 5000; // [GodLesZ] tick time
 				break;
 			case SC_SATURDAY_NIGHT_FEVER:
-				/*val2 = 12000 - 2000 * val1;//HP/SP Drain Timer
-				if ( val2 < 1000 )
-					val2 = 1000;//Added to prevent val3 from dividing by 0 when using level 6 or higher through commands. [Rytech]
-				val3 = tick/val2;*/
 				val3 = tick / 3000;
 				tick_time = 3000;// [GodLesZ] tick time
 				break;
@@ -8725,7 +8706,7 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			case SC_UNLIMITED_HUMMING_VOICE:
 				{
 					struct unit_data *ud = unit->bl2ud(bl);
-					if( ud == NULL ) return 0;
+					if(!ud) return 0;
 					ud->state.skillcastcancel = 0;
 					val3 = 15 - (3 * val2);//Increased SP Cost.
 				}
@@ -9019,7 +9000,7 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			default:
 				if( calc_flag == SCB_NONE && status->SkillChangeTable[type] == 0 && status->IconChangeTable[type] == 0 )
 				{	//Status change with no calc, no icon, and no skill associated...?
-					ShowError("UnknownStatusChange [%d]\n", type);
+					ShowError("Status desconhecido! (%d)\n", type);
 					return 0;
 				}
 		}
@@ -9340,10 +9321,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			opt_flag = 0;
 			sc->opt3 |= OPT3_BERSERK;
 			break;
-//		case ???: // doesn't seem to do anything
-//			sc->opt3 |= OPT3_LIGHTBLADE;
-//			opt_flag = 0;
-//			break;
 		case SC_DANCING:
 			if ((val1&0xFFFF) == CG_MOONLIT)
 				sc->opt3 |= OPT3_MOONLIT;
@@ -9378,11 +9355,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			sc->opt3 |= OPT3_UNDEAD;
 			opt_flag = 0;
 			break;
-//		case ???: // from DA_CONTRACT (looks like biolab mobs aura)
-//			sc->opt3 |= OPT3_CONTRACT;
-//			opt_flag = 0;
-//			break;
-		//OPTION
 		case SC_HIDING:
 			sc->option |= OPTION_HIDE;
 			opt_flag = 2;
@@ -9598,7 +9570,7 @@ int status_change_clear(struct block_list* bl, int type) {
 		if(type == 0){
 			if( status->get_sc_type(i)&SC_NO_REM_DEATH ) {
 				switch (i) {
-					case SC_ARMOR_PROPERTY://Only when its Holy or Dark that it doesn't dispell on death
+					case SC_ARMOR_PROPERTY: //Only when its Holy or Dark that it doesn't dispell on death
 						if( sc->data[i]->val2 != ELE_HOLY && sc->data[i]->val2 != ELE_DARK )
 							break;
 					default:
@@ -9839,7 +9811,7 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 				{// erase associated land skill
 					group = skill->id2group(sce->val2);
 
-					if( group == NULL )
+					if(!group)
 					{
 						ShowDebug("status_change_end: SC_DANCING is missing skill unit group (val1=%d, val2=%d, val3=%d, val4=%d, timer=%d, tid=%d, char_id=%d, map=%s, x=%d, y=%d, prev=%s:%d, from=%s:%d). Please report this! (#3504)\n",
 							sce->val1, sce->val2, sce->val3, sce->val4, sce->timer, tid,
@@ -10291,10 +10263,6 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 			opt_flag = 0;
 			sc->opt3 &= ~OPT3_BERSERK;
 			break;
-			//	case ???: // doesn't seem to do anything
-			//		sc->opt3 &= ~OPT3_LIGHTBLADE;
-			//		opt_flag = 0;
-			//		break;
 		case SC_DANCING:
 			if ((sce->val1&0xFFFF) == CG_MOONLIT)
 				sc->opt3 &= ~OPT3_MOONLIT;
@@ -10425,10 +10393,9 @@ int status_change_timer(int tid, int64 tick, int id, intptr_t data) {
 	struct status_change_entry *sce;
 
 	bl = map->id2bl(id);
-	if(!bl) {
-		ShowDebug("status_change_timer: Null pointer id: %d data: %d\n", id, data);
-		return 0;
-	}
+	
+	if(!bl) return 0;
+	
 	sc = status->get_sc(bl);
 	st = status->get_status_data(bl);
 
@@ -10698,12 +10665,7 @@ int status_change_timer(int tid, int64 tick, int id, intptr_t data) {
 			break;
 
 		case SC_SPLASHER:
-			// custom Venom Splasher countdown timer
-			//if (sce->val4 % 1000 == 0) {
-			//	char counter[10];
-			//	snprintf (counter, 10, "%d", sce->val4/1000);
-			//	clif->message(bl, counter);
-			//}
+
 			if((sce->val4 -= 500) > 0) {
 				sc_timer_next(500 + tick, status->change_timer, bl->id, data);
 				return 0;

@@ -142,7 +142,7 @@ bool mapreg_setregstr(int64 uid, const char* str) {
 	unsigned int i   = script_getvaridx(uid);
 	const char* name = script->get_str(num);
 
-	if( str == NULL || *str == 0 ) {
+	if( !str || *str == 0 ) {
 		if( i )
 			script->array_update(&mapreg->regs, uid, true);
 		if(name[1] != '@') {
@@ -157,7 +157,7 @@ bool mapreg_setregstr(int64 uid, const char* str) {
 		i64db_remove(mapreg->regs.vars, uid);
 	} else {
 		if( (m = i64db_get(mapreg->regs.vars, uid)) ) {
-			if( m->u.str != NULL )
+			if( m->u.str)
 				aFree(m->u.str);
 			m->u.str = aStrdup(str);
 			if(name[1] != '@') {

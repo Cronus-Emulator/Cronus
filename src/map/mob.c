@@ -103,12 +103,12 @@ static struct {
 } summon[MAX_RANDOMMONSTER];
 
 struct mob_db *mob_db(int index) {
-	if (index < 0 || index > MAX_MOB_DB || mob->db_data[index] == NULL)
+	if (index < 0 || index > MAX_MOB_DB || !mob->db_data[index])
 		return mob->dummy;
 	return mob->db_data[index];
 }
 struct mob_chat *mob_chat(short id) {
-	if(id <= 0 || id > MAX_MOB_CHAT || mob->chat_db[id] == NULL)
+	if(id <= 0 || id > MAX_MOB_CHAT || !mob->chat_db[id])
 		return NULL;
 	return mob->chat_db[id];
 }
@@ -1427,7 +1427,7 @@ bool mob_ai_sub_hard(struct mob_data *md, int64 tick) {
 	int mode;
 	int view_range, can_move;
 
-	if(md->bl.prev == NULL || md->status.hp == 0)
+	if(!md->bl.prev || md->status.hp == 0)
 		return false;
 
 	if (DIFF_TICK(tick, md->last_thinktime) < MIN_MOBTHINKTIME)
@@ -1499,7 +1499,7 @@ bool mob_ai_sub_hard(struct mob_data *md, int64 tick) {
 		else
 		if( (abl = map->id2bl(md->attacked_id)) && (!tbl || mob->can_changetarget(md, abl, mode) || (md->sc.count && md->sc.data[SC__CHAOS]))) {
 			int dist;
-			if( md->bl.m != abl->m || abl->prev == NULL
+			if( md->bl.m != abl->m || !abl->prev
 			 || (dist = distance_bl(&md->bl, abl)) >= MAX_MINCHASE // Attacker longer than visual area
 			 || battle->check_target(&md->bl, abl, BCT_ENEMY) <= 0 // Attacker is not enemy of mob
 			 || (battle_config.mob_ai&0x2 && !status->check_skilluse(&md->bl, abl, 0, 0)) // Cannot normal attack back to Attacker
@@ -1592,7 +1592,7 @@ bool mob_ai_sub_hard(struct mob_data *md, int64 tick) {
 		struct flooritem_data *fitem;
 		if (md->ud.target == tbl->id && md->ud.walktimer != INVALID_TIMER)
 			return true; //Already locked.
-		if (md->lootitem == NULL)
+		if (!md->lootitem)
 		{	//Can't loot...
 			mob->unlocktarget (md, tick);
 			return true;
@@ -1726,7 +1726,7 @@ int mob_ai_sub_lazy(struct mob_data *md, va_list args) {
 
 	if (!md) return 0;
 
-	if(md->bl.prev == NULL)
+	if(!md->bl.prev)
 		return 0;
 
 	tick = va_arg(args, int64);
@@ -1734,7 +1734,7 @@ int mob_ai_sub_lazy(struct mob_data *md, va_list args) {
 	if (battle_config.mob_ai&0x20 && map->list[md->bl.m].users>0)
 		return (int)mob->ai_sub_hard(md, tick);
 
-	if (md->bl.prev==NULL || md->status.hp == 0)
+	if (!md->bl.prev || md->status.hp == 0)
 		return 1;
 
 	if(battle_config.mob_active_time &&
@@ -2763,7 +2763,7 @@ int mob_class_change (struct mob_data *md, int class_)
 
 	if (!md) return 0;
 
-	if( md->bl.prev == NULL )
+	if(!md->bl.prev)
 		return 0;
 
 	//Disable class changing for some targets...
@@ -3925,7 +3925,7 @@ bool mob_parse_dbrow(char** str) {
 		}
 	}
 	// Finally insert monster's data into the database.
-	if (mob->db_data[class_] == NULL)
+	if (!mob->db_data[class_])
 		mob->db_data[class_] = aMalloc(sizeof(struct mob_db));
 	else
 		//Copy over spawn data
@@ -4107,7 +4107,7 @@ int mob_read_randommonster(void)
 				if(p) *p++=0;
 			}
 
-			if(str[0]==NULL || str[2]==NULL)
+			if(!str[0] || !str[2])
 				continue;
 
 			class_ = atoi(str[0]);
@@ -4620,7 +4620,7 @@ bool mob_readdb_itemratio(char* str[], int columns, int current)
 	int nameid, ratio, i;
 	nameid = atoi(str[0]);
 
-	if( itemdb->exists(nameid) == NULL )
+	if(!itemdb->exists(nameid))
 	{
 		ShowWarning("itemdb_read_itemratio: Invalid item id %d.\n", nameid);
 		return false;
@@ -4628,7 +4628,7 @@ bool mob_readdb_itemratio(char* str[], int columns, int current)
 
 	ratio = atoi(str[1]);
 
-	if(item_drop_ratio_db[nameid] == NULL)
+	if(!item_drop_ratio_db[nameid])
 		item_drop_ratio_db[nameid] = (struct item_drop_ratio*)aCalloc(1, sizeof(struct item_drop_ratio));
 
 	item_drop_ratio_db[nameid]->drop_ratio = ratio;
@@ -4727,7 +4727,7 @@ int do_final_mob(void)
 	}
 	for (i = 0; i <= MAX_MOB_DB; i++)
 	{
-		if (mob->db_data[i] != NULL)
+		if (mob->db_data[i])
 		{
 			aFree(mob->db_data[i]);
 			mob->db_data[i] = NULL;
@@ -4735,7 +4735,7 @@ int do_final_mob(void)
 	}
 	for (i = 0; i <= MAX_MOB_CHAT; i++)
 	{
-		if (mob->chat_db[i] != NULL)
+		if (mob->chat_db[i])
 		{
 			aFree(mob->chat_db[i]);
 			mob->chat_db[i] = NULL;
@@ -4743,7 +4743,7 @@ int do_final_mob(void)
 	}
 	for (i = 0; i < MAX_ITEMDB; i++)
 	{
-		if (item_drop_ratio_db[i] != NULL)
+		if (item_drop_ratio_db[i])
 		{
 			aFree(item_drop_ratio_db[i]);
 			item_drop_ratio_db[i] = NULL;

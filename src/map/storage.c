@@ -317,8 +317,8 @@ int storage_storageaddfromcart(struct map_session_data* sd, int index, int amoun
  *	1 : success
  *------------------------------------------*/
 int storage_storagegettocart(struct map_session_data* sd, int index, int amount) {
-	int flag = 0;
-	if (!sd) return 0;
+
+    if (!sd) return 0;
 
 	if( index < 0 || index >= MAX_STORAGE )
 		return 0;
@@ -328,6 +328,9 @@ int storage_storagegettocart(struct map_session_data* sd, int index, int amount)
 	
 	if( amount < 1 || amount > sd->status.storage.items[index].amount )
 		return 0;
+		
+
+	int flag = 0;
 	
 	if( (flag = pc->cart_additem(sd,&sd->status.storage.items[index],amount,LOG_TYPE_STORAGE)) == 0 )
 		storage->delitem(sd,index,amount);
@@ -374,7 +377,7 @@ void storage_storage_quit(struct map_session_data* sd, int flag) {
 DBData create_guildstorage(DBKey key, va_list args)
 {
 	struct guild_storage *gs = NULL;
-	gs = (struct guild_storage *) aCalloc(sizeof(struct guild_storage), 1);
+	gs = aCalloc(sizeof(struct guild_storage), 1);
 	gs->guild_id=key.i;
 	return DB->ptr2data(gs);
 }
@@ -382,7 +385,7 @@ DBData create_guildstorage(DBKey key, va_list args)
 struct guild_storage *guild2storage(int guild_id)
 {
 	struct guild_storage *gs = NULL;
-	if(guild->search(guild_id) != NULL)
+	if(guild->search(guild_id))
 		gs = idb_ensure(gstorage->db,guild_id,gstorage->create);
 	return gs;
 }
@@ -447,14 +450,13 @@ int storage_guild_storageopen(struct map_session_data* sd)
  *------------------------------------------*/
 int guild_storage_additem(struct map_session_data* sd, struct guild_storage* stor, struct item* item_data, int amount)
 {
-	struct item_data *data;
-	int i;
-	
+
 	if (!sd || !stor || !item_data) return 1;
 
 	if(item_data->nameid <= 0 || amount <= 0)
 		return 1;
-
+		
+	struct item_data *data;
 	data = itemdb->search(item_data->nameid);
 
 	if( data->stack.guildstorage && amount > data->stack.amount )
@@ -473,6 +475,7 @@ int guild_storage_additem(struct map_session_data* sd, struct guild_storage* sto
 		return 1;
 	}
 	
+	int i;
 	if(itemdb->isstackable2(data)){ //Stackable
 		for(i=0;i<MAX_GUILD_STORAGE;i++){
 			if(compare_item(&stor->items[i], item_data)) {
