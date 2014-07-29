@@ -1,4 +1,4 @@
-/*-------------------------------------------------------------------------|
+﻿/*-------------------------------------------------------------------------|
 | _________                                                                |
 | \_   ___ \_______  ____   ____  __ __  ______                            |
 | /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
@@ -137,7 +137,7 @@
 #define NAME_LENGTH (23 + 1)
 
 //Apenas para nomes de npcs.
-#define NPC_DISPLAYNAME_LENGTH 36
+#define NPC_NAME_LENGTH 36
 
 //For item names, which tend to have much longer names.
 #define ITEM_NAME_LENGTH 50
