@@ -83,14 +83,17 @@ struct unit_interface unit_s;
  **/
 struct unit_data* unit_bl2ud(struct block_list *bl) {
 	if(!bl) return NULL;
-	if( bl->type == BL_PC)  return &((struct map_session_data*)bl)->ud;
-	if( bl->type == BL_MOB) return &((struct mob_data*)bl)->ud;
-	if( bl->type == BL_PET) return &((struct pet_data*)bl)->ud;
-	if( bl->type == BL_NPC) return ((struct npc_data*)bl)->ud;
-	if( bl->type == BL_HOM) return &((struct homun_data*)bl)->ud;
-	if( bl->type == BL_MER) return &((struct mercenary_data*)bl)->ud;
-	if( bl->type == BL_ELEM) return &((struct elemental_data*)bl)->ud;
-	return NULL;
+	switch (bl->type) {
+	  case BL_PC:   return &((struct map_session_data*)bl)->ud;  
+	  case BL_MOB:  return &((struct mob_data*)bl)->ud;          
+	  case BL_PET:  return &((struct pet_data*)bl)->ud;         
+	  case BL_NPC:  return ((struct npc_data*)bl)->ud;           
+	  case BL_HOM:  return &((struct homun_data*)bl)->ud;        
+	  case BL_MER:  return &((struct mercenary_data*)bl)->ud;    
+	  case BL_ELEM: return &((struct elemental_data*)bl)->ud;    
+	default:
+	  return NULL;
+	}
 }
 
 /**

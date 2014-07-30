@@ -1073,7 +1073,7 @@ int mmo_auth(struct login_session_data* sd, bool isServer) {
 
 			if( !sd->has_client_hash ) {
 			    // Sim, ele sofre lapsos de memória rsrs
-				ShowNotice("Cliente esqueceu de enviar o hash! (Conta:%s | Senha:%s | IP:%s)\n", sd->userid, sd->passwd, acc.state, ip);
+				ShowNotice("Cliente esqueceu de enviar o hash! (Conta:%s | Senha:%s | IP:%s)\n", sd->userid, sd->passwd, ip);
 				return 5;
 			}
 
