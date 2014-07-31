@@ -224,7 +224,7 @@ int map_addblock(struct block_list* bl)
 
 	if (!bl) return 0;
 
-	if (bl->prev != NULL) {
+	if (bl->prev) {
 		ShowError("map_addblock: bl->prev != NULL\n");
 		return 1;
 	}
@@ -271,8 +271,8 @@ int map_delblock(struct block_list* bl)
 	if (!bl) return 0;
 
 	// blocklist (2ways chainlist)
-	if (bl->prev == NULL) {
-		if (bl->next != NULL) {
+	if (!bl->prev) {
+		if (bl->next) {
 			// can't delete block (already at the beginning of the chain)
 			ShowError("Falha em remover bloco.\n");
 		}

@@ -50,12 +50,11 @@ Equipe Atual
 
 ### Coordenadores
 - Kooler	    - Gustavo Bucci
-- Wolf		     - João Victor Senos
+- Schrwaizer    - Junior Backes 
 
 ### Desenvolvedores
 - xChiron    - Diego da Silva Pinheiro
 - Cainho     - Caio Mateus
-- Schrwaizer - Junior Backes 
 - Shermie
 - SoulBlaker - Romulo
 - MaatSF     - Matheus Freitas

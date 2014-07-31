@@ -1108,9 +1108,9 @@ int unit_set_walkdelay(struct block_list *bl, int64 tick, int delay, int type) {
 }
 
 int unit_skilluse_id2(struct block_list *src, int target_id, uint16 skill_id, uint16 skill_lv, int casttime, int castcancel) {
-	struct unit_data *ud;
-	struct status_data *tstatus;
-	struct status_change *sc;
+	struct unit_data *ud = NULL;
+	struct status_data *tstatus = NULL;
+	struct status_change *sc = NULL;
 	struct map_session_data *sd = NULL;
 	struct block_list * target = NULL;
 	int64 tick = timer->gettick();
@@ -1478,14 +1478,15 @@ int unit_skilluse_pos2( struct block_list *src, short skill_x, short skill_y, ui
 {
 	struct map_session_data *sd = NULL;
 	struct unit_data        *ud = NULL;
-	struct status_change *sc;
+	struct status_change *sc = NULL;
 	struct block_list    bl;
 	int64 tick = timer->gettick();
 	int range;
 
 	if (!src) return 0;
-
+	
 	if (!src->prev) return 0; // not on the map
+	
 	if(status->isdead(src)) return 0;
 
 	sd = BL_CAST(BL_PC, src);

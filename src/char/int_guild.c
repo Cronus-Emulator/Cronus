@@ -1683,7 +1683,8 @@ int mapif_parse_GuildSkillUp(int fd,int guild_id,uint16 skill_id,int account_id,
 	int idx = skill_id - GD_SKILLBASE;
 
 	g = inter_guild_fromsql(guild_id);
-	if(g == NULL || idx < 0 || idx >= MAX_GUILDSKILL)
+	
+	if(!g || idx < 0 || idx >= MAX_GUILDSKILL)
 		return 0;
 
 	if(g->skill_point>0 && g->skill[idx].id>0 && g->skill[idx].lv<max )

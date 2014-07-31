@@ -1366,9 +1366,10 @@ int guild_skillupack(int guild_id,uint16 skill_id,int account_id) {
 	struct map_session_data *sd=map->id2sd(account_id);
 	struct guild *g=guild->search(guild_id);
 	int i;
-	if(g==NULL)
-		return 0;
-	if( sd != NULL ) {
+	
+	if(!g) return 0;
+	
+	if(sd) {
 		clif->skillup(sd,skill_id,g->skill[skill_id-GD_SKILLBASE].lv, 0);
 
 		/* Guild Aura handling */
@@ -1393,19 +1394,24 @@ int guild_skillupack(int guild_id,uint16 skill_id,int account_id) {
 void guild_guildaura_refresh(struct map_session_data *sd, uint16 skill_id, uint16 skill_lv) {
 	struct skill_unit_group* group = NULL;
 	int type = status->skill2sc(skill_id);
+	
 	if( !(battle_config.guild_aura&((map->agit_flag || map->agit2_flag)?2:1))
 	 && !(battle_config.guild_aura&(map_flag_gvg2(sd->bl.m)?8:4)) )
 		return;
+		
 	if( !skill_lv )
 		return;
+		
 	if( sd->sc.data[type] && (group = skill->id2group(sd->sc.data[type]->val4)) ) {
 		skill->del_unitgroup(group,ALC_MARK);
 		status_change_end(&sd->bl,type,INVALID_TIMER);
 	}
+	
 	group = skill->unitsetting(&sd->bl,skill_id,skill_lv,sd->bl.x,sd->bl.y,0);
-	if( group ) {
+	
+	if( group )
 		sc_start4(NULL,&sd->bl,type,100,(battle_config.guild_aura&16)?0:skill_lv,0,0,group->group_id,600000);//duration doesn't matter these status never end with val4
-	}
+	
 	return;
 }
 

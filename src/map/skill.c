@@ -353,7 +353,7 @@ int skill_calc_heal(struct block_list *src, struct block_list *target, uint16 sk
 	int skill2_lv, hp;
 	struct map_session_data *sd = BL_CAST(BL_PC, src);
 	struct map_session_data *tsd = BL_CAST(BL_PC, target);
-	struct status_change* sc;
+	struct status_change* sc = NULL;
 
 	if (!src) return 0;
 
@@ -3097,7 +3097,8 @@ int skill_area_sub_count(struct block_list *src, struct block_list *target, uint
  *
  *------------------------------------------*/
 int skill_timerskill(int tid, int64 tick, int id, intptr_t data) {
-	struct block_list *src = map->id2bl(id),*target;
+	struct block_list *src = map->id2bl(id);
+	struct block_list *target = NULL;
 	struct unit_data *ud = unit->bl2ud(src);
 	struct skill_timerskill *skl;
 	int range;
@@ -4676,31 +4677,25 @@ int skill_castend_damage_id(struct block_list* src, struct block_list *bl, uint1
  *
  *------------------------------------------*/
 int skill_castend_id(int tid, int64 tick, int id, intptr_t data) {
-	struct block_list *target, *src;
-	struct map_session_data *sd;
-	struct mob_data *md;
-	struct unit_data *ud;
+	struct block_list *target = NULL;
+	struct block_list *src = NULL;
+	struct map_session_data *sd = NULL;
+	struct mob_data *md  = NULL;
+	struct unit_data *ud  = NULL;
 	struct status_change *sc = NULL;
 	int inf,inf2,flag = 0;
 
 	src = map->id2bl(id);
-	if( src == NULL )
-	{
-		ShowDebug("skill_castend_id: src == NULL (tid=%d, id=%d)\n", tid, id);
-		return 0;// not found
-	}
+	if(!src) return 0;
 
 	ud = unit->bl2ud(src);
-	if( ud == NULL )
-	{
-		ShowDebug("skill_castend_id: ud == NULL (tid=%d, id=%d)\n", tid, id);
-		return 0;// ???
-	}
+	if(!ud) return 0;
+
 
 	sd = BL_CAST(BL_PC,  src);
 	md = BL_CAST(BL_MOB, src);
 
-	if( src->prev == NULL ) {
+	if(!src->prev) {
 		ud->skilltimer = INVALID_TIMER;
 		return 0;
 	}
@@ -8899,7 +8894,7 @@ int skill_castend_nodamage_id(struct block_list *src, struct block_list *bl, uin
 			if ( flag&1 )
 				sc_start2(src,bl,type,100,skill_lv,src->id,skill->get_time(skill_id,skill_lv));
 			else if ( sd ) {
-				int rate = 4 * skill_lv + 2 * (sd ? pc->checkskill(sd,WM_LESSON) : 1) + status->get_lv(src) / 15 + (sd? sd->status.job_level:0) / 5;
+				int rate = 4 * skill_lv + 2 * (sd ? pc->checkskill(sd,WM_LESSON) : 1) + status->get_lv(src) / 15 + sd->status.job_level/5;
 				if ( rnd()%100 < rate ) {
 					flag |= BCT_PARTY|BCT_GUILD;
 					map->foreachinrange(skill->area_sub, src, skill->get_splash(skill_id,skill_lv),BL_CHAR|BL_NPC|BL_SKILL, src, skill_id, skill_lv, tick, flag|BCT_ENEMY|1, skill->castend_nodamage_id);
@@ -10652,6 +10647,8 @@ bool skill_dance_switch(struct skill_unit* su, int flag) {
 	static int prevflag = 1;  // by default the backup is empty
 	static struct skill_unit_group backup;
 	struct skill_unit_group* group = su->group;
+	
+	if (!group) return false;
 
 	// val2&UF_ENSEMBLE is a hack to indicate dissonance
 	if ( !(group->state.song_dance&0x1 && su->val2&UF_ENSEMBLE) )
@@ -12399,29 +12396,18 @@ int skill_unit_ondamaged(struct skill_unit *src, struct block_list *bl, int64 da
  *------------------------------------------*/
 int skill_check_condition_char_sub (struct block_list *bl, va_list ap) {
 	int *c, skill_id;
-	struct block_list *src;
-	struct map_session_data *sd;
-	struct map_session_data *tsd;
+	struct block_list *src = NULL;
+	struct map_session_data *sd = NULL;
+	struct map_session_data *tsd = NULL;
 	int *p_sd;	//Contains the list of characters found.
-	
-	// Gambiarra Mode on
+
 
 	if (!bl) return 0;
-	
 	tsd=(struct map_session_data*)bl;
-	
-	if (!tsd) return 0;
-	
 	src=va_arg(ap,struct block_list *);
-	
 	if (!src) return 0;
-	
 	sd=(struct map_session_data*)src;
 	
-	if (!sd) return 0;
-	
-	// Gambiarra mode off
-
 	c=va_arg(ap,int *);
 	p_sd = va_arg(ap, int *);
 	skill_id = va_arg(ap,int);
@@ -15527,16 +15513,12 @@ struct skill_unit *skill_initunit (struct skill_unit_group *group, int idx, int 
  *------------------------------------------*/
 int skill_delunit (struct skill_unit* su) {
 
-	struct skill_unit_group *group;
+	struct skill_unit_group *group = NULL;
 
 	if (!su) return 0;
-	if (!su->alive) return 0;
-	
-	su->alive=0; // Redundant, but mantain to figure out the real use.
-	
+	if (!su->alive) return 0;	
 	group=su->group;
-	
-	if(!su->alive) return 0;
+	if (!group) return 0;
 
 
 	if( group->state.song_dance&0x1 ) //Cancel dissonance effect.
@@ -15632,13 +15614,15 @@ int skill_get_new_group_id(void)
 
 struct skill_unit_group* skill_initunitgroup (struct block_list* src, int count, uint16 skill_id, uint16 skill_lv, int unit_id, int limit, int interval)
 {
-	struct unit_data* ud = unit->bl2ud( src );
-	struct skill_unit_group* group;
+	struct unit_data* ud = NULL;
+	struct skill_unit_group* group = NULL;
 	int i;
 
 	if(!(skill_id && skill_lv)) return 0;
-
-	if (!src || !ud) return NULL;
+    
+	if (!src) return NULL;
+	ud = unit->bl2ud( src );
+	if (!ud) return NULL;
 
 	// find a free spot to store the new unit group
 	ARR_FIND( 0, MAX_SKILLUNITGROUP, i, ud->skillunit[i] == NULL );
@@ -15690,17 +15674,16 @@ struct skill_unit_group* skill_initunitgroup (struct block_list* src, int count,
  *
  *------------------------------------------*/
 int skill_delunitgroup(struct skill_unit_group *group, const char* file, int line, const char* func) {
-	struct block_list* src;
-	struct unit_data *ud;
+	struct block_list* src = NULL;
+	struct unit_data *ud = NULL;
 	int i,j;
 
 	if(!group) return 0;
-
-
 	src=map->id2bl(group->src_id);
+	if (!src) return 0;
 	ud = unit->bl2ud(src);
+	if(!ud) return 0;
 	
-	if(!src || !ud) return 0;
 
 	if( !status->isdead(src) && ((TBL_PC*)src)->state.warping && !((TBL_PC*)src)->state.changemap ) {
 		switch( group->skill_id ) {
@@ -15785,12 +15768,12 @@ int skill_delunitgroup(struct skill_unit_group *group, const char* file, int lin
 	group->alive_count=0;
 
 	// remove all unit cells
-	if(group->unit != NULL)
+	if(group->unit)
 		for( i = 0; i < group->unit_count; i++ )
 			skill->delunit(&group->unit[i]);
 
 	// clear Talkie-box string
-	if( group->valstr != NULL ) {
+	if( group->valstr) {
 		aFree(group->valstr);
 		group->valstr = NULL;
 	}
