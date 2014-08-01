@@ -1,21 +1,32 @@
-//===== Hercules Script ======================================
-//= Treasure Room Protection
-//===== By: ==================================================
-//= Masao
-//===== Current Version: =====================================
-//= 1.1
-//===== Description: =========================================
-//= Warps every Player out of the Treasure Room except for the
-//= Guildleader.
-//===== Additional Comments: =================================
-//= 1.0 Converted from the official script.
-//= 1.1 Reverted back and optimized. [Daegaladh]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-				    www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-           Proteções da Sala do Tesouro                    -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  Masao e Daegaladh.                                       -
+//-------------------------------------------------------------
+//- Versão: 1.1                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-	 Teleporta qualquer jogador, exceto o Líder do Clãn para  -
+//-  fora da Sala do Tesouro.                                 -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.0 - Converted from the official script              -
+//- 	1.1 - Reverted back and optimized. [Daegaladh]        -
+//-------------------------------------------------------------
 
 -	script	Gld_Trea_Protect::Gld_Trea_Protect	-1,{
 
 OnTouch:
-	// Store the Guild ID of castle occupant.
+	// Armazena a ID do Clã ocupandte do castelo.
 	set .@GID, getcastledata(strnpcinfo(2),1);
 		if (strcharinfo(0) != getguildmaster(.@GID)) {
 			if (compare(strnpcinfo(2),"aldeg"))

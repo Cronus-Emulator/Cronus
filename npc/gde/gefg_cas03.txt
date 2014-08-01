@@ -1,0 +1,143 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-				    www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-           Guerra do Emperium (Geffen)                     -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  L0ne_W0lf e Masao.                                       -
+//-------------------------------------------------------------
+//- Versão: 1.2b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-	 Npcs relacionados ao 3º Castelo de Geffen.               -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.2b - Relizado tradução do script. [SoulBlaker]      -
+//-------------------------------------------------------------
+
+// Bandeiras do Clã (Fora do Castelo)
+//-------------------------------------------------------------
+-	script	Ruaden#1::OutsideFlagsG3	GUILD_FLAG,{
+
+	set .@GID, getcastledata("gefg_cas03",1);
+
+	if (.@GID == 0) {
+		mes "[ Decreto do Reino Divino de Rune-Midgard ]";
+		mes " ";
+		mes "1. Siga a ordenança do Divino Reino de Rune-Midgad, ";
+		mes "declaramos que";
+		mes "que não há nenhum mestre formal deste castelo.";
+		mes " ";
+		mes "2. Para o único quem puder ";
+		mes "superar todas provações";
+		mes "e destruír o Emperium,";
+		mes "o rei vai dotar aquele como";
+		mes "proprietário do castelo.";
+		close;
+	}
+	if (getcharid(2) == .@GID) {
+		mes "[ Voz Sussurrando ]";
+		mes "Aos bravos...";
+		mes "Deseja retornar ao seu lugar de honra?";
+		next;
+		if(select("Retornar ao Castelo do Clã.:Desistir.") == 1) {
+			close2;
+			if (getcharid(2) == getcastledata("gefg_cas03",1)) {
+				warp "gefg_cas03",221,30;
+				end;
+			}
+			end;
+		}
+		close;
+	}
+	mes "[ Decreto do Reino Divino de Rune-Midgard ]";
+	mes " ";
+	mes "1. Siga a ordenança do Divino Reino de Rune-Midgard ";
+	mes "que este lugar é de";
+	mes "posse privada do Clã ^ff0000"+getguildname(.@GID)+"^000000.";
+	mes " ";
+	mes "2. O Mestre do Clã ^ff0000"+getguildname(.@GID)+"^000000 é";
+	mes "^ff0000"+getguildmaster(.@GID)+"^000000";
+	mes "Se há alguém que se opõe a isso, ";
+	mes "que prove sua força e honra com uma lâmina de aço em sua mão.";
+	close;
+
+OnRecvCastleG03:
+	flagemblem getcastledata("gefg_cas03",1);
+	end;
+}
+
+gef_fild13,78,182,4	duplicate(OutsideFlagsG3)	Ruaden#1-2	GUILD_FLAG
+gef_fild13,87,182,4	duplicate(OutsideFlagsG3)	Ruaden#2	GUILD_FLAG
+gef_fild13,73,295,7	duplicate(OutsideFlagsG3)	Ruaden#3	GUILD_FLAG
+gef_fild13,113,274,7	duplicate(OutsideFlagsG3)	Ruaden#4	GUILD_FLAG
+gef_fild13,144,235,6	duplicate(OutsideFlagsG3)	Ruaden#5	GUILD_FLAG
+gef_fild13,144,244,6	duplicate(OutsideFlagsG3)	Ruaden#6	GUILD_FLAG
+
+// Bandeiras do Clã (Dentro do Castelo)
+//-------------------------------------------------------------
+-	script	Ruaden#7::InsideFlagsG3	GUILD_FLAG,{
+	end;
+
+OnRecvCastleG03:
+	flagemblem getcastledata("gefg_cas03",1);
+	end;
+}
+
+gefg_cas03,122,220,6	duplicate(InsideFlagsG3)	Ruaden#7-2	GUILD_FLAG
+gefg_cas03,122,229,6	duplicate(InsideFlagsG3)	Ruaden#8	GUILD_FLAG
+gefg_cas03,91,257,7	duplicate(InsideFlagsG3)	Ruaden#9	GUILD_FLAG
+gefg_cas03,52,276,7	duplicate(InsideFlagsG3)	Ruaden#10	GUILD_FLAG
+gefg_cas03,56,164,4	duplicate(InsideFlagsG3)	Ruaden#11	GUILD_FLAG
+gefg_cas03,65,164,4	duplicate(InsideFlagsG3)	Ruaden#12	GUILD_FLAG
+gefg_cas03,37,214,1	duplicate(InsideFlagsG3)	Ruaden#13	GUILD_FLAG
+gefg_cas03,34,208,1	duplicate(InsideFlagsG3)	Ruaden#14	GUILD_FLAG
+
+// Bandeiras do Clã (Cidade)
+//-------------------------------------------------------------
+geffen,120,132,8	duplicate(InsideFlagsG3)	Ruaden#15	GUILD_FLAG
+
+// Funcionária Kafra
+//-------------------------------------------------------------
+gefg_cas03,116,89,5	duplicate(guildkafra)	Funcionária Kafra#gefg_cas03	4_F_KAFRA1
+
+// Gerente
+//-------------------------------------------------------------
+gefg_cas03,106,23,5	duplicate(cm)	Jyang#gefg_cas03	1_M_JOBTESTER
+
+// Saída da Sala do Tesouro
+//-------------------------------------------------------------
+gefg_cas03,275,289,0	script	#lever_G03	HIDDEN_NPC,{
+
+	mes " ";
+	mes "Há uma pequena alavanca. Deseja acioná-la?";
+	next;
+	if(select("Puxar.:Não Puxar.") == 1) {
+		close2;
+		warp "gefg_cas03",106,24;
+		end;
+	}
+	close;
+}
+
+// Alavanca do Calabouço do Clã
+//-------------------------------------------------------------
+gefg_cas03,221,43,0	duplicate(gdlever)	#gefg_cas03	HIDDEN_NPC
+
+// Arcas do Tesouro do Clã
+//-------------------------------------------------------------
+gefg_cas03,271,290,0	duplicate(Gld_Trea_Spawn)	Treasure#gefg_cas03	-1
+
+// Gerente de Eventos da Guerrra
+//-------------------------------------------------------------
+gefg_cas03,245,167,0	duplicate(Gld_Agit_Manager)	Agit#gefg_cas03	-1
+
+// Guardiões
+//-------------------------------------------------------------
+gefg_cas03,106,23,5	duplicate(Gld_Guard_Template)	Guardian#gefg_cas03	-1
