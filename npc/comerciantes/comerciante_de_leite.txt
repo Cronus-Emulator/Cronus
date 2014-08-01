@@ -1,0 +1,76 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//                    Cronus Script
+//------------------------------------------------------------
+//= Comerciante de Leite
+//===== Por: ==================================================
+//= kobra_k88; L0ne_W0lf
+//===== Versão Atual: =====================================
+//= 1.6
+//===== Compatível Com: ===================================
+//= Cronus
+//===== Descrição: =========================================
+//= [Official Conversion]
+//= Negociações de garrafas de leite.
+//===== Comentários Adicionais: =================================
+//= Fully working
+//= 1.1 Negative input bug fixed [Lupus]
+//= 1.2 Raised the price to close zeny exploit [Lupus]
+//= 1.2a Switched to Lupus's "loopless" technique.[kobra_k88]
+//= 1.3 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
+//= 1.4 Implemented checkweight. [L0ne_W0lf]
+//= 1.5 Fixed missed variable. (bugreport:1523) [L0ne_W0lf]
+//= 1.6  Aplicada Tradução(PT_BR). [SkyHD]
+//============================================================
+
+prontera,73,140,0	script	leiteiro	4_M_04,{
+	if (checkweight(1201,1) == 0) {
+		mes "^3355FFEspere um momento!";
+		mes "Eu não posso oferecer meu serviço";
+		mes "à você porque está";
+		mes "carregendo itens demais.";
+		mes "Volte após depositá-los na Kafra.";
+		close;
+	}
+	mes "[leiteiro]";
+	mes "Se você trouxer 1 Garrafa Vazia e 15 Zeny, eu troco por 1 Leite. O que você acha disso?";
+	next;
+	if (select("Trocar todas minhas Garrafas Vazias:Cancelar") == 1) {
+		if (countitem(713) <= 0) {
+			mes "[leiteiro]";
+			mes "Er... Eu preciso de Garrafas Vazias";
+			mes "para poder encher de leite...";
+			mes "Traga algumas e fazemos a troca, ok?";
+			close;
+		}
+		set .@bottles,countitem(713);
+		set .@total_weight,.@bottles * 50;
+		set .@total_cost,.@bottles * 15;
+		if (Zeny < .@total_cost) {
+			mes "[leiteiro]";
+			mes "Er... Você não tem a quantia";
+			mes "Você precisa ter";
+			mes "pelo menos " + .@total_cost + " zeny.";
+			close;
+		}
+		if (MaxWeight - Weight < .@total_weight) {
+			mes "[leiteiro]";
+			mes "Hmm...";
+			mes "Você teria um pouco mais";
+			mes "de espaço antes de entregar";
+			mes "todo esse leite?";
+			close;
+		}
+		set Zeny, Zeny-.@total_cost;
+		delitem 713,.@bottles; //Empty Bottles
+		getitem 519,.@bottles; //Milk
+		close;
+	}
+	close;
+}

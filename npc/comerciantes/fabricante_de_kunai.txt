@@ -1,0 +1,114 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//                    Cronus Script
+//------------------------------------------------------------
+//= Kunais
+//===== Por: ==================================================
+//= rAthena Dev Team
+//===== Versão Atual: =====================================
+//= 1.4
+//===== Compatível Com: ===================================
+//= Cronus
+//===== Descrição: =========================================
+//= Trocador de kunais e shurikens. .
+//===== Comentários Adicionais: =================================
+//= 1.0 Added the npc. It uses a function that sends the item 
+//=     id of the 2 required items plus the amount. Can trade
+//=     up to 500 units (5,000 kunais) at once. [erKURITA]
+//= 1.1 Officialized script [Playtester]
+//= 1.2a Optimized/cleaned up a bit [ultramage]
+//= 1.3 Updated to match AEGIS script. [Kisuka]
+//= 1.3a Kagerou/Oboro support (BaseJob -> BaseClass) [Euphy]
+//= 1.4  Aplicada Tradução(PT_BR). [SkyHD]
+//============================================================
+
+que_ng,72,29,3	script	Mercador de Kunais	4_M_01,{
+	if(BaseClass == Job_Ninja) {
+		mes "[Kashin]";
+		mes "Sou Kashin, distribuidor";
+		mes "de Kunais para Ninjas. Dê";
+		mes "uma olhada e me diga se";
+		mes "estiver interessado em";
+		mes "algum dos meus itens.";
+		next;
+		switch(select("10 Kunais Veneno Moral:10 Kunais Nevasca:10 Kunais Sopro do Vento:10 Kunais Terra Negra:10 Kunais Onda de Calor:Cancelar")) {
+		case 1: callfunc "Kunai_Trade",13250,20,7524,1,13259; break;
+		case 2: callfunc "Kunai_Trade",13251,8,7522,2,13255; break;
+		case 3: callfunc "Kunai_Trade",13252,4,7523,2,13257; break;
+		case 4: callfunc "Kunai_Trade",13253,2,7524,1,13256; break;
+		case 5: callfunc "Kunai_Trade",13254,1,7521,2,13258; break;
+		case 6:
+			mes "[Kashin]";
+			mes "Bem, então. Obrigado";
+			mes "por visitar minha loja.";
+			mes "Por favor, volte quando";
+			mes "precisar comprar algumas";
+			mes "Kunais. Adeus, por hora.";
+			close;
+		}
+	}
+	mes "[Kashin]";
+	mes "Sou Kashin, distribuidor";
+	mes "de Kunais para Ninjas. Se você";
+	mes "tiver algum amigo que seja";
+	mes "um Ninja, então você pode";
+	mes "contar-lhe sobre mim.";
+	close;
+}
+
+function	script	Kunai_Trade	{
+	mes "[Kashin]";
+	mes "Você pode trocar";
+	mes ""+getarg(1)+" "+getitemname(getarg(0))+" e";
+	mes ""+getarg(3)+" "+getitemname(getarg(2))+" por um";
+	mes "conjunto de 10 "+getitemname(getarg(4))+".";
+	next;
+	mes "[Kashin]";
+	mes "Eu só posso lhe dar, no máximo, 500 conjuntos de Kunais por vez.";
+	mes "Se quiser cancelar a negociação, basta digitar '0'.";
+	mes " Quantos pacotes de Kunais você vai querer?";
+	next;
+	input .@amount;
+	if(.@amount < 1 || .@amount > 500) {
+		mes "[Kashin]";
+		mes "Eh? Desculpe, mas";
+		mes "não posso lhe dar esta";
+		mes "quantidade de conjuntos de Kunais.";
+		mes "Por favor, entre com um valor menor que 500 e maior que 0.";
+		close;
+	}
+	if(countitem(getarg(0)) < .@amount*getarg(1) || countitem(getarg(2)) < .@amount*getarg(3)) {
+		mes "[Kashin]";
+		mes "Hmm, você não tem itens";
+		mes "suficientes para esta";
+		mes "negociação. Por favor,";
+		mes "cheque seus itens novamente.";
+		close;
+ 	}
+	if(checkweight(getarg(4), .@amount*10) == 0) {
+		mes "[Kashin]";
+		mes "Hmm, parece que seu";
+		mes "inventário não possui";
+		mes "espaço suficiente para guardar";
+		mes "mais itens. Você deve";
+		mes "liberar algum espaço antes.";
+		close;
+	}
+	mes "[Kashin]";
+	mes "Ótimo, tudo está certo.";
+	mes "Prossigamos para completar";
+	mes "esta negociação.";
+	mes "Estou certo de que você ficará";
+	mes "bastante satisfeito com estes";
+	mes "conjuntos de Kunais.";
+	delitem getarg(0),getarg(1)*.@amount;
+	delitem getarg(2),getarg(3)*.@amount;
+	getitem getarg(4),10*.@amount;
+	close;
+}

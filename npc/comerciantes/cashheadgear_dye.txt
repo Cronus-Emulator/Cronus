@@ -1,15 +1,27 @@
-//===== Hercules Script ======================================
-//= Headgear Dyer (Cash)
-//===== By: ==================================================
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//                    Cronus Script
+//------------------------------------------------------------
+//= Chapelaria (Cash)
+//===== Por: ==================================================
 //= Xantara
 //= Maud_Dib
-//===== Current Version: =====================================
-//= 1.0
-//===== Description: =========================================
+//===== Versão Atual: =====================================
+//= 1.1
+//===== Compatível com: =========================================
+//= Cronus
+//===== Descrição: =========================================
 //= [Official Conversion]
-//= Change headgear's color. Cost is a Mysterious Dyestuff
-//===== Additional Comments: =================================
+//= Mude a cor do capacete. O custo é um Corante Mysterious
+//===== Comentários Adicionais: =================================
 //= 1.0 First / Optimized Version
+//= 1.1 Aplicada Tradução(PT_BR). [SkyHD]
 //============================================================
 
 prt_in,253,168,4	script	Alora	4_F_LGTGIRL,{
@@ -34,10 +46,10 @@ prt_in,253,168,4	script	Alora	4_F_LGTGIRL,{
 	setarray .@hg_7[1], 2256, 5217;
 
 	mes "[Alora]";
-	mes "Hello, I can change your headgear's color if you bring me a Mysterious Dyestuff.";
+	mes "Olá, eu posso mudar a cor do seu capacete se você me trazer um Mysterious Dyestuff.";
 	next;
 	mes "[Alora]";
-	mes "Do you have a headgear that you would like to dye?";
+	mes "Você tem um capacete que você gostaria de tingir?";
 	next;
 	for(set .@i,1; .@i < getarraysize(.@hgn$); set .@i,.@i+1) {
 		if(.@i == 1)    set .@menu$, .@hgn$[.@i];
@@ -48,11 +60,11 @@ prt_in,253,168,4	script	Alora	4_F_LGTGIRL,{
 	if(.@t == getarraysize(.@hgn$)) {
 		mes "[Alora]";
 		mes "Have a good journey adventurer!";
-		mes "If you ever are curious to try a new color on your Kafra headgear or the ones you found on your adventures please come to me!";
+		mes "Se você já está curioso para experimentar uma nova cor em sua chapelaria Kafra ou aqueles que você encontrou em suas aventuras por favor, venha para mim!";
 		close;
 	}
 	mes "[Alora]";
-	mes "Okay, what color do you want to change it to?";
+	mes "Ok, qual  cor você quer mudá-lo para?";
 	next;
 	for(set .@i,1; .@i < getarraysize(getd(".@hg_"+.@t+"")); set .@i,.@i+1) {
 		if(.@i == 1 && .@t != 5)
@@ -73,17 +85,17 @@ prt_in,253,168,4	script	Alora	4_F_LGTGIRL,{
 	}
 	set .@dyHG, getd(".@hg_"+.@t+"["+.@c+"]");
 	mes "[Alora]";
-	mes "Oh I'm so excited aren't you?";
-	mes "And just to be sure, what color is the "+ .@hgn$[.@t] +" you want me to use?";
+	mes "Oh, eu estou tão animado que você não está?";
+	mes "E só para ter certeza, de que cor é o "+ .@hgn$[.@t] +" você quer que eu use?";
 	next;
 	mes "[Alora]";
-	mes "Please understand that I'm going to use the ^FF00001st "+ .@hgn$[.@t] +" of that color in your inventory!^000000";
+	mes "Por favor, entenda que eu vou usar o^FF00001st "+ .@hgn$[.@t] +" De que a cor em seu inventário^000000! ";
 	next;
 	mes "[Alora]";
-	mes "Any upgrades and cards will be dissolved by the mysterious dye, so be sure you are ok with having a ^0000FF+0 "+ getitemname(.@dyHG) +" without any cards.^000000";
+	mes "Quaisquer atualizações e cartões será dissolvido pelo corante misterioso, tenha certeza que você está^0000FF+0 "+ getitemname(.@dyHG) +" sem cartões.^000000";
 	next;
 	mes "["+ strcharinfo(0) +"]";
-	mes "Ok, thanks for the warning, I think I'll give you my";
+	mes "Ok, obrigado pelo aviso, eu acho que vou dar o meu";
 	next;
 	set .@menu$, "Nevermind";
 	for(set .@i,1; .@i < getarraysize(getd(".@hg_"+.@t+"")); set .@i,.@i+1) {
@@ -93,23 +105,23 @@ prt_in,253,168,4	script	Alora	4_F_LGTGIRL,{
 	set .@mine, select(.@menu$) - 1;
 	if(!.@mine) {
 		mes "[Alora]";
-		mes "It's best to be very sure, have a safe journey.";
+		mes "É melhor estar muito certo, e ter uma viagem segura.";
 		close;
 	}
 	set .@myHG, getd(".@hg_"+.@t+"["+.@mine+"]");
 	if(.@dyHG == .@myHG) {
 		mes "[Alora]";
-		mes "Woah what happened?";
+		mes "O que aconteceu?";
 		close;
 	}
 	if(!countitem(.@dyeID) || !countitem(.@myHG)) {
 		mes "[Alora]";
-		mes "Oh my, you seem to be missing something.";
+		mes "Oh meu Deus, você parece estar faltando alguma coisa.";
 		close;
 	}
 	mes "[Alora]";
-	mes "Looks great doesn't it?!";
-	mes "I hope you'll come back to dye more pretty headgears!";
+	mes "Parece ótimo, não é?"; 
+	mes "Espero que você vai voltar a tingir capacetes mais bonitos!";
 	delitem .@dyeID,1; // Dyestuff
 	delitem .@myHG,1;  // Your headgear
 	getitem .@dyHG,1;  // Dyed headgear

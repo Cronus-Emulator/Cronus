@@ -1,0 +1,113 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//                    Cronus Script
+//------------------------------------------------------------
+//= Negociador de Projéteis.
+//===== Por: ===================================================
+//= Playtester, Paradox924X
+//===== Versão ==============================================
+//= 1.7
+//===== Compatível Com: ===================================
+//= Cronus
+//===== Descrição ==========================================
+//= Negociador de Projéteis.
+//===== Comentários =============================================
+//= 1.0 First version [Playtester]
+//= 1.1 Converted from Aegis [Paradox924X]
+//= 1.2 More optimized conversion [Legionaire]
+//= 1.2a Removed .GATs [Lupus]
+//= 1.3 Fixed [Playtester] Optimized. Got rid of @vars [Lupus]
+//= 1.4 Updated to match AEGIS script. [Kisuka]
+//= 1.5 Updated to match AEGIS script again. [Masao]
+//= 1.6 Moved Izlude duplicate to pre-re/re paths. [Euphy]
+//= 1.7 Aplicada Tradução(PT_BR). [SkyHD]
+//============================================================
+
+alberta,118,160,3	script	Vendedor de Projéteis#e::bdt	4_M_04,{
+	if (BaseJob == Job_Gunslinger) {
+		mes "[Tony]";
+		mes "Eu sou Tony, o negociador de projéteis.";
+		mes "Venha a mim sempre que precisar de munições.";
+		mes "Apenas me traga os materiais, e eu irei lhe fazer os projéteis que precisar.";
+		next;
+		switch(select("Esfera Venenosa:Esfera de Chamas:Esfera de Relâmpagos:Esfera Cegante:Esfera Congelante:Cancelar")) {
+		case 1: callfunc "Bullet_Trade",937,10,13205; break;
+		case 2: callfunc "Bullet_Trade",7097,2,13203; break;
+		case 3: callfunc "Bullet_Trade",7053,3,13204; break;
+		case 4: callfunc "Bullet_Trade",1024,5,13206; break;
+		case 5: callfunc "Bullet_Trade",7054,2,13207; break;
+		case 6:
+			mes "[Tony]";
+			mes "Hmm. Ok.";
+			mes "Volte quando desejar!";
+			mes "Eu, Tony, o Negociador de Projéteis!";
+			mes "Sempre estarei aqui~!!!";
+			close;
+		}
+	}
+	mes "[Tony]";
+	mes "Ei, meu nome é Tony.";
+	mes "Eu sou responsável pela distribuição e fabricação";
+	mes "de projéteis para Justiceiros.";
+	next;
+	mes "[Tony]";
+	mes "Lamento se você veio";
+	mes "até aqui para comprar munição.";
+	mes "Eu só posso negociar com Justiceiros credenciados.";
+	close;
+}
+
+function	script	Bullet_Trade	{
+	mes "[Tony]";
+	mes "Para cada conjunto de";
+	mes "30 "+getitemname(getarg(2))+"s,";
+	mes "você tem que me dar";
+	mes "1 Emveretarcon,";
+	mes "1 Phracon, e";
+	mes ""+getarg(1)+" "+getitemname(getarg(0))+".";
+	next;
+	mes "[Tony]";
+	mes "Lembre que só posso entregar um máximo de 500 caixas de 30 projéteis por negociação.";
+	mes "Por favor entre com o número de caixas de projéteis que você gostaria.";
+	mes "Caso queira parar a negociação, apenas digite '0'.";
+	next;
+	input .@amount;
+	if (.@amount < 1 || .@amount > 500) {
+		mes "[Tony]";
+		mes "Ei, não posso lhe dar tantos projéteis.";
+		mes "Não esqueça de digitar um número menor que 500 se você quiser trocar alguns itens por alguns projéteis.";
+		close;
+	}
+	if (countitem(1010) >= .@amount && countitem(1011) >= .@amount && countitem(getarg(0)) >= (.@amount*getarg(1))) {
+		if (checkweight(getarg(2),.@amount * 30) == 0) {
+			mes "[Tony]";
+			mes "Nossa! Seu inventário não possui espaço o suficiente para esta quantia de projéteis.";
+			mes "Volte quando tiver mais espaço no inventário.";
+			mes "Tente guardar algumas coisas no Armazém da Kafra.";
+			close;
+		} else {
+			mes "[Tony]";
+			mes "Muito bom, tudo parece estar em ordem.";
+			mes "Deixe-me pegar esses materiais, e aqui estão seus projéteis.";
+			mes "Foi um prazer negociar com você~";
+			delitem 1010,.@amount;
+			delitem 1011,.@amount;
+			delitem getarg(0),.@amount * getarg(1);
+			getitem getarg(2),.@amount * 30;
+			close;
+		}
+	} else {
+		mes "[Tony]";
+		mes "Você não possui";
+		mes "os itens que";
+		mes "eu necessito.";
+		mes "Prepara-os e volte.";
+		close;
+	}
+}

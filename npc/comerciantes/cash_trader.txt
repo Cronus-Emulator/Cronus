@@ -1,0 +1,33 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//                    Cronus Script
+//------------------------------------------------------------
+//= Loja de vendas
+//===== Por: ================================================== 
+//= L0ne_W0lf
+//===== Versão Atual: ===================================== 
+//= 1.1a
+//===== Compatível com: =========================================
+//= Cronus
+//===== Descrição: ========================================= 
+//= Venda de itens.
+//= Baseado em loja de caixas.
+//===== Comentários Adicionais: ================================= 
+//= 1.0 First Version. Sample shop per-say.
+//= 1.1 FIxed typo. (bugreport:1078) [L0ne_W0lf]
+//= 1.1a Tradução [BOO]/[SkyHD]
+//============================================================
+
+// Payon
+//============================================================
+// Vendas:
+// Caixa de Manual de Combate, Caixa de Seguros, Goma de Mascar [10], Caixa com Cartão Kafra, Caixa com Asas de Mosca, Caixa de Neutralizador,
+// Caixa de Amuletos, Oridecon e Elunium Enriquecidos, Caixa de Assumptio, Caixa do Vento, Caixa de Aspersio, Caixa de Adrenalina, Caixa Abençoada, Caixa Ágil
+// Caixa com Teleportes Para Calabouços, Caixas com Comidas e Passe Antigravitacional.
+payon,171,142,4	cashshop	Loja Kafra	4_F_KAFRA2,12900:1000,12901:200,12902:1000,12909:100,12910:100,12911:1500,12922:150,7619:100,7620:100,12916:150,12917:150,12915:100,12918:100,12913:125,12914:125,13553:50,12903:100,12904:100,12905:100,12906:100,12907:100,12908:100,7776:50

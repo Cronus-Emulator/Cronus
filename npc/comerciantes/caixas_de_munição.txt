@@ -1,0 +1,147 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//                    Cronus Script
+//------------------------------------------------------------
+//= Negociante de Projéteis Kenny
+//===== Por: ==================================================
+//= rAthena Dev Team
+//===== Versão Atual: =====================================
+//= 1.6
+//===== Compatível Com: ===================================
+//= Cronus
+//===== Descrição: =========================================
+//= Negocia Pacotes e Carregadores.
+//===== Comentários Adicionais: =================================
+//= 1.0 First version. [SinSloth]
+//= 1.1 Optimized version - Reduced to only one function [SinSloth]
+//= 1.2 Optimized^2, corrected npc's name [ultramage]
+//= 1.2a Optimized. Please, ommit extra NPC names [Lupus]
+//= 1.3 Updated to match AEGIS script. [Kisuka]
+//= 1.4 Updated to match AEGIS script again. [Masao]
+//= 1.5 Moved Izlude duplicate to pre-re/re paths. [Euphy]
+//= 1.6 Aplicada Tradução/Revisão [RoM]/[BOO]/[SkyHD]
+//============================================================
+
+alberta,118,157,3	script	Carregador de Projéteis::mdk	4_M_01,{
+	if (BaseJob == Job_Gunslinger) {
+		mes "[Kenny]";
+		mes "Bem vindo à minha Loja de Carregadores.";
+		mes "Como você deve saber, grandes quantidades";
+		mes "de projéteis podem ser carregadas mais";
+		mes "facilmente quando estão em Carregadores. Precisa";
+		mes "de algo em particular?";
+		next;
+		switch(select("Pacote de Esferas de Relâmpago:Pacote de Esferas Cegantes:Pacote de Esferas Venenosas:Pacote de Esferas Congelantes:Pacote de Esferas de Chamas:Carregador:Carregador Sanguinário:Carregador de Prata:Cancelar")) {
+		case 1: callfunc "Func_Casing",13204,12144; break;
+		case 2: callfunc "Func_Casing",13206,12145; break;
+		case 3: callfunc "Func_Casing",13205,12146; break;
+		case 4: callfunc "Func_Casing",13207,12147; break;
+		case 5: callfunc "Func_Casing",13203,12148; break;
+		case 6: callfunc "Func_Casing",13200,12149; break;
+		case 7: callfunc "Func_Casing",13202,12150; break;
+		case 8: callfunc "Func_Casing",13201,12151; break;
+		case 9:
+			mes "[Kenny]";
+			mes "Bem, se achar";
+			mes "que tem muitos";
+			mes "projéteis, venha me ver.";
+			mes "É uma boa ideia armazenar";
+			mes "projéteis em meus carregadores.";
+			close;
+		}
+	}
+	mes "[Kenny]";
+	mes "Bem vindo à minha loja.";
+	mes "Forneço Carregadores";
+	mes "e Carregadores para Justiceiros de toda Midgard.";
+	mes "Desculpe-me, mas parece que";
+	mes "meus serviços não terão nenhuma";
+	mes "utilidade para você, aventureiro.";
+	next;
+	mes "[Kenny]";
+	mes "Heh, mas se você, por acaso,";
+	mes "conhecer algum Justiceiro,";
+	mes "mande-o para mim. Ninguém pode";
+	mes "carregar muitos projéteis.";
+	close;
+}
+
+function	script	Func_Casing	{
+	mes "[Kenny]";
+	mes "Agora, você pode trocar";
+	mes "500 "+getitemname(getarg(0))+"s";
+	mes "e 500 zeny por 1 "+getitemname(getarg(1))+", então tenha certeza";
+	mes "que você tem projéteis e zeny";
+	mes "suficientes para a troca.";
+	next;
+	mes "[Kenny]";
+	mes "Você pode trocar 500 "+getitemname(getarg(0))+"s e 500 zeny";
+	mes "Por 1 "+getitemname(getarg(1))+".";
+	next;
+	mes "[Kenny]";
+	mes "Lembre-se que eu não posso dar-lhe";
+	mes "mais que 50 Carregadores";
+	mes "de uma vez. Agora, por favor, digite";
+	mes "o número de Carregadores que você";
+	mes "quer receber. Se quiser cancelar, apenas digite ''0.''";
+	next;
+	input .@amount;
+	if (.@amount > 50 || .@amount == 0) {
+		mes "[Kenny]";
+		mes "Ei, não posso dar-lhe";
+		mes "tantos Carregadores.";
+		mes "Por favor, tente novamente e";
+		mes "digite um número";
+		mes "menor que 50.";
+		close;
+	}
+	if (countitem(getarg(0)) >= (500*.@amount)) {
+		if (Zeny >= (500*.@amount)) {
+			if (checkweight(getarg(1),.@amount) == 0) {
+				mes "[Kenny]";
+				mes "Ei, você tem muito";
+				mes "lixo amontoado no seu";
+				mes "inventário. Libere algum";
+				mes "espaço e então volte";
+				mes "para trocar seus projéteis por";
+				mes "alguns Carregadores depois, certo?";
+				close;
+			}else{
+				mes "[Kenny]";
+				mes "Certo, aqui estão";
+				mes "seus Carregadores. Obrigado";
+				mes "por visitar minha loja.";
+				mes "Espero que use sua";
+				mes "munição com sabedoria.";
+				set Zeny,Zeny-500*.@amount;
+				delitem getarg(0),500*.@amount;
+				getitem getarg(1),.@amount;
+				close;
+			}
+		} else {
+			mes "[Kenny]";
+			mes "Desculpe, mas você não";
+			mes "tem zeny suficiente para";
+			mes "esta troca.";
+			mes "Volte à minha loja";
+			mes "depois de ter economizado";
+			mes "um pouco mais.";
+			close;
+		}
+	} else {
+		mes "[Kenny]";
+		mes "Desculpe, mas você não";
+		mes "tem projéteis suficientes para";
+		mes "esta troca.";
+		mes "Cheque novamente";
+		mes "seu inventário e então";
+		mes "volte mais tarde.";
+		close;
+	}
+}

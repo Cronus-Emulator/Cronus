@@ -1,0 +1,237 @@
+//------------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//------------------------------------------------------------
+//	  Cronus Script
+//------------------------------------------------------------
+//= Locadores
+//===== Por: ====================================================
+//= kobra_k88, mod by Lupus
+//===== Versão Atual: ===========================================
+//= 2.3
+//===== Compatível com: =========================================
+//= Cronus
+//===== Descrição: ==============================================
+//= Criador de Peco Pecos para Cavaleiros e Templários, Adestrador de Falcões
+//===== Comentários Adicionais: =================================
+//= Fully working
+//= Added another Falcon Master into the Hunters Guild [Lupus]
+//= 1.2: replaced checkoption(x) with checkriding,checkfalcon [Lupus]
+//= 1.3: Added support Adv Classes + Baby Class [Lupus]
+//= 1.4: Added different prices for normal, advanced and baby classes
+//= but you could set them to the same [Lupus]
+//= 1.5: Fixed spelling mistakes [Nexon]
+//= 1.5a: Small fix (Falcon Taming -> Falcon Mastery) [Komurka]
+//= 1.6: Moved the Falcon Master to Hugel [Poki#3]
+//= 1.7 Updated to Aegis 10.3 standards. [L0ne_W0lf]
+//= 1.8 Added 3rd Job creature NPCs (Dragon/Gryphon) [L0ne_W0lf]
+//= 1.9 Enabled Gryphon Renter NPC and added Mado Gear NPC. [Masao]
+//= 2.0 Fixed problems with third classes and new mounts. [Euphy]
+//= 2.1 Moved some renters to a separate renewal file. [Daegaladh]
+//= 2.2 Added warg checks. [Euphy]
+//= 2.3 Aplicada Tradução(PT_BR). [SkyHD]
+//===============================================================
+
+// Criador de Peco Peco (para Cavaleiros)-------------------------------------------
+prontera,55,350,5	script	Criador de Peco Peco#knt	8W_SOLDIER,{
+	if(Upper==0) set .@price,2500; //Peco Normal - preço padrão
+	if(Upper==1) set .@price,2500; //Peco Blindado
+	if(Upper==2) set .@price,2500; //Peco Bebê
+
+	mes "[Criador de Peco Peco]";
+	if (BaseJob == Job_Knight && Class < Job_Rune_Knight) {
+		mes "Bem vindo.";
+		mes "Honorável Cavaleiro,";
+		mes "você gostaria de alugar";
+		mes "um Peco Peco? A taxa de";
+		mes "aluguel é "+.@price+" zenys.";
+		next;
+		switch(select("Alugar Peco Peco:Cancelar")) {
+		case 1:
+			if (Zeny < .@price) {
+			mes "[Criador de Peco Peco]";
+				mes "Você não possui a";
+				mes "quantidade suficiente";
+				mes "de zenys. Você está...";
+				mes "falido?";
+				close;
+			}
+			else if(getskilllv("KN_RIDING") == 0) {
+				mes "[Criador de Peco Peco]";
+				mes "Me desculpe, mas você";
+				mes "não pode receber meus";
+				mes "serviços. Por favor aprenda";
+				mes "a habilidade Montaria primeiro.";
+				close;
+			}
+			else if(checkriding()) {
+				mes "[Criador de Peco Peco]";
+				mes "Você já está";
+				mes "montado em um";
+				mes "Peco Peco.";
+				close;
+			}
+			else if(ismounting()) {
+				mes "[Criador de Peco Peco]";
+				mes "Por Favor, remova a sua Montaria.";
+				close;
+			}
+			set Zeny, Zeny-.@price;
+			setriding;
+			close;
+		case 2:
+			mes "[Criador de Peco Peco]";
+			mes "Entendo.";
+			mes "Tudo bem então,";
+			mes "tenha um bom dia.";
+			close;
+		}
+	} else {
+		mes "Lamento, mas estes";
+		mes "Peco Pecos estão disponíveis";
+		mes "apenas para Cavaleiros";
+		mes "e Lordes.";
+		close;
+	}
+}
+
+// Criador de Peco Peco Grande (para Templários)-------------------------------------------
+prontera,232,318,3	script	Criador de Peco Peco#cru	8W_SOLDIER,{
+	if(Upper==0) set .@price,3500; //Peco Normal -´preço padrão
+	if(Upper==1) set .@price,3500; //Peco Blindado
+	if(Upper==2) set .@price,3500; //Peco Bebê
+
+	mes "[Criador de Peco Peco]";
+	if (BaseJob == Job_Crusader && Class < Job_Rune_Knight) {
+		if(Upper != 1 )  mes "Bem-vindo Templário.";
+		else mes "Bem-vindo Paladino.";
+		mes "Nós temos um tipo especial";
+		mes "de Peco Peco preparado para";
+		mes "você. Alugar um irá";
+		mes "lhe custar "+.@price+" zenys.";
+		next;
+		switch(select("Alugar um Peco Peco:Sair")) {
+		case 1:
+			if (Zeny < .@price) {
+				mes "Você não possui a";
+				mes "quantidade suficiente";
+				mes "de zenys. Se você quer ter";
+				mes "um Peco Peco traga";
+				mes ""+.@price+" zenys por favor...";
+				close;
+			}
+			else if(getskilllv("KN_RIDING") == 0) {
+				mes "[Criador de Peco Peco]";
+				mes "Você precisa primeiro aprender";
+				mes "a andar em um Peco Peco, depois que fizer";
+				mes "isto eu poderei alugar um para você.";
+				close;
+			}
+			else if(checkriding()) {
+				mes "[Criador de Peco Peco]";
+				mes "Você já está";
+				mes "montado em um Peco Peco.";
+				close;
+			}
+			else if(ismounting()) {
+				mes "[Criador de Peco Peco]";
+				mes "Por Favor, remova a sua Montaria.";
+				close;
+			}
+			set Zeny, Zeny-.@price;
+			setriding;
+			close;
+		case 2:
+			mes "[Criador de Peco Peco]";
+			mes "Vejo você por aí.";
+			close;
+		}
+	} else {
+		mes "O que posso fazer por você?";
+		mes "Esteja ciente de que";
+		mes "este seviço de aluguel";
+		mes "de Peco Pecos é restrito a";
+		mes "Templários e Paladinos.";
+		close;
+	}
+}
+
+// Adestrador de Falcões--------------------------------------------------------------
+hu_in01,381,304,5	script	Adestrador de Falcão#hnt	8W_SOLDIER,{
+	if(Upper==0) set .@price,2500; //Falcão Normal - preço padrão
+	if(Upper==1) set .@price,2500; //Falcão com Lenço
+	if(Upper==2) set .@price,2500; //Falcão Bebê
+
+	mes "[Adestrador de Falcão]";
+	if (BaseJob == Job_Hunter) {
+		if (checkoption(Option_Wug) || checkoption(Option_Wugrider)) {
+			mes "Um ..."; 
+			mes "Você não pode alugar um Falcão"; 
+			mes "até dispensar seu Lobo primeiro!";
+			close;
+		}
+		mes "Você precisa de um falcão?";
+		mes "Você pode alugar seu próprio";
+		mes "falcão por um preço justo de";
+		mes "apenas "+.@price+" zenys~";
+		next;
+		switch(select("Alugar Falcão:Cancelar")) {
+		case 1:
+			if (checkoption(Option_Wug) || checkoption(Option_Wugrider)) {
+				mes "[Adestrador de Falcões]";
+				mes "Um...";
+				mes "Você não pode alugar um falcão";
+				mes "enquanto não dispensar seu Lobo!";
+				close;
+			}
+			if (Zeny < .@price) {
+				mes "[Adestrador de Falcão]";
+				mes "O que é isso?";
+				mes "Você não tem zenys";
+				mes "o suficiente?!";
+				mes "Você deveria começar";
+				mes "a ganhar dinheiro";
+				mes "matando monstros~";
+				close;
+			}
+			else if(getskilllv("HT_FALCON") == 0) {
+				mes "[Adestrador de Falcão]";
+				mes "Vá aprender como";
+				mes "cuidar de um Falcão";
+				mes "primeiro! Eu não posso alugar";
+				mes "um falcão para você se";
+				mes "você não pode adestrá-lo...";
+				close;
+			}
+			else if(checkfalcon()) {
+				mes "[Adestrador de Falcão]";
+				mes "Hum...";
+				mes "Você já possui";
+				mes "um Falcão. Está bem aí";
+				mes "você não pode vê-lo?";
+				close;
+			}
+			set Zeny, Zeny-.@price;
+			setfalcon;
+			close;
+		case 2:
+			mes "[Adestrador de Falcão]";
+			mes "E-espere, o que você";
+			mes "está pensando? Estes";
+			mes "Falcões são os melhores,";
+			mes "Eu garanto isto! Vamos~";
+		}
+	} else {
+		mes "Jovem Tolo!";
+		mes "Falcões podem ser";
+		mes "usados apenas por Caçadores";
+		mes "e Atiradores de Elite, entendeu?";
+		mes "...Heh heh, inveja?";
+		close;
+		close;
+	}
+}
