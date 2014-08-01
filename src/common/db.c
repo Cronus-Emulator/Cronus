@@ -529,13 +529,13 @@ static void db_rebalance_erase(DBNode node, DBNode *root)
 
 	DB_COUNTSTAT(db_rebalance_erase);
 	// Select where to change the tree
-	if (y->left == NULL) { // no left
+	if (!y->left) { // no left
 		x = y->right;
-	} else if (y->right == NULL) { // no right
+	} else if (!y->right) { // no right
 		x = y->left;
 	} else { // both exist, go to the leftmost node of the right sub-tree
 		y = y->right;
-		while (y->left != NULL)
+		while (y->left)
 			y = y->left;
 		x = y->right;
 	}
@@ -592,7 +592,7 @@ static void db_rebalance_erase(DBNode node, DBNode *root)
 
 	// Restore the RED-BLACK properties
 	if (y->color != RED) {
-		while (x != *root && (x == NULL || x->color == BLACK)) {
+		while (x != *root && (!x || x->color == BLACK)) {
 			if (x == x_parent->left) {
 				w = x_parent->right;
 				if (w->color == RED) {
@@ -601,13 +601,13 @@ static void db_rebalance_erase(DBNode node, DBNode *root)
 					db_rotate_left(x_parent, root);
 					w = x_parent->right;
 				}
-				if ((w->left == NULL || w->left->color == BLACK) &&
-					(w->right == NULL || w->right->color == BLACK)) {
+				if ((!w->left || w->left->color == BLACK) &&
+					(!w->right || w->right->color == BLACK)) {
 					w->color = RED;
 					x = x_parent;
 					x_parent = x_parent->parent;
 				} else {
-					if (w->right == NULL ||	w->right->color == BLACK) {
+					if (!w->right ||	w->right->color == BLACK) {
 						if (w->left) w->left->color = BLACK;
 						w->color = RED;
 						db_rotate_right(w, root);
@@ -627,13 +627,13 @@ static void db_rebalance_erase(DBNode node, DBNode *root)
 					db_rotate_right(x_parent, root);
 					w = x_parent->left;
 				}
-				if ((w->right == NULL || w->right->color == BLACK) &&
-					(w->left == NULL || w->left->color == BLACK)) {
+				if ((!w->right || w->right->color == BLACK) &&
+					(!w->left || w->left->color == BLACK)) {
 					w->color = RED;
 					x = x_parent;
 					x_parent = x_parent->parent;
 				} else {
-					if (w->left == NULL || w->left->color == BLACK) {
+					if (!w->left || w->left->color == BLACK) {
 						if (w->right) w->right->color = BLACK;
 						w->color = RED;
 						db_rotate_left(w, root);
@@ -1185,7 +1185,10 @@ static void db_release_data(DBKey key, DBData data, DBRelease which)
 {
 	(void)key;//not used
 	DB_COUNTSTAT(db_release_data);
-	if (which&DB_RELEASE_DATA && data.type == DB_DATA_PTR) aFree(data.u.ptr);
+	if (which&DB_RELEASE_DATA && data.type == DB_DATA_PTR) {
+	aFree(data.u.ptr);
+	data.u.ptr = NULL;
+	}
 }
 
 /**
@@ -1204,7 +1207,10 @@ static void db_release_both(DBKey key, DBData data, DBRelease which)
 {
 	DB_COUNTSTAT(db_release_both);
 	if (which&DB_RELEASE_KEY) aFree((char*)key.str); // needs to be a pointer
-	if (which&DB_RELEASE_DATA && data.type == DB_DATA_PTR) aFree(data.u.ptr);
+	if (which&DB_RELEASE_DATA && data.type == DB_DATA_PTR) {
+	aFree(data.u.ptr);
+	data.u.ptr = NULL;
+	}
 }
 
 /*****************************************************************************\
@@ -1312,10 +1318,10 @@ DBData* dbit_obj_next(DBIterator* self, DBKey* out_key)
 	for( ; it->ht_index < HASH_SIZE; ++(it->ht_index) )
 	{
 		// Iterate in the order: left tree, current node, right tree
-		if( node == NULL )
+		if(!node)
 		{// prepare initial node of this hash
 			node = it->db->ht[it->ht_index];
-			if( node == NULL )
+			if(!node)
 				continue;// next hash
 			fake.right = node;
 			node = &fake;
@@ -1339,7 +1345,7 @@ DBData* dbit_obj_next(DBIterator* self, DBKey* out_key)
 					node = parent;
 					parent = node->parent;
 				}
-				if( parent == NULL )
+				if(!parent)
 				{// next hash
 					node = NULL;
 					break;
@@ -1388,10 +1394,10 @@ DBData* dbit_obj_prev(DBIterator* self, DBKey* out_key)
 	for( ; it->ht_index >= 0; --(it->ht_index) )
 	{
 		// Iterate in the order: right tree, current node, left tree
-		if( node == NULL )
+		if(!node)
 		{// prepare initial node of this hash
 			node = it->db->ht[it->ht_index];
-			if( node == NULL )
+			if(!node)
 				continue;// next hash
 			fake.left = node;
 			node = &fake;
@@ -1416,7 +1422,7 @@ DBData* dbit_obj_prev(DBIterator* self, DBKey* out_key)
 					node = parent;
 					parent = node->parent;
 				}
-				if( parent == NULL )
+				if(!parent)
 				{// next hash
 					node = NULL;
 					break;
@@ -1553,7 +1559,7 @@ static bool db_obj_exists(DBMap* self, DBKey key)
 	bool found = false;
 
 	DB_COUNTSTAT(db_exists);
-	if (db == NULL) return false; // nullpo candidate
+	if (!db) return false; // nullpo candidate
 	if (!(db->options&DB_OPT_ALLOW_NULL_KEY) && db_is_key_null(db->type, key)) {
 		return false; // nullpo candidate
 	}
@@ -1604,7 +1610,7 @@ static DBData* db_obj_get(DBMap* self, DBKey key)
 	DBData *data = NULL;
 
 	DB_COUNTSTAT(db_get);
-	if (db == NULL) return NULL; // nullpo candidate
+	if (!db) return NULL; // nullpo candidate
 	if (!(db->options&DB_OPT_ALLOW_NULL_KEY) && db_is_key_null(db->type, key)) {
 		ShowError("db_get: Attempted to retrieve non-allowed NULL key for db allocated at %s:%d\n",db->alloc_file, db->alloc_line);
 		return NULL; // nullpo candidate
@@ -1665,8 +1671,8 @@ static unsigned int db_obj_vgetall(DBMap* self, DBData **buf, unsigned int max, 
 	unsigned int ret = 0;
 
 	DB_COUNTSTAT(db_vgetall);
-	if (db == NULL) return 0; // nullpo candidate
-	if (match == NULL) return 0; // nullpo candidate
+	if (!db) return 0; // nullpo candidate
+	if (!match) return 0; // nullpo candidate
 
 	db_free_lock(db);
 	for (i = 0; i < HASH_SIZE; i++) {
@@ -1734,7 +1740,7 @@ static unsigned int db_obj_getall(DBMap* self, DBData **buf, unsigned int max, D
 	unsigned int ret;
 
 	DB_COUNTSTAT(db_getall);
-	if (self == NULL) return 0; // nullpo candidate
+	if (!self) return 0; // nullpo candidate
 
 	va_start(args, match);
 	ret = self->vgetall(self, buf, max, match, args);
@@ -1764,8 +1770,8 @@ static DBData* db_obj_vensure(DBMap* self, DBKey key, DBCreateData create, va_li
 	DBData *data = NULL;
 
 	DB_COUNTSTAT(db_vensure);
-	if (db == NULL) return NULL; // nullpo candidate
-	if (create == NULL) {
+	if (!db) return NULL; // nullpo candidate
+	if (!create) {
 		ShowError("db_ensure: Create function is NULL for db allocated at %s:%d\n",db->alloc_file, db->alloc_line);
 		return NULL; // nullpo candidate
 	}
@@ -1792,7 +1798,7 @@ static DBData* db_obj_vensure(DBMap* self, DBKey key, DBCreateData create, va_li
 			node = node->right;
 	}
 	// Create node if necessary
-	if (node == NULL) {
+	if (!node) {
 		va_list argscopy;
 		if (db->item_count == UINT32_MAX) {
 			ShowError("db_vensure: item_count overflow, aborting item insertion.\n"
@@ -1860,7 +1866,7 @@ static DBData* db_obj_ensure(DBMap* self, DBKey key, DBCreateData create, ...)
 	DBData *ret = NULL;
 
 	DB_COUNTSTAT(db_ensure);
-	if (self == NULL) return NULL; // nullpo candidate
+	if (!self) return NULL; // nullpo candidate
 
 	va_start(args, create);
 	ret = self->vensure(self, key, create, args);
@@ -1892,7 +1898,7 @@ static int db_obj_put(DBMap* self, DBKey key, DBData data, DBData *out_data)
 	unsigned int hash;
 
 	DB_COUNTSTAT(db_put);
-	if (db == NULL) return 0; // nullpo candidate
+	if (!db) return 0; // nullpo candidate
 	if (db->global_lock) {
 		ShowError("db_put: Database is being destroyed, aborting entry insertion.\n"
 				"Database allocated at %s:%d\n",
@@ -1938,7 +1944,7 @@ static int db_obj_put(DBMap* self, DBKey key, DBData data, DBData *out_data)
 		}
 	}
 	// allocate a new node if necessary
-	if (node == NULL) {
+	if (!node) {
 		DB_COUNTSTAT(db_node_alloc);
 		node = ers_alloc(db->nodes, struct dbn);
 		node->left = NULL;
@@ -1996,7 +2002,7 @@ static int db_obj_remove(DBMap* self, DBKey key, DBData *out_data)
 	int c = 0, retval = 0;
 
 	DB_COUNTSTAT(db_remove);
-	if (db == NULL) return 0; // nullpo candidate
+	if (!db) return 0; // nullpo candidate
 	if (db->global_lock) {
 		ShowError("db_remove: Database is being destroyed. Aborting entry deletion.\n"
 				"Database allocated at %s:%d\n",
@@ -2052,8 +2058,8 @@ static int db_obj_vforeach(DBMap* self, DBApply func, va_list args)
 	DBNode parent;
 
 	DB_COUNTSTAT(db_vforeach);
-	if (db == NULL) return 0; // nullpo candidate
-	if (func == NULL) {
+	if (!db) return 0; // nullpo candidate
+	if (!func) {
 		ShowError("db_foreach: Passed function is NULL for db allocated at %s:%d\n",db->alloc_file, db->alloc_line);
 		return 0; // nullpo candidate
 	}
@@ -2109,7 +2115,7 @@ static int db_obj_foreach(DBMap* self, DBApply func, ...)
 	int ret;
 
 	DB_COUNTSTAT(db_foreach);
-	if (self == NULL) return 0; // nullpo candidate
+	if (!self) return 0; // nullpo candidate
 
 	va_start(args, func);
 	ret = self->vforeach(self, func, args);
@@ -2138,7 +2144,7 @@ static int db_obj_vclear(DBMap* self, DBApply func, va_list args)
 	DBNode parent;
 
 	DB_COUNTSTAT(db_vclear);
-	if (db == NULL) return 0; // nullpo candidate
+	if (!db) return 0; // nullpo candidate
 
 	db_free_lock(db);
 	db->cache = NULL;
@@ -2209,7 +2215,7 @@ static int db_obj_clear(DBMap* self, DBApply func, ...)
 	int ret;
 
 	DB_COUNTSTAT(db_clear);
-	if (self == NULL) return 0; // nullpo candidate
+	if (!self) return 0; // nullpo candidate
 
 	va_start(args, func);
 	ret = self->vclear(self, func, args);
@@ -2236,7 +2242,7 @@ static int db_obj_vdestroy(DBMap* self, DBApply func, va_list args)
 	int sum;
 
 	DB_COUNTSTAT(db_vdestroy);
-	if (db == NULL) return 0; // nullpo candidate
+	if (!db) return 0; // nullpo candidate
 	if (db->global_lock) {
 		ShowError("db_vdestroy: Database is already locked for destruction. Aborting second database destruction.\n"
 				"Database allocated at %s:%d\n",
@@ -2292,7 +2298,7 @@ static int db_obj_destroy(DBMap* self, DBApply func, ...)
 	int ret;
 
 	DB_COUNTSTAT(db_destroy);
-	if (self == NULL) return 0; // nullpo candidate
+	if (!self) return 0; // nullpo candidate
 
 	va_start(args, func);
 	ret = self->vdestroy(self, func, args);
@@ -2314,7 +2320,7 @@ static unsigned int db_obj_size(DBMap* self)
 	unsigned int item_count;
 
 	DB_COUNTSTAT(db_size);
-	if (db == NULL) return 0; // nullpo candidate
+	if (!db) return 0; // nullpo candidate
 
 	db_free_lock(db);
 	item_count = db->item_count;
@@ -2337,7 +2343,7 @@ static DBType db_obj_type(DBMap* self)
 	DBType type;
 
 	DB_COUNTSTAT(db_type);
-	if (db == NULL) return (DBType)-1; // nullpo candidate - TODO what should this return?
+	if (!db) return (DBType)-1; // nullpo candidate - TODO what should this return?
 
 	db_free_lock(db);
 	type = db->type;
@@ -2360,7 +2366,7 @@ static DBOptions db_obj_options(DBMap* self)
 	DBOptions options;
 
 	DB_COUNTSTAT(db_options);
-	if (db == NULL) return DB_OPT_BASE; // nullpo candidate - TODO what should this return?
+	if (!db) return DB_OPT_BASE; // nullpo candidate - TODO what should this return?
 
 	db_free_lock(db);
 	options = db->options;
@@ -2893,7 +2899,7 @@ void db_final(void)
 void linkdb_insert( struct linkdb_node** head, void *key, void* data)
 {
 	struct linkdb_node *node;
-	if( head == NULL ) return ;
+	if(!head) return;
 	node = aMalloc( sizeof(struct linkdb_node) );
 	if( *head == NULL ) {
 		// first node
@@ -2913,7 +2919,7 @@ void linkdb_insert( struct linkdb_node** head, void *key, void* data)
 
 void linkdb_vforeach( struct linkdb_node** head, LinkDBFunc func, va_list ap) {
 	struct linkdb_node *node;
-	if( head == NULL ) return;
+	if(!head) return;
 	node = *head;
 	while ( node ) {
 		va_list argscopy;
@@ -2935,7 +2941,7 @@ void* linkdb_search( struct linkdb_node** head, void *key)
 {
 	int n = 0;
 	struct linkdb_node *node;
-	if( head == NULL ) return NULL;
+	if(!head) return NULL;
 	node = *head;
 	while( node ) {
 		if( node->key == key ) {
@@ -2959,7 +2965,7 @@ void* linkdb_search( struct linkdb_node** head, void *key)
 void* linkdb_erase( struct linkdb_node** head, void *key)
 {
 	struct linkdb_node *node;
-	if( head == NULL ) return NULL;
+	if(!head) return NULL;
 	node = *head;
 	while( node ) {
 		if( node->key == key ) {
@@ -2982,7 +2988,7 @@ void linkdb_replace( struct linkdb_node** head, void *key, void *data )
 {
 	int n = 0;
 	struct linkdb_node *node;
-	if( head == NULL ) return ;
+	if(!head) return ;
 	node = *head;
 	while( node ) {
 		if( node->key == key ) {
@@ -3008,7 +3014,7 @@ void linkdb_replace( struct linkdb_node** head, void *key, void *data )
 void linkdb_final( struct linkdb_node** head )
 {
 	struct linkdb_node *node, *node2;
-	if( head == NULL ) return ;
+	if(!head) return ;
 	node = *head;
 	while( node ) {
 		node2 = node->next;

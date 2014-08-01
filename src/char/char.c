@@ -223,7 +223,7 @@ int delete_char_sql(int char_id);
  */
 static DBData create_online_char_data(DBKey key, va_list args)
 {
-	struct online_char_data* character;
+	struct online_char_data* character = NULL;
 	CREATE(character, struct online_char_data, 1);
 	character->account_id = key.i;
 	character->char_id = -1;
@@ -236,9 +236,7 @@ static DBData create_online_char_data(DBKey key, va_list args)
 
 void set_char_charselect(int account_id)
 {
-	struct online_char_data* character;
-
-	character = (struct online_char_data*)idb_ensure(online_char_db, account_id, create_online_char_data);
+	struct online_char_data* character = idb_ensure(online_char_db, account_id, create_online_char_data);
 
 	if( character->server > -1 )
 		if( server[character->server].users > 0 ) // Prevent this value from going negative.
@@ -266,15 +264,15 @@ void set_char_charselect(int account_id)
 
 void set_char_online(int map_id, int char_id, int account_id)
 {
-	struct online_char_data* character;
-	struct mmo_charstatus *cp;
+	struct online_char_data* character = NULL;
+	struct mmo_charstatus *cp = NULL;
 
 	//Update DB
 	if( SQL_ERROR == SQL->Query(sql_handle, "UPDATE `%s` SET `online`='1' WHERE `char_id`='%d' LIMIT 1", char_db, char_id) )
 		Sql_ShowDebug(sql_handle);
 
 	//Check to see for online conflicts
-	character = (struct online_char_data*)idb_ensure(online_char_db, account_id, create_online_char_data);
+	character = idb_ensure(online_char_db, account_id, create_online_char_data);
 	if( character->char_id != -1 && character->server > -1 && character->server != map_id )
 	{
 		ShowNotice("Personagem (AID: %d | CID: %d) marcado no Servidor de Personagens (%d) , mas outro (%d) alega possuir (AID: %d | CID: %d) online!\n",
@@ -296,7 +294,7 @@ void set_char_online(int map_id, int char_id, int account_id)
 	}
 
 	//Set char online in guild cache. If char is in memory, use the guild id on it, otherwise seek it.
-	cp = (struct mmo_charstatus*)idb_get(char_db_,char_id);
+	cp = idb_get(char_db_,char_id);
 	inter_guild_CharOnline(char_id, cp?cp->guild_id:-1);
 
 	//Notify login server
@@ -311,7 +309,7 @@ void set_char_online(int map_id, int char_id, int account_id)
 
 void set_char_offline(int char_id, int account_id)
 {
-	struct online_char_data* character;
+	struct online_char_data* character = NULL;
 
 	if ( char_id == -1 )
 	{
@@ -320,7 +318,7 @@ void set_char_offline(int char_id, int account_id)
 	}
 	else
 	{
-		struct mmo_charstatus* cp = (struct mmo_charstatus*)idb_get(char_db_,char_id);
+		struct mmo_charstatus* cp = idb_get(char_db_,char_id);
 		inter_guild_CharOffline(char_id, cp?cp->guild_id:-1);
 		if (cp)
 			idb_remove(char_db_,char_id);
@@ -329,7 +327,9 @@ void set_char_offline(int char_id, int account_id)
 			Sql_ShowDebug(sql_handle);
 	}
 
-	if ((character = (struct online_char_data*)idb_get(online_char_db, account_id)) != NULL)
+	character = idb_get(online_char_db, account_id);
+	
+	if (character)
 	{	//We don't free yet to avoid aCalloc/aFree spamming during char change. [Skotlex]
 		if( character->server > -1 )
 			if( server[character->server].users > 0 ) // Prevent this value from going negative.
@@ -347,11 +347,10 @@ void set_char_offline(int char_id, int account_id)
 			character->pincode_enable = -1;
 		}
 
-		//FIXME? Why Kevin free'd the online information when the char was effectively in the map-server?
 	}
 
 	//Remove char if 1- Set all offline, or 2- character is no longer connected to char-server.
-	if (login_fd > 0 && !session[login_fd]->flag.eof && (char_id == -1 || character == NULL || character->fd == -1))
+	if (login_fd > 0 && !session[login_fd]->flag.eof && (char_id == -1 || !character || character->fd == -1))
 	{
 		WFIFOHEAD(login_fd,6);
 		WFIFOW(login_fd,0) = 0x272c;
@@ -365,8 +364,9 @@ void set_char_offline(int char_id, int account_id)
  */
 static int char_db_setoffline(DBKey key, DBData *data, va_list ap)
 {
-	struct online_char_data* character = (struct online_char_data*)DB->data2ptr(data);
+	struct online_char_data* character = DB->data2ptr(data);
 	int server_id = va_arg(ap, int);
+	
 	if (server_id == -1) {
 		character->char_id = -1;
 		character->server = -1;
@@ -384,7 +384,7 @@ static int char_db_setoffline(DBKey key, DBData *data, va_list ap)
  */
 static int char_db_kickoffline(DBKey key, DBData *data, va_list ap)
 {
-	struct online_char_data* character = (struct online_char_data*)DB->data2ptr(data);
+	struct online_char_data* character = DB->data2ptr(data);
 	int server_id = va_arg(ap, int);
 
 	if (server_id > -1 && character->server != server_id)
@@ -433,8 +433,8 @@ void set_all_offline_sql(void)
  */
 static DBData create_charstatus(DBKey key, va_list args)
 {
-	struct mmo_charstatus *cp;
-	cp = (struct mmo_charstatus *) aCalloc(1,sizeof(struct mmo_charstatus));
+	struct mmo_charstatus *cp = NULL;
+	CREATE(cp, struct mmo_charstatus, 1);
 	cp->char_id = key.i;
 	return DB->ptr2data(cp);
 }
@@ -734,13 +734,12 @@ int mmo_char_tosql(int char_id, struct mmo_charstatus* p)
 int memitemdata_to_sql(const struct item items[], int max, int id, int tableswitch)
 {
 	StringBuf buf;
-	SqlStmt* stmt;
+	SqlStmt* stmt = NULL;
 	int i;
 	int j;
 	const char* tablename;
 	const char* selectoption;
 	struct item item; // temp storage variable
-	bool* flag; // bit array for inventory matching
 	bool found;
 	int errors = 0;
 
@@ -789,7 +788,8 @@ int memitemdata_to_sql(const struct item items[], int max, int id, int tableswit
 		SQL->StmtBindColumn(stmt, 9+j, SQLDT_SHORT, &item.card[j], 0, NULL, NULL);
 
 	// bit array indicating which inventory items have already been matched
-	flag = (bool*) aCalloc(max, sizeof(bool));
+	bool* flag = NULL;
+	CREATE(flag,bool,max);
 
 	while( SQL_SUCCESS == SQL->StmtNextRow(stmt) )
 	{
@@ -889,11 +889,10 @@ int memitemdata_to_sql(const struct item items[], int max, int id, int tableswit
  * - this is required because inventory db is the only one with the 'favorite' column. */
 int inventory_to_sql(const struct item items[], int max, int id) {
 	StringBuf buf;
-	SqlStmt* stmt;
+	SqlStmt* stmt = NULL;
 	int i;
 	int j;
 	struct item item; // temp storage variable
-	bool* flag; // bit array for inventory matching
 	bool found;
 	int errors = 0;
 
@@ -933,7 +932,8 @@ int inventory_to_sql(const struct item items[], int max, int id) {
 		SQL->StmtBindColumn(stmt, 10+j, SQLDT_SHORT, &item.card[j], 0, NULL, NULL);
 
 	// bit array indicating which inventory items have already been matched
-	flag = (bool*) aCalloc(max, sizeof(bool));
+	bool* flag = NULL;
+	CREATE(flag,bool,max);
 
 	while( SQL_SUCCESS == SQL->StmtNextRow(stmt) ) {
 		found = false;
@@ -1030,14 +1030,14 @@ int mmo_char_tobuf(uint8* buf, struct mmo_charstatus* p);
 // Loads the basic character rooster for the given account. Returns total buffer used.
 int mmo_chars_fromsql(struct char_session_data* sd, uint8* buf)
 {
-	SqlStmt* stmt;
+	SqlStmt* stmt = NULL;
 	struct mmo_charstatus p;
 	int j = 0, i;
 	char last_map[MAP_NAME_LENGTH_EXT];
 	time_t unban_time = 0;
 
 	stmt = SQL->StmtMalloc(sql_handle);
-	if( stmt == NULL ) {
+	if(!stmt) {
 		SqlStmt_ShowDebug(stmt);
 		return 0;
 	}
@@ -1120,7 +1120,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 {
 	int i,j;
 	char t_msg[128] = "";
-	struct mmo_charstatus* cp;
+	struct mmo_charstatus* cp = NULL;
 	StringBuf buf;
 	SqlStmt* stmt;
 	char last_map[MAP_NAME_LENGTH_EXT];
@@ -1142,7 +1142,7 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	if (save_log) ShowInfo("Pedido para coletar dados de personagem (CID:%d).\n", char_id);
 
 	stmt = SQL->StmtMalloc(sql_handle);
-	if( stmt == NULL )
+	if(!stmt)
 	{
 		SqlStmt_ShowDebug(stmt);
 		return 0;
@@ -1234,13 +1234,13 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 	p->save_point.map = mapindex->name2id(save_map);
 
 	if( p->last_point.map == 0 ) {
-		p->last_point.map = (unsigned short)strdb_iget(mapindex->db, MAP_DEFAULT);
+		p->last_point.map = strdb_iget(mapindex->db, MAP_DEFAULT);
 		p->last_point.x = MAP_DEFAULT_X;
 		p->last_point.y = MAP_DEFAULT_Y;
 	}
 	
 	if( p->save_point.map == 0 ) {
-		p->save_point.map = (unsigned short)strdb_iget(mapindex->db, MAP_DEFAULT);
+		p->save_point.map = strdb_iget(mapindex->db, MAP_DEFAULT);
 		p->save_point.x = MAP_DEFAULT_X;
 		p->save_point.y = MAP_DEFAULT_Y;
 	}
@@ -1432,18 +1432,11 @@ int mmo_char_fromsql(int char_id, struct mmo_charstatus* p, bool load_everything
 int mmo_char_sql_init(void)
 {
 	char_db_= idb_alloc(DB_OPT_RELEASE_DATA);
-
-	//the 'set offline' part is now in check_login_conn ...
-	//if the server connects to loginserver
-	//it will dc all off players
-	//and send the loginserver the new state....
-
-	// Force all users offline in sql when starting char-server
-	// (useful when servers crashes and don't clean the database)
 	set_all_offline_sql();
-
 	return 0;
 }
+
+
 /* [Ind/Hercules] - special thanks to Yommy for providing the packet structure/data */
 bool char_slotchange(struct char_session_data *sd, int fd, unsigned short from, unsigned short to) {
 	struct mmo_charstatus char_dat;
@@ -1876,12 +1869,6 @@ int delete_char_sql(int char_id)
 			Sql_ShowDebug(sql_handle);
 	}
 
-	/* No need as we used inter_guild_leave [Skotlex]
-	// Also delete info from guildtables.
-	if( SQL_ERROR == SQL->Query(sql_handle, "DELETE FROM `%s` WHERE `char_id`='%d'", guild_member_db, char_id) )
-		Sql_ShowDebug(sql_handle);
-	*/
-
 	if( SQL_ERROR == SQL->Query(sql_handle, "SELECT `guild_id` FROM `%s` WHERE `char_id` = '%d'", guild_db, char_id) )
 		Sql_ShowDebug(sql_handle);
 	else if( SQL->NumRows(sql_handle) > 0 )
@@ -1915,7 +1902,7 @@ int mmo_char_tobuf(uint8* buffer, struct mmo_charstatus* p) {
 	unsigned short offset = 0;
 	uint8* buf;
 
-	if( buffer == NULL || p == NULL )
+	if( !buffer || !p )
 		return 0;
 
 	buf = WBUFP(buffer,0);
@@ -1994,6 +1981,7 @@ int mmo_char_tobuf(uint8* buffer, struct mmo_charstatus* p) {
 	return 106+offset;
 }
 	
+	
 /* Made Possible by Yommy~! <3 */
 void mmo_char_send099d(int fd, struct char_session_data *sd) {
 	WFIFOHEAD(fd,4 + (MAX_CHARS*MAX_CHAR_BUF));
@@ -2001,6 +1989,9 @@ void mmo_char_send099d(int fd, struct char_session_data *sd) {
 	WFIFOW(fd,2) = mmo_chars_fromsql(sd, WFIFOP(fd,4)) + 4;
 	WFIFOSET(fd,WFIFOW(fd,2));
 }
+
+
+
 /* Sends character ban list */
 /* Made Possible by Yommy~! <3 */
 void mmo_char_send020d(int fd, struct char_session_data *sd) {
@@ -2157,19 +2148,19 @@ int char_family(int cid1, int cid2, int cid3)
 void disconnect_player(int account_id)
 {
 	int i;
-	struct char_session_data* sd;
+	struct char_session_data* sd = NULL;
 
 	// disconnect player if online on char-server
-	ARR_FIND( 0, sockt->fd_max, i, session[i] && (sd = (struct char_session_data*)session[i]->session_data) && sd->account_id == account_id );
+	ARR_FIND( 0, sockt->fd_max, i, session[i] && (sd = session[i]->session_data) && sd->account_id == account_id );
 	if( i < sockt->fd_max )
 		set_eof(i);
 }
 
 static void char_auth_ok(int fd, struct char_session_data *sd)
 {
-	struct online_char_data* character;
+	struct online_char_data* character = idb_get(online_char_db, sd->account_id);
 
-	if( (character = (struct online_char_data*)idb_get(online_char_db, sd->account_id)) != NULL )
+	if(character)
 	{	// check if character is not online already. [Skotlex]
 		if (character->server > -1)
 		{	//Character already online. KICK KICK KICK
@@ -2291,7 +2282,7 @@ int parse_fromlogin(int fd) {
 		}
 	}
 
-	sd = (struct char_session_data*)session[fd]->session_data;
+	sd = session[fd]->session_data;
 
 	while(RFIFOREST(fd) >= 2) {
 		uint16 command = RFIFOW(fd,0);
@@ -2332,7 +2323,7 @@ int parse_fromlogin(int fd) {
 				unsigned int expiration_time = RFIFOL(fd, 29);
 				RFIFOSKIP(fd,33);
 
-				if( session_isActive(request_id) && (sd=(struct char_session_data*)session[request_id]->session_data) &&
+				if( session_isActive(request_id) && (sd=session[request_id]->session_data) &&
 					!sd->auth && sd->account_id == account_id && sd->login_id1 == login_id1 && sd->login_id2 == login_id2 && sd->sex == sex )
 				{
 					int client_fd = request_id;
@@ -2376,7 +2367,7 @@ int parse_fromlogin(int fd) {
 					return 0;
 
 				// find the authenticated session with this account id
-				ARR_FIND( 0, sockt->fd_max, i, session[i] && (sd = (struct char_session_data*)session[i]->session_data) && sd->auth && sd->account_id == RFIFOL(fd,2) );
+				ARR_FIND( 0, sockt->fd_max, i, session[i] && (sd = session[i]->session_data) && sd->auth && sd->account_id == RFIFOL(fd,2) );
 				if( i < sockt->fd_max ) {
 					memcpy(sd->email, RFIFOP(fd,6), 40);
 					sd->expiration_time = (time_t)RFIFOL(fd,46);

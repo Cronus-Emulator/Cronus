@@ -12,7 +12,7 @@
 // SkillID,NomeHabilidade,NivelRequerido,Taxa
 //
 // 01. SkillID            ID da habilidade a ser conjurada.
-// 02. NomeHabilidade     Nome da habilidade (informativo, não utilizada pelo server).
+// 02. NomeHabilidade     Nome da habilidade (informativo, não utilizada pelo servidor).
 // 03. NivelRequerido     Nível mínimo da habilidade Abracadabra para ser executado.
 // 04. Taxa               Chance da habilidade ser selecionada (1 = 0.01%, 10000 = 100%).
 //---------------------------------------------------------

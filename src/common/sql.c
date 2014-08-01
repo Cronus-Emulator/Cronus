@@ -119,8 +119,7 @@ static int Sql_P_Keepalive(Sql* self);
 /// Establishes a connection.
 int Sql_Connect(Sql* self, const char* user, const char* passwd, const char* host, uint16 port, const char* db)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	StrBuf->Clear(&self->buf);
 	if( !mysql_real_connect(&self->handle, host, user, passwd, db, (unsigned int)port, NULL/*unix_socket*/, 0/*clientflag*/) )
@@ -167,7 +166,7 @@ int Sql_GetColumnNames(Sql* self, const char* table, char* out_buf, size_t buf_l
 	size_t len;
 	size_t off = 0;
 
-	if( self == NULL || SQL_ERROR == SQL->Query(self, "EXPLAIN `%s`", table) )
+	if( !self || SQL_ERROR == SQL->Query(self, "EXPLAIN `%s`", table) )
 		return SQL_ERROR;
 
 	out_buf[off] = '\0';
@@ -279,7 +278,7 @@ int Sql_Query(Sql* self, const char* query, ...)
 	va_start(args, query);
 	res = SQL->QueryV(self, query, args);
 	va_end(args);
-
+	
 	return res;
 }
 
@@ -288,8 +287,7 @@ int Sql_Query(Sql* self, const char* query, ...)
 /// Executes a query.
 int Sql_QueryV(Sql* self, const char* query, va_list args)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	SQL->FreeResult(self);
 	StrBuf->Clear(&self->buf);
@@ -315,8 +313,7 @@ int Sql_QueryV(Sql* self, const char* query, va_list args)
 /// Executes a query.
 int Sql_QueryStr(Sql* self, const char* query)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	SQL->FreeResult(self);
 	StrBuf->Clear(&self->buf);
@@ -420,7 +417,7 @@ void Sql_FreeResult(Sql* self) {
 /// Shows debug information (last query).
 void Sql_ShowDebug_(Sql* self, const char* debug_file, const unsigned long debug_line)
 {
-	if( self == NULL )
+	if(!self)
 		ShowDebug("at %s:%lu - self is NULL\n", debug_file, debug_line);
 	else if( StrBuf->Length(&self->buf) > 0 )
 		ShowDebug("at %s:%lu - %s\n", debug_file, debug_line, StrBuf->Value(&self->buf));
@@ -608,14 +605,13 @@ static void SqlStmt_P_ShowDebugTruncatedColumn(SqlStmt* self, size_t i)
 
 /// Allocates and initializes a new SqlStmt handle.
 SqlStmt* SqlStmt_Malloc(Sql* sql) {
-	SqlStmt* self;
-	MYSQL_STMT* stmt;
+	SqlStmt* self = NULL;
+	MYSQL_STMT* stmt = NULL;
 
-	if( sql == NULL )
-		return NULL;
+	if(!sql) return NULL;
 
 	stmt = mysql_stmt_init(&sql->handle);
-	if( stmt == NULL ) {
+	if(!stmt) {
 		ShowSQL("DB error - %s\n", mysql_error(&sql->handle));
 		return NULL;
 	}
@@ -653,8 +649,7 @@ int SqlStmt_Prepare(SqlStmt* self, const char* query, ...)
 /// Prepares the statement.
 int SqlStmt_PrepareV(SqlStmt* self, const char* query, va_list args)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	SQL->StmtFreeResult(self);
 	StrBuf->Clear(&self->buf);
@@ -675,8 +670,7 @@ int SqlStmt_PrepareV(SqlStmt* self, const char* query, va_list args)
 /// Prepares the statement.
 int SqlStmt_PrepareStr(SqlStmt* self, const char* query)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	SQL->StmtFreeResult(self);
 	StrBuf->Clear(&self->buf);
@@ -708,8 +702,7 @@ size_t SqlStmt_NumParams(SqlStmt* self)
 /// Binds a parameter to a buffer.
 int SqlStmt_BindParam(SqlStmt* self, size_t idx, enum SqlDataType buffer_type, void* buffer, size_t buffer_len)
 {
-	if( self == NULL )
-	return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	if( !self->bind_params )
 	{// initialize the bindings
@@ -738,8 +731,7 @@ int SqlStmt_BindParam(SqlStmt* self, size_t idx, enum SqlDataType buffer_type, v
 /// Executes the prepared statement.
 int SqlStmt_Execute(SqlStmt* self)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	SQL->StmtFreeResult(self);
 	if( (self->bind_params && mysql_stmt_bind_param(self->stmt, self->params)) ||
@@ -787,8 +779,7 @@ size_t SqlStmt_NumColumns(SqlStmt* self)
 /// Binds the result of a column to a buffer.
 int SqlStmt_BindColumn(SqlStmt* self, size_t idx, enum SqlDataType buffer_type, void* buffer, size_t buffer_len, uint32* out_length, int8* out_is_null)
 {
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	if( buffer_type == SQLDT_STRING || buffer_type == SQLDT_ENUM )
 	{
@@ -850,8 +841,7 @@ int SqlStmt_NextRow(SqlStmt* self)
 	MYSQL_BIND* column;
 	unsigned long length;
 
-	if( self == NULL )
-		return SQL_ERROR;
+	if(!self) return SQL_ERROR;
 
 	// bind columns
 	if( self->bind_columns && mysql_stmt_bind_result(self->stmt, self->columns) )
@@ -946,7 +936,7 @@ void SqlStmt_FreeResult(SqlStmt* self)
 /// Shows debug information (with statement).
 void SqlStmt_ShowDebug_(SqlStmt* self, const char* debug_file, const unsigned long debug_line)
 {
-	if( self == NULL )
+	if(!self)
 		ShowDebug("at %s:%lu -  self is NULL\n", debug_file, debug_line);
 	else if( StrBuf->Length(&self->buf) > 0 )
 		ShowDebug("at %s:%lu - %s\n", debug_file, debug_line, StrBuf->Value(&self->buf));
@@ -994,7 +984,7 @@ void Sql_inter_server_read(const char* cfgName, bool first) {
 	FILE* fp;
 
 	fp = fopen(cfgName, "r");
-	if(fp == NULL) {
+	if(!fp) {
 		if( first ) {
 			ShowFatalError("File not found: %s\n", cfgName);
 			exit(EXIT_FAILURE);
