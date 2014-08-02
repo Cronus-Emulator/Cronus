@@ -5,7 +5,7 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-             Estrutura da Guerra do Emperium               -
 //-------------------------------------------------------------
@@ -15,13 +15,13 @@
 //- Versão: 2.0b                                              -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	[Conversão do Aegis]                                      -
+//-     [Conversão do Aegis]                                  -
 //-                                                           -
-//-	ESTE ARQUIVO É NESCESSÁRIO PARA O FUNCIONAMENTO DOS       -
+//-     ESTE ARQUIVO É NESCESSÁRIO PARA O FUNCIONAMENTO DOS   -
 //- CASTELOS.                                                 -
 //-                                                           -
 //- * Habilita Gereciamento dos Castelos.                     -
-//-	  Nome Visível Exigido: Agit                              -
+//-       Nome Visível Exigido: Agit                          -
 //-   Gerencia várias funções dentro e fora da GdE.           -
 //-                                                           -
 //- * Habilita Gerente dos Castelos que permite que o Mestre  -
@@ -37,8 +37,8 @@
 //-   Armazém, Armázem do Clã, Teleportes e Carrinhos de      -
 //-   Aluguel.                                                -
 //-                                                           -
-//- * Invocações de Arcas do Tesouro.                         -
-//-   Arcas NÃO serão salvas em caso de falhas.               -
+//- * Invocações de Báus do Tesouro.                          -
+//-   Baús NÃO serão salvas em caso de falhas.                -
 //-   Tesouros não será invocados em locais que já forão      -
 //-   gerados.                                                -
 //-------------------------------------------------------------
@@ -1261,13 +1261,13 @@ OnClock0001:
 		set .@box,1 << .@i;
 		// Gerar ou não gerar baús existentes.
 		if ((getd("$@"+strnpcinfo(2)+"_treasure") & .@box) == 0) {
-			monster strnpcinfo(2),.@treasurex[.@i],.@treasurey[.@i],"Arca do Tesouro",.@boxid,1,"Treasure#"+strnpcinfo(2)+"::OnTreasureDied"+.@i;
+			monster strnpcinfo(2),.@treasurex[.@i],.@treasurey[.@i],"Baú do Tesouro",.@boxid,1,"Treasure#"+strnpcinfo(2)+"::OnTreasureDied"+.@i;
 			setd "$@"+strnpcinfo(2)+"_treasure",getd("$@"+strnpcinfo(2)+"_treasure") | .@box;
 		}
 	}
 	end;
 
-// Eventos individuais 'Você matou o arca' para garantir invocações adequadas na mudança diária.
+// Eventos individuais 'Você matou o Baú' para garantir invocações adequadas na mudança diária.
 OnTreasureDied0:
 	setd "$@"+strnpcinfo(2)+"_treasure",getd("$@"+strnpcinfo(2)+"_treasure") & ~1;
 	end;

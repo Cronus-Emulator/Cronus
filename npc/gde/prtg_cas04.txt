@@ -5,7 +5,7 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-           Guerra do Emperium (Prontera)                   -
 //-------------------------------------------------------------
@@ -15,7 +15,7 @@
 //- Versão: 1.4b                                              -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	 Npcs relacionados ao 4º Castelo de Prontera.             -
+//-  Npcs relacionados ao 4º Castelo de Prontera.             -
 //-------------------------------------------------------------
 //- Desenvolvimento:                                          -
 //- 	1.4b - Relizado tradução do script. [SoulBlaker]      -
@@ -130,7 +130,7 @@ prtg_cas04,275,160,0	script	#Lever_PR04	HIDDEN_NPC,{
 //-------------------------------------------------------------
 prtg_cas04,56,283,0	duplicate(gdlever)	#prtg_cas04	HIDDEN_NPC
 
-// Arcas do Tesouro do Clã
+// Baús do Tesouro do Clã
 //-------------------------------------------------------------
 prtg_cas04,271,162,0	duplicate(Gld_Trea_Spawn)	Treasure#prtg_cas04	-1
 

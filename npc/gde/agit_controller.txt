@@ -5,7 +5,7 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-        Guerra do Emperium - Ligação Automática            -
 //-------------------------------------------------------------
@@ -17,7 +17,7 @@
 //- Versão: 1.4b                                              -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	 Liga Automáticamente a Guerra do Emperium.               -
+//-	 Liga Automáticamente a Guerra do Emperium.           -
 //-                                                           -
 //-  gettime(3): Obtem horas (tempo de 24 horas)              -
 //-  gettime(4): Obtem dias da semana 1 = Segunda, 2 = Terça  -

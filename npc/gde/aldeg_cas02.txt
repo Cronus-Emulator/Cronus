@@ -5,7 +5,7 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-           Guerra do Emperium (Al De Baran)                -
 //-------------------------------------------------------------
@@ -15,7 +15,7 @@
 //- Versão: 1.2b                                              -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	 Npcs relacionados ao 2º Castelo de Al De Baran.          -
+//-  Npcs relacionados ao 2º Castelo de Al De Baran.          -
 //-------------------------------------------------------------
 //- Desenvolvimento:                                          -
 //- 	1.2b - Relizado tradução do script. [SoulBlaker]      -
@@ -133,7 +133,7 @@ aldeg_cas02,139,234,0	script	#lever_A02	HIDDEN_NPC,{
 //-------------------------------------------------------------
 aldeg_cas02,194,136,0	duplicate(gdlever)	#aldeg_cas02	HIDDEN_NPC
 
-// Arcas do Tesouro do Clã
+// Baús do Tesouro do Clã
 //-------------------------------------------------------------
 aldeg_cas02,135,230,0	duplicate(Gld_Trea_Spawn)	Treasure#aldeg_cas02	-1
 

@@ -5,7 +5,7 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-           Guerra do Emperium (Payon)                      -
 //-------------------------------------------------------------
@@ -15,7 +15,7 @@
 //- Versão: 1.4b                                              -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	 Npcs relacionados ao 4º Castelo de Payon.                -
+//-  Npcs relacionados ao 4º Castelo de Payon.                -
 //-------------------------------------------------------------
 //- Desenvolvimento:                                          -
 //- 	1.4b - Relizado tradução do script. [SoulBlaker]      -
@@ -127,7 +127,7 @@ payg_cas04,151,47,0	script	#lever_PA04	HIDDEN_NPC,{
 //-------------------------------------------------------------
 payg_cas04,52,48,0	duplicate(gdlever)	#payg_cas04	HIDDEN_NPC
 
-// Arcas do Tesouro do Clã
+// Baús do Tesouro do Clã
 //-------------------------------------------------------------
 payg_cas04,147,48,0	duplicate(Gld_Trea_Spawn)	Treasure#payg_cas04	-1
 

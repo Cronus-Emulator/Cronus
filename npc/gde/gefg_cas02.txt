@@ -5,7 +5,7 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-           Guerra do Emperium (Geffen)                     -
 //-------------------------------------------------------------
@@ -15,7 +15,7 @@
 //- Versão: 1.2b                                              -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	 Npcs relacionados ao 2º Castelo de Geffen.               -
+//-  Npcs relacionados ao 2º Castelo de Geffen.               -
 //-------------------------------------------------------------
 //- Desenvolvimento:                                          -
 //- 	1.2b - Relizado tradução do script. [SoulBlaker]      -
@@ -127,7 +127,7 @@ gefg_cas02,145,114,0	script	#lever_G02	HIDDEN_NPC,{
 //-------------------------------------------------------------
 gefg_cas02,167,40,0	duplicate(gdlever)	#gefg_cas02	HIDDEN_NPC
 
-// Arcas do Tesouro do Clã
+// Baús do Tesouro do Clã
 //-------------------------------------------------------------
 gefg_cas02,140,116,0	duplicate(Gld_Trea_Spawn)	Treasure#gefg_cas02	-1
 

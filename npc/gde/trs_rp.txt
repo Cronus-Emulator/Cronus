@@ -5,17 +5,17 @@
 //-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
 //-      \______  /|__|   \____/|___|  /____//____  >         -
 //-             \/                   \/           \/          -
-//-				    www.cronus-emulator.com                   -
+//-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
 //-           Proteções da Sala do Tesouro                    -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //-  Masao e Daegaladh.                                       -
 //-------------------------------------------------------------
-//- Versão: 1.1                                              -
+//- Versão: 1.1                                               -
 //-------------------------------------------------------------
 //- Descrição:                                                -
-//-	 Teleporta qualquer jogador, exceto o Líder do Clãn para  -
+//-  Teleporta qualquer jogador, exceto o Líder do Clãn para  -
 //-  fora da Sala do Tesouro.                                 -
 //-------------------------------------------------------------
 //- Desenvolvimento:                                          -
