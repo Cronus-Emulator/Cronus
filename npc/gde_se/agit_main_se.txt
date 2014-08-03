@@ -221,12 +221,12 @@ OnTreasureDied:
 	}
 	if (getcharid(2) != .@GID || strcharinfo(0) != getguildmaster(.@GID)) {
 		mes "[ Gerente ]";
-		mes "Hmpf. Your threats don't";
-		mes "scare me! Guardians, drive";
-		mes "this infidel away from here!";
-		mes "I will always be loyal to the";
-		mes "master of this stronghold,";
-		mes "the one and only ^FF0000"+getguildmaster(.@GID)+"^000000.";
+		mes "Hmpf. Suas ameaças não";
+		mes "não me assustam! Guardiões, conduzem";
+		mes "esse infiel daqui!";
+		mes "Eu vou ser sempre leal ao";
+		mes "mestre desta fortaleza,";
+		mes "o primeiro e único ^FF0000"+getguildmaster(.@GID)+"^000000.";
 		close;
 	}
 	mes "[ Gerente ]";
