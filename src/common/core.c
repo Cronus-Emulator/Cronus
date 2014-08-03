@@ -140,7 +140,7 @@ static void sig_proc(int sn) {
 		case SIGTERM:
 			if (++is_called > 3)
 				exit(EXIT_SUCCESS);
-			if( shutdown_callback != NULL )
+			if(shutdown_callback)
 				shutdown_callback();
 			else
 				runflag = CORE_ST_STOP;// auto-shutdown

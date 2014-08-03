@@ -74,7 +74,7 @@ const char* mapindex_getmapname(const char* string, char* output) {
 /// Result gets placed either into 'buf' or in a static local buffer.
 const char* mapindex_getmapname_ext(const char* string, char* output) {
 	static char buf[MAP_NAME_LENGTH_EXT];
-	char* dest = (output != NULL) ? output : buf;
+	char* dest = (output) ? output : buf;
 
 	size_t len;
 
@@ -169,7 +169,7 @@ void mapindex_init(void) {
 	int index, total = 0;
 	char map_name[12];
 	
-	if( ( fp = fopen(mapindex->config_file,"r") ) == NULL ){
+	if( !(fp = fopen(mapindex->config_file,"r"))){
 		ShowFatalError("Falha na leitura de %s!\n", mapindex->config_file);
 		exit(EXIT_FAILURE); //Server can't really run without this file.
 	}

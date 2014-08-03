@@ -1683,8 +1683,7 @@ int atkillmonster_sub(struct block_list *bl, va_list ap)
 	struct mob_data *md = (struct mob_data *)bl;
 	int flag = va_arg(ap, int);
 	
-	if (!md) 
-	return 0;
+	nullcheck(md);
 	
 	if (md->guardian_data)
 		return 0; //Do not touch WoE mobs!
@@ -9401,8 +9400,8 @@ bool atcommand_exec(const int fd, struct map_session_data *sd, const char *messa
 	TBL_PC * ssd = NULL; //sd for target
 	AtCommandInfo * info;
 	
-	if (!sd) return false;
-
+	nullcheckret(sd,false);
+	
 	//Shouldn't happen
 	if ( !message || !*message )
 		return false;

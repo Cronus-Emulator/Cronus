@@ -406,7 +406,7 @@ int instance_del_load(struct map_session_data* sd, va_list args) {
 /* for npcs behave differently when being unloaded within a instance */
 int instance_cleanup_sub(struct block_list *bl, va_list ap) {
 
-	if (!bl) return 0;
+	nullcheck(bl);
 	
 	switch(bl->type) {
 		case BL_PC:

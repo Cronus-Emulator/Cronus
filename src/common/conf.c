@@ -33,6 +33,7 @@
 
 #include "conf.h"
 #include "../3rdparty/libconfig/libconfig.h"
+#include "../common/malloc.h"
 #include "../common/showmsg.h" // ShowError
 
 /* interface source */
@@ -50,69 +51,88 @@ int conf_read_file(config_t *config, const char *config_filename) {
 	return 0;
 }
 
-//
-// Functions to copy settings from libconfig/contrib
-//
-void config_setting_copy_simple(config_setting_t *parent, const config_setting_t *src) {
-	if (config_setting_is_aggregate(src)) {
-		libconfig->setting_copy_aggregate(parent, src);
-	}
-	else {
-		config_setting_t *set;
-		
-		if( libconfig->setting_get_member(parent, config_setting_name(src)) != NULL )
-			return;
-		
-		if ((set = libconfig->setting_add(parent, config_setting_name(src), config_setting_type(src))) == NULL)
-			return;
 
-		if (CONFIG_TYPE_INT == config_setting_type(src)) {
-			libconfig->setting_set_int(set, libconfig->setting_get_int(src));
+void config_setting_copy_simple(config_setting_t *parent, const config_setting_t *src) {
+	if (config_setting_is_aggregate(src)) 
+		libconfig->setting_copy_aggregate(parent, src);
+	
+	else {
+		
+		if(libconfig->setting_get_member(parent, config_setting_name(src))) return;
+		
+		config_setting_t *set = libconfig->setting_add(parent, config_setting_name(src), config_setting_type(src));
+	
+		nullcheckvoid(set);
+		
+		switch(config_setting_type(src)) {
+		case CONFIG_TYPE_INT: 
+		    libconfig->setting_set_int(set, libconfig->setting_get_int(src));
 			libconfig->setting_set_format(set, src->format);
-		} else if (CONFIG_TYPE_INT64 == config_setting_type(src)) {
-			libconfig->setting_set_int64(set, libconfig->setting_get_int64(src));
+		break;
+		case CONFIG_TYPE_INT64:
+		    libconfig->setting_set_int64(set, libconfig->setting_get_int64(src));
 			libconfig->setting_set_format(set, src->format);
-		} else if (CONFIG_TYPE_FLOAT == config_setting_type(src)) {
-			libconfig->setting_set_float(set, libconfig->setting_get_float(src));
-		} else if (CONFIG_TYPE_STRING == config_setting_type(src)) {
-			libconfig->setting_set_string(set, libconfig->setting_get_string(src));
-		} else if (CONFIG_TYPE_BOOL == config_setting_type(src)) {
-			libconfig->setting_set_bool(set, libconfig->setting_get_bool(src));
-		}
-	}
+		break;
+		case CONFIG_TYPE_FLOAT:
+		     libconfig->setting_set_float(set, libconfig->setting_get_float(src));
+		break;
+		case CONFIG_TYPE_STRING:
+		     libconfig->setting_set_string(set, libconfig->setting_get_string(src));
+		break;
+		case CONFIG_TYPE_BOOL:
+		    libconfig->setting_set_bool(set, libconfig->setting_get_bool(src));
+		break;
+		default: 
+		     return; 
+         }
+	 }
+	
 }
 
 void config_setting_copy_elem(config_setting_t *parent, const config_setting_t *src) {
-	config_setting_t *set = NULL;
 
 	if (config_setting_is_aggregate(src))
 		libconfig->setting_copy_aggregate(parent, src);
-	else if (CONFIG_TYPE_INT == config_setting_type(src)) {
+	else {
+	
+	config_setting_t *set = NULL;
+	
+	switch(config_setting_type(src)) {
+	 	case CONFIG_TYPE_INT:
 		set = libconfig->setting_set_int_elem(parent, -1, libconfig->setting_get_int(src));
 		libconfig->setting_set_format(set, src->format);
-	} else if (CONFIG_TYPE_INT64 == config_setting_type(src)) {
+		break;
+	    case CONFIG_TYPE_INT64:
 		set = libconfig->setting_set_int64_elem(parent, -1, libconfig->setting_get_int64(src));
 		libconfig->setting_set_format(set, src->format);
-	} else if (CONFIG_TYPE_FLOAT == config_setting_type(src)) {
+		break;
+		case CONFIG_TYPE_FLOAT:
 		libconfig->setting_set_float_elem(parent, -1, libconfig->setting_get_float(src));
-	} else if (CONFIG_TYPE_STRING == config_setting_type(src)) {
+		break;
+		case CONFIG_TYPE_STRING:
 		libconfig->setting_set_string_elem(parent, -1, libconfig->setting_get_string(src));
-	} else if (CONFIG_TYPE_BOOL == config_setting_type(src)) {
+		break;
+		case CONFIG_TYPE_BOOL:
 		libconfig->setting_set_bool_elem(parent, -1, libconfig->setting_get_bool(src));
+		break;
+		
+		default: 
+		   return;
 	}
+}
+
 }
 
 void config_setting_copy_aggregate(config_setting_t *parent, const config_setting_t *src) {
 	config_setting_t *newAgg;
 	int i, n;
 
-	if( libconfig->setting_get_member(parent, config_setting_name(src)) != NULL )
+	if( libconfig->setting_get_member(parent, config_setting_name(src)))
 		return;
 	
 	newAgg = libconfig->setting_add(parent, config_setting_name(src), config_setting_type(src));
 
-	if (newAgg == NULL)
-		return;
+	if (!newAgg) return;
 
 	n = config_setting_length(src);
 	

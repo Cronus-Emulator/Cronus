@@ -106,7 +106,7 @@ void do_reconnect_storage(void) {
  *------------------------------------------*/
 int storage_storageopen(struct map_session_data *sd)
 {
-	if (!sd) return 0;
+	if (!sd) return 1;
 	
 	if(sd->state.storage_flag)
 		return 1; //Already open?
@@ -411,7 +411,7 @@ int storage_guild_storageopen(struct map_session_data* sd)
 {
 	struct guild_storage *gstor;
 
-	if (!sd) return 0;
+	if (!sd) return 1;
 
 	if(sd->status.guild_id <= 0)
 		return 2;
@@ -511,7 +511,7 @@ int guild_storage_additem(struct map_session_data* sd, struct guild_storage* sto
  *------------------------------------------*/
 int guild_storage_delitem(struct map_session_data* sd, struct guild_storage* stor, int n, int amount)
 {
-	if (!sd || !stor) return 0;
+	if (!sd || !stor) return 1;
 
 	if(stor->items[n].nameid==0 || stor->items[n].amount<amount)
 		return 1;
@@ -532,7 +532,7 @@ int guild_storage_delitem(struct map_session_data* sd, struct guild_storage* sto
 * @index : inventory idx
 * return
 * 	0 : fail
-* 	1 : succes
+* 	1 : success
  *------------------------------------------*/
 int storage_guild_storageadd(struct map_session_data* sd, int index, int amount)
 {

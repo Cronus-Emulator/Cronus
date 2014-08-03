@@ -46,6 +46,7 @@
 #include "path.h"
 #include "pc.h"
 #include "skill.h"
+#include "../common/malloc.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
 
@@ -60,7 +61,7 @@ static inline unsigned int getid(void) {
  * Close shop
  *------------------------------------------*/
 void vending_closevending(struct map_session_data* sd) {
-	if (!sd) return;
+	nullcheckvoid(sd);
 
 	if( sd->state.vending ) {
 		sd->state.vending = false;
@@ -73,8 +74,8 @@ void vending_closevending(struct map_session_data* sd) {
  * Request a shop's item list
  *------------------------------------------*/
 void vending_vendinglistreq(struct map_session_data* sd, unsigned int id) {
-	struct map_session_data* vsd;
-	if (!sd) return;
+	struct map_session_data* vsd = NULL;
+	nullcheckvoid(sd);
 
 	if( (vsd = map->id2sd(id)) == NULL )
 		return;
@@ -101,8 +102,8 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 	struct s_vending vend[MAX_VENDING]; // against duplicate packets
 	struct map_session_data* vsd = map->id2sd(aid);
 
-	if (!sd) return;
-	if( vsd == NULL || !vsd->state.vending || vsd->bl.id == sd->bl.id )
+	nullcheckvoid(sd);
+	if( !vsd || !vsd->state.vending || vsd->bl.id == sd->bl.id )
 		return; // invalid shop
 
 	if( vsd->vender_id != uid ) { // shop has changed
@@ -252,7 +253,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 void vending_openvending(struct map_session_data* sd, const char* message, const uint8* data, int count) {
 	int i, j;
 	int vending_skill_lvl;
-	if (!sd) return;
+	nullcheckvoid(sd);
 
 	if ( pc_isdead(sd) || !sd->state.prevend || pc_istrading(sd))
 		return; // can't open vendings lying dead || didn't use via the skill (wpe/hack) || can't have 2 shops at once

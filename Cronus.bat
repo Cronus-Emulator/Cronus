@@ -74,6 +74,7 @@ echo --------- We can do it with Batch Scripts--------------!LF!
 
 
 call:DepExist
+call:AdminRights
 call:ProcessRunning
 call:CreateObjects
 call:LinkObjects
@@ -85,6 +86,14 @@ call:End
 :: Se o compilador não estiver registrado como variável de ambiente... Não há nada pra fazer.
 call clang -cc1 -version
 if ERRORLEVEL 1 goto End
+goto:eof
+
+:AdminRights
+NET SESSION >nul 2>&1
+IF NOT ERRORLEVEL 0 (
+    ECHO [Cronus]: Script exige conta de administrador... Encerrando
+	goto End
+)
 goto:eof
 
 :ProcessRunning

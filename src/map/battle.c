@@ -626,7 +626,7 @@ int64 battle_addmastery(struct map_session_data *sd,struct block_list *target,in
 	int weapon, skill_lv;
 	damage = dmg;
 
-	if (!sd) return 0;
+	nullcheck(sd);
 
 	if((skill_lv = pc->checkskill(sd,AL_DEMONBANE)) > 0 &&
 		target->type == BL_MOB && //This bonus doesn't work against players.
@@ -2583,11 +2583,13 @@ int battle_calc_skillratio(int attack_type, struct block_list *src, struct block
  *------------------------------------------*/
 int64 battle_calc_damage(struct block_list *src,struct block_list *bl,struct Damage *d,int64 damage,uint16 skill_id,uint16 skill_lv) {
 	struct map_session_data *sd = NULL;
-	struct status_change *sc, *tsc;
-	struct status_change_entry *sce;
+	struct status_change *sc = NULL;
+	struct status_change *tsc = NULL;
+	struct status_change_entry *sce = NULL;
 	int div_ = d->div_, flag = d->flag;
 
-	if (!bl) return 0; //Sem gente
+	nullcheck(bl);
+	
 	if( !damage ) return 0; // Sem dano
 	if( battle_config.ksprotection && mob->ksprotected(src, bl) ) return 0; //Proteção contra KS
 		
@@ -5553,15 +5555,16 @@ void battle_drain(TBL_PC *sd, struct block_list *tbl, int64 rdamage, int64 ldama
 int battle_damage_area(struct block_list *bl, va_list ap) {
 	int64 tick;
 	int amotion, dmotion, damage;
-	struct block_list *src;
+	struct block_list *src = NULL;
 
-	if (!bl) return 0;
+	nullcheck(bl);
 
 	tick = va_arg(ap, int64);
 	src=va_arg(ap,struct block_list *);
 	amotion=va_arg(ap,int);
 	dmotion=va_arg(ap,int);
 	damage=va_arg(ap,int);
+	
 	if( bl->type == BL_MOB && ((TBL_MOB*)bl)->class_ == MOBID_EMPERIUM )
 		return 0;
 	if( bl != src && battle->check_target(src,bl,BCT_ENEMY) > 0 ) {
@@ -6435,7 +6438,6 @@ static const struct _battle_data {
 	{ "monster_active_enable",              &battle_config.monster_active_enable,           1,      0,      1,              },
 	{ "monster_damage_delay_rate",          &battle_config.monster_damage_delay_rate,       100,    0,      INT_MAX,        },
 	{ "monster_loot_type",                  &battle_config.monster_loot_type,               0,      0,      1,              },
-//	{ "mob_skill_use",                      &battle_config.mob_skill_use,                   1,      0,      1,              }, //Deprecated
 	{ "mob_skill_rate",                     &battle_config.mob_skill_rate,                  100,    0,      INT_MAX,        },
 	{ "mob_skill_delay",                    &battle_config.mob_skill_delay,                 100,    0,      INT_MAX,        },
 	{ "mob_count_rate",                     &battle_config.mob_count_rate,                  100,    0,      INT_MAX,        },

@@ -2260,7 +2260,7 @@ int status_calc_mob_(struct mob_data* md, enum e_status_calc_opt opt) {
 //Skotlex: Calculates the stats of the given pet.
 int status_calc_pet_(struct pet_data *pd, enum e_status_calc_opt opt)
 {
-	if (!pd) return 0;
+	nullcheck(pd);
 
 	if (opt&SCO_FIRST) {
 		memcpy(&pd->status, &pd->db->status, sizeof(struct status_data));
@@ -3401,8 +3401,7 @@ int status_calc_elemental_(struct elemental_data *ed, enum e_status_calc_opt opt
 int status_calc_npc_(struct npc_data *nd, enum e_status_calc_opt opt) {
 	struct status_data *nstatus = &nd->status;
 
-	if (!nd)
-		return 0;
+	nullcheck(nd);
 
 	if ( opt&SCO_FIRST ) {
 		nstatus->hp = 1;
@@ -3558,8 +3557,7 @@ void status_calc_regen_rate(struct block_list *bl, struct regen_data *regen, str
 	}
 	regen->rate.hp = regen->rate.sp = 1;
 
-	if (!sc || !sc->count)
-		return;
+	if (!sc || !sc->count) return;
 
 	if ((sc->data[SC_POISON] && !sc->data[SC_SLOWPOISON])
 	 || (sc->data[SC_DPOISON] && !sc->data[SC_SLOWPOISON])
@@ -3622,9 +3620,9 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag) {
 	TBL_PC *sd = BL_CAST(BL_PC,bl);
 	int temp;
 
-	if (!bst || !st)
-		return;
-
+	nullcheckvoid(bst);
+	nullcheckvoid(st);
+	
 	if((!(bl->type&BL_REGEN)) && (!sc || !sc->count)) { //No difference.
 		status_cpy(st, bst);
 		return;
@@ -5798,6 +5796,7 @@ unsigned char status_calc_attack_element(struct block_list *bl, struct status_ch
 {
 	if(!sc || !sc->count)
 		return element;
+	
 	if(sc->data[SC_ENCHANTARMS])
 		return sc->data[SC_ENCHANTARMS]->val2;
 	if(sc->data[SC_PROPERTYWATER]
@@ -5829,8 +5828,9 @@ unsigned char status_calc_attack_element(struct block_list *bl, struct status_ch
 
 unsigned short status_calc_mode(struct block_list *bl, struct status_change *sc, int mode)
 {
-	if(!sc || !sc->count)
+    if(!sc || !sc->count)
 		return mode;
+
 	if(sc->data[SC_MODECHANGE]) {
 		if (sc->data[SC_MODECHANGE]->val2)
 			mode = sc->data[SC_MODECHANGE]->val2; //Set mode
@@ -5843,7 +5843,9 @@ unsigned short status_calc_mode(struct block_list *bl, struct status_change *sc,
 }
 
 const char* status_get_name(struct block_list *bl) {
-	if (!bl) return NULL;
+
+    nullcheckret(bl,NULL);
+	
 	switch (bl->type) {
 		case BL_PC:  return ((TBL_PC *)bl)->fakename[0] != '\0' ? ((TBL_PC*)bl)->fakename : ((TBL_PC*)bl)->status.name;
 		case BL_MOB: return ((TBL_MOB*)bl)->name;
@@ -5861,7 +5863,7 @@ const char* status_get_name(struct block_list *bl) {
 *	class_id = success
 *------------------------------------------*/
 int status_get_class(struct block_list *bl) {
-	if (!bl) return 0;
+	nullcheck(bl);
 	switch( bl->type ) {
 		case BL_PC:  return ((TBL_PC*)bl)->status.class_;
 		case BL_MOB: return ((TBL_MOB*)bl)->vd->class_; //Class used on all code should be the view class of the mob.
@@ -5880,7 +5882,7 @@ int status_get_class(struct block_list *bl) {
 *	level = success
 *------------------------------------------*/
 int status_get_lv(struct block_list *bl) {
-	if (!bl) return 1;
+	nullcheckret(bl,1);
 	switch (bl->type) {
 		case BL_PC:  return ((TBL_PC*)bl)->status.base_level;
 		case BL_MOB: return ((TBL_MOB*)bl)->level;
@@ -5895,7 +5897,7 @@ int status_get_lv(struct block_list *bl) {
 
 struct regen_data *status_get_regen_data(struct block_list *bl)
 {
-	if (!bl) return NULL;
+	nullcheckret(bl,NULL);
 	
 	switch (bl->type) {
 		case BL_PC:  return &((TBL_PC*)bl)->regen;
@@ -5909,8 +5911,7 @@ struct regen_data *status_get_regen_data(struct block_list *bl)
 
 struct status_data *status_get_status_data(struct block_list *bl)
 {
-    if (!bl) return &status->dummy;
-
+	nullcheckret(bl,&status->dummy);
 	switch (bl->type) {
 		case BL_PC:  return &((TBL_PC*)bl)->battle_status;
 		case BL_MOB: return &((TBL_MOB*)bl)->status;
@@ -5926,7 +5927,7 @@ struct status_data *status_get_status_data(struct block_list *bl)
 
 struct status_data *status_get_base_status(struct block_list *bl)
 {
-	if (!bl) return NULL;
+	nullcheckret(bl,NULL);
 	
 	switch (bl->type) {
 		case BL_PC:  return &((TBL_PC*)bl)->base_status;
@@ -5941,7 +5942,7 @@ struct status_data *status_get_base_status(struct block_list *bl)
 	}
 }
 defType status_get_def(struct block_list *bl) {
-	struct unit_data *ud;
+	struct unit_data *ud = NULL;
 	struct status_data *st = status->get_status_data(bl);
 	int def = st ? st->def : 0;
 	ud = unit->bl2ud(bl);
@@ -5958,7 +5959,7 @@ unsigned short status_get_speed(struct block_list *bl) {
 }
 
 int status_get_party_id(struct block_list *bl) {
-	if (!bl) return 0;
+	nullcheck(bl);
 	switch (bl->type) {
 	case BL_PC:
 		return ((TBL_PC*)bl)->status.party_id;
@@ -5995,7 +5996,7 @@ int status_get_party_id(struct block_list *bl) {
 }
 
 int status_get_guild_id(struct block_list *bl) {
-	if (!bl) return 0;
+	nullcheck(bl);
 	switch (bl->type) {
 	case BL_PC:
 		return ((TBL_PC*)bl)->status.guild_id;
@@ -6035,7 +6036,7 @@ int status_get_guild_id(struct block_list *bl) {
 }
 
 int status_get_emblem_id(struct block_list *bl) {
-	if (!bl) return 0;
+	nullcheck(bl);
 	switch (bl->type) {
 	case BL_PC:
 		return ((TBL_PC*)bl)->guild_emblem_id;
@@ -6077,7 +6078,7 @@ int status_get_emblem_id(struct block_list *bl) {
 
 int status_get_mexp(struct block_list *bl)
 {
-	if (!bl) return 0;
+	nullcheck(bl);
 	if(bl->type==BL_MOB)
 		return ((struct mob_data *)bl)->db->mexp;
 	if(bl->type==BL_PET)
@@ -6086,7 +6087,7 @@ int status_get_mexp(struct block_list *bl)
 }
 int status_get_race2(struct block_list *bl)
 {
-	if (!bl) return 0;
+	nullcheck(bl);
 	
 	if(bl->type == BL_MOB)
 		return ((struct mob_data *)bl)->db->race2;
@@ -6096,7 +6097,7 @@ int status_get_race2(struct block_list *bl)
 }
 
 int status_isdead(struct block_list *bl) {
-	if (!bl) return 0;
+	nullcheck(bl);
 	return status->get_status_data(bl)->hp == 0;
 }
 
@@ -6113,7 +6114,7 @@ int status_isimmune(struct block_list *bl) {
 
 struct view_data* status_get_viewdata(struct block_list *bl)
 {
-	if (!bl) return NULL;
+	nullcheckret(bl,NULL);
 	switch (bl->type) {
 		case BL_PC:  return &((TBL_PC*)bl)->vd;
 		case BL_MOB: return ((TBL_MOB*)bl)->vd;
@@ -6129,7 +6130,7 @@ struct view_data* status_get_viewdata(struct block_list *bl)
 void status_set_viewdata(struct block_list *bl, int class_)
 {
 	struct view_data* vd;
-	if (!bl) return;
+	nullcheckvoid(bl);
 	if (mob->db_checkid(class_) || mob->is_clone(class_))
 		vd = mob->get_viewdata(class_);
 	else if (npcdb_checkid(class_) || (bl->type == BL_NPC && class_ == WARP_CLASS))
@@ -6281,7 +6282,7 @@ struct status_change *status_get_sc(struct block_list *bl) {
 
 void status_change_init(struct block_list *bl) {
 	struct status_change *sc = status->get_sc(bl);
-	if (!sc) return;
+	nullcheckvoid(sc);  // Woooo ~ Fill with zeroes skipped :p
 	memset(sc, 0, sizeof (struct status_change));
 }
 
@@ -6300,7 +6301,7 @@ int status_get_sc_def(struct block_list *src, struct block_list *bl, enum sc_typ
 	struct status_change *sc;
 	struct map_session_data *sd;
 
-	if (!bl) return 0;
+	nullcheck(bl);
 	
 	if(!src)
 		return tick ? tick : 1; // If no source, it can't be resisted (NPC given)
@@ -8017,8 +8018,7 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 				// fetch target's stats
 				struct status_data* tst = status->get_status_data(bl); // battle status
 
-				if (!psce)
-					return 0;
+				if (!psce) return 0;
 
 				val3 = 0;
 				val4 = 0;
@@ -9622,7 +9622,7 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 	bool invisible = false;
 #endif
 	
-	if (!bl) return 0;
+	nullcheck(bl);
 	
 	sc = status->get_sc(bl);
 	st = status->get_status_data(bl);
@@ -11552,10 +11552,10 @@ int status_change_spread( struct block_list *src, struct block_list *bl ) {
 
 //Natural regen related stuff.
 int status_natural_heal(struct block_list* bl, va_list args) {
-	struct regen_data *regen;
-	struct status_data *st;
-	struct status_change *sc;
-	struct unit_data *ud;
+	struct regen_data *regen = NULL;  //No Wild pointers here :<
+	struct status_data *st = NULL;
+	struct status_change *sc = NULL;
+	struct unit_data *ud = NULL;
 	struct view_data *vd = NULL;
 	struct regen_data_sub *sregen;
 	struct map_session_data *sd;

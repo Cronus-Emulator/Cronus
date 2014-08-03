@@ -222,7 +222,7 @@ int map_addblock(struct block_list* bl)
 	int16 m, x, y;
 	int pos;
 
-	if (!bl) return 0;
+	nullcheck(bl)
 
 	if (bl->prev) {
 		ShowError("map_addblock: bl->prev != NULL\n");
@@ -268,7 +268,7 @@ int map_addblock(struct block_list* bl)
 int map_delblock(struct block_list* bl)
 {
 	int pos;
-	if (!bl) return 0;
+	nullcheck(bl)
 
 	// blocklist (2ways chainlist)
 	if (!bl->prev) {
@@ -1348,7 +1348,7 @@ int map_get_new_object_id(void)
 int map_clearflooritem_timer(int tid, int64 tick, int id, intptr_t data) {
 	struct flooritem_data* fitem = (struct flooritem_data*)idb_get(map->id_db, id);
 
-	if (fitem == NULL || fitem->bl.type != BL_ITEM || (fitem->cleartimer != tid)) {
+	if (!fitem || fitem->bl.type != BL_ITEM || (fitem->cleartimer != tid)) {
 		ShowError("Falha em remover item do mapa. Comportamento inesperado...\n");
 		return 1;
 	}
@@ -1609,7 +1609,7 @@ void map_reqnickdb(struct map_session_data * sd, int charid)
 	struct charid_request* req;
 	struct map_session_data* tsd;
 
-	if (!sd) return;
+	nullcheckvoid(sd)
 
 	tsd = map->charid2sd(charid);
 	if( tsd ) {
@@ -1634,7 +1634,7 @@ void map_reqnickdb(struct map_session_data * sd, int charid)
  *------------------------------------------*/
 void map_addiddb(struct block_list *bl)
 {
-	if (!bl) return;
+	nullcheckvoid(bl)
 
 	if( bl->type == BL_PC )
 	{
@@ -1662,7 +1662,7 @@ void map_addiddb(struct block_list *bl)
  *------------------------------------------*/
 void map_deliddb(struct block_list *bl)
 {
-	if (!bl) return;
+	nullcheckvoid(bl)
 
 	if( bl->type == BL_PC )
 	{
@@ -2171,7 +2171,7 @@ void mapit_free(struct s_mapiterator* iter) {
 struct block_list* mapit_first(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	if (!iter) return NULL;
+	nullcheckret(iter,NULL);
 
 	for( bl = (struct block_list*)dbi_first(iter->dbi); bl != NULL; bl = (struct block_list*)dbi_next(iter->dbi) ) {
 		if( MAPIT_MATCHES(iter,bl) )
@@ -2188,7 +2188,7 @@ struct block_list* mapit_first(struct s_mapiterator* iter) {
 struct block_list* mapit_last(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	if (!iter) return NULL;
+	nullcheckret(iter,NULL);
 
 	for( bl = (struct block_list*)dbi_last(iter->dbi); bl != NULL; bl = (struct block_list*)dbi_prev(iter->dbi) ) {
 		if( MAPIT_MATCHES(iter,bl) )
@@ -2205,7 +2205,7 @@ struct block_list* mapit_last(struct s_mapiterator* iter) {
 struct block_list* mapit_next(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	if (!iter) return NULL;
+	nullcheckret(iter,NULL);
 
 	for( ; ; ) {
 		bl = (struct block_list*)dbi_next(iter->dbi);
@@ -2226,7 +2226,7 @@ struct block_list* mapit_next(struct s_mapiterator* iter) {
 struct block_list* mapit_prev(struct s_mapiterator* iter) {
 	struct block_list* bl;
 
-	if (!iter) return NULL;
+	nullcheckret(iter,NULL);
 
 	for( ; ; ) {
 		bl = (struct block_list*)dbi_prev(iter->dbi);
@@ -2244,7 +2244,7 @@ struct block_list* mapit_prev(struct s_mapiterator* iter) {
 /// @param iter Iterator
 /// @return true if it exists
 bool mapit_exists(struct s_mapiterator* iter) {
-	if (!iter) return false;
+	nullcheckret(iter,false)
 
 	return dbi_exists(iter->dbi);
 }
@@ -2425,7 +2425,7 @@ uint8 map_calc_dir(struct block_list* src, int16 x, int16 y)
 	uint8 dir = 0;
 	int dx, dy;
 
-	if (!src) return 0;
+	nullcheck(src);
 
 	dx = x-src->x;
 	dy = y-src->y;
@@ -5113,7 +5113,7 @@ int nick_db_final(DBKey key, DBData *data, va_list args)
 }
 
 int cleanup_sub(struct block_list *bl, va_list ap) {
-	if (!bl) return 0;
+	nullcheck(bl)
 
 	switch(bl->type) {
 		case BL_PC:
@@ -5252,7 +5252,7 @@ void do_abort(void)
 	static int run = 0;
 	//Save all characters and then flush the inter-connection.
 	if (run) {
-		ShowFatalError("Servidor foi abortado bruscamente. Salvando personagens... (Use GNU Debugger para verificar o ocorrido)!\n");
+		ShowFatalError("Servidor foi abortado bruscamente. Salvando personagens...\n");
 		return;
 	}
 	run = 1;
@@ -5262,7 +5262,8 @@ void do_abort(void)
 			ShowFatalError("Servidor foi abortado sem o Servidor de Personagens , %u personagens tiveram seus dados perdidos!\n", db_size(map->pc_db));
 		return;
 	}
-	ShowError("Servidor sofreu uma queda fatal ! Salvando personagens...(Use GNU Debugger para verificar o ocorrido)!\n");
+	ShowError("Servidor sofreu uma queda fatal ! Salvando personagens...!\n");
+	track("QUEDA FATAL!!!",__FILE__,__LINE__,__func__);
 	map->foreachpc(map->abort_sub);
 	chrif->flush();
 }

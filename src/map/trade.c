@@ -48,6 +48,7 @@
 #include "path.h"
 #include "pc.h"
 #include "storage.h"
+#include "../common/malloc.h"
 #include "../common/socket.h"
 
 struct trade_interface trade_s;
@@ -57,7 +58,7 @@ struct trade_interface trade_s;
  *------------------------------------------*/
 void trade_traderequest(struct map_session_data *sd, struct map_session_data *target_sd)
 {
-	if (!sd) return;
+	nullcheckvoid(sd);
 
 	if (map->list[sd->bl.m].flag.notrade) {
 		clif->message (sd->fd, msg_txt(272));
@@ -129,7 +130,7 @@ void trade_traderequest(struct map_session_data *sd, struct map_session_data *ta
  *------------------------------------------*/
 void trade_tradeack(struct map_session_data *sd, int type) {
 	struct map_session_data *tsd;
-	if (!sd) return;
+	nullcheckvoid(sd);
 
 	if (sd->state.trading || !sd->trade_partner)
 		return; //Already trading or no partner set.
@@ -352,7 +353,7 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 	int trade_i, trade_weight;
 	int src_lv, dst_lv;
 
-	if (!sd) return;
+	nullcheckvoid(sd);
 	if( !sd->state.trading || sd->state.deal_locked > 0 )
 		return; //Can't add stuff.
 
@@ -444,7 +445,7 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 void trade_tradeaddzeny(struct map_session_data* sd, int amount)
 {
 	struct map_session_data* target_sd;
-	if (!sd) return;
+	nullcheckvoid(sd);
 
 	if( !sd->state.trading || sd->state.deal_locked > 0 )
 		return; //Can't add stuff.

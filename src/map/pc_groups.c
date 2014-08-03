@@ -82,7 +82,7 @@ static void read_config(void) {
 
 	groups = libconfig->lookup(&pc_group_config, "groups");
 
-	if (groups != NULL) {
+	if (groups) {
 		GroupSettings *group_settings = NULL;
 		DBIterator *iter = NULL;
 		int i, loop = 0;

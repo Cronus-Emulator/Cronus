@@ -94,6 +94,24 @@ void aFree_(void *p, const char *file, int line, const char *func)
         p = NULL;
 }
 
+void track (const char* msg, const char *file, int line, const char *func)
+{
+	time_t rawtime = time (NULL);
+    struct tm * timeinfo = localtime (&rawtime);
+    char buffer [50];
+	FILE* fp = NULL;
+	
+	fp = fopen("Report.txt","a+");
+	if (!fp) return;
+	strftime (buffer,50,"%c",timeinfo);
+	
+	if (strcmp(msg, "") == 0) {
+	fprintf(fp,"\nPonteiro nulo. Data/Hora: %s \n", buffer);
+	fprintf(fp,"Arquivo: %s | Linha: %d | Proc: %s\n",file,line,func);
+	}
+	else { fprintf(fp,"\n %s. Data/Hora: %s",msg,buffer); }
+	fclose(fp);
+}
 
 #ifdef USE_MEMMGR
 

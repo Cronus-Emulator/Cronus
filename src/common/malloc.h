@@ -38,7 +38,6 @@
 
 #define ALC_MARK __FILE__, __LINE__, __func__
 
-
 //////////////////////////////////////////////////////////////////////
 // Enable memory manager logging by default
 #define USE_MEMMGR
@@ -69,9 +68,13 @@
 // should be merged with any of above later
 #define CREATE(result, type, number) ((result) = (type *) aCalloc((number), sizeof(type)))
 #define RECREATE(result, type, number) ((result) = (type *) aReallocz((result), sizeof(type) * (number)))
-
 ////////////////////////////////////////////////
 
+//Nullpo lives!!
+void track (const char *msg, const char *file, int line, const char *func);
+#define nullcheck(ptr) {if (!(ptr)) { track("",__FILE__,__LINE__,__func__); return 0; }}
+#define nullcheckvoid(ptr) {if (!(ptr)) { track("",__FILE__,__LINE__,__func__); return; }}
+#define nullcheckret(ptr,type) {if (!(ptr)) { track("",__FILE__,__LINE__,__func__); return type; }}
 
 void malloc_defaults(void);
 

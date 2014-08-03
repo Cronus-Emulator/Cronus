@@ -1559,20 +1559,15 @@ static bool db_obj_exists(DBMap* self, DBKey key)
 	bool found = false;
 
 	DB_COUNTSTAT(db_exists);
-	if (!db) return false; // nullpo candidate
-	if (!(db->options&DB_OPT_ALLOW_NULL_KEY) && db_is_key_null(db->type, key)) {
-		return false; // nullpo candidate
-	}
+	
+	//Nullpo
+	nullcheckret(db,false)
+	
+	if (!(db->options&DB_OPT_ALLOW_NULL_KEY) && db_is_key_null(db->type, key))
+		return false;
 
-	if (db->cache && db->cmp(key, db->cache->key, db->maxlen) == 0) {
-#if defined(DEBUG)
-		if (db->cache->deleted) {
-			ShowDebug("db_exists: Cache contains a deleted node. Please report this!!!\n");
-			return false;
-		}
-#endif
-		return true; // cache hit
-	}
+	if (db->cache && db->cmp(key, db->cache->key, db->maxlen) == 0) 
+		return true; 
 
 	db_free_lock(db);
 	node = db->ht[db->hash(key, db->maxlen)%HASH_SIZE];
@@ -1610,21 +1605,16 @@ static DBData* db_obj_get(DBMap* self, DBKey key)
 	DBData *data = NULL;
 
 	DB_COUNTSTAT(db_get);
-	if (!db) return NULL; // nullpo candidate
-	if (!(db->options&DB_OPT_ALLOW_NULL_KEY) && db_is_key_null(db->type, key)) {
-		ShowError("db_get: Attempted to retrieve non-allowed NULL key for db allocated at %s:%d\n",db->alloc_file, db->alloc_line);
+	
+	nullcheckret(db,NULL);
+	
+	if (!(db->options&DB_OPT_ALLOW_NULL_KEY) && db_is_key_null(db->type, key))
 		return NULL; // nullpo candidate
-	}
 
-	if (db->cache && db->cmp(key, db->cache->key, db->maxlen) == 0) {
-#if defined(DEBUG)
-		if (db->cache->deleted) {
-			ShowDebug("db_get: Cache contains a deleted node. Please report this!!!\n");
-			return NULL;
-		}
-#endif
+
+	if (db->cache && db->cmp(key, db->cache->key, db->maxlen) == 0)
 		return &db->cache->data; // cache hit
-	}
+	
 
 	db_free_lock(db);
 	node = db->ht[db->hash(key, db->maxlen)%HASH_SIZE];
@@ -1671,8 +1661,8 @@ static unsigned int db_obj_vgetall(DBMap* self, DBData **buf, unsigned int max, 
 	unsigned int ret = 0;
 
 	DB_COUNTSTAT(db_vgetall);
-	if (!db) return 0; // nullpo candidate
-	if (!match) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
+	nullcheck(match);
 
 	db_free_lock(db);
 	for (i = 0; i < HASH_SIZE; i++) {
@@ -1740,7 +1730,7 @@ static unsigned int db_obj_getall(DBMap* self, DBData **buf, unsigned int max, D
 	unsigned int ret;
 
 	DB_COUNTSTAT(db_getall);
-	if (!self) return 0; // nullpo candidate
+	nullcheck(self);
 
 	va_start(args, match);
 	ret = self->vgetall(self, buf, max, match, args);
@@ -1770,7 +1760,9 @@ static DBData* db_obj_vensure(DBMap* self, DBKey key, DBCreateData create, va_li
 	DBData *data = NULL;
 
 	DB_COUNTSTAT(db_vensure);
-	if (!db) return NULL; // nullpo candidate
+	
+	nullcheckret(db,NULL);
+	
 	if (!create) {
 		ShowError("db_ensure: Create function is NULL for db allocated at %s:%d\n",db->alloc_file, db->alloc_line);
 		return NULL; // nullpo candidate
@@ -1866,8 +1858,9 @@ static DBData* db_obj_ensure(DBMap* self, DBKey key, DBCreateData create, ...)
 	DBData *ret = NULL;
 
 	DB_COUNTSTAT(db_ensure);
-	if (!self) return NULL; // nullpo candidate
-
+	
+	nullcheckret(self,NULL);
+	
 	va_start(args, create);
 	ret = self->vensure(self, key, create, args);
 	va_end(args);
@@ -1898,7 +1891,7 @@ static int db_obj_put(DBMap* self, DBKey key, DBData data, DBData *out_data)
 	unsigned int hash;
 
 	DB_COUNTSTAT(db_put);
-	if (!db) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
 	if (db->global_lock) {
 		ShowError("db_put: Database is being destroyed, aborting entry insertion.\n"
 				"Database allocated at %s:%d\n",
@@ -2002,7 +1995,7 @@ static int db_obj_remove(DBMap* self, DBKey key, DBData *out_data)
 	int c = 0, retval = 0;
 
 	DB_COUNTSTAT(db_remove);
-	if (!db) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
 	if (db->global_lock) {
 		ShowError("db_remove: Database is being destroyed. Aborting entry deletion.\n"
 				"Database allocated at %s:%d\n",
@@ -2058,7 +2051,7 @@ static int db_obj_vforeach(DBMap* self, DBApply func, va_list args)
 	DBNode parent;
 
 	DB_COUNTSTAT(db_vforeach);
-	if (!db) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
 	if (!func) {
 		ShowError("db_foreach: Passed function is NULL for db allocated at %s:%d\n",db->alloc_file, db->alloc_line);
 		return 0; // nullpo candidate
@@ -2115,7 +2108,7 @@ static int db_obj_foreach(DBMap* self, DBApply func, ...)
 	int ret;
 
 	DB_COUNTSTAT(db_foreach);
-	if (!self) return 0; // nullpo candidate
+	nullcheck(self);
 
 	va_start(args, func);
 	ret = self->vforeach(self, func, args);
@@ -2144,7 +2137,7 @@ static int db_obj_vclear(DBMap* self, DBApply func, va_list args)
 	DBNode parent;
 
 	DB_COUNTSTAT(db_vclear);
-	if (!db) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
 
 	db_free_lock(db);
 	db->cache = NULL;
@@ -2215,7 +2208,8 @@ static int db_obj_clear(DBMap* self, DBApply func, ...)
 	int ret;
 
 	DB_COUNTSTAT(db_clear);
-	if (!self) return 0; // nullpo candidate
+	
+	nullcheck(self);
 
 	va_start(args, func);
 	ret = self->vclear(self, func, args);
@@ -2242,7 +2236,7 @@ static int db_obj_vdestroy(DBMap* self, DBApply func, va_list args)
 	int sum;
 
 	DB_COUNTSTAT(db_vdestroy);
-	if (!db) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
 	if (db->global_lock) {
 		ShowError("db_vdestroy: Database is already locked for destruction. Aborting second database destruction.\n"
 				"Database allocated at %s:%d\n",
@@ -2298,7 +2292,8 @@ static int db_obj_destroy(DBMap* self, DBApply func, ...)
 	int ret;
 
 	DB_COUNTSTAT(db_destroy);
-	if (!self) return 0; // nullpo candidate
+	
+	nullcheck(self);
 
 	va_start(args, func);
 	ret = self->vdestroy(self, func, args);
@@ -2320,7 +2315,7 @@ static unsigned int db_obj_size(DBMap* self)
 	unsigned int item_count;
 
 	DB_COUNTSTAT(db_size);
-	if (!db) return 0; // nullpo candidate
+	nullcheck(db); // nullpo candidate
 
 	db_free_lock(db);
 	item_count = db->item_count;
@@ -2343,7 +2338,8 @@ static DBType db_obj_type(DBMap* self)
 	DBType type;
 
 	DB_COUNTSTAT(db_type);
-	if (!db) return (DBType)-1; // nullpo candidate - TODO what should this return?
+	
+	nullcheckret(db,(DBType)-1);
 
 	db_free_lock(db);
 	type = db->type;
@@ -2366,7 +2362,8 @@ static DBOptions db_obj_options(DBMap* self)
 	DBOptions options;
 
 	DB_COUNTSTAT(db_options);
-	if (!db) return DB_OPT_BASE; // nullpo candidate - TODO what should this return?
+
+	nullcheckret(db,DB_OPT_BASE);
 
 	db_free_lock(db);
 	options = db->options;
@@ -2799,98 +2796,6 @@ void db_init(void) {
  */
 void db_final(void)
 {
-#ifdef DB_ENABLE_STATS
-	DB_COUNTSTAT(db_final);
-	ShowInfo(CL_WHITE"Database nodes"CL_RESET":\n"
-			"allocated %u, freed %u\n",
-			stats.db_node_alloc, stats.db_node_free);
-	ShowInfo(CL_WHITE"Database types"CL_RESET":\n"
-			"DB_INT     : allocated %10u, destroyed %10u\n"
-			"DB_UINT    : allocated %10u, destroyed %10u\n"
-			"DB_STRING  : allocated %10u, destroyed %10u\n"
-			"DB_ISTRING : allocated %10u, destroyed %10u\n",
-			"DB_INT64   : allocated %10u, destroyed %10u\n"
-			"DB_UINT64  : allocated %10u, destroyed %10u\n"
-			stats.db_int_alloc,     stats.db_int_destroy,
-			stats.db_uint_alloc,    stats.db_uint_destroy,
-			stats.db_string_alloc,  stats.db_string_destroy,
-			stats.db_istring_alloc, stats.db_istring_destroy,
-			stats.db_int64_alloc,   stats.db_int64_destroy,
-			stats.db_uint64_alloc,  stats.db_uint64_destroy,);
-	ShowInfo(CL_WHITE"Database function counters"CL_RESET":\n"
-			"db_rotate_left     %10u, db_rotate_right    %10u,\n"
-			"db_rebalance       %10u, db_rebalance_erase %10u,\n"
-			"db_is_key_null     %10u,\n"
-			"db_dup_key         %10u, db_dup_key_free    %10u,\n"
-			"db_free_add        %10u, db_free_remove     %10u,\n"
-			"db_free_lock       %10u, db_free_unlock     %10u,\n"
-			"db_int_cmp         %10u, db_uint_cmp        %10u,\n"
-			"db_string_cmp      %10u, db_istring_cmp     %10u,\n"
-			"db_int64_cmp       %10u, db_uint64_cmp      %10u,\n"
-			"db_int_hash        %10u, db_uint_hash       %10u,\n"
-			"db_string_hash     %10u, db_istring_hash    %10u,\n"
-			"db_int64_hash      %10u, db_uint64_hash     %10u,\n"
-			"db_release_nothing %10u, db_release_key     %10u,\n"
-			"db_release_data    %10u, db_release_both    %10u,\n"
-			"dbit_first         %10u, dbit_last          %10u,\n"
-			"dbit_next          %10u, dbit_prev          %10u,\n"
-			"dbit_exists        %10u, dbit_remove        %10u,\n"
-			"dbit_destroy       %10u, db_iterator        %10u,\n"
-			"db_exits           %10u, db_get             %10u,\n"
-			"db_getall          %10u, db_vgetall         %10u,\n"
-			"db_ensure          %10u, db_vensure         %10u,\n"
-			"db_put             %10u, db_remove          %10u,\n"
-			"db_foreach         %10u, db_vforeach        %10u,\n"
-			"db_clear           %10u, db_vclear          %10u,\n"
-			"db_destroy         %10u, db_vdestroy        %10u,\n"
-			"db_size            %10u, db_type            %10u,\n"
-			"db_options         %10u, db_fix_options     %10u,\n"
-			"db_default_cmp     %10u, db_default_hash    %10u,\n"
-			"db_default_release %10u, db_custom_release  %10u,\n"
-			"db_alloc           %10u, db_i2key           %10u,\n"
-			"db_ui2key          %10u, db_str2key         %10u,\n"
-			"db_i642key         %10u, db_ui642key        %10u,\n"
-			"db_i2data          %10u, db_ui2data         %10u,\n"
-			"db_ptr2data        %10u, db_data2i          %10u,\n"
-			"db_data2ui         %10u, db_data2ptr        %10u,\n"
-			"db_init            %10u, db_final           %10u\n",
-			stats.db_rotate_left,     stats.db_rotate_right,
-			stats.db_rebalance,       stats.db_rebalance_erase,
-			stats.db_is_key_null,
-			stats.db_dup_key,         stats.db_dup_key_free,
-			stats.db_free_add,        stats.db_free_remove,
-			stats.db_free_lock,       stats.db_free_unlock,
-			stats.db_int_cmp,         stats.db_uint_cmp,
-			stats.db_string_cmp,      stats.db_istring_cmp,
-			stats.db_int64_cmp,       stats.db_uint64_cmp,
-			stats.db_int_hash,        stats.db_uint_hash,
-			stats.db_string_hash,     stats.db_istring_hash,
-			stats.db_int64_hash,      stats.db_uint64_hash,
-			stats.db_release_nothing, stats.db_release_key,
-			stats.db_release_data,    stats.db_release_both,
-			stats.dbit_first,         stats.dbit_last,
-			stats.dbit_next,          stats.dbit_prev,
-			stats.dbit_exists,        stats.dbit_remove,
-			stats.dbit_destroy,       stats.db_iterator,
-			stats.db_exists,          stats.db_get,
-			stats.db_getall,          stats.db_vgetall,
-			stats.db_ensure,          stats.db_vensure,
-			stats.db_put,             stats.db_remove,
-			stats.db_foreach,         stats.db_vforeach,
-			stats.db_clear,           stats.db_vclear,
-			stats.db_destroy,         stats.db_vdestroy,
-			stats.db_size,            stats.db_type,
-			stats.db_options,         stats.db_fix_options,
-			stats.db_default_cmp,     stats.db_default_hash,
-			stats.db_default_release, stats.db_custom_release,
-			stats.db_alloc,           stats.db_i2key,
-			stats.db_ui2key,          stats.db_str2key,
-			stats.db_i642key,         stats.db_ui642key,
-			stats.db_i2data,          stats.db_ui2data,
-			stats.db_ptr2data,        stats.db_data2i,
-			stats.db_data2ui,         stats.db_data2ptr,
-			stats.db_init,            stats.db_final);
-#endif /* DB_ENABLE_STATS */
 	ers_destroy(db_iterator_ers);
 	ers_destroy(db_alloc_ers);
 }
@@ -2899,7 +2804,7 @@ void db_final(void)
 void linkdb_insert( struct linkdb_node** head, void *key, void* data)
 {
 	struct linkdb_node *node;
-	if(!head) return;
+	nullcheckvoid(head);
 	node = aMalloc( sizeof(struct linkdb_node) );
 	if( *head == NULL ) {
 		// first node
@@ -2919,7 +2824,7 @@ void linkdb_insert( struct linkdb_node** head, void *key, void* data)
 
 void linkdb_vforeach( struct linkdb_node** head, LinkDBFunc func, va_list ap) {
 	struct linkdb_node *node;
-	if(!head) return;
+	nullcheckvoid(head);
 	node = *head;
 	while ( node ) {
 		va_list argscopy;
@@ -2941,7 +2846,7 @@ void* linkdb_search( struct linkdb_node** head, void *key)
 {
 	int n = 0;
 	struct linkdb_node *node;
-	if(!head) return NULL;
+	nullcheckret(head,NULL);
 	node = *head;
 	while( node ) {
 		if( node->key == key ) {
@@ -2965,7 +2870,7 @@ void* linkdb_search( struct linkdb_node** head, void *key)
 void* linkdb_erase( struct linkdb_node** head, void *key)
 {
 	struct linkdb_node *node;
-	if(!head) return NULL;
+	nullcheckret(head,NULL);
 	node = *head;
 	while( node ) {
 		if( node->key == key ) {
@@ -2988,7 +2893,7 @@ void linkdb_replace( struct linkdb_node** head, void *key, void *data )
 {
 	int n = 0;
 	struct linkdb_node *node;
-	if(!head) return ;
+	nullcheckvoid(head);
 	node = *head;
 	while( node ) {
 		if( node->key == key ) {
@@ -3014,7 +2919,7 @@ void linkdb_replace( struct linkdb_node** head, void *key, void *data )
 void linkdb_final( struct linkdb_node** head )
 {
 	struct linkdb_node *node, *node2;
-	if(!head) return ;
+	nullcheckvoid(head);
 	node = *head;
 	while( node ) {
 		node2 = node->next;

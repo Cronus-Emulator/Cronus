@@ -159,7 +159,7 @@ static struct ers_instance_t *InstanceList = NULL;
  * @param Options the options from the instance seeking a cache, we use it to give it a cache with matching configuration
  **/
 static ers_cache_t *ers_find_cache(unsigned int size, enum ERSOptions Options) {
-	ers_cache_t *cache;
+	ers_cache_t *cache = NULL;
 
 	for (cache = CacheList; cache; cache = cache->Next)
 		if ( cache->ObjectSize == size && cache->Options == ( Options & ERS_CACHE_OPTIONS ) )
@@ -177,10 +177,9 @@ static ers_cache_t *ers_find_cache(unsigned int size, enum ERSOptions Options) {
 	cache->ChunkSize = ERS_BLOCK_ENTRIES;
 	cache->Options = (Options & ERS_CACHE_OPTIONS);
 	
-	if (CacheList == NULL)
-	{
-		CacheList = cache;
-	}
+	if (!CacheList)
+	    CacheList = cache;
+	
 	else
 	{
 		cache->Next = CacheList;
@@ -208,22 +207,18 @@ static void ers_free_cache(ers_cache_t *cache, bool remove)
 		CacheList = cache->Next;
 
 	aFree(cache->Blocks);
-	
 	aFree(cache);
 }
 
 static void *ers_obj_alloc_entry(ERS self)
 {
 	struct ers_instance_t *instance = (struct ers_instance_t *)self;
-	void *ret;
+	void *ret = NULL;
 
-	if (instance == NULL) {
-		ShowError("ers_obj_alloc_entry: NULL object, aborting entry freeing.\n");
-		return NULL;
-	}
-
-	if (instance->Cache->ReuseList != NULL) {
-		ret = (void *)((unsigned char *)instance->Cache->ReuseList + sizeof(struct ers_list));
+	nullcheckret(instance,NULL);
+	
+	if (instance->Cache->ReuseList) {
+		ret = (unsigned char*)instance->Cache->ReuseList + sizeof(struct ers_list);
 		instance->Cache->ReuseList = instance->Cache->ReuseList->Next;
 	} else if (instance->Cache->Free > 0) {
 		instance->Cache->Free--;
@@ -257,13 +252,8 @@ static void ers_obj_free_entry(ERS self, void *entry)
 	struct ers_instance_t *instance = (struct ers_instance_t *)self;
 	struct ers_list *reuse = (struct ers_list *)((unsigned char *)entry - sizeof(struct ers_list));
 
-	if (instance == NULL) {
-		ShowError("ers_obj_free_entry: NULL object, aborting entry freeing.\n");
-		return;
-	} else if (entry == NULL) {
-		ShowError("ers_obj_free_entry: NULL entry, nothing to free.\n");
-		return;
-	}
+	nullcheckvoid(instance);
+	nullcheckvoid(entry);
 
 	if( instance->Cache->Options & ERS_OPT_CLEAN )
 		memset((unsigned char*)reuse + sizeof(struct ers_list), 0, instance->Cache->ObjectSize - sizeof(struct ers_list));
@@ -277,12 +267,7 @@ static void ers_obj_free_entry(ERS self, void *entry)
 static size_t ers_obj_entry_size(ERS self)
 {
 	struct ers_instance_t *instance = (struct ers_instance_t *)self;
-
-	if (instance == NULL) {
-		ShowError("ers_obj_entry_size: NULL object, aborting entry freeing.\n");
-		return 0;
-	}
-
+	nullcheck(instance);
 	return instance->Cache->ObjectSize;
 }
 
@@ -290,10 +275,7 @@ static void ers_obj_destroy(ERS self)
 {
 	struct ers_instance_t *instance = (struct ers_instance_t *)self;
 
-	if (instance == NULL) {
-		ShowError("ers_obj_destroy: NULL object, aborting entry freeing.\n");
-		return;
-	}
+	nullcheckvoid(instance);
 
 	if (instance->Count > 0)
 		if (!(instance->Options & ERS_OPT_CLEAR))
@@ -319,7 +301,7 @@ static void ers_obj_destroy(ERS self)
 void ers_cache_size(ERS self, unsigned int new_size) {
 	struct ers_instance_t *instance = (struct ers_instance_t *)self;
 	
-	if (!instance) return;
+	nullcheckvoid(instance);
 	
 	if( !(instance->Cache->Options&ERS_OPT_FLEX_CHUNK) ) {
 		ShowWarning("ers_cache_size: '%s' has adjusted its chunk size to '%d', however ERS_OPT_FLEX_CHUNK is missing!\n",instance->Name,new_size);
@@ -351,7 +333,7 @@ ERS ers_new(uint32 size, char *name, enum ERSOptions options)
 	
 	instance->Cache->ReferenceCount++;
 
-	if (InstanceList == NULL) {
+	if (!InstanceList) {
 		InstanceList = instance;
 	} else {
 		instance->Next = InstanceList;
@@ -366,24 +348,8 @@ ERS ers_new(uint32 size, char *name, enum ERSOptions options)
 }
 
 void ers_report(void) {
-	ers_cache_t *cache;
+	ers_cache_t *cache = NULL;
 	unsigned int cache_c = 0, blocks_u = 0, blocks_a = 0, memory_b = 0, memory_t = 0;
-#ifdef DEBUG
-	struct ers_instance_t *instance;
-	unsigned int instance_c = 0, instance_c_d = 0;
-
-	for (instance = InstanceList; instance; instance = instance->Next) {
-		instance_c++;
-		if( (instance->Options & ERS_OPT_WAIT) && !instance->Count )
-			continue;
-		instance_c_d++;
-		ShowMessage(CL_BOLD"[ERS Instance "CL_NORMAL""CL_WHITE"%s"CL_NORMAL""CL_BOLD" report]\n"CL_NORMAL, instance->Name);
-		ShowMessage("\tblock size        : %u\n", instance->Cache->ObjectSize);
-		ShowMessage("\tblocks being used : %u\n", instance->Count);
-		ShowMessage("\tpeak blocks       : %u\n", instance->Peak);
-		ShowMessage("\tmemory in use     : %.2f MB\n", instance->Count == 0 ? 0. : (double)((instance->Count * instance->Cache->ObjectSize)/1024)/1024);
-	}
-#endif
 
 	for (cache = CacheList; cache; cache = cache->Next) {
 		cache_c++;
@@ -398,9 +364,6 @@ void ers_report(void) {
 		memory_b += cache->UsedObjs * cache->ObjectSize;
 		memory_t += (cache->UsedObjs+cache->Free) * cache->ObjectSize;
 	}
-#ifdef DEBUG
-	ShowInfo("ers_report: '"CL_WHITE"%u"CL_NORMAL"' instances in use, '"CL_WHITE"%u"CL_NORMAL"' displayed\n",instance_c,instance_c_d);
-#endif
 	ShowInfo("ers_report: '"CL_WHITE"%u"CL_NORMAL"' caches in use\n",cache_c);
 	ShowInfo("ers_report: '"CL_WHITE"%u"CL_NORMAL"' blocks in use, consuming '"CL_WHITE"%.2f MB"CL_NORMAL"'\n",blocks_u,(double)((memory_b)/1024)/1024);
 	ShowInfo("ers_report: '"CL_WHITE"%u"CL_NORMAL"' blocks total, consuming '"CL_WHITE"%.2f MB"CL_NORMAL"' \n",blocks_a,(double)((memory_t)/1024)/1024);
@@ -410,7 +373,9 @@ void ers_report(void) {
  * Call on shutdown to clear remaining entries
  **/
 void ers_final(void) {
-	struct ers_instance_t *instance = InstanceList, *next;
+
+	struct ers_instance_t *instance = InstanceList;
+	struct ers_instance_t *next = NULL;
 	
 	while( instance ) {
 		next = instance->Next;

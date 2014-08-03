@@ -72,7 +72,7 @@ struct intif_interface intif_s;
 
 int CheckForCharServer(void)
 {
-	return ((chrif->fd <= 0) || session[chrif->fd] == NULL || session[chrif->fd]->wdata == NULL);
+	return ((chrif->fd <= 0) || !session[chrif->fd] || !session[chrif->fd]->wdata);
 }
 
 // pet
@@ -215,8 +215,8 @@ int intif_broadcast2(const char* mes, size_t len, unsigned int fontColor, short 
 int intif_main_message(struct map_session_data* sd, const char* message)
 {
 	char output[256];
-
-	if (!sd) return 0;
+	
+	nullcheck(sd);
 
 	// format the message for main broadcasting
 	snprintf( output, sizeof(output), msg_txt(386), sd->status.name, message );
@@ -233,7 +233,8 @@ int intif_main_message(struct map_session_data* sd, const char* message)
 // The transmission of Wisp/Page to inter-server (player not found on this server)
 int intif_wis_message(struct map_session_data *sd, char *nick, char *mes, size_t mes_len)
 {
-	if (!sd) return 0;
+	nullcheck(sd);
+	
 	if (intif->CheckForCharServer())
 		return 0;
 
@@ -412,7 +413,7 @@ int intif_saveregistry(struct map_session_data *sd) {
 //Request the registries for this player.
 int intif_request_registry(struct map_session_data *sd, int flag)
 {
-	if (!sd) return 0;
+	nullcheck(sd);
 
 	/* if char server ain't online it doesn't load, shouldn't we kill the session then? */
 	if (intif->CheckForCharServer())
@@ -461,7 +462,7 @@ int intif_create_party(struct party_member *member,char *name,int item,int item2
 	if (intif->CheckForCharServer())
 		return 0;
 		
-	if (!member) return 0;
+	nullcheck(member);
 
 	WFIFOHEAD(inter_fd,64);
 	WFIFOW(inter_fd,0) = 0x3020;
@@ -536,9 +537,9 @@ int intif_party_changemap(struct map_session_data *sd,int online) {
 
 	if (intif->CheckForCharServer())
 		return 0;
-	if(!sd)
-		return 0;
-
+		
+	nullcheck(sd);
+	
 	if( (m=map->mapindex2mapid(sd->mapindex)) >= 0 && map->list[m].instance_id >= 0 )
 		map_index = map_id2index(map->list[m].instance_src_map);
 	else
@@ -607,7 +608,7 @@ int intif_guild_create(const char *name,const struct guild_member *master)
 	if (intif->CheckForCharServer())
 		return 0;
 		
-	if (!master) return 0;
+	nullcheck(master);
 
 	WFIFOHEAD(inter_fd,sizeof(struct guild_member)+(8+NAME_LENGTH));
 	WFIFOW(inter_fd,0)=0x3030;
@@ -938,7 +939,7 @@ void intif_parse_WisMessage(int fd) {
 
 	safestrncpy(name, (char*)RFIFOP(fd,32), NAME_LENGTH);
 	sd = map->nick2sd(name);
-	if(sd == NULL || strcmp(sd->status.name, name) != 0) {
+	if(!sd || strcmp(sd->status.name, name) != 0) {
 		//Not found
 		intif_wis_replay(id,1);
 		return;
@@ -970,7 +971,8 @@ void intif_parse_WisEnd(int fd) {
 	if (battle_config.etc_log)
 		ShowInfo("intif_parse_wisend: player: %s, flag: %d\n", RFIFOP(fd,2), RFIFOB(fd,26)); // flag: 0: success to send whisper, 1: target character is not logged in?, 2: ignored by target
 	sd = (struct map_session_data *)map->nick2sd((char *) RFIFOP(fd,2));
-	if (sd != NULL)
+	
+	if (sd)
 		clif->wis_end(sd->fd, RFIFOB(fd,26));
 
 	return;
@@ -1120,7 +1122,7 @@ void intif_parse_LoadGuildStorage(int fd)
 		return;
 	sd=map->id2sd( RFIFOL(fd,4) );
 	if( flag ){ //If flag != 0, we attach a player and open the storage
-		if(sd==NULL){
+		if(sd){
 			ShowError("intif_parse_LoadGuildStorage: user not found %d\n",RFIFOL(fd,4));
 			return;
 		}
@@ -1263,8 +1265,7 @@ void intif_parse_GuildBasicInfoChanged(int fd) {
 	//void* data = RFIFOP(fd,10);
 
 	struct guild* g = guild->search(guild_id);
-	if( g == NULL )
-		return;
+	nullcheckvoid(g);
 
 	switch(type) {
 		case GBI_EXP:        g->exp = RFIFOQ(fd,10); break;
@@ -1272,10 +1273,9 @@ void intif_parse_GuildBasicInfoChanged(int fd) {
 		case GBI_SKILLPOINT: g->skill_point = RFIFOL(fd,10); break;
 		case GBI_SKILLLV: {
 			int idx, max;
+			
 			struct guild_skill *gs = (struct guild_skill *)RFIFOP(fd,10);
-
-			if( gs == NULL )
-				return;
+			nullcheckvoid(gs);
 
 			idx = gs->id - GD_SKILLBASE;
 			max = guild->skill_get_max(gs->id);
@@ -1298,12 +1298,10 @@ void intif_parse_GuildMemberInfoChanged(int fd) {
 	int type = RFIFOW(fd,16);
 	//void* data = RFIFOP(fd,18);
 
-	struct guild* g;
+	struct guild* g = guild->search(guild_id);
 	int idx;
 
-	g = guild->search(guild_id);
-	if( g == NULL )
-		return;
+	nullcheckvoid(g);
 
 	idx = guild->getindex(g,account_id,char_id);
 	if( idx == -1 )
@@ -1396,9 +1394,11 @@ void intif_parse_DeletePetOk(int fd) {
 // ACK changing name request, players,pets,homun
 void intif_parse_ChangeNameOk(int fd)
 {
-	struct map_session_data *sd = NULL;
-	if((sd=map->id2sd(RFIFOL(fd,2)))==NULL ||
-		sd->status.char_id != RFIFOL(fd,6))
+	struct map_session_data *sd = map->id2sd(RFIFOL(fd,2));
+	
+	nullcheckvoid(sd);
+	
+	if(sd->status.char_id != RFIFOL(fd,6))
 		return;
 
 	switch (RFIFOB(fd,10)) {
@@ -1479,8 +1479,7 @@ void intif_parse_QuestLog(int fd) {
 	int char_id = RFIFOL(fd, 4), num_received = (RFIFOW(fd, 2)-8)/sizeof(struct quest);
 	TBL_PC *sd = map->charid2sd(char_id);
 
-	if (!sd) // User not online anymore
-		return;
+	nullcheckvoid(sd);
 
 	sd->num_quests = sd->avail_quests = 0;
 
@@ -1592,7 +1591,7 @@ void intif_parse_MailInboxReceived(int fd) {
 
 	sd = map->charid2sd(RFIFOL(fd,4));
 
-	if (sd == NULL) {
+	if (!sd) {
 		ShowError("intif_parse_MailInboxReceived: char not found %d\n",RFIFOL(fd,4));
 		return;
 	}
@@ -1653,7 +1652,7 @@ void intif_parse_MailGetAttach(int fd) {
 
 	sd = map->charid2sd( RFIFOL(fd,4) );
 
-	if (sd == NULL) {
+	if (!sd) {
 		ShowError("intif_parse_MailGetAttach: char not found %d\n",RFIFOL(fd,4));
 		return;
 	}
@@ -1685,12 +1684,12 @@ int intif_Mail_delete(int char_id, int mail_id)
 }
 
 void intif_parse_MailDelete(int fd) {
-	struct map_session_data *sd;
-	int char_id = RFIFOL(fd,2);
+    int char_id = RFIFOL(fd,2);
 	int mail_id = RFIFOL(fd,6);
 	bool failed = RFIFOB(fd,10);
+	struct map_session_data *sd = map->charid2sd(char_id);
 	
-	if ( (sd = map->charid2sd(char_id)) == NULL) {
+	if (!sd) {
 		ShowError("intif_parse_MailDelete: char not found %d\n", char_id);
 		return;
 	}
@@ -1731,7 +1730,7 @@ void intif_parse_MailReturn(int fd) {
 	int mail_id = RFIFOL(fd,6);
 	short fail = RFIFOB(fd,10);
 
-	if( sd == NULL ) {
+	if(!sd) {
 		ShowError("intif_parse_MailReturn: char not found %d\n",RFIFOL(fd,2));
 		return;
 	}
@@ -1785,7 +1784,7 @@ void intif_parse_MailSend(int fd) {
 
 	// notify sender
 	sd = map->charid2sd(msg.send_id);
-	if( sd != NULL ) {
+	if(sd) {
 		if( fail )
 			mail->deliveryfail(sd, &msg);
 		else {
@@ -1802,9 +1801,8 @@ void intif_parse_MailNew(int fd) {
 	const char* sender_name = (char*)RFIFOP(fd,10);
 	const char* title = (char*)RFIFOP(fd,34);
 
-	if( sd == NULL )
-		return;
-
+	nullcheckvoid(sd);
+		
 	sd->mail.changed = true;
 	clif->mail_new(sd->fd, mail_id, sender_name, title);
 }
@@ -1839,8 +1837,7 @@ void intif_parse_AuctionResults(int fd) {
 	short pages = RFIFOW(fd,10);
 	uint8* data = RFIFOP(fd,12);
 
-	if( sd == NULL )
-		return;
+	nullcheckvoid(sd);
 
 	clif->auction_results(sd, count, pages, data);
 }
