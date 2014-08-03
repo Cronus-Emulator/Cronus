@@ -1112,8 +1112,8 @@ void intif_parse_Registers(int fd)
 
 void intif_parse_LoadGuildStorage(int fd)
 {
-	struct guild_storage *gstor;
-	struct map_session_data *sd;
+	struct guild_storage *gstor = NULL;
+	struct map_session_data *sd = NULL;
 	int guild_id, flag;
 
 	guild_id = RFIFOL(fd,8);
@@ -1122,7 +1122,7 @@ void intif_parse_LoadGuildStorage(int fd)
 		return;
 	sd=map->id2sd( RFIFOL(fd,4) );
 	if( flag ){ //If flag != 0, we attach a player and open the storage
-		if(sd){
+		if(!sd){
 			ShowError("intif_parse_LoadGuildStorage: user not found %d\n",RFIFOL(fd,4));
 			return;
 		}

@@ -104,7 +104,7 @@ enum homun_type homunculus_class2type(int class_) {
 }
 
 void homunculus_addspiritball(struct homun_data *hd, int max) {
-    if (!hd) return;
+    nullcheckvoid(hd);
 
     if (max > MAX_SKILL_LEVEL)
         max = MAX_SKILL_LEVEL;
@@ -121,7 +121,7 @@ void homunculus_addspiritball(struct homun_data *hd, int max) {
 }
 
 void homunculus_delspiritball(struct homun_data *hd, int count, int type) {
-    if (!hd) return;
+    nullcheckvoid(hd);
 
     if (hd->homunculus.spiritball <= 0) {
         hd->homunculus.spiritball = 0;
@@ -286,7 +286,7 @@ int homunculus_skill_tree_get_max(int id, int b_class) {
 
 void homunculus_skillup(struct homun_data *hd,uint16 skill_id) {
 	int i = 0 ;
-	if (!hd) return;
+	nullcheckvoid(hd);
 
 	if(hd->homunculus.vaporize != HOM_ST_ACTIVE)
 		return;
@@ -680,7 +680,7 @@ int homunculus_hunger_timer(int tid, int64 tick, int id, intptr_t data) {
 }
 
 void homunculus_hunger_timer_delete(struct homun_data *hd) {
-	if (!hd) return;
+	nullcheckvoid(hd);
 	if(hd->hungry_timer != INVALID_TIMER) {
 		timer->delete(hd->hungry_timer,homun->hunger_timer);
 		hd->hungry_timer = INVALID_TIMER;
