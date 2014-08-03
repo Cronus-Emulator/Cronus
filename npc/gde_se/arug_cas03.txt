@@ -1,0 +1,86 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-             Guerra do Emperium SE - Horn                  -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  Euphy                                                    -
+//-------------------------------------------------------------
+//- Versão: 1.0b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Npcs relacionados ao Castelo de Horn.                   -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//-     1.0b - Realizado tradução do script e adaptações.     -
+//-            nescesárias. [SoulBlaker]                      -
+//-------------------------------------------------------------
+
+-	duplicate(Manager#template)	Manager#arug_cas03	-1
+-	duplicate(gard#template)	gard1#arug_cas03	-1
+-	duplicate(gard#template)	gard2#arug_cas03	-1
+-	duplicate(df#template)	df1#arug_cas03	-1
+-	duplicate(df#template)	df2#arug_cas03	-1
+-	duplicate(RL#template)	RL0#arug_cas03	-1
+-	duplicate(RL#template)	RL1#arug_cas03	-1
+-	duplicate(RL#template)	RL2#arug_cas03	-1
+-	duplicate(RL#template)	RL3#arug_cas03	-1
+
+arug_cas03,328,98,3	duplicate(Steward#template)	Gerente#ar03	1_M_JOBTESTER
+arug_cas03,146,315,3	duplicate(Guardian#template)	Yehsus#ar03	4_M_LGTGUARD
+arug_cas03,315,98,5	duplicate(Kafra#template)	Funcionária Kafra#ar03	4_F_KAFRA1
+arug_cas03,65,171,0	duplicate(Guardian Stone#template)	1ª Runa Guardiã#ar03	CLEAR_NPC
+arug_cas03,212,149,0	duplicate(Guardian Stone#template)	2ª Runa Guardiã#ar03	CLEAR_NPC
+arug_cas03,136,158,0	duplicate(Control#template)	Disp. de Controle 01#ar03	HIDDEN_NPC
+arug_cas03,135,212,0	duplicate(Control#template)	Disp. de Controle 02#ar03	HIDDEN_NPC
+arug_cas03,134,266,0	duplicate(Control#template)	Disp. de Controle 03#ar03	HIDDEN_NPC
+arug_cas03,299,277,0	duplicate(Switch#template)	#aru03_switch	HIDDEN_NPC
+arug_cas03,312,154,3	duplicate(Sunflower#template)	Girassol Misterioso#08	4_RED_FLOWER
+
+arug_cas03,122,314,0	script	BL-01#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Primeiro Portão",84,158,"Segundo Portão",197,136; }
+arug_cas03,125,314,0	script	BL-02#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-1",65,94,"Área de Defesa 1-2",211,97; }
+arug_cas03,128,314,0	script	BL-03#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-3",112,73,"Área de Defesa 1-4",171,73; }
+arug_cas03,131,314,0	script	BL-04#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-1",112,152,"Área de Defesa 2-2",172,152; }
+arug_cas03,134,314,0	script	BL-05#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-3",120,186,"Área de Defesa 2-4",162,186; }
+arug_cas03,149,314,0	script	BL-06#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 3-1",116,235,"Área de Defesa 3-2",164,235; }
+arug_cas03,152,314,0	script	BL-07#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-1",65,94,"Área de Defesa 2-1",112,152,"Área de Defesa 3-1",116,235; }
+arug_cas03,155,314,0	script	BL-08#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-2",211,97,"Área de Defesa 2-2",172,152,"Área de Defesa 3-2",164,235; }
+arug_cas03,158,314,0	script	BL-09#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-4",171,73,"Área de Defesa 2-4",162,186; }
+arug_cas03,161,314,0	script	BL-10#arug_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Facilidade de Conveniência",321,57; }
+arug_cas03,45,158,0	script	Horn#LF_ar03_01::LF_ar03_01	HIDDEN_NPC,{ callfunc "LinkFlag","Central do Emperium",121,318; }
+arug_cas03,226,156,0	duplicate(LF_ar03_01)	Horn#LF_ar03_01	HIDDEN_NPC
+arug_cas03,134,62,4	duplicate(LF_ar03_01)	Horn#LF_ar03_02	HIDDEN_NPC
+arug_cas03,149,62,4	duplicate(LF_ar03_01)	Horn#LF_ar03_03	HIDDEN_NPC
+arug_cas03,123,154,0	duplicate(LF_ar03_01)	Horn#LF_ar03_04	HIDDEN_NPC
+arug_cas03,160,154,0	duplicate(LF_ar03_01)	Horn#LF_ar03_05	HIDDEN_NPC
+arug_cas03,135,205,0	duplicate(LF_ar03_01)	Horn#LF_ar03_06	HIDDEN_NPC
+arug_cas03,148,205,0	duplicate(LF_ar03_01)	Horn#LF_ar03_07	HIDDEN_NPC
+arug_cas03,134,260,0	duplicate(LF_ar03_01)	Horn#LF_ar03_08	HIDDEN_NPC
+//arug_cas03,204,142,0	duplicate(LF_ar03_01)	Horn#LF_ar03_09	HIDDEN_NPC
+arug_cas03,148,103,4	script	Horn#LF_ar03_10::LF_ar03_02	GUILD_FLAG,{
+	callfunc "LinkFlag","Central do Emperium",121,318;
+	end;
+OnAgitInit2:
+OnRecvCastleAr03:
+	flagemblem getcastledata("arug_cas03",1);
+	end;
+}
+arug_cas03,135,103,4	duplicate(LF_ar03_02)	Horn#LF_ar03_11	GUILD_FLAG
+arug_cas03,63,51,7	duplicate(LF_ar03_02)	Horn#LF_ar03_12	GUILD_FLAG
+arug_cas03,214,51,1	duplicate(LF_ar03_02)	Horn#LF_ar03_13	GUILD_FLAG
+
+aru_gld,60,174,0	script	Horn#flag_Ar03_1::Ar03_Flag	GUILD_FLAG,{
+	callfunc "ReturnFlag","arug_cas03",1;
+	end;
+OnAgitInit2:
+OnRecvCastleAr03:
+	flagemblem getcastledata("arug_cas03",1);
+	end;
+}
+aru_gld,74,174,0	duplicate(Ar03_Flag)	Horn#flag_Ar03_2	GUILD_FLAG

@@ -1,0 +1,59 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-       Guerra do Emperium SE - Ligação Automática          -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  L0ne_W0lf                                                -
+//-------------------------------------------------------------
+//- Versão: 1.0                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-  Liga Automáticamente a Guerra do Emperium.               -
+//-                                                           -
+//-  gettime(3): Obtem horas (tempo de 24 horas)              -
+//-  gettime(4): Obtem dias da semana 1 = Segunda, 2 = Terça  -
+//-              3 = Quarta, 4 = Quinta, etc.                 -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.0 - Copy/Paste of the original setter. [L0ne_W0lf]  -
+//-------------------------------------------------------------
+
+// Horário pra Ligar/Desligar a Guerrra do Emperium
+//-------------------------------------------------------------
+-	script	Agit2_Event	-1,{
+	end;
+
+OnClock1800:	// horário de iniciar Terça(2), Quinta(4)
+OnClock2000:	// horário de encerrar Terça(2), Quinta(4)
+OnClock2100:	// horário de iniciar Sabado(6)
+OnClock2300:	// horário de encerrar Sabado(6)
+
+OnAgitInit2:
+	// verificação de tempo de iniciar
+	if((gettime(4)==2) && (gettime(3)>=18 && gettime(3)<21) ||
+	   (gettime(4)==4) && (gettime(3)>=18 && gettime(3)<21) ||
+	   (gettime(4)==6) && (gettime(3)>=22 && gettime(3)<23)) {
+		if (!agitcheck2()) {
+			agitstart2;
+		}
+		end;
+	}
+
+	// verificação de tempo de encerramento
+	if ((gettime(4)==2) && (gettime(3)==21) ||
+	    (gettime(4)==4) && (gettime(3)==21) ||
+	    (gettime(4)==6) && (gettime(3)==23)) {
+		if (agitcheck2()) {
+			agitend2;
+		}
+		end;
+	}
+	end;
+}
