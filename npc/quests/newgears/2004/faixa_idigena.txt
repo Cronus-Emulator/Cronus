@@ -1,0 +1,74 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Faixa Indígena (Equipamentos para Cabeço 2008)           -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.6c                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Faixa Indígena.      -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.6c - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+comodo,237,217,5	script	Meruntei#1	4_M_JOB_HUNTER,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Wait a minute! -";
+		mes "- Currently you're carrying -";
+		mes "- too many items with you. -";
+		mes "- Please try again after -";
+		mes "- you put some items into Kafra Storage. -";
+		close;
+	}
+	if (countitem(5010) > 0 && countitem(5049) > 0 && countitem(7101) > 9 && Zeny > 9999) {
+		mes "[Meruntei]";
+		mes "Oh! You brought all of them! Now I shall make you an Indian Headband of your very own.";
+		next;
+		mes "[Meruntei]";
+		mes "Take this! The items you have brought will be very useful for continuing my work in spreading headbands around Rune-Midgard.";
+		delitem 5010,1; //Indian_Hair_Piece
+		delitem 5049,1; //Stripe_Band
+		delitem 7101,10; //Peco_Wing_Feather
+		Zeny -= 10000;
+		getitem 5071,1; //Indian_Headband
+		next;
+		mes "[Meruntei]";
+		mes "iiiyiyiyiyiyiyiiiiii~~!";
+		close;
+	}
+	mes "[Meruntei]";
+	mes "iiiyiyiyiyiyiyiiiiii~~!";
+	mes " ";
+	mes "Indian spirit, forever~!";
+	mes "On behalf of the Comodo Indians, I give reverence to all Indian Tribes!";
+	next;
+	mes "[Meruntei]";
+	mes "Would you like to have an Indian Headband? You wouldn't become an official member of my tribe, but wearing it would show your respect if you happen to encounter tribal Indians in your adventures.";
+	next;
+	mes "[Meruntei]";
+	mes "You could just bring...";
+	mes "1 ^FF0000Indian Fillet^000000,";
+	mes "1 ^FF0000Striped Hairband^000000,";
+	mes "10 ^FF0000PecoPeco Feather^000000";
+	mes "and ^FF000010,000 zeny!";
+	next;
+	mes "[Meruntei]";
+	mes "I will be using the items you've given me so I can continue my work in spreading Indian Headbands, and paying homage to the tribes of Rune-Midgard.";
+	next;
+	mes "[Meruntei]";
+	mes "^FF0000For your information, if you bring me any item that has a card inserted, or has been upgraded, the additional abilities of the item will disappear after I have used them. So please keep that in mind.^000000";
+	next;
+	mes "[Meruntei]";
+	mes "iiiyiyiyiyiyiyiiiiii~~!";
+	close;
+}
