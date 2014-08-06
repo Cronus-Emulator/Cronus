@@ -6754,7 +6754,14 @@ static const struct _battle_data {
 	{ "mon_trans_disable_in_gvg",           &battle_config.mon_trans_disable_in_gvg,        0,      0,      1,              },
 	{ "case_sensitive_aegisnames",          &battle_config.case_sensitive_aegisnames,       1,      0,      1,              },
 	{ "guild_castle_invite",				&battle_config.guild_castle_invite,				0,		0,		1,				},
-	{ "guild_castle_expulsion",				&battle_config.guild_castle_expulsion,			0,		0,		1,				},
+    { "guild_castle_expulsion",				&battle_config.guild_castle_expulsion,			0,		0,		1,	},		
+	
+	// Cronus
+	{ "mob_loot_ident",				&battle_config.mob_loot_ident,			0,		0,		1,				},  
+	{ "skull_collect_pvp",				&battle_config.skull_collect_pvp,			0,		0,		1,				},
+	{ "gm_stand_woe",				&battle_config.gm_stand_woe,			0,		0,		1,				},
+	{ "level_nick_enabled",			&battle_config.level_nick_enabled,			0,		0,		1,				},
+	
 };
 
 int battle_set_value(const char* w1, const char* w2)

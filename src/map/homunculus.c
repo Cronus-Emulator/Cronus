@@ -163,9 +163,9 @@ int homunculus_dead(struct homun_data *hd) {
 
 //Vaporize a character's homun. If flag, HP needs to be 80% or above.
 int homunculus_vaporize(struct map_session_data *sd, enum homun_state flag) {
-	struct homun_data *hd;
+	struct homun_data *hd = NULL;
 
-	if (!sd) return 0;
+	nullcheck(sd);
 
 	hd = sd->hd;
 	if (!hd || hd->homunculus.vaporize != HOM_ST_ACTIVE)
@@ -191,8 +191,11 @@ int homunculus_vaporize(struct map_session_data *sd, enum homun_state flag) {
 //delete a homunculus, completely "killing it".
 //Emote is the emotion the master should use, send negative to disable.
 int homunculus_delete(struct homun_data *hd, int emote) {
-	struct map_session_data *sd;
+	
+	struct map_session_data *sd = NULL;
+	
 	if (!hd) return 0;
+	
 	sd = hd->master;
 
 	if (!sd)
@@ -214,7 +217,7 @@ int homunculus_calc_skilltree(struct homun_data *hd, int flag_evolve) {
 	int j, f = 1;
 	int c = 0;
 
-	if (!hd) return 0;
+	nullcheck(hd);
 	/* load previous homunculus form skills first. */
 	if( hd->homunculus.prev_class != 0 ) {
 		c = hd->homunculus.prev_class - HM_CLASS_BASE;
@@ -266,8 +269,7 @@ int homunculus_calc_skilltree(struct homun_data *hd, int flag_evolve) {
 
 int homunculus_checkskill(struct homun_data *hd,uint16 skill_id) {
 	int i = skill_id - HM_SKILLBASE;
-	if(!hd)
-		return 0;
+	nullcheck(hd);
 
 	if(hd->homunculus.hskill[i].id == skill_id)
 		return (hd->homunculus.hskill[i].lv);
@@ -577,8 +579,7 @@ void homunculus_save(struct homun_data *hd) {
 
 unsigned char homunculus_menu(struct map_session_data *sd,unsigned char menu_num) {
 
-	if (!sd) return 1; // Isso existe? o_o
-	if (!sd->hd) return 1;
+	if (!sd && !sd->hd) return 1;
 
 	switch(menu_num) {
 		case 0:
@@ -752,17 +753,18 @@ bool homunculus_create(struct map_session_data *sd, struct s_homunculus *hom) {
 	struct homun_data *hd;
 	int i = 0;
 
-	if (!sd) return false;
-	if ((sd->status.hom_id != 0 || sd->hd != 0) || sd->hd->master != sd) return false;
+	if (!sd && !sd->status.hom_id) return false;
 
 	i = homun->db_search(hom->class_,HOMUNCULUS_CLASS);
+	
 	if(i < 0) {
 		ShowError("Classe inexistente [%d] para homunculo '%s' requisitando apagamento.\n", hom->class_, hom->name);
 		sd->status.hom_id = 0;
 		intif->homunculus_requestdelete(hom->hom_id);
 		return false;
 	}
-	sd->hd = hd = (struct homun_data*)aCalloc(1,sizeof(struct homun_data));
+	
+	sd->hd = hd = aCalloc(1,sizeof(struct homun_data));
 	hd->bl.type = BL_HOM;
 	hd->bl.id = npc->get_new_npc_id();
 
@@ -816,7 +818,7 @@ bool homunculus_call(struct map_session_data *sd) {
 
 	homun->init_timers(hd);
 	hd->homunculus.vaporize = HOM_ST_ACTIVE;
-	if (hd->bl.prev == NULL) { //Spawn him
+	if (!hd->bl.prev) { //Spawn him
 		hd->bl.x = sd->bl.x;
 		hd->bl.y = sd->bl.y;
 		hd->bl.m = sd->bl.m;

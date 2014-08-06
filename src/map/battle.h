@@ -500,6 +500,12 @@ struct Battle_Config {
 	int case_sensitive_aegisnames;
 	int guild_castle_invite;
 	int guild_castle_expulsion;
+	
+	int mob_loot_ident;
+	int skull_collect_pvp;
+	int gm_stand_woe;
+	int level_nick_enabled;
+	
 };
 
 extern struct Battle_Config battle_config;

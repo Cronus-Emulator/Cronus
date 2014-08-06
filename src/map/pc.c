@@ -7057,8 +7057,16 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 		item_tmp.card[1]=0;
 		item_tmp.card[2]=GetWord(sd->status.char_id,0); // CharId
 		item_tmp.card[3]=GetWord(sd->status.char_id,1);
+	
+		if (src && src->type == BL_PC && battle_config.skull_collect_pvp) {
+		struct map_session_data* killer = (struct map_session_data*) src;
+		pc->additem(killer, &item_tmp,1,LOG_TYPE_SCRIPT);
+		} else {
 		map->addflooritem(&item_tmp,1,sd->bl.m,sd->bl.x,sd->bl.y,0,0,0,0);
+		 }
+		
 	}
+
 
 	// activate Steel body if a super novice dies at 99+% exp [celest]
 	if ((sd->class_&MAPID_UPPERMASK) == MAPID_SUPER_NOVICE && !sd->state.snovice_dead_flag) {

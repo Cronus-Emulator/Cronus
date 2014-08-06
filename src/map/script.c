@@ -11356,11 +11356,13 @@ int buildin_maprespawnguildid_sub_pc(struct map_session_data* sd, va_list ap)
 
 	if(!sd || sd->bl.m != m)
 		return 0;
+	
+	
 	if(
 	    (sd->status.guild_id == g_id && flag&1) //Warp out owners
 	 || (sd->status.guild_id != g_id && flag&2) //Warp out outsiders
-	 || (sd->status.guild_id == 0)              // Warp out players not in guild [Valaris]
-	  )
+	 || (sd->status.guild_id == 0) // Warp out players not in guild [Valaris]
+	 || (pc_get_group_level(sd) < 99 && battle_config.gm_stand_woe))
 		pc->setpos(sd,sd->status.save_point.map,sd->status.save_point.x,sd->status.save_point.y,CLR_TELEPORT);
 	return 1;
 }

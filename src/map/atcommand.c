@@ -7300,7 +7300,7 @@ ACMD(invite) {
 		return false;
 	}
 	
-	if(target_sd == NULL) {
+	if(!target_sd) {
 		// "Duel: Player not found."
 		clif->message(fd, msg_txt(352));
 		return false;

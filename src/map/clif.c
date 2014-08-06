@@ -2828,7 +2828,7 @@ void clif_updatestatus(struct map_session_data *sd,int type)
 
 	if ( !session_isActive(fd) ) // Invalid pointer fix, by sasuke [Kevin]
 		return;
-
+	
 	WFIFOHEAD(fd, 14);
 	WFIFOW(fd,0)=0xb0;
 	WFIFOW(fd,2)=type;
@@ -3041,6 +3041,17 @@ void clif_updatestatus(struct map_session_data *sd,int type)
 			return;
 	}
 	WFIFOSET(fd,len);
+	
+// Adiciona DEPOIS da atualização de status para não corromper a pilha do socket.
+	switch(type) {
+		case SP_BASELEVEL:
+	    case SP_JOBLEVEL:
+			 if (battle_config.level_nick_enabled)
+		     	clif->charnameack(0,&sd->bl);
+			break;
+	 default:
+     	return;
+	}		
 }
 
 /// Notifies client of a parameter change of an another player (ZC_PAR_CHANGE_USER).
@@ -8414,7 +8425,14 @@ void clif_charnameack (int fd, struct block_list *bl)
 					WBUFB(buf,30) = WBUFB(buf,54) = WBUFB(buf,78) = 0;
 					break;
 				}
+				
+				if (battle_config.level_nick_enabled) {
+				char name[NAME_LENGTH];
+				sprintf(name, "[%d/%d] %s", ssd->status.base_level, ssd->status.job_level,ssd->status.name);
+                memcpy(WBUFP(buf,6), name, NAME_LENGTH);
+				} else {
 				memcpy(WBUFP(buf,6), ssd->status.name, NAME_LENGTH);
+				}
 
 				if( ssd->status.party_id ) {
 					p = party->search(ssd->status.party_id);
@@ -8430,7 +8448,7 @@ void clif_charnameack (int fd, struct block_list *bl)
 					p = NULL;
 				}
 
-				if (p == NULL && g == NULL)
+				if (!p && !g)
 					break;
 
 				WBUFW(buf, 0) = cmd = 0x195;
@@ -8537,7 +8555,14 @@ void clif_charnameupdate (struct map_session_data *ssd)
 	WBUFW(buf,0) = cmd;
 	WBUFL(buf,2) = ssd->bl.id;
 
-	memcpy(WBUFP(buf,6), ssd->status.name, NAME_LENGTH);
+	if (battle_config.level_nick_enabled) {
+				char name[NAME_LENGTH];
+				sprintf(name, "[%d/%d] %s", ssd->status.base_level, ssd->status.job_level,ssd->status.name);
+                memcpy(WBUFP(buf,6), name, NAME_LENGTH);
+				} else {
+				memcpy(WBUFP(buf,6), ssd->status.name, NAME_LENGTH);
+				}
+
 
 	if (!battle_config.display_party_name) {
 		if (ssd->status.party_id > 0 && ssd->status.guild_id > 0 && (g = ssd->guild) != NULL)
@@ -11961,8 +11986,17 @@ void clif_parse_PartyInvite2(int fd, struct map_session_data *sd) {
 		clif->message(fd, msg_txt(227));
 		return;
 	}
+	
+	if (strlen(name) == 0) return;
 
+    if (battle_config.level_nick_enabled) {
+	char *pname;
+    pname=strrchr(name,' ');
+    memcpy(pname, &pname[1], strlen(pname));
+	t_sd = map->nick2sd(pname);
+	} else {
 	t_sd = map->nick2sd(name);
+	}
 
 	if(t_sd && t_sd->state.noask) { // @noask [LuzZza]
 		clif->noask_sub(sd, t_sd, 1);
@@ -13926,8 +13960,15 @@ void clif_friendlist_req(struct map_session_data* sd, int account_id, int char_i
 void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd) {
 	struct map_session_data *f_sd;
 	int i;
-
+	
+	if (battle_config.level_nick_enabled){
+	char *fname;
+    fname=strrchr((char*)RFIFOP(fd,2),' ');
+    memcpy(fname, &fname[1], strlen(fname));
+	f_sd = map->nick2sd(fname);
+	} else {
 	f_sd = map->nick2sd((char*)RFIFOP(fd,2));
+	}
 
 	// ensure that the request player's friend list is not full
 	ARR_FIND(0, MAX_FRIENDS, i, sd->status.friends[i].char_id == 0);
