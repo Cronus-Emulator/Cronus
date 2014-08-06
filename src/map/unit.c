@@ -1860,7 +1860,7 @@ int unit_attack_timer_sub(struct block_list* src, int tid, int64 tick) {
 	nullcheck(src);
 	nullcheck(src->prev);
 	nullcheck(target);
-	nullcheck(target->prev);
+	if (!target->prev) return 0;
 
 	if( status->isdead(src) || status->isdead(target)
 	 || battle->check_target(src,target,BCT_ENEMY) <= 0 || !status->check_skilluse(src, target, 0, 0)
