@@ -1,0 +1,88 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Faixa de Censura (Equipamentos para Cabeça 2006)         -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.4b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Faixa de Censura.    -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.4b - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+rachel,91,273,8	script	?	4_M_RACHMAN2,{
+	if (countitem(983) > 0 && countitem(7111) > 99 && countitem(938) > 98 && Zeny > 99999) {
+		mes "[?]";
+		mes "Giggle giggle...isn't it my partner, eh?";
+		mes "So, did you bring everything that I asked?";
+		mes "Great, now I can make the item which will help you";
+		mes "to cover your identity! Giggle giggle...";
+		next;
+		mes "- Bzzz Bzzz Click Click -";
+		mes "- Fumble Fumble Fumble Fumble -";
+		mes "- Bzzz Bzzz Click Click -";
+		mes "- Fumble Fumble Fumble Fumble -";
+		next;
+		mes "[?]";
+		mes "...Hey, don't look over my shoulder.";
+		mes "I don't want to share";
+		mes "my business secret with you, you know?";
+		next;
+		mes "- Bzzz Bzzz Click Click -";
+		mes "- Fumble Fumble Fumble Fumble -";
+		mes "- Bzzz Bzzz Click Click -";
+		mes "- Fumble Fumble Fumble Fumble -";
+		next;
+		delitem 983,1; //Black_Dyestuffs
+		delitem 7111,100; //Smooth_Paper
+		delitem 938,99; //Sticky_Mucus
+		Zeny -= 100000;
+		getitem 5175,1; //Anonimity_Request
+		mes "[?]";
+		mes "Phew...it's done. Well, it was not that difficult to make, but...";
+		mes "Giggle giggle, what is important is that";
+		mes "now you can hide your identity. Now, take this.";
+		mes "Hopefully, this mask will help you";
+		mes "to avoid encountering your enemies. Ahahaha!";
+		close;
+	}
+	mes "[?]";
+	mes "...No way! Don't you dare to find out about me!";
+	mes "Don't you even speak to me!";
+	mes "Shushhh! Don't let my enemy know where I am!";
+	next;
+	mes "[?]";
+	mes "Err? You are a my kind person.";
+	mes "So, you are running away from something,";
+	mes "and you want to hide your identity, am I right?";
+	mes "Yeah...I guess that I am right... Giggle giggle.";
+	next;
+	mes "[?]";
+	mes "Well, I should be kind to my comrade.";
+	mes "Although I can't reveal my identity to you,";
+	mes "I can help you to safely hide from your enemies.";
+	next;
+	mes "[?]";
+	mes "Bring me ^FF00001 Black Dyestuffs^000000,";
+	mes "^FF0000100 Slick Paper^000000, ^FF000099 Sticky Mucus^000000,";
+	mes "and ^FF0000100,000 zeny^000000.";
+	mes "Then I will help you, giggle giggle.";
+	next;
+	mes "[?]";
+	mes "You may leave now.";
+	mes "Somehow we can be so helpful to each other.";
+	mes "Once you finish gathering all the material,";
+	mes "come back without anyone knowning. Giggle giggle.";
+	close;
+}

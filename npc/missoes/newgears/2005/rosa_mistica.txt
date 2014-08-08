@@ -1,0 +1,125 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Rosa Mística (Equipamentos para Cabeça 2005)             -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.3b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Rosa Mística.        -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.3b - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+lhz_in02,91,38,5	script	Margaret Mary#LhzHat	4_F_01,{
+
+	mes "[Margaret Mary]";
+	mes "The white rose, in its";
+	mes "purity and simplicity, is";
+	mes "like a woman who doesn't";
+	mes "need jewels or fancy dresses";
+	mes "to look noble and beautiful. It's the perfect gift for a lady.";
+	next;
+	switch( select( "Make a Mystic Rose.", "End Conversation." ) )
+	{
+		case 1:
+			if(countitem(731) > 9 && countitem(748) > 2 && countitem(982) && Zeny > 49999)
+			{
+				mes "[Margaret Mary]";
+				mes "Ah, I see that you've brought";
+				mes "what I need to bleach the blood";
+				mes "red hue from these Witherless";
+				mes "Roses and adorn these flowers";
+				mes "with eternal elegance. May I use these items to make a Mystic Rose?";
+				next;
+				switch( select( "Yes", "No" ) )
+				{
+					case 1:
+						mes "[Margaret Mary]";
+						mes "Thank you. Please";
+						mes "next; a moment while";
+						mes "I concentrate in order to";
+						mes "preserve the natural beauty";
+						mes "of these gorgeous flowers...";
+						next;
+						mes "[Margaret Mary]";
+						mes "The rose truly is the";
+						mes "undisputed queen of all";
+						mes "flowers. All other flora must";
+						mes "humbly bow to its regal beauty.";
+						next;
+						mes "...";
+						mes "......";
+						next;
+						mes "...";
+						mes "......";
+						mes ".........";
+						next;
+						mes "[Margaret Mary]";
+						mes "There, it is finished.";
+						mes "Please remember to wear";
+						mes "your hair in an elegant and";
+						mes "refined manner when wearing";
+						mes "the Mystic Rose so as not to disgrace these beautiful flowers.";
+						delitem 731,10;
+						delitem 748,3;
+						delitem 982,1;
+						Zeny -= 50000;
+						getitem 5117,1;
+						close;
+
+					case 2:
+						mes "[Margaret Mary]";
+						mes "White roses with thorns";
+						mes "makes my heart beat with";
+						mes "unceasing trepidation. What";
+						mes "if I prick my finger and shed";
+						mes "blood on its snow white petals?";
+						close;
+				}
+			}
+			mes "[Margaret Mary]";
+			mes "I love roses, but it makes";
+			mes "me sad that their beauty";
+			mes "fades far too soon. And so,";
+			mes "I've found a way to preserve";
+			mes "the beauty of the roses, so";
+			mes "that it lasts for all eternity.";
+			next;
+			mes "[Margaret Mary]";
+			mes "Do you love roses as well?";
+			mes "If you like, I can make a";
+			mes "^3131FFMystic Rose^000000 that you can wear";
+			mes "upon your crown. It's not easy";
+			mes "for me to create, but I believe that you would enjoy it greatly.";
+			next;
+			mes "[Margaret Mary]";
+			mes "Please bring me";
+			mes "^3131FF10 2 Carat Diamonds^000000,";
+			mes "^3131FF3 Witherless Roses^000000,";
+			mes "^3131FF1 White Dyestuffs^000000 and";
+			mes "^3131FF50,000 zeny^000000 if you would";
+			mes "like to have a Mystic Rose.";
+			close;
+
+		case 2:
+			mes "[Margaret Mary]";
+			mes "White roses with thorns";
+			mes "makes my heart beat with";
+			mes "unceasing trepidation. What";
+			mes "if I prick my finger and shed";
+			mes "blood on its snow white petals?";
+			close;
+	}
+
+}

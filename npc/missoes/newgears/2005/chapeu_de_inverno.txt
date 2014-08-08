@@ -1,0 +1,132 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Chapéu de Inverno (Equipamentos para Cabeça 2005)        -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.3b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Chapéu de Inverno.   -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.3b - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+einbech,70,222,5	script	Metelle#LhzHat	4_F_02,{
+	if(countitem(983) && countitem(7267) > 998 && countitem(749) && Zeny > 49999)
+	{
+		mes "[Metelle]";
+		mes "Oh, hello, what's this?";
+		mes "You're carrying 1 Black";
+		mes "Dyestuffs, 1 Frozen Rose,";
+		mes "999 Tiger Panties and even";
+		mes "50,000 zeny with you. That's";
+		mes "enough to make a Winter Hat...";
+		next;
+		mes "[Metelle]";
+		mes "Um, would you mind letting";
+		mes "me have those items so that";
+		mes "I can make a Winter Hat?";
+		mes "I'd never be able to gather";
+		mes "those things on my own...";
+		next;
+		switch( select( "Let her have the items.", "Don't give her the items." ) )
+		{
+			case 1:
+				mes "[Metelle]";
+				mes "Oh, thank you so much!";
+				mes "I've always wanted to make";
+				mes "this hat and try it on, even";
+				mes "if it's just once. But don't";
+				mes "worry, I'll give it to you~";
+				mes "Now please next; a moment...";
+				next;
+				mes "[Metelle]";
+				mes "Let's see...";
+				mes "I've got to fold";
+				mes "the rose like this...";
+				mes "Be careful with the dye...";
+				mes "Where did I put all those";
+				mes "pan--Oh, here we are.";
+				next;
+				mes "[Metelle]";
+				mes "^333333*Whew!*^000000";
+				mes "Finally, it's done!";
+				mes "Now, if you don't mind,";
+				mes "let me try this hat on";
+				mes "for just a little while.";
+				delitem 983,1;
+				delitem 7267,999;
+				delitem 749,1;
+				Zeny -= 50000;
+				getitem 5115,1;
+				next;
+				mes "...";
+				mes "......";
+				next;
+				mes "[Metelle]";
+				mes "Ahhhhhh~";
+				mes "It just feels...";
+				mes "I felt so free~";
+				mes "It was everything";
+				mes "I imagined it to be.";
+				next;
+				mes "[Metelle]";
+				mes "Here, please take";
+				mes "this Winter Hat. I really";
+				mes "hope that you'll enjoy it";
+				mes "as much as I do. Well then,";
+				mes "be safe in your travels, okay?";
+				close;
+			case 2:
+				mes "[Metelle]";
+				mes "I'm sorry, I know that";
+				mes "I was asking a pretty big";
+				mes "favor from someone I just";
+				mes "met. I hope you understand";
+				mes "how much I really want to";
+				mes "make that Winter Hat...";
+				close;
+		}
+	}
+	mes "[Metelle]";
+	mes "Look at that blue";
+	mes "sky. Don't you wish";
+	mes "you could just soar";
+	mes "through the heavens";
+	mes "with your own wings?";
+	next;
+	mes "[Metelle]";
+	mes "Of course, it's an";
+	mes "impossible dream,";
+	mes "but with this Winter Hat,";
+	mes "you can at least enjoy the";
+	mes "sensation of freedom that";
+	mes "a bird in flight must feel.";
+	next;
+	mes "[Metelle]";
+	mes "If you would like";
+	mes "a hat like this, I would";
+	mes "need to have some items";
+	mes "that I don't think I can ever";
+	mes "obtain on my very own.";
+	next;
+	mes "[Metelle]";
+	mes "^FF00001 Black Dyestuffs^000000,";
+	mes "^FF0000999 Tiger Panties^000000,";
+	mes "^FF00001 Frozen Rose^000000 and";
+	mes "^FF000050,000 zeny^000000. If you can";
+	mes "bring those to me, I shall";
+	mes "make you a Winter Hat.";
+	close;
+
+}

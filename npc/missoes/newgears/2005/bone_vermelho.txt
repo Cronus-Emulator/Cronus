@@ -1,0 +1,319 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Boné Vermelho (Equipamentos para Cabeça 2005)            -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.3b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Boné Vermelho.       -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.3b - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+lighthalzen,182,89,0	script	Relaxed-Looking Lady	4_F_02,{
+	disable_items;
+	if(LHZBTQ == 0)
+	{
+		mes "[Relaxed-Looking Lady]";
+		mes "Hmmm...?";
+		mes "What? Did you";
+		mes "need something?";
+		next;
+		switch( select( "N-Nothing.", "Um, you look so relaxed." ) )
+		{
+			case 1:
+				mes "[Relaxed-Looking Lady]";
+				mes "Huh.";
+				mes "Alright then.";
+				mes "Well, try not to stare";
+				mes "at people so much.";
+				close;
+			case 2:
+				mes "[Relaxed-Looking Lady]";
+				mes "Really? You are probably";
+				mes "the twentieth person to";
+				mes "tell me that today. Mmm.";
+				mes "That's strange, isn't it?";
+				next;
+				select("I guess.","It's not strange at all.");
+				mes "[Relaxed-Looking Lady]";
+				mes "Oh yeah.";
+				mes "What's your name?";
+				mes "That is, if you don't";
+				mes "mind me asking you.";
+				next;
+				mes "[" + strcharinfo(0) + "]";
+				mes "My name is " + strcharinfo(0) + "";
+				mes "and I'm an adventurer~";
+				next;
+				mes "[Achiha]";
+				mes "Oh, one of those?";
+				mes "My name is Achiha, nice";
+				mes "to meet you. I don't really";
+				mes "do much of anything.";
+				mes "Just sit. Relax.";
+				set LHZBTQ,1;
+				emotion e_heh;
+				next;
+				mes "[Achiha]";
+				mes "I do have a hobby,";
+				mes "though. Once in a while,";
+				mes "I'll sew a hat. Do you think";
+				mes "an adventurer like you would";
+				mes "want to have a hat I made?";
+				next;
+				switch( select( "Er, I dunno.", "Sure." ) )
+				{
+					case 1:
+						mes "[Achiha]";
+						mes "Mm. I mean, the";
+						mes "Red Bonnets I make";
+						mes "might not be sturdy";
+						mes "enough for battles.";
+						mes "But what about those";
+						mes "fish and cake hats?";
+						next;
+						mes "[Achiha]";
+						mes "Hats...?";
+						mes "That look like";
+						mes "fish or cake? Mm.";
+						mes "Haha. I just got it.";
+						mes "That's, that's funny.";
+						close;
+					case 2:
+						mes "[Achiha]";
+						mes "Really? Well, I can sew";
+						mes "together a ^0000FFRed Bonnet^000000.";
+						mes "It reminds most people";
+						mes "of a baby's bonnet, but";
+						mes "it does look good on";
+						mes "most people I know.";
+						next;
+						mes "[Achiha]";
+						mes "Um, did you want me";
+						mes "to make you one? I can";
+						mes "go ahead and do it if you";
+						mes "bring me some materials.";
+						mes "Since it's just for fun,";
+						mes "I won't ask for too much.";
+						next;
+						mes "[Achiha]";
+						mes "Just bring";
+						mes "^0000FF1 Green Lace^000000,";
+						mes "^0000FF1 Silk Ribbon^000000,";
+						mes "^0000FF1 Scarlet Dyestuffs^000000,";
+						mes "^0000FF1 Sunday Hat^000000 and";
+						mes "^0000FF50,000 zeny^000000.";
+						next;
+						mes "[Achiha]";
+						mes "I think I'm going";
+						mes "to just sit and relax";
+						mes "a little bit longer. But";
+						mes "if you want me to make";
+						mes "a hat for you, come back";
+						mes "with those materials, okay?";
+						set LHZBTQ,2;
+						close;
+				}
+		}
+	}
+	else if(LHZBTQ == 1)
+	{
+		mes "[Achiha]";
+		mes "Oh, hello.";
+		mes "Isn't it such a nice,";
+		mes "quiet, pleasant day?";
+		next;
+		switch( select( "Indeed.", "Would you please make a hat for me?" ) )
+		{
+			case 1:
+				mes "[Achiha]";
+				mes "Yeah. Today would";
+				mes "be a nice day for a";
+				mes "picnic or a long stroll.";
+				mes "But all I want to do is";
+				mes "just sit and relax...";
+				close;
+			case 2:
+				mes "[Achiha]";
+				mes "What are you talking";
+				mes "about? Oh, you mean the";
+				mes "Red Bonnet? Well, I guess";
+				mes "I can make one. But I think";
+				mes "I need some materials first.";
+				next;
+				mes "[Achiha]";
+				mes "^0000FF1 Green Lace^000000,";
+				mes "^0000FF1 Silk Ribbon^000000,";
+				mes "^0000FF1 Scarlet Dyestuffs^000000,";
+				mes "^0000FF1 Sunday Hat^000000 and";
+				mes "^0000FF50,000 zeny^000000.";
+				mes "That's what I need.";
+				next;
+				mes "[Achiha]";
+				mes "Oh, but I don't";
+				mes "feel like making it";
+				mes "right now. I'm soooo";
+				mes "tired. Let me just sit,";
+				mes "relax, even if it's just";
+				mes "a little while longer...";
+				set LHZBTQ,2;
+				close;
+		}
+	}
+	else if(LHZBTQ == 2)
+	{
+		mes "[Achiha]";
+		mes "Oh, good, you're here.";
+		mes "I've been waiting for you.";
+		mes "Did you bring everything that";
+		mes "you need to make a ^0000FFRed Bonnet^000000?";
+		next;
+		switch( select( "Yes.", "I forgot what I need." ) )
+		{
+			case 1:
+				if(countitem(10015) < 1 || countitem(10007) < 1 || countitem(975) < 1 || countitem(5032) < 1 || Zeny < 50000)
+				{
+					mes "[Achiha]";
+					mes "Uh oh.";
+					mes "You forgot";
+					mes "a couple things.";
+					mes "Would you like me";
+					mes "to remind you what";
+					mes "you need to bring?";
+					next;
+					mes "[Achiha]";
+					mes "^0000FF1 Green Lace^000000,";
+					mes "^0000FF1 Silk Ribbon^000000,";
+					mes "^0000FF1 Scarlet Dyestuffs^000000,";
+					mes "^0000FF1 Sunday Hat^000000 and";
+					mes "^0000FF50,000 zeny^000000. Come back";
+					mes "when you're ready, okay?";
+					close;
+				}
+				mes "[Achiha]";
+				mes "Oh, you brought";
+				mes "everything. That's";
+				mes "good. Okay, just give";
+				mes "it to me. Um, let's see.";
+				next;
+				mes "[Achiha]";
+				mes "Well, I'm finished.";
+				mes "^333333*Yawn*^000000 And now I'm";
+				mes "even more tired. Here,";
+				mes "take this Red Bonnet.";
+				mes "I hope you like it~";
+				mes "I think I'll relax now...";
+				delitem 10015,1;
+				delitem 10007,1;
+				delitem 975,1;
+				delitem 5032,1;
+				Zeny -= 50000;
+				getitem 5109,1;
+				set LHZBTQ,3;
+				next;
+				mes "[Achiha]";
+				mes "I hope you will enjoy the hat~";
+				close;
+			case 2:
+				mes "[Achiha]";
+				mes "Oh, you really";
+				mes "forgot? Oh dear,";
+				mes "let me try to remember.";
+				mes "I didn't forget too, did I?";
+				mes "Oh next;, I remember now...";
+				next;
+				mes "[Achiha]";
+				mes "^0000FF1 Green Lace^000000,";
+				mes "^0000FF1 Silk Ribbon^000000,";
+				mes "^0000FF1 Scarlet Dyestuffs^000000,";
+				mes "^0000FF1 Sunday Hat^000000 and";
+				mes "^0000FF50,000 zeny^000000. Come back";
+				mes "when you're ready, okay?";
+				close;
+		}
+	}
+	else if(LHZBTQ == 3)
+	{
+		mes "[Achiha]";
+		mes "Oh, I remember you.";
+		mes "You're the adventurer";
+		mes "who likes my Red Bonnets";
+		mes "so much. Did you want me";
+		mes "to make another one for you?";
+		next;
+		switch( select( "Yes.", "I forgot what I need." ) )
+		{
+			case 1:
+				if(countitem(10015) < 1 || countitem(10007) < 1 || countitem(975) < 1 || countitem(5032) < 1 || Zeny < 50000)
+				{
+					mes "[Achiha]";
+					mes "Uh oh.";
+					mes "You forgot";
+					mes "a couple things.";
+					mes "Would you like me";
+					mes "to remind you what";
+					mes "you need to bring?";
+					next;
+					mes "[Achiha]";
+					mes "^0000FF1 Green Lace^000000,";
+					mes "^0000FF1 Silk Ribbon^000000,";
+					mes "^0000FF1 Scarlet Dyestuffs^000000,";
+					mes "^0000FF1 Sunday Hat^000000 and";
+					mes "^0000FF50,000 zeny^000000. Come back";
+					mes "when you're ready, okay?";
+					close;
+				}
+				mes "[Achiha]";
+				mes "Oh, you brought";
+				mes "everything. That's";
+				mes "good. Okay, just give";
+				mes "it to me. Um, let's see.";
+				next;
+				mes "[Achiha]";
+				mes "Well, I'm finished.";
+				mes "^333333*Yawn*^000000 And now I'm";
+				mes "even more tired. Here,";
+				mes "take this Red Bonnet.";
+				mes "I hope you like it~";
+				mes "I think I'll relax now...";
+				delitem 10015,1;
+				delitem 10007,1;
+				delitem 975,1;
+				delitem 5032,1;
+				Zeny -= 50000;
+				getitem 5109,1;
+				next;
+				mes "[Achiha]";
+				mes "I hope you will enjoy the hat~";
+				close;
+			case 2:
+				mes "[Achiha]";
+				mes "Oh, you really";
+				mes "forgot? Oh dear,";
+				mes "let me try to remember.";
+				mes "I didn't forget too, did I?";
+				mes "Oh next;, I remember now...";
+				next;
+				mes "[Achiha]";
+				mes "^0000FF1 Green Lace^000000,";
+				mes "^0000FF1 Silk Ribbon^000000,";
+				mes "^0000FF1 Scarlet Dyestuffs^000000,";
+				mes "^0000FF1 Sunday Hat^000000 and";
+				mes "^0000FF50,000 zeny^000000. Come back";
+				mes "when you're ready, okay?";
+				close;
+		}
+	}
+}

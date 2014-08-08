@@ -1,0 +1,263 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Máscaras (Equipamentos para Cabeça 2006)                 -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.4b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Máscara Haho,        -
+//-   Máscara Mítica de Leão e Máscara de Noiva.              -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.4b - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+payon,135,320,3	script	Chungwolmang	4W_M_01,{
+	if (moza_tal == 2) {
+		if (countitem(7015) > 19 && countitem(952) > 99 && countitem(1028) > 99) {
+			//Hahoe_Mask: Bookclip_In_Memory, Cactus_Needle, Wild_Boar's_Mane
+			callsub S_MakeMask,5176,7015,20,952,100,1028,100,0,0;
+		}
+		if (countitem(1048) > 499 && countitem(1053) > 1 && countitem(980) > 0) {
+			//Guardian_Lion_Mask: Slender_Snake, Tooth_Of_Ancient_Fishm Orange_Dyestuffs
+			callsub S_MakeMask,5177,1048,500,1053,2,980,1,0,0;
+		}
+		if (countitem(1049) > 19 && countitem(1059) > 499 && countitem(1054) > 1 && countitem(1024) > 99) {
+			//Bride_Mask: Skirt_Of_Virgin, Transparent_Cloth, Lip_Of_Ancient_Fish, Chinese_Ink
+			callsub S_MakeMask,5169,1049,20,1059,500,1054,2,1024,100;
+		}
+		mes "[Chungwolmang]";
+		mes "Well well, have you not gathered the materials yet?";
+		mes "You'd better hurry because I can't wait so long!";
+		mes "Wait, what mask did you ask me to make anyways?";
+		next;
+		switch(select("Hahoe Mask:Bride Mask:Mythical Lion Mask")) {
+		case 1:
+			mes "[Chungwolmang]";
+			mes "Oh, yes, you want Hahoe Mask.";
+			mes "Then you need to bring... ^FF000020 Bookclip in Memory^000000,";
+			mes "^FF0000100 Cactus Needle^000000, and";
+			mes "^FF0000100 Mane^000000.";
+			break;
+		case 2:
+			mes "[Chungwolmang]";
+			mes "Oh, yes, you want Bride Mask.";
+			mes "Then you need to bring... ^FF000020 Skirt of Virgin^000000,";
+			mes "^FF0000500 Fabric^000000, ^FF00002 Ancient Lips^000000,";
+			mes "and ^FF0000100 Squid Ink^000000.";
+			break;
+		case 3:
+			mes "[Chungwolmang]";
+			mes "Oh, yes, you want Mythical Lion Mask.";
+			mes "Then you need to bring... ^FF0000500 Horrendous Hair^000000,";
+			mes "^FF00002 Ancient Tooth^000000, and";
+			mes "^FF00001 Orange Dyestuffs^000000.";
+			break;
+		}
+		mes "Bring the exact amount of materials, then I will give you the mask right away.";
+		close;
+	}
+	if (countitem(7201) > 499) && (countitem(7200) > 9 && moza_tal == 1) {
+		mes "[Chungwolmang]";
+		mes "Ah, Four Leaf Clover must bring me luck";
+		mes "because you came back faster than I thought! Wow...";
+		mes "Thank you so much, now I think that";
+		mes "I have fortune on my side. Hahaha!";
+		next;
+		mes "[Chungwolmang]";
+		mes "Alright! I will return your favor as I promised.";
+		mes "I will tell you everything. In fact,";
+		mes "I am a traditional mask craftsman.";
+		mes "I am proud to tell you that no one can beat me";
+		mes "in crafting traditional masks! Ahem!";
+		next;
+		mes "[Chungwolmang]";
+		mes "I had experienced emotional instability";
+		mes "as well as had bad luck with everything due to various reasons.";
+		mes "But, that's history now! I am back, hahahaha!";
+		next;
+		mes "[Chungwolmang]";
+		mes "I feel good, and I have fortune back to my side.";
+		mes "I really appreciate you for helping me to feel better.";
+		mes "In return, I am going to make you a traditional mask! Hahaha!";
+		mes "You should be thankful for that I am offering you a great gift.";
+		next;
+		mes "[Chungwolmang]";
+		mes "You know why? Because there is no one who can offer you";
+		mes "such a valuable item except me.";
+		mes "Anyhow, I can make 3 different masks:";
+		mes "Hahoe Mask, Bride Mask and Mythical Lion Mask.";
+		mes "Which one whould you like to have? Pick one.";
+		next;
+		switch(select("Hahoe Mask:Bride Mask:Mythical Lion Mask")) {
+		case 1:
+			mes "[Chungwolmang]";
+			mes "Great, you want Hahoe Mask, eh? That's easy!";
+			mes "Then you need to bring... ^FF000020 Bookclip in Memory^000000,";
+			mes "^FF0000100 Cactus Needle^000000, and";
+			mes "^FF0000100 Mane^000000.";
+			mes "Bring the exact amount of materials, then I will give you the mask right away.";
+			break;
+		case 2:
+			mes "[Chungwolmang]";
+			mes "Great, you want Bride Mask, eh? That's easy!";
+			mes "Then you need to bring... ^FF000020 Skirt of Virgin^000000,";
+			mes "^FF0000500 Fabric^000000, ^FF00002 Ancient Lips^000000,";
+			mes "and ^FF0000100 Squid Ink^000000.";
+			mes "Bring the exact amount of materials, then I will give you the mask right away.";
+			break;
+		case 3:
+			mes "[Chungwolmang]";
+			mes "Great, you want Mythical Lion Mask, eh? That's easy!";
+			mes "Then you need to bring... ^FF0000500 Horrendous Hair^000000,";
+			mes "^FF00002 Ancient Tooth^000000, and";
+			mes "^FF00001 Orange Dyestuffs^000000.";
+			mes "Bring the exact amount of materials, then I will give you the mask right away.";
+			break;
+		}
+		delitem 7201,500; //Log
+		delitem 7200,10; //Flexible_String
+		set moza_tal,2;
+		next;
+		mes "[Chungwolmang]";
+		mes "...Why are you eyeing at me?";
+		mes "What, did you expect me to make the mask for free?";
+		mes "If you did, you must think of it this way.";
+		mes "My term of payback is to use my skills,";
+		mes "and let you have my precious mask,";
+		mes "not making the mask for you at free of charge, understood?";
+		next;
+		mes "[Chungwolmang]";
+		mes "At least I am not charging you with service fee, am I?";
+		mes "Just bring me the materials, I will do my best";
+		mes "to make an incredible mask for you!";
+		next;
+		mes "[Chungwolmang]";
+		mes "In the meantime, I am going to prepare";
+		mes "the work by using these Log and Elastic Band.";
+		mes "So come back as soon as you can, okay?";
+		close;
+	}
+	if (moza_tal == 1) {
+		mes "[Chungwolmang]";
+		mes "Umm...the things that I've asked you were";
+		mes "^FF0000500 Log^000000 and ^FF000010 Elastic Band^000000.";
+		mes "Thanks in advance.";
+		close;
+	}
+	if (countitem(706) > 0) {
+		mes "[Chungwolmang]";
+		mes "Ah...! Hey! I can tell something unique about you.";
+		mes "Do you have a Four Leaf Clover by any chance?";
+		mes "Do you mind if I ask you to give me the clover?";
+		next;
+		mes "[Chungwolmang]";
+		mes "I am not asking you to give it to me for free.";
+		mes "Although I can't gurantee it,";
+		mes "I will be able to pay back your favor sooner or later.";
+		mes "So, can I take it?";
+		next;
+		if (select("Sure.:No, you can't.") == 1) {
+			mes "[Chungwolmang]";
+			mes "Oh! Thank you so much!";
+			mes "Muhahahahahaha! Now I will become a lucky guy!";
+			mes "With the clover, fortune will be on my side again!";
+			next;
+			mes "[Chungwolmang]";
+			mes "Oh, right! I almost forgot.";
+			mes "I promised you to pay back your favor, right?";
+			mes "I know that this might sound selfish,";
+			mes "but, hey, can you do me one more favor?";
+			mes "Since you did me a favor already,";
+			mes "I don't think that it would be";
+			mes "that hard for you to help me one more time?";
+			mes "Please, show me your generosity~";
+			next;
+			mes "[Chungwolmang]";
+			mes "I need... ^FF0000500 Log^000000 and";
+			mes "^FF000010 Elastic Band^000000.";
+			mes "Will you be so kind to bring them to me?";
+			mes "In fact, I can't pay you back unless I have them.";
+			next;
+			delitem 706,1; //Four_Leaf_Clover
+			set moza_tal,1;
+			mes "[Chungwolmang]";
+			mes "You want me to pay you back, don't you?";
+			mes "So, please bring them to me, please~";
+			close;
+		}
+		mes "[Chungwolmang]";
+		mes "I see... Well, it is not easy to give away the lucky charm";
+		mes "to a stranger without a second thought.";
+		mes "...Haha, but that doesn't make me stop being upset.";
+		mes "How dare you to refuse my request? Hah!";
+		close;
+	}
+	mes "[Chungwolmang]";
+	mes "Arrrgghhh... I neeed... I need...";
+	next;
+	mes "[Chungwolmang]";
+	mes "I want to be lucky! Someone, please bring me luck!";
+	mes "I am not asking too much! I need one thing!";
+	next;
+	mes "[Chungwolmang]";
+	mes "I need a ^FF0000Four Leaf Clover^000000!";
+	mes "Somebody, please bring me a Four Leaf Clover!";
+	close;
+
+S_MakeMask:
+	mes "[Chungwolmang]";
+	mes "Oh, you have brought everything";
+	mes "to make a "+getitemname(getarg(0))+". Excellent.";
+	mes "Please give me the materials. I will make the mask right away.";
+	next;
+	if (select("Give him the items.:Don't give him the items.") == 1) {
+		mes "[Chungwolmang]";
+		mes "Great, I like your unhesitating attitude!";
+		mes "Alright then, I will make the mask as quickly as I can!";
+		next;
+		mes "[Chungwolmang]";
+		mes "- Fumble Fumble Fumble -";
+		mes "- Fumble Fumble Fumble -";
+		mes "- Fumble Fumble Fumble -";
+		mes "- Thud Thud Thud Thud -";
+		next;
+		mes "[Chungwolmang]";
+		mes "- Fumble Fumble Fumble -";
+		mes "- Fumble Fumble Fumble -";
+		mes "- Fumble Fumble Fumble -";
+		mes "- Thud Thud Thud Thud -";
+		next;
+		delitem getarg(1),getarg(2);
+		delitem getarg(3),getarg(4);
+		delitem getarg(5),getarg(6);
+		if (getarg(0) == 5169)
+			delitem getarg(7),getarg(8);
+		getitem getarg(0),1;
+		set moza_tal,0;
+		mes "[Chungwolmang]";
+		mes "Wow, it was a piece of cake!";
+		mes "You know, I am not an artisan only in title.";
+		mes "Hahaha, here, take your "+getitemname(getarg(0))+".";
+		mes "I hope that you will wear it with pride, hahaha!";
+		next;
+		mes "[Chungwolmang]";
+		mes "Aright, I need to take a rest";
+		mes "until I have next customer. Hahaha, bye!";
+		close;
+	}
+	mes "[Chungwolmang]";
+	mes "Err? Don't you want "+getitemname(getarg(0))+"?";
+	mes "Alright then...coward.";
+	close;
+}

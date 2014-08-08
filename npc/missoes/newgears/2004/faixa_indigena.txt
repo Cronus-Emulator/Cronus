@@ -7,7 +7,7 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-//-  Faixa Indígena (Equipamentos para Cabeço 2008)           -
+//-  Faixa Indígena (Equipamentos para Cabeça 2004)           -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //-  (*)Athena Dev Team                                       -
@@ -18,24 +18,24 @@
 //-   Missão para adquirir o equipamento Faixa Indígena.      -
 //-------------------------------------------------------------
 //- Desenvolvimento:                                          -
-//- 	1.6c - Realizado tradução do script. [?]              -
+//- 	1.6c - Realizado tradução do script. [SoulBlaker]     -
 //-------------------------------------------------------------
 
 comodo,237,217,5	script	Meruntei#1	4_M_JOB_HUNTER,{
 	if (checkweight(1201,1) == 0) {
-		mes "- Wait a minute! -";
-		mes "- Currently you're carrying -";
-		mes "- too many items with you. -";
-		mes "- Please try again after -";
-		mes "- you put some items into Kafra Storage. -";
+		mes "- Espere um minuto! -";
+		mes "- No momento você está carregando -";
+		mes "- muitos itens com você. -";
+		mes "- Por favor, tente novamente após -";
+		mes "- você guardar alguns no Armazém da Kafra. -";
 		close;
 	}
 	if (countitem(5010) > 0 && countitem(5049) > 0 && countitem(7101) > 9 && Zeny > 9999) {
 		mes "[Meruntei]";
-		mes "Oh! You brought all of them! Now I shall make you an Indian Headband of your very own.";
+		mes "Oh! Você trouxe todos os itens! Agora vou fazer sua própria Faixa Indígena.";
 		next;
 		mes "[Meruntei]";
-		mes "Take this! The items you have brought will be very useful for continuing my work in spreading headbands around Rune-Midgard.";
+		mes "Leve isso! Os itens que você me trouxe será muito itens para continuar a divulgação do meu trabalho de faixas de cabeça pelo arredores de Rune-Midgard.";
 		delitem 5010,1; //Indian_Hair_Piece
 		delitem 5049,1; //Stripe_Band
 		delitem 7101,10; //Peco_Wing_Feather
@@ -49,24 +49,24 @@ comodo,237,217,5	script	Meruntei#1	4_M_JOB_HUNTER,{
 	mes "[Meruntei]";
 	mes "iiiyiyiyiyiyiyiiiiii~~!";
 	mes " ";
-	mes "Indian spirit, forever~!";
-	mes "On behalf of the Comodo Indians, I give reverence to all Indian Tribes!";
+	mes "Para sempre Espírito de Índiano~!";
+	mes "Em nome dos Índios de Comodo, eu dou reverência a todas as Tribos Indígenas!";
 	next;
 	mes "[Meruntei]";
-	mes "Would you like to have an Indian Headband? You wouldn't become an official member of my tribe, but wearing it would show your respect if you happen to encounter tribal Indians in your adventures.";
+	mes "Você gostária de ter uma Faixa Indígena? Você não vai se tornar um membro oficial da nossa tribo, mas vestindo ela irá mostrar seu respeito se por acaso no meio das suas aventuras você encontrar-se com índios tribais.";
 	next;
 	mes "[Meruntei]";
-	mes "You could just bring...";
-	mes "1 ^FF0000Indian Fillet^000000,";
-	mes "1 ^FF0000Striped Hairband^000000,";
-	mes "10 ^FF0000PecoPeco Feather^000000";
-	mes "and ^FF000010,000 zeny!";
+	mes "Você simplesmente poderia trazer...";
+	mes "1 ^FF0000Penhacho^000000,";
+	mes "1 ^FF0000Faixa Listrada^000000,";
+	mes "10 ^FF0000Pena de Grande Peco^000000";
+	mes "e ^FF000010,000 zeny!";
 	next;
 	mes "[Meruntei]";
-	mes "I will be using the items you've given me so I can continue my work in spreading Indian Headbands, and paying homage to the tribes of Rune-Midgard.";
+	mes "Estarei usando os itens que você me trazer para que possa continuar a divulgação do meu trabalho de Faixas Indígena, em homenagem as tribos de Rune-Midgard.";
 	next;
 	mes "[Meruntei]";
-	mes "^FF0000For your information, if you bring me any item that has a card inserted, or has been upgraded, the additional abilities of the item will disappear after I have used them. So please keep that in mind.^000000";
+	mes "^FF0000Para sua informação, qualquer item que você me trouxer com cartões inseridos ou que tenha sido aprimorado, essas capacidades irão ser removidas depois de ter sido utilizados. No então, por favor, tenha isso em mente.^000000";
 	next;
 	mes "[Meruntei]";
 	mes "iiiyiyiyiyiyiyiiiiii~~!";

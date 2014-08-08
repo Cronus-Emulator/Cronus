@@ -7,7 +7,7 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-//-  Chapéu para Modelos (Equipamentos para Cabeço 2008)      -
+//-  Chapéu para Modelos (Equipamentos para Cabeça 2004)      -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //-  (*)Athena Dev Team                                       -

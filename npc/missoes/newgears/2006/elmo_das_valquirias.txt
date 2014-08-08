@@ -1,0 +1,378 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-  Elmo das Valquírias (Equipamentos para Cabeça 2006)      -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//-  (*)Athena Dev Team                                       -
+//-------------------------------------------------------------
+//- Versão: 1.4b                                              -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//-   Missão para adquirir o equipamento Elmo das Valquírias. -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.4b - Realizado tradução do script. [?]              -
+//-------------------------------------------------------------
+
+hugel,147,103,3	script	Ghenirhemin	4_M_HUGRANFA,{
+	if (moza_valkylie == 5) {
+		set .@val2,rand(1,10);
+		if (.@val2 == 3) {
+			specialeffect EF_LIGHTSPHERE;
+			mes "[Ghenirhemin]";
+			mes "The materials are still being fused.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Umm?! Oh...oh?! Isn't this...";
+			mes "Isn't this...?!";
+			next;
+			specialeffect EF_FORESTLIGHT2;
+			mes "[Ghenirhemin]";
+			mes "Ah...ahahaha, we've made it! We've made it!";
+			mes "Valkyre's Helm...We've recreated Valkyre's Helm,";
+			mes "a glorious godly armor!";
+			mes "Ah...does this mean...?";
+			next;
+			mes "[Ghenirhemin]";
+			mes "We are writing new history!";
+			mes "Yes, we just have started writing new history.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Thank you so much for giving me a chance to participate in this.";
+			mes "I am sure that my ancestors in heaven will be glad";
+			mes "to see this successful recreation of Valkyre's Helm.";
+			mes "Hahahahaha!";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Please take this helm.";
+			mes "As I promised, this is yours.";
+			mes "Please take pride in yourself, and";
+			mes "do not disgrace this Helm through evil doings.";
+			next;
+			set moza_valkylie,0;
+			getitem 5171,1; //Valkyrie_Helm
+			mes "[Ghenirhemin]";
+			mes "May God bless this adventurer";
+			mes "who has written new history.";
+			mes "I, Gheirhemin pray to god for his safe journey";
+			mes "who is now heading toward the new history.";
+			close;
+		}
+		specialeffect EF_LIGHTSPHERE;
+		mes "[Ghenirhemin]";
+		mes "The materials are still being fused.";
+		close;
+	}
+	else if (moza_valkylie == 4) {
+		set .@val,rand(1,10);
+		if (.@val == 7) {
+			mes "[Ghenirhemin]";
+			mes "............";
+			next;
+			specialeffect EF_LIGHTSPHERE;
+			mes "[Ghenirhemin]";
+			mes "Oh...oh? They....they just have started being fused!";
+			mes "Look at this shining light!";
+			mes "I can't...I can't believe that";
+			mes "this is what happens in Valhala!";
+			next;
+			set moza_valkylie,5;
+			mes "[Ghenirhemin]";
+			mes "We are now witnessess of the God's grace...ah....";
+			close;
+		}
+		mes "[Ghenirhemin]";
+		mes "....Let's wait a little longer.";
+		close;
+	}
+	else if (moza_valkylie == 3) {
+		set moza_valkylie,4;
+		mes "[Ghenirhemin]";
+		mes "Will you stop being anxious?";
+		mes "Just relax and wait, will you?";
+		mes "In a sense, we are holding a holy rite,";
+		mes "and it is not going to happen faster,";
+		mes "only because you, a human wants it to happen faster.";
+		close;
+	}
+	else if (moza_valkylie == 2 && Zeny > 9999999 && countitem(4219) > 0 && countitem(4114) > 0 && countitem(4177) > 0 && countitem(4259) > 0 && countitem(4212) > 0 && countitem(4073) > 0 && countitem(4112) > 0 && countitem(4081) > 0 && countitem(4251) > 0 && countitem(4166) > 0 && countitem(7511) > 999 && countitem(7563) > 999) {
+		mes "[Ghenirhemin]";
+		mes "Hmm...I am impressed that you have brought everything";
+		mes "despite of the difficulty in gathering them. It was difficult, wasn't it?";
+		mes "Haha, I can tell just by looking at your face.";
+		mes "Good job, my friend, you did a good job.";
+		next;
+		mes "[Ghenirhemin]";
+		mes "Now, please hand them to me.";
+		mes "If I place them together in one place,";
+		mes "I am pretty sure that they will start";
+		mes "being fused into the helm with their own mysterious powers.";
+		next;
+		if (select("Give him the items.:Don't give him the items.") == 1) {
+			mes "[Ghenirhemin]";
+			mes "Excellent. Now, all we have to do";
+			mes "is just waiting until they finish being fused into one.";
+			next;
+			delitem 4219,1; //Sageworm_Card
+			delitem 4114,1; //Argiope_Card
+			delitem 4177,1; //Dryad_Card
+			delitem 4259,1; //Wooden_Golem_Card
+			delitem 4212,1; //Bon_Gun_Card
+			delitem 4073,1; //Pirate_Skel_Card
+			delitem 4112,1; //Marduk_Card
+			delitem 4081,1; //Hode_Card
+			delitem 4251,1; //Elder_Card
+			delitem 4166,1; //Nightmare_Terror_Card
+			delitem 7511,1000; //Rune_Of_Darkness
+			delitem 7563,1000; //Bloody_Rune
+			Zeny -= 10000000;
+			set moza_valkylie,3;
+			mes "[Ghenirhemin]";
+			mes "Now I am all nervous";
+			mes "in anticipation of a good result. Hahahaha.";
+			close;
+		}
+		mes "[Ghenirhemin]";
+		mes "?";
+		close;
+	}
+	else if (moza_valkylie == 2) {
+		mes "[Ghenirhemin]";
+		mes "Please bring me";
+		mes "^FF00001 Sage Worm Card, 1Argiope Card,";
+		mes "^FF00001 Dryad Card, 1 Wooden Golem Card,";
+		mes "^FF00001 Bongun Card, 1 Pirate Skeleton Card,";
+		mes "^FF00001 Marduk Card, 1 Hode Card,";
+		mes "^FF00001 Elder Card, 1 Nightmare Terror Card,^000000";
+		next;
+		mes "[Ghenirhemin]";
+		mes "^FF00001,000 Rune of the Darkness,";
+		mes "^FF00001,000 Bloody Rune,";
+		mes "^FF0000and the helm price, 10,000,000 zeny^000000.";
+		next;
+		mes "[Ghenirhemin]";
+		mes "It surely is a reasonable price considering that ";
+		mes "you are about to obtain a godly power, don't you think?";
+		next;
+		set moza_valkylie,2;
+		mes "[Ghenirhemin]";
+		mes "Let's discuss it later";
+		mes "once you prepare the money and the items.";
+		mes "Now I am so exhausted";
+		mes "as it has been a while since the last time that I talked this much.";
+		mes "Excuse me.";
+		close;
+	}
+	else if (moza_valkylie == 1) {
+		mes "[Ghenirhemin]";
+		mes "You must be pretty surprised by now.";
+		mes "Yes, it is surely understandable.";
+		mes "If you have travelled many places,";
+		mes "and heard many stories, you would know what this is.";
+		mes "Yes, it is ^FF0000Valkyre's Helm^000000.";
+		next;
+		mes "[Ghenirhemin]";
+		mes "A legendary helm only allowed to men";
+		mes "who have transcended their limit.";
+		mes "A godly armor that is blessed with an incredible power.";
+		mes "Can you see now that my story is true?";
+		next;
+		mes "[Ghenirhemin]";
+		mes "It has passed so many years, and thus";
+		mes "its power has become weakened,";
+		mes "but you can still feel something holy about the helm.";
+		mes "Don't you think?";
+		next;
+		mes "[Ghenirhemin]";
+		mes "Well...I am not allowed to wear this helm.";
+		mes "Thus, if I find someone who is just perfect for this helm,";
+		mes "I am going to give this to him without any regret.";
+		next;
+		mes "[Ghenirhemin]";
+		mes "Of course, I can't give away";
+		mes "such a valuable thing for nothing in return.";
+		mes "That's how it goes, you know?";
+		mes "I maybe think about giving it to you";
+		mes "because you seem to be wealthier than others,";
+		mes "and I can sense special aura from you.";
+		next;
+		mes "[Ghenirhemin]";
+		mes "So, what do you say?";
+		mes "I think that I have an eye for right men.";
+		mes "I feel that you will be able to fully recreate this Valkyre's Helm";
+		mes "as well as use it to its full potential.";
+		next;
+		if (select("Sure.:No, thanks.") == 1) {
+			mes "[Ghenirhemin]";
+			mes "You are an ambitious young man as I expected.";
+			mes "It is surely a great advantage.";
+			mes "Okay, I will tell you what I know from now on.";
+			mes "So, listen carefully.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "First, we have to fully restore the helm's power.";
+			mes "To do so, we must find monster cards";
+			mes "that possess mysterious powers.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "That's not all. You know,";
+			mes "we can't just glue those monster cards";
+			mes "on the helm. Thus, we need a power that";
+			mes "enables us to fuse the cards and the helm into one.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Ancient runes are perfect to supply the power,";
+			mes "especially we need Rune of the Darkness, and Bloody Rune.";
+			mes "Perhaps, they were chosen because of their sealed dark power";
+			mes "and bloody sticky power? That's just my guess, hahahaha!";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Once we successfully restore the helm's power,";
+			mes "you are expected to purchase the helm from me.";
+			mes "As I said earlier, I am not going to";
+			mes "give away such a valuable thing with nothing in return.";
+			mes "It will also demonstrate your qualification to become the helm's owner.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Basically, you have to bring me...";
+			mes "Ah, there are so many things that you need to bring me.";
+			mes "I suggest you to write down, and memorize them.";
+			next;
+			mes "Please bring me";
+			mes "^FF00001 Sage Worm Card, 1Argiope Card,";
+			mes "1 Dryad Card, 1 Wooden Golem Card,";
+			mes "1 Bongun Card, 1 Pirate Skeleton Card,";
+			mes "1 Marduk Card, 1 Hode Card,";
+			mes "1 Elder Card, 1 Nightmare Terror Card,^000000";
+			next;
+			mes "[Ghenirhemin]";
+			mes "^FF00001,000 Rune of the Darkness,";
+			mes "1,000 Bloody Rune,";
+			mes "and the helm price, 10,000,000 zeny^000000.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "It surely is a reasonable price considering that ";
+			mes "you are about to obtain a godly power, don't you think?";
+			next;
+			set moza_valkylie,2;
+			mes "[Ghenirhemin]";
+			mes "Let's discuss it later";
+			mes "once you prepare the money and the items.";
+			mes "Now I am so exhausted";
+			mes "as it has been a while since the last time that I talked this much.";
+			mes "Excuse me.";
+			close;
+		}
+		mes "[Ghenirhemin]";
+		mes "Haha, I understand that";
+		mes "it is not an easy choice to make.";
+		mes "Take your time, my friend.";
+		mes "If you still don't want the helm, I respect your decision.";
+		close;
+	}
+	else if (Zeny > 9999999) {
+		mes "[Ghenirhemin]";
+		mes "Hmm...you look like a poor-looking wanderer,";
+		mes "but you seem to have an enormous amount of money with you.";
+		mes "I guess that the old saying was right:";
+		mes "''Don't judge a book by its cover.''";
+		next;
+		mes "[Ghenirhemin]";
+		mes "You maybe understand my story.";
+		mes "Would you like to listen to my long story?";
+		mes "It may or may not be interesting to you,";
+		mes "but I gurantee that it will never bore you in either way.";
+		next;
+		if (select("Listen.:Don't listen.") == 1) {
+			mes "[Ghenirhemin]";
+			mes "Good, let me introduce myself.";
+			mes "My name is Ghenirhemin.";
+			mes "I am no different than others,";
+			mes "if I may speak of my only advantage,";
+			mes "I have little more money than them. Hahaha.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "However, I did not earn my money,";
+			mes "but I inherited the fortune from my ancestors,";
+			mes "who were all gifted businessmen.";
+			mes "I thank to him for handing over such great fortune.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "In fact, I am ashamed to tell you that";
+			mes "I do not know what exactly my ancestors did";
+			mes "to make this much fortune. Perhaps some would have held business,";
+			mes "some others would have been great artists...";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Our family is just blessed enough to have";
+			mes "such great ancestors, who brought wealth to their family.";
+			mes "It would take me at least a week to list";
+			mes "every single successful ancestor of mine.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "However, I like to tell you about one of my amazing ancestors,";
+			mes "who has become our family hero.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "Well, actually I do not know exactly";
+			mes "what he did, but I know that";
+			mes "he brought glory and fame";
+			mes "to our family for the first time.";
+			mes "However, since it has been so long, we do not have";
+			mes "any document about him, so...";
+			next;
+			mes "[Ghenirhemin]";
+			mes "I clearly remember one thing about him though.";
+			mes "He was the only human who was able to";
+			mes "become close to the gods, and he demonstrated";
+			mes "his godly power to bring light to us, humans.";
+			next;
+			mes "[Ghenirhemin]";
+			mes "I don't know how he obtained the godly power,";
+			mes "or how he could become close to the gods.";
+			mes "I just remember these things because I was repeatedly told";
+			mes "about his amazing story ever since I was born...";
+			next;
+			mes "[Ghenirhemin]";
+			mes "I can show you that I am not making things up.";
+			mes "I told you that we do not have any document about him, right?";
+			mes "However, there is something that I can show you.";
+			mes "Now, take a look at this.";
+			next;
+			set moza_valkylie,1;
+			mes "[Ghenirhemin]";
+			mes "See? This surely tells you that";
+			mes "I am not making things up!";
+			mes "This is what my ancestor used to use!";
+			close;
+		}
+		mes "[Ghenirhemin]";
+		mes "What a shame! However, I don't want to force you to";
+		mes "do something that you don't want to do. Hahaha.";
+		mes "Just remember, you just have made another choice for your life.";
+		close;
+	}
+	mes "[Ghenirhemin]";
+	mes "Everything has meaning and reason to exist in this world.";
+	mes "You and I, we are destined to meet with each other today.";
+	next;
+	mes "[Ghenirhemin]";
+	mes "Well...although I said that everything has meaning,";
+	mes "unfortunately you are not interesting to me at all.";
+	mes "Call me a money monger,";
+	mes "but I like the rich.";
+	next;
+	mes "[Ghenirhemin]";
+	mes "If you prove me that you are wealthy,";
+	mes "I maybe change my mind, and become interested in you.";
+	mes "But, I will decide whether or not I will be interested in you";
+	mes "when you show me your money. Hahahaha!";
+	close;
+}

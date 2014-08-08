@@ -7,7 +7,7 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-//-  Faixa de Caratê (Equipamentos para Cabeço 2008)          -
+//-  Faixa de Caratê (Equipamentos para Cabeça 2004)          -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //-  (*)Athena Dev Team                                       -
