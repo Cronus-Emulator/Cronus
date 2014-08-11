@@ -1,18 +1,34 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable death penalty.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.4
-//===== Description: =========================================
-//= Same as 'noexppenalty' and 'nozenypenalty' combined.
-//===== Additional Comments: =================================
-//= 1.2 - Updated. [Lupus]
-//= 1.3 - Added all novice maps. [L0ne_W0lf]
-//= 1.4 - Removed Nightmare PVP maps. [L0ne_W0lf]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Desativa a penalidade ao morrer.                 -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Hercules Dev Team                                         -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.5                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- O mesmo que 'noexppenalty' e 'nozenypenalty' combinado.   -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.2 Atualização. [Lupus]                                  -
+//- 1.3 Adicionado todos os mapas de aprendiz. [L0ne_W0lf]    -
+//- 1.4 Removido modo Noturno em mapas PVP. [L0ne_W0lf]       -
+//- 1.9 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
-// Towns ====================
+// Cidades ====================
 ayo_in01	mapflag	nopenalty
 ayo_in02	mapflag	nopenalty
 alb_ship	mapflag	nopenalty
@@ -168,7 +184,7 @@ ecl_in03	mapflag	nopenalty
 ecl_in04	mapflag	nopenalty
 ecl_hub01	mapflag	nopenalty
 
-// Job Quests ========================
+// Quests de Classes ========================
 job_sword1	mapflag	nopenalty
 job_thief1	mapflag	nopenalty
 // 2-1 -----------------------
@@ -206,7 +222,7 @@ job3_gen01	mapflag	nopenalty
 job3_sha01	mapflag	nopenalty
 job_ko	mapflag	nopenalty
 
-// Misc Quests =======================
+// Quests Variadas =======================
 mosk_ship	mapflag	nopenalty
 que_sign01	mapflag	nopenalty
 que_sign02	mapflag	nopenalty
@@ -286,11 +302,11 @@ turbo_e_4	mapflag	nopenalty
 turbo_e_8	mapflag	nopenalty
 turbo_e_16	mapflag	nopenalty
 
-//Monster Races ================
+//Corridas de Monstros ================
 p_track01	mapflag	nopenalty
 p_track02	mapflag	nopenalty
 
-//Vision of Okolnir =============
+//Visões de Okolnir =============
 que_qsch01	mapflag	nopenalty
 que_qsch02	mapflag	nopenalty
 que_qsch03	mapflag	nopenalty
@@ -302,7 +318,7 @@ que_qaru03	mapflag	nopenalty
 que_qaru04	mapflag	nopenalty
 que_qaru05	mapflag	nopenalty
 
-// Battle Grounds ==============
+// Batalhas Campais ==============
 bat_c01	mapflag	nopenalty
 bat_c02	mapflag	nopenalty
 bat_c03	mapflag	nopenalty
@@ -314,5 +330,5 @@ bat_a02	mapflag	nopenalty
 
 //evt_zombie	mapflag	nopenalty
 
-// Poring War ==================
+// Gerra dos Porings ==================
 poring_w02	mapflag	nopenalty

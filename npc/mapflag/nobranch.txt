@@ -1,21 +1,37 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable Dead Branch use.
-//===== By: ==================================================
-//= HerculesDev Team
-//===== Current Version: =====================================
-//= 1.8
-//===== Description: =========================================
-//= Disables the following items:
-//=   Dead Branch (604), Bloody Branch (12103),
-//=   Red Pouch (12024), Poring Box (12109)
-//===== Additional Comments: =================================
-//= 1.3 - Updated. [massdriller]
-//= 1.6a - Updated. [Lupus]
-//= 1.7 - Added all novice maps. [L0ne_W0lf]
-//= 1.8 - Removed restriction on PVP maps. [L0ne_W0lf]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Desativar o uso do galho seco.                   -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- HerculesDev Team                                          -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.9                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Desabilita os seguintes itens:                            -
+//-   Galho Seco (604), Galho Sangreto (12103),               -
+//-   Bolsa Vermelha (12024), Caixa Poring (12109)            -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.3 - Atualização. [massdriller]                          -
+//- 1.6a - Atualização. [Lupus]                               -
+//- 1.7 - Adicionado todos os mapas de aprendiz. [L0ne_W0lf]  -
+//- 1.8 - Restrição Removido em mapas PVP. [L0ne_W0lf]        -
+//- 1.9 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
-// Cities ======================
+// Cidades ======================
 ayo_in01	mapflag	nobranch
 ayo_in02	mapflag	nobranch
 alb_ship	mapflag	nobranch
@@ -102,7 +118,7 @@ ve_in02	mapflag	nobranch
 thor_camp	mapflag	nobranch
 cave	mapflag	nobranch
 
-// Job Quests ==================
+// Quests das Classes ==================
 job_sword1	mapflag	nobranch
 job_thief1	mapflag	nobranch
 // 2-1
@@ -125,7 +141,7 @@ que_ng	mapflag	nobranch
 job_soul	mapflag	nobranch
 job_star	mapflag	nobranch
 
-// Special Quests Places =======
+// Quests Especiais =======
 que_god01	mapflag	nobranch
 que_god02	mapflag	nobranch
 que_bingo	mapflag	nobranch
@@ -142,7 +158,7 @@ que_rachel	mapflag	nobranch
 que_san04	mapflag	nobranch
 que_thor	mapflag	nobranch
 
-// Guild Castles ===============
+// Castelos ===============
 //alde_gld	mapflag	nobranch
 aldeg_cas01	mapflag	nobranch
 aldeg_cas02	mapflag	nobranch
@@ -230,7 +246,7 @@ prt_are01	mapflag	nobranch
 pvp_y_room	mapflag	nobranch
 pvp_n_room	mapflag	nobranch
 
-// Main City maps ==============
+// Mapas das cidades principais ==============
 alberta	mapflag	nobranch
 aldebaran	mapflag	nobranch
 amatsu	mapflag	nobranch
@@ -266,11 +282,11 @@ turbo_e_4	mapflag	nobranch
 turbo_e_8	mapflag	nobranch
 turbo_e_16	mapflag	nobranch
 
-// Monster Races ===============
+// Corridas de Monstros ===============
 p_track01	mapflag	nobranch
 p_track02	mapflag	nobranch
 
-// Vision of Okolnir ===========
+// Visões de Okolnir ===========
 que_qsch01	mapflag	nobranch
 que_qsch02	mapflag	nobranch
 que_qsch03	mapflag	nobranch
@@ -282,7 +298,7 @@ que_qaru03	mapflag	nobranch
 que_qaru04	mapflag	nobranch
 que_qaru05	mapflag	nobranch
 
-// Episode 12 ===========
+// Episodio 12 ===========
 1@cata	mapflag	nobranch
 2@cata	mapflag	nobranch
 e_tower	mapflag	nobranch
@@ -293,7 +309,7 @@ e_tower	mapflag	nobranch
 5@tower	mapflag	nobranch
 6@tower	mapflag	nobranch
 
-// Episode 13.1 ===========
+// Episodio 13.1 ===========
 mid_camp	mapflag	nobranch
 mid_campin	mapflag	nobranch
 man_fild01	mapflag	nobranch
@@ -305,7 +321,7 @@ arug_que01	mapflag	nobranch
 1@orcs	mapflag	nobranch
 2@orcs	mapflag	nobranch
 
-// Battle Grounds ==============
+// Batalhas Campais ==============
 bat_c01	mapflag	nobranch
 bat_c02	mapflag	nobranch
 bat_c03	mapflag	nobranch
@@ -315,7 +331,7 @@ bat_b02	mapflag	nobranch
 bat_a01	mapflag	nobranch
 bat_a02	mapflag	nobranch
 
-// Episode 13.2 ===========
+// Episodio 13.2 ===========
 1@nyd	mapflag	nobranch
 2@nyd	mapflag	nobranch
 manuk	mapflag	nobranch
@@ -325,7 +341,7 @@ splendide	mapflag	nobranch
 spl_in01	mapflag	nobranch
 spl_in02	mapflag	nobranch
 
-// 3rd Class Job Maps & Paradise ===========
+// Mapas das classes 3rd===========
 moc_para01	mapflag	nobranch
 job3_arch01	mapflag	nobranch
 job3_arch02	mapflag	nobranch
@@ -346,19 +362,19 @@ jupe_core2	mapflag	nobranch
 brasilis	mapflag	nobranch
 bra_in01	mapflag	nobranch
 
-// Episode 13.3 ===========
+// Episodio 13.3 ===========
 dicastes01	mapflag	nobranch
 dicastes02	mapflag	nobranch
 dic_in01	mapflag	nobranch
 s_atelier	mapflag	nobranch
 
-// Episode 14.1 & Dewata ===========
+// Episodio 14.1 & Dewata ===========
 mora	mapflag	nobranch
 1@mist	mapflag	nobranch
 dewata	mapflag	nobranch
 dew_in01	mapflag	nobranch
 
-// Episode Zero & Malaya Port ===========
+// Episódio Zero & Porto de Malaya ===========
 malangdo	mapflag	nobranch
 mal_in01	mapflag	nobranch
 mal_in02	mapflag	nobranch
@@ -373,7 +389,7 @@ ma_in01	mapflag	nobranch
 1@ma_c	mapflag	nobranch
 1@ma_b	mapflag	nobranch
 
-// Episode 14.2 ===========
+// Episodio 14.2 ===========
 eclage	mapflag	nobranch
 ecl_in01	mapflag	nobranch
 ecl_in02	mapflag	nobranch
@@ -384,6 +400,6 @@ ecl_hub01	mapflag	nobranch
 
 //evt_zombie	mapflag	nobranch
 
-// Poring War ==================
+// Corrida de Porings ==================
 poring_w01	mapflag	nobranch
 poring_w02	mapflag	nobranch

@@ -1,22 +1,38 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable Warp Portal memory.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.8b
-//===== Description: =========================================
-//= Prevents players from using /memo on a map.
-//= Also disables marriage warp skills.
-//===== Additional Comments: =================================
-//= 1.6a - Added up to Hugel maps. [Lupus]
-//= 1.6b - Added job_knt map. [Samuray22]
-//= 1.7 - Added all novice maps. [L0ne_W0lf]
-//= 1.8 - Added nameless_i location. [Lupus]
-//= 1.8a - Removed duplicate gef_cas nomemo mapflags. [Yommy]
-//= 1.8b - Removed duplicate arug_dun01 & schg_dun01 entries. [Gepard]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: desabilita o /memo.                              -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Hercules Dev Team                                         -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.9                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Evita que os jogadores utilizem /memo em mapas.           -
+//- Também desativa habilidades de casamento.                 -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.6a Added up to Hugel maps. [Lupus]                      -
+//- 1.6b Added job_knt map. [Samuray22]                       -
+//- 1.7 Added all novice maps. [L0ne_W0lf]                    -
+//- 1.8 Added nameless_i location. [Lupus]                    -
+//- 1.8a Removido duplicata gef_cas nomemo mapflags. [Yommy]  -
+//- 1.8b Removido duplicata arug_dun01 & schg_dun01 entries.  -
+//- 1.9 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
-// Towns  ====================
+// Cidades   ====================
 ayo_in01	mapflag	nomemo
 ayo_in02	mapflag	nomemo
 alb_ship	mapflag	nomemo
@@ -113,7 +129,7 @@ ve_in02	mapflag	nomemo
 thor_camp	mapflag	nomemo
 moc_para01	mapflag	nomemo
 
-// Fields  ===================
+// Campos  ===================
 alb2trea	mapflag	nomemo
 ayo_fild02	mapflag	nomemo
 cmd_fild01	mapflag	nomemo
@@ -202,19 +218,19 @@ ve_fild04	mapflag	nomemo
 ve_fild06	mapflag	nomemo
 cave	mapflag	nomemo
 
-// Job Quests ================
-// First Job Class
+// Quests de classes ================
+// Classe 1 
 job_sword1	mapflag	nomemo
 job_thief1	mapflag	nomemo
 job_star	mapflag	nomemo
-// Primary Second Job Class
+// Classes 2-1
 job_knt	mapflag	nomemo
 job_prist	mapflag	nomemo
 job_wiz	mapflag	nomemo
 job_hunte	mapflag	nomemo
 in_hunter	mapflag	nomemo
 in_moc_16	mapflag	nomemo
-// Secondary Second Job Class
+// Classes 2-2
 alde_alche	mapflag	nomemo
 job_cru	mapflag	nomemo
 job_duncer	mapflag	nomemo
@@ -226,7 +242,7 @@ job_sage	mapflag	nomemo
 job_soul	mapflag	nomemo
 que_ng	mapflag	nomemo
 
-// Special Quests Places =====
+// Locais de quests especiais =====
 que_god01	mapflag	nomemo
 que_god02	mapflag	nomemo
 que_bingo	mapflag	nomemo
@@ -237,38 +253,47 @@ que_san04	mapflag	nomemo
 que_thor	mapflag	nomemo
 poring_c01	mapflag	nomemo
 poring_c02	mapflag	nomemo
-// Dungeons =================
+
+// Calabouço de Aldebaran =================
 alde_dun01	mapflag	nomemo
 alde_dun02	mapflag	nomemo
 alde_dun03	mapflag	nomemo
 alde_dun04	mapflag	nomemo
-// Anthell -------------------
+
+// Formigueiro Infernal -------------------
 anthell01	mapflag	nomemo
 anthell02	mapflag	nomemo
-// Amatsu Dungeon ------------
+
+// Calabouço de Amatsu ------------
 ama_dun01	mapflag	nomemo
 ama_dun02	mapflag	nomemo
 ama_dun03	mapflag	nomemo
-// Ayothaya ------------------
+
+// Calabouço de Ayothaya ------------------
 ayo_dun01	mapflag	nomemo
 ayo_dun02	mapflag	nomemo
-// Comodo Beach --------------
+
+// Praia de Comodo --------------
 beach_dun	mapflag	nomemo
 beach_dun2	mapflag	nomemo
 beach_dun3	mapflag	nomemo
-// Clock Tower ---------------
+
+// Torre do Relógio ---------------
 c_tower1	mapflag	nomemo
 c_tower2	mapflag	nomemo
 c_tower3	mapflag	nomemo
 c_tower4	mapflag	nomemo
-// Einbech Mines -------------
+
+// Minas de Einbech -------------
 ein_dun01	mapflag	nomemo
 ein_dun02	mapflag	nomemo
-// Geffen Dun ----------------
+
+// Calabouço de Geffen ----------------
 gef_dun00	mapflag	nomemo
 gef_dun01	mapflag	nomemo
 gef_dun02	mapflag	nomemo
 gef_dun03	mapflag	nomemo
+
 // Glast Hiem ----------------
 gl_cas01	mapflag	nomemo
 gl_cas02	mapflag	nomemo
@@ -286,31 +311,37 @@ gl_sew02	mapflag	nomemo
 gl_sew03	mapflag	nomemo
 gl_sew04	mapflag	nomemo
 gl_step	mapflag	nomemo
-// Guild Dun -----------------
+
+// Calabouço dos Clãs -----------------
 gld_dun01	mapflag	nomemo
 gld_dun02	mapflag	nomemo
 gld_dun03	mapflag	nomemo
 gld_dun04	mapflag	nomemo
-// Bayalan Island ------------
+
+// Túnel Submarino de Byalan ------------
 iz_dun00	mapflag	nomemo
 iz_dun01	mapflag	nomemo
 iz_dun02	mapflag	nomemo
 iz_dun03	mapflag	nomemo
 iz_dun04	mapflag	nomemo
-// Sphinx --------------------
+
+// Esfinge --------------------
 in_sphinx1	mapflag	nomemo
 in_sphinx2	mapflag	nomemo
 in_sphinx3	mapflag	nomemo
 in_sphinx4	mapflag	nomemo
 in_sphinx5	mapflag	nomemo
-// Louyang Dun --------------
+
+// Calabouço de Louyang --------------
 lou_dun03	mapflag	nomemo
 lou_dun02	mapflag	nomemo
 lou_dun01	mapflag	nomemo
-// Magma Dun -----------------
+
+// Caverna de Magma -----------------
 mag_dun01	mapflag	nomemo
 mag_dun02	mapflag	nomemo
-// Pyrmaids ------------------
+
+// Pirâmides------------------
 moc_pryd01	mapflag	nomemo
 moc_pryd02	mapflag	nomemo
 moc_pryd03	mapflag	nomemo
@@ -318,60 +349,74 @@ moc_pryd04	mapflag	nomemo
 moc_pryd05	mapflag	nomemo
 moc_pryd06	mapflag	nomemo
 moc_prydb1	mapflag	nomemo
-// Coal Mine (Dead Pit) ------
+
+// Mina de Carvão do Mt. Mjolnir ------
 mjo_dun01	mapflag	nomemo
 mjo_dun02	mapflag	nomemo
 mjo_dun03	mapflag	nomemo
-// Orc Dun -------------------
+
+// Caverna dos Orcs -------------------
 orcsdun01	mapflag	nomemo
 orcsdun02	mapflag	nomemo
-// Payon Cave ----------------
+
+// Caverna de Payon ----------------
 pay_dun00	mapflag	nomemo
 pay_dun01	mapflag	nomemo
 pay_dun02	mapflag	nomemo
 pay_dun03	mapflag	nomemo
 pay_dun04	mapflag	nomemo
-// Hidden Temple  ------------
+
+// Labirinto da Floresta ------------
 prt_maze01	mapflag	nomemo
 prt_maze02	mapflag	nomemo
 prt_maze03	mapflag	nomemo
-// Culvert Sewers ------------
+
+// Esgotos de Prontera ------------
 prt_sewb1	mapflag	nomemo
 prt_sewb2	mapflag	nomemo
 prt_sewb3	mapflag	nomemo
 prt_sewb4	mapflag	nomemo
-// Gonryun Dun ---------------
+
+// Calabouço de Gonryun ---------------
 gon_dun01	mapflag	nomemo
 gon_dun02	mapflag	nomemo
 gon_dun03	mapflag	nomemo
-// Sunken Ship ---------------
+
+// Navio Fantasma  ---------------
 treasure01	mapflag	nomemo
 treasure02	mapflag	nomemo
-// Turtle Island -------------
+
+// Ilha da Tartaruga -------------
 tur_dun01	mapflag	nomemo
 tur_dun02	mapflag	nomemo
 tur_dun03	mapflag	nomemo
 tur_dun04	mapflag	nomemo
 tur_dun05	mapflag	nomemo
 tur_dun06	mapflag	nomemo
-// Umbala Dun ----------------
+
+// Calabouço de Umbala ----------------
 um_dun01	mapflag	nomemo
 um_dun02	mapflag	nomemo
-// Toy Factory ---------------
+
+// Fábrica de Brinquedos ---------------
 xmas_dun01	mapflag	nomemo
 xmas_dun02	mapflag	nomemo
-// Yggdrasil Tree Dun --------
+
+// Árvore de Yggdrasil --------
 yggdrasil01	mapflag	nomemo
-// Old Geffenia --------------
+
+// Geffenia --------------
 gefenia01	mapflag	nomemo
 gefenia02	mapflag	nomemo
 gefenia03	mapflag	nomemo
 gefenia04	mapflag	nomemo
-// Bio Lab Dungeon -----------
+
+// Laboratório de Somatologia -----------
 lhz_dun01	mapflag	nomemo
 lhz_dun02	mapflag	nomemo
 lhz_dun03	mapflag	nomemo
-// Juperos Dungeon -----------
+
+// Juperos -----------
 juperos_01	mapflag	nomemo
 juperos_02	mapflag	nomemo
 jupe_area1	mapflag	nomemo
@@ -381,7 +426,8 @@ jupe_ele	mapflag	nomemo
 jupe_ele_r	mapflag	nomemo
 jupe_gate	mapflag	nomemo
 jupe_cave	mapflag	nomemo
-// Thanatos Tower ------------
+
+// Torre Thanatos ------------
 thana_boss	mapflag	nomemo
 tha_scene01	mapflag	nomemo
 tha_t01	mapflag	nomemo
@@ -397,11 +443,13 @@ tha_t10	mapflag	nomemo
 tha_t11	mapflag	nomemo
 tha_t12	mapflag	nomemo
 thana_step	mapflag	nomemo
-// Abyss Lake Dungeon --------
+
+//Lago do Abismo --------
 abyss_01	mapflag	nomemo
 abyss_02	mapflag	nomemo
 abyss_03	mapflag	nomemo
-//Odin's Temple & Kiehl
+
+// Templo de Odin e Kiel Hire
 odin_tem01	mapflag	nomemo
 odin_tem02	mapflag	nomemo
 odin_tem03	mapflag	nomemo
@@ -413,29 +461,33 @@ kh_mansion	mapflag	nomemo
 kh_rossi	mapflag	nomemo
 kh_school	mapflag	nomemo
 kh_vila	mapflag	nomemo
-//Ice Dungeon
+
+// Caverna de Gelo
 ice_dun01	mapflag	nomemo
 ice_dun02	mapflag	nomemo
 ice_dun03	mapflag	nomemo
 ice_dun04	mapflag	nomemo
-//Rachel Santuary
+
+// Santuário de Rachel
 ra_san01	mapflag	nomemo
 ra_san02	mapflag	nomemo
 ra_san03	mapflag	nomemo
 ra_san04	mapflag	nomemo
 ra_san05	mapflag	nomemo
-//Thor Volcano
+
+// Vulcão de Thor
 thor_v01	mapflag	nomemo
 thor_v02	mapflag	nomemo
 thor_v03	mapflag	nomemo
-//Cursed Abbey
+
+// Monastério
 nameless_i	mapflag	nomemo
 nameless_n	mapflag	nomemo
 abbey01	mapflag	nomemo
 abbey02	mapflag	nomemo
 abbey03	mapflag	nomemo
 
-// Guild Castles =============
+// Castelos =============
 //alde_gld	mapflag	nomemo
 aldeg_cas01	mapflag	nomemo
 aldeg_cas02	mapflag	nomemo
@@ -473,7 +525,7 @@ arug_cas02	mapflag	nomemo
 arug_cas03	mapflag	nomemo
 arug_cas04	mapflag	nomemo
 arug_cas05	mapflag	nomemo
-//To Protect Novices Guilds from level abusers
+//Para proteger as Guildas de Aprendizes de abusadores de nível.
 n_castle	mapflag	nomemo
 
 // GvG Arenas ================
@@ -606,7 +658,7 @@ pvp_n_8-4	mapflag	nomemo
 pvp_n_8-5	mapflag	nomemo
 pvp_2vs2	mapflag	nomemo
 
-//Aldebaran Turbo Track
+// Aldebaran Turbo Track
 turbo_room	mapflag	nomemo
 turbo_n_1	mapflag	nomemo
 turbo_n_4	mapflag	nomemo
@@ -616,11 +668,11 @@ turbo_e_4	mapflag	nomemo
 turbo_e_8	mapflag	nomemo
 turbo_e_16	mapflag	nomemo
 
-//Monster Races ================
+//Corridas de Monstros ================
 p_track01	mapflag	nomemo
 p_track02	mapflag	nomemo
 
-//Vision of Okolnir ==========
+// Visões de Okolnir ==========
 que_qsch01	mapflag	nomemo
 que_qsch02	mapflag	nomemo
 que_qsch03	mapflag	nomemo
@@ -632,11 +684,11 @@ que_qaru03	mapflag	nomemo
 que_qaru04	mapflag	nomemo
 que_qaru05	mapflag	nomemo
 
-//Sealed Shrine ==================
+// Santuário Selado ==================
 1@cata	mapflag	nomemo
 2@cata	mapflag	nomemo
 
-//Endless Tower ==================
+// Torre Infinita ==================
 e_tower	mapflag	nomemo
 1@tower	mapflag	nomemo
 2@tower	mapflag	nomemo
@@ -645,7 +697,7 @@ e_tower	mapflag	nomemo
 5@tower	mapflag	nomemo
 6@tower	mapflag	nomemo
 
-// Battle Grounds ================
+// Batalhas Campais ================
 bat_c01	mapflag	nomemo
 bat_c02	mapflag	nomemo
 bat_c03	mapflag	nomemo
@@ -655,7 +707,7 @@ bat_b02	mapflag	nomemo
 bat_a01	mapflag	nomemo
 bat_a02	mapflag	nomemo
 
-// Episode 13 ====================
+// Episodio 13 ====================
 mid_campin	mapflag	nomemo
 man_fild01	mapflag	nomemo
 man_fild03	mapflag	nomemo
@@ -704,7 +756,7 @@ dic_fild02	mapflag	nomemo
 dic_dun01	mapflag	nomemo
 dic_dun02	mapflag	nomemo
 
-// Episode 14 ====================
+// Episodio 14 ====================
 bif_fild01	mapflag	nomemo
 bif_fild02	mapflag	nomemo
 1@mist	mapflag	nomemo
@@ -761,17 +813,17 @@ ecl_hub01	mapflag	nomemo
 moc_prydn1	mapflag	nomemo
 moc_prydn2	mapflag	nomemo
 
-//Orc's Memory ===================
+// Memorial dos Orcs ===================
 1@orcs	mapflag	nomemo
 2@orcs	mapflag	nomemo
 
-// Nidhoggr's Instance ===========
+// Instância de Nidhogg ===========
 1@nyd	mapflag	nomemo
 2@nyd	mapflag	nomemo
 
 //evt_zombie	mapflag	nomemo
 
-// Poring War ====================
+// Guerra dos Porings ====================
 poring_w01	mapflag	nomemo
 poring_w02	mapflag	nomemo
 

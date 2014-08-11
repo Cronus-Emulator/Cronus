@@ -1,24 +1,40 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable return warp.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.6
-//===== Description: =========================================
-//= Disables the following items:
-//=   Butterfly Wing (602), Siege Teleport Scroll (14591),
-//=   Yellow/Green/Red/Blue Butterfly Wings (14582-14585),
-//=   Dungeon Teleport Scrolls (14527/14581)
-//= Also restricts "warpparty" and "warpguild" script commands.
-//===== Additional Comments: =================================
-//= 1.3 - According to the patch, enabled Butterfly wings in the Castles. [Lupus]
-//= 1.4 - Enabled Butterfly wings on PvP maps. [Skotlex]
-//= 1.4a - Added job_knt. [Samuray22]
-//= 1.5 - Commented out new_zone entries. [L0ne_W0lf]
-//= 1.6 - Enabled B. wings on all maps but que_hugel. [L0ne_W0lf]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Disativa a Asa de Borboleta.                     -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Hercules Dev Team                                         -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.7                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Desabilita os seguintes itens:                            -
+//- Asa de Borboleta (602), Siege Teleport Scroll (14591),    -
+//- Yellow/Green/Red/Blue Butterfly Wings (14582-14585),      -
+//- Dungeon Teleport Scrolls (14527/14581)                    -
+//- Restrição "warpparty" e "warpguild" script commands       -
+//-------------------------------------------------------------
+//- Comentários Adicioanis:                                   -
+//- 1.3 permição da asas de borboleta nas Castelos. [Lupus]   -
+//- 1.4 Asas de borboleta ativado nos mapas de PvP.[Skotlex]  -
+//- 1.4a Adicionado job_knt. [Samuray22]                      -
+//- 1.5 Commented out new_zone entries. [L0ne_W0lf]           -
+//- 1.6 Ativado B. wings nos mapas que_hugel.[L0ne_W0lf]      -
+//- 1.7 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
-// Cities ========================
+// Cidades ========================
 //ayo_in01	mapflag	noreturn
 //ayo_in02	mapflag	noreturn
 //alb_ship	mapflag	noreturn
@@ -82,7 +98,7 @@
 //ve_in	mapflag	noreturn
 //ve_in02	mapflag	noreturn
 
-// Job Quests ====================
+// Quests de Classes ====================
 //job_sword1	mapflag	noreturn
 //job_thief1	mapflag	noreturn
 // 2-1 -----------------------
@@ -103,7 +119,7 @@
 //job_sage	mapflag	noreturn
 //que_ng	mapflag	noreturn
 
-// Special Quests Places =========
+// Locais de quests especiais =========
 //que_god01	mapflag	noreturn
 //que_god02	mapflag	noreturn
 //que_bingo	mapflag	noreturn
@@ -112,8 +128,8 @@ que_hugel	mapflag	noreturn
 //poring_c01	mapflag	noreturn
 //poring_c02	mapflag	noreturn
 
-// Guild Castles =================
-//= 1.3 According to the kRO patch, enabled Butterfly wings in the Castles
+// Castelos =================
+//= 1.3 De acordo com o patch do kRO, habilitado Asa de Borboleta nos castelos.
 //aldeg_cas01	mapflag	noreturn
 //aldeg_cas02	mapflag	noreturn
 //aldeg_cas03	mapflag	noreturn
@@ -236,7 +252,7 @@ que_hugel	mapflag	noreturn
 //pvp_n_8-5	mapflag	noreturn
 //pvp_2vs2	mapflag	noreturn
 
-// Battle Grounds ==============
+// Batalhas Campais ==============
 bat_c01	mapflag	noreturn
 bat_c02	mapflag	noreturn
 bat_c03	mapflag	noreturn

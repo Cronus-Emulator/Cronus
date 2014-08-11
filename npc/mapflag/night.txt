@@ -1,14 +1,30 @@
-//===== Hercules Script ======================================
-//= Mapflag: Night mode.
-//===== By: ==================================================
-//= Skotlex
-//===== Current Version: =====================================
-//= 1.0
-//===== Description: =========================================
-//= Enables night mode effects.
-//===== Additional Comments: =================================
-//= 1.0 - Initial script.
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Modo noturno.                                    -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Skotlex                                                   -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.1                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Permite efeitos no modo noturno.                          -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.0 - Script inicial.                                     -
+//- 1.1 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
 alb2trea	mapflag	nightenabled
 alberta	mapflag	nightenabled
@@ -240,7 +256,7 @@ ve_fild05	mapflag	nightenabled
 ve_fild06	mapflag	nightenabled
 ve_fild07	mapflag	nightenabled
 
-//Episode 12 ====================
+//Episódio 12 ====================
 poring_c01	mapflag	nightenabled
 poring_c02	mapflag	nightenabled
 nameless_i	mapflag	nightenabled
@@ -271,15 +287,15 @@ que_qaru03	mapflag	nightenabled
 que_qaru04	mapflag	nightenabled
 que_qaru05	mapflag	nightenabled
 
-// Battle Grounds ==============
+// Batalha Campal ==============
 bat_c01	mapflag	nightenabled
 bat_c02	mapflag	nightenabled
 bat_c03	mapflag	nightenabled
 
-//Endless Tower ==================
+//Torre Infinita ==================
 e_tower	mapflag	nightenabled
 
-// Episode 13 ====================
+// Episódio 13 ====================
 mid_camp	mapflag	nightenabled
 man_fild01	mapflag	nightenabled
 man_fild03	mapflag	nightenabled
@@ -302,7 +318,7 @@ dicastes02	mapflag	nightenabled
 dic_fild01	mapflag	nightenabled
 dic_fild02	mapflag	nightenabled
 
-// Episode 14 ====================
+// Episódio 14 ====================
 bif_fild01	mapflag	nightenabled
 bif_fild02	mapflag	nightenabled
 dewata	mapflag	nightenabled

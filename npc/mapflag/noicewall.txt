@@ -1,16 +1,32 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable Ice Wall.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.8
-//===== Description: =========================================
-//= Blocks usage of WZ_ICEWALL.
-//===== Additional Comments: =================================
-//= 1.6a - Re-enabled icewalls for cities [Lupus]
-//= 1.7 - Officially icewall is allowed on interiors. [L0ne_w0lf]
-//= 1.8 - Fixed arug_cas map names.
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Desativa as Barreiras de Gelo.                   -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Hercules Dev Team                                         -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.9                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Bloqueia o uso da  WZ_ICEWALL.                            -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.6 Reativar paredes de gelo da cidades. [Lupus]          -
+//- 1.7 oficialmente as paredes de gelo é permitida.[L0ne_w0lf-
+//- 1.8 Fixado arug_cas nos nomes dos mapas.                  -
+//- 1.9 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
 //ayo_in01	mapflag	noicewall
 //ayo_in02	mapflag	noicewall
@@ -99,7 +115,7 @@
 //ve_in	mapflag	noicewall
 //ve_in02	mapflag	noicewall
 
-// Guild Castles ==========
+// Castelos ==========
 aldeg_cas01	mapflag	noicewall
 aldeg_cas02	mapflag	noicewall
 aldeg_cas03	mapflag	noicewall
@@ -130,13 +146,13 @@ arug_cas02	mapflag	noicewall
 arug_cas03	mapflag	noicewall
 arug_cas04	mapflag	noicewall
 arug_cas05	mapflag	noicewall
-// Novice Guild Castles ===
+// Castelos dos Aprendizes ===
 nguild_alde	mapflag	noicewall
 nguild_gef	mapflag	noicewall
 nguild_pay	mapflag	noicewall
 nguild_prt	mapflag	noicewall
 
-//Endless Tower ==================
+//Torre Infinita ==================
 1@tower	mapflag	noicewall
 2@tower	mapflag	noicewall
 3@tower	mapflag	noicewall
@@ -144,39 +160,39 @@ nguild_prt	mapflag	noicewall
 5@tower	mapflag	noicewall
 6@tower	mapflag	noicewall
 
-// Orc's Memory ===================
+// Memorial dos Orc's ===================
 1@orcs	mapflag	noicewall
 2@orcs	mapflag	noicewall
 
-// Nidhoggr's Instance ===========
+// Instância de Nidhoggr's ===========
 1@nyd	mapflag	noicewall
 2@nyd	mapflag	noicewall
 
-// Misty Forest Labyrinth ===========
+// Instância de Nidhoggr's ===========
 1@mist	mapflag	noicewall
 
-// Octopus Cave ===========
+// Caverna de Octopus ===========
 1@cash	mapflag	noicewall
 
-// Drain ===========
+// Canalização ===========
 1@pump	mapflag	noicewall
 2@pump	mapflag	noicewall
 
-// Somatology Laboratory ===========
+// Laboratório de Somatologia ===========
 1@lhz	mapflag	noicewall
 
-// Bangungot Hospital F2 ===========
+// Hospital de Bangungot ===========
 1@ma_h	mapflag	noicewall
 
-// Buwaya Cave ===========
+// Caverna de Buwaya ===========
 1@ma_c	mapflag	noicewall
 
-// Bakonawa Hideout ===========
+// Esconderijo de Bakonawa ===========
 1@ma_b	mapflag	noicewall
 
-// Inside Eclage ===========
+// Interior de Eclage ===========
 1@ecl	mapflag	noicewall
 
-// Poring War ====================
+// Guerra dos Porings ====================
 poring_w01	mapflag	noicewall
 poring_w02	mapflag	noicewall

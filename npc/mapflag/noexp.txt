@@ -1,18 +1,34 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable EXP gain.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.7
-//===== Description: =========================================
-//= Same as 'nobaseexp' and 'nojobexp' combined.
-//===== Additional Comments: =================================
-//= 1.2 [Lupus] 1.3 [massdriller] 1.4 Lupus 1.5 Lorky
-//= 1.6 - Added Lighthalzen (due to quests) [Lupus]
-//= 1.7 - Commented out entries. (Quests are official) [L0ne_W0lf]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Desativa ganho de Exp.                           -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Hercules Dev Team                                         -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.8                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- O mesmo que 'nobaseexp' e 'nojobexp' combinado.           -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.2 [Lupus] 1.3 [massdriller] 1.4 Lupus 1.5 Lorky         -
+//- 1.6 Adicionado Lighthalzen (devido a missões) [Lupus]     -
+//- 1.7 Comentada as entradas.(Quests são oficiais)[L0ne_W0lf]-
+//- 1.8 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
-// Job Quests ========================
+// Locais de quests de classes ========================
 //job_thief1	mapflag	noexp
 //job_sword1	mapflag	noexp
 //in_moc_16	mapflag	noexp
@@ -28,5 +44,5 @@
 //job_star	mapflag	noexp
 //que_ng	mapflag	noexp
 
-// Misc Quests =======================
+// Muests Variadas =======================
 // mosk_ship	mapflag	noexp

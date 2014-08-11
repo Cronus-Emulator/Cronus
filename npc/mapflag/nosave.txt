@@ -1,17 +1,33 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable auto-save.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.7
-//===== Description: =========================================
-//= Characters logging out on the specified map will be warped
-//= to the map specified in the last field, or "SavePoint".
-//===== Additional Comments: =================================
-//= 1.7 - Updated. [Lupus]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Mapflag: Desativa auto-save.                              -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Hercules Dev Team                                         -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.8                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Personagem ao deslogar do mapa sera teletransportado.     -
+//- Para o apa especificado na última área,"Ponto de Retorno".-
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.7 - Atualização. [Lupus]                                -
+//- 1.8 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
 
-// Job Quests ====================
+// Quests de classes ====================
 job_sword1	mapflag	nosave	SavePoint
 //job_thief1	mapflag	nosave	SavePoint
 // 2-1
@@ -52,7 +68,7 @@ job3_war02	mapflag	nosave	SavePoint
 // 3-2
 job3_gen01	mapflag	nosave	SavePoint
 
-// Special Quests Places =====
+// Locais de quests especiais =====
 ama_test	mapflag	nosave	SavePoint
 gef_dun03	mapflag	nosave	SavePoint
 que_god01	mapflag	nosave	SavePoint
@@ -179,7 +195,7 @@ pvp_n_8-4	mapflag	nosave	SavePoint
 pvp_n_8-5	mapflag	nosave	SavePoint
 pvp_2vs2	mapflag	nosave	SavePoint
 
-//WoE Castles =================================
+//Castelos de Woe =================================
 aldeg_cas01	mapflag	nosave	SavePoint
 aldeg_cas02	mapflag	nosave	SavePoint
 aldeg_cas03	mapflag	nosave	SavePoint
@@ -215,7 +231,7 @@ nguild_gef	mapflag	nosave	SavePoint
 nguild_pay	mapflag	nosave	SavePoint
 nguild_prt	mapflag	nosave	SavePoint
 
-//Guild Dungeons ==============================
+//Calabouço dos Clãs ==============================
 gld_dun01	mapflag	nosave	SavePoint
 gld_dun02	mapflag	nosave	SavePoint
 gld_dun03	mapflag	nosave	SavePoint
@@ -229,7 +245,7 @@ gld2_gef	mapflag	nosave	SavePoint
 gld2_pay	mapflag	nosave	SavePoint
 gld2_prt	mapflag	nosave	SavePoint
 
-//Normal Maps =================================
+//Mapas Normais =================================
 yggdrasil01	mapflag	nosave	SavePoint
 thana_boss	mapflag	nosave	SavePoint
 
@@ -242,11 +258,11 @@ turbo_e_4	mapflag	nosave	SavePoint
 turbo_e_8	mapflag	nosave	SavePoint
 turbo_e_16	mapflag	nosave	SavePoint
 
-//Monster Races ================
+//Corridas de Monstros ================
 p_track01	mapflag	nosave	SavePoint
 p_track02	mapflag	nosave	SavePoint
 
-//Vision of Okolnir ===========================
+//Visões de Okolnir ===========================
 que_qsch01	mapflag	nosave	SavePoint
 que_qsch02	mapflag	nosave	SavePoint
 que_qsch03	mapflag	nosave	SavePoint
@@ -258,11 +274,11 @@ que_qaru03	mapflag	nosave	SavePoint
 que_qaru04	mapflag	nosave	SavePoint
 que_qaru05	mapflag	nosave	SavePoint
 
-// Sealed Shrine ==================
+// Santuário Selado ==================
 1@cata	mapflag	nosave	SavePoint
 2@cata	mapflag	nosave	SavePoint
 
-// Endless Tower ==================
+// Torre Infinita ==================
 e_tower	mapflag	nosave	SavePoint
 1@tower	mapflag	nosave	SavePoint
 2@tower	mapflag	nosave	SavePoint
@@ -271,7 +287,7 @@ e_tower	mapflag	nosave	SavePoint
 5@tower	mapflag	nosave	SavePoint
 6@tower	mapflag	nosave	SavePoint
 
-// Battle Grounds ==============
+// Batalhas Campais ==============
 bat_c01	mapflag	nosave	SavePoint
 bat_c02	mapflag	nosave	SavePoint
 bat_c03	mapflag	nosave	SavePoint
@@ -280,7 +296,7 @@ bat_b02	mapflag	nosave	SavePoint
 bat_a01	mapflag	nosave	SavePoint
 bat_a02	mapflag	nosave	SavePoint
 
-// Episode 13 ====================
+// Episodio 13 ====================
 moc_fild22b	mapflag	nosave	SavePoint
 que_dan01	mapflag	nosave	SavePoint
 que_dan02	mapflag	nosave	SavePoint
@@ -289,42 +305,42 @@ schg_dun01	mapflag	nosave	SavePoint
 arug_que01	mapflag	nosave	SavePoint
 arug_dun01	mapflag	nosave	SavePoint
 
-// Orc's Memory ===================
+// Memorial dos Orcs ===================
 1@orcs	mapflag	nosave	SavePoint
 2@orcs	mapflag	nosave	SavePoint
 
-// Nidhoggr's Instance ===========
+// Instância de Nidhogg ===========
 1@nyd	mapflag	nosave	SavePoint
 2@nyd	mapflag	nosave	SavePoint
 
-// Misty Forest Labyrinth ===========
+// Labirinto da Floresta Mística ===========
 1@mist	mapflag	nosave	SavePoint
 
-// Octopus Cave ===========
+// Caverna de Octopus ===========
 1@cash	mapflag	nosave	SavePoint
 
-// Drain ===========
+// Canalização ===========
 1@pump	mapflag	nosave	SavePoint
 2@pump	mapflag	nosave	SavePoint
 
-// Somatology Laboratory ===========
+// Laboratório de Somatologia ===========
 que_lhz	mapflag	nosave	SavePoint
 1@lhz	mapflag	nosave	SavePoint
 
-// Bangungot Hospital F2 ===========
+// Hospital de Bangungot ===========
 1@ma_h	mapflag	nosave	SavePoint
 
-// Buwaya Cave ===========
+// Caverna de Buwaya  ===========
 1@ma_c	mapflag	nosave	SavePoint
 
-// Bakonawa Hideout ===========
+// Esconderijo de Bakonawa ===========
 1@ma_b	mapflag	nosave	SavePoint
 
-// Inside Eclage ===========
+// Interior de Eclage ===========
 1@ecl	mapflag	nosave	SavePoint
 
 //evt_zombie	mapflag	nosave	SavePoint
 
-// Poring War ====================
+// Guerra dos Porings ====================
 poring_w01	mapflag	nosave	SavePoint
 poring_w02	mapflag	nosave	SavePoint
