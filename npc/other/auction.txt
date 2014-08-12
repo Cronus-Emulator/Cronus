@@ -1,48 +1,48 @@
-ï»¿//===== Cronus Script =======================================
-//= Sistema de LeilÃ£o
+//===== Cronus Script =======================================
+//= Sistema de Leilão
 //===== Por: ==================================================
 //= L0ne_W0lf
-//===== VersÃ£o Atual: =====================================
+//===== Versão Atual: =====================================
 //= 1.4
-//===== CompatÃ­vel Com: =====================================
+//===== Compatível Com: =====================================
 //= Cronus GIT
-//===== ComentÃ¡rios Adicionais: =================================
+//===== Comentários Adicionais: =================================
 //= 1.0 First version, place holders only. [L0ne_W0lf]
 //= 1.1 Moved Morroc Auction NPCs to Morroc Ruins. [L0ne_W0lf]
 //= 1.2 Warp fixed. Dialog in Ruins/Lighthalzen changed. [Kisuka]
 //= 1.3 Duplicates now spawn from floating NPCs. [L0ne_W0lf]
-//= 1.4 Adicionado diÃ¡logos Oficiais do bRO. [Axl]
+//= 1.4 Adicionado diálogos Oficiais do bRO. [Axl]
 //============================================================
 
-// Teleportadores da Casa de LeilÃµes
+// Teleportadores da Casa de Leilões
 //============================================================
-moc_ruins,78,173,6	script	Guia do LeilÃ£o#moc	98,{
+moc_ruins,78,173,6	script	Guia do Leilão#moc	98,{
 	callfunc "F_AuctionWarper",1;
 }
 
-prontera,218,120,4	script	Guia do LeilÃ£o#prt	117,{
+prontera,218,120,4	script	Guia do Leilão#prt	117,{
 	callfunc "F_AuctionWarper",2;
 }
 
-yuno,129,116,0	script	Guia do LeilÃ£o#yuno	90,{
+yuno,129,116,0	script	Guia do Leilão#yuno	90,{
 	callfunc "F_AuctionWarper",3;
 }
 
-lighthalzen,205,169,6	script	Guia do LeilÃ£o#lhz	833,{
+lighthalzen,205,169,6	script	Guia do Leilão#lhz	833,{
 	callfunc "F_AuctionWarper",4;
 }
 
 function	script	F_AuctionWarper	{
-	mes "[Guia do LeilÃ£o]";
-	mes "VocÃª quer entrar no SalÃ£o de LeilÃµes?";
+	mes "[Guia do Leilão]";
+	mes "Você quer entrar no Salão de Leilões?";
 	next;
-	if (select("Sim.:NÃ£o.") == 2) {
-		mes "[Guia do LeilÃ£o]";
-		mes "Vejo vocÃª depois.";
+	if (select("Sim.:Não.") == 2) {
+		mes "[Guia do Leilão]";
+		mes "Vejo você depois.";
 		close;
 	}
-		mes "[Guia do LeilÃ£o]";
-		mes "Divirta-se durante o leilÃ£o.";
+		mes "[Guia do Leilão]";
+		mes "Divirta-se durante o leilão.";
 		close2;
 		switch(getarg(0)) {
 			case 1:
@@ -60,18 +60,18 @@ function	script	F_AuctionWarper	{
 		}
 }
 
-// Postos de InformaÃ§Ãµes
+// Postos de Informações
 //============================================================
--	script	Posto de InformaÃ§Ãµes#dum::Posto de InformaÃ§Ãµes	-1,{
-	mes "[InformaÃ§Ãµes]";
-	mes "Guia de Portais de LeilÃ£o";
+-	script	Posto de Informações#dum::Posto de Informações	-1,{
+	mes "[Informações]";
+	mes "Guia de Portais de Leilão";
 	close;
 }
 
-moc_ruins,76,176,6	duplicate(Posto de InformaÃ§Ãµes)	Posto de InformaÃ§Ãµes#moc	837
-prontera,216,120,4	duplicate(Posto de InformaÃ§Ãµes)	Posto de InformaÃ§Ãµes#prt	837
-yuno,131,116,0	duplicate(Posto de InformaÃ§Ãµes)	Posto de InformaÃ§Ãµes#yuno	837
-lighthalzen,207,169,6	duplicate(Posto de InformaÃ§Ãµes)	Posto de InformaÃ§Ãµes#lhz	837
+moc_ruins,76,176,6	duplicate(Posto de Informações)	Posto de Informações#moc	837
+prontera,216,120,4	duplicate(Posto de Informações)	Posto de Informações#prt	837
+yuno,131,116,0	duplicate(Posto de Informações)	Posto de Informações#yuno	837
+lighthalzen,207,169,6	duplicate(Posto de Informações)	Posto de Informações#lhz	837
 
 // Portais
 //============================================================
@@ -80,21 +80,21 @@ auction_01,22,37,0	warp	auction_entrance_prt	1,1,prontera,214,120
 auction_02,151,17,0	warp	auction_enterance_juno	1,1,yuno,132,119
 auction_02,43,17,0	warp	auction_enterance_lhz	1,1,lighthalzen,209,169
 
-// NPCs da Casa de LeilÃµes
+// NPCs da Casa de Leilões
 //============================================================
 -	script	Leiloeiro#dum::Leiloeiro	-1,{
 	mes "[Leiloeiro]";
 	mes "Temos muitos itens interessantes desta vez.";
-	mes "VocÃª gostaria de dar uma olhada?";
+	mes "Você gostaria de dar uma olhada?";
 	next;
-	if(select("Sim.:NÃ£o.") == 1) {
+	if(select("Sim.:Não.") == 1) {
 			mes "[Leiloeiro]";
-			mes "Fique Ã  vontade!";
+			mes "Fique à vontade!";
 			openauction;
 			close;
 	}
 			mes "[Leiloeiro]";
-			mes "Bem, atÃ© mais entÃ£o.";
+			mes "Bem, até mais então.";
 			close;
 }
 
