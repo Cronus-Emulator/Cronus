@@ -1,0 +1,151 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Yuno Assistente do Aeroporto                              -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- L0ne_W0lf, Muad_Dib                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Yuno Assistente do Aeroporto                              -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- Official NPCs.                                            -
+//- Aplicado Tradução para (PT_BR). [SkyHD]                   -
+//-------------------------------------------------------------
+
+y_airport,143,43,5	script	Assistente do Aeroporto#y_air1a::y_airport1	4_F_01,{
+	mes "[Assistente do Aeroporto]";
+	mes "Bem-vindo ao Aeroporto de Juno, onde oferecemos vôos domésticos para Einbroch, Lighthalzen e Hugel,";
+	mes "e vôos internacionais para Izlude e Rachel.";
+	mes "Em que posso ajudá-lo?";
+	next;
+	if (select("Entrar a Bordo.:Cancelar.") == 1) {
+		mes "[Assistente do Aeroporto]";
+		mes "A taxa de embarque é";
+		mes "1.200 zeny. No entanto,";
+		mes "Essa cobrança e dispensada se voçe estive com";
+		mes "Bilhete para Aeroplano,";
+		mes "Ainda gostaria de embarcar?";
+		next;
+		if (select("Sim:Não") == 1) {
+			if (countitem(7311) > 0) {
+				delitem 7311,1; //Free_Flying_Ship_Ticket
+				warp "y_airport",148,51;
+				end;
+			}
+			if (Zeny >= 1200) {
+				Zeny -= 1200;
+				warp "y_airport",148,51;
+				end;
+			}
+			mes "[Assistente do Aeroplano]";
+			mes "Me desculpe, mas você não possui 1.200 zeny!";
+			mes "Você não pode embarcar.";
+			close;
+		}
+	}
+	mes "[Assistente do Aeroporto]";
+	mes "Muito obrigada!";
+	mes "Volte sempre.";
+	close;
+}
+
+y_airport,158,43,5	duplicate(y_airport1)	Assistente do Aeroporto#y_air1b	4_F_01
+y_airport,126,43,5	duplicate(y_airport1)	Assistente do Aeroporto#y_air1c	4_F_01
+
+y_airport,143,49,3	script	Assistente do Desembarque#y_air2a::y_airport2	4_F_01,{
+	mes "[Assistente do Desembarque]";
+	mes "Bem-vindo ao Aeroporto de Juno.";
+	mes "Deixe-me te ajudar a chegar no terminal principal!";
+	mes "Caso deseje ir para Einbroch, Lighthalzen, Hugel, Izlude ou Rachel por favor embarque novamente no Aeroplano";
+	next;
+	if (select("Sair ao terminal.:Cancelar.") == 1) {
+		mes "[Assistente do Desembarque]";
+		mes "Uma vez no terminal principal, você terá que pagar novamente para embarcar a outra cidade.";
+		mes "Apenas saia caso esteja seguro da decisão!";
+		mes "Deseja continuar?";
+		next;
+		if (select("Yes:No") == 1) {
+			warp "y_airport",142,40;
+			end;
+		}
+	}
+	mes "[Assistente do Desembarque]";
+	mes "Muito bem, obrigada pela atenção!";
+	mes "Caso deseje voltar, por favor é só me procurar";
+	close;
+}
+
+y_airport,126,51,3	duplicate(y_airport2)	Assistente do Desembarque#y_air2b	4_F_01
+y_airport,158,50,3	duplicate(y_airport2)	Assistente do Desembarque#y_air2c	4_F_01
+
+y_airport,145,63,5	script	Embarque doméstico	4_F_02,{
+	mes "[Embarque doméstico]";
+	mes "Gostaria de embarcar no Aeroplano que vai para Einbroch, Lighthalzen ou Hugel?";
+	mes "Se sim, deixe-me te indicar a área de embarque.";
+	next;
+	if (select("Sim.:Não.") == 1) {
+		warp "yuno",59,244;
+		end;
+	}
+	mes "[Embarque doméstico]";
+	mes "Muito bem.";
+	mes "Obrigada pela sua atenção, caso mude de idéia basta me procurar.";
+	close;
+}
+
+y_airport,140,63,5	script	Embarque Internacional	4_F_02,{
+	mes "[Embarque Internacional]";
+	mes "Gostaria de embarcar no Aeroplano que vai para Juno, Izlude e Rachel?";
+	mes "Se sim, deixe-me te indicar a área de embarque.";
+	next;
+	if (select("Sim.:Não.") == 1) {
+		warp "yuno",47,244;
+		end;
+	}
+	mes "[Embarque Internacional]";
+	mes "Muito bem.";
+	mes "Obrigada pela sua atenção, caso mude de idéia basta me procurar.";
+	close;
+}
+
+yuno,14,262,5	script	Assistente do Aeroporto#yuno01	4_F_02,{
+	mes "[Assistente do Aeroporto]";
+	mes "Bem-vindo ao Aeroporto de Juno.";
+	mes "Utilize esta porta para embarcar no";
+	mes "Aeropano com destino a Izlude, no";
+	mes "Reino de Rune-Midgard e para";
+	mes "Rachel na República de Arunafeltz.";
+	next;
+	mes "[Assistente do Aeroporto]";
+	mes "Caso Juno seja seu destino,";
+	mes "desça as escadas e fale com o Assistente do Aeroporto";
+	mes "para levá-lo ao terminal principal.";
+	mes "Obrigada, e aproveite sua viagem.";	
+	close;
+}
+
+yuno,88,263,3	script	Assistente do Aeroporto#yuno02	4_F_02,{
+	mes "[Assistente do Aeroporto]";
+	mes "Bem-vindo ao Aeroporto de Juno.";
+	mes "Utilize esta porta para embarcar no";
+	mes "Aeropano com parada em Einbroch, Lighthalzen e";
+	mes "Hugel na República de Schwaltzvalt.";
+	next;
+	mes "[Assistente do Aeroporto]";
+	mes "Caso Juno seja seu destino,";
+	mes "desça as escadas e fale com o Assistente do Aeroporto";
+	mes "para levá-lo ao terminal principal.";
+	mes "Obrigada, e aproveite sua viagem.";
+	close;
+}
