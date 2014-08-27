@@ -48,9 +48,9 @@ prontera,153,193,6	script	Mestre das Classes	1_M_LIBRARYMASTER,{
 		if (BaseLevel < .rebirth_blevel || JobLevel < .rebirth_jlevel) {
 			.@blvl = .rebirth_blevel - BaseLevel;
 			.@jlvl = .rebirth_jlevel - JobLevel;
-			mes "Você precisa alcançar "
-			    + (BaseLevel < .rebirth_blevel ? ((.rebirth_blevel - BaseLevel) +" mais níveis de base "+ (JobLevel < .rebirth_jlevel ? "and " : "")) : "")
-			    + (JobLevel < .rebirth_jlevel ? (.rebirth_jlevel - JobLevel) +" mais níveis de classe " : "")
+			mes "Você precisa alcançar mais "
+			    + (BaseLevel < .rebirth_blevel ? ((.rebirth_blevel - BaseLevel) +" níveis de base "+ (JobLevel < .rebirth_jlevel ? "e mais " : "")) : "")
+			    + (JobLevel < .rebirth_jlevel ? (.rebirth_jlevel - JobLevel) +" níveis de classe " : "")
 			    + "para continuar evoluindo.";
 			close;
 		}
@@ -87,9 +87,9 @@ prontera,153,193,6	script	Mestre das Classes	1_M_LIBRARYMASTER,{
 	}
 	if (.@newclass && .third_classes) {
 		if (BaseLevel < .rebirth_blevel || JobLevel < .@required_jlevel) {
-			mes "Você precisa alcançar "
-			    + (BaseLevel < .rebirth_blevel ? ((.rebirth_blevel - BaseLevel) +" mais níveis de base "+ (JobLevel < .@required_jlevel ? "and " : "")) : "")
-			    + (JobLevel < .@required_jlevel ? (.@required_jlevel - JobLevel) +" mais níveis de classe " : "")
+			mes "Você precisa alcançar mais "
+			    + (BaseLevel < .rebirth_blevel ? ((.rebirth_blevel - BaseLevel) +" níveis de base "+ (JobLevel < .@required_jlevel ? "e mais " : "")) : "")
+			    + (JobLevel < .@required_jlevel ? (.@required_jlevel - JobLevel) +" níveis de classe " : "")
 			    + "para continuar evoluindo.";
 			close;
 		}

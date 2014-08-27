@@ -1184,7 +1184,7 @@ OnInit:
 	sellitem Spectacles;
 }
 
-lhz_in03,258,101,3	trader	Vendedor de Flechas#lhz	4_M_EINMAN,{
+lhz_in03,258,101,3	trader	Vendedor de Flechas#lhz01	4_M_EINMAN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Iron_Arrow;
@@ -1192,7 +1192,7 @@ OnInit:
 	sellitem Silver_Arrow;
 }
 
-lhz_in03,249,24,4	trader	Comerciante#lhz	4_M_EINMAN,{
+lhz_in03,249,24,4	trader	Comerciante#lhz02	4_M_EINMAN,{
 OnInit:
 	sellitem Scell;
 	sellitem Garlet;
@@ -1720,7 +1720,7 @@ OnInit:
 	sellitem Bunch_Of_Flowers;
 }
 
-prontera,113,42,0	trader	Florista#prt	4_F_01,{
+prontera,113,42,0	trader	Florista#prt2	4_F_01,{
 OnInit:
 	sellitem Flower;
 	sellitem Bunch_Of_Flowers;

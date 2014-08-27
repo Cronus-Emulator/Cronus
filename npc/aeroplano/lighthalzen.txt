@@ -46,7 +46,7 @@ lhz_airport,143,43,5	script	Assistente do Aeroporto#lhz_air1a::lhz_airport1	4_F_
 				warp "lhz_airport",148,51;
 				end;
 			}
-			mes "[Airship Staff]";
+			mes "[Assistente do Aeroporto]";
 			mes "Sinto muito, mas você não";
 			mes "Tem 1.200 zeny para pagar";
 			mes "A taxa de embarque.";
