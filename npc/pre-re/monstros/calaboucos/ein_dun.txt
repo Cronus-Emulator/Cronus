@@ -1,0 +1,50 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//-       Spawn de Monstros das cavernas de Einbroch          -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Athena (1.0)                                              -
+//-------------------------------------------------------------
+//- Versão: 1.6	                                              -
+//-------------------------------------------------------------
+//- Desenvolvimento:                                          -
+//- 	1.0 spawn N and spawn delays aren't yet correct,      -
+//- 	    so I set respawn delays quite big for now [Lupus] -
+//- 	1.1 Fixed monsters spawn places                       -
+//- 	1.2 Update monster spawn numbers according            -
+//-         o info on emperium.org [MasterOfMuppets]          -
+//- 	1.3 Official kRO 10.1 spawns [Playtester]             -
+//- 	1.4 More accurate spawns [Playtester]                 -
+//- 	1.5 Corrected MVP spawn variance. [L0ne_W0lf]         -
+//- 	1.6 Traduzido para português(pt_BR) [Cainho]          -
+//-------------------------------------------------------------
+
+//-------------------------------------------------------------
+// ein_dun01 - Caverna da Mina F1                             -
+//-------------------------------------------------------------
+ein_dun01,0,0,0,0	monster	Mineiros	1616,70,0,0,0
+ein_dun01,0,0,0,0	monster	Nuvem Tóxica	1620,30,300000,0,0
+ein_dun01,0,0,0,0	monster	Porcellio	1619,30,0,0,0
+ein_dun01,0,0,0,0	monster	Nuvem Venenosa	1621,10,300000,0,0
+ein_dun01,0,0,0,0	monster	Fornalha Velha	1617,1,1800000,600000,0
+ein_dun01,0,0,0,0	monster	Ungoliant	1618,1,3600000,3000000,0
+
+//-------------------------------------------------------------
+// ein_dun02 - Caverna da Mina F2                             -
+//-------------------------------------------------------------
+ein_dun02,0,0,0,0	monster	Obsidiana	1615,10,0,0,0
+ein_dun02,0,0,0,0	monster	Mineral	1614,15,0,0,0
+ein_dun02,75,151,60,133	monster	Obsidiana	1615,30,300000,0,0
+ein_dun02,230,155,63,140	monster	Mineral	1614,35,300000,0,0
+ein_dun02,0,0,0,0	monster	Ursinho	1622,10,0,0,0
+ein_dun02,155,230,140,55	monster	Ursinho	1622,20,480000,0,0
+ein_dun02,0,0,0,0	monster	Fornalha Velha	1617,10,0,0,0
+ein_dun02,154,80,134,55	monster	Fornalha Velha	1617,20,480000,0,0
+ein_dun02,0,0,0,0	boss_monster	RSX-0806	1623,1,7500000,600000,0
