@@ -1,0 +1,725 @@
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Quest para se tornar Espiritualista                       -
+//-------------------------------------------------------------
+//- Por:                                                      -                 
+//- Celestria & Samuray22                                     -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.7                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- [Official Conversion]                                     -
+//- Job quest for Soul Linker class.                          -
+//- [Vars Used]                                               -
+//- SOUL_Q = Job Change Phase. (Max 4)                        -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.2 Rescripted to Aegis 10.3 standards. [Samuray22]       -
+//- 1.3 Slight updates and fixes to the script. [L0ne_W0lf]   -
+//-     Removes the use of labels, and corrects other errors. -
+//-     Removed the GM-use only NPC from the sec_in map.      -
+//-     No longer used a global var, uses an NPC var instead. -
+//- 1.3a Deleted Empty Color Tag. (bugreport:1572) [Samuray22]-
+//- 1.4 Replaced effect numerics with constants. [L0ne_W0lf]  -
+//- 1.5 Added Quest Log commands. [Kisuka]                    -
+//- 1.6 Updated to match the latest official script. [Euphy]  -
+//- 1.7 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//-------------------------------------------------------------
+
+morocc_in,174,30,6	script	Criança#link1	4_M_KID2,{
+	if (Class == Job_Soul_Linker) {
+		mes "[Maia]";
+		mes "Boa sorte em suas";
+		mes "jornadas. Quanto mais";
+		mes "você dominar suas habilidades de Espiritualista,";
+		mes "você estará apto para drenar";
+		mes "mais do poder espiritual";
+		mes "para doar a seus aliados...";
+		close;
+	}
+	if (Class == Job_Star_Gladiator) {
+		mes "[Criança]";
+		if (Sex == 1) {
+			mes "Você não me é estranho.";
+			mes "É um Guerreiro do Sol?";
+		}
+		else {
+			mes "Você não me é estranha.";
+			mes "É uma Guerreira da Lua?";
+		}
+		mes "Com seus caminhos. Afinal,";
+		mes "a base de todas nossas";
+		mes "habilidades é fundamentada na";
+		mes "classe Taekwon, certo?";
+		close;
+	}
+	if (Class != Job_Taekwon) {
+		mes "[Criança]";
+		mes "Mm? Não tenho nada para";
+		mes "oferecer a você. Mas se você souber";
+		mes "de alguns praticantes";
+		mes "experientes de Taekwon,";
+		mes "eles poderão se benefeciar";
+		mes "com meu conhecimento.";
+		close;
+	}
+	if (JobLevel < 40) {
+			mes "[Criança]";
+		mes "Então você está estudando";
+		mes "Taek Won Do. Isso é bom,";
+		mes "isso é muito bom. Mantenha-se";
+		mes "aprimorando suas habilidades";
+		mes "e treine bastante.";
+		close;
+	}
+	else if (JobLevel > 39) {
+		if (SOUL_Q == 0) {
+			mes "[Criança]";
+			mes "...";
+			mes "Ei você.";
+			next;
+			mes "["+ strcharinfo(0) +"]";
+			mes "Me chamou?";
+			next;
+			mes "[Criança]";
+			mes "Sim, eu te chamei.";
+			mes "Agora não me faça";
+			mes "levantar a voz, e";
+			mes "saia já daqui.";
+			next;
+			if (select("Você está muito ranzinza para uma criança!:Ignorá-lo.") == 1) {
+				mes "[Criança]";
+				mes "Você tem sorte, estou";
+				mes "me interessando";
+				mes "por você! Posso parecer";
+				mes "uma criança, mais eu tenho";
+				mes "mais de trezentos anos de idade!";
+				emotion e_pif;
+				next;
+				mes "[Criança]";
+				mes "Agora escute...";
+				mes "Sei que você é um";
+				mes "discípulo do Taek Won Do.";
+				mes "É uma arte respeitável, mas";
+				mes "tenho uma proposta";
+				mes "a você, se quiser ouvi-la.";
+				emotion e_heh;
+				next;
+				mes "[Criança]";
+				mes "Olhando você, posso";
+				mes "te dizer que você tem uma";
+				mes "tendência espiritual muito grande. Tem";
+				mes "muito potencial e não";
+				mes "quero desperdiça-lo. Porque você não";
+				mes "se torna um 'Espiritualista?'";
+				next;
+				if (select("Ha! Pequeno garoto bobo~:Espiritualista?") == 1) {
+					mes "[Criança]";
+					mes "Você... Você n-não";
+					mes "acredita em mim?";
+					mes "Você";
+					mes "pode esquecer o fato de que pareço";
+					mes "uma pequena criança pelo menos por um";
+					mes "minuto? *Psh* ...Jovens.";
+					close;
+				}
+				mes "[Criança]";
+				mes "Espiritualistas conversam";
+				mes "com espíritos de guerreiros mortos";
+				mes "que desejam lutar";
+				mes "no mundo dos vivos. Porém, esses";
+				mes "espíritos guerreiros não podem lutar";
+				mes "consigo em nosso mundo.";
+				next;
+				mes "[Criança]";
+				mes "No entanto, desde que você";
+				mes "tenha um espírito muito grande, estes";
+				mes "espíritos serão atraídos para você.";
+				mes "Com muito treino, você poderá";
+				mes "transferir temporariamente o poder destes espíritos para seus aliados.";
+				next;
+				mes "[Criança]";
+				mes "Porém, você não pode usar o poder";
+				mes "destes espíritos. Além disso,";
+				mes "dependendo de suas habilidades";
+				mes "como Espititualista, você poderá";
+				mes "encantar outros personagens de certas classes com este poder.";
+				next;
+				mes "[Criança]";
+				mes "Você terá que entrar";
+				mes "em um mundo completamente diferente";
+				mes "para se tornar um Espiritualista,";
+				mes "mas sei que você conseguirá.";
+				mes "Então, o que me diz?";
+				next;
+				if (select("Não. Pelo menos, não agora...:Tudo bem. O que devo fazer?") == 1) {
+					mes "[Criança]";
+					mes "Ah, tudo bem. Bom,";
+					mes "se você quiser";
+					mes "se tornar um espiritualista,";
+					mes "é so voltar aqui e";
+					mes "falar comigo a qualquer momento.";
+					close;
+				}
+				set SOUL_Q,1;
+				setquest 6005;
+				mes "[Criança]";
+				mes "Então você quer se tornar";
+				mes "um Espiritualista? Ótimo!";
+				mes "Certo, primeiro você precisa";
+				mes "me trazer alguns itens.";
+				mes "Não se preocupe, vou explicar";
+				mes "porque você precisa deles depois.";
+				next;
+				mes "[Criança]";
+				mes "Agora traga-me";
+				mes "^0000FF1 Diamante de 3 quilates^000000,";
+				mes "^0000FF1 Coração Imortal^000000 e";
+				mes "^0000FF1 Rosa Eterna^000000.";
+				mes "E tente não me fazer";
+				mes "esperar muito, tudo bem?";
+				close;
+			}
+			mes "[Kid]";
+			mes "Huh...?";
+			mes "Espere, aonde";
+			mes "você está indo? Estou...";
+			mes "Estou falando com você!";
+			close;
+		}
+		else if (SOUL_Q == 1) {
+			if (Class == Job_Taekwon) {
+				mes "[Criança]";
+				mes "Você voltou, hmm?";
+				mes "Você trouxe";
+				mes "^0000FF1 Diamante de 3 quilates^000000,";
+				mes "^0000FF1 Coração Imortal^000000 e";
+				mes "^0000FF1 Rosa Eterna^000000.";
+				mes "como eu pedi a você?";
+				next;
+				if (select("There you are.:No, not yet...") == 1) {
+					if (countitem(732) > 0 && countitem(929) > 0 && countitem(748) > 0) {
+						delitem 732,1; //Crystal_Jewel__
+						delitem 929,1; //Immortal_Heart
+						delitem 748,1; //Witherless_Rose
+						set SOUL_Q,2;
+						changequest 6005,6006;
+						mes "[Criança]";
+						mes "Ótimo, eu vejo que você";
+						mes "trouxe tudo. Mas";
+						mes "antes de começarmos, deixe eu me";
+						mes "apresentar. Meu nome";
+						mes "é Maia, e eu estou vivo há mais de trezentos anos.";
+						next;
+						mes "[Maia]";
+						mes "Tirando";
+						mes "alguns detalhes, Eu fui dotado com o poder divino de";
+						mes "encontrar e recrutar novos Espiritualistas. E é por isto que";
+						mes "eu não, você sabe, faleci.";
+						next;
+						mes "[Maia]";
+						mes "De qualquer forma, eu tenho que terminar";
+						mes "as preparações com os materiais que";
+						mes "você me trouxe, portanto";
+						mes "você poderia retornar daqui a pouco?";
+						mes "Então, agente conversa denovo.";
+						close;
+					}
+					mes "[Criança]";
+					mes "Mm...?";
+					mes "Ei. Você esqueceu";
+					mes "de algumas coisas. Vá";
+					mes "e me traga";
+					mes "todas as coisas que te pedi";
+					mes "por enquanto, certo?";
+					emotion e_pif;
+					next;
+					mes "[Criança]";
+					mes "Sei que já te falei";
+					mes "o que precisamos, mas vou";
+					mes "repetir para você:";
+					mes "^0000FF1 Diamante de 3 quilates^000000,";
+					mes "^0000FF1 Coração Imortal^000000 e";
+					mes "^0000FF1 Rosa Eterna^000000.";
+					close;
+				}
+				mes "[Criança]";
+				mes "Mm. Está bem.";
+				mes "Embora eu tenha todo";
+				mes "tempo do mundo,";
+				mes "eu não gosto";
+				mes "de esperar muito.";
+				close;
+			}
+			set SOUL_Q,0;
+			mes "[Criança]";
+			mes "Você se tornará um guerreiro";
+			mes "do Sol, da Lua e";
+			mes "das Estrelas ao invés disso? Eu não tinha";
+			mes "nenhuma idéia de que você tem potencial.";
+			mes "Suponho que não posso culpar você...";
+			close;
+		}
+		else if (SOUL_Q == 2) {
+			if (SkillPoint) {
+				mes "[Maia]";
+				mes "Você possui";
+				mes "alguns pontos de habilidade sobrando.";
+				mes "Distribua todos eles para que possa aprender";
+				mes "mais habilidades de Tae Kwon Do, e volte";
+				mes "quando estiver pronto.";
+				close;
+			}
+			if (.SoulLinkerTest == 1) {
+				mes "[Maia]";
+				mes "Agora, alguém";
+				mes "está completando a cerimônia";
+				mes "para se tornar um Espiritualista.";
+				mes "Você poderia por favor aguardar";
+				mes "até que ele termine? Assim, quando eu estiver";
+				mes "disponível, vou atender você.";
+				close;
+			}
+			donpcevent "Timer#link3::OnEnable";
+			set .SoulLinkerTest,1;
+			mes "[Maia]";
+			mes "Ótimo, terminei";
+			mes "as preparações. Agora";
+			mes "vamos dar início a";
+			mes "cerimônia de";
+			mes "transformá-lo em um Espiritualista.";
+			mes "Agora, feche os olhos...";
+			close2;
+			warp "job_soul",30,30;
+			end;
+		}
+		else if (SOUL_Q > 2) {
+			mes "[Maia]";
+			mes "Você está pronto para";
+			mes "entrar nas profundezas";
+			mes "de sua mente novamente?";
+			next;
+			if (select("No:Yes") == 1) {
+				mes "[Maia]";
+				mes "Está certo, volte";
+				mes "até mim quando";
+				mes "achar que você está pronto.";
+				mes "Até então, vou estar";
+				mes "esperando aqui.";
+				close;
+			}
+			if (.SoulLinkerTest == 1) {
+				mes "[Maia]";
+				mes "Agora, alguém";
+				mes "está completando a cerimônia";
+				mes "para se tornar um Espiritualista.";
+				mes "Você poderia por favor aguardar";
+				mes "até que ele termine? Assim, quando eu estiver";
+				mes "disponível, vou atender você.";
+				close;
+			}
+			donpcevent "Timer#link3::OnEnable";
+			set .SoulLinkerTest,1;
+			mes "[Maia]";
+			mes "Tudo bem, feche";
+			mes "seus olhos e relaxe.";
+			mes "Vamos voltar para";
+			mes "as profundezas de sua mente.";
+			close2;
+			warp "job_soul",30,30;
+			end;
+		}
+	}
+
+OnInit:
+	set .SoulLinkerTest,0;
+	end;
+}
+
+job_soul,30,31,0	script	Maia#link2::SLTester	-1,3,3,{
+OnTouch:
+	if (Class == Job_Taekwon) {
+		if (JobLevel < 40) {
+			set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+			mes "[Maia]";
+			mes "Hm? Como você chegou";
+			mes "até aqui? Você não está apto";
+			mes "para essa cerimônia ainda. Venha, vou te enviar de volta a Morroc...";
+			close2;
+			warp "morocc",157,47;
+			end;
+		}
+		if (SOUL_Q == 2) {
+			mes "[Maia]";
+			mes "Você reconhece este";
+			mes "lugar? Agora, estamos";
+			mes "dentro de sua mente. Os espíritos";
+			mes "dos guerreiros que morreram estão";
+			mes "escondidos aqui, esperando você";
+			mes "invocar os seus poderes.";
+			next;
+			mes "[Maia]";
+			mes "Neste momento, existem apenas";
+			mes "alguns deles aqui, mas se";
+			mes "continuar treinando, você";
+			mes "poderá invocar";
+			mes "mais espíritos como um Espiritualista.";
+			next;
+			set SOUL_Q,3;
+			changequest 6006,6007;
+			mes "[Maia]";
+			mes "Só podemos ficar aqui";
+			mes "na sua mente por 3 minutos.";
+			mes "Sugiro que você fale";
+			mes "como os espíritos";
+			mes "assim que tiver a oportunidade.";
+			close;
+		}
+		else if (SOUL_Q == 3) {
+			mes "[Maia]";
+			mes "Escute o que os";
+			mes "espíritos estão tentando dizer.";
+			mes "Existe uma razão";
+			mes "para eles não poderem se transferir";
+			mes "para o próximo mundo.";
+			close;
+		}
+		else if (SOUL_Q == 4) {
+			mes "[Maia]";
+			mes "Eu acredito que";
+			mes "agora você está pronto para se tornar um";
+			mes "Espiritualista. No entanto,";
+			mes "você pode continuar";
+			mes "conversando com os espíritos";
+			mes "se for este o seu desejo.";
+			next;
+			if (select("Conversar mais com os espíritos:Me tornar um Espiritualista") == 1) {
+				mes "[Maia]";
+				mes "Certo. Tente ser rápido";
+				mes "uma vez que podemos permanecer";
+				mes "em sua mente por um tempo";
+				mes "limitado. Embora, nós podemos";
+				mes "voltar para sua mente";
+				mes "se você falar comigo mais tarde...";
+				close;
+			}
+			if (ismounting()) {
+				mes "[Maia]";
+				mes "Você está montando em um pet,";
+				mes "para que você não pode mudar o seu trabalho.";
+				mes "Por favor, desequipar seu animal de estimação e tente novamente!";
+				close;
+			}
+			mes "[Maia]";
+			mes "Então vamos a";
+			mes "cerimônia. Estes itens serão";
+			mes "usados, para te dotar com";
+			mes "a habilidade de reunir o poder";
+			mes "dos guerreiros mortos e com ele, fortalecer";
+			mes "seus amigos em uma batalha.";
+			next;
+			mes "[Maia]";
+			mes "Esta Rosa Eterna irá";
+			mes "enfraquecer ao invés de você...";
+			specialeffect EF_MAPPILLAR2,AREA,"Maia#link2";
+			next;
+			mes "[Maia]";
+			mes "Esta Rosa Eterna irá";
+			mes "enfraquecer ao invés de você...";
+			mes "Este Coração Imortal irá";
+			mes "bombear o sangue, ao invés do seu. ";
+			next;
+			mes "[Maia]";
+			mes "Esta Rosa Eterna irá";
+			mes "enfraquecer ao invés de você...";
+			mes "Este Coração Imortal irá";
+			mes "bomber o sangue, ao invés do seu. Este diamante irá virar pó,";
+			mes "no lugar do seu corpo mortal.";
+			next;
+			mes "[Maia]";
+			mes "Os mortos que desejam";
+			mes "continuar a lutar...";
+			mes "Vão lutar para você! Use seus";
+			mes "poderes de Espiritualista";
+			mes "sabiamente e para a coisa certa.";
+			next;
+			if (SkillPoint) {
+				mes "^0000ffYou still have unused skill points. Please use all remaining skill points and try again!^000000";
+				close;
+			}
+			completequest 6008;
+			callfunc "Job_Change",Job_Soul_Linker;
+			callfunc "F_ClearJobVar";	// clears all job variables for the current player
+			set SOUL_Q,0;
+			mes "[Maia]";
+			mes "Te desejo muita sorte";
+			mes "em sua nova vida. Esteja";
+			mes "sempre cercado de aliados, e os";
+			mes "espíritos vão proteger";
+			mes "você e te ajudar em suas batalhas. Adeus, amigo.";
+			close2;
+			set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+			donpcevent "Timer#link3::OnDisable";
+			warp "morocc",157,47;
+			end;
+		}
+		set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+		mes "[Maia]";
+		mes "Hmm...?";
+		mes "A sua hora";
+		mes "de vir até";
+		mes "aqui não chegou. Vamos";
+		mes "voltar para Morroc...";
+		close2;
+		warp "morocc",157,47;
+		end;
+	}
+	set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+	if (Class == Job_Soul_Linker) {
+		mes "[Maia]";
+		mes "Chegou a hora de";
+		mes "você se aventurar";
+		mes "pelo mundo! Mais Espiritualistas";
+		mes "serão certamente necessários para a batalha contra o mal...";
+	}
+	else {
+		mes "[Maia]";
+		mes "Isto é estranho...";
+		mes "Você não deveria";
+		mes "estar aqui. Deixe-me enviar";
+		mes "você de volta para Morroc...";
+	}
+	close2;
+	warp "morocc",157,47;
+	end;
+}
+
+job_soul,35,30,6	duplicate(SLTester)	Maia#link6	4_M_KID2
+
+job_soul,30,35,6	script	Espírito do Monge#link4	4_M_GRANDMONK,{
+	if (SOUL_Q == 2) {
+		mes "[Espírito do Monge]";
+		mes "Quem sou eu...?";
+		mes "Eu acho... Acho";
+		mes "que seria melhor se";
+		mes "você falasse com Maia primeiro...";
+		mes "Quem sou eu requer uma";
+		mes "explicação complicada...";
+		close;
+	}
+	else if (SOUL_Q > 2) {
+		mes "[Espírito do Monge]";
+		mes "Na vida, meu companheiros fizeram";
+		mes "tudo que puderam para se assegurar";
+		mes "que eu realizaria tudo";
+		mes "que esperava como Monge. Apesar...";
+		mes "Apesar de que eu nunca estaria";
+		mes "totalmente satisfeito com minhas habilidades.";
+		next;
+		mes "[Espírito do Monge]";
+		mes "Na morte, me arrependi,";
+		mes "por nunca ter repassado";
+		mes "minhas habilidades para futuros monges.";
+		mes "Conceder meus poderes aos outros";
+		mes "é a unica oportunidade";
+		mes "de eu poder fazer isto.";
+		next;
+		set SOUL_Q,4;
+		if(checkquest(6008) == -1) {
+			changequest 6007,6008;
+		}
+		mes "[Espírito do Monge]";
+		mes "Eu lhe suplico...";
+		mes "Preciso de sua ajuda";
+		mes "para realizar";
+		mes "o verdadeiro potencial";
+		mes "dos monges de hoje.";
+		close;
+	}
+	mes "[Espírito do Monge]";
+	mes "...";
+	close;
+}
+
+job_soul,30,25,7	script	Espírito do Sábio#link5	4_M_SAGE_A,{
+	if (SOUL_Q == 2) {
+		mes "Fale com Maia.";
+		mes "Tenho medo de";
+		mes "te confundir se Maia";
+		mes "não explicou a você";
+		mes "sua situação antes...";
+		close;
+	}
+	else if (SOUL_Q > 2) {
+		mes "[Espírito do Sábio]";
+		mes "Minha busca pela sabedoria";
+		mes "me concedeu um poder incrível:";
+		mes "na vida, eu poderia destruir";
+		mes "qualquer coisa que quizesse. Poucos Sábios";
+		mes "poderiam chegar ao meu nível...";
+		next;
+		mes "[Espírito do Sábio]";
+		mes "Eu morri, mas nunca pude";
+		mes "passar para o outro mundo.";
+		mes "Eu pretento usar minhas habilidades. Eu quero usar minha sabedoria";
+		mes "para construir o que me agrada,";
+		mes "e destruir o que eu quiser.";
+		next;
+		mes "[Espírito do Sábio]";
+		mes "Seria ótimo se eu pudesse";
+		mes "conceder meu poder a um Sábio";
+		mes "que tenha a honra de";
+		mes "recebê-lo. Mas para isto, eu";
+		mes "preciso de sua ajuda. Eu te imploro,";
+		mes "deixe-me tornar seu espírito aliado.";
+		set SOUL_Q,4;
+		if(checkquest(6008) == -1) {
+			changequest 6007,6008;
+		}
+		next;
+		mes "[Espírito do Sábio]";
+		mes "Acredito que você";
+		mes "é o único que pode";
+		mes "me trazer a chance de";
+		mes "descansar minha alma perdida...";
+		close;
+	}
+	mes "[Espírito do Sábio]";
+	mes "...";
+	close;
+}
+
+job_soul,25,30,5	script	Espírito do Alquimista#link7	4_F_ALCHE,{
+	if (SOUL_Q == 2) {
+		mes "[Espírito do Alquimista]";
+		mes "Oh! Realmente eu";
+		mes "queria falar com você, mas o que";
+		mes "tenho a dizer não";
+		mes "fará muito sentido";
+		mes "a menos que você fale com Maia primeiro. Mas sim,";
+		mes "eu realmente preciso de sua ajuda.";
+		close;
+	}
+	else if (SOUL_Q > 2) {
+		mes "[Espírito do Alquimista]";
+		mes "Sem exagerar, eu fui";
+		mes "o Alquimista mais forte do meu";
+		mes "tempo. Na verdade, posso ser";
+		mes "o Alquimista mais forte da história.";
+		mes "Mas eu desenvolvi arrogância, e";
+		mes "me matei em um acidente.";
+		next;
+		mes "[Espírito do Alquimista]";
+		mes "Mas a morte não limitou";
+		mes "minha habilidade. Na verdade, eu";
+		mes "as aprimorei desde que";
+		mes "faleci. E não posso";
+		mes "passar para o outro mundo a menos que";
+		mes "passe adiante minhas técnicas...";
+		set SOUL_Q,4;
+		if(checkquest(6008) == -1) {
+			changequest 6007,6008;
+		}
+		next;
+		mes "[Espírito do Alquimista]";
+		mes "Sou impotente como espírito,";
+		mes "mas com sua ajuda, posso";
+		mes "influenciar os Alquimistas de hoje";
+		mes "e ajudá-los a refinar suas";
+		mes "habilidades. Eu lhe imploro,";
+		mes "dê-me esta chance...";
+		close;
+	}
+	mes "[Espírito do Alquimista]";
+	mes "...";
+	close;
+}
+
+job_soul,1,5,0	script	Timer#link3	HIDDEN_NPC,{
+	end;
+
+OnEnable:
+	initnpctimer;
+	end;
+
+OnDisable:
+	stopnpctimer;
+	set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+	end;
+
+OnTimer60000:
+OnTimer120000:
+	if (getmapusers("job_soul") == 0) {
+		stopnpctimer;
+		set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+	}
+	end;
+
+OnTimer180000:
+OnTimer181000:
+OnTimer182000:
+	mapwarp "job_soul","morocc",157,47;
+	end;
+
+OnTimer183000:
+	mapwarp "job_soul","morocc",157,47;
+	set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+	stopnpctimer;
+}
+
+sec_in02,35,153,0	script	Variáveis Espiritualista	4_M_OPERATION,{
+	callfunc "F_GM_NPC";
+	mes "[Variáveis Espiritualista]";
+	mes "Eu posso resetar os NPCs da mudança de classe";
+	mes "para Espiritualista se um candidato";
+	mes "encontrar problemas durante o";
+	mes "final da quest. Por favor,";
+	mes "não utilize essa função se ainda existirem jogadores no mapa.";
+	next;
+	if (callfunc("F_GM_NPC",1854,0) < 1) {
+		mes "[Variáveis Espiritualista]";
+		mes "Senha";
+		mes "incorreta.";
+		close;
+	} else {
+		mes "[Variáveis Espiritualista]";
+		mes "Você gostaria de";
+		mes "resetar a Variável Global";
+		mes "da Mudança de Classe para Espiritualista?";
+		next;
+		switch(select("Resetar:Cancelar")) {
+		case 1:
+			mes "[Variáveis Espiritualista]";
+			mes "Os NPCs da mudança";
+			mes "de classe para Espiritualista";
+			mes "foram resetados.";
+			set getvariableofnpc(.SoulLinkerTest,"Kid#link1"),0;
+			close;
+		case 2:
+			mes "[Variáveis Espiritualista]";
+			mes "Você cancelou";
+			mes "este comando.";
+			close;
+		}
+	}
+}
+
+//============================================================
+// Old changelog
+//============================================================
+//= A temp Soul Linker Job Changer based on the kRO quest.
+//= Quest info from RagnaInfo. Sprites from kRO screenshots
+//= 1.0 Optimized and updated [Lupus]
+//= 1.1 Fixed NPC names according to iRO [Lupus]
+//============================================================
