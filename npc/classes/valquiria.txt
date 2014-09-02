@@ -64,7 +64,7 @@
 //- 3.0 Added quest log commands. [L0ne_W0lf]                 -
 //- 3.1 Added Izlude Renewal coordinates.                     -
 //- 1.1 Aplicada Tradução (PT-BR). [SkyHD]                    -
-/--------------------------------------------------------------
+//--------------------------------------------------------------
 
 valkyrie,48,86,4	script	Valquíria#	4_F_VALKYRIE,{
 	if (ADVJOB != 0 || Upper == 1) {

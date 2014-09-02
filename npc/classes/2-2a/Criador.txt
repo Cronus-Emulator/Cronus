@@ -142,5 +142,4 @@ valkyrie,53,50,3	script	Criador#Valkyrie	2_M_DYEINGER,{
 		mes "enquanto estiver aqui.";
 		mes "Honra aos guerreiros!";
 		close;
-	}
 }
