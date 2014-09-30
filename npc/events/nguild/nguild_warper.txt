@@ -1,9 +1,10 @@
-//===== Hercules Script ======================================
-//= Novice's Guild Castles War of Emperium Usher NPC
+//===== Cronus Script ========================================
+//= Teleportadora para Evento WoE Baby
 //===== By: ==================================================
-//= Lupus
+//= Lupus // Mihael
 //===== Current Version: =====================================
 //= 1.7
+//= 1.8
 //===== Description: =========================================
 //=
 //===== Additional Comments: =================================
@@ -23,13 +24,14 @@
 //= 1.6 Only 1st Class < 60 BaseLevel Players can participate
 //= 1.7 Guilds with Emergency Call or with 9+ skill points
 //=     can't take part in NWoE. [Lupus]
-//= TODO: The official entrance is in Izlude.
+//= 1.8 Tradução PT-BR Adicionada. [Mihael]
+//= TODO: A Entrada oficial fica em Izlude.
 //============================================================
 
-prontera,146,163,6	script	Novice Castles	4_F_NOVICE,{
+prontera,146,163,6	script	Castelos Baby	4_F_NOVICE,{
 	mes "[Cita]";
 	if (!getcharid(2)) {
-		mes "^FF0000You have to enter a guild to be able to hit Emperium!^000000";
+		mes "^FF0000Você tem que entrar em uma Guild que seja capaz de bater num Emperium!^000000";
 	} else if (getgdskilllv(getcharid(2),10013) ||
 	         (getgdskilllv(getcharid(2),10000) +
 	          getgdskilllv(getcharid(2),10001) +
@@ -47,19 +49,19 @@ prontera,146,163,6	script	Novice Castles	4_F_NOVICE,{
 	          getgdskilllv(getcharid(2),10013) +
 	          getgdskilllv(getcharid(2),10014) > 9)
 	          ) {
-		mes "I see... your guild has Emergency Call mastered.";
-		mes "You cannot enter the Novice Castle area.";
+		mes "Deixe-me ver... a sua guild tem a habilidade Chamado de Emergência ativado.";
+		mes "Você não pode entrar na área de Castelos Baby.";
 		emotion e_hmm;
 		emotion e_wah,1;
 	} else {
-		mes "I'm a new usher of Novice Castles.";
+		mes "Sou a nova porteira dos Castelos Babys.";
 		next;
 		mes "[Cita]";
 		if ((eaclass()&(EAJL_2|EAJL_UPPER)) || BaseLevel>=60) {
-			mes "I'm sorry, you can't enter the sacred Novice Castles place.";
+			mes "Sinto muito, você não pode entrar no lugar da Guerra Baby.";
 			emotion e_sry;
-		} else if (select("Warp me to Novice Castles","Cancel") == 1) {
-			// remove several unallowed buffs
+		} else if (select("Leve-me para Área Baby","Cancelar") == 1) {
+			// remover todos buffs
 			sc_end SC_ASSUMPTIO;
 			sc_end SC_IMPOSITIO;
 			sc_end SC_SUFFRAGIUM;
@@ -82,9 +84,9 @@ prontera,146,163,6	script	Novice Castles	4_F_NOVICE,{
 
 n_castle,102,107,5	script	Cita	4_F_NOVICE,{
 	mes "[Cita]";
-	mes "Hello, "+ strcharinfo(0) +". Can I help you?";
+	mes "Olá, "+ strcharinfo(0) +". Posso ajuda-lo?";
 	next;
-	if (select("Warp me to Prontera!","Cancel") == 1) {
+	if (select("Leve-me para Prontera!","Cancelar") == 1) {
 		warp "prontera",155,177+rand(5);
 	} else {
 		mes "[Cita]";
