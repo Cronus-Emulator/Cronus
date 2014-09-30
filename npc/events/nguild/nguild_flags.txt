@@ -1,65 +1,67 @@
-//===== Hercules Script ======================================
-//= War of Emperium N Guild Flags
+//===== Cronus Script ========================================
+//= Bandeiras do Evento Guerra do Emperium Baby
 //===== By: ==================================================
-//= kobra_k88
+//= kobra_k88 // Mihael
 //===== Current Version: =====================================
-//= 1.3
+//= 1.4
 //===== Description: =========================================
-//= WoE flag scripts.  Display guild emblems on flags.
+//= scripts das Bandeiras da WoE e Emblemas da Guild.
 //===== Additional Comments: =================================
 // Based off existing guild scripts.  Do not know if it is accurate.[kobra_k88]
 // 1.1 Inner Flags don't teleport you to your HQ anymore [Lupus]
 // 1.2 updated flags to use the new arguments. [L0ne__W0lf]
 // 1.3 Guild flag function added. [L0ne_W0lf]
+// 1.4 Tradução para PT-BR Adicionado. [Mihael]
 //============================================================
 
-/// Flag Function
+/// Função das Bandeiras
 //============================================================
 function	script	F_Flags	{
 	set .@GID, getcastledata(getarg(1),1);
 	if (getarg(5) == 0) return;
 	if (.@GID == 0) {
-		mes " [ Edict of the Divine Rune Midgard Kingdom ]";
+		mes " [ Edital do Reino de Midgard ]";
 		mes " ";
-		mes "1. Follow the ordinance of The Divine Rune Midgard Kingdom, ";
-		mes "We declare that";
-		mes "there is no formal master of this castle.";
+		mes "1. Siga o Decreto do Reino de Midgard, ";
+		mes "Nós declaramos que";
+		mes "não há um mestre deste castelo.";
 		mes " ";
-		mes "2. To the one who can ";
-		mes "overcome all trials";
-		mes "and destroy the Emperium,";
-		mes "the king will endow the one with";
-		mes "ownership of this castle.";
+		mes "2. Para aquele que ";
+		mes "superar todos os inimigos";
+		mes "e destruir o Emperium,";
+		mes "o rei vai dota-lo com o";
+		mes "direito de propriedade do castelo.";
 		return;
 	}
 	else {
 		if (getcharid(2) == .@GID && getarg(4) == 1) {
-			mes "Brave ones...";
-			mes "Do you wish to return to your honorable place?";
+			mes "Bravo guerreiro...";
+			mes "Você deseja retornar ao seu lugar de honra?";
 			next;
-			if (select("Return to the guild castle.:Quit.") == 1) {
+			if (select("Voltar para o Castelo.:Sair.") == 1) {
 				if (getcharid(2) == getcastledata(getarg(1),1))
 					warp getarg(1),getarg(2),getarg(3);
 			}
 			return;
 		}
-		mes "[ Edict of the Divine Rune Midgard Kingdom ]";
+		mes "[ Edital do Reino de Midgard ]";
 		mes " ";
-		mes "1. Following the ordinance of the";
-		mes "Divine Rune Midgard Kingdom,";
-		mes "we approve that this place is in";
-		mes "the private possession of ^ff0000" + getguildname(.@GID) + "^000000 Guild.";
+		mes "1. Após a ordenação do";
+		mes "Divino Rei de Rune-Midgard,";
+		mes "nós aprovamos que este lugar é";
+		mes "a posse privada da Guild ^ff0000" + getguildname(.@GID) + "^000000.";
 		mes " ";
-		mes "2. The guild Master of ^ff0000"+ getguildname(.@GID) + "^000000 Guild is";
+		mes "2. A Guild ^ff0000"+ getguildname(.@GID) + "^000000 que tem como Mestre";
 		mes "^FF0000" + getguildmaster(.@GID) + "^000000";
-		mes "If there is anyone who objects to this,";
-		mes " prove your strength and honor with a steel blade in your hand.";
+		mes "É a nova dona do castelo.";
+		mes "Se há alguém que se oponha a isto,";
+		mes " prove a sua força, e honra, com uma lâmina de aço em suas mãos.";
 		return;
 	}
 }
 
 //============================================================================//
-// 			Castle 1
+// 			Castelo 1
 //============================================================================//
 n_castle,110,96,1	script	NGuild Aldebaran#a1-1	GUILD_FLAG,{
 	callfunc "F_Flags","Al De Baran","nguild_alde",218,170,1,1;
@@ -98,7 +100,7 @@ nguild_alde,210,150,4	duplicate(NGuildAlde)	NGuild Aldebaran#a1-20	GUILD_FLAG
 
 
 //============================================================================//
-// 			Castle 2
+// 			Castelo 2
 //============================================================================//
 n_castle,110,109,3	script	NGuild Geffen#g1-1	GUILD_FLAG,{
 	callfunc "F_Flags","Geffen","nguild_gef",83,47,1,1;
@@ -128,7 +130,7 @@ nguild_gef,64,16,4	duplicate(NGuildGef)	NGuild Geffen#g1-12	GUILD_FLAG
 
 
 //============================================================================//
-// 			Castle 3
+// 			Castelo 3
 //============================================================================//
 n_castle,94,109,5	script	NGuild Payon#f1-1	GUILD_FLAG,{
 	callfunc "F_Flags","Payon","nguild_pay",87,29,1,1;
@@ -159,7 +161,7 @@ nguild_pay,212,108,4	duplicate(NGuildPay)	NGuild Payon#f1-11	GUILD_FLAG
 
 
 //=============================================================================//
-// 			Castle 4
+// 			Castelo 4
 //=============================================================================//
 n_castle,94,96,7	script	NGuild Prontera#p1-1	GUILD_FLAG,{
 	callfunc "F_Flags","Prontera","nguild_prt",97,174,1,1;

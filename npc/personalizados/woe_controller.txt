@@ -1,23 +1,39 @@
-//===== Hercules Script ======================================
-//= Euphy's WOE Controller
-//===== By: ==================================================
-//= Euphy
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= A controller for War of Emperium designed for
-//= simplicity and ease of use.
-//= Many concepts taken from ToastOfDoom's script,
-//= and "rewards" function originally by Goddameit.
-//===== Additional Comments: =================================
-//= Be sure to disable the default agit controllers!
-//== npc\guild\agit_controller.txt
-//== npc\guild2\agit_start_se.txt
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Controlador da woe                                        -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Euphy                                                     -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.6                                                       -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- A controller for War of Emperium designed for             -
+//- simplicity and ease of use.                               -
+//- Many concepts taken from ToastOfDoom's script,            -
+//- and "rewards" function originally by Goddameit.           -
+//-------------------------------------------------------------
+//- Comentarios Adicionais:                                   -
+//- Be sure to disable the default agit controllers!          -
+//- npc\guild\agit_controller.txt                             -
+//- npc\guild2\agit_start_se.txt                              -
+//- Aplicado Tradução para (PT_BR). [SkyHD]                   -
+//-------------------------------------------------------------
 
-// Information NPC
+// Informaçao do NPC
 //============================================================
-prontera,149,193,4	script	WOE Information	2_BOARD1,{
+prontera,149,193,4	script	Informação da woe	2_BOARD1,{
 	doevent "WOE_CONTROL::OnMenu";
 	end;
 OnAgitStart:
@@ -36,14 +52,14 @@ function Disp_Owner; function Add_Zero;
 OnInit:
 
 // -----------------------------------------------------------
-//  Configuration settings.
+// definições de configuração.
 // -----------------------------------------------------------
 
-	set .CastleWarp,0;		// 1: Always enable all castle warps. | 0: Warp only to active castles.
-	set .AutoKick,1;		// Automatically kick players from inactive castles during WOE? (1:yes / 0:no)
-	set .NoOwner,0; 		// Automatically kick players from unconquered castles outside of WOE? (1:yes / 0:no)
-	set .ExitWarp,0;		// Warp all players from castles when WOE ends? (1:yes / 0:no)
-	set .GMAccess,99;		// GM level required to access Session Manager.
+	set .CastleWarp,0;		// 1:Sempre ativar todos teletransporte do castelo. | 0: Teletransporte so para os castelos ativos.
+	set .AutoKick,1;		// Automaticamente kick jogadores de castelos inativos durante WOE? (1:yes / 0:no)
+	set .NoOwner,0; 		// Automaticamente kick jogadores de castelos conquistados fora de WOE? (1:yes / 0:no)
+	set .ExitWarp,0;		// Teletransporta todos os jogadores de castelos quando acabar a WOE? (1:yes / 0:no)
+	set .GMAccess,99;		// Level de Gm requerido para ter acesso as configurações.
 
 // -----------------------------------------------------------
 //  Reward options.
@@ -61,16 +77,16 @@ OnInit:
 //      - If Guild Masters is enabled (option 4), this feature is not used.
 // -----------------------------------------------------------
 
-	// Combine values as needed (e.g. 1|8 = 1+8 = 9).
+	// Combinar os valores conforme necessário (e.g. 1|8 = 1+8 = 9).
 	set .Options, 1|8;
 
-	// Rewards per castle.
-	// -- when given directly: <itemID>,<amount>{,<itemID>,<amount>,...}
-	// -- via mail (option 2): <itemID>,<amount>,<Zeny>
+	// Recompensas por castelo.
+	// -- Quando administrado diretamente: <itemID>,<amount>{,<itemID>,<amount>,...}
+	// -- via e-mail (option 2): <itemID>,<amount>,<Zeny>
 	setarray .Reward[0],14001,1;
 
 // -----------------------------------------------------------
-//  Constants (leave this section alone).
+//  constantes (deixar esta seção sozinho).
 // -----------------------------------------------------------
 
 	setarray .Castles$[0],
@@ -81,7 +97,7 @@ OnInit:
 		"arug_cas01","arug_cas02","arug_cas03","arug_cas04","arug_cas05",
 		"schg_cas01","schg_cas02","schg_cas03","schg_cas04","schg_cas05";
 	setarray .EndLabel$[0],"ar01","ar02","ar03","ar04","ar05","sc01","sc02","sc03","sc04","sc05";
-	setarray .Days$[0],"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday";
+	setarray .Days$[0],"Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sabado";
 	setarray .Regions$[0],"Prontera","Payon","Geffen","Aldebaran","Arunafeltz","Schwaltzvalt";
 	setarray .Map$[0],"prt_gld","pay_gld","gef_fild13","alde_gld","aru_gld","sch_gld";
 	setarray .MapX[0],134,240,153,111,208,121,295,317,140,204,214,308,143,193,305,48, 95,142,239,264,158,83, 68,299,292,293,288, 97,137, 71;
@@ -104,7 +120,7 @@ OnMinute00:
 		for(set .@i,0; .@i<.Size; set .@i,.@i+4)
 			if (gettime(4) == $WOE_CONTROL[.@i] && gettime(3) == $WOE_CONTROL[.@i+2]) {
 			OnWOEEnd:
-				announce "The War Of Emperium is over!",bc_all|bc_woe;
+				announce "A Guerra Do Emperium Acabou!",bc_all|bc_woe;
 				agitend; agitend2;
 				sleep 1000;
 				for(set .@j,0; .@j<30; set .@j,.@j+1) {
@@ -124,7 +140,7 @@ OnMinute00:
 				deletearray .Active[0],2;
 				set .Active[0], $WOE_CONTROL[.@i+3];
 				if (.Init) { agitend; agitend2; }
-				else announce "The War Of Emperium has begun!",bc_all|bc_woe;
+				else announce "A Guerra do Emperium já começou!",bc_all|bc_woe;
 				sleep 1000;
 				agitstart; agitstart2;
 				for(set .@j,0; .@j<30; set .@j,.@j+1) {
@@ -149,8 +165,8 @@ OnMinute00:
 
 function Disp_Owner {
 	set .@o, getcastledata(getarg(0),1);
-	if (.@o) announce "The ["+getcastlename(getarg(0))+"] castle "+((getarg(1))?"has been conquered":"is currently held")+" by the ["+getguildname(.@o)+"] guild.",bc_all|bc_woe;
-	else announce "The ["+getcastlename(getarg(0))+"] castle is currently unoccupied.",bc_all|bc_woe;
+	if (.@o) announce "O ["+getcastlename(getarg(0))+"] castelo "+((getarg(1))?"foi conquistado":"is currently held")+" pelo ["+getguildname(.@o)+"] Clã.",bc_all|bc_woe;
+	else announce "O ["+getcastlename(getarg(0))+"] castelo está atualmente desocupado.",bc_all|bc_woe;
 	return;
 }
 function Add_Zero {
@@ -175,16 +191,16 @@ OnReward:
 				if (.Options&2) {
 					query_sql("INSERT INTO `mail` (send_name,dest_id,title,message,nameid,amount,identify,zeny,time) VALUES ("+
 					          "'no-reply',"+.@cid[.@j]+",'** Siege Reward: "+getcastlename(.Castles$[.@i])+" **',"+
-					          "'Brave one,% % Congratulations!% Your guild has successfully occupied% territory in the War of Emperium on% "+.@str$+".% % % % % [ Your reward is attached. ]',"+
+					          "'Brave one,% % Congratulations!% Your guild has successfully occupied% territory in the War of Emperium on% "+.@str$+".% % % % % [ Sua recompensa está ligado. ]',"+
 					          .Reward[0]+","+.Reward[1]+",0,"+.Reward[2]+",UNIX_TIMESTAMP(NOW()))");
 					if (!getd(".@str_"+.@cid[.@j]) && isloggedin(.@aid[.@j],.@cid[.@j])) {
 						setd ".@str_"+.@cid[.@j],1;
-						message rid2name(.@aid[.@j]),"You've got mail! Please re-login to update your mailing list.";
+						message rid2name(.@aid[.@j]),"Você tem e-mail! Por favor, re-entrar para atualizar sua lista de discussão.";
 					}
 				} else if (isloggedin(.@aid[.@j])) {
 					for(set .@k,0; .@k<getarraysize(.Reward); set .@k,.@k+2)
 						getitem .Reward[.@k], .Reward[.@k+1], .@aid[.@j];
-					message rid2name(.@aid[.@j]),"You have been rewarded for conquering "+getcastlename(.Castles$[.@i])+".";
+					message rid2name(.@aid[.@j]),"Você foi recompensado pela conquista "+getcastlename(.Castles$[.@i])+".";
 				}
 			}
 		}
@@ -196,7 +212,7 @@ OnPCLoadMapEvent:
 	if (((.AutoKick && .Active[0]) || (.NoOwner && !getcastledata(strcharinfo(3),1))) && !(.Active[0]&(1<<getd("."+strcharinfo(3))))) {
 		if (getcharid(2) && getcastledata(strcharinfo(3),1) == getcharid(2)) end;
 		sleep2 1000;
-		message strcharinfo(0), getcastlename(strcharinfo(3))+" is currently inactive.";
+		message strcharinfo(0), getcastlename(strcharinfo(3))+" esta atualmente inativo.";
 		sleep2 5000;
 		if (compare(strcharinfo(3),"g_cas")) warp "SavePoint",0,0;
 	}
@@ -204,7 +220,7 @@ OnPCLoadMapEvent:
 
 OnMenu:
 while(1) {
-	mes "[WOE Information]";
+	mes "[Informação da Woe]";
 	if (agitcheck() || agitcheck2()) {
 		if (.Active[0]) {
 			for(set .@i,0; .@i<.Size; set .@i,.@i+4)
@@ -212,12 +228,12 @@ while(1) {
 					set .@i, $WOE_CONTROL[.@i+2];
 					break;
 				}
-			mes "The War of Emperium is ^0055FFactive^000000 until ^FF0000"+Add_Zero(.@i)+"^000000 in the following regions:";
+			mes "A Guerra do Emperium esta ^0055FFAtiva^000000 até ^FF0000"+Add_Zero(.@i)+"^000000 nas seguintes regiões:";
 			mes " ";
 			for(set .@i,0; .@i<6; set .@i,.@i+1)
 				if (.Active[1]&(1<<(.@i+1))) mes " > ^777777"+.Regions$[.@i]+"^000000";
 		} else
-			mes "The War of Emperium is ^0055FFactive^000000.";
+			mes "A Guerra do Emperium esta ^0055FFAtiva^000000.";
 	} else {
 		for(set .@i,0; .@i<.Size; set .@i,.@i+4)
 			if ((gettime(4) == $WOE_CONTROL[.@i] && gettime(3) <= $WOE_CONTROL[.@i+1]) || gettime(4) < $WOE_CONTROL[.@i]) {
@@ -226,15 +242,15 @@ while(1) {
 			}
 		if (!getarraysize(.@time))
 			setarray .@time[0],$WOE_CONTROL[0],$WOE_CONTROL[1];
-		mes "The War of Emperium is ^777777inactive^000000.";
+		mes "A Guerra do Emperium esta ^777777inativa^000000.";
 		if (.Size) {
 			mes " ";
-			mes "The next session will begin";
-			mes "on ^0055FF"+.Days$[.@time[0]]+"^000000 at "+Add_Zero(.@time[1])+"^000000.";
+			mes "A próxima sessão terá início";
+			mes "na ^0055FF"+.Days$[.@time[0]]+"^000000 ás "+Add_Zero(.@time[1])+"^000000.";
 		}
 	}
 	next;
-	switch(select(""+((.CastleWarp || .Active[1])?" ~ Warp to castles...":"")+": ~ Check schedule...: ~ View castle owners...:"+((getgmlevel()<.GMAccess || !getgmlevel())?"":" ~ Manage sessions...")+": ~ ^777777Cancel^000000")) {
+	switch(select(""+((.CastleWarp || .Active[1])?" ~Teletransportar Para os Castelos...":"")+": ~ Checar horário...: ~ Ver proprietários do castelo...:"+((getgmlevel()<.GMAccess || !getgmlevel())?"":" ~ Gerenciar sessões...")+": ~ ^777777Cancelar^000000")) {
 	case 1:
 		if (.CastleWarp) set .@clr$,"^0055FF";
 		set .@menu$,"";
@@ -254,7 +270,7 @@ while(1) {
 		warp .Map$[.@i],.MapX[(.@i*5)+.@j],.MapY[(.@i*5)+.@j];
 		close;
 	case 2:
-		mes "[Schedule]";
+		mes "[Horário]";
 		if (.Size) {
 			freeloop(1);
 			for(set .@i,0; .@i<.Size; set .@i,.@i+4) {
@@ -265,17 +281,17 @@ while(1) {
 			}
 			freeloop(0);
 		} else
-			mes "No times are configured.";
+			mes "Não há horários Configurados.";
 		next;
 		break;
 	case 3:
-		mes "[Castle Ownership]";
+		mes "[Proprietários dos Castelos]";
 		for(set .@i,0; .@i<6; set .@i,.@i+1) {
 			set .@k, .@i*5;
 			mes "> ^FF0000"+.Regions$[.@i]+"^000000";
 			for(set .@j,.@k; .@j<(.@k+5); set .@j,.@j+1) {
 				set .@t, getcastledata(.Castles$[.@j],1);
-				mes "  ~ "+getcastlename(.Castles$[.@j])+": "+((.@t)?"^0055FF"+getguildname(.@t):"^777777unoccupied")+"^000000";
+				mes "  ~ "+getcastlename(.Castles$[.@j])+": "+((.@t)?"^0055FF"+getguildname(.@t):"^777777desocupado")+"^000000";
 			}
 			if (.@i < 5) mes " ";
 		}
@@ -284,29 +300,29 @@ while(1) {
 	case 4:
 	while(1) {
 		mes "[Session Manager]";
-		mes "There are ^0055FF"+(.Size/4)+" session(s)^000000 configured.";
-		mes "What would you like to do?";
+		mes "Tem ^0055FF"+(.Size/4)+" sessão(s)^000000 configuradas.";
+		mes "O que você gostaria de fazer?";
 		next;
-		switch(select(" ~ Add a session...: ~ Delete a session...: ~ Reload settings...:"+((agitcheck() || agitcheck2())?" ~ End WOE session...":"")+": ~ ^777777Go back^000000")) {
+		switch(select(" ~ Adicionar Sessão...: ~ Deletar Sessão...: ~ Recarregar Sessoões...:"+((agitcheck() || agitcheck2())?" ~ End WOE session...":"")+": ~ ^777777Go back^000000")) {
 		case 1:
-			mes "[New Session]";
+			mes "[Nova Sessão]";
 			if (.Size > 127) {
-				mes "You have already reached the maximum of 32 sessions.";
+				mes "Você já atingiu o máximo de 32 sessões.";
 				next;
 				break;
 			}
-			mes "Select a day.";
+			mes "Escolha um dia.";
 			next;
 			set .@day, select(" ~ "+implode(.Days$,": ~ "))-1;
-			mes "[New Session]";
-			mes "Select a start time for ^0055FF"+.Days$[.@day]+"^000000.";
+			mes "[Nova Sessão]";
+			mes "Selecione uma hora de início para ^0055FF"+.Days$[.@day]+"^000000.";
 			next;
 			set .@menu$,"";
 			for(set .@i,0; .@i<23; set .@i,.@i+1)
 				set .@menu$, .@menu$+" ~ "+Add_Zero(.@i,1)+":";
 			set .@start, select(.@menu$)-1;
-			mes "[New Session]";
-			mes "Select an end time for ^0055FF"+.Days$[.@day]+"^000000.";
+			mes "[Nova Sessão]";
+			mes "Escolha um horário de encerramento ^0055FF"+.Days$[.@day]+"^000000.";
 			next;
 			set .@menu$,"";
 			for(set .@i,.@start+1; .@i<24; set.@i,.@i+1)
@@ -317,8 +333,8 @@ while(1) {
 				   ((.@start >= $WOE_CONTROL[.@i+1] && .@start < $WOE_CONTROL[.@i+2]) ||
 				    (.@end > $WOE_CONTROL[.@i+1] && .@end <= $WOE_CONTROL[.@i+2]) ||
 				    (.@start <= $WOE_CONTROL[.@i+1] && .@end >= $WOE_CONTROL[.@i+2]))) {
-					mes "[New Session]";
-					mes "The chosen times overlap with an existing session.";
+					mes "[Nova Sessão]";
+					mes "Os horários escolhidos sobrepois com uma sessão existente.";
 					next;
 					set .@d,1;
 					break;
@@ -326,11 +342,11 @@ while(1) {
 			if (.@d) { set .@d,0; break; }
 			set .@castle,0;
 			while(1) {
-				mes "[New Session]";
+				mes "[Nova Sessão]";
 				mes "^0055FF"+.Days$[.@day]+" ("+Add_Zero(.@start)+"-"+Add_Zero(.@end)+")^000000";
 				mes " > Castles:";
 				if (!.@castle)
-					mes "   ~ ^777777(none selected)^000000";
+					mes "   ~ ^777777(nenhum selecionado)^000000";
 				else for(set .@i,0; .@i<30; set .@i,.@i+1)
 					if (.@castle&(1<<.@i)) mes "   ~ "+getcastlename(.Castles$[.@i])+" ("+.Castles$[.@i]+")";
 				next;
@@ -341,10 +357,10 @@ while(1) {
 				if (.@i)
 					set .@castle, .@castle^(1<<(.@i-1));
 				else {
-					mes "[New Session]";
-					mes "Are you sure?";
+					mes "[Nova Sessão]";
+					mes "Você tem certeza?";
 					next;
-					switch(select(" ~ ^0055FFAdd session...^000000: ~ Continue selecting castles...: ~ ^777777Cancel^000000")) {
+					switch(select(" ~ ^0055FFAdicionar sessão...^000000: ~ Continuar selecionando castelos...: ~ ^777777Cancelar^000000")) {
 					case 1:
 						for(set .@i,0; .@i<.Size; set .@i,.@i+4)
 							if ((.@day == $WOE_CONTROL[.@i] && .@end <= $WOE_CONTROL[.@i+1]) || .@day < $WOE_CONTROL[.@i]) {
@@ -356,8 +372,8 @@ while(1) {
 						setarray $WOE_CONTROL[.@i], .@day, .@start, .@end, .@castle;
 						set .Size, getarraysize($WOE_CONTROL);
 					case 3:
-						mes "[New Session]";
-						mes ((.@d)?"Session added.":"Cancelled.");
+						mes "[Nova Sessão]";
+						mes ((.@d)?"Sessão Adicionado.":"Cancelado.");
 						next;
 						set .@d,1;
 					case 2:
@@ -368,13 +384,13 @@ while(1) {
 			}
 			break;
 		case 2:
-			mes "[Remove Session]";
+			mes "[Remover Sessão]";
 			if (!.Size) {
-				mes "There are no sessions configured.";
+				mes "Não há sessões configuradas.";
 				next;
 				break;
 			}
-			mes "Select a session to remove.";
+			mes "Escolha uma sessão para remover.";
 			next;
 			set .@menu$,"";
 			for(set .@i,0; .@i<.Size; set .@i,.@i+4)
@@ -382,58 +398,58 @@ while(1) {
 			set .@menu$, .@menu$+" ~ ^777777Cancel^000000";
 			set .@i, select(.@menu$)-1;
 			if (.@i == (.Size/4)) break;
-			mes "[Remove Session]";
-			mes "Delete ^0055FF"+.Days$[$WOE_CONTROL[.@i*4]]+"'s^000000 session?";
-			mes "This action cannot be undone.";
+			mes "[Remover Sessão]";
+			mes "Deletar ^0055FF"+.Days$[$WOE_CONTROL[.@i*4]]+"'s^000000 sessão?";
+			mes "Esta ação não pode ser desfeita.";
 			next;
-			set .@j, select(" ~ ^FF0000Delete session...^000000: ~ ^777777Cancel^000000");
-			mes "[Remove Session]";
+			set .@j, select(" ~ ^FF0000Deletar Sessão...^000000: ~ ^777777Cancelar^000000");
+			mes "[Remover Sessão]";
 			if (.@j == 2)
-				mes "Cancelled.";
+				mes "Cancelado.";
 			else {
 				deletearray $WOE_CONTROL[.@i*4],4;
 				set .Size, getarraysize($WOE_CONTROL);
-				mes "Session deleted.";
+				mes "Sessão Deletada.";
 			}
 			next;
 			break;
 		case 3:
-			mes "[Reload Settings]";
-			mes "This will trigger all events related to new session configurations, if any.";
+			mes "[Recarregar Sessoões]";
+			mes "Isso acionará todos os eventos relacionados a novas configurações de sessão, se houver.";
 			if (agitcheck() || agitcheck2()) {
 				mes " ";
-				mes "Be aware that this will disrupt the current WOE session.";
+				mes "Esteja ciente de que isso vai atrapalhar a sessão da woe atual.";
 			}
 			next;
-			set .@i, select(" ~ ^0055FFReload settings...^000000: ~ ^777777Cancel^000000");
-			mes "[Reload Settings]";
-			if (.@i == 2) mes "Cancelled.";
+			set .@i, select(" ~ ^0055FFRecarregar Sessoões...^000000: ~ ^777777Cancelar^000000");
+			mes "[Recarregar Sessoões]";
+			if (.@i == 2) mes "Cancelado.";
 			else {
 				set .Init,1;
 				donpcevent "WOE_CONTROL::OnMinute00";
-				mes "Variables have been re-initialized.";
+				mes "As variáveis ??foram reinicializados.";
 			}
 			next;
 			break;
 		case 4:
 			mes "[Force Agit End]";
 			if (!agitcheck() && !agitcheck2())  {
-				mes "WOE has already ended.";
+				mes "Concluir Woe.";
 				next;
 				break;
 			}
-			mes "This command will safely execute all AgitEnd events.";
+			mes "Este comando irá executar com segurança todos os eventos AgitEnd.";
 			mes " ";
-			mes "Kill the current WOE session?";
+			mes "Desligar sessão de woe atual?";
 			next;
-			set .@i, select(" ~ ^FF0000End session...^000000:"+((.Options&1)?" ~ ^FF0000End session without rewards...^000000":"")+": ~ ^777777Cancel^000000");
+			set .@i, select(" ~ ^FF0000Terminar sessão...^000000:"+((.Options&1)?" ~ ^FF0000Terminar sessão sem recompensas...^000000":"")+": ~ ^777777Cancelar^000000");
 			mes "[Force Agit End]";
 			if (.@i == 3)
-				mes "Cancelled.";
+				mes "Cancelado.";
 			else {
 				set .ForceEnd, .@i;
 				donpcevent "WOE_CONTROL::OnWOEEnd";
-				mes "WOE session terminated.";
+				mes "Sessão de Woe Terminada.";
 			}
 			next;
 			break;

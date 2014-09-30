@@ -1,9 +1,9 @@
-//===== Hercules Script ======================================
-//= War of Emperium Treasure Rooms for NGuild Guild Castles
+//===== ronu Script ==========================================
+//= Sala do Tesouro do Evento WoE Baby
 //===== By: ==================================================
 //= kobra_k88
 //===== Current Version: =====================================
-//= 1.3b
+//= 1.4
 //===== Description: =========================================
 //=
 //===== Additional Comments: =================================
@@ -11,11 +11,12 @@
 //= 1.2 Official treasure spawn [Lupus]
 //= 1.3 Added F_GldTreas function. (bugreport:1788) [L0ne_W0lf]
 //= 1.3b Added F_GldTreasSw function. (bugreport:3292) [brianluau]
+//= 1.4 Tradução para PT-BR Adicionada. [Mihael]
 //============================================================
 
 
 //================================================
-// Treasure Spawning Function
+// Spawn dos Tesouros
 //================================================
 function	script	F_GldTreas	{
 	if(getarg(10) !=  1) {
@@ -42,7 +43,7 @@ function	script	F_GldTreas	{
 	for (set .@i,1; .@i <= getarg(3) ; set .@i,.@i+1) {
 		// set treasure box ID
 		set getarg(4), getarg(5) + (.@i+1) % 2;
-		areamonster getarg(0),getarg(6),getarg(7),getarg(8),getarg(9),"Treasure Chest",getarg(4),1,"Treasure_"+getarg(1)+"::OnDied";
+		areamonster getarg(0),getarg(6),getarg(7),getarg(8),getarg(9),"Arca do Tesouro",getarg(4),1,"Tesouro_"+getarg(1)+"::OnDied";
 	}
 	return;
 }
@@ -52,10 +53,10 @@ function	script	F_GldTreas	{
 //===============================================================
 function	script	F_GldTreasSw	{
 	mes " ";
-	mes "There's a small lever. Will you pull it?";
+	mes "Há uma pequena alavanca. Deseja puxa-la?";
 	next;
 
-	if (select("Pull.:Do not.") == 1) {
+	if (select("Puxar.:Não.") == 1) {
 		warp getarg(0),getarg(1),getarg(2);
 		return;
 	}
@@ -76,14 +77,14 @@ OnInit:
 	end;
 
 OnDied:
-	mapannounce "nguild_alde","Treasure Chest Broken Open",17;
+	mapannounce "nguild_alde","Uma Arca de Tesouro foi Aberta",17;
 	set $boxNumN01, $boxNumN01 -1;
-	if($boxNumN01 == 0) mapannounce "nguild_alde", "All of the treasure boxes have been opened.  You must wait untill the next day for them to appear again.",0;
+	if($boxNumN01 == 0) mapannounce "nguild_alde", "Todas as Arcas de Tesouro foram abertas.  Você deve esperar até o dia seguinte para que elas apareçam novamente.",0;
 	end;
 }
 
-// Treasure Room Switch --------------------
-nguild_alde,123,223,0	script	Switch#TresN01	HIDDEN_NPC,{
+// Alavanca da Sala de Tesouro --------------------
+nguild_alde,123,223,0	script	Alavanca#TresN01	HIDDEN_NPC,{
 	callfunc "F_GldTreasSw", "nguild_alde",218,176;
 	end;
 }
@@ -102,14 +103,14 @@ OnInit:
 	end;
 
 OnDied:
-	mapannounce "nguild_gef","Treasure Chest Broken Open",17;
+	mapannounce "nguild_gef","Uma Arca de Tesouro foi Aberta",17;
 	set $boxNumN02, $boxNumN02 -1;
-	if($boxNumN02 == 0) mapannounce "nguild_gef", "All of the treasure boxes have been opened.  You must wait untill the next day for them to appear again.",0;
+	if($boxNumN02 == 0) mapannounce "nguild_gef", "Todas as Arcas de Tesouro foram abertas.  Você deve esperar até o dia seguinte para que elas apareçam novamente.",0;
 	end;
 }
 
 // Room Switch ---------------------------------------------------------
-nguild_gef,152,117,0	script	Switch#TresN02	HIDDEN_NPC,{
+nguild_gef,152,117,0	script	Alavanca#TresN02	HIDDEN_NPC,{
 	callfunc "F_GldTreasSw","nguild_gef",40,49;
 	end;
 }
@@ -127,14 +128,14 @@ OnInit:
 	end;
 
 OnDied:
-	mapannounce "nguild_pay","Treasure Chest Broken Open",17;
+	mapannounce "nguild_pay","Uma Arca de Tesouro foi Aberta",17;
 	set $boxNumN03, $boxNumN03 -1;
-	if($boxNumN03 == 0) mapannounce "nguild_pay", "All of the treasure boxes have been opened.  You must wait untill the next day for them to appear again.",0;
+	if($boxNumN03 == 0) mapannounce "nguild_pay", "Todas as Arcas de Tesouro foram abertas.  Você deve esperar até o dia seguinte para que elas apareçam novamente.",0;
 	end;
 }
 
 // Treasure Room Switch ---------------------------------------------------
-nguild_pay,295,8,0	script	Switch#TresN03	HIDDEN_NPC,{
+nguild_pay,295,8,0	script	Alavanca#TresN03	HIDDEN_NPC,{
 	callfunc "F_GldTreasSw", "nguild_pay",120,59;
 	end;
 }
@@ -152,14 +153,14 @@ OnInit:
 	end;
 
 OnDied:
-	mapannounce "nguild_prt","Treasure Chest Broken Open",17;
+	mapannounce "nguild_prt","Uma Arca de Tesouro foi Aberta",17;
 	set $boxNumN04, $boxNumN04 -1;
-	if($boxNumN04 == 0) mapannounce "nguild_prt", "All of the treasure boxes have been opened.  You must wait untill the next day for them to appear again.",0;
+	if($boxNumN04 == 0) mapannounce "nguild_prt", "Todas as Arcas de Tesouro foram abertas.  Você deve esperar até o dia seguinte para que elas apareçam novamente.",0;
 	end;
 }
 
 // Treasure Room Switch ----------------------------------------------------
-nguild_prt,15,209,0	script	Switch#TresN04	HIDDEN_NPC,{
+nguild_prt,15,209,0	script	Alavanca#TresN04	HIDDEN_NPC,{
 	callfunc "F_GldTreasSw", "nguild_prt",109,179;
 	end;
 }
