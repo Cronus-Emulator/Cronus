@@ -1,9 +1,9 @@
-//===== Hercules Script ======================================
-//= War of Emperium Managers for N Guild Castles
+//===== Cronus Script ======================================
+//= Gerentes Evento WoE Baby
 //===== By: ==================================================
-//= kobra_k88
+//= kobra_k88 // Mihael
 //===== Current Version: =====================================
-//= 1.2
+//= 1.3
 //===== Description: =========================================
 //=
 //==============================================
@@ -18,6 +18,7 @@
 //= 1.1 Added modified guild manager function. [L0ne_W0lf]
 //= 	Removed guardian summoning.
 //= 1.2 Corrected function name. (bugreport:1728) [L0ne_W0lf]
+//= 1.3 Tradução para PT-BR Adicionada. [Mihael]
 //============================================================
 
 //==============================================
@@ -26,23 +27,23 @@ function	script	F_GldManager	{
 	set @GID, getcastledata(getarg(1),1);
 	mes "[ "+getarg(0)+" ]";
 	if (@GID == 0){
-		mes "I am waiting for my master.  Brave adventurer, follow your destiny!";
+		mes "Estou esperando por meu mestre. Bravo aventureiro, siga seu destino!";
 		return;
 	}
 	if (getcharid(2) != @GID){
-		mes "I am here to follow ^5533FF" + getguildmaster(@GID) + "^000000's command! Hey! Your not even a part of the guild!!";
-		mes "Where are the guardians? Destroy these intruders!";
+		mes "Estou aqui para seguir o mestre ^5533FF" + getguildmaster(@GID) + "^000000! Opa! Você não faz parte da guild dele!!";
+		mes "Onde estão os guardiões? Destruam esses intrusos!";
 		return;
 	}
 	if (strcharinfo(0) != getguildmaster(@GID)){
-		mes "You're not ^5533FF" + getguildmaster(@GID) + "^000000! I am here to follow ^5533FF" + getguildmaster(@GID) + "^000000's command only";
+		mes "Você não é o ^5533FF" + getguildmaster(@GID) + "^000000! Estou aqui apenas para seguir ^5533FF" + getguildmaster(@GID) + "^000000 meu Comandante.";
 		return 0;
 	}
 
-	mes "Welcome Master ^5533FF" + getguildmaster(@GID) + "^000000 ! I will assist you in any way I can!";
+	mes "Bem-vindo Mestre ^5533FF" + getguildmaster(@GID) + "^000000 ! Eu vou ajudá-lo de qualquer maneira que puder!";
 	next;
 
-	menu "Kafra Staff Employment / Dismissal",M_Kaf, "Enter Treasure Room",M_Treas, "Cancel",M_End;
+	menu "Contratar/Demitir Serviços Kafra",M_Kaf, "Entrar na Sala do Tesouro",M_Treas, "Cancelar",M_End;
 
 	//===========================
 	M_Kaf:
@@ -50,89 +51,89 @@ function	script	F_GldManager	{
 		mes "[ "+getarg(0)+" ]";
 		if (getcastledata(getarg(1),9) == 1) goto L_Dismiss;
 		if (getgdskilllv(@GID,10001) == 0){
-			mes "Master, you don't have a contract with the Kafra Staff Company.";
-			mes "In order to hire a Kafra, you must first learn the Guild skill ^5533FFContract With Kafra^000000.";
+			mes "Mestre, você não tem um contrato com os serviços Kafra.";
+			mes "Antes de contratar uma Kafra, você deve primeiro aprender a habilidade de Guild ^5533FFContrato com Kafra^000000.";
 			return;
 		}
 
 		L_Hire:
-			mes "Would you like to employ the services of a Kafra? You will need ^5533FF10,000 Zeny^000000 to do so... ";
+			mes "Você gostaria de contratar os serviços de uma Kafra? Você vai precisar de ^5533FF10,000 Zenys^000000 para isso... ";
 			next;
-			menu "Employ Kafra.",-,"Cancel",sM_KafEnd;
+			menu "Contratar Kafra.",-,"Cancelar",sM_KafEnd;
 
 				mes "[ "+getarg(0)+" ]";
 				if (Zeny < 10000){
-					mes "Master, you do not have enough money to employ a Kafra. Employment has been cancelled.";
+					mes "Mestre, você não tem dinheiro suficiente para contratar uma Kafra. O contrato foi cancelado.";
 					return;
 				}
 				Zeny -= 10000;
-				enablenpc "Kafra Staff#"+getarg(4);
+				enablenpc "Funcionária Kafra#"+getarg(4);
 				setcastledata getarg(1),9,1;
-				mes "You have created a contract with the Kafra Staff Company.";
+				mes "Você criou um contrato com a empresa Kafra.";
 				next;
 				cutin "kafra_01",2;
-				mes "[ Kafra Staff ]";
-				mes "How do you do? I'm here to provide you with helpful service! I'll do the best I can to serve you.";
+				mes "[ Funcionária Kafra ]";
+				mes "Como vai? Estou aqui para lhe fornecer um serviço útil! Eu vou fazer o melhor que posso para atendê-lo.";
 				next;
 				cutin "kafra_01",255;
 				mes "[ "+getarg(0)+" ]";
-				//mes "Your employment contract lasts ^5533FF1 month^000000.  After this term is over you will have to create a new contract.";
-				mes "I think the Kafra Staff will benefit our guild members.";
+				//mes "O seu contrato de trabalho dura ^5533FF1 mês^000000.  Após este longo prazo, você terá que criar um novo contrato.";
+				mes "Eu acho que a Funcionária Kafra irá beneficiar nossos membros da guilda.";
 				return;
 
 			sM_KafEnd:
 				mes "[ "+getarg(0)+" ]";
-				mes "As you wish Master.  But I suggest we get a Kafra as soon as possible!";
+				mes "Como desejar Mestre. Mas eu sugiro que nós contratemos uma Kafra o mais rápido possível!";
 				return;
 
 		L_Dismiss:
-			mes "Would you like to dismiss the current Kafra?";
+			mes "Gostaria de demitir a Kafra atual?";
 			next;
-			menu "Dismissal",-,"Cancel",sM_KafEnd2;
+			menu "Demitir",-,"Cancelar",sM_KafEnd2;
 
 				cutin "kafra_01",2;
-				mes "[ Kafra Staff ]";
-				mes "Have I done anything wrong? If I did, will you please forgive me?";
+				mes "[ Funcionária Kafra ]";
+				mes "Fiz alguma coisa errada? Se eu fiz, por favor, você pode me perdoar?";
 				next;
-				menu "Dismiss",-,"Cancel",ssM_KafEnd2;
+				menu "Demitir",-,"Cancelar",ssM_KafEnd2;
 
-					mes "[ Kafra Staff ]";
-					mes "It's unfortunate that I won't be able to serve your guild anymore....";
+					mes "[ Funcionária Kafra ]";
+					mes "É uma pena que possa ser capaz de servir a sua Guild....";
 					next;
-					disablenpc "Kafra Staff#"+getarg(4);
+					disablenpc "Funcionária Kafra#"+getarg(4);
 					setcastledata getarg(1),9,0;
 					cutin "kafra_01",255;
 					mes "[ "+getarg(0)+" ]";
-					mes "The Kafra has been dismissed.  But... we should really get a Kafra as soon as possible!";
+					mes "A Kafra foi demitida. Mas ... nós deveríamos realmente ter uma Kafra o mais rápido possível!";
 					return;
 				ssM_KafEnd2:
-					mes "[ Kafra Staff ]";
-					mes "Thank you master, I'll do my best! ^^.";
+					mes "[ Funcionária Kafra ]";
+					mes "Obrigada mestre, eu vou fazer o meu melhor! ^^.";
 					cutin "kafra_01",255;
 					return;
 			sM_KafEnd2:
 				mes "[ "+getarg(0)+" ]";
-				mes "Master, I think you should keep the current Kafra Staff because she is already trying her best to serve us";
+				mes "Mestre, eu acho que você deve manter a Funcionária Kafra atual porque ela já está dando o seu melhor para nos servir";
 				return;
 
 	//=========================
 	M_Treas:
 	//========
 		mes "[ "+getarg(0)+" ]";
-		mes "Would you to go to our Treasure Room? Only you, the Guild Master, are allowed to enter this room.";
+		mes "Quer ir para a nossa Sala do Tesouro? Só você, o Guild Master, está autorizado a entrar nesta sala.";
 		next;
-		menu "Enter Treasure room.",-,"Cancel",sM_TresEnd;
+		menu "Entrar na Sala do Tesouro.",-,"Cancelar",sM_TresEnd;
 
 			mes "[ "+getarg(0)+" ]";
-			mes "Please follow me through the secret passage way.";
-			mes "You must pull down on the secret switch in order to get out.";
+			mes "Por favor, siga-me pela passagem secreta.";
+			mes "Você deve puxar para baixo a alavanca secreta quando quiser sair.";
 			next;
 			warp getarg(1),getarg(2),getarg(3);
 			return;
 		sM_TresEnd:
 			mes "[ "+getarg(0)+" ]";
-			mes "The goods are produced everyday.";
-			mes "You should get them whenever you can because they might dissapear if you take them at the wrong time.";
+			mes "As mercadorias são produzidas todos os dias.";
+			mes "Você deve levá-las sempre que puder, pois elas podem desaparecer se você levá-las na hora errada.";
 			return;
 
 
@@ -140,7 +141,7 @@ function	script	F_GldManager	{
 	M_End:
 	//=======
 		mes "[ "+getarg(0)+" ]";
-		mes "As you wish, master.";
+		mes "Como quiser, senhor.";
 		return;
 }
 
