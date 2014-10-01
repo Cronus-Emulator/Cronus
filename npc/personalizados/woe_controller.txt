@@ -140,7 +140,7 @@ OnMinute00:
 				deletearray .Active[0],2;
 				set .Active[0], $WOE_CONTROL[.@i+3];
 				if (.Init) { agitend; agitend2; }
-				else announce "A Guerra do Emperium já começou!",bc_all|bc_woe;
+				else announce "A Guerra do Emperium começou!",bc_all|bc_woe;
 				sleep 1000;
 				agitstart; agitstart2;
 				for(set .@j,0; .@j<30; set .@j,.@j+1) {
@@ -166,7 +166,7 @@ OnMinute00:
 function Disp_Owner {
 	set .@o, getcastledata(getarg(0),1);
 	if (.@o) announce "O ["+getcastlename(getarg(0))+"] castelo "+((getarg(1))?"foi conquistado":"is currently held")+" pelo ["+getguildname(.@o)+"] Clã.",bc_all|bc_woe;
-	else announce "O ["+getcastlename(getarg(0))+"] castelo está atualmente desocupado.",bc_all|bc_woe;
+	else announce "O Castelo de ["+getcastlename(getarg(0))+"] está atualmente desocupado.",bc_all|bc_woe;
 	return;
 }
 function Add_Zero {
@@ -195,7 +195,7 @@ OnReward:
 					          .Reward[0]+","+.Reward[1]+",0,"+.Reward[2]+",UNIX_TIMESTAMP(NOW()))");
 					if (!getd(".@str_"+.@cid[.@j]) && isloggedin(.@aid[.@j],.@cid[.@j])) {
 						setd ".@str_"+.@cid[.@j],1;
-						message rid2name(.@aid[.@j]),"Você tem e-mail! Por favor, re-entrar para atualizar sua lista de discussão.";
+						message rid2name(.@aid[.@j]),"Você recebeu um e-mail! Por favor, relogue para atualizar sua caixa de entrada.";
 					}
 				} else if (isloggedin(.@aid[.@j])) {
 					for(set .@k,0; .@k<getarraysize(.Reward); set .@k,.@k+2)
