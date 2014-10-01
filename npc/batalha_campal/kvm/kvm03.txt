@@ -1,30 +1,46 @@
-//===== Hercules Script ======================================
-// BattleGround System - KvM 60-80
-//===== By: ==================================================
-//= ???, L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.3
-//===== Description: =========================================
-//= [Official Conversion]
-//= Kreiger Von Midgard Battleground for levels 60 to 80
-//= - Winning Team: 2 points
-//= - Losing Team: 1 point
-//===== Additional Comments: =================================
-//= 1.0 First Version.
-//= 1.1 Updated using official Aegis files. [L0ne_W0lf]
-//= 1.2 Upated some announces and dialogs from iRO.
-//=     Changed how the scoreboard works slightly.
-//=     Removed the areapercentheals, and minor things.
-//= 1.3 Fixed wrong names for disablenpc/enablenpc. [Ai4rei]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Batalha Campal Sistema - KvM 60-80                        -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- ???, L0ne_W0lf                                            -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.4                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- [Official Conversion]                                     -
+//- Kreiger Von Midgard Battleground for levels 60 to 80      -
+//- - Winning Team: 2 points                                  -
+//- - Losing Team: 1 point                                    -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.0 First Version.                                        -
+//- 1.1 Updated using official Aegis files. [L0ne_W0lf]       -
+//- 1.2 Upated some announces and dialogs from iRO.           -
+//-     Changed how the scoreboard works slightly.            -
+//-     Removed the areapercentheals, and minor things.       -
+//- 1.3 Fixed wrong names for disablenpc/enablenpc. [Ai4rei]  -
+//- 1.4 Aplicada Tradução (PT-BR). [SkyHD]                    -
+//==-----------------------------------------------------------
 
-// Waiting Room NPCs
+// Sala de Espera
 //============================================================
-bat_room,225,226,5	script	KVM Waiting Room#a3::KvM03R_Guillaume	4_M_KY_KNT,{
+bat_room,225,226,5	script	Sala de Espera do KVM#a3::KvM03R_Guillaume	4_M_KY_KNT,{
 	end;
 
 OnInit:
-	waitingroom "Battle Station 5 Players",6,"KvM03_BG::OnGuillaumeJoin",1;
+	waitingroom "Estação de batalha 5 Jogadores",6,"KvM03_BG::OnGuillaumeJoin",1;
 	end;
 	
 OnEnterBG:
@@ -34,11 +50,11 @@ OnEnterBG:
 
 bat_room,225,220,0	warp	#kvm701	2,2,bat_room,154,150
 
-bat_room,225,205,3	script	KVM Waiting Room#b3::KvM03R_Croix	4_M_CRU_KNT,{
+bat_room,225,205,3	script	Sala de Espera do KVM#b3::KvM03R_Croix	4_M_CRU_KNT,{
 	end;
 
 OnInit:
-	waitingroom "Battle Station 5 Players",6,"KvM03_BG::OnCroixJoin",1;
+	waitingroom "Estação de batalha 5 Jogadores",6,"KvM03_BG::OnCroixJoin",1;
 	end;
 
 OnEnterBG:
@@ -148,8 +164,8 @@ OnGuillaumeDie:
 		bg_updatescore "bat_c03",.Guillaume_Count,.Croix_Count;
 		if( .Guillaume_Count < 1 ) donpcevent "KvM03_BG::OnCroixWin";
 		else {
-			mapannounce "bat_c03", "The number of Guillaumes is "+.Guillaume_Count+".",bc_map,"0x00ff00";
-			mapannounce "bat_c03", "The number of Croixes is "+.Croix_Count+".",bc_map,"0x00ff00";
+			mapannounce "bat_c03", "O número de Guillaumes é "+.Guillaume_Count+".",bc_map,"0x00ff00";
+			mapannounce "bat_c03", "O número de Croixes é  "+.Croix_Count+".",bc_map,"0x00ff00";
 		}
 	}
 	end;
@@ -163,8 +179,8 @@ OnCroixDie:
 		bg_updatescore "bat_c03",.Guillaume_Count,.Croix_Count;
 		if( .Croix_Count < 1 ) donpcevent "KvM03_BG::OnGuillaumeWin";
 		else {
-			mapannounce "bat_c03", "The number of Guillaumes is "+.Guillaume_Count+".",bc_map,"0x00ff00";
-			mapannounce "bat_c03", "The number of Croixes is "+.Croix_Count+".",bc_map,"0x00ff00";
+			mapannounce "bat_c03", "O número de Guillaumes é "+.Guillaume_Count+".",bc_map,"0x00ff00";
+			mapannounce "bat_c03", "O número de Croixes é  "+.Croix_Count+".",bc_map,"0x00ff00";
 		}
 	}
 	end;
@@ -195,16 +211,16 @@ OnStart:
 	end;
 
 OnTimer1000:
-	mapannounce "bat_c03", "In 1 minute, KVM will start.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Em 1 minuto, KVM vai começar.",bc_map,"0x00ff00";
 	end;
 
 OnTimer3000:
-	mapannounce "bat_c03", "The maximum time for a KVM battle is 5 minutes.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "O tempo máximo para uma batalha KVM é de 5 minutos.",bc_map,"0x00ff00";
 	end;
 
 OnTimer6000:
-	mapannounce "bat_c03", "Please prepare for the KVM battle.",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "You can buff your people.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Por favor, se prepare para a batalha KVM.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Você já pode abençoar seus aliados.",bc_map,"0x00ff00";
 	donpcevent "#A_camp_start03::OnEnable";
 	donpcevent "#B_camp_start03::OnEnable";
 	end;
@@ -215,26 +231,26 @@ OnTimer13000:
 	end;
 
 OnTimer30000:
-	mapannounce "bat_c03", "30 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "30 segundos restantes para começar a batalha KVM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer45000:
-	mapannounce "bat_c03", "15 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c01", "15 segundos restantes para começar a batalha KVM.",bc_map,"0x00ff00";
 	donpcevent "::OnKvM01One";
 	end;
 
 OnTimer50000:
-	mapannounce "bat_c03", "10 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "10 segundos restantes para começar a batalha KVM.",bc_map,"0x00ff00";
 	donpcevent "::OnKvM01Two";
 	end;
 
 OnTimer55000:
-	mapannounce "bat_c03", "5 seconds remaining to start KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "5 segundos restantes para começar a batalha KVM.",bc_map,"0x00ff00";
 	donpcevent "::OnKvM01One";
 	end;
 
 OnTimer59000:
-	mapannounce "bat_c03", "KVM is now commencing.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "KVM está agora começando.",bc_map,"0x00ff00";
 	donpcevent "::OnKvM01Two";
 	end;
 
@@ -246,7 +262,7 @@ OnTimer61000:
 	{
 		set $@KvM03BG_Victory, 3;
 		set $@KvM03BG, 3;
-		mapannounce "bat_c03","There are not enough players to start the battle",1,0xC0C0C0;
+		mapannounce "bat_c03","Não há jogadores suficientes para iniciar a batalha",1,0x808080;
 		stopnpctimer;
 		donpcevent "KvM03_BG::OnStop";
 		end;
@@ -257,27 +273,27 @@ OnTimer61000:
 	end;
 
 OnTimer300000:
-	mapannounce "bat_c03", "1 minute remaining to finish the KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "1 minutos restantes para terminar a batalha KVM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer330000:
-	mapannounce "bat_c03", "30 seconds remaining to finish the KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "30 minutos restantes para terminar a batalha KVM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer345000:
-	mapannounce "bat_c03", "15 seconds remaining to finish the KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "15 minutos restantes para terminar a batalha KVM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer350000:
-	mapannounce "bat_c03", "10 seconds remaining to finish the KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "10 minutos restantes para terminar a batalha KVM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer355000:
-	mapannounce "bat_c03", "5 seconds remaining to finish the KVM battle.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "5 minutos restantes para terminar a batalha KVM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer360000:
-	mapannounce "bat_c03", "KVM has ended.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "A batalha KVM acabou.",bc_map,"0x00ff00";
 	if( .Croix_Count > .Guillaume_Count )
 		donpcevent "KvM03_BG::OnCroixWin";
 	else if( .Croix_Count < .Guillaume_Count )
@@ -286,9 +302,9 @@ OnTimer360000:
 	{ // Draw Game
 		set $@KvM03BG, 3;
 		set $@KvM03BG_Victory, 3;
-		mapannounce "bat_c03", "The number of Guillaumes is "+.Guillaume_Count+".",bc_map,"0x00ff00";
-		mapannounce "bat_c03", "The number of Croixes is "+.Croix_Count+".",bc_map,"0x00ff00";
-		mapannounce "bat_c03", "This battle has ended in a draw.",bc_map,"0x00ff00";
+		mapannounce "bat_c03", "O número de Guillaumes é "+.Guillaume_Count+".",bc_map,"0x00ff00";
+		mapannounce "bat_c03", "O número de Croixes é  "+.Croix_Count+".",bc_map,"0x00ff00";
+		mapannounce "bat_c03", "Esta batalha terminou em um empate.",bc_map,"0x00ff00";
 		donpcevent "KvM03_BG::OnStop";
 	}
 	end;
@@ -296,18 +312,18 @@ OnTimer360000:
 OnGuillaumeWin:
 	set $@KvM03BG, 3;
 	set $@KvM03BG_Victory, 1;
-	mapannounce "bat_c03", "Guillaume wins!",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "Congratulations to Guillaume members.",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "Everyone will be moved to the start point.",bc_map,"0x00ff00";
+mapannounce "bat_c03", "Guillaume venceu!",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Parabéns aos membros de Guillaume.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Todos serão enviados ao ponto de início.",bc_map,"0x00ff00";
 	donpcevent "KvM03_BG::OnStop";
 	end;
 
 OnCroixWin:
 	set $@KvM03BG, 3;
 	set $@KvM03BG_Victory, 2;
-	mapannounce "bat_c03", "Croix wins!",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "Congratulations to Croix members.",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "Everyone will be moved to the start point.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Croix venceu!",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Parabéns aos membros de Croix.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Todos serão enviados ao ponto de início.",bc_map,"0x00ff00";
 	donpcevent "KvM03_BG::OnStop";
 	end;
 
@@ -345,21 +361,21 @@ OnBegin:
 	end;
 
 OnTimer1000:
-	mapannounce "bat_c03", "Please apply with the Officer to acquire KVM points.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Por favor fale com o Oficial para adquirir seus Pontos do KvM.",bc_map,"0x00ff00";
 	end;
 
 OnTimer3000:
-	mapannounce "bat_c03", "The Officer will grant you the points for 30 seconds.",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "In 30 seconds, the Officer will be sent away.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "O Oficial irá conceder-lhe os pontos por 30 segundos.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Em 30 segundos, o oficial será mandado embora.",bc_map,"0x00ff00";
 	end;
 
 OnTimer5000:
-	mapannounce "bat_c03", "Unless you talk to the Officer, you cannot gain the points.",bc_map,"0x00ff00";
-	mapannounce "bat_c03", "Please be careful.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "A menos que você falar com o oficial, você não pode ganhar os pontos.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Por favor, tenha cuidado.",bc_map,"0x00ff00";
 	end;
 
 OnTimer55000:
-	mapannounce "bat_c03", "You will be sent back.",bc_map,"0x00ff00";
+	mapannounce "bat_c03", "Você será enviado de volta.",bc_map,"0x00ff00";
 	end;
 
 OnTimer60000:
@@ -377,16 +393,16 @@ bat_c03,51,130,5	script	KVM Officer#KVM03A	4_M_KY_HEAD,{
 		{ // Victory
 			set kvm_point,kvm_point + 2;
 			mes "[KVM Officer]";
-			mes "Good Game.";
-			mes "May the glory of KVM be with you.";
-			mes "You aquire the winning points: 2";
+			mes "Ótima batalha!";
+			mes "Que a glória do KvM esteja com você.";
+			mes "Você adquiriu os pontos dos vencedores: 2";
 			close2;
 		} else {
 			set kvm_point,kvm_point + 1;
 			mes "[KVM Officer]";
-			mes "I am so sorry.";
-			mes "I wish you better luck next time.";
-			mes "You aquire the losing points: 1";
+			mes "Eu sinto muito."; 
+			mes "Desejo-lhe sorte na próxima vez."; 
+			mes "Você adquiriu os pontos dos perdedores: 1";
 			close2;
 		}
 		bg_leave;
@@ -404,16 +420,16 @@ bat_c03,148,53,1	script	KVM Officer#KVM03B	4_M_CRU_HEAD,{
 		{ // Victory
 			set kvm_point,kvm_point + 2;
 			mes "[KVM Officer]";
-			mes "Good Game.";
-			mes "May the glory of KVM be with you.";
-			mes "You aquire the winning points: 2";
+			mes "Ótima batalha!";
+			mes "Que a glória do KvM esteja com você.";
+			mes "Você adquiriu os pontos dos vencedores: 2";
 			close2;
 		} else {
 			set kvm_point,kvm_point + 1;
 			mes "[KVM Officer]";
-			mes "I am so sorry.";
-			mes "I wish you better luck next time.";
-			mes "You aquire the losing points: 1";
+			mes "Eu sinto muito."; 
+			mes "Desejo-lhe sorte na próxima vez."; 
+			mes "Você adquiriu os pontos dos perdedores: 1";
 			close2;
 		}
 		bg_leave;
