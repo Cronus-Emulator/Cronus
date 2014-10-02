@@ -603,7 +603,7 @@ OnTimer26000:
 	end;
 
 OnTimer26500:
-	donpcevent "Valley Ghost#bat_a02_n::OnEnable";
+	donpcevent "Fantasma#bat_a02_n::OnEnable";
 	end;
 }
 
