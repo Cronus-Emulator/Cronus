@@ -1,22 +1,38 @@
-//===== Hercules Script ======================================
-// BattleGround System - Tierra Gorge
-//===== By: ==================================================
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= [Official Conversion]
-//= Tierra Gorge Battleground.
-//= - Winning Team: 3 badges
-//= - Losing Team: 1 badge
-//===== Additional Comments: =================================
-//= 1.0 First Version.
-//= 1.1 Corrected setwalls for barricades. [L0ne_W0lf]
-//= 1.2 Updated 'waitingroom' to support required zeny/lvl. [Kisuka]
-//= 1.3 Removed MaxLvl check in waitingrooms.
-//= 1.4 Label standardization. [Euphy]
-//= 1.5 Added GM management function. [Euphy]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Batalha Campal Sistema - Tierra Gorge                     -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- L0ne_W0lf                                                 -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.5                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- [Official Conversion]                                     -
+//- Tierra Gorge Battleground.                                -
+//- - Winning Team: 3 badges                                  -
+//- - Losing Team: 1 badge                                    -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.0 First Version.                                        -
+//- 1.1 Corrected setwalls for barricades. [L0ne_W0lf]        -
+//- 1.2 Updated 'waitingroom' to,                             -
+//-      support required zeny/lvl. [Kisuka]                  -
+//- 1.3 Removed MaxLvl check in waitingrooms.                 -
+//- 1.4 Label standardization. [Euphy]                        -
+//- 1.5 Added GM management function. [Euphy]                 -
+//-------------------------------------------------------------
 
 // Waiting Room NPCs
 //============================================================
@@ -365,7 +381,7 @@ bat_a01,185,270,1	script	Ferreiro de Guillaume#fg	4_M_REPAIR,{
 			}
 		case 2:
 			mes "[Ferreiro de Guillaume]";
-			mes "There are enemies coming! Let's evacuate from here!";
+			mes "Existem inimigos vindo! Vamos evacuar daqui!";
 			close;
 		}
 	}
@@ -896,7 +912,7 @@ OnTimer1808000:
 	end;
 
 //OnTimer1822000:
-//	mapannounce "bat_a01", "Marollo VII : Hold your royalty and faith for a moment, and let's settle up the battle of Tierra Gorge.",bc_map,"0x99CC00";
+//	mapannounce "bat_a01", "Marollo VII : Segure sua realeza e fé por um momento, e vamos resolver-se sobre batalha de Tierra Gorge.",bc_map,"0x99CC00";
 //	end;
 
 OnTimer1825000:

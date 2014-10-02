@@ -1,32 +1,40 @@
-//------------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//------------------------------------------------------------
-// Batalha Campal
-//----- Por: -------------------------------------------------
-//= ????, L0ne_W0lf
-//----- Versão Atual: ----------------------------------------
-//= 1.5
-//----- Descrição: -------------------------------------------
-//= [Conversão Oficial]
-//= NPCs Batalha Campal:
-//= - Generais e Auxiliares
-//= - Transportadora
-//= - Kafra e Reparador.
-//= - NPC de Gerenciamento GM (Desabilitado por Padrão)
-//= - Troca de Emblemas (Tierra and Flavius)
-//----- Comentários Adicionais: ------------------------------
-//= 1.0 First Version.
-//= 1.1 Updated several NPCs to Official.
-//= 1.2 Updated Repairman NPC
-//= 1.3 Optimized "Erundek" NPC. [Euphy]
-//= 1.4 Added GM management function. [Euphy]
-//= 1.5 Aplicada tradução para português(pt_BR). [Cainho]
-//------------------------------------------------------------
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Batalha Campal                                            -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- ????, L0ne_W0lf                                           -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.5                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- [Conversão Oficial]                                       -
+//- NPCs Batalha Campal:                                      -
+//-  Generais e Auxiliares                                    -
+//-  Transportadora                                           -
+//-  Kafra e Reparador.                                       -
+//-  NPC de Gerenciamento GM (Desabilitado por Padrão)        -
+//-  Troca de Emblemas (Tierra and Flavius)                   -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.0 First Version.                                        -
+//- 1.1 Updated several NPCs to Official.                     -
+//- 1.2 Updated Repairman NPC                                 -
+//- 1.3 Optimized "Erundek" NPC. [Euphy]                      -
+//- 1.4 Added GM management function. [Euphy]                 -
+//- 1.5 Aplicada tradução para português(pt_BR). [Cainho]     -
+//-------------------------------------------------------------
 
 // Generais
 //============================================================
