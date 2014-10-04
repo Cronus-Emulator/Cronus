@@ -55,6 +55,6 @@ Equipe Atual
 ### Desenvolvedores
 - xChiron    - Diego da Silva Pinheiro
 - Cainho     - Caio Mateus
-- Shermie
-- SoulBlaker - Romulo
+- SkyHD
 - MaatSF     - Matheus Freitas
+- Wolf       - João Senos
