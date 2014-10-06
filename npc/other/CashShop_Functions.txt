@@ -1,16 +1,17 @@
-//===== Hercules Script ======================================
-//= Cash Shop Functions
-//===== By: ==================================================
+//===== Cronus Script ======================================
+//= Funções Cash Shop
+//===== Por: ==================================================
 //= L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.7
-//===== Description: =========================================
+//= Mihael
+//===== Versão Atual: =====================================
+//= 1.8
+//===== Descrição: =========================================
 //= Used explicitly in the Item Database for Cash shop items
 //= - Kafra Card
 //= - Giant Fly Wing
 //= - Neuralizer
 //= - Dungeon Teleport Scroll
-//===== Additional Comments: =================================
+//===== Comentários Adicionais: =================================
 //= 1.0 First version. [L0ne_W0lf]
 //=     F_CashPartyCall Optimized by Trancid.
 //= 1.1 Updated Dungeon Teleport Scroll. [L0ne_W0lf]
@@ -22,6 +23,7 @@
 //= 1.5 Neuralizer is no longer consumed upon failure. [Euphy]
 //= 1.6 Updated Teleport functions and added Curious_Snowball. [Euphy]
 //= 1.7 Added Dungeon Teleport Scroll II maps. [Euphy]
+//= 1.8 Tradução PT-BR Feita com sucesso. [Mihael]
 //============================================================
 
 // Kafra Card
@@ -31,8 +33,8 @@
 function	script	F_CashStore	{
 	cutin "kafra_01",2;
 	mes "[Kafra Employee]";
-	mes "Welcome to the Kafra Corporation.";
-	mes "Here, let me open your Storage for you.";
+	mes "Bem Vindo a Corporação Kafra.";
+	mes "Deixe-me abrir seu Armazém para você.";
 	close2;
 	openstorage;
 	cutin "",255;
@@ -181,7 +183,7 @@ function	script	F_CashCity	{
 function	script	F_CashTele	{
 	switch(getarg(0)) {
 	case 1:
-		switch(select("Prontera:Geffen:Al de Baran:Izlude:Savepoint")) {
+		switch(select("Prontera:Geffen:Al de Baran:Izlude:Ponto de Retorno")) {
 		case 1: warp "prontera",119,77; end;
 		case 2: warp "geffen",119,39; end;
 		case 3: warp "aldebaran",165,107; end;
@@ -189,7 +191,7 @@ function	script	F_CashTele	{
 		case 5: warp "SavePoint",0,0; end;
 		}
 	case 2:
-		switch(select("Payon:Alberta:Morroc:Comodo:Savepoint")) {
+		switch(select("Payon:Alberta:Morroc:Comodo:Ponto de Retorno")) {
 		case 1: warp "payon",158,55; end;
 		case 2: warp "alberta",115,57; end;
 		case 3: warp "morocc",158,48; end;
@@ -197,7 +199,7 @@ function	script	F_CashTele	{
 		case 5: warp "SavePoint",0,0; end;
 		}
 	case 3:
-		switch(select("Louyang:Amatsu:Kunlun Field:Ayothaya:Savepoint")) {
+		switch(select("Louyang:Amatsu:Kunlun Field:Ayothaya:Ponto de Retorno")) {
 		case 1: warp "louyang",214,101; end;
 		case 2: warp "amatsu",112,145; end;
 		case 3: warp "gonryun",160,118; end;
@@ -205,14 +207,14 @@ function	script	F_CashTele	{
 		case 5: warp "SavePoint",0,0; end;
 		}
 	case 4:
-		switch(select("Lutie Field:Umbala:Niflheim:Savepoint")) {
+		switch(select("Lutie Field:Umbala:Niflheim:Ponto de Retorno")) {
 		case 1: warp "xmas",148,131; end;
 		case 2: warp "umbala",93,154; end;
 		case 3: warp "niflheim",187,189; end;
 		case 4: warp "SavePoint",0,0; end;
 		}
 	case 5:
-		switch(select("Juno:Einbroch:Lighthalzen:Hugel:Savepoint")) {
+		switch(select("Juno:Einbroch:Lighthalzen:Hugel:Ponto de Retorno")) {
 		case 1: warp "yuno",157,124; end;
 		case 2: warp "einbroch",230,192; end;
 		case 3: warp "lighthalzen",158,94; end;
@@ -220,7 +222,7 @@ function	script	F_CashTele	{
 		case 5: warp "SavePoint",0,0; end;
 		}
 	case 6:
-		switch(select("Rachel:Veins:Savepoint")) {
+		switch(select("Rachel:Veins:Ponto de Retorno")) {
 		case 1: warp "rachel",118,132; end;
 		case 2: warp "veins",214,125; end;
 		case 3: warp "SavePoint",0,0; end;
@@ -266,18 +268,18 @@ function	script	F_CashSeigeTele	{
 function	script	F_Snowball	{
 	cutin "rutie_snownow03",2;
 	mes "[Snowman]";
-	mes "Merry Christmas!";
-	switch(select("Restore Some HP/SP:Strengthen My Body!:Restore My SP Fully.:Return to Savepoint")) {
+	mes "Feliz Natal!";
+	switch(select("Restaurar um pouco de HP/SP:Fortalecer meu Corpo!:Restaurar SP Totalmente.:Retornar para o Ponto de Retorno")) {
 	case 1:
 		mes "Aha!";
-		mes "Quiet night~";
+		mes "Noite Tranquila~";
 		percentheal 70,70;
 		close2;
 		cutin "",255;
 		break;
 	case 2:
-		mes "Blessings.";
-		mes "Holy night~";
+		mes "Bençãos.";
+		mes "Noite Sagrada~";
 		unitskilluseid getcharid(3),"SM_ENDURE",10;
 		close2;
 		cutin "",255;
