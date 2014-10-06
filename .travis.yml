@@ -8,9 +8,8 @@ before_script:
 
 script:
   - chmod 777 configure
-  - ./configure --enable-debug && make sql -j3
-  - make clean
-  - ./configure --disable-renewal --enable-debug && make sql -j3
+  - ./configure
+  - make sql
   
 notifications:
   email: false
