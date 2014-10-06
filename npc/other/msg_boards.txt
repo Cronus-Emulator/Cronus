@@ -1,10 +1,11 @@
-//===== Hercules Script ======================================
-//= Misc. Message Boards
+//===== Cronus Script ========================================
+//= Misc. Quadro de Mensagens
 //===== By: ==================================================
 //= kobra_k88
 //= L0ne_W0lf
+//= Mihael
 //===== Current Version: =====================================
-//= 1.7
+//= 1.8
 //===== Description: =========================================
 //= Misc. Message Boards for:
 //=  - Prontera
@@ -22,251 +23,252 @@
 //= 1.5 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
 //= 1.6 Commented out conflicting npcs. (bugreport:4093) [L0ne_W0lf]
 //= 1.7 Moved Izlude NPCs to Pre-RE path. [Euphy]
+//= 1.8 Tradução para PT-BR Feita com sucesso. [Mihael]
 //============================================================
 
 // Prontera
 //============================================================
-prontera,158,213,1	script	Sign Post#Prt1	HIDDEN_NPC,{
-	mes "^993300- The Sign Post Reads -^000000";
-	mes "North to Prontera Castle";
-	mes "North to Al De Baran";
-	mes "Northwest to Geffen";
-	mes "East to Prontera Fields";
-	mes "South to Prontera Fields";
-	mes "Southeast to Alberta";
-	mes "Southwest to Morroc";
-	mes "Southwest to Comodo";
-	mes "West to Prontera Fields";
+prontera,158,213,1	script	Quadro#Prt1	HIDDEN_NPC,{
+	mes "^993300- Quadro de direções -^000000";
+	mes "Castelo de Prontera para o Norte";
+	mes "Aldebaran para o Norte";
+	mes "Geffen para o Noroeste";
+	mes "Campos de Prontera para o Leste";
+	mes "Campos de Prontera para o Sul";
+	mes "Alberta para o Sudeste";
+	mes "Morroc para o Sudoeste";
+	mes "Comodo para o Sudoeste";
+	mes "Campos de Prontera para o Oeste";
 	close;
 }
 
-prontera,156,197,1	script	Prontera Bulletin#Prt2	HIDDEN_NPC,{
-	mes "^993300- The Prontera Bulletin Reads -^000000";
-	mes "Wanted: Two Clip Accessories";
-	mes "Please contact...";
-	mes "- Name appears to be worn off -";
-	mes "Selling: Used Bastard Sword";
-	mes "Will take any offer!";
-	mes "Contact Abramulious";
-	mes "Help Wanted: Buying or selling a used Peco Peco?";
-	mes "Contact Grasisium in Morroc now!";
+prontera,156,197,1	script	Avisos de Prontera#Prt2	HIDDEN_NPC,{
+	mes "^993300- Avisos de Prontera -^000000";
+	mes "Procura-se: Duas Presilhas";
+	mes "Por favor, entre em contato...";
+	mes "-O nome está um pouco apagado -";
+	mes "Vende-se: Espada bastarda usada";
+	mes "Aceito qualquer oferta!";
+	mes "Entrar em contato com Abramulious";
+	mes "Procura-se ajuda: Compra ou vende Peco Peco usado?";
+	mes "Contado com Grasisium em Morroc agora!";
 	close;
 }
 
-prontera,278,212,1	script	Sign#Prt3	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Please help keep Prontera a clean place.";
+prontera,278,212,1	script	Sinal#Prt3	HIDDEN_NPC,{
+	mes "^993300- Comunicado -^000000";
+	mes "Favor ajudar a manter Prontera um local limpo.";
 	close;
 }
 /*
-prontera,150,326,1	script	Sign#Prt4	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Citizens of Prontera are Welcomed in the Prontera Castle.";
+prontera,150,326,1	script	Sinal#Prt4	HIDDEN_NPC,{
+	mes "^993300- Comunicado -^000000";
+	mes "Cidadãos de Prontera são bem-vindos no Castelo de Prontera.";
 	close;
 }
 */
-prontera,31,212,1	script	Billboard#Prt5	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "~WANTED~";
+prontera,31,212,1	script	Comunicado#Prt5	HIDDEN_NPC,{
+	mes "^993300- Lê-se no letreiro -^000000";
+	mes "~Procurado~";
 	mes "iROGM01";
-	mes "DEAD or ALIVE";
-	mes "*Kill Stealing in Glast Heim*";
-	mes "~REWARD~";
+	mes "Vivo ou Morto";
+	mes "*Ladrão assassino de Glast Heim*";
+	mes "~Recompensa~";
 	mes "50,000 Zeny ";
-	mes "Contact: iROGM02";
+	mes "Contactar: iROGM02";
 	close;
 }
 
-prontera,165,305,1	script	Billboard#Prt6	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "We hope you enjoy your stay in Prontera.";
+prontera,165,305,1	script	Comunicado#Prt6	HIDDEN_NPC,{
+	mes "^993300- Comunicado -^000000";
+	mes "Nós esperamos que você tenha uma ótima estadia em Prontera.";
 	close;
 }
 
-prontera,145,304,1	script	Sign#Prt7	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Note:";
-	mes "I lost my cart in Mt. Mjolnir, if someone finds it please tell me, my life was in that bucket of goods!";
+prontera,145,304,1	script	Quadro#Prt7	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Nota:";
+	mes "Eu perdi meu carrinho de mão no Mt. Mjolnir, se alguem encontrar, por favor, me diga. Toda minha vida está nesse carrinho!";
 	close;
 }
 
 // Morroc
 //============================================================
-morocc,144,84,1	script	Sign#Moc1	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Wanted: Body guard to protect my shop from thieves";
-	mes "Please contact Butcher";
+morocc,144,84,1	script	Quadro#Moc1	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Procura-se: Guarda costas para proteger minha loga contra assaltantes.";
+	mes "Por favor, entre em contato com Bucher";
 	close;
 }
 
-morocc,145,83,1	script	Sign#Moc2	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Selling, well groomed Peco Peco!";
-	mes "This beautiful specimen has only been ridden by myself, comes with a saddle, a harness and...";
+morocc,145,83,1	script	Quadro#Moc2	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Vendo, Peco Peco bem preparado!";
+	mes "Esse é um belo exemplar que foi montado somente por mim, ele vem com uma sela, um arreio, e...";
 	close;
 }
 
-morocc,32,174,1	script	Bulletin#Moc3	HIDDEN_NPC,{
-	mes "^993300- The Bulletin Reads -^000000";
-	mes "^0099FFMorroc women up in arms!^000000";
-	mes "A recent study has shown that the majority of male citizens in";
-	mes "Morroc prefer the women of Geffen. 90 of the 100 male citizens";
-	mes "of Morroc claimed that they have had numerous relationships";
-	mes "with Geffen women outside of the Morroc Region.";
+morocc,32,174,1	script	Comunicado#Moc3	HIDDEN_NPC,{
+	mes "^993300- Comunicado -^000000";
+	mes "^0099FFMulheres de Morroc revoltadas!^000000";
+	mes "Um rescente estudo demonstrou que a maioria dos homens em";
+	mes "Morroc preferem as mulheres de Geffen. Sendo que 90 dos 100 hemens em";
+	mes "Morroc alegaram que tiveram relações com as mulheres";
+	mes "de Geffen fora da região de Morroc.";
 	next;
-	mes "^993300- The Bulletin Continued -^000000";
-	mes "'I just prefer their company better, that's all...' said one Morroc man.";
-	mes "'it's not like I'm against Morroc women or anything, so what's the problem...'";
-	mes "Besides emotional and stressful issues in regards to the daily";
-	mes "activities of these males.";
-	mes "Hunting still seems to be their number one priority";
-	mes "over finding decent woman within the region....";
+	mes "^993300- Continuação do comunicado -^000000";
+	mes "-Eu prefiro a companhia delas, isso é tudo... disse um homem de Morroc.";
+	mes "-não é que eu não goste das mulheres de Morroc, então não sei qual é o problema...";
+	mes "Existem problemas emocionais que estressam no que diz respeito";
+	mes "as atividades desses homens.";
+	mes "Caçar parece ser a primeira prioridade deles,";
+	mes "mais do que se relacionar com mulheres da região.";
 	close;
 }
 
-morocc,168,266,1	script	Sign#Moc5	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Welcome to Morroc.";
+morocc,168,266,1	script	Quadro#Moc5	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Bem vindo a Morroc.";
 	close;
 }
 
-morocc,168,264,1	script	Billboard#Moc6	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "^CC0033Battle Royal!^000000";
-	mes "Do you have what it takes to battle someone in a no holds barred, player vs. player game of death!";
-	mes "Head to Prontera if you think you have what it takes!";
+morocc,168,264,1	script	Quadro#Moc6	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "^CC0033Guerreiro Leal!^000000";
+	mes "Se você é alguem que gosta de uma batalha e sente que não pode ser parado, jogador contra jogador até a morte!";
+	mes "Apresente-se em Prontera se acha que tem o que é necessário!";
 	close;
 }
 
 morocc,298,211,1	script	Sign#Moc7	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Welcome to Morroc.";
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Bem vindo a Morroc.";
 	close;
 }
 
 // Geffen
 //============================================================
-geffen,116,58,1	script	Geffen Bulletin#Gef1	HIDDEN_NPC,{
-	mes "^993300- The Geffen Bulletin Reads -^000000";
-	mes "Remember Wizard's...It's not how many skills you know, it's the magic that counts!";
+geffen,116,58,1	script	Avisos de Geffen#Gef1	HIDDEN_NPC,{
+	mes "^993300- Avisos de Geffen -^000000";
+	mes "Lembrem-se Bruxos... O que importa não são todas suas habilidades, mas é o mago que as usa que conta!";
 	close;
 }
 /*
-geffen,61,174,1	script	Sign#Gef2	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "- Seems to be written in a language unfamiliar to you -";
+geffen,61,174,1	script	Quadro#Gef2	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "- Parece estar escrito em uma lingua desconhecida -";
 	close;
 }
 */
-geffen,113,104,1	script	Billboard#Gef3	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "Selling: Brand new Chon Chon Doll!";
-	mes "What a great gift to give to a loved one, contact me now!";
-	mes "- Name seems to be smeared -";
+geffen,113,104,1	script	Aviso#Gef3	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Vende-se: Novo boneco de Chon Chon!";
+	mes "Um ótimo presente para dar a pessoa amada, entre em contado comigo!";
+	mes "- Nome parece estar borrado -";
 	mes " ";
-	mes "Buying: Manteau!";
-	mes "I'm freezing and I have no zeny, please help me!";
-	mes "Contact Edionyus";
+	mes "Compra-se: Manto!";
+	mes "Eu estou congelando e não tenho zeny, por favor, me ajude!";
+	mes "Contatar Edionyus";
 	close;
 }
 
-geffen,119,190,1	script	Sign Post#Gef4	HIDDEN_NPC,{
-	mes "^993300- The Sign Post Reads -^000000";
-	mes "North to Geffen Fields";
-	mes "Northeast to Al De Baran";
-	mes "Northwest to Glast Heim";
-	mes "East to Geffen Fields";
-	mes "South to Morroc";
-	mes "Southeast to Prontera";
-	mes "Southeast to Alberta";
-	mes "Southwest to Comodo";
-	mes "West to Geffen Fields";
+geffen,119,190,1	script	Quadro#Gef4	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Campos de Geffen ao Norte";
+	mes "Aldebaram ao Nordeste";
+	mes "Glast Heim ao Noroeste";
+	mes "Campos de Geffen ao Leste";
+	mes "Morroc ao Sul";
+	mes "Prontera ao Sudeste";
+	mes "Alberta ao Suceste";
+	mes "Comodo ao Sudoeste";
+	mes "Campos de Geffen ao Oeste";
 	close;
 }
 
 geffen,168,175,1	script	Sign#Gef5	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "''Your always welcomed in Geffen''";
+	mes "^993300- Quadro de avisos -^000000";
+	mes "''Você sempre será bem vindo em Geffen''";
 	close;
 }
 
 geffen,183,61,1	script	Sign#Gef6	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Welcome.";
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Bem vindo.";
 	close;
 }
 
 // Al De Baran
 //============================================================
-aldebaran,181,172,1	script	Billboard#Alde1	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "In Search of:";
-	mes "I lost my Bongun pet, it wasn't my fault, it just ran away...";
-	mes "If you see him, please let me know. Reward to whomever finds him!";
+aldebaran,181,172,1	script	Aviso#Alde1	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Procura-se:";
+	mes "Eu perdi meu Bongun de estimação, não tive culpa, ele simplesmente fugiu...";
+	mes "Se você ver ele, por favor, me avise. Recompensa para quem encontrar ele!";
 	close;
 }
 
-aldebaran,133,104,1	script	Al De Baran Bulletin#Al2	HIDDEN_NPC,{
-	mes "^993300- The Al De Baran Bulletin Reads -^000000";
-	mes "''Enjoy your stay in Al De Baran''";
+aldebaran,133,104,1	script	Comunicado de Alebaran#Al2	HIDDEN_NPC,{
+	mes "^993300- Comunidado de Aldebaran -^000000";
+	mes "''Aproveite sua estadia em Aldebaran''";
 	close;
 }
 
 aldebaran,54,223,1	script	Billboard#Alde3	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "Help Wanted:";
-	mes "We are looking for young, strong and athletic people who are";
-	mes "interested in a full time career as a Blacksmith. If your interested, please contact Altiregen";
-	mes "in Geffen!";
+	mes "^993300- Comunicado -^000000";
+	mes "Preciso de ajuda:";
+	mes "´Nós observamos os jovens, são fortes e atléticos que";
+	mes "estão interessados em uma profissão estável com tempo integral para ferreiro. Se você está interessado, entre em contato com Altiregen";
+	mes "em Geffen!";
 	close;
 }
 
 aldebaran,197,228,1	script	#Alde4	-1,1,1,{
 OnTouch:
-	mes "[Home Owner]";
-	mes "Get off my roof you no good leecher!";
+	mes "[Proprietário da casa]";
+	mes "Saia de cima do meu telhado seu parasita!";
 	close;
 }
 
-aldebaran,217,222,1	script	Sign#Alde5	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "I saw Santa Claus in Lutie!";
-	mes "- The rest looks like scribble -";
+aldebaran,217,222,1	script	Quadro#Alde5	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "E aí Papai Nel de Lutie!";
+	mes "- Isso parece um rebisco -";
 	close;
 }
 
 // Alberta
 //============================================================
-alberta,35,241,1	script	Billboard#Alb1	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "Welcome to Alberta, the Merchant's paradise.";
+alberta,35,241,1	script	Avisos#Alb1	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Bem vindo para Alberta, paraiso dos Mercadores.";
 	close;
 }
 
-alberta,37,39,1	script	Billboard#Alb2	HIDDEN_NPC,{
-	mes "^993300- The Billboard Reads -^000000";
-	mes "Welcome.";
+alberta,37,39,1	script	Avisos#Alb2	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Bem vindo.";
 	close;
 }
 
-alberta,99,151,1	script	Sign#Alb3	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Tools by the Cart full!";
-	mes "You need tools? We got'em!";
-	mes "Come on in, we never close!";
+alberta,99,151,1	script	Quadro#Alb3	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Ferramentas completas para carrinho de mão!";
+	mes "Você precisa de ferramentas? Nós temos!";
+	mes "Venha, nós nunca fechamos!";
 	close;
 }
 
-alberta,196,152,1	script	Sign#Alb4	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Docking and Shipment times very on load. For information regarding";
-	mes "Shipping and Receiving, please...";
-	mes "- You can't make out the rest -";
+alberta,196,152,1	script	Quadro#Alb4	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Atracabem e envio de cargas. Para informações relativas";
+	mes "ao envio e recebimento, por favor...";
+	mes "- Você não pode ler o resto -";
 	close;
 }
 
-alberta,149,54,1	script	Sign#Alb5	HIDDEN_NPC,{
-	mes "^993300- The Sign Reads -^000000";
-	mes "Welcome.";
+alberta,149,54,1	script	Quadro#Alb5	HIDDEN_NPC,{
+	mes "^993300- Quadro de avisos -^000000";
+	mes "Bem vindo.";
 	close;
 }
