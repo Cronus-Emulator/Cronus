@@ -7,30 +7,36 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-// Cidade de Juno Pre-Renovação.                              -
+//- Misc. Message Boards                                      -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //- Euphy                                                     -
 //-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.0a                                                      -
+//- VersÃ£o Atual:                                             -
+//- 1.1                                                       -
 //-------------------------------------------------------------
-//- Compatível Com:                                           -
+//- CompatÃ­vel Com:                                           -
 //- Cronus                                                    -
 //-------------------------------------------------------------
-//- Descrição:                                                -
-//- [Conversão Oficial]                                       -
-//- NPCs da cidade de Juno.                                   -
+//- DescriÃ§Ã£o:                                                -
+//- Misc. Message Boards for:                                 -
+//- Izlude                                                    -
 //-------------------------------------------------------------
-//- Comentários Adicionais:                                   -
-//- 1.0 First version.                                        -
-//- 1.0a Aplicada tradução para português(pt_BR). [Cainho]    -
+//- ComentÃ¡rios Adicionais:                                   -
+//- 1.0 Moved Izlude NPCs to Pre-RE path.                     -
+//- 1.1 Aplicado TraduÃ§Ã£o para (PT_BR). [SkyHD]               -
 //-------------------------------------------------------------
 
-yuno,150,283,4	duplicate(JunoSoldier1)	Soldado de Juno#juno	8W_SOLDIER
-yuno,165,283,4	duplicate(JunoSoldier2)	Soldado de Juno#2juno	8W_SOLDIER
-yuno,227,292,4	duplicate(JunoSoldier3)	Soldado de Juno#3juno	8W_SOLDIER
-yuno,165,228,4	duplicate(JunoSoldier4)	Soldado de Juno#4juno	8W_SOLDIER
-yuno,150,228,4	duplicate(JunoSoldier5)	Soldado de Juno#5juno	8W_SOLDIER
-yuno,334,182,4	duplicate(JunoSoldier6)	Soldado de Juno#6juno	8W_SOLDIER
-yuno,263,320,4	duplicate(JunoSoldier7)	Soldado de Juno#7juno	8W_SOLDIER
+// Izlude
+//============================================================
+izlude,54,139,1	script	Sign#Iz1	HIDDEN_NPC,{
+	mes "^993300- The Sign Reads -^000000";
+	mes "Bem-vindo a Academia de Espadachim.";
+	close;
+}
+
+izlude,144,148,1	script	Sign#Iz2	HIDDEN_NPC,{
+	mes "^993300- The Sign Reads -^000000";
+	mes "Bem-vindo.";
+	close;
+}

@@ -7,23 +7,23 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-//= Aeroplano de Izlude.				      -
+//- Aeroplano de Izlude.				                      -
 //-------------------------------------------------------------
 //- Por:                                                      -
-//- rAthena Dev Team					      -
+//- rAthena Dev Team					                      -
 //-------------------------------------------------------------
 //- Compatível Com:                                           -
 //- Cronus                                                    -
 //-------------------------------------------------------------
 //- Versão Atual:                                             -
-//- 1.0a						      -
+//- 1.0a						                              -
 //-------------------------------------------------------------
-//- Descrição:						      -
-//- [ Conversão Oficial ]				      -
-//- Aeroplano de Izlude.				      -
+//- Descrição:						                          -
+//- [ Conversão Oficial ]				                      -
+//- Aeroplano de Izlude.				                      -
 //-------------------------------------------------------------
 //- Comentários Adicionais:                                   -
-//= 1.0a Adicionada tradução para protuguês(pt_BR)	      -
+//- 1.0a Adicionada tradução para protuguês(pt_BR)	          -
 //-------------------------------------------------------------
 
 izlude,206,55,3	duplicate(Airship_Staff_izlude)	Assist. do Aeroplano#izlude	4_F_01

@@ -7,24 +7,24 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-// Cidade de Jawaii Pre-RenovaÁ„o.                            -
+//- Mercenary related NPCs                                    -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //- Daegaladh                                                 -
 //-------------------------------------------------------------
-//- Vers„o Atual:                                             -
-//- 1.0a                                                      -
+//- Vers√£o Atual:                                             -
+//- 1.1                                                       -
 //-------------------------------------------------------------
-//- CompatÌvel Com:                                           -
+//- Compat√≠vel Com:                                           -
 //- Cronus                                                    -
 //-------------------------------------------------------------
-//- DescriÁ„o:                                                -
-//- [Convers„o Oficial]                                       -
-//- NPCs da cidade de Jawaii.                                 -
-//-------------------------------------------------------------
-//- Coment·rios Adicionais:                                   -
-//- 1.0 First Version.                                        -
-//- 1.0a Aplicada traduÁ„o para portuguÍs(pt_BR). [Cainho]    -
+//- Descri√ß√£o:                                                -
+//- Sells Lancer, Sword, and Archer mercenaries,              -
+//- along with related mercenary items.                       -
+//- Coment√°rios Adicionais:                                   -
+//- 1.0 First version. [Daegaladh]                            -
+//- 1.1 Aplicado Tradu√ß√£o para (PT_BR). [SkyHD]               -
 //-------------------------------------------------------------
 
-izlude,171,185,3	duplicate(Honeymoon_Helper_Izlude)	Agente Matrimonial#Izl	1_F_LIBRARYGIRL
+izlude,47,139,5	duplicate(Mercenary Manager#main)	Gerente Mercen√°rio#Sword	4_M_JOB_KNIGHT2
+izlude,56,139,4	duplicate(MercMerchant)	Negociante Mercen√°rio#Sword	4_F_HUGRANMA

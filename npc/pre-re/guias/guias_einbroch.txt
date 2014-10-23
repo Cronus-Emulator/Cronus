@@ -1,28 +1,37 @@
-//------------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//------------------------------------------------------------
-// Guias de Einbroch/Einbech
-//----- Por: -------------------------------------------------
-//= Muad_dib; L0ne_W0lf
-//----- Versão Atual: ----------------------------------------
-//= 1.6
-//----- Descrição: -------------------------------------------
-//= [Conversão Oficial]
-//= Guias da cidade de Einbroch/Einbech.
-//----- Comentários Adicionais: ------------------------------
-//= 1.0b missing tabs, fixed Guide coords [Lupus]
-//= 1.1 added 1 more Guide NPC, thanx to Justin84 [Lupus]
-//= 1.2 Optimized, updated common guide names [Lupus]
-//= 1.3 Fitted the many lines into 1 or 2, and corrected some typos [erKURITA]
-//= 1.4 Removed Duplicates [Silent]
-//= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
-//= 1.6 Aplicada tradução para português(pt_BR). [Cainho]
-//------------------------------------------------------------
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Guias de Einbroch/Einbech                                 -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Muad_dib; L0ne_W0lf                                       -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 1.6                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- [Conversão Oficial]                                       -
+//- Guias da cidade de Einbroch/Einbech.                      -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.0b missing tabs, fixed Guide coords [Lupus]             -
+//- 1.1 added 1 more Guide NPC, thanx to Justin84 [Lupus]     -
+//- 1.2 Optimized, updated common guide names [Lupus]         -
+//- 1.3 Fitted the many lines into 1 or 2, and corrected,     -
+//-     some typos [erKURITA]                                 -
+//- 1.4 Removed Duplicates [Silent]                           -
+//- 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]    -
+//- 1.6 Aplicada tradução para português(pt_BR). [Cainho]     -
+//-------------------------------------------------------------
 
 einbroch,72,202,4	script	Guia#ein::EinGuide	4_M_EIN_SOLDIER,{
 	cutin "ein_soldier",2;

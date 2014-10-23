@@ -1,36 +1,53 @@
-//===== Cronus Script ========================================
-//= Quest de Classe - Noviço
-//===== Por: =================================================
-//= kobra_k88; L0ne_W0lf
-//===== Versão Atual: ========================================
-//= 2.3
-//===== Compatível Com: ======================================
-//= Cronus SVN
-//===== Descrição: ===========================================
-//= [Conversão Aegis]
-//= Quest para se tornar Noviço
-//===== Comentários Adicionais: ==============================
-//= v1.0 Fully working.
-//= v1.1 Added function calls for Priest Quest.
-//= v1.2 Fixed Marthilda, Yosuke bugs. [Lupus]
-//= v1.2a Added instant job change for High Novice [Lupus]
-//= v1.3 Added Baby Class support [Lupus]
-//= v1.4 Optimised and moved first checker to Jfunc1-1 [massdriller]
-//= 1.5 Now saves/restores all quest skills [Lupus]
-//= 1.6 Merged back JFunc [Lupus]
-//= 1.7 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//=	No longer uses function "F_ToHigh"
-//=	Proper dialog for Priest job quest is unused (for now.)
-//= 1.7a Functions now make use of proper priest quest dialog [L0ne_W0lf]
-//= 1.8 Removed an Unnecessary "set job_acolyte_q,0;" [Samuray22]
-//= 1.8a More bug fixes care of Crashy. [L0ne_W0lf]
-//= 1.9 Changed Marthilda to Mathilda. [L0ne_W0llf]
-//= 2.0 Fixed High Acolytesnot being given holy light. [L0ne_W0lf]
-//= 2.1 Traduzido e revisado. [.zuport]
-//= 2.2 Adicionados comandos do Quest Log. [LEOzinn]
-//= 2.3 Fixado problema ao completar a quests [Asus]
-//= 2.3a Revisão e atualização view_id [KyukE]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Quest de Classe - Noviço                                  -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- kobra_k88; L0ne_W0lf                                      -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 2.3                                                       -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição: ---                                            -
+//- [Conversão Aegis]                                         -
+//- Quest para se tornar Noviço                               -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- v1.0 Fully working.                                       -
+//- v1.1 Added function calls for Priest Quest.               -
+//- v1.2 Fixed Marthilda, Yosuke bugs. [Lupus]                -
+//- v1.2a Added instant job change for High Novice [Lupus]    -
+//- v1.3 Added Baby Class support [Lupus]                     -
+//- v1.4 Optimised and moved first                            -
+//-      checker to Jfunc1-1 [massdriller]                    -
+//- 1.5 Now saves/restores all quest skills [Lupus]           -
+//- 1.6 Merged back JFunc [Lupus]                             -
+//- 1.7 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]        -
+//-	No longer uses function "F_ToHigh"                        -
+//-	Proper dialog for Priest job quest is unused (for now.)   -
+//- 1.7a Functions now make use of proper priest              -
+//-      quest dialog [L0ne_W0lf]                             -
+//- 1.8 Removed an Unnecessary "set                           -
+//-     job_acolyte_q,0;" [Samuray22]                         -
+//- 1.8a More bug fixes care of Crashy. [L0ne_W0lf]           -
+//- 1.9 Changed Marthilda to Mathilda. [L0ne_W0llf]           -
+//- 2.0 Fixed High Acolytesnot being given                    -
+//-     holy light. [L0ne_W0lf]                               -
+//- 2.1 Traduzido e revisado. [.zuport]                       -
+//- 2.2 Adicionados comandos do Quest Log. [LEOzinn]          -
+//- 2.3 Fixado problema ao completar a quests [Asus]          -
+//- 2.3a Revisão e atualização view_id [KyukE]                -
+//-------------------------------------------------------------
 
 prt_church,184,41,4	script	Sacerdote#aco	1_M_PASTOR,{
 	if (Upper == 1) {

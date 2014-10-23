@@ -1,36 +1,51 @@
-//===== Cronus Script =========================================
-//= Guilda dos Mercadores
-//===== Por: ==================================================
-//= kobra_k88; L0ne_W0lf
-//===== Versão Atual: ========================================= 
-//= 2.3a
-//===== Compatível com: ======================================= 
-//= Cronus SVN
-//===== Descrição: ============================================ 
-//= [Aegis Conversion]
-//= Quest para Classe Mercador
-//===== Comentários Adicionais: ===============================
-//= v1.1 Added instant job change for High Novice [Lupus]
-//= v1.3 Added Baby Class support [Lupus]
-//= v1.4 Optimised and moved first checker to Jfunc1-1 [massdriller]
-//= 1.5 Changed Prontera->Izlude teleport price to 600 [Lupus]
-//= 1.5.1 Removed Duplicates [Silent]
-//= 1.5.2 Now saves/restores all quest skills [Lupus]
-//= 1.6 Merged back JFunc, CHANGED NUMBERS TO CONSTANTS [Lupus]
-//= 1.7 Updated to use Free Ticket for Kafra [Lupus]
-//= 1.8 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//=	No longer uses function "F_ToHigh"
-//= 1.9 Bugfixes, thanks to Barron-Monster. [L0ne_W0lf]
-//= 1.9a Added a missing next; (Barron-Monster) [L0ne_W0lf]
-//= 1.9b Typo. "nextl" -> "next;" (Barron-Monster) [L0ne_W0lf]
-//= 2.0 Should "fix" the problem with the Biliban Kafra. [L0ne_W0lf]
-//= 2.1 Fixed mistake in condition check. [L0ne_W0lf]
-//= 2.1a Traduzido para português [Cardoso]
-//= 2.1b Revisão Geral do Script [Mara]
-//= 2.2 Adicionados comandos do Quest Log. [LEOzinn]
-//= 2.3 Corrigido problema ao completar a quests [Asus]
-//= 2.3a Revisão e atualização view_id [KyukE]
-//============================================================
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Guilda dos Mercadores                                     -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- kobra_k88; L0ne_W0lf                                      -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 2.3a                                                      -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- [Aegis Conversion]                                        -
+//- Quest para Classe Mercador                                -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- v1.1 Added instant job change for High Novice [Lupus]     -
+//- v1.3 Added Baby Class support [Lupus]                     -
+//- v1.4 Optimised and moved first                            -
+//-      checker to Jfunc1-1 [massdriller]                    -
+//- 1.5 Changed Prontera->Izlude teleport price to 600[Lupus] -
+//- 1.5.1 Removed Duplicates [Silent]                         -
+//- 1.5.2 Now saves/restores all quest skills [Lupus]         -
+//- 1.6 Merged back JFunc,CHANGED NUMBERS TO CONSTANTS[Lupus] -
+//- 1.7 Updated to use Free Ticket for Kafra [Lupus]          -
+//- 1.8 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]        -
+//-	No longer uses function "F_ToHigh"                        -
+//- 1.9 Bugfixes, thanks to Barron-Monster. [L0ne_W0lf]       -
+//- 1.9a Added a missing next; (Barron-Monster) [L0ne_W0lf]   -
+//- 1.9b Typo. "nextl" -> "next;" (Barron-Monster)[L0ne_W0lf] -
+//- 2.0 Should "fix" the problem with the                     -
+//-     Biliban Kafra. [L0ne_W0lf]                            -
+//- 2.1 Fixed mistake in condition check. [L0ne_W0lf]         -
+//- 2.1a Traduzido para português [Cardoso]                   -
+//- 2.1b Revisão Geral do Script [Mara]                       -
+//- 2.2 Adicionados comandos do Quest Log. [LEOzinn]          -
+//- 2.3 Corrigido problema ao completar a quests [Asus]       -
+//- 2.3a Revisão e atualização view_id [KyukE]                -
+//-------------------------------------------------------------
 
 alberta_in,53,43,6	script	Mercardor#mer	4_M_04,{
 	if (Upper == 1) {

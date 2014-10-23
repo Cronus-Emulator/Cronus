@@ -1,36 +1,59 @@
-//===== Cronus Script ========================================
-//= Quest de Espadachim
-//===== Criado: ==============================================
-//= Cronus, Hercules e rAthena.
-//===== Versуo: ============================================== 
-//= 2.4a
-//===== Descriчуo: =========================================== 
-//= Mudanчa de classe para Espadachim
-//===== Comentarios Adicionais: ============================== 
-//= 1.0 Fully working.
-//= 1.1 Added instant job change for High Novice [Lupus]
-//= 1.3 Added Baby Class support [Lupus]
-//= 1.4 Changed the timing system to initnpctimer, now you do get warnings about time
-//=     and are limited to 7min to complete the quest [Fredzilla]
-//= 1.5 Optimised and moved first checker to Jfunc1-1 [massdriller]
-//= 1.5.1 Fixed possible EXP abuse [Lupus]
-//= 1.5.2 Now saves/restores all quest skills [Lupus]
-//= 1.5.3 Removed Duplicates [Silent]
-//= 1.6 Merged back JFunc, CHANGED NUMBERS TO CONSTANTS [Lupus]
-//= 1.7 changed location from its clone to the original [Lupus]
-//= 1.7.1 Fixed warp on timeout [KarLaeda]
-//= 1.8 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//=     Removed "green" traps, quest is no longer timed.
-//=     No longer uses function "F_ToHigh"
-//= 1.9 Dialog is official, but the Script is now custom as far as maps go. [L0ne_W0lf]
-//= 1.9b Fixed usage of wrong jobchange func messing up baby classes [ultramage]
-//= 2.0 Corrected NPC names to fall within proper resctrictions. [L0ne_W0lf]
-//= 2.1 Fixed mistake in condition check. [L0ne_W0lf]
-//= 2.2 Warp portals dont end with ; [Yommy]
-//= 2.3 Added Quest Log commands. [L0ne_W0lf]
-//= 2.4 Realizado a traduчуo PT-BR. [beckdeveloper]
-//= 2.4a Revisуo e atualizaчуo das view_ids. [KyukE]
-//============================================================  
+//-------------------------------------------------------------
+//-     _________                                             -
+//-     \_   ___ \_______  ____   ____  __ __  ______         -
+//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
+//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
+//-      \______  /|__|   \____/|___|  /____//____  >         -
+//-             \/                   \/           \/          -
+//-                 www.cronus-emulator.com                   -
+//-------------------------------------------------------------
+//- Quest de Espadachim                                       -
+//-------------------------------------------------------------
+//- Por:                                                      -
+//- Cronus, Hercules e rAthena.                               -
+//-------------------------------------------------------------
+//- Versão Atual:                                             -
+//- 2.4a                                                      -
+//-------------------------------------------------------------
+//- Compatível Com:                                           -
+//- Cronus                                                    -
+//-------------------------------------------------------------
+//- Descrição:                                                -
+//- Mudanчa de classe para Espadachim                         -
+//-------------------------------------------------------------
+//- Comentários Adicionais:                                   -
+//- 1.0 Fully working.                                        -
+//- 1.1 Added instant job change for High Novice [Lupus]      -
+//- 1.3 Added Baby Class support [Lupus]                      -
+//- 1.4 Changed the timing system to initnpctimer,            -
+//-     now you do get warnings about time                    -
+//-     and are limited to 7min to complete                   -
+//-     the quest [Fredzilla]                                 -
+//- 1.5 Optimised and moved first checker to                  -
+//-     Jfunc1-1 [massdriller]                                -
+//- 1.5.1 Fixed possible EXP abuse [Lupus]                    -
+//- 1.5.2 Now saves/restores all quest skills [Lupus]         -
+//- 1.5.3 Removed Duplicates [Silent]                         -
+//- 1.6 Merged back JFunc, CHANGED NUMBERS TO                 -
+//-     CONSTANTS [Lupus]                                     -
+//- 1.7 changed location from its clone to                    -
+//-     the original [Lupus]                                  -
+//- 1.7.1 Fixed warp on timeout [KarLaeda]                    -
+//- 1.8 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]        -
+//-     Removed "green" traps, quest is no longer timed.      -
+//-     No longer uses function "F_ToHigh"                    -
+//- 1.9 Dialog is official, but the Script is now             -
+//-     custom as far as maps go. [L0ne_W0lf]                 -
+//- 1.9b Fixed usage of wrong jobchange func messing          -
+//-     up baby classes [ultramage]                           -
+//- 2.0 Corrected NPC names to fall within                    -
+//-     proper resctrictions. [L0ne_W0lf]                     -
+//- 2.1 Fixed mistake in condition check. [L0ne_W0lf]         -
+//- 2.2 Warp portals dont end with ; [Yommy]                  -
+//- 2.3 Added Quest Log commands. [L0ne_W0lf]                 -
+//- 2.4 Realizado a tradução PT-BR. [beckdeveloper]           -
+//- 2.4a Revisão e atualização das view_ids. [KyukE]          -
+//-------------------------------------------------------------
 
 izlude_in,74,172,4	script	Chefe Espadachim#swd_1	2_M_SWORDMASTER,{
 	if (Upper == 1) {
