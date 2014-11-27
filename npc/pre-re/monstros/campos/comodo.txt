@@ -12,8 +12,8 @@
 //==================================================
 // cmd_fild01 - Papuchicha Forest
 //==================================================
-cmd_fild01,0,0,0,0	monster	Alligator	1271,60,0,0,0
-cmd_fild01,0,0,0,0	monster	Savage	1166,30,0,0,0
+cmd_fild01,0,0,0,0	monster	Crocodilo	1271,60,0,0,0
+cmd_fild01,0,0,0,0	monster	Selvagem	1166,30,0,0,0
 cmd_fild01,0,0,0,0	monster	Poporing	1031,30,0,0,0
 cmd_fild01,0,0,0,0	monster	Poison Spore	1077,20,0,0,0
 cmd_fild01,313,213,10,10	monster	Shining Plant	1083,1,1800000,900000,1
@@ -29,7 +29,7 @@ cmd_fild01,0,0,0,0	monster	Green Plant	1080,5,1800000,900000,1
 cmd_fild02,73,100,40,100	monster	Aster	1266,5,0,0,0
 cmd_fild02,200,130,150,50	monster	Aster	1266,5,0,0,0
 cmd_fild02,0,0,0,0	monster	Crab	1073,20,0,0,0
-cmd_fild02,0,0,0,0	monster	Alligator	1271,10,0,0,0
+cmd_fild02,0,0,0,0	monster	Crocodilo	1271,10,0,0,0
 cmd_fild02,0,0,0,0	monster	Raggler	1254,30,0,0,0
 cmd_fild02,94,85,40,80	monster	Raggler	1254,2,60000,0,0
 cmd_fild02,95,89,40,80	monster	Cornutus	1067,5,180000,0,0
@@ -57,7 +57,7 @@ cmd_fild03,145,191,3,3	monster	Shining Plant	1083,1,1800000,900000,1
 // cmd_fild04 - Kokomo Beach
 //==================================================
 cmd_fild04,221,120,120,40	monster	Aster	1266,45,0,0,0
-cmd_fild04,0,0,0,0	monster	Alligator	1271,40,0,0,0
+cmd_fild04,0,0,0,0	monster	Crocodilo	1271,40,0,0,0
 cmd_fild04,0,0,0,0	monster	Crab	1073,20,0,0,0
 cmd_fild04,0,0,0,0	monster	Raggler	1254,20,0,0,0
 cmd_fild04,0,0,0,0	monster	Shellfish	1074,20,0,0,0
@@ -67,7 +67,7 @@ cmd_fild04,221,120,120,40	monster	Sea Otter	1323,20,0,0,0
 // cmd_fild05 - Border of Papuchica Forest
 //==================================================
 cmd_fild05,0,0,0,0	monster	Frilldora	1119,45,0,0,0
-cmd_fild05,0,0,0,0	monster	Alligator	1271,20,0,0,0
+cmd_fild05,0,0,0,0	monster	Crocodilo	1271,20,0,0,0
 cmd_fild05,0,0,0,0	monster	Stem Worm	1215,5,0,0,0
 cmd_fild05,0,0,0,0	monster	Poporing	1031,10,0,0,0
 cmd_fild05,0,0,0,0	monster	Pest	1256,5,0,0,0

@@ -23,7 +23,7 @@
 //-------------------------------------------------------------
 //- Comentários Adicionais:                                   -
 //- 1.0 Moved Izlude NPCs to Pre-RE/RE paths.                 -
-//- 1.1 Aplicado Tradução para (PT_BR). [SkyHD]                   -
+//- 1.1 Aplicado Tradução para (PT_BR). [SkyHD]               -
 //-------------------------------------------------------------
 
 izlude,131,116,4	script	Bulletin Board#5	2_BULLETIN_BOARD,{

@@ -7,7 +7,7 @@
 //-             \/                   \/           \/          -
 //-                 www.cronus-emulator.com                   -
 //-------------------------------------------------------------
-//- Hipnotizadora                                                 -
+//- Hipnotizadora                                             -
 //-------------------------------------------------------------
 //- Por:                                                      -
 //- L0ne_W0lf                                                 -
@@ -28,7 +28,7 @@
 //-------------------------------------------------------------
 //- Comentários Adicionais:                                   -
 //- 1.0 First version. [L0ne_W0lf]                            -
-//- 1.1 Aplicado Tradução para (PT_BR). [SkyHD]                   -
+//- 1.1 Aplicado Tradução para (PT_BR). [SkyHD]               -
 //-------------------------------------------------------------
 
 prontera,146,232,4	script	Hipnotizadora#2	4_F_TELEPORTER,{
