@@ -1,35 +1,9 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
+
 #include "timer.h"
 
 #include <stdio.h>
@@ -85,7 +59,7 @@ time_t start_time;
 
 
 /*----------------------------
- * 	Timer debugging
+ * Timer debugging
  *----------------------------*/
 struct timer_func_list {
 	struct timer_func_list* next;
@@ -127,41 +101,41 @@ char* search_timer_func_list(TimerFunc func)
 }
 
 /*----------------------------
- * 	Get tick time
+ * Get tick time
  *----------------------------*/
 
 #if defined(ENABLE_RDTSC)
 static uint64 RDTSC_BEGINTICK = 0,   RDTSC_CLOCK = 0;
 
-static __inline uint64 _rdtsc(){
-	register union{
-		uint64	qw;
-		uint32 	dw[2];
+static __inline uint64 rdtsc_(void) {
+	register union {
+		uint64 qw;
+		uint32 dw[2];
 	} t;
 
 	asm volatile("rdtsc":"=a"(t.dw[0]), "=d"(t.dw[1]) );
-	
+
 	return t.qw;
 }
 
-static void rdtsc_calibrate(){
+static void rdtsc_calibrate(void){
 	uint64 t1, t2;
 	int32 i;
-	
+
 	ShowStatus("Calibrating Timer Source, please wait... ");
-	
+
 	RDTSC_CLOCK = 0;
-	
+
 	for(i = 0; i < 5; i++){
-		t1 = _rdtsc();
+		t1 = rdtsc_();
 		usleep(1000000); //1000 MS
-		t2 = _rdtsc();
+		t2 = rdtsc_();
 		RDTSC_CLOCK += (t2 - t1) / 1000;
 	}
 	RDTSC_CLOCK /= 5;
-	
-	RDTSC_BEGINTICK = _rdtsc();
-	
+
+	RDTSC_BEGINTICK = rdtsc_();
+
 	ShowMessage(" done. (Frequency: %u Mhz)\n", (uint32)(RDTSC_CLOCK/1000) );
 }
 
@@ -201,7 +175,7 @@ static int64 sys_tick(void) {
 #elif defined(ENABLE_RDTSC)
 	// RDTSC: Returns the number of CPU cycles since reset. Unreliable if
 	//   the CPU frequency is variable.
-	return (int64)((_rdtsc() - RDTSC_BEGINTICK) / RDTSC_CLOCK);
+	return (int64)((rdtsc_() - RDTSC_BEGINTICK) / RDTSC_CLOCK);
 #elif defined(HAVE_MONOTONIC_CLOCK)
 	// Monotonic clock: Implementation-defined.
 	//   Clock that cannot be set and represents monotonic time since some
@@ -259,7 +233,7 @@ int64 timer_gettick(void) {
 //////////////////////////////////////////////////////////////////////////
 
 /*======================================
- * 	CORE : Timer Heap
+ * CORE : Timer Heap
  *--------------------------------------*/
 
 /// Adds a timer to the timer_heap
@@ -269,7 +243,7 @@ static void push_timer_heap(int tid) {
 }
 
 /*==========================
- * 	Timer Management
+ * Timer Management
  *--------------------------*/
 
 /// Returns a free timer id.
@@ -286,6 +260,7 @@ static int acquire_timer(void) {
 
 	// check available space
 	if( tid >= timer_data_num )
+		// possible timer_data null pointer
 		for (tid = timer_data_num; tid < timer_data_max && timer_data[tid].type; tid++);
 	if (tid >= timer_data_num && tid >= timer_data_max)
 	{// expand timer array
@@ -307,7 +282,7 @@ static int acquire_timer(void) {
 /// Returns the timer's id.
 int timer_add(int64 tick, TimerFunc func, int id, intptr_t data) {
 	int tid;
-	
+
 	tid = acquire_timer();
 	timer_data[tid].tick     = tick;
 	timer_data[tid].func     = func;
@@ -325,11 +300,12 @@ int timer_add(int64 tick, TimerFunc func, int id, intptr_t data) {
 int timer_add_interval(int64 tick, TimerFunc func, int id, intptr_t data, int interval) {
 	int tid;
 
-	if( interval < 1 ) {
-		ShowError("timer_add_interval: invalid interval (tick=%"PRId64" %p[%s] id=%d data=%d diff_tick=%"PRId64")\n", tick, func, search_timer_func_list(func), id, data, DIFF_TICK(tick, timer->gettick()));
+	if (interval < 1) {
+		ShowError("timer_add_interval: invalid interval (tick=%"PRId64" %p[%s] id=%d data=%"PRIdPTR" diff_tick=%"PRId64")\n",
+		          tick, func, search_timer_func_list(func), id, data, DIFF_TICK(tick, timer->gettick()));
 		return INVALID_TIMER;
 	}
-	
+
 	tid = acquire_timer();
 	timer_data[tid].tick     = tick;
 	timer_data[tid].func     = func;
@@ -376,7 +352,7 @@ int64 timer_addtick(int tid, int64 tick) {
 /// Returns the new tick value, or -1 if it fails.
 int64 timer_settick(int tid, int64 tick) {
 	size_t i;
-	
+
 	// search timer position
 	ARR_FIND(0, BHEAP_LENGTH(timer_heap), i, BHEAP_DATA(timer_heap)[i] == tid);
 	if( i == BHEAP_LENGTH(timer_heap) ) {
@@ -469,8 +445,8 @@ void timer_final(void) {
 	struct timer_func_list *next;
 
 	for( tfl=tfl_root; tfl != NULL; tfl = next ) {
-		next = tfl->next;	// copy next pointer
-		aFree(tfl->name);	// free structures
+		next = tfl->next; // copy next pointer
+		aFree(tfl->name); // free structures
 		aFree(tfl);
 	}
 

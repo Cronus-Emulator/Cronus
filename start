@@ -1,7 +1,6 @@
 #!/bin/sh
-# Script criado por rowla
-# Modificado por shazeya@syafi.com (NL101541)
-# Traduzido e Incrementado por Chiron (diegopinheiro.sjc@hotmail.com)
+# athena starting script by rowla
+# modified by shazeya@syafi.com (NL101541)
 
 PATH=./:$PATH
 
@@ -10,8 +9,16 @@ C_SRV=char-server
 M_SRV=map-server
 
 print_start() {
-echo "Cronus Iniciando..."
-echo "Checando os Arquivos..."
+#    more << EOF
+echo "Athena Starting..."
+echo "            (c) 2003 Athena Project"
+echo "              modified by shazeya@syafi.com"
+echo ""
+#echo "Debug informations will appear,"
+#echo "since this is a test release."
+#echo ""
+echo "checking..."
+#EOF
 }
 
 check_files() {
@@ -19,18 +26,21 @@ check_files() {
     for i in ${L_SRV} ${C_SRV} ${M_SRV}
     do
         if [ ! -f ./$i ]; then
-            echo "$i não existe ou está corrompido"
-            echo "Recompile os arquivos."
+            echo "$i does not exist, or can't run."
+            echo "Stop. Check your compile."
             exit 1;
         fi
     done
 
-echo "Checagem Completa"
+#    more << EOF
+echo "Check complete."
+echo "Looks good, a nice Athena!"
+#EOF
 }
 
 
 case $1 in
-    'Ligar')
+    'start')
         print_start
         check_files
 
@@ -41,16 +51,9 @@ case $1 in
         exec ./${M_SRV}&
 	echo $! > .${M_SRV}.pid
 
+        echo "Now Started Athena."
 ;;
-    'Atualizar')
-        if [ -f /usr/bin/yum ]; then
-			yum update -y
-			yum upgrade -y
-		else
-			apt-get update -y
-		fi
-;;
-    'Parar')
+    'stop')
 	for i in .${L_SRV}.pid .${C_SRV}.pid .${M_SRV}.pid
 	    do
 		if [ -e ./$i ]; then
@@ -59,11 +62,11 @@ case $1 in
 		fi
 	    done
 ;;
-    'Reiniciar')
-        $0 Parar
-        $0 Ligar
+    'restart')
+        $0 stop
+        $0 start
 ;;
     *)
-        echo "Uso: start { Ligar | Parar | Reiniciar | Atualizar }"
+        echo "Usage: athena-start { start | stop | restart }"
 ;;
 esac

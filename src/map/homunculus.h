@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_HOMUNCULUS_H
 #define MAP_HOMUNCULUS_H
@@ -42,6 +13,17 @@
 #define MAX_HOM_SKILL_REQUIRE 5
 #define homdb_checkid(id) ((id) >=  HM_CLASS_BASE && (id) <= HM_CLASS_MAX)
 #define homun_alive(x) ((x) && (x)->homunculus.vaporize == HOM_ST_ACTIVE && (x)->battle_status.hp > 0)
+
+#ifdef RENEWAL
+#define	HOMUN_LEVEL_STATWEIGHT_VALUE 0
+#define APPLY_HOMUN_LEVEL_STATWEIGHT()( \
+	hom->str_value = hom->agi_value = \
+	hom->vit_value = hom->int_value = \
+	hom->dex_value = hom->luk_value = hom->level / 10 - HOMUN_LEVEL_STATWEIGHT_VALUE \
+	)
+#else
+#define APPLY_HOMUN_LEVEL_STATWEIGHT()
+#endif
 
 struct h_stats {
 	unsigned int HP, SP;
@@ -94,7 +76,7 @@ struct homun_data {
 	int hungry_timer;                     //[orn]
 	unsigned int exp_next;
 	char blockskill[MAX_SKILL];           // [orn]
-	
+
 	int64 masterteleport_timer;
 };
 
@@ -123,7 +105,7 @@ struct homunculus_interface {
 	struct s_homunculus_db db[MAX_HOMUNCULUS_CLASS];
 	struct homun_skill_tree_entry skill_tree[MAX_HOMUNCULUS_CLASS][MAX_SKILL_TREE];
 	/* */
-	void (*init) (void);
+	void (*init) (bool minimal);
 	void (*final) (void);
 	void (*reload) (void);
 	void (*reload_skill) (void);
@@ -175,6 +157,8 @@ struct homunculus_interface {
 
 struct homunculus_interface *homun;
 
+#ifdef HERCULES_CORE
 void homunculus_defaults(void);
+#endif // HERCULES_CORE
 
-#endif /* _MAP_HOMUNCULUS_H_ */
+#endif /* MAP_HOMUNCULUS_H */

@@ -1,43 +1,19 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef COMMON_SHOWMSG_H
 #define COMMON_SHOWMSG_H
 
 #include <stdarg.h>
-#include "../3rdparty/libconfig/libconfig.h"
 
+#include "../common/cbasetypes.h"
+
+#ifdef HERCULES_CORE
+#	include "../../3rdparty/libconfig/libconfig.h"
+#else
+#	include "../common/HPMi.h"
+#endif
 
 // for help with the console colors look here:
 // http://www.edoceo.com/liberum/?doc=printf-with-color
@@ -100,11 +76,6 @@
 
 #define CL_SPACE		"           "	// space equivalent of the print messages
 
-extern int stdout_with_ansisequence; //If the color ANSI sequences are to be used. [flaviojs]
-extern int msg_silent; //Specifies how silent the console is. [Skotlex]
-extern int console_msg_log; //Specifies what error messages to log. [Ind]
-extern char timestamp_format[20]; //For displaying Timestamps [Skotlex]
-
 enum msg_type {
 	MSG_NONE,
 	MSG_STATUS,
@@ -117,18 +88,35 @@ enum msg_type {
 	MSG_FATALERROR
 };
 
+#ifdef HERCULES_CORE
+extern int stdout_with_ansisequence; //If the color ANSI sequences are to be used. [flaviojs]
+extern int msg_silent; //Specifies how silent the console is. [Skotlex]
+extern int console_msg_log; //Specifies what error messages to log. [Ind]
+extern char timestamp_format[20]; //For displaying Timestamps [Skotlex]
+
 extern void ClearScreen(void);
-extern void ShowMessage(const char *, ...);
-extern void ShowStatus(const char *, ...);
-extern void ShowSQL(const char *, ...);
-extern void ShowInfo(const char *, ...);
-extern void ShowNotice(const char *, ...);
-extern void ShowWarning(const char *, ...);
-extern void ShowDebug(const char *, ...);
-extern void ShowError(const char *, ...);
-extern void ShowFatalError(const char *, ...);
-extern void ShowConfigWarning(config_setting_t *config, const char *string, ...);
+extern int vShowMessage_(enum msg_type flag, const char *string, va_list ap);
 
-extern int _vShowMessage(enum msg_type flag, const char *string, va_list ap);
+	extern void ShowMessage(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowStatus(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowSQL(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowInfo(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowNotice(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowWarning(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowDebug(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowError(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowFatalError(const char *, ...) __attribute__((format(printf, 1, 2)));
+	extern void ShowConfigWarning(config_setting_t *config, const char *string, ...) __attribute__((format(printf, 2, 3)));
+#else
+	HPExport void (*ShowMessage) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowStatus) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowSQL) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowInfo) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowNotice) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowWarning) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowDebug) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowError) (const char *, ...) __attribute__((format(printf, 1, 2)));
+	HPExport void (*ShowFatalError) (const char *, ...) __attribute__((format(printf, 1, 2)));
+#endif
 
-#endif /* _COMMON_SHOWMSG_H_ */
+#endif /* COMMON_SHOWMSG_H */

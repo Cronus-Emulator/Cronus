@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef LOGIN_ACCOUNT_H
 #define LOGIN_ACCOUNT_H
@@ -42,8 +13,10 @@ typedef struct AccountDB AccountDB;
 typedef struct AccountDBIterator AccountDBIterator;
 
 
+#ifdef HERCULES_CORE
 // standard engines
 AccountDB* account_db_sql(void);
+#endif // HERCULES_CORE
 
 struct mmo_account
 {
@@ -63,6 +36,7 @@ struct mmo_account
 	char lastlogin[24];         // date+time of last successful login
 	char last_ip[16];           // save of last IP of connection
 	char birthdate[10+1];       // assigned birth date (format: YYYY-MM-DD, default: 0000-00-00)
+	char mac_address[18];       // Checagem mac_address - Megasantos
 };
 
 
@@ -81,6 +55,10 @@ struct AccountDBIterator
 	bool (*next)(AccountDBIterator* self, struct mmo_account* acc);
 };
 
+struct Account_engine {
+	AccountDB* (*constructor)(void);
+	AccountDB* db;
+};
 
 struct AccountDB
 {
@@ -94,7 +72,7 @@ struct AccountDB
 	/// Destroys this database, releasing all allocated memory (including itself).
 	///
 	/// @param self Database
-	void (*destroy)(void);
+	void (*destroy)(AccountDB* self);
 
 	/// Gets a property from this database.
 	/// These read-only properties must be implemented:
@@ -164,15 +142,11 @@ struct AccountDB
 	AccountDBIterator* (*iterator)(AccountDB* self);
 };
 
+#ifdef HERCULES_CORE
 Sql *account_db_sql_up(AccountDB* self);
-
-void ipban_init(void);
-void ipban_final(void);
-bool ipban_check(uint32 ip);
-void ipban_log(uint32 ip);
-bool ipban_config_read(const char* key, const char* value);
 
 void mmo_send_accreg2(AccountDB* self, int fd, int account_id, int char_id);
 void mmo_save_accreg2(AccountDB* self, int fd, int account_id, int char_id);
+#endif // HERCULES_CORE
 
 #endif /* LOGIN_ACCOUNT_H */

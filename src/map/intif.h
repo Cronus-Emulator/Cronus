@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_INTIF_H
 #define MAP_INTIF_H
@@ -116,7 +87,7 @@ struct intif_interface {
 	bool (*homunculus_requestload) (int account_id, int homun_id);
 	int (*homunculus_requestsave) (int account_id, struct s_homunculus* sh);
 	int (*homunculus_requestdelete) (int homun_id);
-	//QUEST SYSTEM
+	/******QUEST SYTEM*******/
 	void (*request_questlog) (struct map_session_data * sd);
 	int (*quest_save) (struct map_session_data * sd);
 	// MERCENARY SYSTEM
@@ -213,6 +184,8 @@ struct intif_interface {
 
 struct intif_interface *intif;
 
+#ifdef HERCULES_CORE
 void intif_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* MAP_INTIF_H */

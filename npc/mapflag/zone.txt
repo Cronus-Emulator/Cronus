@@ -1,30 +1,13 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Mapflag: Zona.                                            -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Ind/Hercules                                              -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.1                                                       -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- Bandeiras e mapas como parte de zonas definidas           -
-//- no map_zone_db.txt.                                       -
-//-------------------------------------------------------------
-//- Comentários Adicionais:                                   -
-//- 1.1 Aplicada Tradução (PT-BR). [SkyHD]                    -
-//-------------------------------------------------------------
+//===== Hercules==============================================
+//= Mapflag: Zone.
+//===== By: ==================================================
+//= Ind/Hercules
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= Flags maps as part of zones defined in map_zone_db.txt
+//===== Additional Comments: =================================
+//============================================================
 
 //Aldebaran Turbo Track
 alde_tt02	mapflag	zone	Aldebaran Turbo Track
@@ -36,7 +19,7 @@ turbo_e_4	mapflag	zone	Aldebaran Turbo Track
 turbo_e_8	mapflag	zone	Aldebaran Turbo Track
 turbo_e_16	mapflag	zone	Aldebaran Turbo Track
 
-//Prisão
+//Jail
 sec_pri	mapflag	zone	Jail
 
 //Izlude Battle Arena
@@ -49,11 +32,11 @@ force_1-2	mapflag	zone	Izlude Battle Arena
 force_1-3	mapflag	zone	Izlude Battle Arena
 prt_are_in	mapflag	zone	Izlude Battle Arena
 
-//Santuário Selado ==================
+//Sealed Shrine ==================
 1@cata	mapflag	zone	Sealed Shrine
 2@cata	mapflag	zone	Sealed Shrine
 
-//Torre Infinita ==================
+//Endless Tower ==================
 1@tower	mapflag	zone	Memorial Dungeon
 2@tower	mapflag	zone	Memorial Dungeon
 3@tower	mapflag	zone	Memorial Dungeon
@@ -61,40 +44,40 @@ prt_are_in	mapflag	zone	Izlude Battle Arena
 5@tower	mapflag	zone	Memorial Dungeon
 6@tower	mapflag	zone	Memorial Dungeon
 
-//Memorial dos Orcs ===================
+//Orc's Memory ===================
 1@orcs	mapflag	zone	Memorial Dungeon
 2@orcs	mapflag	zone	Memorial Dungeon
 
-// Instância de Nidhogg ===========
+// Nidhoggr's Instance ===========
 1@nyd	mapflag	zone	Memorial Dungeon
 2@nyd	mapflag	zone	Memorial Dungeon
 
-// Labirinto da Floresta Mística ===========
+// Misty Forest Labyrinth ===========
 1@mist	mapflag	zone	Memorial Dungeon
 
-// Caverna de Octopus ===========
+// Octopus Cave ===========
 1@cash	mapflag	zone	Memorial Dungeon
 
-// Canalização ===========
+// Drain ===========
 1@pump	mapflag	zone	Memorial Dungeon
 2@pump	mapflag	zone	Memorial Dungeon
 
-// Laboratório de Somatologia ===========
+// Somatology Laboratory ===========
 1@lhz	mapflag	zone	Memorial Dungeon
 
-// Hospital de Bangungot ===========
+// Bangungot Hospital F2 ===========
 1@ma_h	mapflag	zone	Memorial Dungeon
 
-// Caverna de Buwaya ===========
+// Buwaya Cave ===========
 1@ma_c	mapflag	zone	Memorial Dungeon
 
-// Esconderijo de Bakonawa ===========
+// Bakonawa Hideout ===========
 1@ma_b	mapflag	zone	Memorial Dungeon
 
-// Interior de Eclage ===========
+// Inside Eclage ===========
 1@ecl	mapflag	zone	Memorial Dungeon
 
-//Cidades
+//Towns
 alberta	mapflag	zone	Towns
 aldebaran	mapflag	zone	Towns
 amatsu	mapflag	zone	Towns

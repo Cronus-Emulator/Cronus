@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_ITEMDB_H
 #define MAP_ITEMDB_H
@@ -70,7 +41,9 @@ enum item_itemid {
 	ITEMID_YELLOW_POTION         = 503,
 	ITEMID_WHITE_POTION          = 504,
 	ITEMID_BLUE_POTION           = 505,
+	ITEMID_APPLE                 = 512,
 	ITEMID_HOLY_WATER            = 523,
+	ITEMID_PUMPKIN               = 535,
 	ITEMID_RED_SLIM_POTION       = 545,
 	ITEMID_YELLOW_SLIM_POTION    = 546,
 	ITEMID_WHITE_SLIM_POTION     = 547,
@@ -87,6 +60,10 @@ enum item_itemid {
 	ITEMID_ORIDECON_STONE        = 756,
 	ITEMID_ALCHOL                = 970,
 	ITEMID_ORIDECON              = 984,
+	ITEMID_ANVIL                 = 986,
+	ITEMID_ORIDECON_ANVIL        = 987,
+	ITEMID_GOLDEN_ANVIL          = 988,
+	ITEMID_EMPERIUM_ANVIL        = 989,
 	ITEMID_BOODY_RED             = 990,
 	ITEMID_CRYSTAL_BLUE          = 991,
 	ITEMID_WIND_OF_VERDURE       = 992,
@@ -397,7 +374,7 @@ enum ItemNouseRestrictions {
 struct item_data {
 	uint16 nameid;
 	char name[ITEM_NAME_LENGTH],jname[ITEM_NAME_LENGTH];
-	
+
 	//Do not add stuff between value_buy and view_id (see how getiteminfo works)
 	int value_buy;
 	int value_sell;
@@ -419,24 +396,25 @@ struct item_data {
 
 	int delay;
 //Lupus: I rearranged order of these fields due to compatibility with ITEMINFO script command
-//		some script commands should be revised as well...
-	unsigned int class_base[3];	//Specifies if the base can wear this item (split in 3 indexes per type: 1-1, 2-1, 2-2)
-	unsigned class_upper : 6; //Specifies if the upper-type can equip it (bitfield, 0x01: normal, 0x02: upper, 0x04: baby normal, 0x08: third normal, 0x10: third upper, 0x20: third baby)
+//       some script commands should be revised as well...
+	unsigned int class_base[3]; ///< Specifies if the base can wear this item (split in 3 indexes per type: 1-1, 2-1, 2-2)
+	unsigned class_upper : 6;   ///< Specifies if the upper-type can equip it (bitfield, 0x01: normal, 0x02: upper, 0x04: baby normal, 0x08: third normal, 0x10: third upper, 0x20: third baby)
 	struct {
 		unsigned short chance;
 		int id;
-	} mob[MAX_SEARCH]; //Holds the mobs that have the highest drop rate for this item. [Skotlex]
-	struct script_code *script;	//Default script for everything.
-	struct script_code *equip_script;	//Script executed once when equipping.
-	struct script_code *unequip_script;//Script executed once when unequipping.
+	} mob[MAX_SEARCH];                  ///< Holds the mobs that have the highest drop rate for this item. [Skotlex]
+	struct script_code *script;         ///< Default script for everything.
+	struct script_code *equip_script;   ///< Script executed once when equipping.
+	struct script_code *unequip_script; ///< Script executed once when unequipping.
 	struct {
 		unsigned available : 1;
-		unsigned no_refine : 1;	// [celest]
-		unsigned delay_consume : 1;	// Signifies items that are not consumed immediately upon double-click [Skotlex]
-		unsigned trade_restriction : 9;	///< Item trade restrictions mask (@see enum ItemTradeRestrictions)
+		unsigned no_refine : 1; // [celest]
+		unsigned delay_consume : 1;     ///< Signifies items that are not consumed immediately upon double-click [Skotlex]
+		unsigned trade_restriction : 9; ///< Item trade restrictions mask (@see enum ItemTradeRestrictions)
 		unsigned autoequip: 1;
 		unsigned buyingstore : 1;
 		unsigned bindonequip : 1;
+		unsigned keepafteruse : 1;
 	} flag;
 	struct {// item stacking limitation
 		unsigned short amount;
@@ -449,14 +427,18 @@ struct item_data {
 		unsigned int flag; ///< Item nouse restriction mask (@see enum ItemNouseRestrictions)
 		unsigned short override;
 	} item_usage;
-	short gm_lv_trade_override;	//GM-level to override trade_restriction
+	short gm_lv_trade_override; ///< GM-level to override trade_restriction
 	/* bugreport:309 */
 	struct item_combo **combos;
 	unsigned char combos_count;
 	/* TODO add a pointer to some sort of (struct extra) and gather all the not-common vals into it to save memory */
 	struct item_group *group;
 	struct item_package *package;
-} item_data_t;
+
+	/* HPM Custom Struct */
+	struct HPluginData **hdata;
+	unsigned int hdatac;
+};
 
 struct item_combo {
 	struct script_code *script;
@@ -554,7 +536,7 @@ struct item_package {
 #define itemdb_canauction(item, gmlv)             (itemdb->isrestricted((item), (gmlv), 0, itemdb->canauction_sub))
 
 struct itemdb_interface {
-	void (*init) (void);
+	void (*init) (bool minimal);
 	void (*final) (void);
 	void (*reload) (void);
 	void (*name_constants) (void);
@@ -622,20 +604,25 @@ struct itemdb_interface {
 	void (*read_combos) ();
 	int (*gendercheck) (struct item_data *id);
 	int (*validate_entry) (struct item_data *entry, int n, const char *source);
+	void (*readdb_additional_fields) (int itemid, config_setting_t *it, int n, const char *source);
 	int (*readdb_sql_sub) (Sql *handle, int n, const char *source);
 	int (*readdb_libconfig_sub) (config_setting_t *it, int n, const char *source);
 	int (*readdb_libconfig) (const char *filename);
 	int (*readdb_sql) (const char *tablename);
 	uint64 (*unique_id) (struct map_session_data *sd);
-	void (*read) (void);
+	void (*read) (bool minimal);
 	void (*destroy_item_data) (struct item_data *self, int free_self);
 	int (*final_sub) (DBKey key, DBData *data, va_list ap);
 	void (*clear) (bool total);
 	struct item_combo * (*id2combo) (unsigned short id);
+	bool (*is_item_usable) (struct item_data *item);
+	bool (*lookup_const) (const config_setting_t *it, const char *name, int *value);
 };
 
 struct itemdb_interface *itemdb;
 
+#ifdef HERCULES_CORE
 void itemdb_defaults(void);
+#endif // HERCULES_CORE
 
-#endif /* _MAP_ITEMDB_H_ */
+#endif /* MAP_ITEMDB_H */

@@ -1,35 +1,9 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
+
 #include "vending.h"
 
 #include <stdio.h>
@@ -46,7 +20,7 @@
 #include "path.h"
 #include "pc.h"
 #include "skill.h"
-#include "../common/malloc.h"
+#include "../common/nullpo.h"
 #include "../common/strlib.h"
 #include "../common/utils.h"
 
@@ -61,7 +35,7 @@ static inline unsigned int getid(void) {
  * Close shop
  *------------------------------------------*/
 void vending_closevending(struct map_session_data* sd) {
-	nullcheckvoid(sd);
+	nullpo_retv(sd);
 
 	if( sd->state.vending ) {
 		sd->state.vending = false;
@@ -74,8 +48,8 @@ void vending_closevending(struct map_session_data* sd) {
  * Request a shop's item list
  *------------------------------------------*/
 void vending_vendinglistreq(struct map_session_data* sd, unsigned int id) {
-	struct map_session_data* vsd = NULL;
-	nullcheckvoid(sd);
+	struct map_session_data* vsd;
+	nullpo_retv(sd);
 
 	if( (vsd = map->id2sd(id)) == NULL )
 		return;
@@ -84,7 +58,7 @@ void vending_vendinglistreq(struct map_session_data* sd, unsigned int id) {
 
 	if (!pc_can_give_items(sd) || !pc_can_give_items(vsd)) { //check if both GMs are allowed to trade
 		// GM is not allowed to trade
-		clif->message(sd->fd, msg_txt(246));
+		clif->message(sd->fd, msg_sd(sd,246));
 		return;
 	}
 
@@ -102,8 +76,8 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 	struct s_vending vend[MAX_VENDING]; // against duplicate packets
 	struct map_session_data* vsd = map->id2sd(aid);
 
-	nullcheckvoid(sd);
-	if( !vsd || !vsd->state.vending || vsd->bl.id == sd->bl.id )
+	nullpo_retv(sd);
+	if( vsd == NULL || !vsd->state.vending || vsd->bl.id == sd->bl.id )
 		return; // invalid shop
 
 	if( vsd->vender_id != uid ) { // shop has changed
@@ -160,11 +134,11 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 			clif->buyvending(sd, idx, amount, 2); // you can not buy, because overweight
 			return;
 		}
-		
+
 		//Check to see if cart/vend info is in sync.
 		if( vend[j].amount > vsd->status.cart[idx].amount )
 			vend[j].amount = vsd->status.cart[idx].amount;
-		
+
 		// if they try to add packets (example: get twice or more 2 apples if marchand has only 3 apples).
 		// here, we check cumulative amounts
 		if( vend[j].amount < amount ) {
@@ -172,12 +146,12 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 			clif->buyvending(sd, idx, vsd->vending[j].amount, 4); // not enough quantity
 			return;
 		}
-		
+
 		vend[j].amount -= amount;
 
 		switch( pc->checkadditem(sd, vsd->status.cart[idx].nameid, amount) ) {
 			case ADDITEM_EXIST:
-				break;	//We'd add this item to the existing one (in buyers inventory)
+				break; //We'd add this item to the existing one (in buyers inventory)
 			case ADDITEM_NEW:
 				new_++;
 				if (new_ > blank)
@@ -207,7 +181,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 		//print buyer's name
 		if( battle_config.buyer_name ) {
 			char temp[256];
-			sprintf(temp, msg_txt(265), sd->status.name);
+			sprintf(temp, msg_sd(vsd,265), sd->status.name);
 			clif_disp_onlyself(vsd,temp,strlen(temp));
 		}
 	}
@@ -216,7 +190,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 	for( i = 0, cursor = 0; i < vsd->vend_num; i++ ) {
 		if( vsd->vending[i].amount == 0 )
 			continue;
-		
+
 		if( cursor != i ) { // speedup
 			vsd->vending[cursor].index = vsd->vending[i].index;
 			vsd->vending[cursor].amount = vsd->vending[i].amount;
@@ -253,7 +227,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 void vending_openvending(struct map_session_data* sd, const char* message, const uint8* data, int count) {
 	int i, j;
 	int vending_skill_lvl;
-	nullcheckvoid(sd);
+	nullpo_retv(sd);
 
 	if ( pc_isdead(sd) || !sd->state.prevend || pc_istrading(sd))
 		return; // can't open vendings lying dead || didn't use via the skill (wpe/hack) || can't have 2 shops at once
@@ -271,7 +245,7 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 		clif->skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0);
 		return;
 	}
-    
+
 	// filter out invalid items
 	i = 0;
 	for( j = 0; j < count; j++ ) {
@@ -282,13 +256,13 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 		index -= 2; // offset adjustment (client says that the first cart position is 2)
 
 		if( index < 0 || index >= MAX_CART // invalid position
-		||  pc->cartitem_amount(sd, index, amount) < 0 // invalid item or insufficient quantity
+		 || pc->cartitem_amount(sd, index, amount) < 0 // invalid item or insufficient quantity
 		//NOTE: official server does not do any of the following checks!
-		||  !sd->status.cart[index].identify // unidentified item
-		||  sd->status.cart[index].attribute == 1 // broken item
-		||  sd->status.cart[index].expire_time // It should not be in the cart but just in case
-		||  (sd->status.cart[index].bound && !pc_can_give_bound_items(sd)) // can't trade bound items w/o permission
- 		||  !itemdb_cantrade(&sd->status.cart[index], pc_get_group_level(sd), pc_get_group_level(sd)) ) // untradeable item
+		 || !sd->status.cart[index].identify // unidentified item
+		 || sd->status.cart[index].attribute == 1 // broken item
+		 || sd->status.cart[index].expire_time // It should not be in the cart but just in case
+		 || (sd->status.cart[index].bound && !pc_can_give_bound_items(sd)) // can't trade bound items w/o permission
+		 || !itemdb_cantrade(&sd->status.cart[index], pc_get_group_level(sd), pc_get_group_level(sd)) ) // untradeable item
 			continue;
 
 		sd->vending[i].index = index;
@@ -299,7 +273,7 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 	}
 
 	if( i != j )
-		clif->message (sd->fd, msg_txt(266)); //"Some of your items cannot be vended and were removed from the shop."
+		clif->message (sd->fd, msg_sd(sd,266)); //"Some of your items cannot be vended and were removed from the shop."
 
 	if( i == 0 ) { // no valid item found
 		clif->skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0); // custom reply packet
@@ -313,7 +287,7 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 
 	clif->openvending(sd,sd->bl.id,sd->vending);
 	clif->showvendingboard(&sd->bl,message,0);
-	
+
 	idb_put(vending->db, sd->status.char_id, sd);
 }
 
@@ -391,17 +365,17 @@ void final(void) {
 	db_destroy(vending->db);
 }
 
-void init(void) {
+void init(bool minimal) {
 	vending->db = idb_alloc(DB_OPT_BASE);
 	vending->next_id = 0;
 }
 
 void vending_defaults(void) {
 	vending = &vending_s;
-	
+
 	vending->init = init;
 	vending->final = final;
-	
+
 	vending->close = vending_closevending;
 	vending->open = vending_openvending;
 	vending->list = vending_vendinglistreq;

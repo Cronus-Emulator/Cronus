@@ -1,37 +1,22 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Kafras ( Cidades / Campos / Cavernas )                    -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Daegaladh                                                 -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.0a                                                      -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- Argument settings for callfunc "F_Kafra":                 -
-//-  arg(0): 0 - Default Kafra message                        -
-//-          1 - Niflhiem Kafra message                       -
-//-          2 - Guild Kafra message                          -
-//-  arg(1): 1 - Disable teleport menu                        -
-//-  arg(2): 1 - Disable info menu                            -
-//-  arg(3): Cost of Storage service                          -
-//-  arg(4): Cost of Rent a Pushcart service                  -
-//- Comentários Adicionais:                                   -
-//- 1.0 First version.                                        -
-//- 1.0a Aplicada tradução para português(pt_BR). [Cainho]    -
-//-------------------------------------------------------------
+//===== Hercules Script ======================================
+//= Kafras (Cities/Dungeons/Fields)
+//===== By: ==================================================
+//= Daegaladh
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= Argument settings for callfunc "F_Kafra":
+//=  arg(0): 0 - Default Kafra message
+//=          1 - Niflhiem Kafra message
+//=          2 - Guild Kafra message
+//=  arg(1): 1 - Disable teleport menu
+//=  arg(2): 1 - Disable info menu
+//=  arg(3): Cost of Storage service
+//=  arg(4): Cost of Rent a Pushcart service
+//===== Additional Comments: =================================
+//= 1.0 First version.
+//============================================================
 
 // Izlude
 //============================================================
-izlude,134,87,3	duplicate(kaf_izlude)	Funcionária Kafra#iz	4_F_KAFRA1
+izlude,134,87,3	duplicate(kaf_izlude)	Kafra Employee#iz	4_F_KAFRA1

@@ -1,35 +1,7 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) rAthena Project (www.rathena.org) - Licensed under GNU GPL
+// For more information, see LICENCE in the main folder
+
+#define HERCULES_CORE
 
 #include "mutex.h"
 
@@ -78,26 +50,26 @@ struct racond{
 //
 
 
-ramutex ramutex_create(){
+ramutex *ramutex_create(void) {
 	struct ramutex *m;
-	
-	m = aMalloc( sizeof(struct ramutex) );
-	if(m == NULL){
-		ShowFatalError("ramutex_create: OOM while allocating %u bytes.\n", sizeof(struct ramutex));
+
+	m = (struct ramutex*)aMalloc( sizeof(struct ramutex) );
+	if (m == NULL) {
+		ShowFatalError("ramutex_create: OOM while allocating %"PRIuS" bytes.\n", sizeof(struct ramutex));
 		return NULL;
 	}
-	
+
 #ifdef WIN32
 	InitializeCriticalSection(&m->hMutex);
 #else
 	pthread_mutex_init(&m->hMutex, NULL);
 #endif
-		
+
 	return m;
 }//end: ramutex_create()
 
 
-void ramutex_destroy( ramutex m ){
+void ramutex_destroy(ramutex *m) {
 
 #ifdef WIN32
 	DeleteCriticalSection(&m->hMutex);
@@ -110,7 +82,7 @@ void ramutex_destroy( ramutex m ){
 }//end: ramutex_destroy()
 
 
-void ramutex_lock( ramutex m ){
+void ramutex_lock(ramutex *m) {
 
 #ifdef WIN32
 	EnterCriticalSection(&m->hMutex);
@@ -120,22 +92,22 @@ void ramutex_lock( ramutex m ){
 }//end: ramutex_lock
 
 
-bool ramutex_trylock( ramutex m ){
+bool ramutex_trylock(ramutex *m) {
 #ifdef WIN32
-	if(TryEnterCriticalSection(&m->hMutex) == TRUE)
+	if(TryEnterCriticalSection(&m->hMutex) != FALSE)
 		return true;
 
 	return false;
 #else
 	if(pthread_mutex_trylock(&m->hMutex) == 0)
 		return true;
-	
+
 	return false;
 #endif
 }//end: ramutex_trylock()
 
 
-void ramutex_unlock( ramutex m ){
+void ramutex_unlock(ramutex *m) {
 #ifdef WIN32
 	LeaveCriticalSection(&m->hMutex);
 #else
@@ -152,29 +124,29 @@ void ramutex_unlock( ramutex m ){
 // Implementation:
 //
 
-racond racond_create(){
+racond *racond_create(void) {
 	struct racond *c;
-	
-	c = aMalloc( sizeof(struct racond) );
-	if(!c){
-		ShowFatalError("racond_create: OOM while allocating %u bytes\n", sizeof(struct racond));
+
+	c = (struct racond*)aMalloc( sizeof(struct racond) );
+	if (c == NULL) {
+		ShowFatalError("racond_create: OOM while allocating %"PRIuS" bytes\n", sizeof(struct racond));
 		return NULL;
 	}
 
 #ifdef WIN32
 	c->nWaiters = 0;
-	c->events[ EVENT_COND_SIGNAL ]		= CreateEvent( NULL,  FALSE,  FALSE,  NULL );
-	c->events[ EVENT_COND_BROADCAST ]	= CreateEvent( NULL,  TRUE,   FALSE,  NULL );
+	c->events[EVENT_COND_SIGNAL]    = CreateEvent(NULL, FALSE, FALSE, NULL);
+	c->events[EVENT_COND_BROADCAST] = CreateEvent(NULL, TRUE,  FALSE, NULL);
 	InitializeCriticalSection( &c->waiters_lock );
 #else
 	pthread_cond_init(&c->hCond, NULL);
 #endif
-	
+
 	return c;
 }//end: racond_create()
 
 
-void racond_destroy( racond c ){
+void racond_destroy(racond *c) {
 #ifdef WIN32
 	CloseHandle( c->events[ EVENT_COND_SIGNAL ] );
 	CloseHandle( c->events[ EVENT_COND_BROADCAST ] );
@@ -187,7 +159,7 @@ void racond_destroy( racond c ){
 }//end: racond_destroy()
 
 
-void racond_wait( racond c,  ramutex m,  sysint timeout_ticks){
+void racond_wait(racond *c, ramutex *m, sysint timeout_ticks) {
 #ifdef WIN32
 	register DWORD ms;
 	int result;
@@ -202,23 +174,19 @@ void racond_wait( racond c,  ramutex m,  sysint timeout_ticks){
 		ms = INFINITE;
 	else
 		ms = (timeout_ticks > MAXDWORD) ? (MAXDWORD - 1) : (DWORD)timeout_ticks;
-		
-	
+
 	// we can release the mutex (m) here, cause win's
 	// manual reset events maintain state when used with
 	// SetEvent()
 	ramutex_unlock(m);
 
 	result = WaitForMultipleObjects(2, c->events, FALSE, ms);
-	
-	
+
 	EnterCriticalSection(&c->waiters_lock);
 	c->nWaiters--;
 	if( (result == WAIT_OBJECT_0 + EVENT_COND_BROADCAST) && (c->nWaiters == 0) )
 		is_last = true; // Broadcast called!
 	LeaveCriticalSection(&c->waiters_lock);
-
-	
 
 	// we are the last waiter that has to be notified, or to stop waiting
 	// so we have to do a manual reset
@@ -234,10 +202,10 @@ void racond_wait( racond c,  ramutex m,  sysint timeout_ticks){
 	}else{
 		struct timespec wtime;
 		int64 exact_timeout = timer->gettick() + timeout_ticks;
-	
-		wtime.tv_sec = (time_t)exact_timeout/1000;
+
+		wtime.tv_sec = exact_timeout/1000;
 		wtime.tv_nsec = (exact_timeout%1000)*1000000;
-		
+
 		pthread_cond_timedwait( &c->hCond,  &m->hMutex,  &wtime);
 	}
 
@@ -245,15 +213,17 @@ void racond_wait( racond c,  ramutex m,  sysint timeout_ticks){
 }//end: racond_wait()
 
 
-void racond_signal( racond c ){
+void racond_signal(racond *c) {
 #ifdef WIN32
-//	bool has_waiters = false;
-//	EnterCriticalSection(&c->waiters_lock);
-//	if(c->nWaiters > 0)
-//			has_waiters = true;
-//	LeaveCriticalSection(&c->waiters_lock);
-	
-//	if(has_waiters == true)
+#	if 0
+	bool has_waiters = false;
+	EnterCriticalSection(&c->waiters_lock);
+	if(c->nWaiters > 0)
+		has_waiters = true;
+	LeaveCriticalSection(&c->waiters_lock);
+
+	if(has_waiters == true)
+#	endif // 0
 		SetEvent( c->events[ EVENT_COND_SIGNAL ] );
 #else
 	pthread_cond_signal(&c->hCond);
@@ -261,15 +231,17 @@ void racond_signal( racond c ){
 }//end: racond_signal()
 
 
-void racond_broadcast( racond c ){
+void racond_broadcast(racond *c) {
 #ifdef WIN32
-//	bool has_waiters = false;
-//	EnterCriticalSection(&c->waiters_lock);
-//	if(c->nWaiters > 0)
-//			has_waiters = true;
-//	LeaveCriticalSection(&c->waiters_lock);
-	
-//	if(has_waiters == true)
+#	if 0
+	bool has_waiters = false;
+	EnterCriticalSection(&c->waiters_lock);
+	if(c->nWaiters > 0)
+		has_waiters = true;
+	LeaveCriticalSection(&c->waiters_lock);
+
+	if(has_waiters == true)
+#	endif // 0
 		SetEvent( c->events[ EVENT_COND_BROADCAST ] );
 #else
 	pthread_cond_broadcast(&c->hCond);

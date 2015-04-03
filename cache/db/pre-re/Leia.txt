@@ -1,3 +1,0 @@
-Não modifique esta pasta!!!
-
-O emulador irá usar quando achar necessário.

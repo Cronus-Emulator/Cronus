@@ -1,35 +1,8 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "duel.h"
 
@@ -42,6 +15,8 @@
 #include "clif.h"
 #include "pc.h"
 #include "../common/cbasetypes.h"
+
+struct duel_interface duel_s;
 
 /*==========================================
  * Duel organizing functions [LuzZza]
@@ -86,13 +61,13 @@ void duel_showinfo(const unsigned int did, struct map_session_data* sd) {
 	char output[256];
 
 	if(duel->list[did].max_players_limit > 0)
-		sprintf(output, msg_txt(370), //" -- Duels: %d/%d, Members: %d/%d, Max players: %d --"
+		sprintf(output, msg_sd(sd,370), //" -- Duels: %d/%d, Members: %d/%d, Max players: %d --"
 			did, duel->count,
 			duel->list[did].members_count,
 			duel->list[did].members_count + duel->list[did].invites_count,
 			duel->list[did].max_players_limit);
 	else
-		sprintf(output, msg_txt(371), //" -- Duels: %d/%d, Members: %d/%d --"
+		sprintf(output, msg_sd(sd,371), //" -- Duels: %d/%d, Members: %d/%d --"
 			did, duel->count,
 			duel->list[did].members_count,
 			duel->list[did].members_count + duel->list[did].invites_count);
@@ -105,7 +80,7 @@ int duel_create(struct map_session_data* sd, const unsigned int maxpl) {
 	int i=1;
 	char output[256];
 	
-	while(duel->list[i].members_count > 0 && i < MAX_DUEL) i++;
+	while(i < MAX_DUEL && duel->list[i].members_count > 0) i++;
 	if(i == MAX_DUEL) return 0;
 	
 	duel->count++;
@@ -114,7 +89,7 @@ int duel_create(struct map_session_data* sd, const unsigned int maxpl) {
 	duel->list[i].invites_count = 0;
 	duel->list[i].max_players_limit = maxpl;
 	
-	strcpy(output, msg_txt(372)); // " -- Duel has been created (@invite/@leave) --"
+	safestrncpy(output, msg_sd(sd,372), sizeof(output)); // " -- Duel has been created (@invite/@leave) --"
 	clif_disp_onlyself(sd, output, strlen(output));
 	
 	clif->map_property(sd, MAPPROPERTY_FREEPVPZONE);
@@ -126,14 +101,14 @@ void duel_invite(const unsigned int did, struct map_session_data* sd, struct map
 	char output[256];
 
 	// " -- Player %s invites %s to duel --"
-	sprintf(output, msg_txt(373), sd->status.name, target_sd->status.name);
+	sprintf(output, msg_sd(sd,373), sd->status.name, target_sd->status.name);
 	clif->disp_message(&sd->bl, output, strlen(output), DUEL_WOS);
 
 	target_sd->duel_invite = did;
 	duel->list[did].invites_count++;
 	
 	// "Blue -- Player %s invites you to PVP duel (@accept/@reject) --"
-	sprintf(output, msg_txt(374), sd->status.name);
+	sprintf(output, msg_sd(target_sd,374), sd->status.name);
 	clif->broadcast((struct block_list *)target_sd, output, strlen(output)+1, BC_BLUE, SELF);
 }
 
@@ -149,7 +124,7 @@ void duel_leave(const unsigned int did, struct map_session_data* sd) {
 	char output[256];
 	
 	// " <- Player %s has left duel --"
-	sprintf(output, msg_txt(375), sd->status.name);
+	sprintf(output, msg_sd(sd,375), sd->status.name);
 	clif->disp_message(&sd->bl, output, strlen(output), DUEL_WOS);
 	
 	duel->list[did].members_count--;
@@ -174,7 +149,7 @@ void duel_accept(const unsigned int did, struct map_session_data* sd) {
 	sd->duel_invite = 0;
 	
 	// " -> Player %s has accepted duel --"
-	sprintf(output, msg_txt(376), sd->status.name);
+	sprintf(output, msg_sd(sd,376), sd->status.name);
 	clif->disp_message(&sd->bl, output, strlen(output), DUEL_WOS);
 
 	clif->map_property(sd, MAPPROPERTY_FREEPVPZONE);
@@ -185,7 +160,7 @@ void duel_reject(const unsigned int did, struct map_session_data* sd) {
 	char output[256];
 	
 	// " -- Player %s has rejected duel --"
-	sprintf(output, msg_txt(377), sd->status.name);
+	sprintf(output, msg_sd(sd,377), sd->status.name);
 	clif->disp_message(&sd->bl, output, strlen(output), DUEL_WOS);
 	
 	duel->list[did].invites_count--;
@@ -195,7 +170,9 @@ void duel_reject(const unsigned int did, struct map_session_data* sd) {
 void do_final_duel(void) {
 }
 
-void do_init_duel(void) {
+void do_init_duel(bool minimal) {
+	if (minimal)
+		return;
 
 	memset(&duel->list[0], 0, sizeof(duel->list));
 }

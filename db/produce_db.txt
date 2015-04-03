@@ -1,25 +1,12 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//---------------------------------------------------------
-// Banco de Dados de Produção de Itens
-//---------------------------------------------------------
-// Estrutura do banco de dados:
-// ProduceItemID,ItemLV,RequireSkill,RequireSkillLv,MaterialID1,MaterialAmount1,...
+// Item Produce Database
 //
-// 01. ProduceItemID	ID do item a ser produzido.
-// 02. ItemLV			Nível do item a ser produzido.
-// 03. RequireSkill		ID da habilidade exigida.
-// 04. RequireSkillLv	Nível da habilidade exigida.
-// 05. MaterialID		ID do material a ser usado.
-// 06. MaterialAmount	Quantidade do material a ser usado.
+// Structure of Database:
+// ProduceItemID,ItemLV,RequireSkill,RequireSkillLv,MaterialID1,MaterialAmount1,......
 //
-// NOTA: Se MaterialAmount = 0, então apenas será necessário ter o item no inventário (livros)
-//--------------------------------------------------------------
+// Comments:
+// If MaterialAmount = 0, then you just need that item in your inventory (guides)
+// For example, Mine Bottle is 7138,32,228,7131,0,713,1,1050,1,1051,1
+// 7131 is the Guide needed to create mine bottles and the amount needed of this item is 0 (.. ,7131,0, ..).
 
 
 //===== Weapon === ItemLV=1~3 ==================
@@ -433,8 +420,8 @@
 12732,24,2010,3,1035,1,7221,1,7938,1,7939,1
 //-- Runstone Hagalas <-- RK_RUNEMASTERY Lv4, 1 Round Shell, 1 Dragon's Skin, 1 Elder Branch
 12733,24,2010,4,1096,1,7123,1,7939,1
-//-- Runstone Lux Anima <-- RK_RUNEMASTERY Lv10, 3 Gold, 3 Light Granule
-22540,24,2010,10,969,3,7938,3
+//-- Runstone Lux Anima <-- RK_RUNEMASTERY Lv10, 3 Gold, 3 Light Granule, 1 Elder Branch
+22540,24,2010,10,969,3,7938,3,7939,1
 //==============================================
 
 //===== Guillotine Cross Poisons === ItemLv=25 =

@@ -1,32 +1,18 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Mapflag: Modo Pesadelo.                                   -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Hercules Dev Team                                         -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.1                                                       -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- permite o modo pesadelo de pvp,                           -
-//- permitindo o drop de itens quando                         -
-//- o joagador morre no mapa.                                 -
-//-------------------------------------------------------------
-//- Comentários Adicionais:                                   -
-//- 1.0 - Roteiro inicial.                                    -
-//- 1.1 Aplicada Tradução (PT-BR). [SkyHD]                    -
-//-------------------------------------------------------------
+//===== Hercules Script ======================================
+//= Mapflag: Nightmare mode.
+//===== By: ==================================================
+//= Hercules Dev Team
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= Players drop items/equipment on death.
+//= pvp_nightmaredrop	id,type,percent
+//=   id: Drop a specific item ID or "random"
+//=   type: "inventory", "equip", or "all"
+//=   percent: Rate of item drop.
+//===== Additional Comments: =================================
+//= 1.0 - Initial script.
+//============================================================
 
 pvp_n_1-1	mapflag	pvp_nightmaredrop	random,equip,300
 pvp_n_2-1	mapflag	pvp_nightmaredrop	random,equip,300

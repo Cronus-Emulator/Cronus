@@ -1,21 +1,13 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//---------------------------------------------------------
-// Banco de Dados para Alterações de Materiais
-//---------------------------------------------------------
-// Estrutura do banco de dados:
+// Change Material Database
+//
+// Structure of Database:
 //        ProductID,BaseRate,MakeAmount1,MakeAmountRate1,MakeAmount2,MakeAmountRate2
 //        MakeAmount3,MakeAmountRate3,MakeAmount4,MakeAmountRate4,MakeAmount5,MakeAmountRate5
-//---------------------------------------------------------
-// Nota: 
-// Até 5 ID/Quantidade pode ser especificado.
+//====================================================
+// NOTE: 
+// Up to 5 ID/Amount pairs can be specified.
 // Rate = n/10%
-//---------------------------------------------------------
+//====================================================
 
 703,4,800,2,200                        // Hinalle 
 958,800,9,1000                         // Horrendous_Mouth
@@ -91,4 +83,3 @@
 13281,1000,10,1000                     // En_White_PotZ_To_Throw
 13282,1000,10,1000                     // Vitata500_To_Throw
 13283,1000,10,1000                     // En_Cel_Juice_To_Throw
-

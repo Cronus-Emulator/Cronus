@@ -1,16 +1,16 @@
 //---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
+// _________                                    		  -
+// \_   ___ \_______  ____   ____  __ __  ______          -
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/          -
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \           -
+//  \______  /|__|   \____/|___|  /____//____  >          -
+//         \/                   \/           \/           -
 //---------------------------------------------------------
-// Este é um arquivo de ajuda que contém mensagens de ajuda para atcommands/charcommands.
-// Formato: <comando>: "<mensagem de ajuda >"
-// Esse arquivo usa sintaxe libconfig.
+// Este é o arquivo de ajuda que contém mensagens         -
+// de ajuda para atcommands/charcommands.                 -
+// Formato: <comando>: "<mensagem de ajuda >"             -
+// O arquivo utiliza sintaxe libconfig.                   -
 //---------------------------------------------------------
-
 help: "Params: <comando> \n" "Mostra ajuda para o comando especificado."
 noask: "Auto rejeita ofertas/convites."
 me: "Params: <message>\n" "Exibe o texto normal como uma mensagem neste formato: *nome da mensagem* (como /me no mIRC)."
@@ -60,8 +60,8 @@ go: "Uso: <nome da cidade|número>\n" "Teleporta você para uma cidade.\n"
 	"  11: Gonryun (Kulun)                 31: Mora\n"  
 	"  12: Umbala                              32: Dewata\n"  
 	"  13: Niflheim                             33: Ilha de Malangdo\n"   
-	"  14: Louyang "	                              
-    "  15: Campo de Treinamento "          
+	"  14: Louyang "	                            34: malaya port\n" 	
+    "  15: Campo de Treinamento "                   35: eclage\n"
     "  16: Prisão\n"                                            
 jumpto: "Uso: <nome do personagem>\n" "Você é teleportado para o personagem selecionado."
 follow: "Uso: <nome do personagem>\n" "Segue um jogador."
@@ -288,6 +288,10 @@ unloadnpc: "Uso: <nome do NPC>\n" "Descarrega o NPC especificado de acordo com o
 adjgroup: "Uso: <nível> <nome do personagem> - Modifica temporariamente o nível de GM de um personagem"
 kickall: "Desconecta todos os jogadores do servidor."
 mapexit: "Desconecta todos os jogadores e desligar o servidor de mapas."
+reloaditemdb: "Recarregaitem database."
+reloadmobdb: "Recarrega os monstros da db."
+reloadquestdb: "Recarrega as missões da db."
+reloadskilldb: "Recarrega as habilidades da db."
 reloadscript: "Recarrega todos os scripts."
 reloadcash: "Recarrega a loja de cash"
 nuke: "Uso: <nome do personagem>\n" "Mata instantaneamente um jogador cujo nome foi designado, incluindo quem estiver perto."

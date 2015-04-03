@@ -1,16 +1,14 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//---------------------------------------------------------
-// Habilidades Conjuráveis pela Habilidade de Trovador/Musa
-//---------------------------------------------------------
-// Estrutura do banco de dados:
-// SkillID,Rate
-//---------------------------------------------------------
+// Improvise DB.
+// Database for skills that can be summoned trough Randomize Spell/Improvised Song (Minstrel/Wanderer Skill).
+// Format: SkillID,Rate
+//
+// 01. SkillID                  Skill ID to be casted by Randomize Spell.
+// 02. Rate                     Chance at which the skill is selected (1 = 0.01%, 10000 = 100%).
+//
+// NOTE: The skill is picked at random from the entire database and then tested for rate. If it
+//       does not succeed at that rate, an another skill is picked and tested. This continues
+//       until a skill succeeds.
+//
 
 11,6000		// Napalm Beat
 12,4000		// Safety Wall

@@ -1,4 +1,4 @@
-﻿Cronus-Emulator
+Cronus-Emulator
 ===============
 
 Status: [![Build Status](https://travis-ci.org/Cronus-Emulator/Cronus.png?branch=master)](https://travis-ci.org/Cronus-Emulator/Cronus)
@@ -7,6 +7,10 @@ Status: [![Build Status](https://travis-ci.org/Cronus-Emulator/Cronus.png?branch
 
 Seja bem vindo ao repositório oficial do Cronus-Emulator.
 
+#### Tradução:
+===============
+
+Ajude na tradução do emulador: https://www.transifex.com/projects/p/cronus-emulator/
 
 #### Introdução:
 ===============
@@ -47,14 +51,14 @@ Equipe Atual
 ### Administradores
 - Raizen	    - Carlos Lain
 - Roberto	   - Roberto Oliveira
+ 
 
-### Coordenadores
+### Sub-Administradores
 - Kooler	    - Gustavo Bucci
-- Schrwaizer    - Junior Backes 
+
+### Gerente Ragnarok
+- Mayon       - Thiago Miranda
 
 ### Desenvolvedores
-- xChiron    - Diego da Silva Pinheiro
-- Cainho     - Caio Mateus
-- SkyHD
-- MaatSF     - Matheus Freitas
-- Wolf       - João Senos
+- SkyHD     - David Martins
+- SlexFire   - Júnior Mello

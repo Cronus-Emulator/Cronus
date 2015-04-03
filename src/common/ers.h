@@ -1,38 +1,7 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
 /*****************************************************************************\
- 
+ *  Copyright (c) Athena Dev Teams - Licensed under GNU GPL                  *
+ *  For more information, see LICENCE in the main folder                     *
+ *                                                                           *
  *  <H1>Entry Reusage System</H1>                                            *
  *                                                                           *
  *  There are several root entry managers, each with a different entry size. *
@@ -108,7 +77,7 @@ enum ERSOptions {
 	ERS_OPT_FREE_NAME   = 0x4,/* name is dynamic memory, and should be freed */
 	ERS_OPT_CLEAN       = 0x8,/* clears used memory upon ers_free so that its all new to be reused on the next alloc */
 	ERS_OPT_FLEX_CHUNK  = 0x10,/* signs that it should look for its own cache given it'll have a dynamic chunk size, so that it doesn't affect the other ERS it'd otherwise be sharing */
-	
+
 	/* Compound, is used to determine whether it should be looking for a cache of matching options */
 	ERS_CACHE_OPTIONS   = ERS_OPT_CLEAN|ERS_OPT_FLEX_CHUNK,
 };
@@ -157,7 +126,7 @@ typedef struct eri {
 
 	/* */
 	void (*chunk_size) (struct eri *self, unsigned int new_size);
-} *ERS;
+} ERS;
 
 #ifdef DISABLE_ERS
 // Use memory manager to allocate/free and disable other interface functions
@@ -179,6 +148,7 @@ typedef struct eri {
 #	define ers_destroy(obj)    ((obj)->destroy(obj))
 #	define ers_chunk_size(obj,size) ((obj)->chunk_size((obj),(size)))
 
+#ifdef HERCULES_CORE
 /**
  * Get a new instance of the manager that handles the specified entry size.
  * Size has to greater than 0.
@@ -189,7 +159,7 @@ typedef struct eri {
  * @param The requested size of the entry in bytes
  * @return Interface of the object
  */
-ERS ers_new(uint32 size, char *name, enum ERSOptions options);
+ERS *ers_new(uint32 size, char *name, enum ERSOptions options);
 
 /**
  * Print a report about the current state of the Entry Reusage System.
@@ -204,6 +174,7 @@ void ers_report(void);
  * Clears the remainder of the managers
  **/
 void ers_final(void);
+#endif // HERCULES_CORE
 #endif /* DISABLE_ERS / not DISABLE_ERS */
 
 #endif /* COMMON_ERS_H */

@@ -1,36 +1,20 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Mapflag: Desativar warping.                               -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Hercules Dev Team                                         -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.4                                                       -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- Desativar o uso @go no mapa.                              -
-//-------------------------------------------------------------
-//- Comentários Adicionais:                                   -
-//- 1.3 Adicionado WoE SE mapas.                              -
-//- 1.4 Aplicada Tradução (PT-BR). [SkyHD]                    -
-//-------------------------------------------------------------
+//===== Hercules Script ======================================
+//= Mapflag: Disable warping.
+//===== By: ==================================================
+//= Hercules Dev Team
+//===== Current Version: =====================================
+//= 1.3
+//===== Description: =========================================
+//= Disables use of @go to a map.
+//===== Additional Comments: =================================
+//= 1.3 - Added WoE SE maps.
+//============================================================
 
-// Locais de quests especiais =====
+// Special Quests Places =====
 ama_test	mapflag	nowarp
 gon_test	mapflag	nowarp
 
-// Castelos =============
+// Guild Castles =============
 aldeg_cas01	mapflag	nowarp
 aldeg_cas02	mapflag	nowarp
 aldeg_cas03	mapflag	nowarp
@@ -66,7 +50,6 @@ nguild_alde	mapflag	nowarp
 nguild_gef	mapflag	nowarp
 nguild_pay	mapflag	nowarp
 nguild_prt	mapflag	nowarp
-
 //Aldebaran Turbo Track ======
 turbo_n_1	mapflag	nowarp
 turbo_n_4	mapflag	nowarp
@@ -75,12 +58,10 @@ turbo_n_16	mapflag	nowarp
 turbo_e_4	mapflag	nowarp
 turbo_e_8	mapflag	nowarp
 turbo_e_16	mapflag	nowarp
-
-//Corridas de Monstros ================
+//Monster Races ================
 p_track01	mapflag	nowarp
 p_track02	mapflag	nowarp
-
-// Batalhas Campais==============
+// Battle Grounds ==============
 bat_c01	mapflag	nowarp
 bat_c02	mapflag	nowarp
 bat_c03	mapflag	nowarp
@@ -89,6 +70,6 @@ bat_b02	mapflag	nowarp
 bat_a01	mapflag	nowarp
 bat_a02	mapflag	nowarp
 
-// Guerra dos Porings ==================
+// Poring War ==================
 poring_w01	mapflag	nowarp
 poring_w02	mapflag	nowarp

@@ -8,27 +8,27 @@ CONFIG_H = $(wildcard $(CONFIG_D)/*.h) $(wildcard $(CONFIG_D)/*/*.h)
 
 COMMON_D = ../common
 COMMON_H = $(wildcard $(COMMON_D)/*.h)
+SYSINFO_INC = $(COMMON_D)/sysinfo.inc
 
-
-LIBCONFIG_D = ../3rdparty/libconfig
+LIBCONFIG_D = ../../3rdparty/libconfig
 LIBCONFIG_OBJ = $(addprefix $(LIBCONFIG_D)/, libconfig.o grammar.o scanctx.o \
                 scanner.o strbuf.o)
 LIBCONFIG_H = $(addprefix $(LIBCONFIG_D)/, libconfig.h grammar.h parsectx.h \
               scanctx.h scanner.h strbuf.h wincompat.h)
 LIBCONFIG_INCLUDE = -I$(LIBCONFIG_D)
 
-MT19937AR_D = ../3rdparty/mt19937ar
+MT19937AR_D = ../../3rdparty/mt19937ar
 MT19937AR_OBJ = $(MT19937AR_D)/mt19937ar.o
 MT19937AR_H = $(MT19937AR_D)/mt19937ar.h
 MT19937AR_INCLUDE = -I$(MT19937AR_D)
 
-LOGIN_C = account.c login.c loginlog.c
+LOGIN_C = account_sql.c HPMlogin.c ipban_sql.c login.c loginlog_sql.c
 LOGIN_OBJ = $(addprefix obj_sql/, $(patsubst %.c,%.o,$(LOGIN_C)))
-LOGIN_H = login.h account.h loginlog.h
+LOGIN_H = login.h account.h HPMlogin.h ipban.h loginlog.h
 
 HAVE_MYSQL=@HAVE_MYSQL@
 ifeq ($(HAVE_MYSQL),yes)
-	LOGIN_SERVER_SQL_DEPENDS=$(LOGIN_OBJ) $(COMMON_D)/obj_sql/common_sql.a $(COMMON_D)/obj_all/common.a $(MT19937AR_OBJ) $(LIBCONFIG_OBJ)
+	LOGIN_SERVER_SQL_DEPENDS=$(LOGIN_OBJ) $(COMMON_D)/obj_sql/common_sql.a $(COMMON_D)/obj_all/common.a $(MT19937AR_OBJ) $(LIBCONFIG_OBJ $(SYSINFO_INC))
 else
 	LOGIN_SERVER_SQL_DEPENDS=needs_mysql
 endif
@@ -67,6 +67,10 @@ help:
 Makefile: Makefile.in
 	@$(MAKE) -C ../.. src/login/Makefile
 
+$(SYSINFO_INC): $(LOGIN_C) $(LOGIN_H) $(COMMON_H) $(CONFIG_H) $(MT19937AR_H) $(LIBCONFIG_H)
+	@echo "	MAKE	$@"
+	@$(MAKE) -C ../.. sysinfo
+
 needs_mysql:
 	@echo "MySQL not found or disabled by the configure script"
 	@exit 1
@@ -83,7 +87,7 @@ login-server: ../../login-server@EXEEXT@
 
 ../../login-server@EXEEXT@: $(LOGIN_SERVER_SQL_DEPENDS) Makefile
 	@echo "	LD	$(notdir $@)"
-	@$(CC) @LDFLAGS@ -o ../../login-server@EXEEXT@ $(LOGIN_OBJ) $(COMMON_D)/obj_sql/common_sql.a \
+	@$(CC) @STATIC@ @LDFLAGS@ -o ../../login-server@EXEEXT@ $(LOGIN_OBJ) $(COMMON_D)/obj_sql/common_sql.a \
 		$(COMMON_D)/obj_all/common.a $(MT19937AR_OBJ) $(LIBCONFIG_OBJ) @LIBS@ @MYSQL_LIBS@
 
 # login object files

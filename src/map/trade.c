@@ -1,35 +1,8 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "trade.h"
 
@@ -48,7 +21,7 @@
 #include "path.h"
 #include "pc.h"
 #include "storage.h"
-#include "../common/malloc.h"
+#include "../common/nullpo.h"
 #include "../common/socket.h"
 
 struct trade_interface trade_s;
@@ -58,20 +31,20 @@ struct trade_interface trade_s;
  *------------------------------------------*/
 void trade_traderequest(struct map_session_data *sd, struct map_session_data *target_sd)
 {
-	nullcheckvoid(sd);
+	nullpo_retv(sd);
 
 	if (map->list[sd->bl.m].flag.notrade) {
-		clif->message (sd->fd, msg_txt(272));
+		clif->message (sd->fd, msg_sd(sd,272));
 		return; //Can't trade in notrade mapflag maps.
 	}
 
-	if (!target_sd || sd == target_sd) {
+	if (target_sd == NULL || sd == target_sd) {
 		clif->tradestart(sd, 1); // character does not exist
 		return;
 	}
 
-	if (target_sd->npc_id)
-	{	//Trade fails if you are using an NPC.
+	if (target_sd->npc_id) {
+		//Trade fails if you are using an NPC.
 		clif->tradestart(sd, 2);
 		return;
 	}
@@ -100,7 +73,7 @@ void trade_traderequest(struct map_session_data *sd, struct map_session_data *ta
 
 	if (!pc_can_give_items(sd) || !pc_can_give_items(target_sd)) //check if both GMs are allowed to trade
 	{
-		clif->message(sd->fd, msg_txt(246));
+		clif->message(sd->fd, msg_sd(sd,246));
 		clif->tradestart(sd, 2); // GM is not allowed to trade
 		return;
 	}
@@ -130,7 +103,7 @@ void trade_traderequest(struct map_session_data *sd, struct map_session_data *ta
  *------------------------------------------*/
 void trade_tradeack(struct map_session_data *sd, int type) {
 	struct map_session_data *tsd;
-	nullcheckvoid(sd);
+	nullpo_retv(sd);
 
 	if (sd->state.trading || !sd->trade_partner)
 		return; //Already trading or no partner set.
@@ -172,9 +145,10 @@ void trade_tradeack(struct map_session_data *sd, int type) {
 	}
 
 	//Check if you can start trade.
-	if (sd->npc_id || sd->state.vending || sd->state.buyingstore || sd->state.storage_flag ||
-		tsd->npc_id || tsd->state.vending || tsd->state.buyingstore || tsd->state.storage_flag)
-	{	//Fail
+	if (sd->npc_id || sd->state.vending || sd->state.buyingstore || sd->state.storage_flag
+	 || tsd->npc_id || tsd->state.vending || tsd->state.buyingstore || tsd->state.storage_flag
+	) {
+		//Fail
 		clif->tradestart(sd, 2);
 		clif->tradestart(tsd, 2);
 		sd->state.deal_locked = 0;
@@ -194,23 +168,22 @@ void trade_tradeack(struct map_session_data *sd, int type) {
 }
 
 /**
-* Checks if an impossible trade will occur
-*  Normal clients refuse to have 2 same types of item (except equipament) in the same trade window
-*  Normal clients authorize only no equipped items and only items from inventory
-* @retval 0 The trade can continue
-* @retval 1 Hack attempt
-**/
+ * Checks if an impossible trade will occur
+ *  Normal clients refuse to have 2 items of the same type (except equipment) in the same trade window
+ *  Normal clients authorize only no equipped items and only items from inventory
+ * @retval 0 The trade can continue
+ * @retval 1 Hack attempt
+ **/
 int impossible_trade_check(struct map_session_data *sd)
 {
 	struct item inventory[MAX_INVENTORY];
 	char message_to_gm[200];
 	int i, index;
 
-	if (!sd) return 1;
+	nullpo_retr(1, sd);
 
-	if(sd->deal.zeny > sd->status.zeny) {
-		return -1;
-	}
+	if( sd->deal.zeny > sd->status.zeny )
+		return 1;
 
 	// get inventory of player
 	memcpy(&inventory, &sd->status.inventory, sizeof(struct item) * MAX_INVENTORY);
@@ -229,16 +202,16 @@ int impossible_trade_check(struct map_session_data *sd)
 		index = sd->deal.item[i].index;
 		if (inventory[index].amount < sd->deal.item[i].amount) {
 			// if more than the player have -> hack
-			sprintf(message_to_gm, msg_txt(538), sd->status.name, sd->status.account_id); // Hack on trade: character '%s' (account: %d) try to trade more items that he has.
+			snprintf(message_to_gm, sizeof(message_to_gm), msg_txt(538), sd->status.name, sd->status.account_id); // Hack on trade: character '%s' (account: %d) try to trade more items that he has.
 			intif->wis_message_to_gm(map->wisp_server_name, PC_PERM_RECEIVE_HACK_INFO, message_to_gm);
-			sprintf(message_to_gm, msg_txt(539), inventory[index].amount, inventory[index].nameid, sd->deal.item[i].amount); // This player has %d of a kind of item (id: %d), and try to trade %d of them.
+			snprintf(message_to_gm, sizeof(message_to_gm), msg_txt(539), inventory[index].amount, inventory[index].nameid, sd->deal.item[i].amount); // This player has %d of a kind of item (id: %d), and try to trade %d of them.
 			intif->wis_message_to_gm(map->wisp_server_name, PC_PERM_RECEIVE_HACK_INFO, message_to_gm);
 			// if we block people
 			if (battle_config.ban_hack_trade < 0) {
 				chrif->char_ask_name(-1, sd->status.name, 1, 0, 0, 0, 0, 0, 0); // type: 1 - block
 				set_eof(sd->fd); // forced to disconnect because of the hack
 				// message about the ban
-				strcpy(message_to_gm, msg_txt(540)); //  This player has been definitively blocked.
+				safestrncpy(message_to_gm, msg_txt(540), sizeof(message_to_gm)); //  This player has been definitively blocked.
 			// if we ban people
 			} else if (battle_config.ban_hack_trade > 0) {
 				chrif->char_ask_name(-1, sd->status.name, 2, 0, 0, 0, 0, battle_config.ban_hack_trade, 0); // type: 2 - ban (year, month, day, hour, minute, second)
@@ -247,7 +220,7 @@ int impossible_trade_check(struct map_session_data *sd)
 				sprintf(message_to_gm, msg_txt(507), battle_config.ban_hack_trade); //  This player has been banned for %d minute(s).
 			} else
 				// message about the ban
-				strcpy(message_to_gm, msg_txt(508)); //  This player hasn't been banned (Ban option is disabled).
+				safestrncpy(message_to_gm, msg_txt(508), sizeof(message_to_gm)); //  This player hasn't been banned (Ban option is disabled).
 
 			intif->wis_message_to_gm(map->wisp_server_name, PC_PERM_RECEIVE_HACK_INFO, message_to_gm);
 			return 1;
@@ -266,7 +239,6 @@ int trade_check(struct map_session_data *sd, struct map_session_data *tsd)
 	struct item inventory2[MAX_INVENTORY];
 	struct item_data *data;
 	int trade_i, i, n;
-	short amount;
 
 	// check zenys value against hackers (Zeny was already checked on time of adding, but you never know when you lost some zeny since then.
 	if(sd->deal.zeny > sd->status.zeny || (tsd->status.zeny > MAX_ZENY - sd->deal.zeny))
@@ -279,8 +251,8 @@ int trade_check(struct map_session_data *sd, struct map_session_data *tsd)
 	memcpy(&inventory2, &tsd->status.inventory, sizeof(struct item) * MAX_INVENTORY);
 
 	// check free slot in both inventory
-	for(trade_i = 0; trade_i < 10; trade_i++) {
-		amount = sd->deal.item[trade_i].amount;
+	for (trade_i = 0; trade_i < 10; trade_i++) {
+		short amount = sd->deal.item[trade_i].amount;
 		if (amount) {
 			n = sd->deal.item[trade_i].index;
 			if (amount > inventory[n].amount)
@@ -353,7 +325,7 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 	int trade_i, trade_weight;
 	int src_lv, dst_lv;
 
-	nullcheckvoid(sd);
+	nullpo_retv(sd);
 	if( !sd->state.trading || sd->state.deal_locked > 0 )
 		return; //Can't add stuff.
 
@@ -363,8 +335,8 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 		return;
 	}
 
-	if( amount == 0 )
-	{	//Why do this.. ~.~ just send an ack, the item won't display on the trade window.
+	if (amount == 0) {
+		//Why do this.. ~.~ just send an ack, the item won't display on the trade window.
 		clif->tradeitemok(sd, index, TIO_SUCCESS);
 		return;
 	}
@@ -383,14 +355,14 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 	if( !itemdb_cantrade(item, src_lv, dst_lv) && //Can't trade
 		(pc->get_partner(sd) != target_sd || !itemdb_canpartnertrade(item, src_lv, dst_lv)) ) //Can't partner-trade
 	{
-		clif->message (sd->fd, msg_txt(260));
+		clif->message (sd->fd, msg_sd(sd,260));
 		clif->tradeitemok(sd, index+2, TIO_INDROCKS);
 		return;
 	}
 
 	if( item->expire_time )
 	{ // Rental System
-		clif->message (sd->fd, msg_txt(260));
+		clif->message (sd->fd, msg_sd(sd,260));
 		clif->tradeitemok(sd, index+2, TIO_INDROCKS);
 		return;
 	}
@@ -399,11 +371,11 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 			!( item->bound == IBT_GUILD && sd->status.guild_id == target_sd->status.guild_id ) &&
 			!( item->bound == IBT_PARTY && sd->status.party_id == target_sd->status.party_id )
 					&& !pc_can_give_bound_items(sd) ) {
-		clif->message(sd->fd, msg_txt(293));
+		clif->message(sd->fd, msg_sd(sd,293));
 		clif->tradeitemok(sd, index+2, TIO_INDROCKS);
 		return;
 	}
-	
+
 	//Locate a trade position
 	ARR_FIND( 0, 10, trade_i, sd->deal.item[trade_i].index == index || sd->deal.item[trade_i].amount == 0 );
 	if( trade_i == 10 ) //No space left
@@ -413,23 +385,22 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 	}
 
 	trade_weight = sd->inventory_data[index]->weight * amount;
-	if( target_sd->weight + sd->deal.weight + trade_weight > target_sd->max_weight )
-	{	//fail to add item -- the player was over weighted.
+	if (target_sd->weight + sd->deal.weight + trade_weight > target_sd->max_weight) {
+		//fail to add item -- the player was over weighted.
 		clif->tradeitemok(sd, index+2, TIO_OVERWEIGHT);
 		return;
 	}
 
-	if( sd->deal.item[trade_i].index == index )
-	{	//The same item as before is being readjusted.
-		if( sd->deal.item[trade_i].amount + amount > sd->status.inventory[index].amount )
-		{	//packet deal exploit check
+	if (sd->deal.item[trade_i].index == index) {
+		//The same item as before is being readjusted.
+		if (sd->deal.item[trade_i].amount + amount > sd->status.inventory[index].amount) {
+			//packet deal exploit check
 			amount = sd->status.inventory[index].amount - sd->deal.item[trade_i].amount;
 			trade_weight = sd->inventory_data[index]->weight * amount;
 		}
 		sd->deal.item[trade_i].amount += amount;
-	}
-	else
-	{	//New deal item
+	} else {
+		//New deal item
 		sd->deal.item[trade_i].index = index;
 		sd->deal.item[trade_i].amount = amount;
 	}
@@ -445,7 +416,7 @@ void trade_tradeadditem(struct map_session_data *sd, short index, short amount) 
 void trade_tradeaddzeny(struct map_session_data* sd, int amount)
 {
 	struct map_session_data* target_sd;
-	nullcheckvoid(sd);
+	nullpo_retv(sd);
 
 	if( !sd->state.trading || sd->state.deal_locked > 0 )
 		return; //Can't add stuff.
@@ -455,8 +426,8 @@ void trade_tradeaddzeny(struct map_session_data* sd, int amount)
 		return;
 	}
 
-	if( amount < 0 || amount > sd->status.zeny || amount > MAX_ZENY - target_sd->status.zeny )
-	{	// invalid values, no appropriate packet for it => abort
+	if (amount < 0 || amount > sd->status.zeny || amount > MAX_ZENY - target_sd->status.zeny) {
+		// invalid values, no appropriate packet for it => abort
 		trade->cancel(sd);
 		return;
 	}
@@ -634,8 +605,7 @@ void trade_tradecommit(struct map_session_data *sd) {
 	clif->tradecompleted(tsd, 0);
 
 	// save both player to avoid crash: they always have no advantage/disadvantage between the 2 players
-	if (map->save_settings&1)
-  	{
+	if (map->save_settings&1) {
 		chrif->save(sd,0);
 		chrif->save(tsd,0);
 	}
@@ -644,7 +614,7 @@ void trade_tradecommit(struct map_session_data *sd) {
 void trade_defaults(void)
 {
 	trade = &trade_s;
-	
+
 	trade->request = trade_traderequest;
 	trade->ack = trade_tradeack;
 	trade->check_impossible = impossible_trade_check;

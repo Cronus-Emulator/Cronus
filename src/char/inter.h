@@ -1,63 +1,47 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef CHAR_INTER_H
 #define CHAR_INTER_H
 
 #include "char.h"
+#include "../common/cbasetypes.h"
 #include "../common/sql.h"
 
 struct accreg;
 
-int inter_init_sql(const char *file);
-void inter_final(void);
-int inter_parse_frommap(int fd);
-int inter_mapif_init(int fd);
-int mapif_send_gmaccounts(void);
-int mapif_disconnectplayer(int fd, int account_id, int char_id, int reason);
-void mapif_parse_accinfo2(bool success, int map_fd, int u_fd, int u_aid, int account_id, const char *userid, const char *user_pass, const char *email, const char *last_ip, const char *lastlogin, const char *pin_code, const char *birthdate, int group_id, int logincount, int state);
-
-int inter_log(char *fmt,...);
-int inter_vlog(char *fmt, va_list ap);
-
-#define inter_cfgName "conf/inter-server.conf"
-
+#ifdef HERCULES_CORE
 extern unsigned int party_share_level;
 
-extern Sql* sql_handle;
-extern Sql* lsql_handle;
+void inter_defaults(void);
+#endif // HERCULES_CORE
 
-int inter_accreg_tosql(int account_id, int char_id, struct accreg *reg, int type);
+/**
+ * inter interface
+ **/
+struct inter_interface {
+	Sql* sql_handle;
+	const char* (*msg_txt) (int msg_number);
+	bool (*msg_config_read) (const char *cfg_name, bool allow_override);
+	void (*do_final_msg) (void);
+	const char* (*job_name) (int class_);
+	void (*vmsg_to_fd) (int fd, int u_fd, int aid, char* msg, va_list ap);
+	void (*msg_to_fd) (int fd, int u_fd, int aid, char *msg, ...);
+	void (*savereg) (int account_id, int char_id, const char *key, unsigned int index, intptr_t val, bool is_string);
+	int (*accreg_fromsql) (int account_id,int char_id, int fd, int type);
+	int (*config_read) (const char* cfgName);
+	int (*vlog) (char* fmt, va_list ap);
+	int (*log) (char* fmt, ...);
+	int (*init_sql) (const char *file);
+	int (*mapif_init) (int fd);
+	int (*check_ttl_wisdata_sub) (DBKey key, DBData *data, va_list ap);
+	int (*check_ttl_wisdata) (void);
+	int (*check_length) (int fd, int length);
+	int (*parse_frommap) (int fd);
+	void (*final) (void);
+};
+
+struct inter_interface *inter;
 
 #endif /* CHAR_INTER_H */

@@ -1,36 +1,8 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
+#define HERCULES_CORE
 
 #ifdef PCRE_SUPPORT
 
@@ -41,12 +13,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../3rdparty/pcre/include/pcre.h"
+#include "../../3rdparty/pcre/include/pcre.h"
 
 #include "mob.h" // struct mob_data
 #include "pc.h" // struct map_session_data
 #include "script.h" // set_var()
 #include "../common/malloc.h"
+#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h"
 #include "../common/timer.h"
@@ -125,27 +98,26 @@ void finalize_pcrematch_entry(struct pcrematch_entry* e)
 struct pcrematch_set* lookup_pcreset(struct npc_data* nd, int setid) {
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	
-	if (!npcParse)
+	if (npcParse == NULL)
 		nd->chatdb = npcParse = (struct npc_parse *)aCalloc(sizeof(struct npc_parse), 1);
 	
 	pcreset = npcParse->active;
 	
-	while (pcreset) {
+	while (pcreset != NULL) {
 		if (pcreset->setid == setid)
 		break;
 		pcreset = pcreset->next;
 	}
-	if (!pcreset)
+	if (pcreset == NULL)
 		pcreset = npcParse->inactive;
 	
-	while (pcreset) {
+	while (pcreset != NULL) {
 		if (pcreset->setid == setid)
 		break;
 		pcreset = pcreset->next;
 	}
 	
-	if (!pcreset) {
+	if (pcreset == NULL) {
 		pcreset = (struct pcrematch_set *)aCalloc(sizeof(struct pcrematch_set), 1);
 		pcreset->next = npcParse->inactive;
 		if (pcreset->next != NULL)
@@ -167,15 +139,15 @@ void activate_pcreset(struct npc_data* nd, int setid)
 {
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	if (!npcParse)
+	if (npcParse == NULL)
 		return; // Nothing to activate...
 	pcreset = npcParse->inactive;
-	while (pcreset) {
+	while (pcreset != NULL) {
 		if (pcreset->setid == setid)
 			break;
 		pcreset = pcreset->next;
 	}
-	if (!pcreset)
+	if (pcreset == NULL)
 		return; // not in inactive list
 	if (pcreset->next != NULL)
 		pcreset->next->prev = pcreset->prev;
@@ -186,7 +158,7 @@ void activate_pcreset(struct npc_data* nd, int setid)
 	
 	pcreset->prev = NULL;
 	pcreset->next = npcParse->active;
-	if (pcreset->next)
+	if (pcreset->next != NULL)
 		pcreset->next->prev = pcreset;
 	npcParse->active = pcreset;
 }
@@ -200,7 +172,7 @@ void deactivate_pcreset(struct npc_data* nd, int setid)
 {
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	if (!npcParse)
+	if (npcParse == NULL)
 		return; // Nothing to deactivate...
 	if (setid == -1) {
 		while(npcParse->active != NULL)
@@ -208,12 +180,12 @@ void deactivate_pcreset(struct npc_data* nd, int setid)
 		return;
 	}
 	pcreset = npcParse->active;
-	while (pcreset) {
+	while (pcreset != NULL) {
 		if (pcreset->setid == setid)
 			break;
 		pcreset = pcreset->next;
 	}
-	if (!pcreset)
+	if (pcreset == NULL)
 		return; // not in active list
 	if (pcreset->next != NULL)
 		pcreset->next->prev = pcreset->prev;
@@ -237,34 +209,29 @@ void delete_pcreset(struct npc_data* nd, int setid)
 	int active = 1;
 	struct pcrematch_set *pcreset;
 	struct npc_parse *npcParse = nd->chatdb;
-	
-	if (!npcParse)
+	if (npcParse == NULL)
 		return; // Nothing to deactivate...
 	pcreset = npcParse->active;
-	
-	while (pcreset) {
+	while (pcreset != NULL) {
 		if (pcreset->setid == setid)
 			break;
 		pcreset = pcreset->next;
 	}
-	if (!pcreset) {
+	if (pcreset == NULL) {
 		active = 0;
 		pcreset = npcParse->inactive;
-		
-		while (pcreset) {
+		while (pcreset != NULL) {
 			if (pcreset->setid == setid)
 				break;
 			pcreset = pcreset->next;
 		}
 	}
-	
-	if (!pcreset)
+	if (pcreset == NULL)
 		return;
 	
-	if (pcreset->next)
+	if (pcreset->next != NULL)
 		pcreset->next->prev = pcreset->prev;
-		
-	if (pcreset->prev)
+	if (pcreset->prev != NULL)
 		pcreset->prev->next = pcreset->next;
 	
 	if(active)
@@ -299,13 +266,13 @@ struct pcrematch_entry* create_pcrematch_entry(struct pcrematch_set* set)
 	// items defined later. as a result, we have to do some work up front.
 	
 	/*  if we are the first pattern, stick us at the end */
-	if (!last) {
+	if (last == NULL) {
 		set->head = e;
 		return e;
 	}
 	
 	/* Look for the last entry */
-	while (last->next)
+	while (last->next != NULL)
 		last = last->next;
 	
 	last->next = e;
@@ -339,8 +306,7 @@ void npc_chat_def_pattern(struct npc_data* nd, int setid, const char* pattern, c
 void npc_chat_finalize(struct npc_data* nd)
 {
 	struct npc_parse *npcParse = nd->chatdb;
-	
-	if (!npcParse)
+	if (npcParse == NULL)
 		return;
 	
 	while(npcParse->active)
@@ -368,7 +334,7 @@ int npc_chat_sub(struct block_list* bl, va_list ap)
 	struct pcrematch_entry* e;
 	
 	// Not interested in anything you might have to say...
-	if (!npcParse || !npcParse->active)
+	if (npcParse == NULL || npcParse->active == NULL)
 		return 0;
 	
 	msg = va_arg(ap,char*);
@@ -478,4 +444,4 @@ void npc_chat_defaults(void) {
 	libpcre->get_substring = pcre_get_substring;
 }
 
-#endif
+#endif //PCRE_SUPPORT

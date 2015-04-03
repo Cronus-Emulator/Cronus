@@ -1,35 +1,7 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
 #ifndef COMMON_MAPINDEX_H
 #define COMMON_MAPINDEX_H
 
@@ -82,6 +54,7 @@
 #define MAP_MALANGDO "malangdo"
 #define MAP_MALAYA "malaya"
 #define MAP_ECLAGE "eclage"
+#define MAP_ECLAGE_IN "ecl_in01"
 
 #define mapindex_id2name(n) mapindex->id2name((n),__FILE__, __LINE__, __func__)
 #define mapindex_exists(n) ( mapindex->list[(n)].name[0] != '\0' )
@@ -95,12 +68,18 @@ struct mapindex_interface {
 	DBMap *db;
 	/* number of entries in the index table */
 	int num;
+	/* default map name */
+	char *default_map;
+	/* default x on map */
+	int default_x;
+	/* default y on map */
+	int default_y;
 	/* index list -- since map server map count is *unlimited* this should be too */
 	struct {
 		char name[MAP_NAME_LENGTH];
 	} list[MAX_MAPINDEX];
 	/* */
-	void (*init) (void);
+	int (*init) (void);
 	void (*final) (void);
 	/* */
 	int (*addmap) (int index, const char* name);
@@ -112,10 +91,13 @@ struct mapindex_interface {
 	/* TODO: Hello World! make up your mind, this thing is int on some places and unsigned short on others */
 	unsigned short (*name2id) (const char*);
 	const char* (*id2name) (unsigned short,const char *file, int line, const char *func);
+	bool (*check_default) (void);
 };
 
 struct mapindex_interface *mapindex;
 
+#ifdef HERCULES_CORE
 void mapindex_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* COMMON_MAPINDEX_H */

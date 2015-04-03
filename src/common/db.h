@@ -1,38 +1,7 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
 /*****************************************************************************\
-                                                                             *
+ *  Copyright (c) Athena Dev Teams - Licensed under GNU GPL                  *
+ *  For more information, see LICENCE in the main folder                     *
+ *                                                                           *
  *  This file is separated in two sections:                                  *
  *  (1) public typedefs, enums, unions, structures and defines               *
  *  (2) public functions                                                     *
@@ -70,7 +39,6 @@
  * @encoding US-ASCII                                                        *
  * @see common#db.c                                                          *
 \*****************************************************************************/
-
 #ifndef COMMON_DB_H
 #define COMMON_DB_H
 
@@ -880,7 +848,7 @@ DBKey (*i642key) (int64 key);
  * @public
  */
 DBKey (*ui642key) (uint64 key);
-	
+
 /**
  * Manual cast from 'int' to the struct DBData.
  * @param data Data to be casted
@@ -946,7 +914,7 @@ void (*init) (void);
  * @see #db_init(void)
  */
 void (*final) (void);
-} DB_s;
+};
 
 struct db_interface *DB;
 
@@ -961,6 +929,7 @@ struct linkdb_node {
 
 typedef void (*LinkDBFunc)(void* key, void* data, va_list args);
 
+#ifdef HERCULES_CORE
 void  linkdb_insert  (struct linkdb_node** head, void *key, void* data); // Doesn't take into account duplicate keys
 void  linkdb_replace (struct linkdb_node** head, void *key, void* data); // Takes into account duplicate keys
 void* linkdb_search  (struct linkdb_node** head, void *key);
@@ -968,6 +937,7 @@ void* linkdb_erase   (struct linkdb_node** head, void *key);
 void  linkdb_final   (struct linkdb_node** head);
 void  linkdb_vforeach(struct linkdb_node** head, LinkDBFunc func, va_list ap);
 void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
+#endif // HERCULES_CORE
 
 
 
@@ -1170,8 +1140,8 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 	do{ \
 		if( (__n) > VECTOR_CAPACITY(__vec) ) \
 		{ /* increase size */ \
-			if( VECTOR_CAPACITY(__vec) == 0 ) SET_POINTER(VECTOR_DATA(__vec), aMalloc((__n)*sizeof(VECTOR_FIRST(__vec)))); /* allocate new */ \
-			else SET_POINTER(VECTOR_DATA(__vec), aRealloc(VECTOR_DATA(__vec),(__n)*sizeof(VECTOR_FIRST(__vec)))); /* reallocate */ \
+			if( VECTOR_CAPACITY(__vec) == 0 ) VECTOR_DATA(__vec) = aMalloc((__n)*sizeof(VECTOR_FIRST(__vec))); /* allocate new */ \
+			else VECTOR_DATA(__vec) = aRealloc(VECTOR_DATA(__vec),(__n)*sizeof(VECTOR_FIRST(__vec))); /* reallocate */ \
 			memset(VECTOR_DATA(__vec)+VECTOR_LENGTH(__vec), 0, (VECTOR_CAPACITY(__vec)-VECTOR_LENGTH(__vec))*sizeof(VECTOR_FIRST(__vec))); /* clear new data */ \
 			VECTOR_CAPACITY(__vec) = (__n); /* update capacity */ \
 		} \
@@ -1183,7 +1153,7 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 		} \
 		else if( (__n) < VECTOR_CAPACITY(__vec) ) \
 		{ /* reduce size */ \
-			SET_POINTER(VECTOR_DATA(__vec), aRealloc(VECTOR_DATA(__vec),(__n)*sizeof(VECTOR_FIRST(__vec)))); /* reallocate */ \
+			VECTOR_DATA(__vec) = aRealloc(VECTOR_DATA(__vec),(__n)*sizeof(VECTOR_FIRST(__vec))); /* reallocate */ \
 			VECTOR_CAPACITY(__vec) = (__n); /* update capacity */ \
 			if( VECTOR_LENGTH(__vec) > (__n) ) VECTOR_LENGTH(__vec) = (__n); /* update length */ \
 		} \
@@ -1379,6 +1349,7 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 /////////////////////////////////////////////////////////////////////
 // Binary heap library based on defines. (uses the vector defines above)
 // uses aMalloc, aRealloc, aFree
+// WARNING: BHEAP implementation details affect behaviour of A* pathfinding
 
 
 
@@ -1491,6 +1462,21 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 
 
 
+/// See BHEAP_PUSH. Version used by A* implementation, matching client bheap.
+///
+/// @param __heap Binary heap
+/// @param __val Value
+/// @param __topcmp Comparator
+/// @param __swp Swapper
+#define BHEAP_PUSH2(__heap,__val,__topcmp,__swp) \
+	do{ \
+		size_t _i_ = VECTOR_LENGTH(__heap); \
+		VECTOR_PUSH(__heap,__val); /* insert at end */ \
+		BHEAP_SIFTDOWN(__heap,0,_i_,__topcmp,__swp); \
+	}while(0)
+
+
+
 /// Removes the top value of the heap. (using the '=' operator)
 /// Assumes the heap is not empty.
 ///
@@ -1503,6 +1489,21 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 /// @param __topcmp Comparator
 /// @param __swp Swapper
 #define BHEAP_POP(__heap,__topcmp,__swp) BHEAP_POPINDEX(__heap,0,__topcmp,__swp)
+
+
+
+/// See BHEAP_POP. Version used by A* implementation, matching client bheap.
+///
+/// @param __heap Binary heap
+/// @param __topcmp Comparator
+/// @param __swp Swapper
+#define BHEAP_POP2(__heap,__topcmp,__swp) \
+	do{ \
+		VECTOR_INDEX(__heap,0) = VECTOR_POP(__heap); /* put last at index */ \
+		if( !VECTOR_LENGTH(__heap) ) /* removed last, nothing to do */ \
+			break; \
+		BHEAP_SIFTUP(__heap,0,__topcmp,__swp); \
+	}while(0)
 
 
 
@@ -1554,6 +1555,74 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 
 
 
+/// Follow path up towards (but not all the way to) the root, swapping nodes until finding
+/// a place where the new item that was placed at __idx fits.
+/// Only goes as high as __startidx (usually 0).
+///
+/// @param __heap Binary heap
+/// @param __startidx Index of an ancestor of __idx
+/// @param __idx Index of an inserted element
+/// @param __topcmp Comparator
+/// @param __swp Swapper
+#define BHEAP_SIFTDOWN(__heap,__startidx,__idx,__topcmp,__swp) \
+	do{ \
+		size_t _i2_ = __idx; \
+		while( _i2_ > __startidx ) \
+		{ /* restore heap property in parents */ \
+			size_t _parent_ = (_i2_-1)/2; \
+			if( __topcmp(VECTOR_INDEX(__heap,_parent_),VECTOR_INDEX(__heap,_i2_)) <= 0 ) \
+				break; /* done */ \
+			__swp(VECTOR_INDEX(__heap,_parent_),VECTOR_INDEX(__heap,_i2_)); \
+			_i2_ = _parent_; \
+		} \
+	}while(0)
+
+
+
+/// Repeatedly swap the smaller child with parent, after placing a new item at __idx.
+///
+/// @param __heap Binary heap
+/// @param __idx Index of an inserted element
+/// @param __topcmp Comparator
+/// @param __swp Swapper
+#define BHEAP_SIFTUP(__heap,__idx,__topcmp,__swp) \
+	do{ \
+		size_t _i_ = __idx; \
+		size_t _lchild_ = _i_*2 + 1; \
+		while( _lchild_ < VECTOR_LENGTH(__heap) ) \
+		{ /* restore heap property in childs */ \
+			size_t _rchild_ = _i_*2 + 2; \
+			if( _rchild_ >= VECTOR_LENGTH(__heap) || __topcmp(VECTOR_INDEX(__heap,_lchild_),VECTOR_INDEX(__heap,_rchild_)) < 0 ) \
+			{ /* left child */ \
+				__swp(VECTOR_INDEX(__heap,_i_),VECTOR_INDEX(__heap,_lchild_)); \
+				_i_ = _lchild_; \
+			} \
+			else \
+			{ /* right child */ \
+				__swp(VECTOR_INDEX(__heap,_i_),VECTOR_INDEX(__heap,_rchild_)); \
+				_i_ = _rchild_; \
+			} \
+			_lchild_ = _i_*2 + 1; \
+		} \
+		BHEAP_SIFTDOWN(__heap,__idx,_i_,__topcmp,__swp); \
+	}while(0)
+
+
+
+/// Call this after modifying the item at __idx__ to restore the heap
+///
+/// @param __heap Binary heap
+/// @param __idx Index
+/// @param __topcmp Comparator
+/// @param __swp Swapper
+#define BHEAP_UPDATE(__heap,__idx,__topcmp,__swp) \
+	do{ \
+		BHEAP_SIFTDOWN(__heap,0,__idx,__topcmp,__swp); \
+		BHEAP_SIFTUP(__heap,__idx,__topcmp,__swp); \
+	}while(0)
+
+
+
 /// Clears the binary heap, freeing allocated data.
 ///
 /// @param __heap Binary heap
@@ -1578,5 +1647,7 @@ void  linkdb_foreach (struct linkdb_node** head, LinkDBFunc func, ...);
 /// @param v2 Second value
 /// @return negative if v1 is top, positive if v2 is top, 0 if equal
 #define BHEAP_MAXTOPCMP(v1,v2) ( v1 == v2 ? 0 : v1 > v2 ? -1 : 1 )
+
+
 
 #endif /* COMMON_DB_H */

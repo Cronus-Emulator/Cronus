@@ -1,35 +1,8 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "instance.h"
 
@@ -39,14 +12,18 @@
 #include <string.h>
 #include <time.h>
 
+#include "../config/core.h" // CELL_NOSTACK
+#include "channel.h"
 #include "clif.h"
 #include "map.h"
 #include "npc.h"
 #include "party.h"
 #include "pc.h"
+#include "../common/HPM.h"
 #include "../common/cbasetypes.h"
 #include "../common/db.h"
 #include "../common/malloc.h"
+#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/socket.h"
 #include "../common/strlib.h"
@@ -81,7 +58,7 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 	struct party_data *p = NULL;
 	struct guild *g = NULL;
 	short *iptr = NULL;
-	int i, j;
+	int i;
 	
 	switch ( type ) {
 		case IOT_NONE:
@@ -146,8 +123,9 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 	safestrncpy( instance->list[i].name, name, sizeof(instance->list[i].name) );
 	
 	if( type != IOT_NONE ) {
+		int j;
 		ARR_FIND(0, *icptr, j, iptr[j] == -1);
-		if( j == *icptr ) {
+		if (j == *icptr) {
 			switch( type ) {
 				case IOT_CHAR:
 					RECREATE(sd->instance, short, ++*icptr);
@@ -162,8 +140,9 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 					g->instance[g->instances-1] = i;
 					break;
 			}
-		} else
+		} else {
 			iptr[j] = i;
+		}
 	}
 	
 	clif->instance(i, 1, 0); // Start instancing window
@@ -176,7 +155,7 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 int instance_add_map(const char *name, int instance_id, bool usebasename, const char *map_name) {
 	int16 m = map->mapname2mapid(name);
 	int i, im = -1;
-	size_t num_cell, size;
+	size_t num_cell, size, j;
 
 	if( m < 0 )
 		return -1; // source map not found
@@ -230,6 +209,17 @@ int instance_add_map(const char *name, int instance_id, bool usebasename, const 
 	CREATE( map->list[im].cell, struct mapcell, num_cell );
 	memcpy( map->list[im].cell, map->list[m].cell, num_cell * sizeof(struct mapcell) );
 
+	// Appropriately clear cell data
+	for(j = 0; j < num_cell; j++) {
+#ifdef CELL_NOSTACK
+		map->list[im].cell[j].cell_bl = 0;
+#endif // CELL_NOSTACK
+		map->list[im].cell[j].basilica = 0;
+		map->list[im].cell[j].icewall = 0;
+		map->list[im].cell[j].npc = 0;
+		map->list[im].cell[j].landprotector = 0;
+	}
+	
 	size = map->list[im].bxs * map->list[im].bys * sizeof(struct block_list*);
 	map->list[im].block = (struct block_list**)aCalloc(size, 1);
 	map->list[im].block_mob = (struct block_list**)aCalloc(size, 1);
@@ -298,7 +288,7 @@ int instance_add_map(const char *name, int instance_id, bool usebasename, const 
  * type : result (0 = map id | 1 = instance id)
  *--------------------------------------*/
 int instance_map2imap(int16 m, int instance_id) {
- 	int i;
+	int i;
 
 	if( !instance->valid(instance_id) ) {
 		return -1;
@@ -307,22 +297,22 @@ int instance_map2imap(int16 m, int instance_id) {
 	for( i = 0; i < instance->list[instance_id].num_map; i++ ) {
 		if( instance->list[instance_id].map[i] && map->list[instance->list[instance_id].map[i]].instance_src_map == m )
 			return instance->list[instance_id].map[i];
- 	}
- 	return -1;
+	}
+	return -1;
 }
 
 int instance_mapname2imap(const char *map_name, int instance_id) {
- 	int i;
+	int i;
 	
 	if( !instance->valid(instance_id) ) {
 		return -1;
 	}
 	
 	for( i = 0; i < instance->list[instance_id].num_map; i++ ) {
-		if( instance->list[instance_id].map[i] && !strcasecmp(map->list[map->list[instance->list[instance_id].map[i]].instance_src_map].name,map_name) )
+		if( instance->list[instance_id].map[i] && !strcmpi(map->list[map->list[instance->list[instance_id].map[i]].instance_src_map].name,map_name) )
 			return instance->list[instance_id].map[i];
- 	}
- 	return -1;
+	}
+	return -1;
 }
 
 
@@ -405,9 +395,8 @@ int instance_del_load(struct map_session_data* sd, va_list args) {
 
 /* for npcs behave differently when being unloaded within a instance */
 int instance_cleanup_sub(struct block_list *bl, va_list ap) {
+	nullpo_ret(bl);
 
-	nullcheck(bl);
-	
 	switch(bl->type) {
 		case BL_PC:
 			map->quit((struct map_session_data *) bl);
@@ -456,28 +445,25 @@ void instance_del_map(int16 m) {
 	aFree(map->list[m].block);
 	aFree(map->list[m].block_mob);
 	
-	if( map->list[m].unit_count ) {
+	if (map->list[m].unit_count && map->list[m].units) {
 		for(i = 0; i < map->list[m].unit_count; i++) {
 			aFree(map->list[m].units[i]);
 		}
-		if( map->list[m].units )
-			aFree(map->list[m].units);
+		aFree(map->list[m].units);
 	}
 	
-	if( map->list[m].skill_count ) {
+	if (map->list[m].skill_count && map->list[m].skills) {
 		for(i = 0; i < map->list[m].skill_count; i++) {
 			aFree(map->list[m].skills[i]);
 		}
-		if( map->list[m].skills )
-			aFree(map->list[m].skills);
+		aFree(map->list[m].skills);
 	}
 	
-	if( map->list[m].zone_mf_count ) {
+	if (map->list[m].zone_mf_count && map->list[m].zone_mf) {
 		for(i = 0; i < map->list[m].zone_mf_count; i++) {
 			aFree(map->list[m].zone_mf[i]);
 		}
-		if( map->list[m].zone_mf )
-			aFree(map->list[m].zone_mf);
+		aFree(map->list[m].zone_mf);
 	}
 	
 	if( map->list[m].qi_data )
@@ -498,7 +484,7 @@ void instance_del_map(int16 m) {
 		ShowError("map_instance_del: failed to remove %s from instance list (%s): %d\n", map->list[m].name, instance->list[map->list[m].instance_id].name, m);
 	
 	if( map->list[m].channel )
-		clif->chsys_delete(map->list[m].channel);
+		channel->delete(map->list[m].channel);
 
 	map->removemapdb(&map->list[m]);
 	memset(&map->list[m], 0x00, sizeof(map->list[0]));
@@ -524,7 +510,7 @@ void instance_destroy(int instance_id) {
 	struct party_data *p = NULL;
 	struct guild *g = NULL;
 	short *iptr = NULL;
-	int type, j, last = 0;
+	int type, j;
 	unsigned int now = (unsigned int)time(NULL);
 	
 	if( !instance->valid(instance_id) )
@@ -574,9 +560,13 @@ void instance_destroy(int instance_id) {
 			iptr[j] = -1;
 	}
 	
-	while( instance->list[instance_id].num_map && last != instance->list[instance_id].map[0] ) { // Remove all maps from instance
-		last = instance->list[instance_id].map[0];
-		instance->del_map( instance->list[instance_id].map[0] );
+	if (instance->list[instance_id].map) {
+		int last = 0;
+		while (instance->list[instance_id].num_map && last != instance->list[instance_id].map[0]) {
+			// Remove all maps from instance
+			last = instance->list[instance_id].map[0];
+			instance->del_map( instance->list[instance_id].map[0] );
+		}
 	}
 	
 	if( instance->list[instance_id].regs.vars )
@@ -597,6 +587,20 @@ void instance_destroy(int instance_id) {
 	instance->list[instance_id].map = NULL;
 	instance->list[instance_id].state = INSTANCE_FREE;
 	instance->list[instance_id].num_map = 0;
+	
+	if (instance->list[instance_id].hdata)
+	{
+		for( j = 0; j < instance->list[instance_id].hdatac; j++ ) {
+			if( instance->list[instance_id].hdata[j]->flag.free ) {
+				aFree(instance->list[instance_id].hdata[j]->data);
+			}
+			aFree(instance->list[instance_id].hdata[j]);
+		}
+		aFree(instance->list[instance_id].hdata);
+	}
+	
+	instance->list[instance_id].hdata = NULL;
+	instance->list[instance_id].hdatac = 0;
 }
 
 /*--------------------------------------
@@ -723,7 +727,10 @@ void do_final_instance(void) {
 	instance->instances = 0;
 }
 
-void do_init_instance(void) {
+void do_init_instance(bool minimal) {
+	if (minimal)
+		return;
+
 	timer->add_func_list(instance->destroy_timer, "instance_destroy_timer");
 }
 

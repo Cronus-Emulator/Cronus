@@ -1,20 +1,12 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//---------------------------------------------------------
-// Banco de Dados de Invocações Elementais
-//---------------------------------------------------------
-// Estrutura do banco de dados:
-// ID,Sprite_Name,Nome,NV,HP,SP,Alcance1,ATQ1,ATQ2,DEF,DEFM,FOR,AGI,VIT,INT,DES,SOR,Alcance2,Alcance3,Escala,Raça,Elemento,Velocidade,aDelay,aMotion,dMotion
-// NOTA:
-// Os STATs de uma invocação elemental são afetadas pelo nível e STATs do Invocador.
-// Então todo valor adicionado aqui vai ser adicionado e não vai substituir os STATs calculados.
-//---------------------------------------------------------
+// Elemental Summons Database
+//
+// Structure of Database:
+// ID,Sprite_Name,Name,LV,HP,SP,Range1,ATK1,ATK2,DEF,MDEF,STR,AGI,VIT,INT,DEX,LUK,Range2,Range3,Scale,Race,Element,Speed,aDelay,aMotion,dMotion
+// NOTE
+// Summoned Elemental’s STATs are affected by the Caster’s Base Level and STATs.
+// So all value added here will be added and will not override the calculated STATs of the summoned elemental.
 
+// Monster Elementals
 2114,EL_AGNI_S,Agni,100,0,1,1,0,0,0,0,0,0,0,0,0,0,5,12,0,0,83,200,504,1020,360
 2115,EL_AGNI_M,Agni,100,0,1,1,0,0,0,0,0,0,0,0,0,0,5,12,1,0,83,200,504,1020,360
 2116,EL_AGNI_L,Agni,100,0,1,1,0,0,0,0,0,0,0,0,0,0,5,12,2,0,83,200,504,1020,360

@@ -1,18 +1,5 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
-
+// Copyright (c) Athena Dev Teams - Licensed under GNU GPL
+// For more information, see LICENCE in the main folder
 
 #ifndef CHAR_INT_MERCENARY_H
 #define CHAR_INT_MERCENARY_H
@@ -21,15 +8,22 @@
 
 struct mmo_charstatus;
 
-int inter_mercenary_sql_init(void);
-void inter_mercenary_sql_final(void);
-int inter_mercenary_parse_frommap(int fd);
+#ifdef HERCULES_CORE
+void inter_mercenary_defaults(void);
+#endif // HERCULES_CORE
 
-// Mercenary Owner Database
-bool mercenary_owner_fromsql(int char_id, struct mmo_charstatus *status);
-bool mercenary_owner_tosql(int char_id, struct mmo_charstatus *status);
-bool mercenary_owner_delete(int char_id);
+/**
+ * inter_mercenary interface
+ **/
+struct inter_mercenary_interface {
+	bool (*owner_fromsql) (int char_id, struct mmo_charstatus *status);
+	bool (*owner_tosql) (int char_id, struct mmo_charstatus *status);
+	bool (*owner_delete) (int char_id);
+	int (*sql_init) (void);
+	void (*sql_final) (void);
+	int (*parse_frommap) (int fd);
+};
 
-bool mapif_mercenary_delete(int merc_id);
+struct inter_mercenary_interface *inter_mercenary;
 
 #endif /* CHAR_INT_MERCENARY_H */

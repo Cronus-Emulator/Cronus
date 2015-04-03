@@ -1,21 +1,18 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//---------------------------------------------------------
-// Banco de Dados de Constantes de Script
-//---------------------------------------------------------
-// Estrutura do banco de dados:
-// Identificador%TAB%Valor[%TAB%Tipo]
-// Alternativo: Identificador,Valor[,Tipo]
+// Script Constant Database
 //
-// 01. Identificador   Valor único para a constante, não deve haver igual em comandos de script, funções nem variáveis.
-// 02. Valor           Valor destinado a constante. Não pode ser modificado enquanto o servidor estiver sendo executado.
-// 03. Tipo            Especifica se o identificador é constante (0) ou parâmetro (1) (opcional, o padrão é 0).
-//---------------------------------------------------------
+// Structure of Database:
+// Identifier	Value[	Type]
+//
+// Alternatively:
+// Identifier,Value[,Type]
+//
+// 01. Identifier	Unique name for the constant, must not have same name as script commands, functions or variables.
+// 02. Value		Value assigned to the constant. This value cannot be changed during the runtime of the server.
+// 03. Type			Specifies whether the identifier is a constant (0) or a parameter (1) (optional, defaults to 0).
+//
+// NOTE:			Parameters are special in that they retrieve certain runtime values depending on the specified ID
+//					in field Value. Depending on the implementation values assigned by scripts to parameters will affect
+//					runtime values, such as Zeny, as well (see pc_readparam/pc_setparam).
 
 Job_Novice	0
 Job_Swordman	1
@@ -594,6 +591,9 @@ bSkillUseSP	2055
 bMagicAtkEle 2056
 bFixedCast	2057
 bVariableCast	2058
+bSetDefRace	2059
+bSetMDefRace	2060
+bAddRaceTolerance	2061
 
 //reference to script.c::script_defaults():equip[] array used for easy-conversion
 EQI_HEAD_TOP	1
@@ -642,7 +642,10 @@ Eff_Confusion	7
 Eff_Blind	8
 Eff_Bleeding	9
 Eff_DPoison	10
-Eff_Burning	11
+Eff_Fear	11	
+Eff_Cold	12
+Eff_Burning	13
+Eff_Deepsleep	14
 
 Ele_Neutral	0
 Ele_Water	1
@@ -710,7 +713,10 @@ SC_CONFUSION	7
 SC_BLIND	8
 SC_BLOODING	9
 SC_DPOISON	10
-SC_BURNING	11
+SC_FEAR	11
+SC_COLD	12
+SC_BURNING	13
+SC_DEEP_SLEEP	14
 SC_PROVOKE	20
 SC_ENDURE	21
 SC_TWOHANDQUICKEN	22
@@ -991,7 +997,6 @@ SC_FOOD_VIT_CASH	306
 SC_FOOD_DEX_CASH	307
 SC_FOOD_INT_CASH	308
 SC_FOOD_LUK_CASH	309
-SC_FEAR	310
 SC_FROSTMISTY	311
 SC_ENCHANTBLADE	312
 SC_DEATHBOUND	313
@@ -1069,7 +1074,6 @@ SC_BANDING_DEFENCE	384
 SC_EARTHDRIVE	385
 SC_INSPIRATION	386
 SC_SPELLFIST	387
-SC_COLD	388
 SC_STRIKING	389
 SC_WARMER	390
 SC_VACUUM_EXTREME	391
@@ -1081,7 +1085,6 @@ SC_RUSH_WINDMILL	396
 SC_ECHOSONG	397
 SC_HARMONIZE	398
 SC_SIREN	399
-SC_DEEP_SLEEP	400
 SC_SIRCLEOFNATURE	401
 SC_GLOOMYDAY	402
 SC_GLOOMYDAY_SK	403
@@ -1257,6 +1260,20 @@ SC_SUPER_STAR	572
 SC_OKTOBERFEST	573
 SC_STRANGELIGHTS	574
 SC_DECORATION_OF_MUSIC	575
+SC__MAELSTROM	576
+SC__CHAOS	577
+SC__FEINTBOMB_MASTER	578
+SC_FALLENEMPIRE	579
+SC_FLASHCOMBO 580
+SC_DEFSET 581
+SC_MDEFSET 582
+SC_NO_SWITCH_EQUIP 583
+
+// 2014 Halloween Event
+SC_MTF_MHP	584
+SC_MTF_MSP	585
+SC_MTF_PUMPKIN	586
+SC_MTF_HITFLEE	587
 
 e_gasp	0
 e_what	1
@@ -3181,33 +3198,47 @@ THANATOS_KEEP	10009
 4_GIGANTES	10068
 4_GIGANTES_SMALL	10069
 4_GARGOYLE_STATUE	10070
-+4_AIRA	10071
-+4_EZELLA	10072
-+4_KULUNA	10073
-+4_LUNE	10074
-+4_MALLINA	10075
-+4_MORIN	10076
-+4_NASARIN	10077
-+4_F_BERRYTEA	10078
-+4_F_FRUIT	10079
-+4_SCR_MT_ROBOTS	10080
-+4_MACHINE_DEVICE	10081
-+4_GC109	10082
-+4_SYS_MSG	10083
-+4_M_TATIO	10084
-+4_M_REKENBER	10085
-+4_XMAS_CAT1	10086
-+4_XMAS_CAT2	10087
-+4_XMAS_CAT3	10088
-+4_XMAS_CAT4	10089
-+4_XMAS_CAT5	10090
-+4_XMAS_CAT6	10091
-+4_M_DEATH2	10092
-+4_S_KADOMATSU	10093
-+4_B_KADOMATSU	10094
-+4_F_08	10095
-+4_F_08_STATUE	10096
-+4_M_DARKPRIEST	10097
+4_AIRA	10071
+4_EZELLA	10072
+4_KULUNA	10073
+4_LUNE	10074
+4_MALLINA	10075
+4_MORIN	10076
+4_NASARIN	10077
+4_F_BERRYTEA	10078
+4_F_FRUIT	10079
+4_SCR_MT_ROBOTS	10080
+4_MACHINE_DEVICE	10081
+4_GC109	10082
+4_SYS_MSG	10083
+4_M_TATIO	10084
+4_M_REKENBER	10085
+4_XMAS_CAT1	10086
+4_XMAS_CAT2	10087
+4_XMAS_CAT3	10088
+4_XMAS_CAT4	10089
+4_XMAS_CAT5	10090
+4_XMAS_CAT6	10091
+4_M_DEATH2	10092
+4_S_KADOMATSU	10093
+4_B_KADOMATSU	10094
+4_F_08	10095
+4_F_08_STATUE	10096
+4_M_DARKPRIEST	10097
+4_JP_GARM_H	10098
+4_JP_MEDUSA_H	10099
+4_CHN_GVG_01	10100
+4_SPRING_RABBIT	10101
+4_PD_TYRA	10102
+4_PD_TYRANOS	10103
+4_PD_PLESI	10104
+4_PD_PLESIO	10105
+4_PD_BRACHI	10106
+4_PD_BRACHIOS	10107
+4_PD_GOLDDRAGON	10108
+4_PD_ZAEROG	10109
+4_PD_TAMADORA	10110
+
 
 MER_LIF	6001
 MER_AMISTR	6002
@@ -3334,3 +3365,23 @@ PC_NAME	0
 PC_PARTY	1
 PC_GUILD	2
 PC_MAP	3
+
+// sc_start
+SCFLAG_NONE	0x00
+SCFLAG_NOAVOID	0x01
+SCFLAG_FIXEDTICK	0x02
+SCFLAG_LOADED	0x04
+SCFLAG_FIXEDRATE	0x08
+SCFLAG_NOICON	0x10
+
+// Mount types
+MOUNT_NONE	0
+MOUNT_PECO	1
+MOUNT_WUG	2
+MOUNT_MADO	3
+MOUNT_DRAGON	4
+MOUNT_DRAGON_GREEN	4
+MOUNT_DRAGON_BROWN	5
+MOUNT_DRAGON_GRAY	6
+MOUNT_DRAGON_BLUE	7
+MOUNT_DRAGON_RED	8

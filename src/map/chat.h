@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_CHAT_H
 #define MAP_CHAT_H
@@ -45,21 +16,21 @@ struct npc_data;
 #define MAX_CHAT_USERS 20
 
 struct chat_data {
-	struct block_list bl;            // data for this map object
-	char title[CHATROOM_TITLE_SIZE]; // room title
-	char pass[CHATROOM_PASS_SIZE];   // password
-	bool pub;                        // private/public flag
-	uint8 users;                     // current user count
-	uint8 limit;                     // join limit
-	uint8 trigger;                   // number of users needed to trigger event
-	uint32 zeny;						 // required zeny to join
-	uint32 minLvl;					 // minimum base level to join
-	uint32 maxLvl;					 // maximum base level allowed to join
+	struct block_list bl;            ///< data for this map object
+	char title[CHATROOM_TITLE_SIZE]; ///< room title
+	char pass[CHATROOM_PASS_SIZE];   ///< password
+	bool pub;                        ///< private/public flag
+	uint8 users;                     ///< current user count
+	uint8 limit;                     ///< join limit
+	uint8 trigger;                   ///< number of users needed to trigger event
+	uint32 zeny;                     ///< required zeny to join
+	uint32 minLvl;                   ///< minimum base level to join
+	uint32 maxLvl;                   ///< maximum base level allowed to join
 	struct map_session_data* usersd[MAX_CHAT_USERS];
 	struct block_list* owner;
 	char npc_event[EVENT_NAME_LENGTH];
 	/* isn't this a waste? there is a enormous overhead, wouldn't something like skill_blockpc_start be better here? [Ind] */
-	DBMap* kick_list;				//DBMap of users who were kicked from this chat
+	DBMap* kick_list;                ///< DBMap of users who were kicked from this chat
 };
 
 /*=====================================
@@ -68,7 +39,6 @@ struct chat_data {
 * created by Susu
 *-------------------------------------*/
 struct chat_interface {
-	
 	/* funcs */
 	bool (*create_pc_chat) (struct map_session_data* sd, const char* title, const char* pass, int limit, bool pub);
 	bool (*join) (struct map_session_data* sd, int chatid, const char* pass);
@@ -87,6 +57,8 @@ struct chat_interface {
 
 struct chat_interface *chat;
 
+#ifdef HERCULES_CORE
 void chat_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* MAP_CHAT_H */

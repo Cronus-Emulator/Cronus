@@ -1,39 +1,12 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+
+/* Hercules Renewal: Phase Two http://hercules.ws/board/topic/383-hercules-renewal-phase-two/ */
 
 #ifndef MAP_PACKETS_STRUCT_H
 #define MAP_PACKETS_STRUCT_H
 
+#include "../common/cbasetypes.h"
 #include "../common/mmo.h"
 
 /**
@@ -104,8 +77,10 @@ enum packet_headers {
 #endif
 #if PACKETVER < 20080102
 	authokType = 0x73,
-#else
+#elif PACKETVER < 20141022
 	authokType = 0x2eb,
+#else
+	authokType = 0xa18,
 #endif
 	script_clearType = 0x8d6,
 	package_item_announceType = 0x7fd,
@@ -236,6 +211,10 @@ enum packet_headers {
 #else
 	wisendType = 0x98,
 #endif
+	partyleaderchangedType = 0x7fc,
+	rouletteinfoackType = 0xa1c,
+	roulettgenerateackType = 0xA20,
+	roulettercvitemackType = 0xA22,
 };
 
 #if !defined(sun) && (!defined(__NETBSD__) || __NetBSD_Version__ >= 600000000) // NetBSD 5 and Solaris don't like pragma pack but accept the packed attribute
@@ -300,10 +279,10 @@ struct EQUIPITEM_INFO {
 	int HireExpireDate;
 #endif
 #if PACKETVER >= 20080102
-    unsigned short bindOnEquipType;
+	unsigned short bindOnEquipType;
 #endif
 #if PACKETVER >= 20100629
-    unsigned short wItemSpriteNumber;
+	unsigned short wItemSpriteNumber;
 #endif
 #if PACKETVER >= 20120925
 	struct {
@@ -323,6 +302,9 @@ struct packet_authok {
 	unsigned char ySize;
 #if PACKETVER >= 20080102
 	short font;
+#endif
+#if PACKETVER >= 20141022
+	unsigned char sex;
 #endif
 } __attribute__((packed));
 
@@ -690,7 +672,7 @@ struct packet_bgqueue_register {
 struct packet_bgqueue_update_info {
 	short PacketType;
 	char bg_name[NAME_LENGTH];
-	int	position;
+	int position;
 } __attribute__((packed));
 
 struct packet_bgqueue_checkstate {
@@ -786,6 +768,58 @@ struct packet_banking_withdraw_ack {
 	short Reason;
 	int64 Money;
 	int Balance;
+} __attribute__((packed));
+
+/* Roulette System [Yommy/Hercules] */
+struct packet_roulette_open_ack {
+	short PacketType;
+	char Result;
+	int Serial;
+	char Step;
+	char Idx;
+	short AdditionItemID;
+	int GoldPoint;
+	int SilverPoint;
+	int BronzePoint;
+} __attribute__((packed));
+
+struct packet_roulette_info_ack {
+	short PacketType;
+	short PacketLength;
+	unsigned int RouletteSerial;
+	struct {
+		unsigned short Row;
+		unsigned short Position;
+		unsigned short ItemId;
+		unsigned short Count;
+	} ItemInfo[42];
+} __attribute__((packed));
+
+struct packet_roulette_close_ack {
+	short PacketType;
+	unsigned char Result;
+} __attribute__((packed));
+
+struct packet_roulette_generate_ack {
+	short PacketType;
+	unsigned char Result;
+	unsigned short Step;
+	unsigned short Idx;
+	unsigned short AdditionItemID;
+	int RemainGold;
+	int RemainSilver;
+	int RemainBronze;
+} __attribute__((packed));
+
+struct packet_roulette_itemrecv_req {
+	short PacketType;
+	unsigned char Condition;
+} __attribute__((packed));
+
+struct packet_roulette_itemrecv_ack {
+	short PacketType;
+	unsigned char Result;
+	unsigned short AdditionItemID;
 } __attribute__((packed));
 
 struct packet_itemlist_normal {
@@ -971,6 +1005,9 @@ struct packet_npc_market_open {
 		unsigned int price;
 		unsigned int qty;
 		unsigned short view;
+	// It seems that the client doesn't have any hard-coded limit for this list
+	// it's possible to send up to 1890 items without dropping a packet that's
+	// too large [Panikon]
 	} list[1000];/* TODO: whats the actual max of this? */
 } __attribute__((packed));
 
@@ -980,6 +1017,13 @@ struct packet_wis_end {
 #if PACKETVER >= 20131223
 	unsigned int unknown;/* maybe AID, not sure what for (works sending as 0) */
 #endif
+} __attribute__((packed));
+
+
+struct packet_party_leader_changed {
+	short PacketType;
+	unsigned int prev_leader_aid;
+	unsigned int new_leader_aid;
 } __attribute__((packed));
 
 

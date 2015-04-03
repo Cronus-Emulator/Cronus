@@ -1,37 +1,11 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "log.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,9 +16,11 @@
 #include "mob.h"
 #include "pc.h"
 #include "../common/cbasetypes.h"
+#include "../common/nullpo.h"
 #include "../common/showmsg.h"
-#include "../common/sql.h" 
+#include "../common/sql.h" // SQL_INNODB
 #include "../common/strlib.h"
+#include "../common/HPM.h"
 
 struct log_interface log_s;
 
@@ -69,11 +45,11 @@ char log_picktype2char(e_log_pick_type type) {
 		case LOG_TYPE_BUYING_STORE:     return 'B';  // (B)uying Store
 		case LOG_TYPE_LOOT:             return 'L';  // (L)oot (consumed monster pick/drop)
 		case LOG_TYPE_BANK:             return 'K';  // Ban(K) Transactions
-		case LOG_TYPE_OTHER:			return 'X';  // Other
+		case LOG_TYPE_OTHER:            return 'X';  // Other
 	}
 
 	// should not get here, fallback
-	ShowDebug("Registro: Tipo desconhecido (Obter Itens) %d.\n", type);
+	ShowDebug("log_picktype2char: Unknown pick type %d.\n", type);
 	return 'X';
 }
 
@@ -89,7 +65,7 @@ char log_chattype2char(e_log_chat_type type) {
 	}
 
 	// should not get here, fallback
-	ShowDebug("Registro: Tipo desconhecido (Conversa) %d.\n", type);
+	ShowDebug("log_chattype2char: Unknown chat type %d.\n", type);
 	return 'O';
 }
 
@@ -146,7 +122,7 @@ void log_branch_sub_txt(struct map_session_data* sd) {
 
 /// logs items, that summon monsters
 void log_branch(struct map_session_data* sd) {
-	if (!sd) return;
+	nullpo_retv(sd);
 
 	if( !logs->config.branch )
 		return;
@@ -158,7 +134,7 @@ void log_pick_sub_sql(int id, int16 m, e_log_pick_type type, int amount, struct 
 	    LOG_QUERY " INTO `%s` (`time`, `char_id`, `type`, `nameid`, `amount`, `refine`, `card0`, `card1`, `card2`, `card3`, `map`, `unique_id`) "
 	    "VALUES (NOW(), '%d', '%c', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%"PRIu64"')",
 	    logs->config.log_pick, id, logs->picktype2char(type), itm->nameid, amount, itm->refine, itm->card[0], itm->card[1], itm->card[2], itm->card[3],
-	    map->list[m].name?map->list[m].name:"", itm->unique_id)
+	    map->list[m].name, itm->unique_id)
 	) {
 		Sql_ShowDebug(logs->mysql_handle);
 		return;
@@ -175,12 +151,12 @@ void log_pick_sub_txt(int id, int16 m, e_log_pick_type type, int amount, struct 
 	strftime(timestring, sizeof(timestring), "%m/%d/%Y %H:%M:%S", localtime(&curtime));
 	fprintf(logfp,"%s - %d\t%c\t%d,%d,%d,%d,%d,%d,%d,%s,'%"PRIu64"'\n",
 	        timestring, id, logs->picktype2char(type), itm->nameid, amount, itm->refine, itm->card[0], itm->card[1], itm->card[2], itm->card[3],
-		map->list[m].name?map->list[m].name:"", itm->unique_id);
+		map->list[m].name, itm->unique_id);
 	fclose(logfp);
 }
 /// logs item transactions (generic)
 void log_pick(int id, int16 m, e_log_pick_type type, int amount, struct item* itm, struct item_data *data) {
-	if (!itm) return;
+	nullpo_retv(itm);
 	if( ( logs->config.enable_logs&type ) == 0 ) {// disabled
 		return;
 	}
@@ -193,14 +169,14 @@ void log_pick(int id, int16 m, e_log_pick_type type, int amount, struct item* it
 
 /// logs item transactions (players)
 void log_pick_pc(struct map_session_data* sd, e_log_pick_type type, int amount, struct item* itm, struct item_data *data) {
-	if (!sd) return;
+	nullpo_retv(sd);
 	log_pick(sd->status.char_id, sd->bl.m, type, amount, itm, data ? data : itemdb->exists(itm->nameid));
 }
 
 
 /// logs item transactions (monsters)
 void log_pick_mob(struct mob_data* md, e_log_pick_type type, int amount, struct item* itm, struct item_data *data) {
-	if (!md) return;
+	nullpo_retv(md);
 	log_pick(md->class_, md->bl.m, type, amount, itm, data ? data : itemdb->exists(itm->nameid));
 }
 void log_zeny_sub_sql(struct map_session_data* sd, e_log_pick_type type, struct map_session_data* src_sd, int amount) {
@@ -226,7 +202,7 @@ void log_zeny_sub_txt(struct map_session_data* sd, e_log_pick_type type, struct 
 /// logs zeny transactions
 void log_zeny(struct map_session_data* sd, e_log_pick_type type, struct map_session_data* src_sd, int amount)
 {
-	if (!sd) return;
+	nullpo_retv(sd);
 
 	if( !logs->config.zeny || ( logs->config.zeny != 1 && abs(amount) < logs->config.zeny ) )
 		return;
@@ -256,7 +232,7 @@ void log_mvpdrop_sub_txt(struct map_session_data* sd, int monster_id, int* log_m
 /// logs MVP monster rewards
 void log_mvpdrop(struct map_session_data* sd, int monster_id, int* log_mvp)
 {
-	if (!sd) return;
+	nullpo_retv(sd);
 
 	if( !logs->config.mvpdrop )
 		return;
@@ -294,7 +270,7 @@ void log_atcommand_sub_txt(struct map_session_data* sd, const char* message) {
 /// logs used atcommands
 void log_atcommand(struct map_session_data* sd, const char* message)
 {
-	if (!sd) return;
+	nullpo_retv(sd);
 
 	if( !logs->config.commands ||
 	    !pc->should_log_commands(sd) )
@@ -332,7 +308,7 @@ void log_npc_sub_txt(struct map_session_data *sd, const char *message) {
 /// logs messages passed to script command 'logmes'
 void log_npc(struct map_session_data* sd, const char* message)
 {
-	if (!sd) return;
+	nullpo_retv(sd);
 
 	if( !logs->config.npc )
 		return;
@@ -387,17 +363,17 @@ void log_sql_init(void) {
 	// log db connection
 	logs->mysql_handle = SQL->Malloc();
 	
-	ShowInfo(""CL_WHITE"[SQL]"CL_RESET": Conectando-se na base de dados "CL_WHITE"%s"CL_RESET" em "CL_WHITE"%s"CL_RESET"...\n",logs->db_name,logs->db_ip);
+	ShowInfo(""CL_WHITE"[SQL]"CL_RESET": Connecting to the Log Database "CL_WHITE"%s"CL_RESET" At "CL_WHITE"%s"CL_RESET"...\n",logs->db_name,logs->db_ip);
 	if ( SQL_ERROR == SQL->Connect(logs->mysql_handle, logs->db_id, logs->db_pw, logs->db_ip, logs->db_port, logs->db_name) )
 		exit(EXIT_FAILURE);
-	ShowStatus(""CL_WHITE"[SQL]"CL_RESET": "CL_GREEN"CONECTADO"CL_RESET" com sucesso na base de dados '"CL_WHITE"%s"CL_RESET"'.\n", logs->db_name);
+	ShowStatus(""CL_WHITE"[SQL]"CL_RESET": Successfully '"CL_GREEN"connected"CL_RESET"' to Database '"CL_WHITE"%s"CL_RESET"'.\n", logs->db_name);
 	
-	if( strlen(map->default_codepage) > 0 )
+	if (map->default_codepage[0] != '\0')
 		if ( SQL_ERROR == SQL->SetEncoding(logs->mysql_handle, map->default_codepage) )
 			Sql_ShowDebug(logs->mysql_handle);
 }
 void log_sql_final(void) {
-	ShowStatus("Finalizando base de dados para registros...\n");
+	ShowStatus("Close Log DB Connection....\n");
 	SQL->Free(logs->mysql_handle);
 	logs->mysql_handle = NULL;
 }
@@ -422,64 +398,66 @@ int log_config_read(const char* cfgName) {
 		log_set_defaults();
 
 	if( ( fp = fopen(cfgName, "r") ) == NULL ) {
-		ShowError("Arquivo inexistente: %s\n", cfgName);
+		ShowError("Log configuration file not found at: %s\n", cfgName);
 		return 1;
 	}
 
-	while( fgets(line, sizeof(line), fp) ) {
-		if( line[0] == '/' && line[1] == '/' )
+	while (fgets(line, sizeof(line), fp)) {
+		if (line[0] == '/' && line[1] == '/')
 			continue;
 
-		if( sscanf(line, "%[^:]: %[^\r\n]", w1, w2) == 2 ) {
-			if( strcasecmp(w1, "enable_logs") == 0 )
+		if (sscanf(line, "%1023[^:]: %1023[^\r\n]", w1, w2) == 2) {
+			if( strcmpi(w1, "enable_logs") == 0 )
 				logs->config.enable_logs = (e_log_pick_type)config_switch(w2);
-			else if( strcasecmp(w1, "sql_logs") == 0 )
+			else if( strcmpi(w1, "sql_logs") == 0 )
 				logs->config.sql_logs = (bool)config_switch(w2);
 //start of common filter settings
-			else if( strcasecmp(w1, "rare_items_log") == 0 )
+			else if( strcmpi(w1, "rare_items_log") == 0 )
 				logs->config.rare_items_log = atoi(w2);
-			else if( strcasecmp(w1, "refine_items_log") == 0 )
+			else if( strcmpi(w1, "refine_items_log") == 0 )
 				logs->config.refine_items_log = atoi(w2);
-			else if( strcasecmp(w1, "price_items_log") == 0 )
+			else if( strcmpi(w1, "price_items_log") == 0 )
 				logs->config.price_items_log = atoi(w2);
-			else if( strcasecmp(w1, "amount_items_log") == 0 )
+			else if( strcmpi(w1, "amount_items_log") == 0 )
 				logs->config.amount_items_log = atoi(w2);
 //end of common filter settings
-			else if( strcasecmp(w1, "log_branch") == 0 )
+			else if( strcmpi(w1, "log_branch") == 0 )
 				logs->config.branch = config_switch(w2);
-			else if( strcasecmp(w1, "log_filter") == 0 )
+			else if( strcmpi(w1, "log_filter") == 0 )
 				logs->config.filter = config_switch(w2);
-			else if( strcasecmp(w1, "log_zeny") == 0 )
+			else if( strcmpi(w1, "log_zeny") == 0 )
 				logs->config.zeny = config_switch(w2);
-			else if( strcasecmp(w1, "log_commands") == 0 )
+			else if( strcmpi(w1, "log_commands") == 0 )
 				logs->config.commands = config_switch(w2);
-			else if( strcasecmp(w1, "log_npc") == 0 )
+			else if( strcmpi(w1, "log_npc") == 0 )
 				logs->config.npc = config_switch(w2);
-			else if( strcasecmp(w1, "log_chat") == 0 )
+			else if( strcmpi(w1, "log_chat") == 0 )
 				logs->config.chat = config_switch(w2);
-			else if( strcasecmp(w1, "log_mvpdrop") == 0 )
+			else if( strcmpi(w1, "log_mvpdrop") == 0 )
 				logs->config.mvpdrop = config_switch(w2);
-			else if( strcasecmp(w1, "log_chat_woe_disable") == 0 )
+			else if( strcmpi(w1, "log_chat_woe_disable") == 0 )
 				logs->config.log_chat_woe_disable = (bool)config_switch(w2);
-			else if( strcasecmp(w1, "log_branch_db") == 0 )
+			else if( strcmpi(w1, "log_branch_db") == 0 )
 				safestrncpy(logs->config.log_branch, w2, sizeof(logs->config.log_branch));
-			else if( strcasecmp(w1, "log_pick_db") == 0 )
+			else if( strcmpi(w1, "log_pick_db") == 0 )
 				safestrncpy(logs->config.log_pick, w2, sizeof(logs->config.log_pick));
-			else if( strcasecmp(w1, "log_zeny_db") == 0 )
+			else if( strcmpi(w1, "log_zeny_db") == 0 )
 				safestrncpy(logs->config.log_zeny, w2, sizeof(logs->config.log_zeny));
-			else if( strcasecmp(w1, "log_mvpdrop_db") == 0 )
+			else if( strcmpi(w1, "log_mvpdrop_db") == 0 )
 				safestrncpy(logs->config.log_mvpdrop, w2, sizeof(logs->config.log_mvpdrop));
-			else if( strcasecmp(w1, "log_gm_db") == 0 )
+			else if( strcmpi(w1, "log_gm_db") == 0 )
 				safestrncpy(logs->config.log_gm, w2, sizeof(logs->config.log_gm));
-			else if( strcasecmp(w1, "log_npc_db") == 0 )
+			else if( strcmpi(w1, "log_npc_db") == 0 )
 				safestrncpy(logs->config.log_npc, w2, sizeof(logs->config.log_npc));
-			else if( strcasecmp(w1, "log_chat_db") == 0 )
+			else if( strcmpi(w1, "log_chat_db") == 0 )
 				safestrncpy(logs->config.log_chat, w2, sizeof(logs->config.log_chat));
 			//support the import command, just like any other config
-			else if( strcasecmp(w1,"import") == 0 )
-				log_config_read(w2);
+			else if( strcmpi(w1,"import") == 0 )
+				logs->config_read(w2);
+			else if (HPM->parseConf(w1, w2, HPCT_LOG))
+				; // handled by plugins
 			else
-				ShowWarning("Dado desconhecido '%s' no arquivo %s.\n", w1, cfgName);
+				ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
 		}
 	}
 
@@ -489,25 +467,25 @@ int log_config_read(const char* cfgName) {
 		const char* target = logs->config.sql_logs ? "table" : "file";
 
 		if( logs->config.enable_logs && logs->config.filter ) {
-			ShowInfo("Registrando movimento de itens para %s -> '%s'.\n", target, logs->config.log_pick);
+			ShowInfo("Logging item transactions to %s '%s'.\n", target, logs->config.log_pick);
 		}
 		if( logs->config.branch ) {
-			ShowInfo("Registrando uso de itens para invocar monstros em %s -> '%s'.\n", target, logs->config.log_pick);
+			ShowInfo("Logging monster summon item usage to %s '%s'.\n", target, logs->config.log_pick);
 		}
 		if( logs->config.chat ) {
-			ShowInfo("Registrando conversas para %s '%s'.\n", target, logs->config.log_chat);
+			ShowInfo("Logging chat to %s '%s'.\n", target, logs->config.log_chat);
 		}
 		if( logs->config.commands ) {
-			ShowInfo("Registrando comandos para %s '%s'.\n", target, logs->config.log_gm);
+			ShowInfo("Logging commands to %s '%s'.\n", target, logs->config.log_gm);
 		}
 		if( logs->config.mvpdrop ) {
-			ShowInfo("Registrando itens deixados por MVP's para %s '%s'.\n", target, logs->config.log_mvpdrop);
+			ShowInfo("Logging MVP monster rewards to %s '%s'.\n", target, logs->config.log_mvpdrop);
 		}
 		if( logs->config.npc ) {
-			ShowInfo("Registrando conversas de NPC's para %s '%s'.\n", target, logs->config.log_npc);
+			ShowInfo("Logging 'logmes' messages to %s '%s'.\n", target, logs->config.log_npc);
 		}
 		if( logs->config.zeny ) {
-			ShowInfo("Registrando movimento de zeny para %s '%s'.\n", target, logs->config.log_zeny);
+			ShowInfo("Logging Zeny transactions to %s '%s'.\n", target, logs->config.log_zeny);
 		}
 		logs->config_done();
 	}

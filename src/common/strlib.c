@@ -1,39 +1,12 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
-#define _H_STRLIB_C_
+#define HERCULES_CORE
+
+#define H_STRLIB_C
 #include "strlib.h"
-#undef _H_STRLIB_C_
+#undef H_STRLIB_C
 
 #include <errno.h>
 #include <stdio.h>
@@ -45,6 +18,9 @@
 
 #define J_MAX_MALLOC_SIZE 65535
 
+struct strlib_interface strlib_s;
+struct stringbuf_interface stringbuf_s;
+struct sv_interface sv_s;
 
 // escapes a string in-place (' -> \' , \ -> \\ , % -> _)
 char* jstrescape (char* pt) {
@@ -86,11 +62,12 @@ char* jstrescapecpy (char* pt, const char* spt)
 	//a escape character is found, the target's final length increases! [Skotlex]
 	int i =0, j=0;
 
-	if (!spt) {	//Return an empty string [Skotlex]
+	if (!spt) {
+		//Return an empty string [Skotlex]
 		pt[0] = '\0';
 		return &pt[0];
 	}
-	
+
 	while (spt[i] != '\0') {
 		switch (spt[i]) {
 			case '\'':
@@ -251,8 +228,8 @@ const char* stristr(const char* haystack, const char* needle)
 	return 0;
 }
 
-#ifdef WIN32
-char* _strtok_r(char *s1, const char *s2, char **lasts) {
+#ifdef __WIN32
+char* strtok_r_(char *s1, const char *s2, char **lasts) {
 	char *ret;
 
 	if (s1 == NULL)
@@ -268,6 +245,63 @@ char* _strtok_r(char *s1, const char *s2, char **lasts) {
 		*s1++ = '\0';
 	*lasts = s1;
 	return ret;
+}
+#endif
+
+// TODO: The _MSC_VER check can probably be removed (we no longer support VS
+// versions <= 2003, do we?), but this implementation might be still necessary
+// for NetBSD 5.x and possibly some Solaris versions.
+#if !(defined(WIN32) && defined(_MSC_VER) && _MSC_VER >= 1400) && !defined(HAVE_STRNLEN)
+/* Find the length of STRING, but scan at most MAXLEN characters.
+ * If no '\0' terminator is found in that many characters, return MAXLEN.
+ */
+size_t strnlen(const char* string, size_t maxlen) {
+	const char* end = (const char*)memchr(string, '\0', maxlen);
+	return end ? (size_t) (end - string) : maxlen;
+}
+#endif
+
+// TODO: This should probably be removed, I don't think we support MSVC++ 6.0 anymore.
+#if defined(WIN32) && defined(_MSC_VER) && _MSC_VER <= 1200
+uint64 strtoull(const char* str, char** endptr, int base)
+{
+	uint64 result;
+	int count;
+	int n;
+
+	if( base == 0 )
+	{
+		if( str[0] == '0' && (str[1] == 'x' || str[1] == 'X') )
+			base = 16;
+		else
+		if( str[0] == '0' )
+			base = 8;
+		else
+			base = 10;
+	}
+
+	if( base == 8 )
+		count = sscanf(str, "%I64o%n", &result, &n);
+	else
+	if( base == 10 )
+		count = sscanf(str, "%I64u%n", &result, &n);
+	else
+	if( base == 16 )
+		count = sscanf(str, "%I64x%n", &result, &n);
+	else
+		count = 0; // fail
+
+	if( count < 1 )
+	{
+		errno = EINVAL;
+		result = 0;
+		n = 0;
+	}
+
+	if( endptr )
+		*endptr = (char*)str + n;
+
+	return result;
 }
 #endif
 
@@ -313,17 +347,17 @@ int e_mail_check(char* email)
 //--------------------------------------------------
 int config_switch(const char* str) {
 	size_t len = strlen(str);
-	if ((len == 2 && strcasecmp(str, "on") == 0)
-	 || (len == 3 && strcasecmp(str, "yes") == 0)
-	 || (len == 4 && strcasecmp(str, "true") == 0)
-	// || (len == 3 && strcasecmp(str, "oui") == 0) // Uncomment and edit to add your own localized versions
+	if ((len == 2 && strcmpi(str, "on") == 0)
+	 || (len == 3 && strcmpi(str, "yes") == 0)
+	 || (len == 4 && strcmpi(str, "true") == 0)
+	// || (len == 3 && strcmpi(str, "oui") == 0) // Uncomment and edit to add your own localized versions
 	)
 		return 1;
 
-	if ((len == 3 && strcasecmp(str, "off") == 0)
-	 || (len == 2 && strcasecmp(str, "no") == 0)
-	 || (len == 5 && strcasecmp(str, "false") == 0)
-	// || (len == 3 && strcasecmp(str, "non") == 0) // Uncomment and edit to add your own localized versions
+	if ((len == 3 && strcmpi(str, "off") == 0)
+	 || (len == 2 && strcmpi(str, "no") == 0)
+	 || (len == 5 && strcmpi(str, "false") == 0)
+	// || (len == 3 && strcmpi(str, "non") == 0) // Uncomment and edit to add your own localized versions
 	)
 		return 0;
 
@@ -366,16 +400,15 @@ size_t safestrnlen(const char* string, size_t maxlen)
 /// @param fmt Format string
 /// @param ... Format arguments
 /// @return The size of the string or -1 if the buffer is too small
-int safesnprintf(char* buf, size_t sz, const char* fmt, ...)
-{
+int safesnprintf(char *buf, size_t sz, const char *fmt, ...) __attribute__((format(printf, 3, 4)));
+int safesnprintf(char *buf, size_t sz, const char *fmt, ...) {
 	va_list ap;
 	int ret;
 
 	va_start(ap,fmt);
 	ret = vsnprintf(buf, sz, fmt, ap);
 	va_end(ap);
-	if( ret < 0 || (size_t)ret >= sz )
-	{// overflow
+	if (ret < 0 || (size_t)ret >= sz) { // overflow
 		buf[sz-1] = '\0';// always null-terminate
 		return -1;
 	}
@@ -913,7 +946,6 @@ bool sv_readdb(const char* directory, const char* filename, char delim, int minc
 	char** fields; // buffer for fields ([0] is reserved)
 	int columns, fields_length;
 	char path[1024], line[1024];
-	char* match;
 
 	snprintf(path, sizeof(path), "%s/%s", directory, filename);
 
@@ -925,13 +957,15 @@ bool sv_readdb(const char* directory, const char* filename, char delim, int minc
 
 	// allocate enough memory for the maximum requested amount of columns plus the reserved one
 	fields_length = maxcols+1;
-	fields = aMalloc(fields_length*sizeof(char*));
+	fields = (char**)aMalloc(fields_length*sizeof(char*));
 
 	// process rows one by one
 	while( fgets(line, sizeof(line), fp) ) {
+		char *match;
 		lines++;
 
-		if( ( match = strstr(line, "//") ) != NULL ) {// strip comments
+		if ((match = strstr(line, "//") ) != NULL) {
+			// strip comments
 			match[0] = 0;
 		}
 
@@ -966,7 +1000,7 @@ bool sv_readdb(const char* directory, const char* filename, char delim, int minc
 
 	aFree(fields);
 	fclose(fp);
-	ShowStatus("Finalizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", entries, path);
+	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", entries, path);
 
 	return true;
 }
@@ -988,11 +1022,12 @@ StringBuf* StringBuf_Malloc(void)  {
 /// Initializes a previously allocated StringBuf
 void StringBuf_Init(StringBuf* self) {
 	self->max_ = 1024;
-	self->ptr_ = self->buf_ = aMalloc(self->max_ + 1);
+	self->ptr_ = self->buf_ = (char*)aMalloc(self->max_ + 1);
 }
 
 /// Appends the result of printf to the StringBuf
-int StringBuf_Printf(StringBuf* self, const char* fmt, ...) {
+int StringBuf_Printf(StringBuf *self, const char *fmt, ...) __attribute__((format(printf, 2, 3)));
+int StringBuf_Printf(StringBuf *self, const char *fmt, ...) {
 	int len;
 	va_list ap;
 
@@ -1005,13 +1040,11 @@ int StringBuf_Printf(StringBuf* self, const char* fmt, ...) {
 
 /// Appends the result of vprintf to the StringBuf
 int StringBuf_Vprintf(StringBuf* self, const char* fmt, va_list ap) {
-	int n, off;
-	size_t size;
-
 	for(;;) {
 		va_list apcopy;
+		int n, off;
 		/* Try to print in the allocated space. */
-		size = self->max_ - (self->ptr_ - self->buf_);
+		size_t size = self->max_ - (self->ptr_ - self->buf_);
 		va_copy(apcopy, ap);
 		n = vsnprintf(self->ptr_, size, fmt, apcopy);
 		va_end(apcopy);
@@ -1098,11 +1131,24 @@ void strlib_defaults(void) {
 	sv = &sv_s;
 	/* link~u! */
 	strlib->jstrescape = jstrescape;
+	strlib->jstrescapecpy = jstrescapecpy;
 	strlib->jmemescapecpy = jmemescapecpy;
 	strlib->remove_control_chars = remove_control_chars;
 	strlib->trim = trim;
 	strlib->normalize_name = normalize_name;
 	strlib->stristr = stristr;
+
+#if !(defined(WIN32) && defined(_MSC_VER) && _MSC_VER >= 1400) && !defined(HAVE_STRNLEN)
+	strlib->strnlen = strnlen;
+#else
+	strlib->strnlen = NULL;
+#endif
+
+#if defined(WIN32) && defined(_MSC_VER) && _MSC_VER <= 1200
+	strlib->strtoull = strtoull;
+#else
+	strlib->strtoull = NULL;
+#endif
 	strlib->e_mail_check = e_mail_check;
 	strlib->config_switch = config_switch;
 	strlib->safestrncpy = safestrncpy;
@@ -1110,6 +1156,7 @@ void strlib_defaults(void) {
 	strlib->safesnprintf = safesnprintf;
 	strlib->strline = strline;
 	strlib->bin2hex = bin2hex;
+
 	StrBuf->Malloc = StringBuf_Malloc;
 	StrBuf->Init = StringBuf_Init;
 	StrBuf->Printf = StringBuf_Printf;
@@ -1121,7 +1168,7 @@ void strlib_defaults(void) {
 	StrBuf->Clear = StringBuf_Clear;
 	StrBuf->Destroy = StringBuf_Destroy;
 	StrBuf->Free = StringBuf_Free;
-	
+
 	sv->parse_next = sv_parse_next;
 	sv->parse = sv_parse;
 	sv->split = sv_split;

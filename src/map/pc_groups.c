@@ -1,35 +1,8 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "pc_groups.h"
 
@@ -41,6 +14,7 @@
 #include "../common/conf.h"
 #include "../common/db.h"
 #include "../common/malloc.h"
+#include "../common/nullpo.h"
 #include "../common/showmsg.h"
 #include "../common/strlib.h" // strcmp
 
@@ -82,7 +56,7 @@ static void read_config(void) {
 
 	groups = libconfig->lookup(&pc_group_config, "groups");
 
-	if (groups) {
+	if (groups != NULL) {
 		GroupSettings *group_settings = NULL;
 		DBIterator *iter = NULL;
 		int i, loop = 0;
@@ -153,7 +127,7 @@ static void read_config(void) {
 			
 		}
 		group_count = libconfig->setting_length(groups); // Save number of groups
-		if (group_count != db_size(pcg->db)) return; // 
+		assert(group_count == db_size(pcg->db));
 		
 		// Check if all commands and permissions exist
 		iter = db_iterator(pcg->db);
@@ -307,7 +281,7 @@ static void read_config(void) {
 		}
 	}
 
-	ShowStatus("Finalizada leitura de '"CL_WHITE"%d"CL_RESET"' grupos em '"CL_WHITE"%s"CL_RESET"'.\n", group_count, config_filename);
+	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' groups in '"CL_WHITE"%s"CL_RESET"'.\n", group_count, config_filename);
 
 	// All data is loaded now, discard config
 	libconfig->destroy(&pc_group_config);
@@ -392,7 +366,7 @@ unsigned int pc_groups_add_permission(const char *name) {
 	unsigned char i;
 	
 	for(i = 0; i < pcg->permission_count; i++) {
-		if( strcasecmp(name,pcg->permissions[i].name) == 0 ) {
+		if( strcmpi(name,pcg->permissions[i].name) == 0 ) {
 			ShowError("pc_groups_add_permission(%s): failed! duplicate permission name!\n",name);
 			return 0;
 		}
@@ -446,6 +420,10 @@ void do_init_pc_groups(void) {
 		{ "disable_commands_when_dead", PC_PERM_DISABLE_CMD_DEAD },
 		{ "hchsys_admin", PC_PERM_HCHSYS_ADMIN },
 		{ "can_trade_bound", PC_PERM_TRADE_BOUND },
+		{ "disable_pickup", PC_PERM_DISABLE_PICK_UP },
+		{ "disable_store", PC_PERM_DISABLE_STORE },
+		{ "disable_exp", PC_PERM_DISABLE_EXP },
+		{ "disable_skill_usage", PC_PERM_DISABLE_SKILL_USAGE },
 	};
 	unsigned char i, len = ARRAYLENGTH(pc_g_defaults);
 	
@@ -454,7 +432,14 @@ void do_init_pc_groups(void) {
 		if( ( p = pc_groups_add_permission(pc_g_defaults[i].name) ) != pc_g_defaults[i].permission )
 			ShowError("do_init_pc_groups: %s error : %d != %d\n",pc_g_defaults[i].name,p,pc_g_defaults[i].permission);
 	}
-
+	
+	/**
+	 * Handle plugin-provided permissions
+	 **/
+	for(i = 0; i < pcg->HPMpermissions_count; i++) {
+		*pcg->HPMpermissions[i].mask = pc_groups_add_permission(pcg->HPMpermissions[i].name);
+	}
+	
 	pcg->db = idb_alloc(DB_OPT_RELEASE_DATA);
 	pcg->name_db = stridb_alloc(DB_OPT_DUP_KEY, 0);
 	
@@ -529,7 +514,10 @@ void pc_groups_defaults(void) {
 	/* */
 	pcg->permissions = NULL;
 	pcg->permission_count = 0;
-        /* */
+	/* */
+	pcg->HPMpermissions = NULL;
+	pcg->HPMpermissions_count = 0;
+	/* */
 	pcg->init = do_init_pc_groups;
 	pcg->final = do_final_pc_groups;
 	pcg->reload = pc_groups_reload;

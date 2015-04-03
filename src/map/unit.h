@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_UNIT_H
 #define MAP_UNIT_H
@@ -59,6 +30,9 @@ struct unit_data {
 	int   attacktimer;
 	int   walktimer;
 	int   chaserange;
+	bool  stepaction; //Action should be executed on step [Playtester]
+	int   steptimer; //Timer that triggers the action [Playtester]
+	uint16 stepskill_id,stepskill_lv; //Remembers skill that should be casted on step [Playtester]
 	int64 attackabletime;
 	int64 canact_tick;
 	int64 canmove_tick;
@@ -69,6 +43,7 @@ struct unit_data {
 		unsigned change_walk_target : 1 ;
 		unsigned skillcastcancel : 1 ;
 		unsigned attack_continue : 1 ;
+		unsigned step_attack : 1;
 		unsigned walk_easy : 1 ;
 		unsigned running : 1;
 		unsigned speed_changed : 1;
@@ -100,7 +75,7 @@ extern const short dirx[8];
 extern const short diry[8];
 
 struct unit_interface {
-	int (*init) (void);
+	int (*init) (bool minimal);
 	int (*final) (void);
 	/* */
 	struct unit_data* (*bl2ud) (struct block_list *bl);
@@ -112,8 +87,8 @@ struct unit_interface {
 	int (*walktoxy) (struct block_list *bl, short x, short y, int flag);
 	int (*walktobl_sub) (int tid, int64 tick, int id, intptr_t data);
 	int (*walktobl) (struct block_list *bl, struct block_list *tbl, int range, int flag);
-	int (*run) (struct block_list *bl);
-	int (*wugdash) (struct block_list *bl, struct map_session_data *sd);
+	bool (*run) (struct block_list *bl, struct map_session_data *sd, enum sc_type type);
+	void (*run_hit) (struct block_list *bl, struct status_change *sc, struct map_session_data *sd, enum sc_type type);
 	int (*escape) (struct block_list *bl, struct block_list *target, short dist);
 	int (*movepos) (struct block_list *bl, short dst_x, short dst_y, int easy, bool checkpath);
 	int (*setdir) (struct block_list *bl, unsigned char dir);
@@ -122,6 +97,8 @@ struct unit_interface {
 	int (*warp) (struct block_list *bl, short m, short x, short y, clr_type type);
 	int (*stop_walking) (struct block_list *bl, int type);
 	int (*skilluse_id) (struct block_list *src, int target_id, uint16 skill_id, uint16 skill_lv);
+	int (*step_timer) (int tid, int64 tick, int id, intptr_t data);
+	void (*stop_stepaction) (struct block_list *bl);
 	int (*is_walking) (struct block_list *bl);
 	int (*can_move) (struct block_list *bl);
 	int (*resume_running) (int tid, int64 tick, int id, intptr_t data);
@@ -130,7 +107,7 @@ struct unit_interface {
 	int (*skilluse_pos) (struct block_list *src, short skill_x, short skill_y, uint16 skill_id, uint16 skill_lv);
 	int (*skilluse_pos2) (struct block_list *src, short skill_x, short skill_y, uint16 skill_id, uint16 skill_lv, int casttime, int castcancel);
 	int (*set_target) (struct unit_data *ud, int target_id);
-	int (*stop_attack) (struct block_list *bl);
+	void (*stop_attack) (struct block_list *bl);
 	int (*unattackable) (struct block_list *bl);
 	int (*attack) (struct block_list *src, int target_id, int continuous);
 	int (*cancel_combo) (struct block_list *bl);

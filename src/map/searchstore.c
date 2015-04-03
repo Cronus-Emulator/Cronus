@@ -1,35 +1,8 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "searchstore.h"  // struct s_search_store_info
 
@@ -164,7 +137,7 @@ void searchstore_query(struct map_session_data* sd, unsigned char type, unsigned
 	searchstore->clear(sd);
 
 	// allocate max. amount of results
-	sd->searchstore.items = aMalloc(sizeof(struct s_search_store_info_item)*battle_config.searchstore_maxresults);
+	sd->searchstore.items = (struct s_search_store_info_item*)aMalloc(sizeof(struct s_search_store_info_item)*battle_config.searchstore_maxresults);
 
 	// search
 	s.search_sd  = sd;
@@ -360,7 +333,7 @@ bool searchstore_result(struct map_session_data* sd, unsigned int store_id, int 
 
 void searchstore_defaults (void) {
 	searchstore = &searchstore_s;
-	
+
 	searchstore->open = searchstore_open;
 	searchstore->query = searchstore_query;
 	searchstore->querynext = searchstore_querynext;
@@ -371,5 +344,5 @@ void searchstore_defaults (void) {
 	searchstore->queryremote = searchstore_queryremote;
 	searchstore->clearremote = searchstore_clearremote;
 	searchstore->result = searchstore_result;
-	
+
 }

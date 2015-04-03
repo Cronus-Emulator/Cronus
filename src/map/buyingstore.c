@@ -1,37 +1,11 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
+
+#define HERCULES_CORE
 
 #include "buyingstore.h"  // struct s_buyingstore
+
 #include "atcommand.h"  // msg_txt
 #include "battle.h"  // battle_config.*
 #include "chrif.h"
@@ -65,19 +39,19 @@ bool buyingstore_setup(struct map_session_data* sd, unsigned char slots)
 
 	if( map->list[sd->bl.m].flag.novending ) {
 		// custom: no vending maps
-		clif->message(sd->fd, msg_txt(276)); // "You can't open a shop on this map"
+		clif->message(sd->fd, msg_sd(sd,276)); // "You can't open a shop on this map"
 		return false;
 	}
 
 	if( map->getcell(sd->bl.m, sd->bl.x, sd->bl.y, CELL_CHKNOVENDING) ) {
 		// custom: no vending cells
-		clif->message(sd->fd, msg_txt(204)); // "You can't open a shop on this cell."
+		clif->message(sd->fd, msg_sd(sd,204)); // "You can't open a shop on this cell."
 		return false;
 	}
 
 	if( slots > MAX_BUYINGSTORE_SLOTS )
 	{
-		ShowWarning("Foram requisitados %d slots para venda, mas o servidor suporta apenas %d slots.\n", (int)slots, MAX_BUYINGSTORE_SLOTS);
+		ShowWarning("buyingstore_setup: Requested %d slots, but server supports only %d slots.\n", (int)slots, MAX_BUYINGSTORE_SLOTS);
 		slots = MAX_BUYINGSTORE_SLOTS;
 	}
 
@@ -91,10 +65,9 @@ bool buyingstore_setup(struct map_session_data* sd, unsigned char slots)
 void buyingstore_create(struct map_session_data* sd, int zenylimit, unsigned char result, const char* storename, const uint8* itemlist, unsigned int count)
 {
 	unsigned int i, weight, listidx;
-	struct item_data* id;
 
-	if( !result || count == 0 )
-	{// canceled, or no items
+	if (!result || count == 0) {
+		// canceled, or no items
 		return;
 	}
 
@@ -108,7 +81,7 @@ void buyingstore_create(struct map_session_data* sd, int zenylimit, unsigned cha
 	if( !pc_can_give_items(sd) )
 	{// custom: GM is not allowed to buy (give zeny)
 		sd->buyingstore.slots = 0;
-		clif->message(sd->fd, msg_txt(246));
+		clif->message(sd->fd, msg_sd(sd,246));
 		clif->buyingstore_open_failed(sd, BUYINGSTORE_CREATE, 0);
 		return;
 	}
@@ -120,23 +93,24 @@ void buyingstore_create(struct map_session_data* sd, int zenylimit, unsigned cha
 
 	if( map->list[sd->bl.m].flag.novending ) {
 		// custom: no vending maps
-		clif->message(sd->fd, msg_txt(276)); // "You can't open a shop on this map"
+		clif->message(sd->fd, msg_sd(sd,276)); // "You can't open a shop on this map"
 		return;
 	}
 
 	if( map->getcell(sd->bl.m, sd->bl.x, sd->bl.y, CELL_CHKNOVENDING) ) {
 		// custom: no vending cells
-		clif->message(sd->fd, msg_txt(204)); // "You can't open a shop on this cell."
+		clif->message(sd->fd, msg_sd(sd,204)); // "You can't open a shop on this cell."
 		return;
 	}
 
 	weight = sd->weight;
 
 	// check item list
-	for( i = 0; i < count; i++ )
-	{// itemlist: <name id>.W <amount>.W <price>.L
+	for (i = 0; i < count; i++) {
+		// itemlist: <name id>.W <amount>.W <price>.L
 		unsigned short nameid, amount;
 		int price, idx;
+		struct item_data* id;
 
 		nameid = RBUFW(itemlist,i*8+0);
 		amount = RBUFW(itemlist,i*8+2);
@@ -152,8 +126,9 @@ void buyingstore_create(struct map_session_data* sd, int zenylimit, unsigned cha
 			break;
 		}
 
-		if( !id->flag.buyingstore || !itemdb->cantrade_sub(id, pc_get_group_level(sd), pc_get_group_level(sd)) || ( idx = pc->search_inventory(sd, nameid) ) == -1 )
-		{// restrictions: allowed, no character-bound items and at least one must be owned
+		if (!id->flag.buyingstore || !itemdb->cantrade_sub(id, pc_get_group_level(sd), pc_get_group_level(sd))
+		 || (idx = pc->search_inventory(sd, nameid)) == INDEX_NOT_FOUND
+		 ) { // restrictions: allowed, no character-bound items and at least one must be owned
 			break;
 		}
 
@@ -167,7 +142,7 @@ void buyingstore_create(struct map_session_data* sd, int zenylimit, unsigned cha
 			ARR_FIND( 0, i, listidx, sd->buyingstore.items[listidx].nameid == nameid );
 			if( listidx != i )
 			{// duplicate
-				ShowWarning("Encontrado item duplicado na lista de venda!! (ID: %hu | QNT: %hu | AID: %d | CID: %d).\n", nameid, amount, sd->status.account_id, sd->status.char_id);
+				ShowWarning("buyingstore_create: Found duplicate item on buying list (nameid=%hu, amount=%hu, account_id=%d, char_id=%d).\n", nameid, amount, sd->status.account_id, sd->status.char_id);
 				break;
 			}
 		}
@@ -194,7 +169,7 @@ void buyingstore_create(struct map_session_data* sd, int zenylimit, unsigned cha
 
 	// success
 	sd->state.buyingstore = true;
-	sd->buyer_id = buyingstore_getuid();
+	sd->buyer_id = buyingstore->getuid();
 	sd->buyingstore.zenylimit = zenylimit;
 	sd->buyingstore.slots = i;  // store actual amount of items
 	safestrncpy(sd->message, storename, sizeof(sd->message));
@@ -228,7 +203,7 @@ void buyingstore_open(struct map_session_data* sd, int account_id)
 
 	if( !pc_can_give_items(sd) )
 	{// custom: GM is not allowed to sell
-		clif->message(sd->fd, msg_txt(246));
+		clif->message(sd->fd, msg_sd(sd,246));
 		return;
 	}
 
@@ -266,7 +241,7 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 
 	if( !pc_can_give_items(sd) )
 	{// custom: GM is not allowed to sell
-		clif->message(sd->fd, msg_txt(246));
+		clif->message(sd->fd, msg_sd(sd,246));
 		clif->buyingstore_trade_failed_seller(sd, BUYINGSTORE_TRADE_SELLER_FAILED, 0);
 		return;
 	}
@@ -306,7 +281,7 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 			ARR_FIND( 0, i, k, RBUFW(itemlist,k*6+0)-2 == index );
 			if( k != i )
 			{// duplicate
-				ShowWarning("Encontrado item duplicado na lista de venda!! (ANT.ID: %hu | ANT.QNT: %hu |ID: %hu | QNT: %hu | AID: %d | CID: %d).\n",
+				ShowWarning("buyingstore_trade: Found duplicate item on selling list (prevnameid=%hu, prevamount=%hu, nameid=%hu, amount=%hu, account_id=%d, char_id=%d).\n",
 					RBUFW(itemlist,k*6+2), RBUFW(itemlist,k*6+4), nameid, amount, sd->status.account_id, sd->status.char_id);
 				clif->buyingstore_trade_failed_seller(sd, BUYINGSTORE_TRADE_SELLER_FAILED, nameid);
 				return;
@@ -319,8 +294,11 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 			return;
 		}
 
-		if( sd->status.inventory[index].expire_time || (sd->status.inventory[index].bound && !pc_can_give_bound_items(sd)) || !itemdb_cantrade(&sd->status.inventory[index], pc_get_group_level(sd), pc_get_group_level(pl_sd)) || memcmp(sd->status.inventory[index].card, buyingstore->blankslots, sizeof(buyingstore->blankslots)) )
- 		{// non-tradable item
+		if (sd->status.inventory[index].expire_time || (sd->status.inventory[index].bound && !pc_can_give_bound_items(sd))
+		 || !itemdb_cantrade(&sd->status.inventory[index], pc_get_group_level(sd), pc_get_group_level(pl_sd))
+		 || memcmp(sd->status.inventory[index].card, buyingstore->blankslots, sizeof(buyingstore->blankslots))
+		) {
+			// non-tradable item
 			clif->buyingstore_trade_failed_seller(sd, BUYINGSTORE_TRADE_SELLER_FAILED, nameid);
 			return;
 		}
@@ -392,7 +370,7 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 		chrif->save(sd, 0);
 		chrif->save(pl_sd, 0);
 	}
-	
+
 	// check whether or not there is still something to buy
 	ARR_FIND( 0, pl_sd->buyingstore.slots, i, pl_sd->buyingstore.items[i].amount != 0 );
 	if( i == pl_sd->buyingstore.slots )
@@ -409,7 +387,7 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 	}
 
 	// cannot continue buying
-	buyingstore_close(pl_sd);
+	buyingstore->close(pl_sd);
 
 	// remove auto-trader
 	if( pl_sd->state.autotrade ) {
@@ -421,12 +399,12 @@ void buyingstore_trade(struct map_session_data* sd, int account_id, unsigned int
 /// Checks if an item is being bought in given player's buying store.
 bool buyingstore_search(struct map_session_data* sd, unsigned short nameid)
 {
+	unsigned int i;
+
 	if( !sd->state.buyingstore )
 	{// not buying
 		return false;
 	}
-	
-	unsigned int i;
 
 	ARR_FIND( 0, sd->buyingstore.slots, i, sd->buyingstore.items[i].nameid == nameid && sd->buyingstore.items[i].amount );
 	if( i == sd->buyingstore.slots )
@@ -484,7 +462,7 @@ bool buyingstore_searchall(struct map_session_data* sd, const struct s_search_st
 }
 void buyingstore_defaults(void) {
 	buyingstore = &buyingstore_s;
-	
+
 	buyingstore->nextid = 0;
 	memset(buyingstore->blankslots,0,sizeof(buyingstore->blankslots));
 	/* */

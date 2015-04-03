@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_NPC_H
 #define MAP_NPC_H
@@ -40,6 +11,7 @@
 #include "../common/cbasetypes.h"
 #include "../common/db.h"
 
+struct HPluginData;
 struct view_data;
 
 enum npc_parse_options {
@@ -83,13 +55,14 @@ struct npc_data {
 	struct npc_data *master_nd;
 	short class_;
 	short speed;
-	char name[NPC_NAME_LENGTH];// display name
-	char exname[NPC_NAME_LENGTH+1];// unique npc name
+	char name[NAME_LENGTH+1];// display name
+	char exname[NAME_LENGTH+1];// unique npc name
 	int chat_id;
 	int touching_id;
 	int64 next_walktime;
 	uint8 dir;
-	
+	uint8 area_size;
+
 	unsigned size : 2;
 
 	struct status_data status;
@@ -126,9 +99,12 @@ struct npc_data {
 		struct {
 			struct mob_data *md;
 			time_t kill_time;
-			char killer_name[NPC_NAME_LENGTH];
+			char killer_name[NAME_LENGTH];
 		} tomb;
 	} u;
+	/* HPData Support for npc_data */
+	struct HPluginData **hdata;
+	unsigned int hdatac;
 };
 
 
@@ -146,11 +122,7 @@ enum actor_classes {
 #define MAX_NPC_CLASS 1000
 // New NPC range
 #define MAX_NPC_CLASS2_START 10000
-#define MAX_NPC_CLASS2_END 10070
-
-//Checks if a given id is a valid npc id. [Skotlex]
-//Since new npcs are added all the time, the max valid value is the one before the first mob (Scorpion = 1001)
-#define npcdb_checkid(id) ( ( (id) >= 46 && (id) <= 125) || (id) == HIDDEN_WARP_CLASS || ( (id) > 400 && (id) < MAX_NPC_CLASS ) || (id) == INVISIBLE_CLASS || ( (id) > MAX_NPC_CLASS2_START && (id) < MAX_NPC_CLASS2_END ) )
+#define MAX_NPC_CLASS2_END 10110
 
 //Script NPC events.
 enum npce_event {
@@ -197,7 +169,7 @@ struct npc_interface {
 	bool trader_ok;
 	int trader_funds[2];
 	/* */
-	int (*init) (void);
+	int (*init) (bool minimal);
 	int (*final) (void);
 	/* */
 	int (*get_new_npc_id) (void);
@@ -206,6 +178,7 @@ struct npc_interface {
 	bool (*isnear) (struct block_list *bl);
 	int (*ontouch_event) (struct map_session_data *sd, struct npc_data *nd);
 	int (*ontouch2_event) (struct map_session_data *sd, struct npc_data *nd);
+	int (*onuntouch_event) (struct map_session_data *sd, struct npc_data *nd);
 	int (*enable_sub) (struct block_list *bl, va_list ap);
 	int (*enable) (const char *name, int flag);
 	struct npc_data* (*name2id) (const char *name);
@@ -230,6 +203,7 @@ struct npc_interface {
 	int (*touch_areanpc_sub) (struct block_list *bl, va_list ap);
 	int (*touchnext_areanpc) (struct map_session_data *sd, bool leavemap);
 	int (*touch_areanpc) (struct map_session_data *sd, int16 m, int16 x, int16 y);
+	int (*untouch_areanpc) (struct map_session_data *sd, int16 m, int16 x, int16 y);
 	int (*touch_areanpc2) (struct mob_data *md);
 	int (*check_areanpc) (int flag, int16 m, int16 x, int16 y, int16 range);
 	struct npc_data* (*checknear) (struct map_session_data *sd, struct block_list *bl);
@@ -256,9 +230,11 @@ struct npc_interface {
 	void (*parsename) (struct npc_data *nd, const char *name, const char *start, const char *buffer, const char *filepath);
 	int (*parseview) (const char *w4, const char *start, const char *buffer, const char *filepath);
 	bool (*viewisid) (const char *viewid);
+	struct npc_data* (*create_npc) (int m, int x, int y);
 	struct npc_data* (*add_warp) (char *name, short from_mapid, short from_x, short from_y, short xs, short ys, unsigned short to_mapindex, short to_x, short to_y);
 	const char* (*parse_warp) (char *w1, char *w2, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int *retval);
 	const char* (*parse_shop) (char *w1, char *w2, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int *retval);
+	const char* (*parse_unknown_object) (char *w1, char *w2, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int *retval);
 	void (*convertlabel_db) (struct npc_label_list *label_list, const char *filepath);
 	const char* (*skip_script) (const char *start, const char *buffer, const char *filepath, int *retval);
 	const char* (*parse_script) (char *w1, char *w2, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int options, int *retval);
@@ -275,6 +251,7 @@ struct npc_interface {
 	void (*parse_mob2) (struct spawn_data *mobspawn);
 	const char* (*parse_mob) (char *w1, char *w2, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int *retval);
 	const char* (*parse_mapflag) (char *w1, char *w2, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int *retval);
+	void (*parse_unknown_mapflag) (const char *name, char *w3, char *w4, const char *start, const char *buffer, const char *filepath, int *retval);
 	int (*parsesrcfile) (const char *filepath, bool runOnInit);
 	int (*script_event) (struct map_session_data *sd, enum npce_event type);
 	void (*read_event_script) (void);
@@ -295,6 +272,7 @@ struct npc_interface {
 	void (*market_tosql) (struct npc_data *nd, unsigned short index);
 	void (*market_delfromsql) (struct npc_data *nd, unsigned short index);
 	void (*market_delfromsql_sub) (const char *npcname, unsigned short index);
+	bool (*db_checkid) (const int id);
 	/**
 	 * For the Secure NPC Timeout option (check config/Secure.h) [RR]
 	 **/
@@ -303,12 +281,14 @@ struct npc_interface {
 
 struct npc_interface *npc;
 
+#ifdef HERCULES_CORE
 void npc_defaults(void);
+#endif // HERCULES_CORE
 
 
 /* comes from npc_chat.c */
 #ifdef PCRE_SUPPORT
-#include "../3rdparty/pcre/include/pcre.h"
+#include "../../3rdparty/pcre/include/pcre.h"
 /* Structure containing all info associated with a single pattern block */
 struct pcrematch_entry {
 	struct pcrematch_entry* next;
@@ -369,7 +349,9 @@ struct pcre_interface *libpcre;
 /**
  * Also defaults libpcre
  **/
+#ifdef HERCULES_CORE
 void npc_chat_defaults(void);
-#endif
+#endif // HERCULES_CORE
+#endif // PCRE_SUPPORT
 
 #endif /* MAP_NPC_H */

@@ -1,98 +1,91 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \ 
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//----- Descrição: ----------------------------------------
-// Banco de Dados de Habilidades das Invocações Elementais
-//---------------------------------------------------------
-// Estrutura:
+// Elemental Summons Skill Database
+//
+// Structure of Database:
 //        ElementalID,SkillID,SkillLevel,ReqMode
 //
-// Estado de Espírito: 1 = Passivo, 2 = Defensivo, 4 = Agressivo
-//---------------------------------------------------------
+// Spirit Modes: 1 = Passive, 2 = Defensive, 4 = Aggressive
+//====================================================
+
 //================
 // EL_AGNI_S
 //================
-2114,8413,1,1	//EL_PYROTECHNIC,Pirotecnia
-2114,8401,1,2	//EL_CIRCLE_OF_FIRE,Círculo de Fogo
-2114,8425,1,4	//EL_FIRE_ARROW,Flecha de Fogo
+2114,8413,1,1	//EL_PYROTECHNIC,Pyrotechnic
+2114,8401,1,2	//EL_CIRCLE_OF_FIRE,Circle of Fire
+2114,8425,1,4	//EL_FIRE_ARROW,Fire Arrow
 
 //================
 // EL_AGNI_M
 //================
-2115,8414,1,1	//EL_HEATER,Aquecido
-2115,8402,1,2	//EL_FIRE_CLOAK,Capa de Fogo
-2115,8426,1,4	//EL_FIRE_BOMB,Bomba de Fogo
+2115,8414,1,1	//EL_HEATER,Heater
+2115,8402,1,2	//EL_FIRE_CLOAK,Fire Cloak
+2115,8426,1,4	//EL_FIRE_BOMB,Fire Bomb
 
 //================
 // EL_AGNI_L
 //================
-2116,8415,1,1	//EL_TROPIC,Trópico
-2116,8403,1,2	//EL_FIRE_MANTLE,Manto de Fogo
-2116,8428,1,4	//EL_FIRE_WAVE,Onda de Fogo
+2116,8415,1,1	//EL_TROPIC,Tropic
+2116,8403,1,2	//EL_FIRE_MANTLE,Fire Mantle
+2116,8428,1,4	//EL_FIRE_WAVE,Fire Wave
 
 //================
 // EL_AQUA_S
 //================
-2117,8416,1,1	//EL_AQUAPLAY,Brincar com Água
-2117,8404,1,2	//EL_WATER_SCREEN,Imagem de Água
-2117,8430,1,4	//EL_ICE_NEEDLE,Agulha de Gelo
+2117,8416,1,1	//EL_AQUAPLAY,Aqua Play
+2117,8404,1,2	//EL_WATER_SCREEN,Water Screen
+2117,8430,1,4	//EL_ICE_NEEDLE,Ice Needle
 
 //================
 // EL_AQUA_M
 //================
-2118,8417,1,1	//EL_COOLER,Refrigerador
-2118,8405,1,2	//EL_WATER_DROP,Lágrima de Água
-2118,8431,1,4	//EL_WATER_SCREW,Lanças de Água
+2118,8417,1,1	//EL_COOLER,Cooler
+2118,8405,1,2	//EL_WATER_DROP,Water Drop
+2118,8431,1,4	//EL_WATER_SCREW,Water Screw
 
 //================
 // EL_AQUA_L
 //================
-2119,8418,1,1	//EL_CHILLY_AIR,Refrigerador de Ar
-2119,8406,1,2	//EL_WATER_BARRIER,Barreira de Água
-2119,8433,1,4	//EL_TIDAL_WEAPON,Arma das Marés
+2119,8418,1,1	//EL_CHILLY_AIR,Cool Air
+2119,8406,1,2	//EL_WATER_BARRIER,Water Barrier
+2119,8433,1,4	//EL_TIDAL_WEAPON,Tidal Weapon
 
 //================
 // EL_VENTUS_S
 //================
-2120,8419,1,1	//EL_GUST,Temporal
-2120,8407,1,2	//EL_WIND_STEP,Passo do Vento
-2120,8434,1,4	//EL_WIND_SLASH,Vento Cortante
+2120,8419,1,1	//EL_GUST,Gust
+2120,8407,1,2	//EL_WIND_STEP,Wind Step
+2120,8434,1,4	//EL_WIND_SLASH,Wind Slasher
 
 //================
 // EL_VENTUS_M
 //================
-2121,8420,1,1	//EL_BLAST,Explosão
-2121,8408,1,2	//EL_WIND_CURTAIN,Cortina de Vento
-2121,8435,1,4	//EL_HURRICANE,Fúria do Furacão
+2121,8420,1,1	//EL_BLAST,Blast
+2121,8408,1,2	//EL_WIND_CURTAIN,Wind Curtain
+2121,8435,1,4	//EL_HURRICANE,Hurricane Rage
 
 //================
 // EL_VENTUS_L
 //================
-2122,8421,1,1	//EL_WILD_STORM,Tempestade Selvagem
+2122,8421,1,1	//EL_WILD_STORM,Wild Storm
 2122,8409,1,2	//EL_ZEPHYR,Zephyr
-2122,8437,1,4	//EL_TYPOON_MIS,Míssil Tufão
+2122,8437,1,4	//EL_TYPOON_MIS,Typhoon Missile
 
 //================
 // EL_TERA_S
 //================
-2123,8422,1,1	//EL_PETROLOGY,Petrologia
-2123,8410,1,2	//EL_SOLID_SKIN,Pele Sólida
-2123,8439,1,4	//EL_STONE_HAMMER,Martelo de Pedra
+2123,8422,1,1	//EL_PETROLOGY,Petrology
+2123,8410,1,2	//EL_SOLID_SKIN,Solid Skin
+2123,8439,1,4	//EL_STONE_HAMMER,Stone Hammer
 
 //================
 // EL_TERA_M
 //================
-2124,8423,1,1	//EL_CURSED_SOIL,Solo Maldito
-2124,8411,1,2	//EL_STONE_SHIELD,Escudo de Pedra
-2124,8440,1,4	//EL_ROCK_CRUSHER,Disparador de Rochas
+2124,8423,1,1	//EL_CURSED_SOIL,Cursed Soil
+2124,8411,1,2	//EL_STONE_SHIELD,Stone Shield
+2124,8440,1,4	//EL_ROCK_CRUSHER,Rock Launcher
 
 //================
 // EL_TERA_L
 //================
-2125,8424,1,1	//EL_UPHEAVAL,Agitação
-2125,8412,1,2	//EL_POWER_OF_GAIA,Poder de Gaia
-2125,8442,1,4	//EL_STONE_RAIN,Chuva de Pedras
+2125,8424,1,1	//EL_UPHEAVAL,Upheaval
+2125,8412,1,2	//EL_POWER_OF_GAIA,Power of Gaia
+2125,8442,1,4	//EL_STONE_RAIN,Stone Rain

@@ -1,37 +1,21 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Mapflag: Bloqueia mofificações de um Grupo.               -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Hercules Dev Team                                         -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.1                                                       -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- Bloqueia modificações de um grupo em um mapa:             -
-//-   /organize, /leave, /invite, @changeleader               -
-//-------------------------------------------------------------
-//- Comentários Adicionais:                                   -
-//- 1.0 Script Inicial                                        -
-//- 1.1 Aplicada Tradução (PT-BR). [SkyHD]                    -
-//-------------------------------------------------------------
+//===== Hercules Script ======================================
+//= Mapflag: Party lock.
+//===== By: ==================================================
+//= Hercules Dev Team
+//===== Current Version: =====================================
+//= 1.0
+//===== Description: =========================================
+//= Blocks all party modifications on a map:
+//=   /organize, /leave, /invite, @changeleader
+//===== Additional Comments: =================================
+//= 1.0 - Initial script.
+//============================================================
 
-// Santuário Selado ==================
+// Sealed Shrine ==================
 1@cata	mapflag	partylock
 2@cata	mapflag	partylock
 
-// Torre Infinita ==================
+// Endless Tower ==================
 1@tower	mapflag	partylock
 2@tower	mapflag	partylock
 3@tower	mapflag	partylock
@@ -39,35 +23,35 @@
 5@tower	mapflag	partylock
 6@tower	mapflag	partylock
 
-// Memorial dos Orcs ===================
+// Orc's Memory ===================
 1@orcs	mapflag	partylock
 2@orcs	mapflag	partylock
 
-// Instância de Nidhogg ===========
+// Nidhoggr's Instance ===========
 1@nyd	mapflag	partylock
 2@nyd	mapflag	partylock
 
-// Labirinto da Neblina ===========
+// Misty Forest Labyrinth ===========
 1@mist	mapflag	partylock
 
-// Caverna do Polvo ===========
+// Octopus Cave ===========
 1@cash	mapflag	partylock
 
-// Canalização ===========
+// Drain ===========
 1@pump	mapflag	partylock
 2@pump	mapflag	partylock
 
-// Laboratório de Somatologia ===========
+// Somatology Laboratory ===========
 1@lhz	mapflag	partylock
 
-// Hospital de Bangungot ===========
+// Bangungot Hospital F2 ===========
 1@ma_h	mapflag	partylock
 
-// Caverna de Buwaya ===========
+// Buwaya Cave ===========
 1@ma_c	mapflag	partylock
 
-// Esconderijo de Bakonawa ===========
+// Bakonawa Hideout ===========
 1@ma_b	mapflag	partylock
 
-// Interior de Eclage ===========
+// Inside Eclage ===========
 1@ecl	mapflag	partylock

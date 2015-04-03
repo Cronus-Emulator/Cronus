@@ -1,42 +1,12 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) rAthena Project (www.rathena.org) - Licensed under GNU GPL
+// For more information, see LICENCE in the main folder
 
 #ifndef COMMON_THREAD_H
 #define COMMON_THREAD_H
 
 #include "../common/cbasetypes.h"
 
-typedef struct rAthread *rAthread;
+typedef struct rAthread rAthread;
 typedef void* (*rAthreadProc)(void*);
 
 typedef enum RATHREAD_PRIO {
@@ -46,6 +16,7 @@ typedef enum RATHREAD_PRIO {
 } RATHREAD_PRIO;
 
 
+#ifdef HERCULES_CORE
 /**
  * Creates a new Thread
  *
@@ -54,7 +25,7 @@ typedef enum RATHREAD_PRIO {
  *
  * @return not NULL if success
  */
-rAthread rathread_create( rAthreadProc entryPoint,  void *param );
+rAthread *rathread_create(rAthreadProc entryPoint, void *param);
 
 
 /**
@@ -67,7 +38,7 @@ rAthread rathread_create( rAthreadProc entryPoint,  void *param );
  *
  * @return not NULL if success
  */
-rAthread rathread_createEx( rAthreadProc entryPoint,  void *param,  size_t szStack,  RATHREAD_PRIO prio );
+rAthread *rathread_createEx(rAthreadProc entryPoint, void *param, size_t szStack, RATHREAD_PRIO prio);
 
 
 /**
@@ -77,7 +48,7 @@ rAthread rathread_createEx( rAthreadProc entryPoint,  void *param,  size_t szSta
  *
  * @param handle - thread to destroy.
  */
-void rathread_destroy ( rAthread handle );
+void rathread_destroy(rAthread *handle);
 
 
 /**
@@ -88,7 +59,7 @@ void rathread_destroy ( rAthread handle );
  *
  * @return not NULL if success
  */
-rAthread rathread_self( );
+rAthread *rathread_self(void);
 
 
 /**
@@ -99,7 +70,7 @@ rAthread rathread_self( );
  *
  * @return -1 when fails, otherwise >= 0
  */
-int rathread_get_tid();
+int rathread_get_tid(void);
 
 
 /**
@@ -110,7 +81,7 @@ int rathread_get_tid();
  *
  * @return true - if the given thread has been terminated.
  */
-bool rathread_wait( rAthread handle,  void* *out_exitCode );
+bool rathread_wait(rAthread *handle, void **out_exitCode);
 
 
 /**
@@ -119,7 +90,7 @@ bool rathread_wait( rAthread handle,  void* *out_exitCode );
  * @param handle - thread to set prio for
  * @param rio - the priority (RAT_PRIO_LOW ... )
  */
-void rathread_prio_set( rAthread handle, RATHREAD_PRIO prio );
+void rathread_prio_set(rAthread *handle, RATHREAD_PRIO prio);
 
 
 /**
@@ -127,22 +98,20 @@ void rathread_prio_set( rAthread handle, RATHREAD_PRIO prio );
  *
  * @param handle - the thread to get the prio for.
  */
-RATHREAD_PRIO rathread_prio_get( rAthread handle);
+RATHREAD_PRIO rathread_prio_get(rAthread *handle);
 
 
 /**
  * Tells the OS scheduler to yield the execution of the calling thread
  *
  * @note: this will not "pause" the thread,
- *			it just allows the OS to spent the remaining time
- *			of the slice to another thread.
+ *        it just allows the OS to spend the remaining time
+ *        of the slice to another thread.
  */
-void rathread_yield();
+void rathread_yield(void);
 
-
-
-void rathread_init();
-void rathread_final();
-
+void rathread_init(void);
+void rathread_final(void);
+#endif // HERCULES_CORE
 
 #endif /* COMMON_THREAD_H */

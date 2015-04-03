@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_LOG_H
 #define MAP_LOG_H
@@ -127,7 +98,7 @@ struct log_interface {
 	char db_ip[32];
 	int db_port;
 	char db_id[32];
-	char db_pw[32];
+	char db_pw[100];
 	char db_name[32];
 	Sql* mysql_handle;
 	/* */
@@ -139,7 +110,7 @@ struct log_interface {
 	void (*atcommand) (struct map_session_data* sd, const char* message);
 	void (*branch) (struct map_session_data* sd);
 	void (*mvpdrop) (struct map_session_data* sd, int monster_id, int* log_mvp);
-	
+
 	void (*pick_sub) (int id, int16 m, e_log_pick_type type, int amount, struct item* itm, struct item_data *data);
 	void (*zeny_sub) (struct map_session_data* sd, e_log_pick_type type, struct map_session_data* src_sd, int amount);
 	void (*npc_sub) (struct map_session_data* sd, const char *message);
@@ -147,12 +118,12 @@ struct log_interface {
 	void (*atcommand_sub) (struct map_session_data* sd, const char* message);
 	void (*branch_sub) (struct map_session_data* sd);
 	void (*mvpdrop_sub) (struct map_session_data* sd, int monster_id, int* log_mvp);
-	
+
 	int (*config_read) (const char* cfgName);
 	void (*config_done) (void);
 	void (*sql_init) (void);
 	void (*sql_final) (void);
-	
+
 	char (*picktype2char) (e_log_pick_type type);
 	char (*chattype2char) (e_log_chat_type type);
 	bool (*should_log_item) (int nameid, int amount, int refine, struct item_data *id);
@@ -160,6 +131,8 @@ struct log_interface {
 
 struct log_interface *logs;
 
+#ifdef HERCULES_CORE
 void log_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* MAP_LOG_H */

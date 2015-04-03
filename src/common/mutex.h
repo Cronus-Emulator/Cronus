@@ -1,65 +1,35 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
+// Copyright (c) rAthena Project (www.rathena.org) - Licensed under GNU GPL
+// For more information, see LICENCE in the main folder
 
 #ifndef COMMON_MUTEX_H
 #define COMMON_MUTEX_H
 
 #include "../common/cbasetypes.h"
 
-typedef struct ramutex *ramutex; // Mutex
-typedef struct racond *racond; // Condition Var
+typedef struct ramutex ramutex; // Mutex
+typedef struct racond racond; // Condition Var
 
+#ifdef HERCULES_CORE
 /**
  * Creates a Mutex
  *
  * @return not NULL
  */
-ramutex ramutex_create();
+ramutex *ramutex_create();
 
 /**
  * Destroys a Mutex
  *
  * @param m - the mutex to destroy
  */
-void ramutex_destroy( ramutex m );
+void ramutex_destroy(ramutex *m);
 
 /**
  * Gets a lock
  *
  * @param m - the mutex to lock
  */
-void ramutex_lock( ramutex m);
+void ramutex_lock(ramutex *m);
 
 /**
  * Trys to get the Lock
@@ -68,14 +38,14 @@ void ramutex_lock( ramutex m);
  *
  * @return boolean (true = got the lock)
  */
-bool ramutex_trylock( ramutex m );
+bool ramutex_trylock(ramutex *m);
 
 /**
  * Unlocks a mutex
  *
  * @param m - the mutex to unlock
  */
-void ramutex_unlock( ramutex m);
+void ramutex_unlock(ramutex *m);
 
 
 /**
@@ -83,14 +53,14 @@ void ramutex_unlock( ramutex m);
  *
  * @return not NULL
  */
-racond racond_create();
+racond *racond_create();
 
 /**
  * Destroy a Condition variable
  *
  * @param c - the condition variable to destroy
  */
-void racond_destroy( racond c );
+void racond_destroy(racond *c);
 
 /**
  * Waits Until state is signaled
@@ -99,7 +69,7 @@ void racond_destroy( racond c );
  * @param m - the mutex used for synchronization
  * @param timeout_ticks - timeout in ticks ( -1 = INFINITE )
  */
-void racond_wait( racond c,  ramutex m,  sysint timeout_ticks);
+void racond_wait(racond *c, ramutex *m, sysint timeout_ticks);
 
 /**
  * Sets the given condition var to signaled state
@@ -109,7 +79,7 @@ void racond_wait( racond c,  ramutex m,  sysint timeout_ticks);
  * @note:
  *  Only one waiter gets notified.
  */
-void racond_signal( racond c );
+void racond_signal(racond *c);
 
 /**
  * Sets notifies all waiting threads thats signaled.
@@ -118,7 +88,7 @@ void racond_signal( racond c );
  * @note:
  *  All Waiters getting notified.
  */
-void racond_broadcast( racond c );
+void racond_broadcast(racond *c);
+#endif // HERCULES_CORE
 
-
-#endif /* _COMMON_MUTEX_H_ */
+#endif /* COMMON_MUTEX_H */

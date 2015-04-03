@@ -1,38 +1,9 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
-#ifndef _COMMON_SQL_H_
-#define _COMMON_SQL_H_
+#ifndef COMMON_SQL_H
+#define COMMON_SQL_H
 
 #include <stdarg.h>// va_list
 
@@ -127,7 +98,7 @@ struct sql_interface {
 	/// The query is constructed as if it was sprintf.
 	///
 	/// @return SQL_SUCCESS or SQL_ERROR
-	int (*Query) (Sql* self, const char* query, ...);
+	int (*Query) (Sql *self, const char *query, ...) __attribute__((format(printf, 2, 3)));
 	/// Executes a query.
 	/// Any previous result is freed.
 	/// The query is constructed as if it was svprintf.
@@ -205,7 +176,7 @@ struct sql_interface {
 	/// The query is constructed as if it was sprintf.
 	///
 	/// @return SQL_SUCCESS or SQL_ERROR
-	int (*StmtPrepare)(SqlStmt* self, const char* query, ...);
+	int (*StmtPrepare) (SqlStmt *self, const char *query, ...) __attribute__((format(printf, 2, 3)));
 
 	/// Prepares the statement.
 	/// Any previous result is freed and all parameter bindings are removed.
@@ -296,20 +267,24 @@ struct sql_interface {
 
 	void (*StmtShowDebug_)(SqlStmt* self, const char* debug_file, const unsigned long debug_line);
 
-} sql_s;
+};
 
 struct sql_interface *SQL;
 
+#ifdef HERCULES_CORE
 void sql_defaults(void);
+
+void Sql_Init(void);
+
+void Sql_HerculesUpdateCheck(Sql* self);
+void Sql_HerculesUpdateSkip(Sql* self,const char *filename);
+#endif // HERCULES_CORE
 
 #if defined(SQL_REMOVE_SHOWDEBUG)
 #define Sql_ShowDebug(self) (void)0
 #else
 #define Sql_ShowDebug(self) (SQL->ShowDebug_((self), __FILE__, __LINE__))
 #endif
-
-void Sql_HerculesUpdateCheck(Sql* self);
-void Sql_HerculesUpdateSkip(Sql* self,const char *filename);
 
 #if defined(SQL_REMOVE_SHOWDEBUG)
 #define SqlStmt_ShowDebug(self) (void)0
@@ -318,6 +293,4 @@ void Sql_HerculesUpdateSkip(Sql* self,const char *filename);
 #define SqlStmt_ShowDebug(self) (SQL->StmtShowDebug_((self), __FILE__, __LINE__))
 #endif
 
-void Sql_Init(void);
-
-#endif /* _COMMON_SQL_H_ */
+#endif /* COMMON_SQL_H */

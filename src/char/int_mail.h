@@ -1,32 +1,33 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
-
+// Copyright (c) Athena Dev Teams - Licensed under GNU GPL
+// For more information, see LICENCE in the main folder
 
 #ifndef CHAR_INT_MAIL_H
 #define CHAR_INT_MAIL_H
 
+#include "../common/cbasetypes.h"
+
 struct item;
+struct mail_data;
 struct mail_message;
 
-int inter_mail_parse_frommap(int fd);
-void mail_sendmail(int send_id, const char* send_name, int dest_id, const char* dest_name, const char* title, const char* body, int zeny, struct item *item);
+#ifdef HERCULES_CORE
+void inter_mail_defaults(void);
+#endif // HERCULES_CORE
 
-int inter_mail_sql_init(void);
-void inter_mail_sql_final(void);
+/**
+ * inter_mail interface
+ **/
+struct inter_mail_interface {
+	int (*sql_init) (void);
+	void (*sql_final) (void);
+	int (*parse_frommap) (int fd);
+	int (*fromsql) (int char_id, struct mail_data* md);
+	int (*savemessage) (struct mail_message* msg);
+	bool (*loadmessage) (int mail_id, struct mail_message* msg);
+	bool (*DeleteAttach) (int mail_id);
+	void (*sendmail) (int send_id, const char* send_name, int dest_id, const char* dest_name, const char* title, const char* body, int zeny, struct item *item);
+};
 
-int mail_savemessage(struct mail_message* msg);
-void mapif_Mail_new(struct mail_message *msg);
+struct inter_mail_interface *inter_mail;
 
 #endif /* CHAR_INT_MAIL_H */

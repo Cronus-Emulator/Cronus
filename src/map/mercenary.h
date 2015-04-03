@@ -1,36 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 #ifndef MAP_MERCENARY_H
 #define MAP_MERCENARY_H
 
@@ -72,7 +42,7 @@ struct mercenary_data {
 
 	struct map_session_data *master;
 	int contract_timer;
-	
+
 	unsigned devotion_flag : 1;
 	int64 masterteleport_timer;
 };
@@ -85,26 +55,26 @@ struct mercenary_data {
 struct mercenary_interface {
 
 	/* vars */
-	
+
 	struct s_mercenary_db db[MAX_MERCENARY_CLASS];
 
 	/* funcs */
 
-	void (*init) (void);
-	
+	void (*init) (bool minimal);
+
 	bool (*class) (int class_);
 	struct view_data * (*get_viewdata) (int class_);
-	
+
 	int (*create) (struct map_session_data *sd, int class_, unsigned int lifetime);
 	int (*data_received) (struct s_mercenary *merc, bool flag);
 	int (*save) (struct mercenary_data *md);
-	
+
 	void (*heal) (struct mercenary_data *md, int hp, int sp);
 	int (*dead) (struct mercenary_data *md);
-	
+
 	int (*delete) (struct mercenary_data *md, int reply);
 	void (*contract_stop) (struct mercenary_data *md);
-	
+
 	int (*get_lifetime) (struct mercenary_data *md);
 	int (*get_guild) (struct mercenary_data *md);
 	int (*get_faith) (struct mercenary_data *md);
@@ -112,14 +82,14 @@ struct mercenary_interface {
 	int (*get_calls) (struct mercenary_data *md);
 	int (*set_calls) (struct mercenary_data *md, int value);
 	int (*kills) (struct mercenary_data *md);
-	
+
 	int (*checkskill) (struct mercenary_data *md, uint16 skill_id);
 	int (*read_db) (void);
 	int (*read_skilldb) (void);
-	
+
 	int (*killbonus) (struct mercenary_data *md);
 	int (*search_index) (int class_);
-	
+
 	int (*contract_end_timer) (int tid, int64 tick, int id, intptr_t data);
 	bool (*read_db_sub) (char* str[], int columns, int current);
 	bool (*read_skill_db_sub) (char* str[], int columns, int current);
@@ -127,6 +97,8 @@ struct mercenary_interface {
 
 struct mercenary_interface *mercenary;
 
+#ifdef HERCULES_CORE
 void mercenary_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* MAP_MERCENARY_H */

@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_STORAGE_H
 #define MAP_STORAGE_H
@@ -54,7 +25,7 @@ struct storage_interface {
 	int (*gettocart) (struct map_session_data *sd,int index,int amount);
 	void (*close) (struct map_session_data *sd);
 	void (*pc_quit) (struct map_session_data *sd, int flag);
-	int (*comp_item) (const void *_i1, const void *_i2);
+	int (*comp_item) (const void *i1_, const void *i2_);
 	void (*sortitem) (struct item* items, unsigned int size);
 	int (*reconnect_sub) (DBKey key, DBData *data, va_list ap);
 };
@@ -63,10 +34,9 @@ struct storage_interface *storage;
 struct guild_storage_interface {
 	struct DBMap* db; // int guild_id -> struct guild_storage*
 	/* */
-	struct guild_storage *(*id2storage) (int guild_id);
-	struct guild_storage *(*id2storage2) (int guild_id);
+	struct guild_storage *(*ensure) (int guild_id);
 	/* */
-	void (*init) (void);
+	void (*init) (bool minimal);
 	void (*final) (void);
 	/* */
 	int (*delete) (int guild_id);
@@ -86,7 +56,9 @@ struct guild_storage_interface {
 
 struct guild_storage_interface *gstorage;
 
+#ifdef HERCULES_CORE
 void storage_defaults(void);
 void gstorage_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* MAP_STORAGE_H */

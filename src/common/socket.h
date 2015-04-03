@@ -1,35 +1,6 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef COMMON_SOCKET_H
 #define COMMON_SOCKET_H
@@ -47,6 +18,7 @@
 #	include <sys/types.h>
 #endif
 
+struct HPluginData;
 
 #define FIFOSIZE_SERVERLINK 256*1024
 
@@ -125,7 +97,9 @@ struct socket_data {
 	ParseFunc func_parse;
 
 	void* session_data; // stores application-specific data related to the session
-	
+
+	struct HPluginData **hdata;
+	unsigned int hdatac;
 };
 
 struct hSockOpt {
@@ -197,10 +171,12 @@ struct socket_interface {
 
 struct socket_interface *sockt;
 
+#ifdef HERCULES_CORE
 void socket_defaults(void);
+#endif // HERCULES_CORE
 
 /* the purpose of these macros is simply to not make calling them be an annoyance */
-#ifndef _H_SOCKET_C_
+#ifndef H_SOCKET_C
 	#define make_listen_bind(ip, port) ( sockt->make_listen_bind(ip, port) )
 	#define make_connection(ip, port, opt) ( sockt->make_connection(ip, port, opt) )
 	#define realloc_fifo(fd, rfifo_size, wfifo_size) ( sockt->realloc_fifo(fd, rfifo_size, wfifo_size) )
@@ -220,6 +196,6 @@ void socket_defaults(void);
 	#define ntows(netshort) ( sockt->ntows(netshort) )
 	#define getips(ips, max) ( sockt->getips(ips, max) )
 	#define set_eof(fd) ( sockt->set_eof(fd) )
-#endif /* _H_SOCKET_C_ */
+#endif /* H_SOCKET_C */
 
-#endif /* _COMMON_SOCKET_H_ */
+#endif /* COMMON_SOCKET_H */

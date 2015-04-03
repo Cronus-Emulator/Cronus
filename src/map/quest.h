@@ -1,51 +1,34 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 
 #ifndef MAP_QUEST_H
 #define MAP_QUEST_H
 
 #include "map.h" // TBL_PC
 #include "../common/cbasetypes.h"
-#include "../common/mmo.h" // MAX_QUEST_OBJECTIVES
+#include "../common/conf.h"
 
 #define MAX_QUEST_DB (60355+1) // Highest quest ID + 1
+
+struct quest_dropitem {
+	int mob_id;
+	int nameid;
+	int rate;
+};
+
+struct quest_objective {
+	int mob;
+	int count;
+};
 
 struct quest_db {
 	int id;
 	unsigned int time;
-	int mob[MAX_QUEST_OBJECTIVES];
-	int count[MAX_QUEST_OBJECTIVES];
-	int num_objectives;
+	int objectives_count;
+	struct quest_objective *objectives;
+	int dropitem_count;
+	struct quest_dropitem *dropitem;
 	//char name[NAME_LENGTH];
 };
 
@@ -60,7 +43,7 @@ struct quest_interface {
 	struct quest_db *db_data[MAX_QUEST_DB]; ///< Quest database
 	struct quest_db dummy;                  ///< Dummy entry for invalid quest lookups
 	/* */
-	void (*init) (void);
+	void (*init) (bool minimal);
 	void (*final) (void);
 	void (*reload) (void);
 	/* */
@@ -75,10 +58,13 @@ struct quest_interface {
 	int (*check) (TBL_PC *sd, int quest_id, enum quest_check_type type);
 	void (*clear) (void);
 	int (*read_db) (void);
+	struct quest_db *(*read_db_sub) (config_setting_t *cs, int n, const char *source);
 };
 
 struct quest_interface *quest;
 
+#ifdef HERCULES_CORE
 void quest_defaults(void);
+#endif // HERCULES_CORE
 
 #endif /* MAP_QUEST_H */

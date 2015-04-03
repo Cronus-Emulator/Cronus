@@ -1,17 +1,5 @@
-/*--------------------------------------------------------|
-| _________                                               |
-| \_   ___ \_______  ____   ____  __ __  ______           |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/           |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \            |
-|  \______  /|__|   \____/|___|  /____//____  >           |
-|         \/                   \/           \/            |
-|---------------------------------------------------------|
-| Equipe Atual: Cronus Dev Team                           |
-| Autores: Hercules & (*)Athena Dev Team                  |
-| Licença: GNU GPL                                        |
-|----- Descrição: ----------------------------------------|
-|                                                         |
-|---------------------------------------------------------*/
+// Copyright (c) Athena Dev Teams - Licensed under GNU GPL
+// For more information, see LICENCE in the main folder
 
 #ifndef CHAR_INT_HOMUN_H
 #define CHAR_INT_HOMUN_H
@@ -20,13 +8,19 @@
 
 struct s_homunculus;
 
-int inter_homunculus_sql_init(void);
-void inter_homunculus_sql_final(void);
-int inter_homunculus_parse_frommap(int fd);
+#ifdef HERCULES_CORE
+void inter_homunculus_defaults(void);
+#endif // HERCULES_CORE
 
-bool mapif_homunculus_save(struct s_homunculus* hd);
-bool mapif_homunculus_load(int homun_id, struct s_homunculus* hd);
-bool mapif_homunculus_delete(int homun_id);
-bool mapif_homunculus_rename(char *name);
+/**
+ * inter_homunculus interface
+ **/
+struct inter_homunculus_interface {
+	int (*sql_init) (void);
+	void (*sql_final) (void);
+	int (*parse_frommap) (int fd);
+};
+
+struct inter_homunculus_interface *inter_homunculus;
 
 #endif /* CHAR_INT_HOMUN_H */

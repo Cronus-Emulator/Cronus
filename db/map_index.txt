@@ -1,22 +1,14 @@
-//---------------------------------------------------------
-// _________                                    
-// \_   ___ \_______  ____   ____  __ __  ______
-// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
-// \     \____|  | \(  ( ) )   |  \  |  /\___ \
-//  \______  /|__|   \____/|___|  /____//____  >
-//         \/                   \/           \/  
-//---------------------------------------------------------
-// Indíce de Mapas
-//---------------------------------------------------------
-// Contém a lista de mapas e seu respectivo ID para uso no Servidor Intermediário.
-// Os IDs jamais devem ser alterados, logo novos mapas devem ser adicionados
-// ao final do arquivo, e os antigos não devem ser removidos, e sim substituídos.
-//
-// Formato: <NomeMapa>%TAB%Índice
-// Caso use apenas <NomeMapa> o Índice será o do mapa anterior + 1
-//
-// NOTA: O índice 0 é especial e reservado para estado de "erro".
-//---------------------------------------------------------
+//======================================================================================
+// Map Index
+//======================================================================================
+//Contains the list of maps with their respective IDs for inter-server use.
+//IDs must never change, therefore any new maps need to be added at the end,
+//and old ones must not be removed, but may be replaced.
+//Format:
+//mapname<tab>index <- specifies index for this map
+//mapname <- map will use index of previous map +1
+//Note that map index 0 is special and reserved for "error" status. 
+
 alb_ship 1
 alb2trea
 alberta

@@ -1,98 +1,83 @@
-/*-------------------------------------------------------------------------|
-| _________                                                                |
-| \_   ___ \_______  ____   ____  __ __  ______                            |
-| /    \  \/\_  __ \/    \ /    \|  |  \/  ___/                            |
-| \     \____|  | \(  ( ) )   |  \  |  /\___ \                             |
-|  \______  /|__|   \____/|___|  /____//____  >                            |
-|         \/                   \/           \/                             |
-|--------------------------------------------------------------------------|
-| Copyright (C) <2014>  <Cronus - Emulator>                                |
-|	                                                                       |
-| Copyright Portions to eAthena, jAthena and Hercules Project              |
-|                                                                          |
-| This program is free software: you can redistribute it and/or modify     |
-| it under the terms of the GNU General Public License as published by     |
-| the Free Software Foundation, either version 3 of the License, or        |
-| (at your option) any later version.                                      |
-|                                                                          |
-| This program is distributed in the hope that it will be useful,          |
-| but WITHOUT ANY WARRANTY; without even the implied warranty of           |
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            |
-| GNU General Public License for more details.                             |
-|                                                                          |
-| You should have received a copy of the GNU General Public License        |
-| along with this program.  If not, see <http://www.gnu.org/licenses/>.    |
-|                                                                          |
-|----- Descrição: ---------------------------------------------------------| 
-|                                                                          |
-|--------------------------------------------------------------------------|
-|                                                                          |
-|----- ToDo: --------------------------------------------------------------| 
-|                                                                          |
-|-------------------------------------------------------------------------*/
-
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// See the LICENSE file
+// Portions Copyright (c) Athena Dev Teams
 #ifndef CONFIG_CORE_H
 #define CONFIG_CORE_H
 
-/// Máximo de itens permitidos na lista do comando @autolootid
+/// Max number of items on @autolootid list
 #define AUTOLOOTITEM_SIZE 10
 
-/// Máximo de sugestões para comandos (Caso digite algum errado, o servidor envia uma lista com os mais parecidos)
+/// The maximum number of atcommand suggestions
 #define MAX_SUGGESTIONS 10
 
-/// Comente para desativar as configurações oficiais das possíveis células andáveis.
-/// O oficial bloqueia a possibilidade de transpor obstáculos visíveis (Realiza sempre um caminho linear)
-/// EX: Desativando essa definição, clicar de um outro lado do muro fará personagem realizar a trajetória automaticamente.
+/// Comment to disable the official walk path
+/// The official walkpath disables users from taking non-clear walk paths,
+/// e.g. if they want to get around an obstacle they have to walk around it,
+/// while with OFFICIAL_WALKPATH disabled if they click to walk around a obstacle the server will do it automatically
 #define OFFICIAL_WALKPATH
 
-/// Deixe esta linha ativa para ativar a funcionalidade para chamada automatizada de funções no processamento de scripts
-/// Enquanto ativada, a engine irá tentar procurar as funções definidas pelo usuário sem o uso da keyword callfunc
-/// Isso IRÁ atingir a performance, então se você achar que os scripts estão mais lentos ou achar que o servidor de mapas
-/// está usando mais recursos que normalmente, comente esta linha.
+/// leave this line uncommented to enable callfunc checks when processing scripts.
+/// while allowed, the script engine will attempt to match user-defined functions
+/// in scripts allowing direct function callback (without the use of callfunc.)
+/// this CAN affect performance, so if you find scripts running slower or find
+/// your map-server using more resources while this is active, comment the line
 #define SCRIPT_CALLFUNC_CHECK
 
-/// Comente para remover a funcionalidade de entrada de dados no console
-/// Ativo, você pode digitar comandos no console para manobrar certos elementos
+/// Comment to disable Hercules' console_parse
+/// CONSOLE_INPUT allows you to type commands into the server's console,
+/// Disabling it saves one thread.
 #define CONSOLE_INPUT
-
-/// Máximo de caracteres suportados para entrada no console.
+/// Maximum number of characters 'CONSOLE_INPUT' will support per line.
 #define MAX_CONSOLE_INPUT 150
 
+/// Uncomment to disable Hercules' anonymous stat report
+/// We kindly ask you to consider keeping it enabled, it helps us improve Hercules.
+//#define STATS_OPT_OUT
 
-/// Remova o comentário para ativar o limite para empilhamento de células.
-/// (Remove a possibilidade de dois objetos do tipo BL_CHAR (Monstros e personagens) de ocuparem a mesma célula)
+/// Uncomment to enable the Cell Stack Limit mod.
+/// It's only config is the battle_config custom_cell_stack_limit.
+/// Only chars affected are those defined in BL_CHAR
 //#define CELL_NOSTACK
 
-
-/// Remova o comentário para habilitar checagem circular de área
-/// Por padrão, todas as checagens no aegis são quadráticas, então uma arma 10x10 atinge uma área 21x21 (Cálculo geométrico)
-/// Ativar esta definição fará o jogo ser mais realístico, porém não é o comportamento oficial
+/// Uncomment to enable circular area checks.
+/// By default, most server-sided range checks in Aegis are of square shapes, so a monster
+/// with a range of 4 can attack anything within a 9x9 area.
+/// Client-sided range checks are, however, are always circular.
+/// Enabling this changes all checks to circular checks, which is more realistic,
+/// - but is not the official behaviour.
 //#define CIRCULAR_AREA
 
-
-/// Distância aplicada para funcionalidade do autoloot.
-/// Comentado: Infinito.
-/// Sem comentário: Área de visão.
+//This is the distance at which @autoloot works,
+//if the item drops farther from the player than this,
+//it will not be autolooted. [Skotlex]
+//Note: The range is unlimited unless this define is set.
 //#define AUTOLOOT_DISTANCE AREA_SIZE
 
-
-/// Remova o comentário para alterar a funcionalidade do limite de dano aplicado por mapas.
-/// Quando comentado, o limite é processado ANTES dos modificadores de dano (Buff/Nerf)
-/// Quando sem o comentário, o limite é processado DEPOIS dos modificadores de dano (Buff/Nerf)
+/// Uncomment to switch the way map zones' "skill_damage_cap" functions.
+/// When commented the cap takes place before modifiers, as to have them be useful.
+/// When uncommented the cap takes place after modifiers.
 //#define HMAP_ZONE_DAMAGE_CAP_TYPE
 
-/// Comente para remover o sistema de itens vinculados em grupo/clã.
+/// Comment to disable Guild/Party Bound item system
 #define GP_BOUND_ITEMS
 
-/// Remova o comentário para visualizar o consumo de recursos do emulador (Memória, processamento e etc)
+/// Uncomment to enable real-time server stats (in and out data and ram usage). [Ai4rei]
 //#define SHOW_SERVER_STATS
 
-/// Comente essa configuração caso queira remover o salvamento de informações sobre os @AT (O Servidor armazena as lojinhas caso ele sofra uma queda)
+
+/// Comment to disable autotrade persistency (where autotrading merchants survive server restarts)
 #define AUTOTRADE_PERSISTENCY
 
+/**
+ * No settings past this point
+ **/
 #include "./renewal.h"
 #include "./secure.h"
-#include "./general.h"
+#include "./classes/general.h"
+
+/**
+ * Constants come last; so they process anything that could've been modified in early includes
+ **/
 #include "./const.h"
 
 #endif // CONFIG_CORE_H

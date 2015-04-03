@@ -1,44 +1,28 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Mapflag: Desativar uso de Habilidade.                     -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Hercules Dev Team                                         -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.2                                                       -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- Desativa todas as habilidades no mapa.                    -
-//-------------------------------------------------------------
-//- Comentários Adicionais:                                   -
-//- 1.1 Mapas adicionais acrescentados. [L0ne_W0lf]           -
-//- 1.2 Aplicada Tradução (PT-BR). [SkyHD]                    -
-//-------------------------------------------------------------
+//===== Hercules Script ======================================
+//= Mapflag: Disable skill use.
+//===== By: ==================================================
+//= Hercules Dev Team
+//===== Current Version: =====================================
+//= 1.1
+//===== Description: =========================================
+//= Disables all skills on the map.
+//===== Additional Comments: =================================
+//= 1.1 - Added additional maps. [L0ne_W0lf]
+//============================================================
 
-//Arena de Prontera ===============
+//Prontera Arena ===============
 prt_are_in	mapflag	noskill
 
-//Quest o Sinal ===============
+//The Sign Quest ===============
 himinn	mapflag	noskill
 
-// Mapas Quiz ===================
+// Quiz Maps ===================
 quiz_00	mapflag	noskill
 quiz_01	mapflag	noskill
 quiz_02	mapflag	noskill
 quiz_test	mapflag	noskill
 
-//Mini jogos de Hugel ==============
+//Hugel Minigames ==============
 que_bingo	mapflag	noskill
 p_track01	mapflag	noskill
 p_track02	mapflag	noskill

@@ -1,43 +1,27 @@
-//-------------------------------------------------------------
-//-     _________                                             -
-//-     \_   ___ \_______  ____   ____  __ __  ______         -
-//-     /    \  \/\_  __ \/    \ /    \|  |  \/  ___/         -
-//-     \     \____|  | \(  ( ) )   |  \  |  /\___ \          -
-//-      \______  /|__|   \____/|___|  /____//____  >         -
-//-             \/                   \/           \/          -
-//-                 www.cronus-emulator.com                   -
-//-------------------------------------------------------------
-//- Mapflag: Ativação do modo GVG.                            -
-//-------------------------------------------------------------
-//- Por:                                                      -
-//- Hercules Dev Team                                         -
-//-------------------------------------------------------------
-//- Versão Atual:                                             -
-//- 1.3                                                       -
-//-------------------------------------------------------------
-//- Compatível Com:                                           -
-//- Cronus                                                    -
-//-------------------------------------------------------------
-//- Descrição:                                                -
-//- Os jogadores podem atacar outras clãs.                    -
-//- Reduções de dano também será realizada.                   -
-//- gvg: Ativa o modo GvG.                                    -
-//- gvg_castle: Descreve mapas do castelo para WoE.           -
-//-------------------------------------------------------------
-//----- Comentários Adicionais:--------------------------------
-//- 1.1 - Adicionado aprendiz nos castelos.                   -
-//- 1.2 - Atualizado com as novas modificações de GVG.        -
-//- 1.3 Aplicada Tradução (PT-BR). [SkyHD]                    -
-//-------------------------------------------------------------
+//===== Hercules Script ======================================
+//= Mapflag: Guild versus Guild mode.
+//===== By: ==================================================
+//= Hercules Dev Team
+//===== Current Version: =====================================
+//= 1.2
+//===== Description: =========================================
+//= Players can attack other guilds, and will have their guild
+//= icons shown. WoE damage reductions will also take place.
+//= gvg: Turns on GvG mode
+//= gvg_castle: Describes castle maps for WoE.
+//===== Additional Comments: =================================
+//= 1.1 - Added Novice Guild Castles.
+//= 1.2 - Updated with new meanings of gvg and gvg_castle.
+//============================================================
 
-// Arenas de GvG =============
+// GvG Arenas =============
 guild_vs1	mapflag	gvg
 guild_vs2	mapflag	gvg
 guild_vs3	mapflag	gvg
 guild_vs4	mapflag	gvg
 guild_vs5	mapflag	gvg
 
-// Castelos da WoE ==========
+// Guild Castles ==========
 aldeg_cas01	mapflag	gvg_castle
 aldeg_cas02	mapflag	gvg_castle
 aldeg_cas03	mapflag	gvg_castle
@@ -69,7 +53,7 @@ arug_cas03	mapflag	gvg_castle
 arug_cas04	mapflag	gvg_castle
 arug_cas05	mapflag	gvg_castle
 
-//Descomente "//" para desabilitar teleporte de monstros (cancela o teleporte quando é atacado)
+//Uncomment to disable monsters teleporting (prevents them from "escaping" when rude attacked)
 //aldeg_cas01	mapflag	monster_noteleport
 //aldeg_cas02	mapflag	monster_noteleport
 //aldeg_cas03	mapflag	monster_noteleport
@@ -101,7 +85,7 @@ arug_cas05	mapflag	gvg_castle
 //arug_cas04	mapflag	monster_noteleport
 //arug_cas05	mapflag	monster_noteleport
 
-// Castelo da WoE dos Aprendizes ===
+// Novice Guild Castles ===
 //n_castle	mapflag	gvg_castle
 nguild_alde	mapflag	gvg_castle
 nguild_gef	mapflag	gvg_castle
@@ -113,7 +97,7 @@ nguild_prt	mapflag	gvg_castle
 //nguild_pay	mapflag	monster_noteleport
 //nguild_prt	mapflag	monster_noteleport
 
-// Calabouço dos Clãs =========
+// Guild Dungeons =========
 gld_dun01	mapflag	gvg_dungeon
 gld_dun02	mapflag	gvg_dungeon
 gld_dun03	mapflag	gvg_dungeon
