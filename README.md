@@ -9,12 +9,10 @@ Seja bem vindo ao repositório oficial do Cronus-Emulator.
 
 #### Tradução:
 ===============
-
-Ajude na tradução do emulador: https://www.transifex.com/projects/p/cronus-emulator/
+Ajude-nos na tradução do emulador: https://www.transifex.com/projects/p/cronus-emulator/
 
 #### Introdução:
 ===============
-
 O Cronus-Emulator é um projeto de desenvolvimento colaborativo com objetivo de oferecer um emulador de Ragnarok para
 a comunidade Brasileira.
 
@@ -22,10 +20,8 @@ Nossos agradecimentos especiais a equipe do eAthena por desenvolver a base deste
 
 Qualquer bug encontrado deve ser postado em: http://forum.cronus-emulator.com/tracker/
 
-
 #### Requisitos:
 ===============
- 
 ###### Windows:
 - Versões: Windows XP SP3 ~ Windows 8.
 - Compilador: https://github.com/Cronus-Emulator/clang.
