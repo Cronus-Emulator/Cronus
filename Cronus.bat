@@ -37,14 +37,14 @@ set commonF=%~dp0src\common\
 set configF=%~dp0src\config\
 set loginF=%~dp0src\login\
 set mapF=%~dp0src\map\
-set myF=%~dp0src\3rdparty\mysql\include\
-set pcreF=%~dp0src\3rdparty\pcre\include\
-set zlibF=%~dp0src\3rdparty\zlib\include\
-set myLib=%~dp0src\3rdparty\mysql\lib\libmysql.a
-set pcreLib=%~dp0src\3rdparty\pcre\lib\pcre.a
-set zlibLib=%~dp0src\3rdparty\zlib\lib\zlib.a
-set mtF=%~dp0src\3rdparty\mt19937ar\
-set lcF=%~dp0src\3rdparty\libconfig\
+set myF=%~dp03rdparty\mysql\include\
+set pcreF=%~dp03rdparty\pcre\include\
+set zlibF=%~dp03rdparty\zlib\include\
+set myLib=%~dp03rdparty\mysql\lib\libmysql.a
+set pcreLib=%~dp03rdparty\pcre\lib\pcre.a
+set zlibLib=%~dp03rdparty\zlib\lib\zlib.a
+set mtF=%~dp03rdparty\mt19937ar\
+set lcF=%~dp03rdparty\libconfig\
 
 :: ----- Quem precisa de quem...: ------------------------
 :: OBS: Os elementos a seguir precisam ser delimitados apenas por espaço (SEM QUEBRA DE LINHA)
