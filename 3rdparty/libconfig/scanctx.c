@@ -25,7 +25,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../common/cbasetypes.h"
+#include "../../src/common/cbasetypes.h"
 
 #define STRING_BLOCK_SIZE 64
 #define CHUNK_SIZE 32
