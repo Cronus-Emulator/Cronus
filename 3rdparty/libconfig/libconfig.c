@@ -39,6 +39,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "../../common/cbasetypes.h"
 
 #define PATH_TOKENS ":./"
 #define CHUNK_SIZE 16
@@ -63,7 +64,6 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 /* ------------------------------------------------------------------------- */
 
 static const char *__io_error = "file I/O error";
-
 static void __config_list_destroy(config_list_t *list);
 static void __config_write_setting(const config_setting_t *setting,
                                    FILE *stream, int depth,
