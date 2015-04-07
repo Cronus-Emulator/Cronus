@@ -39,7 +39,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "../src/common/cbasetypes.h"
+#include "../../src/common/cbasetypes.h"
 
 #define PATH_TOKENS ":./"
 #define CHUNK_SIZE 16
