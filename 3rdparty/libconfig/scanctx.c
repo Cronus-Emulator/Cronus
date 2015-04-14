@@ -25,17 +25,14 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../src/common/cbasetypes.h"
 
 #define STRING_BLOCK_SIZE 64
 #define CHUNK_SIZE 32
 
 /* ------------------------------------------------------------------------- */
 
-
 static const char *err_bad_include = "cannot open include file";
 static const char *err_include_too_deep = "include file nesting too deep";
-
 
 /* ------------------------------------------------------------------------- */
 

@@ -36,4 +36,4 @@ Makefile: Makefile.in
 
 %.o: %.c $(LIBCONFIG_H) Makefile
 	@echo "	CC	$<"
-	@$(CC) $(INC) @CFLAGS@ @DEFS@ @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
+	@$(CC) @CFLAGS@ @DEFS@ @CPPFLAGS@ -c $(OUTPUT_OPTION) $<
