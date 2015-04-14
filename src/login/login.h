@@ -44,7 +44,7 @@ struct login_session_data {
 	int has_client_hash;
 
 	int fd;
-	
+
 	char mac_address[MAC_LENGTH];
 
 	time_t expiration_time;
