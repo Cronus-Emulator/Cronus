@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
+# Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "char-server", "vcproj-10\char-server.vcxproj", "{D356871D-58E1-450B-967A-E4E9646175AF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "login-server", "vcproj-10\login-server.vcxproj", "{D356871D-58E1-450B-967A-E5E9646175AF}"
@@ -15,6 +15,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_char", "vcproj-10\plugin-HPMHooking_char.vcxproj", "{337F99A2-528C-473C-97F0-BF202F197061}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_login", "vcproj-10\plugin-HPMHooking_login.vcxproj", "{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisibleMonstersHP", "VisibleMonstersHP\VisibleMonstersHP.vcxproj", "{849355A8-51A8-4F44-8625-4AB14280894C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}.Debug|Win32.Build.0 = Debug|Win32
 		{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}.Release|Win32.ActiveCfg = Release|Win32
 		{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}.Release|Win32.Build.0 = Release|Win32
+		{849355A8-51A8-4F44-8625-4AB14280894C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{849355A8-51A8-4F44-8625-4AB14280894C}.Debug|Win32.Build.0 = Debug|Win32
+		{849355A8-51A8-4F44-8625-4AB14280894C}.Release|Win32.ActiveCfg = Release|Win32
+		{849355A8-51A8-4F44-8625-4AB14280894C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
