@@ -23,8 +23,8 @@ Qualquer bug encontrado deve ser postado em: http://forum.cronus-emulator.com/tr
 #### Requisitos:
 ===============
 ###### Windows:
-- Versões: Windows XP SP3 ~ Windows 8.
-- Compilador: https://github.com/Cronus-Emulator/clang.
+- Versões: Windows XP SP3 ~ Windows 10.
+- Compilador: http://download.microsoft.com/download/1/D/9/1D9A6C0E-FC89-43EE-9658-B9F0E3A76983/vc_web.exe
 
 ---------------------
 
