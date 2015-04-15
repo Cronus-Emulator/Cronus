@@ -54,17 +54,18 @@ void display_title(void) {
 	const char *vcstype = sysinfo->vcstype();
 
 	ShowMessage("\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                                                                      "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                 Hercules Development Team presents                   "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                _   _                     _                           "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               | | | |                   | |                          "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               | |_| | ___ _ __ ___ _   _| | ___  ___                 "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               |  _  |/ _ \\ '__/ __| | | | |/ _ \\/ __|                "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               | | | |  __/ | | (__| |_| | |  __/\\__ \\                "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               \\_| |_/\\___|_|  \\___|\\__,_|_|\\___||___/                "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                                                                      "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                    http://hercules.ws/board/                         "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                                                                      "CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BT_YELLOW"   Equipe Cronus de Desenvolvimento Apresenta          "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"       ____                                                 "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"      /\  _`\                                               "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"      \ \ \/\_\  _ __   ___     ___   __  __    ____        "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"       \ \ \/_/_/\`'__\/ __`\ /' _ `\/\ \/\ \  /',__\       "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"        \ \ \ \ \ \ \//\ \ \ \/\ \/\ \ \ \_\ \/\__, `\      "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"         \ \____/\ \_\\ \____/\ \_\ \_\ \____/\/\____/      "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"          \/___/  \/_/ \/___/  \/_/\/_/\/___/  \/___/       "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BT_YELLOW"             http://www.cronus-emulator.com               "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_XXBL"          ("CL_BOLD"                                                            "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
+	ShowMessage (""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)"CL_CLL""CL_NORMAL"\n\n\a");
 
 	ShowInfo("Hercules %d-bit for %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
 	ShowInfo("%s revision (src): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_src());
