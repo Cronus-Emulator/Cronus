@@ -25,7 +25,7 @@ prontera,153,193,6	script	Job Master	2_F_MAGICMASTER,{
 		close;
 	}
 	if (checkfalcon() || checkcart() || checkmount() || hascashmount()) {
-		mes "Por favor remova seu "+((checkfalcon())?"falção":"")+((checkcart())?"carrinho":"")+((checkmount() || hascashmount())?"montaria":"")
+		mes "Please remove your "+((checkfalcon())?"falcon":"")+((checkcart())?"cart":"")+((checkmount() || hascashmount())?"mount":"")
 		    +" before proceeding.";
 		close;
 	}
