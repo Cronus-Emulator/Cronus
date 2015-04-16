@@ -16,7 +16,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_char", "v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_login", "vcproj-10\plugin-HPMHooking_login.vcxproj", "{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisibleMonstersHP", "VisibleMonstersHP\VisibleMonstersHP.vcxproj", "{849355A8-51A8-4F44-8625-4AB14280894C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisibleMonstersHP", "plugins\VisibleMonstersHP.vcxproj", "{849355A8-51A8-4F44-8625-4AB14280894C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
