@@ -1,0 +1,21 @@
+﻿Build started 14/04/2015 01:47:59.
+     1>Project "C:\Users\Junior Mello\Desktop\Hercules-master\VisibleMonstersHP\VisibleMonstersHP.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "VisibleMonstersHP\\VisibleMonstersHP.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\src\common /I..\3rdparty\msinttypes\include /ZI /nologo /W3 /WX- /Od /Oy- /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"VisibleMonstersHP\\" /Fd"VisibleMonstersHP\\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\src\plugins\VisibleMonstersHP.c
+         VisibleMonstersHP.c
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\plugins\\VisibleMonstersHP.dll" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"VisibleMonstersHP\\VisibleMonstersHP.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Junior Mello\Desktop\Hercules-master\plugins\VisibleMonstersHP.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\plugins\VisibleMonstersHP.lib" /MACHINE:X86 /DLL VisibleMonstersHP\\VisibleMonstersHP.obj
+            Creating library ..\plugins\VisibleMonstersHP.lib and object ..\plugins\VisibleMonstersHP.exp
+         VisibleMonstersHP.vcxproj -> C:\Users\Junior Mello\Desktop\Hercules-master\VisibleMonstersHP\..\plugins\VisibleMonstersHP.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"..\plugins\\VisibleMonstersHP.dll;#2" /manifest VisibleMonstersHP\\VisibleMonstersHP.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "VisibleMonstersHP\\VisibleMonstersHP.unsuccessfulbuild".
+         Touching "VisibleMonstersHP\\VisibleMonstersHP.lastbuildstate".
+     1>Done Building Project "C:\Users\Junior Mello\Desktop\Hercules-master\VisibleMonstersHP\VisibleMonstersHP.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.93
