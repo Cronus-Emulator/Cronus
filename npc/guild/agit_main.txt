@@ -141,7 +141,7 @@ OnAgitBreak:
 	if( agitcheck() )
 		donpcevent "Agit#"+strnpcinfo(2)+"::OnStartArena";
 	sleep 7000;
-	announce "O Castelo [ " + getcastlename(strnpcinfo(2)) + " ] foi conquistado pela Guild [ " + getguildName(.@GID) + " ], o Destruídor do Emperium foi [ "+.@Nick$+" ].",bc_all|bc_woe;
+	announce "O Castelo [ " + getcastlename(strnpcinfo(2)) + " ] foi conquistado pela Guild [ " + getguildname(.@GID) + " ], o Destruídor do Emperium foi [ "+.@Nick$+" ].",bc_all|bc_woe;
 	end;
 
 // War of Emperium has ended.
