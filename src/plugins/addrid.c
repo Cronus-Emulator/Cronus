@@ -4,6 +4,7 @@
 #include "../common/HPMi.h"
 #include "../map/script.h"
 #include "../map/pc.h"
+#include "../common/HPMDataCheck.h"
 
 
 
