@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_login", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisibleMonstersHP", "custom-plugins\VisibleMonstersHP.vcxproj", "{849355A8-51A8-4F44-8625-4AB14280894C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addrid", "custom-plugins\addrid.vcxproj", "{800FB545-4FD7-46F7-AFF6-AC933E91A20A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
