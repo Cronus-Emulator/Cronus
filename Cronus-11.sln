@@ -20,6 +20,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisibleMonstersHP", "custom
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addrid", "custom-plugins\addrid.vcxproj", "{800FB545-4FD7-46F7-AFF6-AC933E91A20A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AuraSet", "custom-plugins\AuraSet.vcxproj", "{B4476EFA-68A8-4A6C-95B0-242C2EC0B375}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
