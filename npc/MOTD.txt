@@ -1,15 +1,14 @@
-//======= Hercules Script ===========================
-//=       _   _                     _                =
-//=      | | | |                   | |               =
-//=      | |_| | ___ _ __ ___ _   _| | ___  ___      =
-//=      |  _  |/ _ \ '__/ __| | | | |/ _ \/ __|     =
-//=      | | | |  __/ | | (__| |_| | |  __/\__ \     =
-//=      \_| |_/\___|_|  \___|\__,_|_|\___||___/     =
-//=                                                  =
-//=            http://hercules.ws/board/             =
-//====================================================
-// run when any character logs in, attached to them.
--	script	HerculesMOTD	-1,{
-	message strcharinfo(0),"Seja bem-vindo(a) à revisão do Cronus GIT! Divirta-se! Por favor reporte qualquer bug/erro que você encontrar em nosso site: www.cronus-emulator.com/forum";
+ï»¿//---------------------------------------------------------
+// _________                                    
+// \_   ___ \_______  ____   ____  __ __  ______
+// /    \  \/\_  __ \/    \ /    \|  |  \/  ___/
+// \     \____|  | \(  ( ) )   |  \  |  /\___ \
+//  \______  /|__|   \____/|___|  /____//____  >
+//         \/                   \/           \/  
+//---------------------------------------------------------
+// 
+// Envia uma mensagem a todos que se conectarem ao Cronus GIT
+-	script	CronusMOTD	-1,{
+	message strcharinfo(0),"Seja bem-vindo(a) Ã  revisÃ£o do Cronus GIT! Divirta-se! Por favor reporte qualquer bug/erro que vocÃª encontrar em nosso site: www.cronus-emulator.com/forum";
 	end;
 }
