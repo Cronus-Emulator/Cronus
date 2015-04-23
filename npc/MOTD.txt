@@ -1,4 +1,4 @@
-//======= Hercules Script ===========================
+ï»¿//======= Hercules Script ===========================
 //=       _   _                     _                =
 //=      | | | |                   | |               =
 //=      | |_| | ___ _ __ ___ _   _| | ___  ___      =
@@ -10,6 +10,6 @@
 //====================================================
 // run when any character logs in, attached to them.
 -	script	HerculesMOTD	-1,{
-	message strcharinfo(0),"Seja bem-vindo(a) à revisão do Cronus GIT! Divirta-se! Por favor reporte qualquer bug/erro que você encontrar em nosso site: www.cronus-emulator.com/forum";
+	message strcharinfo(0),"Seja bem-vindo(a) Ã  revisÃ£o do Cronus GIT! Divirta-se! Por favor reporte qualquer bug/erro que vocÃª encontrar em nosso site: www.cronus-emulator.com/forum";
 	end;
 }
