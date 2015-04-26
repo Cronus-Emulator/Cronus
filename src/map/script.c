@@ -5682,6 +5682,13 @@ BUILDIN(getarg)
 /// return;
 /// return <value>;
 BUILDIN(return) {
+	st->state = RETFUNC;
+
+	if( st->stack->defsp < 1 || st->stack->stack_data[st->stack->defsp-1].type != C_RETINFO ) {
+		// Incorrect usage of return outside the scope of a function or subroutine.
+		return true; // No need for further processing, running script is about to be aborted.
+	}
+
 	if( script_hasdata(st,2) )
 	{// return value
 		struct script_data* data;
@@ -5695,16 +5702,19 @@ BUILDIN(return) {
 					script->get_val(st, data);// current scope, convert to value
 				if( data->ref && data->ref->vars == st->stack->stack_data[st->stack->defsp-1].u.ri->scope.vars )
 					data->ref = NULL; // Reference to the parent scope, remove reference pointer
-			} else if( name[0] == '.' && !data->ref ) {
-				// script variable without a reference set, link to current script
-				data->ref = (struct reg_db *)aCalloc(sizeof(struct reg_db), 1);
-				script->add_pending_ref(st, data->ref);
-				data->ref->vars = st->script->local.vars;
-				if( !st->script->local.arrays )
-					st->script->local.arrays = idb_alloc(DB_OPT_BASE);
-				data->ref->arrays = st->script->local.arrays;
-			} else if ( name[0] == '.' /* && data->ref != NULL */ ) {
-				data->ref = NULL; // Reference to the parent scope's script, remove reference pointer.
+			} else if( name[0] == '.' ) {
+				// npc variable
+				if( !data->ref ) {
+					// npc variable without a reference set, link to current script
+					data->ref = (struct reg_db *)aCalloc(sizeof(struct reg_db), 1);
+					script->add_pending_ref(st, data->ref);
+					data->ref->vars = st->script->local.vars;
+					if( !st->script->local.arrays )
+						st->script->local.arrays = idb_alloc(DB_OPT_BASE);
+					data->ref->arrays = st->script->local.arrays;
+				} else if( data->ref->vars == st->stack->stack_data[st->stack->defsp-1].u.ri->script->local.vars ) {
+					data->ref = NULL; // Reference to the parent scope's script, remove reference pointer.
+				}
 			}
 		}
 	}
@@ -5712,7 +5722,7 @@ BUILDIN(return) {
 	{// no return value
 		script_pushnil(st);
 	}
-	st->state = RETFUNC;
+
 	return true;
 }
 
@@ -11244,7 +11254,7 @@ BUILDIN(changesex)
 	TBL_PC *sd = prepareChangeSex(st);
 	if (sd == NULL)
 		return false;
-	chrif->changesex(sd);
+	chrif->changesex(sd, true);
 	return true;
 }
 
@@ -11256,12 +11266,7 @@ BUILDIN(changecharsex)
 	TBL_PC *sd = prepareChangeSex(st);
 	if (sd == NULL)
 		return false;
-	if (sd->status.sex == 99)
-		sd->status.sex = 0;
-	sd->status.sex = sd->status.sex ? 0 : 1;
-	chrif->save(sd, 0);
-	if (sd->fd)
-		clif->authfail_fd(sd->fd, 15);
+	chrif->changesex(sd, false);
 	return true;
 }
 
