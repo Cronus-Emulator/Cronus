@@ -29,7 +29,7 @@ Qualquer bug encontrado deve ser postado em: http://forum.cronus-emulator.com/tr
 ---------------------
 
 ###### Linux:
- - Compilador gcc (4.5v++) ou clang (3.1v++) 
+ - Compilador gcc (4.8v++) ou clang (3.1v++) 
  - make (Padrão)
  - mysql (Arquivos base para o mysql)
  - mysql-devel (Cabeçalhos/Bibliotecas)
@@ -56,5 +56,5 @@ Equipe Atual
 - Mayon       - Thiago Miranda
 
 ### Desenvolvedores
-- SkyHD     - David Martins
 - SlexFire   - Júnior Mello
+- Arkwright - Evânio Eduardo
