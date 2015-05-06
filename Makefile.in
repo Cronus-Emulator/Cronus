@@ -147,6 +147,7 @@ distclean: clean
 	@-rm -f $(MF_TARGETS) config.status config.log
 
 sysinfo:
+	@chmod 777 sysinfogen.sh
 	@./sysinfogen.sh src/common/sysinfo_new.inc @CFLAGS@ @CPPFLAGS@
 	@if cmp -s src/common/sysinfo.inc src/common/sysinfo_new.inc; then \
 		rm src/common/sysinfo_new.inc ; \
