@@ -14255,11 +14255,6 @@ BUILDIN(isnight) {
 	return true;
 }
 
-BUILDIN(isday) {
-	script_pushint(st,(map->night_flag == 0));
-	return true;
-}
-
 /*================================================
  * Check how many items/cards in the list are
  * equipped - used for 2/15's cards patch [celest]
@@ -20012,7 +20007,6 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(logmes,"s"), //this command actls as MES but rints info into LOG file either SQL/TXT [Lupus]
 		BUILDIN_DEF(summon,"si??"), // summons a slave monster [Celest]
 		BUILDIN_DEF(isnight,""), // check whether it is night time [Celest]
-		BUILDIN_DEF_DEPRECATED(isday,""), // check whether it is day time [Celest] // DEPRECATED 2015-01-21 [Haru]
 		BUILDIN_DEF(isequipped,"i*"), // check whether another item/card has been equipped [Celest]
 		BUILDIN_DEF(isequippedcnt,"i*"), // check how many items/cards are being equipped [Celest]
 		BUILDIN_DEF(cardscnt,"i*"), // check how many items/cards are being equipped in the same arm [Lupus]
@@ -20190,7 +20184,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(makerune,"i"),
 		BUILDIN_DEF(hascashmount,""),//[Ind]
 		BUILDIN_DEF(setcashmount,""),//[Ind]
-		BUILDIN_DEF(checkre,"i"),
+		BUILDIN_DEF_DEPRECATED(checkre,"i"), // Deprecated 2015-05-08 [Haru]
 		/**
 		 * rAthena and beyond!
 		 **/
@@ -20372,6 +20366,43 @@ void script_hardcoded_constants(void) {
 	script->set_constant("BG_AREA",BG_AREA,false);
 	script->set_constant("BG_AREA_WOS",BG_AREA_WOS,false);
 	script->set_constant("BG_QUEUE",BG_QUEUE,false);
+
+	/* Renewal */
+#ifdef RENEWAL
+	script->set_constant("RENEWAL", 1, false);
+#else
+	script->set_constant("RENEWAL", 0, false);
+#endif
+#ifdef RENEWAL_CAST
+	script->set_constant("RENEWAL_CAST", 1, false);
+#else
+	script->set_constant("RENEWAL_CAST", 0, false);
+#endif
+#ifdef RENEWAL_DROP
+	script->set_constant("RENEWAL_DROP", 1, false);
+#else
+	script->set_constant("RENEWAL_DROP", 0, false);
+#endif
+#ifdef RENEWAL_EXP
+	script->set_constant("RENEWAL_EXP", 1, false);
+#else
+	script->set_constant("RENEWAL_EXP", 0, false);
+#endif
+#ifdef RENEWAL_LVDMG
+	script->set_constant("RENEWAL_LVDMG", 1, false);
+#else
+	script->set_constant("RENEWAL_LVDMG", 0, false);
+#endif
+#ifdef RENEWAL_EDP
+	script->set_constant("RENEWAL_EDP", 1, false);
+#else
+	script->set_constant("RENEWAL_EDP", 0, false);
+#endif
+#ifdef RENEWAL_ASPD
+	script->set_constant("RENEWAL_ASPD", 1, false);
+#else
+	script->set_constant("RENEWAL_ASPD", 0, false);
+#endif
 }
 
 /**
