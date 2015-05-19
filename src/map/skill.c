@@ -2320,9 +2320,8 @@ int skill_attack(int attack_type, struct block_list* src, struct block_list *dsr
 	if( damage && sc && sc->data[SC_GENSOU] && dmg.flag&BF_MAGIC ){
 		struct block_list *nbl;
 		nbl = battle->get_enemy_area(bl,bl->x,bl->y,2,BL_CHAR,bl->id);
-		if( nbl ){ // Only one target is chosen.
-			int temp = (int)(damage / (float)(10 / skill_lv));
-			clif->skill_damage(bl, nbl, tick, status_get_amotion(src), 0, status_fix_damage(bl,nbl,temp,0), 1, OB_OBOROGENSOU_TRANSITION_ATK, -1, 6);
+		if (nbl) { // Only one target is chosen.
+			clif->skill_damage(bl, nbl, tick, status_get_amotion(src), 0, status_fix_damage(bl,nbl,damage * skill_lv / 10,0), 1, OB_OBOROGENSOU_TRANSITION_ATK, -1, 6);
 		}
 	}
 
@@ -18960,16 +18959,7 @@ void skill_readdb(bool minimal) {
 
 	/* when != it was called during init and this procedure was already performed by skill_defaults()  */
 	if( runflag == MAPSERVER_ST_RUNNING ) {
-		memset(skill->db,0,sizeof(skill->db)
-			   + sizeof(skill->produce_db)
-			   + sizeof(skill->arrow_db)
-			   + sizeof(skill->abra_db)
-			   + sizeof(skill->magicmushroom_db)
-			   + sizeof(skill->improvise_db)
-			   + sizeof(skill->changematerial_db)
-			   + sizeof(skill->spellbook_db)
-			   + sizeof(skill->reproduce_db)
-			   );
+		memset(ZEROED_BLOCK_POS(skill), 0, ZEROED_BLOCK_SIZE(skill));
 	}
 
 	// load skill databases
@@ -19108,18 +19098,10 @@ void skill_defaults(void) {
 	skill->timer_ers = NULL;
 	skill->cd_ers = NULL;
 	skill->cd_entry_ers = NULL;
-	/* one huge 0, follows skill.h order */
-	memset(skill->db,0,sizeof(skill->db)
-		   + sizeof(skill->produce_db)
-		   + sizeof(skill->arrow_db)
-		   + sizeof(skill->abra_db)
-		   + sizeof(skill->magicmushroom_db)
-		   + sizeof(skill->improvise_db)
-		   + sizeof(skill->changematerial_db)
-		   + sizeof(skill->spellbook_db)
-		   + sizeof(skill->reproduce_db)
-		   + sizeof(skill->unit_layout)
-		   );
+
+	memset(ZEROED_BLOCK_POS(skill), 0, ZEROED_BLOCK_SIZE(skill));
+	memset(skill->unit_layout, 0, sizeof(skill->unit_layout));
+
 	/* */
 	memcpy(skill->enchant_eff, skill_enchant_eff, sizeof(skill->enchant_eff));
 	memcpy(skill->deluge_eff, skill_deluge_eff, sizeof(skill->deluge_eff));
