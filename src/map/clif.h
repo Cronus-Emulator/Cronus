@@ -826,6 +826,7 @@ struct clif_interface {
 	/* message+s(printf) */
 	void (*messages) (const int fd, const char *mes, ...) __attribute__((format(printf, 2, 3)));
 	int (*colormes) (int fd, enum clif_colors color, const char* msg);
+	int (*colormes_e) (struct map_session_data * sd,unsigned long color1, const char* msg);
 	bool (*process_message) (struct map_session_data *sd, int format, char **name_, size_t *namelen_, char **message_, size_t *messagelen_);
 	void (*wisexin) (struct map_session_data *sd,int type,int flag);
 	void (*wisall) (struct map_session_data *sd,int type,int flag);

@@ -13576,6 +13576,22 @@ BUILDIN(dispbottom)
 }
 
 /*==========================================
+ * dispbottom2 - Possibilita o uso do dispbottom colorido.
+   Exemplo: dispbottom2 "0x0000FF","Olá"; // Envia a mensagem "Olá" em azul para o Player
+ *------------------------------------------*/
+BUILDIN(dispbottom2)
+{
+    TBL_PC *sd=script_rid2sd(st);
+    const char *message;
+    unsigned long color;
+    message=script_getstr(st,3);
+    color=strtoul(script_getstr(st,2),NULL,0);
+    if(sd)
+        clif->colormes_e(sd,color,message);
+    return 0;
+}
+
+/*==========================================
  * All The Players Full Recovery
  * (HP/SP full restore and resurrect if need)
  *------------------------------------------*/
@@ -20051,6 +20067,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(pcre_match,"ss"),
 #endif
 		BUILDIN_DEF(dispbottom,"s"), //added from jA [Lupus]
+		BUILDIN_DEF(dispbottom2,"ss"),
 		BUILDIN_DEF(getusersname,""),
 		BUILDIN_DEF(recovery,""),
 		BUILDIN_DEF(getpetinfo,"i"),

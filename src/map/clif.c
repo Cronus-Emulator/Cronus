@@ -8152,6 +8152,23 @@ int clif_colormes(int fd, enum clif_colors color, const char* msg) {
 	return 0;
 }
 
+
+// dispbottom2
+int clif_colormes_e(struct map_session_data * sd,unsigned long color1, const char* msg) {
+    
+    unsigned short msg_len = strlen(msg) + 1;
+    WFIFOHEAD(sd->fd,msg_len + 12);
+    WFIFOW(sd->fd,0) = 0x2C1;
+    WFIFOW(sd->fd,2) = msg_len + 12;
+    WFIFOL(sd->fd,4) = 0;
+    WFIFOL(sd->fd,8) = (color1&0x0000FF) << 16 | (color1&0x00FF00) | (color1&0xFF0000) >> 16; // RGB -> BGR
+    safestrncpy((char*)WFIFOP(sd->fd,12), msg, msg_len);
+    clif_send(WFIFOP(sd->fd,0), WFIFOW(sd->fd,2), &sd->bl, SELF);
+
+
+    return 0;
+}
+
 /// Monster/NPC color chat [SnakeDrak] (ZC_NPC_CHAT).
 /// 02c1 <packet len>.W <id>.L <color>.L <message>.?B
 void clif_messagecolor(struct block_list* bl, unsigned int color, const char* msg) {
@@ -18701,6 +18718,7 @@ void clif_defaults(void) {
 	clif->messageln = clif_displaymessage2;
 	clif->messages = clif_displaymessage_sprintf;
 	clif->colormes = clif_colormes;
+	clif->colormes_e = clif_colormes_e;
 	clif->process_message = clif_process_message;
 	clif->wisexin = clif_wisexin;
 	clif->wisall = clif_wisall;
