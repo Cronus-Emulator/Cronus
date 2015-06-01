@@ -61,6 +61,11 @@
 #define CL_BT_CYAN    "\033[1;36m"
 #define CL_BT_WHITE   "\033[1;37m"
 
+//Syntaxe Da versão anterior para compatibilidade no console [SlexFire]
+#define CL_WTBL			"\033[37;44m"	// white on blue
+#define CL_XXBL			"\033[0;44m"	// default on blue
+#define CL_PASS			"\033[0;32;42m"	// green on green
+
 // foreground color and bold font (bright color on windows)
 #define CL_WHITE   CL_BT_WHITE
 #define CL_GRAY    CL_BT_BLACK
