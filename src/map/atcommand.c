@@ -664,7 +664,7 @@ ACMD(who) {
 					break;
 				}
 			}
-			clif->colormes(fd, COLOR_DEFAULT, StrBuf->Value(&buf));/** for whatever reason clif->message crashes with some patterns, see bugreport:8186 **/
+			clif->messagecolor_self(fd, COLOR_DEFAULT, StrBuf->Value(&buf));/** for whatever reason clif->message crashes with some patterns, see bugreport:8186 **/
 			StrBuf->Clear(&buf);
 			count++;
 		}
@@ -2828,7 +2828,7 @@ ACMD(char_ban)
 	}
 
 	chrif->char_ask_name(sd->status.account_id, atcmd_player_name,
-	                     !strcmpi(info->command,"charban") ? CHAR_ASK_NAME_BAN : CHAR_ASK_NAME_BAN, year, month, day, hour, minute, second);
+	                     !strcmpi(info->command,"charban") ? CHAR_ASK_NAME_CHARBAN : CHAR_ASK_NAME_BAN, year, month, day, hour, minute, second);
 	clif->message(fd, msg_fd(fd,88)); // Character name sent to char-server to ask it.
 
 	return true;
@@ -7941,10 +7941,10 @@ ACMD(feelreset)
 /*==========================================
  * AUCTION SYSTEM
  *------------------------------------------*/
-ACMD(auction) {
-
-	if( !battle_config.feature_auction ) {
-		clif->colormes(sd->fd,COLOR_RED,msg_fd(fd,1484));
+ACMD(auction)
+{
+	if (!battle_config.feature_auction) {
+		clif->messagecolor_self(sd->fd, COLOR_RED, msg_fd(fd,1484));
 		return false;
 	}
 
@@ -8785,14 +8785,7 @@ ACMD(channel) {
 				unsigned short msg_len = 1;
 				msg_len += sprintf(mout, "[ %s list colors ] : %s", command, channel->config->colors_name[k]);
 
-				// FIXME: This is clif code.
-				WFIFOHEAD(fd,msg_len + 12);
-				WFIFOW(fd,0) = 0x2C1;
-				WFIFOW(fd,2) = msg_len + 12;
-				WFIFOL(fd,4) = 0;
-				WFIFOL(fd,8) = channel->config->colors[k];
-				safestrncpy((char*)WFIFOP(fd,12), mout, msg_len);
-				WFIFOSET(fd, msg_len + 12);
+				clif->messagecolor_self(fd, channel->config->colors[k], mout);
 			}
 		} else {
 			DBIterator *iter = db_iterator(channel->db);
@@ -9177,14 +9170,8 @@ ACMD(fontcolor) {
 	if( !message || !*message ) {
 		for( k = 0; k < channel->config->colors_count; k++ ) {
 			msg_len += sprintf(mout, "[ %s ] : %s", command, channel->config->colors_name[k]);
-			// FIXME: This is clif code.
-			WFIFOHEAD(fd,msg_len + 12);
-			WFIFOW(fd,0) = 0x2C1;
-			WFIFOW(fd,2) = msg_len + 12;
-			WFIFOL(fd,4) = 0;
-			WFIFOL(fd,8) = channel->config->colors[k];
-			safestrncpy((char*)WFIFOP(fd,12), mout, msg_len);
-			WFIFOSET(fd, msg_len + 12);
+
+			clif->messagecolor_self(fd, channel->config->colors[k], mout);
 		}
 		return false;
 	}
@@ -9207,14 +9194,8 @@ ACMD(fontcolor) {
 	sd->fontcolor = k + 1;
 	msg_len += sprintf(mout, "Color changed to '%s'", channel->config->colors_name[k]);
 
-	// FIXME: This is clif code.
-	WFIFOHEAD(fd,msg_len + 12);
-	WFIFOW(fd,0) = 0x2C1;
-	WFIFOW(fd,2) = msg_len + 12;
-	WFIFOL(fd,4) = 0;
-	WFIFOL(fd,8) = channel->config->colors[k];
-	safestrncpy((char*)WFIFOP(fd,12), mout, msg_len);
-	WFIFOSET(fd, msg_len + 12);
+	clif->messagecolor_self(fd, channel->config->colors[k], mout);
+
 	return true;
 }
 ACMD(searchstore){
@@ -9953,11 +9934,12 @@ bool atcommand_exec(const int fd, struct map_session_data *sd, const char *messa
 		}
 		for(i = 0; i < map->list[sd->bl.m].zone->disabled_commands_count; i++) {
 			if( info->func == map->list[sd->bl.m].zone->disabled_commands[i]->cmd ) {
-				if( pc_get_group_level(sd) < map->list[sd->bl.m].zone->disabled_commands[i]->group_lv ) {
-					clif->colormes(sd->fd,COLOR_RED,"This command is disabled in this area");
+				if (pc_get_group_level(sd) < map->list[sd->bl.m].zone->disabled_commands[i]->group_lv) {
+					clif->messagecolor_self(sd->fd, COLOR_RED, "This command is disabled in this area");
 					return true;
-				} else
+				} else {
 					break;/* already found the matching command, no need to keep checking -- just go on */
+				}
 			}
 		}
 	}

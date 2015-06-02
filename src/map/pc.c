@@ -181,15 +181,19 @@ int pc_spiritball_timer(int tid, int64 tick, int id, intptr_t data) {
 * @retval total number of spiritball
 **/
 int pc_getmaxspiritball(struct map_session_data *sd, int min) {
-int result = pc->checkskill(sd, MO_CALLSPIRITS);
-nullpo_ret(sd);
-if ( min && result < min )
-  result = min;
-else if ( sd->sc.data[SC_RAISINGDRAGON] )
-  result += sd->sc.data[SC_RAISINGDRAGON]->val1;
-if ( result > MAX_SPIRITBALL )
-  result = MAX_SPIRITBALL;
-return result;
+	int result;
+
+	nullpo_ret(sd);
+
+	result = pc->checkskill(sd, MO_CALLSPIRITS);
+	
+	if ( min && result < min )
+		result = min;
+	else if ( sd->sc.data[SC_RAISINGDRAGON] )
+		result += sd->sc.data[SC_RAISINGDRAGON]->val1;
+	if ( result > MAX_SPIRITBALL )
+		result = MAX_SPIRITBALL;
+	return result;
 }
 
 int pc_addspiritball(struct map_session_data *sd,int interval,int max)
@@ -4325,12 +4329,12 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 
 	if ((item->item_usage.flag&INR_SITTING) && (pc_issit(sd) == 1) && (pc_get_group_level(sd) < item->item_usage.override)) {
 		clif->msgtable(sd, MSG_ITEM_NEED_STANDING);
-		//clif->colormes(sd->fd,COLOR_WHITE,msg_txt(1474));
+		//clif->messagecolor_self(sd->fd, COLOR_WHITE, msg_txt(1474));
 		return 0; // You cannot use this item while sitting.
 	}
 
 	if (sd->state.storage_flag != STORAGE_FLAG_CLOSED && item->type != IT_CASH) {
-		clif->colormes(sd->fd, COLOR_RED, msg_sd(sd,1475));
+		clif->messagecolor_self(sd->fd, COLOR_RED, msg_sd(sd,1475));
 		return 0; // You cannot use this item while storage is open.
 	}
 
@@ -4433,8 +4437,8 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 			clif->msgtable(sd, MSG_ITEM_CANT_OBTAIN_WEIGHT);
 			return 0;
 		}
-		if( !pc->inventoryblank(sd) ) {
-			clif->colormes(sd->fd,COLOR_RED,msg_sd(sd,1477));
+		if (!pc->inventoryblank(sd)) {
+			clif->messagecolor_self(sd->fd, COLOR_RED, msg_sd(sd,1477));
 			return 0;
 		}
 	}
@@ -6642,14 +6646,12 @@ int pc_skillup(struct map_session_data *sd,uint16 skill_id) {
 		if (!pc_has_permission(sd, PC_PERM_ALL_SKILL)) // may skill everything at any time anyways, and this would cause a huge slowdown
 			clif->skillinfoblock(sd);
 	} else if( battle_config.skillup_limit ){
-		if( sd->sktree.second )
+		if (sd->sktree.second)
 			clif->msgtable_num(sd, MSG_SKILL_POINTS_LEFT_JOB1, sd->sktree.second);
-		else if( sd->sktree.third )
+		else if (sd->sktree.third)
 			clif->msgtable_num(sd, MSG_SKILL_POINTS_LEFT_JOB2, sd->sktree.third);
-		else if( pc->calc_skillpoint(sd) < 9 ) {
-			/* TODO: official response? */
-			clif->colormes(sd->fd,COLOR_RED,"You need the basic skills");
-		}
+		else if (pc->calc_skillpoint(sd) < 9) /* TODO: official response? */
+			clif->messagecolor_self(sd->fd, COLOR_RED, "You need the basic skills");
 	}
 	return 0;
 }
@@ -10651,15 +10653,15 @@ void pc_bank_deposit(struct map_session_data *sd, int money) {
 void pc_bank_withdraw(struct map_session_data *sd, int money) {
 	unsigned int limit_check = money+sd->status.zeny;
 	
-	if( money <= 0 ) {
+	if (money <= 0) {
 		clif->bank_withdraw(sd,BWA_UNKNOWN_ERROR);
 		return;
-	} else if ( money > sd->status.bank_vault ) {
+	} else if (money > sd->status.bank_vault) {
 		clif->bank_withdraw(sd,BWA_NO_MONEY);
 		return;
-	} else if ( limit_check > MAX_ZENY ) {
+	} else if (limit_check > MAX_ZENY) {
 		/* no official response for this scenario exists. */
-		clif->colormes(sd->fd,COLOR_RED,msg_sd(sd,1482));
+		clif->messagecolor_self(sd->fd, COLOR_RED, msg_sd(sd,1482));
 		return;
 	}
 	
