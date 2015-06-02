@@ -13561,14 +13561,39 @@ BUILDIN(atcommand) {
 
 /*==========================================
  * Displays a message for the player only (like system messages like "you got an apple" )
+   (dispbottom default ou colorido) - [SlexFire]
  *------------------------------------------*/
 BUILDIN(dispbottom)
 {
 	TBL_PC *sd=script->rid2sd(st);
 	const char *message;
+	int color = 0;
 	message=script_getstr(st,2);
-	if(sd)
-		clif_disp_onlyself(sd,message,(int)strlen(message));
+	
+	if (script_hasdata(st,3))
+		color = script_getnum(st,3);
+	
+	if(sd) {
+		
+		if(script_hasdata(st,3)){
+		const char *message = script_getstr(st,2);
+		unsigned short msg_len = strlen( message ) +1;
+		int color = script_getnum(st,3);
+		int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
+		WFIFOHEAD( sd->fd, msg_len + 12 );
+		WFIFOW( sd->fd, 0 ) = 0x2C1;
+		WFIFOW( sd->fd, 2 ) = msg_len + 12;
+		WFIFOL( sd->fd, 4 ) = 0;
+		WFIFOL( sd->fd, 8 ) = colorcode;
+		safestrncpy( (char*)WFIFOP( sd->fd,12 ), message, msg_len );
+		WFIFOSET( sd->fd, msg_len + 12 );
+		}
+		
+		else {
+			clif_disp_onlyself(sd,message,(int)strlen(message));
+		}
+	}
+	
 	return true;
 }
 
@@ -20047,7 +20072,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(deletepset,"i"), // Delete a pattern set [MouseJstr]
 		BUILDIN_DEF(pcre_match,"ss"),
 #endif
-		BUILDIN_DEF(dispbottom,"s"), //added from jA [Lupus]
+		BUILDIN_DEF(dispbottom,"s?"), //added from jA [Lupus] - Modificação [SlexFire]
 		BUILDIN_DEF(getusersname,""),
 		BUILDIN_DEF(recovery,""),
 		BUILDIN_DEF(getpetinfo,"i"),
