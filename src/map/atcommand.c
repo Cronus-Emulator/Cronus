@@ -6007,6 +6007,64 @@ ACMD(sound)
 	return true;
 }
 
+
+/*==================================================
+ * 	MOB Alive - Reintegração e Correção [SlexFire]
+ *------------------------------------------=======*/
+ACMD(mobalive)
+{
+	char mob_name[100];
+	int mob_id;
+	int number = 0;
+	struct s_mapiterator* it;
+
+	nullpo_retr(-1, sd);
+
+	if (!message || !*message || sscanf(message, "%99[^\n]", mob_name) < 1) {
+		clif->message(fd, "Por favor, digite o nome do monstro (uso: @mobalive <nome do monstro>).");
+		return false;
+	}
+
+	if ((mob_id = atoi(mob_name)) == 0)
+		 mob_id = mob->db_searchname(mob_name);
+	if(mob_id > 0 && mob->db_checkid(mob_id) == 0){
+		snprintf(atcmd_output, sizeof atcmd_output, "ID %s inválido!",mob_name);
+		clif->message(fd, atcmd_output);
+		return false;
+	}
+	if(mob_id == atoi(mob_name) && mob->db(mob_id)->jname)
+				strcpy(mob_name,mob->db(mob_id)->jname);
+
+	snprintf(atcmd_output, sizeof atcmd_output, "Procurando pelo monstro %s em %s ...", mob_name, mapindex_id2name(sd->mapindex));
+	clif->message(fd, atcmd_output);
+
+	it = mapit_geteachmob();
+	//while( true )
+	for(;;)
+	{
+		TBL_MOB* md = (TBL_MOB*)mapit->next(it);
+		if( md == NULL )
+			break;
+
+		if( md->bl.m != sd->bl.m )
+			continue;
+		if( mob_id != -1 && md->class_ != mob_id )
+			continue;
+
+		if( md->spawn_timer == INVALID_TIMER ){
+			number ++;
+		    snprintf(atcmd_output, sizeof(atcmd_output), "%s (%d %s)", md->name, number, (number == 1) ? "vivo" : "vivos");
+		    clif->message(fd, atcmd_output);
+		}
+	}
+	if (!number)
+		clif->message(fd, "Monstro não encontrado.");
+		mapit->free(it);
+
+	return true;
+}
+
+
 /*==========================================
  * MOB Search
  *------------------------------------------*/
@@ -9540,6 +9598,7 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(identify),
 		ACMD_DEF(misceffect),
 		ACMD_DEF(mobsearch),
+		ACMD_DEF(mobalive),
 		ACMD_DEF(cleanmap),
 		ACMD_DEF(cleanarea),
 		ACMD_DEF(npctalk),
