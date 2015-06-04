@@ -15515,6 +15515,15 @@ BUILDIN(compare)
 	return true;
 }
 
+BUILDIN(strcmp)
+{
+	const char *str1 = script_getstr(st,2);
+	const char *str2 = script_getstr(st,3);
+	script_pushint(st,strcmp(str1, str2));
+	return true;
+}
+
+
 // List of mathematics commands --->
 
 BUILDIN(log10)
@@ -20101,6 +20110,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(countstr,"ss?"),
 		BUILDIN_DEF(setnpcdisplay,"sv??"),
 		BUILDIN_DEF(compare,"ss"), // Lordalfa - To bring strstr to scripting Engine.
+		BUILDIN_DEF(strcmp,"ss"),
 		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] returns Items Buy / sell Price, etc info
 		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] set Items Buy / sell Price, etc info
 		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] returns CARD ID or other info from CARD slot N of equipped item
