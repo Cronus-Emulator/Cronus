@@ -5,14 +5,9 @@
 #ifndef MAP_BATTLEGROUND_H
 #define MAP_BATTLEGROUND_H
 
-#include "map/map.h" // EVENT_NAME_LENGTH
-#include "common/cbasetypes.h"
-#include "common/db.h"
-#include "common/mmo.h" // struct party
-
-struct HPluginData;
-struct block_list;
-struct map_session_data;
+#include "clif.h"
+#include "guild.h"
+#include "../common/mmo.h" // struct party
 
 /**
  * Defines

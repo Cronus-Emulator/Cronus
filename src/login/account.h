@@ -5,9 +5,9 @@
 #ifndef LOGIN_ACCOUNT_H
 #define LOGIN_ACCOUNT_H
 
-#include "common/cbasetypes.h"
-#include "common/mmo.h" // ACCOUNT_REG2_NUM
-#include "common/sql.h" // Sql
+#include "../common/cbasetypes.h"
+#include "../common/mmo.h" // ACCOUNT_REG2_NUM
+#include "../common/sql.h" // Sql
 
 typedef struct AccountDB AccountDB;
 typedef struct AccountDBIterator AccountDBIterator;
@@ -36,6 +36,7 @@ struct mmo_account
 	char lastlogin[24];         // date+time of last successful login
 	char last_ip[16];           // save of last IP of connection
 	char birthdate[10+1];       // assigned birth date (format: YYYY-MM-DD, default: 0000-00-00)
+	char mac_address[18];       // Checagem mac_address - Megasantos
 };
 
 

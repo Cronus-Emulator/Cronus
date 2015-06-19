@@ -5,10 +5,8 @@
 #ifndef LOGIN_LOGIN_H
 #define LOGIN_LOGIN_H
 
-#include "common/cbasetypes.h"
-#include "common/core.h" // CORE_ST_LAST
-#include "common/db.h"
-#include "common/mmo.h" // NAME_LENGTH,SEX_*
+#include "../common/core.h" // CORE_ST_LAST
+#include "../common/mmo.h" // NAME_LENGTH,SEX_*
 
 struct mmo_account;
 struct AccountDB;

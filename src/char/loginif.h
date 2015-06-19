@@ -5,9 +5,7 @@
 #ifndef CHAR_LOGINIF_H
 #define CHAR_LOGINIF_H
 
-#include "common/cbasetypes.h"
-
-struct char_session_data;
+#include "char.h"
 
 /**
  * loginif interface

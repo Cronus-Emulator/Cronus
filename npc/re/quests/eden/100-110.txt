@@ -1019,7 +1019,6 @@ S_Hunting:
 		break;
 	}
 	erasequest getarg(0);
-	return;
 }
 
 moc_para01,41,95,5	script	Rohtert#12	4_M_ROTERT,{

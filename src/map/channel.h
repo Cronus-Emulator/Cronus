@@ -4,9 +4,11 @@
 #ifndef MAP_CHANNEL_H
 #define MAP_CHANNEL_H
 
-#include "common/cbasetypes.h"
-#include "common/db.h"
-#include "common/mmo.h"
+#include <stdarg.h>
+
+#include "map.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
 
 /**
  * Declarations

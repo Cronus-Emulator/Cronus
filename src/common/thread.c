@@ -10,13 +10,10 @@
 
 #include "thread.h"
 
-#include "common/cbasetypes.h"
-#include "common/malloc.h"
-#include "common/showmsg.h"
-#include "common/sysinfo.h" // sysinfo->getpagesize()
+#include "../common/cbasetypes.h"
 
 #ifdef WIN32
-#	include "common/winapi.h"
+#	include "../common/winapi.h"
 #	define __thread __declspec( thread )
 #else
 #	include <pthread.h>
@@ -26,6 +23,10 @@
 #	include <string.h>
 #	include <unistd.h>
 #endif
+
+#include "../common/malloc.h"
+#include "../common/showmsg.h"
+#include "../common/sysinfo.h" // sysinfo->getpagesize()
 
 // When Compiling using MSC (on win32..) we know we have support in any case!
 #ifdef _MSC_VER

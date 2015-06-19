@@ -5,12 +5,9 @@
 #ifndef MAP_ELEMENTAL_H
 #define MAP_ELEMENTAL_H
 
-#include "map/status.h" // struct status_data, struct status_change
-#include "map/unit.h" // struct unit_data
-#include "common/cbasetypes.h"
-#include "common/mmo.h" // NAME_LENGTH
-
-#include <stdarg.h>
+#include "status.h" // struct status_data, struct status_change
+#include "unit.h" // struct unit_data
+#include "../common/mmo.h" // NAME_LENGTH
 
 /**
  * Defines

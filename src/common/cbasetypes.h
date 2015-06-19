@@ -97,7 +97,6 @@
 #include <inttypes.h>
 #include <stdint.h>
 #include <limits.h>
-#include <time.h>
 
 // temporary fix for bugreport:4961 (unintended conversion from signed to unsigned)
 // (-20 >= UCHAR_MAX) returns true

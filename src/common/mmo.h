@@ -5,8 +5,11 @@
 #ifndef COMMON_MMO_H
 #define COMMON_MMO_H
 
-#include "config/core.h"
-#include "common/cbasetypes.h"
+#include <time.h>
+
+#include "../config/core.h"
+#include "../common/cbasetypes.h"
+#include "../common/db.h"
 
 // server->client protocol version
 //        0 - pre-?
