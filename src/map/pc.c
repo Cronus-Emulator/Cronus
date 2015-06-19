@@ -7462,6 +7462,9 @@ void pc_damage(struct map_session_data *sd,struct block_list *src,unsigned int h
 		elemental->set_target(sd,src);
 
 	sd->canlog_tick = timer->gettick();
+	
+	//SllexFire - OnPCReAttackEvent
+	npc->script_event(sd, NPCE_REATTACK);
 }
 
 /*==========================================

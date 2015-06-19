@@ -4319,6 +4319,7 @@ void npc_read_event_script(void)
 		{"Die Event",script->config.die_event_name},
 		{"Kill PC Event",script->config.kill_pc_event_name},
 		{"Kill NPC Event",script->config.kill_mob_event_name},
+		{"ReAttack Event",script->config.reattack_event_name}, //OnPCReAttackEvent - [SlexFire]
 	};
 
 	for (i = 0; i < NPCE_MAX; i++)

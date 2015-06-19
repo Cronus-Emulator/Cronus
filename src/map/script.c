@@ -20686,6 +20686,7 @@ void script_defaults(void) {
 	script->config.die_event_name = "OnPCDieEvent";
 	script->config.kill_pc_event_name = "OnPCKillEvent";
 	script->config.kill_mob_event_name = "OnNPCKillEvent";
+	script->config.reattack_event_name = "OnPCReAttackEvent"; //OnPCReAttackEvent - [SlexFire]
 	script->config.login_event_name = "OnPCLoginEvent";
 	script->config.logout_event_name = "OnPCLogoutEvent";
 	script->config.loadmap_event_name = "OnPCLoadMapEvent";
