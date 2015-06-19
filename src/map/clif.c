@@ -9918,6 +9918,8 @@ void clif_parse_ActionRequest_sub(struct map_session_data *sd, int action_type, 
 			if( battle_config.idletime_criteria & BCIDLE_ATTACK )
 				sd->idletime = sockt->last_tick;
 			unit->attack(&sd->bl, target_id, action_type != 0);
+			//slexfire OnPCAttackEvent
+			npc->script_event(sd, NPCE_ATTACK);
 		break;
 		case 0x02: // sitdown
 			if (battle_config.basic_skill_check && pc->checkskill(sd, NV_BASIC) < 3) {

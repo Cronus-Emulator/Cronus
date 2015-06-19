@@ -135,6 +135,7 @@ enum npce_event {
 	NPCE_KILLPC,
 	NPCE_KILLNPC,
 	NPCE_REATTACK, //OnPCReAttackEvent - [SlexFire]
+	NPCE_ATTACK, //OnPCAttackEvent - [SlexFire]
 	NPCE_MAX
 };
 
