@@ -1,12 +1,12 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
-// Base Author: shennetsind @ http://hercules.ws
+// Base Author: shennetsind @ http://herc.ws
 
 
 #ifndef MAP_IRC_BOT_H
 #define MAP_IRC_BOT_H
 
-#include "../common/cbasetypes.h"
+#include "common/cbasetypes.h"
 
 #define IRC_NICK_LENGTH 40
 #define IRC_IDENT_LENGTH 40

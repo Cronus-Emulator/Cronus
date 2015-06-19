@@ -5,15 +5,15 @@
 #ifndef COMMON_SHOWMSG_H
 #define COMMON_SHOWMSG_H
 
-#include <stdarg.h>
-
-#include "../common/cbasetypes.h"
+#include "common/cbasetypes.h"
 
 #ifdef HERCULES_CORE
-#	include "../../3rdparty/libconfig/libconfig.h"
+#	include <libconfig/libconfig.h>
 #else
-#	include "../common/HPMi.h"
+#	include "common/HPMi.h"
 #endif
+
+#include <stdarg.h>
 
 // for help with the console colors look here:
 // http://www.edoceo.com/liberum/?doc=printf-with-color
@@ -61,7 +61,7 @@
 #define CL_BT_CYAN    "\033[1;36m"
 #define CL_BT_WHITE   "\033[1;37m"
 
-//Syntaxe Da versão anterior para compatibilidade no console [SlexFire]
+//Syntaxe da versão anterior para compatibilidade no console [SlexFire]
 #define CL_WTBL			"\033[37;44m"	// white on blue
 #define CL_XXBL			"\033[0;44m"	// default on blue
 #define CL_PASS			"\033[0;32;42m"	// green on green

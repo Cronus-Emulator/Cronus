@@ -21,6 +21,7 @@ sub trim($) {
 
 sub parse($$) {
 	my ($p, $d) = @_;
+
 	$p =~ s/^.*?\)\((.*)\).*$/$1/; # Clean up extra parentheses )(around the arglist)
 
 	# Retrieve return type
@@ -419,7 +420,7 @@ EOF
 EOF
 
 			$idx += 2;
-			$maxlen = length($key."->".$if->{name}) if( length($key."->".$if->{name}) > $maxlen )
+			$maxlen = length($key."->".$if->{name}) if( length($key."->".$if->{name}) > $maxlen );
 		}
 	}
 	print FH <<"EOF";
@@ -464,7 +465,7 @@ EOF
 	foreach my $key (@$keysref) {
 
 		print FH <<"EOF";
-if( !($key = GET_SYMBOL("$exportsymbols{$key}") ) ) return false;
+if( !($key = GET_SYMBOL("$exportsymbols{$key}") ) ) return "$exportsymbols{$key}";
 EOF
 	}
 	close FH;

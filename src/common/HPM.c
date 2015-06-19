@@ -3,27 +3,28 @@
 
 #define HERCULES_CORE
 
-#include "../config/core.h" // CONSOLE_INPUT
+#include "config/core.h" // CONSOLE_INPUT
 #include "HPM.h"
+
+#include "common/cbasetypes.h"
+#include "common/conf.h"
+#include "common/console.h"
+#include "common/core.h"
+#include "common/db.h"
+#include "common/malloc.h"
+#include "common/mmo.h"
+#include "common/showmsg.h"
+#include "common/socket.h"
+#include "common/sql.h"
+#include "common/strlib.h"
+#include "common/sysinfo.h"
+#include "common/timer.h"
+#include "common/utils.h"
+#include "common/nullpo.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../common/cbasetypes.h"
-#include "../common/conf.h"
-#include "../common/console.h"
-#include "../common/core.h"
-#include "../common/malloc.h"
-#include "../common/mmo.h"
-#include "../common/showmsg.h"
-#include "../common/socket.h"
-#include "../common/sql.h"
-#include "../common/strlib.h"
-#include "../common/sysinfo.h"
-#include "../common/timer.h"
-#include "../common/utils.h"
-#include "../common/nullpo.h"
 
 #ifndef WIN32
 #	include <unistd.h>
@@ -251,6 +252,8 @@ struct hplugin *hplugin_load(const char* filename) {
 	if( HPM->load_sub )
 		HPM->load_sub(plugin);
 
+	ShowStatus("HPM: Loaded plugin '"CL_WHITE"%s"CL_RESET"' (%s).\n", plugin->info->name, plugin->info->version);
+
 	return plugin;
 }
 
@@ -338,11 +341,14 @@ void hplugins_config_read(void) {
 				struct hplugin *plugin;
 				snprintf(filename, 60, "plugins/%s%s", hooking_plugin_name, DLL_EXT);
 				if ((plugin = HPM->load(filename))) {
-					bool (*func)(bool *fr);
+					const char * (*func)(bool *fr);
 					bool (*addhook_sub) (enum HPluginHookType type, const char *target, void *hook, unsigned int pID);
-					if ((func = plugin_import(plugin->dll, "Hooked",bool (*)(bool *)))
+					if ((func = plugin_import(plugin->dll, "Hooked",const char * (*)(bool *)))
 					 && (addhook_sub = plugin_import(plugin->dll, "HPM_Plugin_AddHook",bool (*)(enum HPluginHookType, const char *, void *, unsigned int)))) {
-						if (func(&HPM->force_return)) {
+						const char *failed = func(&HPM->force_return);
+						if (failed) {
+							ShowError("HPM: failed to retrieve '%s' for '"CL_WHITE"%s"CL_RESET"'!\n", failed, plugin_name);
+						} else {
 							HPM->hooking = true;
 							HPM->addhook_sub = addhook_sub;
 						}
