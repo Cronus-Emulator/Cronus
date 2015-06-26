@@ -4,60 +4,59 @@
 
 #define HERCULES_CORE
 
-#include "../config/core.h" // RENEWAL, RENEWAL_ASPD, RENEWAL_CAST, RENEWAL_DROP, RENEWAL_EDP, RENEWAL_EXP, RENEWAL_LVDMG, SCRIPT_CALLFUNC_CHECK, SECURE_NPCTIMEOUT, SECURE_NPCTIMEOUT_INTERVAL
+#include "config/core.h" // RENEWAL, RENEWAL_ASPD, RENEWAL_CAST, RENEWAL_DROP, RENEWAL_EDP, RENEWAL_EXP, RENEWAL_LVDMG, SCRIPT_CALLFUNC_CHECK, SECURE_NPCTIMEOUT, SECURE_NPCTIMEOUT_INTERVAL
 #include "script.h"
+
+#include "map/atcommand.h"
+#include "map/battle.h"
+#include "map/battleground.h"
+#include "map/channel.h"
+#include "map/chat.h"
+#include "map/chrif.h"
+#include "map/clif.h"
+#include "map/elemental.h"
+#include "map/guild.h"
+#include "map/homunculus.h"
+#include "map/instance.h"
+#include "map/intif.h"
+#include "map/itemdb.h"
+#include "map/log.h"
+#include "map/mail.h"
+#include "map/map.h"
+#include "map/mapreg.h"
+#include "map/mercenary.h"
+#include "map/mob.h"
+#include "map/npc.h"
+#include "map/party.h"
+#include "map/path.h"
+#include "map/pc.h"
+#include "map/pet.h"
+#include "map/pet.h"
+#include "map/quest.h"
+#include "map/skill.h"
+#include "map/status.h"
+#include "map/status.h"
+#include "map/storage.h"
+#include "map/unit.h"
+#include "common/cbasetypes.h"
+#include "common/malloc.h"
+#include "common/md5calc.h"
+#include "common/mmo.h" // NEW_CARTS
+#include "common/nullpo.h"
+#include "common/random.h"
+#include "common/showmsg.h"
+#include "common/socket.h" // usage: getcharip
+#include "common/strlib.h"
+#include "common/sysinfo.h"
+#include "common/timer.h"
+#include "common/utils.h"
+#include "common/HPM.h"
 
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
-#include "atcommand.h"
-#include "battle.h"
-#include "battleground.h"
-#include "channel.h"
-#include "chat.h"
-#include "chrif.h"
-#include "clif.h"
-#include "elemental.h"
-#include "guild.h"
-#include "homunculus.h"
-#include "instance.h"
-#include "intif.h"
-#include "itemdb.h"
-#include "log.h"
-#include "mail.h"
-#include "map.h"
-#include "mapreg.h"
-#include "mercenary.h"
-#include "mob.h"
-#include "npc.h"
-#include "party.h"
-#include "path.h"
-#include "pc.h"
-#include "pet.h"
-#include "pet.h"
-#include "quest.h"
-#include "skill.h"
-#include "status.h"
-#include "status.h"
-#include "storage.h"
-#include "unit.h"
-#include "../common/cbasetypes.h"
-#include "../common/malloc.h"
-#include "../common/md5calc.h"
-#include "../common/mmo.h" // NEW_CARTS
-#include "../common/nullpo.h"
-#include "../common/random.h"
-#include "../common/showmsg.h"
-#include "../common/socket.h" // usage: getcharip
-#include "../common/strlib.h"
-#include "../common/sysinfo.h"
-#include "../common/timer.h"
-#include "../common/utils.h"
-#include "../common/HPM.h"
-
 #ifndef WIN32
 	#include <sys/time.h>
 #endif
@@ -13561,39 +13560,14 @@ BUILDIN(atcommand) {
 
 /*==========================================
  * Displays a message for the player only (like system messages like "you got an apple" )
-   (dispbottom default ou colorido) - [SlexFire]
  *------------------------------------------*/
 BUILDIN(dispbottom)
 {
 	TBL_PC *sd=script->rid2sd(st);
 	const char *message;
-	int color = 0;
 	message=script_getstr(st,2);
-	
-	if (script_hasdata(st,3))
-		color = script_getnum(st,3);
-	
-	if(sd) {
-		
-		if(script_hasdata(st,3)){
-		const char *message = script_getstr(st,2);
-		unsigned short msg_len = strlen( message ) +1;
-		int color = script_getnum(st,3);
-		int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
-		WFIFOHEAD( sd->fd, msg_len + 12 );
-		WFIFOW( sd->fd, 0 ) = 0x2C1;
-		WFIFOW( sd->fd, 2 ) = msg_len + 12;
-		WFIFOL( sd->fd, 4 ) = 0;
-		WFIFOL( sd->fd, 8 ) = colorcode;
-		safestrncpy( (char*)WFIFOP( sd->fd,12 ), message, msg_len );
-		WFIFOSET( sd->fd, msg_len + 12 );
-		}
-		
-		else {
-			clif_disp_onlyself(sd,message,(int)strlen(message));
-		}
-	}
-	
+	if(sd)
+		clif_disp_onlyself(sd,message,(int)strlen(message));
 	return true;
 }
 
@@ -15522,7 +15496,6 @@ BUILDIN(strcmp)
 	script_pushint(st,strcmp(str1, str2));
 	return true;
 }
-
 
 // List of mathematics commands --->
 
@@ -20081,7 +20054,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(deletepset,"i"), // Delete a pattern set [MouseJstr]
 		BUILDIN_DEF(pcre_match,"ss"),
 #endif
-		BUILDIN_DEF(dispbottom,"s?"), //added from jA [Lupus] - Modificação [SlexFire]
+		BUILDIN_DEF(dispbottom,"s"), //added from jA [Lupus]
 		BUILDIN_DEF(getusersname,""),
 		BUILDIN_DEF(recovery,""),
 		BUILDIN_DEF(getpetinfo,"i"),

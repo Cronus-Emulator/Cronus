@@ -6,23 +6,22 @@
 
 #include "int_party.h"
 
+#include "char/char.h"
+#include "char/inter.h"
+#include "char/mapif.h"
+#include "common/cbasetypes.h"
+#include "common/db.h"
+#include "common/malloc.h"
+#include "common/mapindex.h"
+#include "common/mmo.h"
+#include "common/nullpo.h"
+#include "common/showmsg.h"
+#include "common/socket.h"
+#include "common/sql.h"
+#include "common/strlib.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-#include "char.h"
-#include "inter.h"
-#include "mapif.h"
-#include "../common/cbasetypes.h"
-#include "../common/db.h"
-#include "../common/malloc.h"
-#include "../common/mapindex.h"
-#include "../common/mmo.h"
-#include "../common/nullpo.h"
-#include "../common/showmsg.h"
-#include "../common/socket.h"
-#include "../common/sql.h"
-#include "../common/strlib.h"
 
 struct inter_party_interface inter_party_s;
 
@@ -324,7 +323,6 @@ int inter_party_check_empty(struct party_data *p)
 // Create a party whether or not
 int mapif_party_created(int fd, int account_id, int char_id, struct party *p)
 {
-	nullpo_ret(p);
 	WFIFOHEAD(fd, 39);
 	WFIFOW(fd,0)=0x3820;
 	WFIFOL(fd,2)=account_id;

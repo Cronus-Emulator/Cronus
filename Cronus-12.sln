@@ -3,27 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "char-server", "vcproj-10\char-server.vcxproj", "{D356871D-58E1-450B-967A-E4E9646175AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "char-server", "vcproj-12\char-server.vcxproj", "{D356871D-58E1-450B-967A-E4E9646175AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "login-server", "vcproj-10\login-server.vcxproj", "{D356871D-58E1-450B-967A-E5E9646175AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "login-server", "vcproj-12\login-server.vcxproj", "{D356871D-58E1-450B-967A-E5E9646175AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "map-server", "vcproj-10\map-server.vcxproj", "{D356871D-58E1-450B-967A-E6E9646175AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mapcache", "vcproj-12\mapcache.vcxproj", "{D356871D-58E1-450B-967A-E7E9646175AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mapcache", "vcproj-10\mapcache.vcxproj", "{D356871D-58E1-450B-967A-E7E9646175AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "map-server", "vcproj-12\map-server.vcxproj", "{D356871D-58E1-450B-967A-E6E9646175AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-sample", "vcproj-10\plugin-sample.vcxproj", "{E64C56D3-CDFB-483B-900B-A62D216B6D2F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-sample", "vcproj-12\plugin-sample.vcxproj", "{E64C56D3-CDFB-483B-900B-A62D216B6D2F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_map", "vcproj-10\plugin-HPMHooking_map.vcxproj", "{7ED92B9F-95E8-49B8-9D4F-C4C9BFDE0B22}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_map", "vcproj-12\plugin-HPMHooking_map.vcxproj", "{745D4A8C-6A68-4721-A43A-D81BF59860A1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_char", "vcproj-10\plugin-HPMHooking_char.vcxproj", "{337F99A2-528C-473C-97F0-BF202F197061}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_char", "vcproj-12\plugin-HPMHooking_char.vcxproj", "{D495824D-24D3-4623-A28C-4CA506084A09}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_login", "vcproj-10\plugin-HPMHooking_login.vcxproj", "{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VisibleMonstersHP", "custom-plugins\VisibleMonstersHP.vcxproj", "{849355A8-51A8-4F44-8625-4AB14280894C}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addrid", "custom-plugins\addrid.vcxproj", "{800FB545-4FD7-46F7-AFF6-AC933E91A20A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AuraSet", "custom-plugins\AuraSet.vcxproj", "{B4476EFA-68A8-4A6C-95B0-242C2EC0B375}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_login", "vcproj-12\plugin-HPMHooking_login.vcxproj", "{544AD8E8-0309-49DE-9F8D-F9FEA24D92F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
