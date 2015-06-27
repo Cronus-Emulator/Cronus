@@ -56,5 +56,6 @@ Equipe Atual
 - Mayon       - Thiago Miranda
 
 ### Desenvolvedores
-- SlexFire   - Júnior Mello
-- Arkwright - Evânio Eduardo
+- SlexFire  - (Coordenador Ragnarok)
+- diogofm   - (Core Developer) 
+- Arkwright - (Script Developer)
