@@ -1,25 +1,25 @@
-//===== Cronus Script ========================================
+Ôªø//===== Cronus Script ========================================
 //= Gerente Vip
 //===== Por: =================================================
 //= Evanio
 //===== Current Version: =====================================
 //= 1.0
-//===== DescriÁ„o: ===========================================
+//===== Descri√ß√£o: ===========================================
 //= Gerenciamento de Cash e contas VIP.
-//===== Coment·rios Adicionais: ==============================
+//===== Coment√°rios Adicionais: ==============================
 //= 1.0 Script Criado. [Evanio]
 //============================================================
 
 -	script	ConfVip	-1,{
 OnInit:
-	$@VipAc = 99;				   // NÌvel de conta que permite entrar no Gerenciamento. [ 4, 10 ou 99 ]
-	$@NvVip = 1;				   // NÌvel de conta para usu·rios Vip. [ 1 ‡ 3 ]
+	$@VipAc = 99;				   // N√≠vel de conta que permite entrar no Gerenciamento. [ 4, 10 ou 99 ]
+	$@NvVip = 1;				   // N√≠vel de conta para usu√°rios Vip. [ 1 √† 3 ]
 	$@SalaVip$ = "prontera"; 		   // Mapa da Sala Vip. [ ,"mapa"; ]
 	setarray $@CoordXY[0],150,150;		   // Coordenadas da Sala Vip [ ,CoordX,CoordY; ]
-	$@VipGratis = 0;		   	   // Ativa Vip Gr·tis. [ 1 = Sim, 0 = N„o ]
-	$@VipGDias = 5;			   	   // Dias para Vip Gr·tis.
-	$@ChatVip = 0;			   	   // Ativa chat de indicaÁ„o no NPC Gerente Vip. [ 1 = Sim, 0 = N„o ]
-	$@ChatMsgsVip$ = "Gerente Vip";	   	   // Mensagem no Chat que ir· aparecer.
+	$@VipGratis = 0;		   	   // Ativa Vip Gr√°tis. [ 1 = Sim, 0 = N√£o ]
+	$@VipGDias = 5;			   	   // Dias para Vip Gr√°tis.
+	$@ChatVip = 0;			   	   // Ativa chat de indica√ß√£o no NPC Gerente Vip. [ 1 = Sim, 0 = N√£o ]
+	$@ChatMsgsVip$ = "Gerente Vip";	   	   // Mensagem no Chat que ir√° aparecer.
 
 }
 
@@ -31,15 +31,15 @@ prontera,148,185,5	script	Gerente Vip	878,{
 	mes " Bem vindo ^EEAD2D"+strcharinfo(0)+"^000000 !";
 	mes "-----------------------------------";
 		if(.@VCash<=0) mes ""; 
-		else mes "VocÍ atualmente possui ^EEAD2D"+.@VCash+"^000000 ROP's";
-		if(@Vip==1) mes "VocÍ possui ^EEAD2D1^000000 Dia VIP restante.";
-		if(@Vip>1) mes "VocÍ possui ^EEAD2D"+@Vip+"^000000 Dias VIP restantes.";
+		else mes "Voc√™ atualmente possui ^EEAD2D"+.@VCash+"^000000 ROP's";
+		if(@Vip==1) mes "Voc√™ possui ^EEAD2D1^000000 Dia VIP restante.";
+		if(@Vip>1) mes "Voc√™ possui ^EEAD2D"+@Vip+"^000000 Dias VIP restantes.";
 		if(getgroupid()<$@NvVip) {
-			mes "VocÍ n„o È um usu·rio VIP.";
-			mes "Se est· interessado em se tornar um usu·rio Vip, se informe melhor em nosso site.";
+			mes "Voc√™ n√£o √© um usu√°rio VIP.";
+			mes "Se est√° interessado em se tornar um usu√°rio Vip, se informe melhor em nosso site.";
 		}
 			mes "-----------------------------------";
-			mes "Porfavor, escolha uma das opÁıes.";
+			mes "Porfavor, escolha uma das op√ß√µes.";
 			next;
 			@Menu$ = ((getgroupid()>=$@NvVip)?"Sala Vip":"")+":Como obter ROP's:Cancelar:"+((getgroupid()>=$@VipAc)?"Acesso ADM":"");
 			switch(select(@Menu$)){ 
@@ -47,20 +47,20 @@ prontera,148,185,5	script	Gerente Vip	878,{
 				case 1:
 				mes "[ Gerente ]";
 				mes "Okay, estarei te teleportando para a Sala Vip neste exato momento.";
-				mes "Tenha uma boa est·dia l·.";
+				mes "Tenha uma boa est√°dia l√°.";
 				close2;
 				warp $@SalaVip$,$@CoordXY[0],$@CoordXY[1];
 				end;
 
 				case 2:
 				mes "[ Gerente ]";
-				mes "Para obter ROP's, vocÍ ter· que comprar em nosso site os pacotes disponÌvel de ROP's.";
-				mes "L· estar· todas as informaÁıes de como vocÍ ir· adiquirir e como ser· a forma de pagamento.";
+				mes "Para obter ROP's, voc√™ ter√° que comprar em nosso site os pacotes dispon√≠vel de ROP's.";
+				mes "L√° estar√° todas as informa√ß√µes de como voc√™ ir√° adiquirir e como ser√° a forma de pagamento.";
 				next;
 				mes "[ Gerente ]";
-				mes "TambÈm ir· saber todas as vantagens de como È ser um usu·rio VIP e a lista de Itens ROP's disponÌveis.";
-				mes "Ah claro, vocÍ pode ver os itens ROP's disponÌveis.";
-				mes "Basta clicar no bot„o de Itens ROP's no canto superior direito da sua tela.";
+				mes "Tamb√©m ir√° saber todas as vantagens de como √© ser um usu√°rio VIP e a lista de Itens ROP's dispon√≠veis.";
+				mes "Ah claro, voc√™ pode ver os itens ROP's dispon√≠veis.";
+				mes "Basta clicar no bot√£o de Itens ROP's no canto superior direito da sua tela.";
 				close;
 
 				case 3:
@@ -80,67 +80,67 @@ OnInit:
 OnStartG:
 if(getgroupid()>=$@VipAc) {
 		mes "[ Gerente ]";
-		mes "Ol· "+strcharinfo(0)+".";
-		mes "Sou o Gerente de dados do Servidor. Meu trabalho È facilitar a vida do pessoal da AdministraÁ„o.";
-		mes "Porfavor, escolha a opÁ„o que vocÍ deseja executar.";
+		mes "Ol√° "+strcharinfo(0)+".";
+		mes "Sou o Gerente de dados do Servidor. Meu trabalho √© facilitar a vida do pessoal da Administra√ß√£o.";
+		mes "Porfavor, escolha a op√ß√£o que voc√™ deseja executar.";
 		next;
 		switch(select("Gerenciar Vip's","Gerenciar CASH","Gerenciar Banimentos","Gerenciar Staff","Sair")) {
 
 			case 1:
 			mes "[ Gerente ]";
-			mes "Nessa ·rea tenho total poder de manipular os dados de acesso VIP no servidor.";
-			mes "Basta vocÍ me indicar o que quer fazer que eu executo a aÁ„o.";
-			mes "Porfavor escolha uma das opÁıes.";
+			mes "Nessa √°rea tenho total poder de manipular os dados de acesso VIP no servidor.";
+			mes "Basta voc√™ me indicar o que quer fazer que eu executo a a√ß√£o.";
+			mes "Porfavor escolha uma das op√ß√µes.";
 			next;
 			switch(select("Adicionar acesso Vip","Remover acesso Vip","Ver Contas VIP","Retornar ao menu principal")) {
 
 				case 1:
 				mes "[ Gerente ]";
-				mes "Ok, agora preciso coletar os dados da conta do usu·rio que vocÍ deseja adicionar o acesso.";
-				mes "Digite o Login da Conta ‡ qual irei adicionar acesso Vip.";
+				mes "Ok, agora preciso coletar os dados da conta do usu√°rio que voc√™ deseja adicionar o acesso.";
+				mes "Digite o Login da Conta √† qual irei adicionar acesso Vip.";
 				next;
 				input .@Conta$;
 				query_sql ("SELECT `account_id` FROM `login` WHERE `userid`='"+.@Conta$+"'",.@ContaEx);
-				if(.@ContaEx==0) { mes "^FF0000***ERROR***^000000"; mes " "; mes "VocÍ n„o digitou uma conta v·lida."; mes " "; mes "^FF0000Fechando conex„o^000000"; close; }
+				if(.@ContaEx==0) { mes "^FF0000***ERROR***^000000"; mes " "; mes "Voc√™ n√£o digitou uma conta v√°lida."; mes " "; mes "^FF0000Fechando conex√£o^000000"; close; }
 					next;
 					mes "[ Gerente ]";
-					mes "Agora, digite a quantidade de dias que o usu·rio ter· acesso Vip";
+					mes "Agora, digite a quantidade de dias que o usu√°rio ter√° acesso Vip";
 					mes "Conta: ^FF0000"+.@Conta$+"^000000."; mes " ";
 					mes "^FF0000**Dica: Digite '0' para cancelar.^000000";
 					next;
 					input .@amVip;
-					if(.@amVip==0) { mes "AÁ„o cancelada."; mes " "; mes "^FF0000***Fechando conex„o***^000000"; close; }
+					if(.@amVip==0) { mes "A√ß√£o cancelada."; mes " "; mes "^FF0000***Fechando conex√£o***^000000"; close; }
 						mes "[ Gerente ]";
 						mes "Tudo certo, processando os dados e adicionando os dias de acesso Vip.";
 						next;
 						mes "[ Gerente ]";
 						mes "Pronto, acesso adicionado!";
 						mes " ";
-						mes "Conta de Usu·rio: ^FF0000"+.@Conta$+"^000000";
+						mes "Conta de Usu√°rio: ^FF0000"+.@Conta$+"^000000";
 						mes "Dias adicionados: ^FF0000"+.@amVip+"^000000.";
 						query_sql ("UPDATE `login` SET `group_id`='"+$@NvVip+"',`vip`=`vip`+"+.@amVip+" WHERE `userid`='"+.@Conta$+"'");
 						close;
 				case 2:
 				mes "[ Gerente ]";
-				mes "Ok, agora preciso coletar os dados da conta do usu·rio que vocÍ deseja remover o acesso.";
+				mes "Ok, agora preciso coletar os dados da conta do usu√°rio que voc√™ deseja remover o acesso.";
 				mes "Digite o Login da Conta.";
 				next;
 				input @AccRet$;
 				query_sql ("SELECT `account_id` , `vip` FROM `login` WHERE `userid`='"+@AccRet$+"'",.@NExiste,.@dvip);
-				if (!.@NExiste) { mes "^FF0000***ERROR***^000000"; mes " "; mes "VocÍ n„o digitou uma conta v·lida."; mes " "; mes "^FF0000Fechando conex„o^000000"; close; }
+				if (!.@NExiste) { mes "^FF0000***ERROR***^000000"; mes " "; mes "Voc√™ n√£o digitou uma conta v√°lida."; mes " "; mes "^FF0000Fechando conex√£o^000000"; close; }
 					next;
 					mes "[ Gerente ]";
-					mes "Agora, digite a quantidade de dias que ser„o removidos do usu·rio Vip.";
+					mes "Agora, digite a quantidade de dias que ser√£o removidos do usu√°rio Vip.";
 					mes "Conta: "+.@AccRet$+".";
 					mes "^FF0000**Dica: Digite '0' para cancelar.^000000";
 					next;
 					input .@QRem;
-					if(.@QRem==0) { mes "AÁ„o cancelada."; mes " "; mes "^FF0000***Fechando conex„o***^000000"; close; }
+					if(.@QRem==0) { mes "A√ß√£o cancelada."; mes " "; mes "^FF0000***Fechando conex√£o***^000000"; close; }
 						mes "[ Gerente ]";
 						mes "Eu irei remover: ^FF0000"+.@QRem+"^000000 dias da conta: ^FF0000"+@AccRet$+"^000000.";
-						mes "Estes dados est„o corretos?";
+						mes "Estes dados est√£o corretos?";
 						next;
-						if(select("Sim","N„o")==1) {
+						if(select("Sim","N√£o")==1) {
 							mes "[ Gerente ]";
 							mes "Tudo certo, processando os dados e removendo os dias de acesso Vip";
 							mes " "; mes " ";
@@ -152,9 +152,9 @@ if(getgroupid()>=$@VipAc) {
 							end;
 					}
 					mes "[ Gerente ]";
-					mes "Encerrando conex„o...";
+					mes "Encerrando conex√£o...";
 					mes "Limpando dados...";
-					mes "Conex„o encerrada!";
+					mes "Conex√£o encerrada!";
 					close;
 			case 3:
 				query_sql("SELECT `userid` , `vip` FROM `login` WHERE `group_id`= "+$@NvVip+" ",@Vips$,@dias);
@@ -163,36 +163,36 @@ if(getgroupid()>=$@VipAc) {
 		}
 		case 2:
 		mes "[ Gerente ]";
-		mes "Nessa ·rea tenho total poder de manipular os dados de CASH do servidor.";
-		mes "Basta vocÍ me indicar o que quer fazer que eu executo a aÁ„o.";
-		mes "Porfavor escolha uma das opÁıes.";
+		mes "Nessa √°rea tenho total poder de manipular os dados de CASH do servidor.";
+		mes "Basta voc√™ me indicar o que quer fazer que eu executo a a√ß√£o.";
+		mes "Porfavor escolha uma das op√ß√µes.";
 		next;
 		switch(select("Adicionar CASHs","Remover CASHs","Voltar ao menu principal")) {
 		
 			case 1:
 			mes "[ Gerente ]";
-			mes "Ok, agora preciso coletar os dados da conta do usu·rio que irei adicionar os CASHs.";
+			mes "Ok, agora preciso coletar os dados da conta do usu√°rio que irei adicionar os CASHs.";
 			mes "Digite o Login da Conta.";
 			next;
 			input .@Conta$;
 			query_sql ("SELECT `account_id` FROM `login` WHERE `userid`='"+.@Conta$+"'",.@ContaEx);
-			if(.@ContaEx==0) { mes "^FF0000***ERROR***^000000"; mes " "; mes "VocÍ n„o digitou uma conta v·lida."; mes " "; mes "^FF0000Fechando conex„o^000000"; close; }
+			if(.@ContaEx==0) { mes "^FF0000***ERROR***^000000"; mes " "; mes "Voc√™ n√£o digitou uma conta v√°lida."; mes " "; mes "^FF0000Fechando conex√£o^000000"; close; }
 				query_sql ("SELECT `value` FROM `acc_reg_num_db` WHERE `key`='#CASHPOINTS' AND `account_id` = '"+.@ContaEx+"'",.@valor);
 				mes "Essa conta possui "+.@valor+" CASHs.";
 				mes "Digite a quantidade de CASH que deseja adicionar nesta conta.";
 				mes "^FF0000**Dica: Digite '0' para cancelar.^000000";
 				next;
 				input .@CASH;
-				if(.@CASH==0) { mes "AÁ„o cancelada."; mes " "; mes "^FF0000***Fechando conex„o***^000000"; close; }
+				if(.@CASH==0) { mes "A√ß√£o cancelada."; mes " "; mes "^FF0000***Fechando conex√£o***^000000"; close; }
 					mes "[ Gerente ]";
 					mes "Eu irei adicionar: ^FF0000"+.@CASH+"^000000 CASH's na conta: ^FF0000"+.@Conta$+"^000000.";
-					mes "Estes dados est„o corretos?";
+					mes "Estes dados est√£o corretos?";
 					next;
-					if(select("Sim","N„o")==2) {
+					if(select("Sim","N√£o")==2) {
 						mes "[ Gerente ]";
-						mes "Encerrando conex„o...";
+						mes "Encerrando conex√£o...";
 						mes "Limpando dados...";
-						mes "Conex„o encerrada!";
+						mes "Conex√£o encerrada!";
 						close;
 					}
 				if(getarraysize(.@valor)) { query_sql "UPDATE `acc_reg_num_db` SET `value` = `value` + '"+.@CASH+"' WHERE `key`='#CASHPOINTS' AND `account_id` = '"+.@ContaEx+"'";
@@ -205,12 +205,12 @@ if(getgroupid()>=$@VipAc) {
 		
 			case 2:
 			mes "[ Gerente ]";
-			mes "Ok, agora preciso coletar os dados da conta do usu·rio que irei remover os CASHs.";
+			mes "Ok, agora preciso coletar os dados da conta do usu√°rio que irei remover os CASHs.";
 			mes "Digite o Login da Conta.";
 			next;
 			input .@Conta$;
 			query_sql ("SELECT `account_id` FROM `login` WHERE `userid`='"+.@Conta$+"'",.@ContaEx);
-			if(.@ContaEx==0) { mes "^FF0000***ERROR***^000000"; mes " "; mes "VocÍ n„o digitou uma conta v·lida."; mes " "; mes "^FF0000Fechando conex„o^000000"; close; }
+			if(.@ContaEx==0) { mes "^FF0000***ERROR***^000000"; mes " "; mes "Voc√™ n√£o digitou uma conta v√°lida."; mes " "; mes "^FF0000Fechando conex√£o^000000"; close; }
 				mes "[ Gerente ]";
 				query_sql "SELECT `value` FROM `acc_reg_num_db` WHERE `key` ='#CASHPOINTS' AND `account_id` = '"+.@ContaEx+"'",.@valor;
 				mes "Essa conta possui "+.@valor+" CASHs.";
@@ -218,19 +218,19 @@ if(getgroupid()>=$@VipAc) {
 				mes "^FF0000**Dica: Digite '0' para cancelar.^000000";
 				next;
 				input .@CASH;
-				if(.@CASH==0) { mes "AÁ„o cancelada."; mes " "; mes "^FF0000***Fechando conex„o***^000000"; close; }
+				if(.@CASH==0) { mes "A√ß√£o cancelada."; mes " "; mes "^FF0000***Fechando conex√£o***^000000"; close; }
 					mes "[ Gerente ]";
 					mes "Eu irei remover: ^FF0000"+.@CASH+"^000000 CASH's da conta: ^FF0000"+.@Conta$+"^000000.";
-					mes "Estes dados est„o corretos?";
+					mes "Estes dados est√£o corretos?";
 					next;
-					if(select("Sim","N„o")==2) {
+					if(select("Sim","N√£o")==2) {
 						mes "[ Gerente ]";
-						mes "Encerrando conex„o...";
+						mes "Encerrando conex√£o...";
 						mes "Limpando dados...";
-						mes "Conex„o encerrada!";
+						mes "Conex√£o encerrada!";
 						close;
 						}
-				if(.@valor < @CASHs) { mes "[ Gerente ]"; mes "Essa conta possui um valor menor do que vocÍ solicitou."; mes "Conex„o encerrada"; close; }
+				if(.@valor < @CASHs) { mes "[ Gerente ]"; mes "Essa conta possui um valor menor do que voc√™ solicitou."; mes "Conex√£o encerrada"; close; }
 				if(getarraysize(.@valor)) { query_sql "UPDATE `acc_reg_num_db` SET `value` = `value` - '"+.@CASH+"' WHERE `key`='#CASHPOINTS' AND `account_id` = '"+.@ContaEx+"'";
 				}else{ query_sql "INSERT INTO `acc_reg_num_db` (`key`, `value`, `index`, `account_id`) VALUES ('#CASHPOINTS', '"+.@CASH+"', '0', '"+.@ContaEx+"')"; }
 				next;
@@ -243,24 +243,24 @@ if(getgroupid()>=$@VipAc) {
 		}
 		case 3:
 		mes "[ Gerente ]";
-		mes "Nessa ·rea tenho total poder de Banir qualquer Conta do servidor.";
-		mes "Basta vocÍ me indicar quem quer banir que eu executo a aÁ„o.";
-		mes "Porfavor escolha uma das opÁıes.";
+		mes "Nessa √°rea tenho total poder de Banir qualquer Conta do servidor.";
+		mes "Basta voc√™ me indicar quem quer banir que eu executo a a√ß√£o.";
+		mes "Porfavor escolha uma das op√ß√µes.";
 		next;
 		switch(select("Banir Conta","Desbanir Conta","Ver Contas Banidas","Retornar ao menu principal")) {
 
 			case 1:
 			mes "[ Gerente ]";
-			mes "Ok, agora preciso coletar os dados da conta do usu·rio que irei Banir.";
+			mes "Ok, agora preciso coletar os dados da conta do usu√°rio que irei Banir.";
 			mes "Digite o Login da Conta.";
 			next;
 			input @ban$;
 			query_sql ("SELECT `account_id` FROM `login` WHERE `userid`='"+@ban$+"'",.@NExiste);
-			if(!.@NExiste){ mes "^FF0000***ERROR***^000000"; mes " "; mes "VocÍ n„o digitou uma conta v·lida."; mes " "; mes "^FF0000Fechando conex„o^000000"; close; }
+			if(!.@NExiste){ mes "^FF0000***ERROR***^000000"; mes " "; mes "Voc√™ n√£o digitou uma conta v√°lida."; mes " "; mes "^FF0000Fechando conex√£o^000000"; close; }
 				mes "[ Gerente ]";
 				mes "Tem certeza que quer banir a conta: ^FF0000"+@ban$+"^000000?";
 				next;
-				if(select("Sim","N„o")==1) {
+				if(select("Sim","N√£o")==1) {
 					mes "Comando efetuado com SUCESSO!";
 					mes "Conta Banida.";
 					close2;
@@ -272,19 +272,19 @@ if(getgroupid()>=$@VipAc) {
 					end;
 				}
 				mes "[ Gerente ]";
-				mes "Encerrando conex„o...";
+				mes "Encerrando conex√£o...";
 				mes "Limpando dados...";
-				mes "Conex„o encerrada!";
+				mes "Conex√£o encerrada!";
 				close;
 			case 2:
 			next;
 			mes "[ Gerente ]";
-			mes "Ok, agora preciso coletar os dados da conta do usu·rio que irei Desbanir.";
+			mes "Ok, agora preciso coletar os dados da conta do usu√°rio que irei Desbanir.";
 			mes "Digite o Login da Conta.";
 			next;
 			input @ban$;
 			query_sql ("SELECT `account_id` FROM `login` WHERE `userid`='"+@ban$+"'",.@NExiste);
-			if(!.@NExiste){ mes "^FF0000***ERROR***^000000"; mes " "; mes "VocÍ n„o digitou uma conta v·lida."; mes " "; mes "^FF0000Fechando conex„o^000000"; close; }
+			if(!.@NExiste){ mes "^FF0000***ERROR***^000000"; mes " "; mes "Voc√™ n√£o digitou uma conta v√°lida."; mes " "; mes "^FF0000Fechando conex√£o^000000"; close; }
 				mes "[ Gerente ]";
 				mes "Comando efetuado com SUCESSO!";
 				mes "Conta Desbanida.";
@@ -299,7 +299,7 @@ if(getgroupid()>=$@VipAc) {
 		}
 		case 4:
 			mes "[ Gerente ]";
-			mes "Escolha a posiÁ„o de Staff que deseja adicionar.";
+			mes "Escolha a posi√ß√£o de Staff que deseja adicionar.";
 			next;
 			switch(select("Administrador ^CD0000(99)^000000","Game Master ^CD0000(60)^000000","Game Helper ^CD0000(40)^000000","Retirar Staff","Retornar ao menu principal")) {
 				case 1: .@NvGM = 99; goto AddGM;
@@ -312,11 +312,11 @@ if(getgroupid()>=$@VipAc) {
 					next;
 					input .@ContaGM$;
 					query_sql ("SELECT `account_id` FROM `login` WHERE `userid`='"+.@ContaGM$+"'",.@nGM);
-					if(.@nGM==0) { next; mes "A conta n„o existe."; close; }
+					if(.@nGM==0) { next; mes "A conta n√£o existe."; close; }
 						next;
 						mes "[ Gerente ]";
-						if(.@NvGM==0) mes "Estou retirando a posiÁ„o de staff na conta: '"+.@ContaGM$+"'.";
-						else mes "Estou adicionando a posiÁ„o de staff na conta: '"+.@ContaGM$+"'.";
+						if(.@NvGM==0) mes "Estou retirando a posi√ß√£o de staff na conta: '"+.@ContaGM$+"'.";
+						else mes "Estou adicionando a posi√ß√£o de staff na conta: '"+.@ContaGM$+"'.";
 						query_sql ("UPDATE `login` SET `group_id`='"+.@NvGM+"' WHERE `userid`='"+.@ContaGM$+"'");
 							next;
 							mes "[ Gerente ]";
@@ -328,7 +328,7 @@ if(getgroupid()>=$@VipAc) {
 		case 5:
 			next;
 			mes "[ Gerente ]";
-			mes "Ok, atÈ mais.";
+			mes "Ok, at√© mais.";
 			close;
 		}
 	}
@@ -353,8 +353,8 @@ OnPCLoginEvent:
 	#VipOk = 1;
 	}
 		query_sql "SELECT `vip` FROM `login` WHERE `account_id`='"+getcharid(3)+"'",.@cVip;
-		if(.@cVip==1) dispbottom "[Sistema Vip]: VocÍ tem 1 dia VIP restante.";
-		if(.@cVip>1) dispbottom "[Sistema Vip]: VocÍ tem "+.@cVip+" dias VIP restantes.";
+		if(.@cVip==1) dispbottom "[Sistema Vip]: Voc√™ tem 1 dia VIP restante.";
+		if(.@cVip>1) dispbottom "[Sistema Vip]: Voc√™ tem "+.@cVip+" dias VIP restantes.";
 }
 
 	function	script	AddVip	{
@@ -365,7 +365,7 @@ OnPCLoginEvent:
 	dispbottom "[Sistema Vip]: Foram adicionados "+getarg(1)+" dias Vip com sucesso!";
 	#VipOk = 1;
 	if(getgroupid()<$@NvVip) {
-	dispbottom "[Sistema Vip]: Relogando conta para aplicar as alteraÁıes!";
+	dispbottom "[Sistema Vip]: Relogando conta para aplicar as altera√ß√µes!";
 	sleep2 5000;
 	atcommand "@kick "+getcharid(0);
 	}
