@@ -55,7 +55,7 @@ OnStart:
 		switch(select("Estou pronto!","Informações","Não!")) {
 
 		case 1:
-			if(getmapusers("ordeal_1-1")>=$@PlayersDS) {
+			if(getmapusers("bossnia_01")>=$@PlayersDS) {
 				mes "[ Guarda Devil Square ]";
 				mes "Desculpe, o Devil Square está cheio";
 				close;
@@ -78,10 +78,10 @@ OnStart:
 			end;
 		case 2:
 			mes "[ Guarda Devil Square ]";
-			mes "No Devil Square há 6 'rounds' de dificuldade.";
-			mes "Cada 'round' ultrapassado, a dificuldade aumenta.";
-			mes "Lembrando que não é fácil. Por isso, prepare-se com poções, itens e cartas.";
-			mes "Caso você termine o Devil Square, fale com o NPC 'Saída' para ganhar seu devido prêmio!";
+			mes "No Devil Square há 6 níveis de dificuldade.";
+			mes "Cada nível ultrapassado, a dificuldade aumenta.";
+			mes "Lembrando que não é fácil. Por isso, prepare-se com poções, e mantimentos.";
+			mes "A prêmiação é consebida automaticamente ao encerrar o evento.";
 			close;
 
 		case 3:
@@ -174,7 +174,6 @@ OnTimer60000:
 	OnMobDead:
 		if($@level == 6) {
 			$@DSMob = $@DSMob-1;
-			if($@DSMob == 25) mapannounce $@map$,"Devil Square: 25 monstros para vitória!",8;
 			if($@DSMob == 5) mapannounce $@map$,"Devil Square: 5 monstros para vitória!",8;
 			if($@DSMob == 0) {
 				.@AnnE$ = "[ Devil Square ] : Parabéns! Você"+((getmapusers($@map$)>1)?"s sobreviveram":" sobreviveu")+" ao Devil Square! Aqui está seu prêmio!";
