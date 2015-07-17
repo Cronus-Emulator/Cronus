@@ -4321,6 +4321,7 @@ void npc_read_event_script(void)
 		{"Kill NPC Event",script->config.kill_mob_event_name},
 		{"ReAttack Event",script->config.reattack_event_name}, //OnPCReAttackEvent - [SlexFire]
 		{"Attack Event",script->config.attack_event_name}, //OnPCAttackEvent - [SlexFire]
+		{"Take Item",script->config.takeitem_event_name}, //OnTakeItem - [SlexFire]
 	};
 
 	for (i = 0; i < NPCE_MAX; i++)

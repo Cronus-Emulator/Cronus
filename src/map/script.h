@@ -338,6 +338,7 @@ struct Script_Config {
 	const char *kill_mob_event_name;
 	const char *reattack_event_name; //OnPCReAttackEvent - [SlexFire]
 	const char *attack_event_name; //OnPCAttackEvent - [SlexFire]
+	const char *takeitem_event_name; //OnTakeItem - [SlexFire]
 	const char *login_event_name;
 	const char *logout_event_name;
 	const char *loadmap_event_name;

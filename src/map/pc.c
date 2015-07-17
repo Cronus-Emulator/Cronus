@@ -4643,6 +4643,8 @@ int pc_takeitem(struct map_session_data *sd,struct flooritem_data *fitem)
 	pc_stop_attack(sd);
 	clif->takeitem(&sd->bl,&fitem->bl);
 	map->clearflooritem(&fitem->bl);
+	//SlexFire - OnTakeItem
+	npc->script_event(sd, NPCE_TAKEITEM);
 	return 1;
 }
 
