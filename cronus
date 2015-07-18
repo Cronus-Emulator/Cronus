@@ -1,0 +1,83 @@
+#!/bin/bash
+# Atalho para funcoes Cronus-Commander - http://Cronus-Emulator.com [Raizen]
+# Otimizacoes [Roberto]
+# Modificacao de funcoes, adicao de funcoes e mudanca do nome para Cronus [Raizen]
+arch=`/bin/arch`
+versao="2.0"
+case $1 in
+	recompilar|compilar) 
+		if [[ $arch == "x86_64" ]]; then
+		echo $arch
+		sh configure --enable-64bit
+		else
+		sh configure --disable-64bit
+		fi
+		make clean
+		make all
+	;;
+	'mapcache') 
+		if [ ! -f Makefile ]; then
+			$0 compilar
+		fi
+		make tools
+		echo "Map_Cache compilado com sucesso!"
+	;;
+	'versao')
+		echo "A versao atual do cronus-commander eh $versao"
+	;;
+	'ligar')
+		nohup ./login-server > /var/log/login-server.txt &
+		nohup ./char-server > /var/log/char-server.txt &
+		nohup ./map-server > /var/log/map-server.txt &
+	;;
+	'desligar')
+		kill -9 map-server char-server login-server
+		map=`ps aux | grep -v grep | grep -c map-server`
+		login=`ps aux | grep -v grep | grep -c login-server`
+		char=`ps aux | grep -v grep | grep -c char-server`
+		sleep 10
+		if [ $map -lt 1 ] 
+		then
+			echo "Map-server finalizado com sucesso!"
+		fi
+		if [ $char -lt 1 ] 
+		then
+			echo "Char-server finalizado com sucesso!"
+		fi
+		if [ $login -lt 1 ] 
+		then
+			echo "Login-server finalizado com sucesso!"
+		fi
+
+	;;
+	'reiniciar')
+		$0 desligar
+		$0 ligar
+	;;
+	'charlog')
+		tail -f /var/log/char-server.txt
+	;;
+	'loginlog')
+		tail -f /var/log/login-server.txt
+	;;
+	'maplog')
+		tail -f /var/log/map-server.txt
+	;;
+	'auto')
+		echo "Inicializando script para autoinicializacao, verificacao a cada 120 segundos"
+		nohup ./auto.sh &
+	;;
+	'tutorial')
+		echo "As funcoes existentes atualmente neste script sao unicamente para ajudar o usuario na utilizacao de 
+	comandos via shell. Para utilizar este script, basta que atraves do ssh acesse seu emulador e digite:
+	./cronus PARAMETRO_DE_USO
+	Para ver os parametros disponiveis digite:
+	./cronus comandos
+	Caso tenha qualquer duvida sobre este sistema, abra um topico de suporte em http://forum.cronus-emulator.com/"
+	;;
+	*) 
+	echo "Os parametros disponiveis sao:
+	ligar|desligar|reiniciar|compilar|recompilar|versao|mapcache|charlog|maplog|loginlog|tutorial|auto."
+	;;
+esac
+
