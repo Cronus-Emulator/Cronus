@@ -2,26 +2,26 @@
 // See the LICENSE file
 // Sample Hercules Plugin
 
+#include "common/HPMi.h"
+#include "common/mmo.h"
+#include "common/socket.h"
+#include "common/malloc.h"
+#include "common/strlib.h"
+#include "common/timer.h"
+
+#include "map/battle.h"
+#include "map/pc.h"
+#include "map/clif.h"
+#include "map/mob.h"
+#include "map/npc.h"
+#include "map/status.h"
+#include "map/unit.h"
+
+#include "common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#include "../common/HPMi.h"
-#include "../common/mmo.h"
-#include "../common/socket.h"
-#include "../common/malloc.h"
-#include "../common/strlib.h"
-#include "../common/timer.h"
-
-#include "../map/battle.h"
-#include "../map/pc.h"
-#include "../map/clif.h"
-#include "../map/mob.h"
-#include "../map/npc.h"
-#include "../map/status.h"
-#include "../map/unit.h"
-
-#include "../common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
 
 /**
  * Monsters HP is visible to all players, instead of only those who hit it.

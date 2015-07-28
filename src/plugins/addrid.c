@@ -1,11 +1,11 @@
+#include "common/HPMi.h"
+#include "map/script.h"
+#include "map/pc.h"
+#include "common/HPMDataCheck.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../common/HPMi.h"
-#include "../map/script.h"
-#include "../map/pc.h"
-#include "../common/HPMDataCheck.h"
-
 
 
 /*

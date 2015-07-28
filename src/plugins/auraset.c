@@ -1,28 +1,28 @@
 // AuraSet (By Dastgir/ Hercules) Plugin v1.4
 
+#include "common/HPMi.h"
+#include "common/mmo.h"
+#include "common/socket.h"
+#include "common/malloc.h"
+#include "common/strlib.h"
+#include "common/nullpo.h"
+#include "common/timer.h"
+
+#include "map/battle.h"
+#include "map/script.h"
+#include "map/pc.h"
+#include "map/clif.h"
+#include "map/status.h"
+#include "map/npc.h"
+#include "map/mob.h"
+#include "map/map.h"
+
+#include "common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
-
-#include "../common/HPMi.h"
-#include "../common/mmo.h"
-#include "../common/socket.h"
-#include "../common/malloc.h"
-#include "../common/strlib.h"
-#include "../common/nullpo.h"
-#include "../common/timer.h"
-
-#include "../map/battle.h"
-#include "../map/script.h"
-#include "../map/pc.h"
-#include "../map/clif.h"
-#include "../map/status.h"
-#include "../map/npc.h"
-#include "../map/mob.h"
-#include "../map/map.h"
-
-#include "../common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
 
 HPExport struct hplugin_info pinfo = {	//[Dastgir/Hercules]
 	"AuraSet",		// Plugin name
