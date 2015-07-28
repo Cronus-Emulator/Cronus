@@ -1,4 +1,9 @@
-// AuraSet (By Dastgir/ Hercules) Plugin v1.4
+// AuraSet (By Dastgir/ Hercules) Plugin v1.4a
+
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+#include <stdlib.h>
 
 #include "common/HPMi.h"
 #include "common/mmo.h"
@@ -19,15 +24,10 @@
 
 #include "common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <stdlib.h>
-
 HPExport struct hplugin_info pinfo = {	//[Dastgir/Hercules]
 	"AuraSet",		// Plugin name
 	SERVER_TYPE_MAP,// Which server types this plugin works with?
-	"1.4",			// Plugin version
+	"1.4b",			// Plugin version
 	HPM_VERSION,	// HPM Version (don't change, macro is automatically updated)
 };
 
@@ -85,7 +85,7 @@ BUILDIN(aura){
 ACMD(aura){
 	int aura =-1, aura1 =-1, aura2 =-1;
 
-	if (!message || !*message || sscanf(message, "%d %d %d", &aura, &aura1, &aura2) < 1){
+	if (!message || !*message || sscanf_s(message, "%d %d %d", &aura, &aura1, &aura2) < 1){
 		clif->message(fd, "Please, enter at least an option (usage: @aura <aura> {<aura1> <aura2>}).");
 		return false;
 	}
@@ -226,21 +226,24 @@ int status_change_start_postAura(int retVal,struct block_list *src, struct block
 	return 1;
 }
 
-int status_change_end_preAura(struct block_list* bl, enum sc_type *type_, int *tid, const char* file, int *line) {	//[Dastgir/Hercules]
+int status_change_end_preAura(struct block_list* bl, enum sc_type *type_, int *tid_, const char* file, int *line) {	//[Dastgir/Hercules]
 	struct map_session_data *sd;
 	struct status_change *sc;
 	struct status_change_entry *sce;
 	enum sc_type type = *type_;
 	struct hide_data* data;
+	int tid = *tid_;
 	if (bl == NULL)
 		return 0;
 	
-	sc = &((TBL_PC*)bl)->sc;
+	sc = status->get_sc(bl);
+	
 	if (type < 0 || type >= SC_MAX || !sc || !(sce = sc->data[type]))
 		return 0;
 
 	sd = BL_CAST(BL_PC, bl);
-	if (sce->timer != *tid && (*tid) != INVALID_TIMER)
+	
+	if (sce->timer != tid && tid != INVALID_TIMER && sce->timer != INVALID_TIMER)
 		return 0;
 
 	if (sd){
@@ -285,5 +288,5 @@ HPExport void plugin_init(void) {	//[Dastgir/Hercules]
 }
 
 HPExport void server_online (void) {
-	ShowInfo ("'%s' Plugin by Dastgir/Hercules. Version '%s'\n",pinfo.name,pinfo.version);
+	ShowInfo ("'%s' Plugin by Dastgir/Hercules. Correction by SlexFire/Cronus  Version '%s'\n",pinfo.name,pinfo.version);
 }
