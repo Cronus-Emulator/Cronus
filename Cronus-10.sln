@@ -16,7 +16,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_char", "v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plugin-HPMHooking_login", "vcproj-10\plugin-HPMHooking_login.vcxproj", "{B7B66F36-2EE9-4F16-929A-5E4A64492DAE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addrid", "addrid\addrid.vcxproj", "{8317CE70-BDDF-4708-BDBD-A09FE295E628}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addrid", "custom-plugins\addrid.vcxproj", "{8317CE70-BDDF-4708-BDBD-A09FE295E628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
