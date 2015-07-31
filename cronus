@@ -31,7 +31,7 @@ case $1 in
 		nohup ./map-server > /var/log/map-server.txt &
 	;;
 	'desligar')
-		kill -9 map-server char-server login-server
+		killall -9 map-server char-server login-server
 		map=`ps aux | grep -v grep | grep -c map-server`
 		login=`ps aux | grep -v grep | grep -c login-server`
 		char=`ps aux | grep -v grep | grep -c char-server`
