@@ -6,6 +6,12 @@
 #ifndef HPM_DATA_CHECK_H
 #define HPM_DATA_CHECK_H
 
+#if !defined(HPMHOOKGEN)
+#include "common/HPMSymbols.inc.h"
+#endif // ! HPMHOOKGEN
+#ifdef HPM_SYMBOL
+#undef HPM_SYMBOL
+#endif // HPM_SYMBOL
 
 HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 	#ifdef CHAR_CHAR_H
@@ -100,6 +106,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 	#endif // COMMON_CONF_H
 	#ifdef COMMON_CONSOLE_H
 		{ "CParseEntry", sizeof(struct CParseEntry), SERVER_TYPE_ALL },
+		{ "console_input_interface", sizeof(struct console_input_interface), SERVER_TYPE_ALL },
 		{ "console_interface", sizeof(struct console_interface), SERVER_TYPE_ALL },
 	#else
 		#define COMMON_CONSOLE_H
@@ -107,6 +114,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 	#ifdef COMMON_CORE_H
 		{ "CmdlineArgData", sizeof(struct CmdlineArgData), SERVER_TYPE_ALL },
 		{ "cmdline_interface", sizeof(struct cmdline_interface), SERVER_TYPE_ALL },
+		{ "core_interface", sizeof(struct core_interface), SERVER_TYPE_ALL },
 	#else
 		#define COMMON_CORE_H
 	#endif // COMMON_CORE_H
@@ -142,7 +150,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 		#define COMMON_MALLOC_H
 	#endif // COMMON_MALLOC_H
 	#ifdef COMMON_MAPINDEX_H
-		{ "mapindex_interface", sizeof(struct mapindex_interface), SERVER_TYPE_ALL },
+		{ "mapindex_interface", sizeof(struct mapindex_interface), SERVER_TYPE_CHAR|SERVER_TYPE_MAP },
 	#else
 		#define COMMON_MAPINDEX_H
 	#endif // COMMON_MAPINDEX_H
@@ -185,8 +193,14 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 	#else
 		#define COMMON_NULLPO_H
 	#endif // COMMON_NULLPO_H
+	#ifdef COMMON_SHOWMSG_H
+		{ "showmsg_interface", sizeof(struct showmsg_interface), SERVER_TYPE_ALL },
+	#else
+		#define COMMON_SHOWMSG_H
+	#endif // COMMON_SHOWMSG_H
 	#ifdef COMMON_SOCKET_H
 		{ "hSockOpt", sizeof(struct hSockOpt), SERVER_TYPE_ALL },
+		{ "s_subnet", sizeof(struct s_subnet), SERVER_TYPE_ALL },
 		{ "socket_data", sizeof(struct socket_data), SERVER_TYPE_ALL },
 		{ "socket_interface", sizeof(struct socket_interface), SERVER_TYPE_ALL },
 	#else
@@ -332,6 +346,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 	#ifdef MAP_HOMUNCULUS_H
 		{ "h_stats", sizeof(struct h_stats), SERVER_TYPE_MAP },
 		{ "homun_data", sizeof(struct homun_data), SERVER_TYPE_MAP },
+		{ "homun_dbs", sizeof(struct homun_dbs), SERVER_TYPE_MAP },
 		{ "homun_skill_tree_entry", sizeof(struct homun_skill_tree_entry), SERVER_TYPE_MAP },
 		{ "homunculus_interface", sizeof(struct homunculus_interface), SERVER_TYPE_MAP },
 		{ "s_homunculus_db", sizeof(struct s_homunculus_db), SERVER_TYPE_MAP },
@@ -445,6 +460,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 		{ "EQUIPITEM_INFO", sizeof(struct EQUIPITEM_INFO), SERVER_TYPE_MAP },
 		{ "EQUIPSLOTINFO", sizeof(struct EQUIPSLOTINFO), SERVER_TYPE_MAP },
 		{ "NORMALITEM_INFO", sizeof(struct NORMALITEM_INFO), SERVER_TYPE_MAP },
+		{ "RndOptions", sizeof(struct RndOptions), SERVER_TYPE_MAP },
 		{ "packet_additem", sizeof(struct packet_additem), SERVER_TYPE_MAP },
 		{ "packet_authok", sizeof(struct packet_authok), SERVER_TYPE_MAP },
 		{ "packet_banking_check", sizeof(struct packet_banking_check), SERVER_TYPE_MAP },
@@ -468,6 +484,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 		{ "packet_equipitem_ack", sizeof(struct packet_equipitem_ack), SERVER_TYPE_MAP },
 		{ "packet_gm_monster_item", sizeof(struct packet_gm_monster_item), SERVER_TYPE_MAP },
 		{ "packet_graffiti_entry", sizeof(struct packet_graffiti_entry), SERVER_TYPE_MAP },
+		{ "packet_hotkey", sizeof(struct packet_hotkey), SERVER_TYPE_MAP },
 		{ "packet_idle_unit", sizeof(struct packet_idle_unit), SERVER_TYPE_MAP },
 		{ "packet_idle_unit2", sizeof(struct packet_idle_unit2), SERVER_TYPE_MAP },
 		{ "packet_item_drop_announce", sizeof(struct packet_item_drop_announce), SERVER_TYPE_MAP },
@@ -599,6 +616,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 		{ "s_skill_arrow_db", sizeof(struct s_skill_arrow_db), SERVER_TYPE_MAP },
 		{ "s_skill_changematerial_db", sizeof(struct s_skill_changematerial_db), SERVER_TYPE_MAP },
 		{ "s_skill_db", sizeof(struct s_skill_db), SERVER_TYPE_MAP },
+		{ "s_skill_dbs", sizeof(struct s_skill_dbs), SERVER_TYPE_MAP },
 		{ "s_skill_improvise_db", sizeof(struct s_skill_improvise_db), SERVER_TYPE_MAP },
 		{ "s_skill_magicmushroom_db", sizeof(struct s_skill_magicmushroom_db), SERVER_TYPE_MAP },
 		{ "s_skill_produce_db", sizeof(struct s_skill_produce_db), SERVER_TYPE_MAP },
@@ -620,6 +638,7 @@ HPExport const struct s_HPMDataCheck HPMDataCheck[] = {
 		{ "regen_data", sizeof(struct regen_data), SERVER_TYPE_MAP },
 		{ "regen_data_sub", sizeof(struct regen_data_sub), SERVER_TYPE_MAP },
 		{ "s_refine_info", sizeof(struct s_refine_info), SERVER_TYPE_MAP },
+		{ "s_status_dbs", sizeof(struct s_status_dbs), SERVER_TYPE_MAP },
 		{ "sc_display_entry", sizeof(struct sc_display_entry), SERVER_TYPE_MAP },
 		{ "status_change", sizeof(struct status_change), SERVER_TYPE_MAP },
 		{ "status_change_entry", sizeof(struct status_change_entry), SERVER_TYPE_MAP },

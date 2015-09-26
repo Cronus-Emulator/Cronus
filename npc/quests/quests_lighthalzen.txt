@@ -3082,7 +3082,6 @@ lighthalzen,337,232,3	script	Maku	4_M_LGTPOOR,{
 	end;
 }
 
-
 yuno_in04,107,14,5	script	Student	4_M_SAGE_A,{
 	if (friendship == 7 || friendship == 8) {
 		mes "[Joey Choryee]";
@@ -9787,8 +9786,6 @@ OnTimer190000:
 	end;
 }
 
-
-
 lhz_in01,182,35,0	script	File Search Engine	HIDDEN_NPC,{
 
 	if((lhz_boss > 28) && (lhz_boss < 35))
@@ -11115,7 +11112,7 @@ lighthalzen,141,162,3	script	Old Man#reken	4_M_03,{
 	close;
 }
 
-einbroch,55,52,3	script	Laboratory Guard#reken	 852,{
+einbroch,55,52,3	script	Laboratory Guard#reken	4_M_EIN_SOLDIER,{
 
 	if(lhz_rekenber == 3)
 	{

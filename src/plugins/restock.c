@@ -4,10 +4,7 @@
  Please Load NPC- Restock.txt too
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include "common/hercules.h"
 #include "common/HPMi.h"
 #include "common/malloc.h"
 #include "common/mmo.h"
@@ -30,6 +27,10 @@
 #include "map/guild.h"
 
 #include "common/HPMDataCheck.h" /* should always be the last file included! (if you don't make it last, it'll intentionally break compile time) */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 HPExport struct hplugin_info pinfo = {
 	"Restock System",// Plugin name
@@ -146,18 +147,6 @@ BUILDIN(restock_item){
 }
 
 HPExport void plugin_init(void) {
-	mob = GET_SYMBOL("mob");
-	script = GET_SYMBOL("script");
-	clif = GET_SYMBOL("clif");
-	pc = GET_SYMBOL("pc");
-	map = GET_SYMBOL("map");
-	npc = GET_SYMBOL("npc");
-	status = GET_SYMBOL("status");
-	storage = GET_SYMBOL("storage");
-	itemdb = GET_SYMBOL("itemdb");
-	guild = GET_SYMBOL("guild");
-	gstorage = GET_SYMBOL("gstorage");
-
 	addHookPre("pc->delitem", pc_restock_misc_pre);
 	addHookPost("pc->delitem", pc_restock_misc_post);
 	addScriptCommand("restock_item","iii",restock_item);

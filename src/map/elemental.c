@@ -42,6 +42,7 @@
 #include <string.h>
 
 struct elemental_interface elemental_s;
+struct elemental_interface *elemental;
 
 int elemental_search_index(int class_) {
 	int i;
@@ -586,8 +587,8 @@ struct skill_condition elemental_skill_get_requirements(uint16 skill_id, uint16 
 	if( skill_lv < 1 || skill_lv > MAX_SKILL_LEVEL )
 		return req;
 
-	req.hp = skill->db[idx].hp[skill_lv-1];
-	req.sp = skill->db[idx].sp[skill_lv-1];
+	req.hp = skill->dbs->db[idx].hp[skill_lv-1];
+	req.sp = skill->dbs->db[idx].sp[skill_lv-1];
 
 	return req;
 }
@@ -784,8 +785,8 @@ int read_elementaldb(void) {
 	struct status_data *estatus;
 
 	sprintf(line, "%s/%s", map->db_path, "elemental_db.txt");
-	
-	if( runflag == MAPSERVER_ST_RUNNING ) //only necessary after we're up
+
+	if( core->runflag == MAPSERVER_ST_RUNNING ) //only necessary after we're up
 		memset(elemental->db,0,sizeof(elemental->db));
 
 	fp = fopen(line, "r");
@@ -979,27 +980,26 @@ void elemental_defaults(void) {
 
 	/* */
 	memset(elemental->db,0,sizeof(elemental->db));
-	
+
 	/* funcs */
-	
 	elemental->class = elemental_class;
 	elemental->get_viewdata = elemental_get_viewdata;
-	
+
 	elemental->create = elemental_create;
 	elemental->data_received = elemental_data_received;
 	elemental->save = elemental_save;
-	
+
 	elemental->change_mode_ack = elemental_change_mode_ack;
 	elemental->change_mode = elemental_change_mode;
-	
+
 	elemental->heal = elemental_heal;
 	elemental->dead = elemental_dead;
-	
+
 	elemental->delete = elemental_delete;
 	elemental->summon_stop = elemental_summon_stop;
-	
+
 	elemental->get_lifetime = elemental_get_lifetime;
-	
+
 	elemental->unlocktarget = elemental_unlocktarget;
 	elemental->skillnotok = elemental_skillnotok;
 	elemental->set_target = elemental_set_target;
@@ -1007,11 +1007,11 @@ void elemental_defaults(void) {
 	elemental->clean_effect = elemental_clean_effect;
 	elemental->action = elemental_action;
 	elemental->skill_get_requirements = elemental_skill_get_requirements;
-	
+
 	elemental->read_skilldb = read_elemental_skilldb;
 	elemental->reload_db = reload_elementaldb;
 	elemental->reload_skilldb = reload_elemental_skilldb;
-	
+
 	elemental->search_index = elemental_search_index;
 	elemental->summon_init = elemental_summon_init;
 	elemental->summon_end_timer = elemental_summon_end_timer;

@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+#include "common/hercules.h"
 #include "common/HPMi.h"
 #include "common/mmo.h"
 #include "common/socket.h"
@@ -262,22 +263,6 @@ void clif_sendauraself(struct map_session_data *sd){
 
 /* run when server starts */
 HPExport void plugin_init(void) {	//[Dastgir/Hercules]
-
-	/* core interfaces */
-	iMalloc = GET_SYMBOL("iMalloc");
-
-	/* map-server interfaces */
-	script = GET_SYMBOL("script");
-	clif = GET_SYMBOL("clif");
-	pc = GET_SYMBOL("pc");
-	strlib = GET_SYMBOL("strlib");
-	map = GET_SYMBOL("map");
-	status = GET_SYMBOL("status");
-	npc = GET_SYMBOL("npc");
-	mob = GET_SYMBOL("mob");
-	battle = GET_SYMBOL("battle");
-	nullpo = GET_SYMBOL("nullpo");
-	
 	addAtcommand("aura", aura);
 	addScriptCommand("aura", "i??", aura);
 	addHookPost("clif->spawn", clif_spawn_AuraPost);

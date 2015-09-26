@@ -1,3 +1,4 @@
+#include "common/hercules.h"
 #include "common/HPMi.h"
 #include "map/script.h"
 #include "map/pc.h"
@@ -121,9 +122,5 @@ BUILDIN(addrid)
 HPExport void plugin_init (void)
 {
 	/* map-server interfaces */
-	script = GET_SYMBOL("script");
-	map = GET_SYMBOL("map");
-	mapit = GET_SYMBOL("mapit");
-	
 	addScriptCommand("addrid","i?????",addrid);
 }

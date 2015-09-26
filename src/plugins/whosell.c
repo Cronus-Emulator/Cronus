@@ -1,3 +1,4 @@
+#include "common/hercules.h"
 #include "common/HPMi.h"
 #include "map/script.h"
 #include "map/pc.h"
@@ -163,14 +164,5 @@ ACMD(whosell){
 /* Server Startup */
 HPExport void plugin_init (void)
 {
-	clif = GET_SYMBOL("clif");
-    script = GET_SYMBOL("script");
-    battle = GET_SYMBOL("battle");
-	mapit =	GET_SYMBOL("mapit");
-	map =	GET_SYMBOL("map");
-	itemdb = GET_SYMBOL("itemdb");
-	vending = GET_SYMBOL("vending");
-	atcommand = GET_SYMBOL("atcommand");
-
 		addAtcommand("whosell",whosell);
 }

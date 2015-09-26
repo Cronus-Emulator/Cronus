@@ -2,6 +2,7 @@
 // See the LICENSE file
 // Sample Hercules Plugin
 
+#include "common/hercules.h"
 #include "common/HPMi.h"
 #include "common/mmo.h"
 #include "common/socket.h"
@@ -621,18 +622,6 @@ void clif_set_unit_walking(struct block_list* bl, struct map_session_data *tsd, 
  * We started!
  **/
 HPExport void plugin_init (void) {
-
-	iMalloc = GET_SYMBOL("iMalloc");
-	strlib = GET_SYMBOL("strlib");
-	timer = GET_SYMBOL("timer");
-
-	battle = GET_SYMBOL("battle");
-	clif = GET_SYMBOL("clif");
-	mob = GET_SYMBOL("mob");
-	pc = GET_SYMBOL("pc");
-	status = GET_SYMBOL("status");
-	unit = GET_SYMBOL("unit");
-
 	clif->set_unit_walking = clif_set_unit_walking;
 	clif->set_unit_idle = clif_set_unit_idle;
 	clif->spawn_unit = clif_spawn_unit;

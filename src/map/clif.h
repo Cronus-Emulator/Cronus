@@ -7,7 +7,7 @@
 
 #include "map/map.h"
 #include "map/packets_struct.h"
-#include "common/cbasetypes.h"
+#include "common/hercules.h"
 #include "common/mmo.h"
 
 #include <stdarg.h>
@@ -558,11 +558,6 @@ struct merge_item {
 };
 
 /**
- * Vars
- **/
-struct s_packet_db packet_db[MAX_PACKET_DB + 1];
-
-/**
  * Clif.c Interface
  **/
 struct clif_interface {
@@ -616,6 +611,8 @@ struct clif_interface {
 	void (*dropitem) (struct map_session_data *sd,int n,int amount);
 	void (*delitem) (struct map_session_data *sd,int n,int amount, short reason);
 	void (*takeitem) (struct block_list* src, struct block_list* dst);
+	void (*item_equip) (short idx, struct EQUIPITEM_INFO *p, struct item *i, struct item_data *id, int eqp_pos);
+	void (*item_normal) (short idx, struct NORMALITEM_INFO *p, struct item *i, struct item_data *id);
 	void (*arrowequip) (struct map_session_data *sd,int val);
 	void (*arrow_fail) (struct map_session_data *sd,int type);
 	void (*use_card) (struct map_session_data *sd,int idx);
@@ -1320,12 +1317,20 @@ struct clif_interface {
 	/* NPC Market (by Ind after an extensive debugging of the packet, only possible thanks to Yommy <3) */
 	void (*pNPCMarketClosed) (int fd, struct map_session_data *sd);
 	void (*pNPCMarketPurchase) (int fd, struct map_session_data *sd);
+	/* */
+	void (*add_random_options) (unsigned char* buf, struct item* item);
+	void (*pHotkeyRowShift) (int fd, struct map_session_data *sd);
 };
 
-struct clif_interface *clif;
-
 #ifdef HERCULES_CORE
+/**
+ * Vars
+ **/
+extern struct s_packet_db packet_db[MAX_PACKET_DB + 1];
+
 void clif_defaults(void);
 #endif // HERCULES_CORE
+
+HPShared struct clif_interface *clif;
 
 #endif /* MAP_CLIF_H */

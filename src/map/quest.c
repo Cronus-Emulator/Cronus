@@ -37,6 +37,9 @@
 #include <time.h>
 
 struct quest_interface quest_s;
+struct quest_db *db_data[MAX_QUEST_DB]; ///< Quest database
+
+struct quest_interface *quest;
 
 /**
  * Searches a quest by ID.
@@ -526,6 +529,7 @@ int quest_read_db(void)
 
 		count++;
 	}
+	libconfig->destroy(&quest_db_conf);
 	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", count, filename);
 	return count;
 }
@@ -618,6 +622,7 @@ void do_reload_quest(void) {
  */
 void quest_defaults(void) {
 	quest = &quest_s;
+	quest->db_data = db_data;
 
 	memset(&quest->db, 0, sizeof(quest->db));
 	memset(&quest->dummy, 0, sizeof(quest->dummy));
