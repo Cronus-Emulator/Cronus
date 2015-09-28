@@ -147,7 +147,6 @@ distclean: clean
 	@-rm -f $(MF_TARGETS) config.status config.log
 
 sysinfo:
-	config.status
 	@chmod 777 sysinfogen.sh
 	@chmod 777 auto.sh
 	@chmod 777 cronus
@@ -157,10 +156,6 @@ sysinfo:
 	else \
 		mv src/common/sysinfo_new.inc src/common/sysinfo.inc ; \
 	fi
-	
-config.status: configure
-	@echo "	RECONFIGURE"
-	@./config.status --recheck
 
 help: Makefile
 	@echo "most common targets are 'all' 'sql' 'clean' 'plugins' 'help'"
