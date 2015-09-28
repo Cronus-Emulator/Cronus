@@ -225,8 +225,8 @@ current scripts have a zero in there.
 
 ** Define an NPC object.
 
-<map name>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Name>%TAB%<sprite id>,{<code>}
-<map name>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Name>%TAB%<sprite id>,<triggerX>,<triggerY>,{<code>}
+<map name>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Name>%TAB%<sprite>,{<code>}
+<map name>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>,{<code>}
 
 This will place an NPC object on a specified map at the specified 
 location, and is a top-level command you will use the most in your custom 
@@ -240,16 +240,17 @@ increments of 45 degrees, where 0 means facing towards the top of the map.
 (So to turn the sprite towards the bottom of the map, you use facing 4, 
 and to make it look southeast it's facing 5.)
 
-Sprite id is the sprite number used to display this particular NPC. For a 
-full list of sprite id numbers see http://kalen.s79.xrea.com/npc/npce.shtml
-You may also use a monster's ID number instead to display a monster sprite 
+Sprite is the sprite identifier used to display this particular NPC. For a 
+full list of sprite numbers see http://kalen.s79.xrea.com/npc/npce.shtml as
+well as db/const.txt.
+You may also use a monster's ID constant instead to display a monster sprite 
 for this NPC, in npcs that have view ids of mobs it's encouraged to use
 OnTouch events with a 2,2 range and with an 'end' after the header to avoid
 bugs (for more info on why see npc_click@map/npc.c). It is possible to use a job
 sprite as well, but you must first define it as a monster sprite in 'mob_avail.txt',
 a full description on how to do this is not in the scope of this manual.
-A '-1' sprite id will make the NPC invisible (and unclickable). 
-A '111' sprite id will make an NPC which does not have a sprite, but is 
+A '-1' sprite will make the NPC invisible (and unclickable). 
+A 'HIDDEN_NPC' sprite will make an NPC which does not have a sprite, but is 
 still clickable, which is useful if you want to make a clickable object of 
 the 3D terrain.
 
@@ -279,8 +280,8 @@ what these floating NPC objects are for. More on that below.
 
 ** Define a shop/cashshop NPC.
 
--%TAB%shop%TAB%<NPC Name>%TAB%<sprite id>,<itemid>:<price>{,<itemid>:<price>...}
-<map name>,<x>,<y>,<facing>%TAB%shop%TAB%<NPC Name>%TAB%<sprite id>,<itemid>:<price>{,<itemid>:<price>...}
+-%TAB%shop%TAB%<NPC Name>%TAB%<sprite>,<itemid>:<price>{,<itemid>:<price>...}
+<map name>,<x>,<y>,<facing>%TAB%shop%TAB%<NPC Name>%TAB%<sprite>,<itemid>:<price>{,<itemid>:<price>...}
 
 This will define a shop NPC, which, when triggered (which can only be done 
 by clicking) will cause a shop window to come up. No code whatsoever runs 
@@ -301,7 +302,7 @@ items here. The layout used to define sale items still count, and
 "<price>" refers to how many points will be spent purchasing the them.
 
 ** Define a trader NPC
-<map name>,<x>,<y>,<facing>%TAB%trader%TAB%<NPC Name>%TAB%<sprite id>,{<code>}
+<map name>,<x>,<y>,<facing>%TAB%trader%TAB%<NPC Name>%TAB%<sprite>,{<code>}
 -%TAB%trader%TAB%<NPC Name>%TAB%-1,{<code>}
 
 All the standards that are valid to script objects are also valid for trader objects
@@ -326,16 +327,16 @@ more information regarding how to use this NPC type.
 ** Define an warp/shop/cashshop/NPC duplicate.
 
 warp: <map name>,<x>,<y>{,<facing>}%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<spanx>,<spany>
-shop/cashshop/npc: -%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite id>
-shop/cashshop/npc: <map name>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite id>
-npc: -%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite id>,<triggerX>,<triggerY>
-npc: <map name>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite id>,<triggerX>,<triggerY>
+shop/cashshop/npc: -%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>
+shop/cashshop/npc: <map name>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>
+npc: -%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>
+npc: <map name>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>
 
 This will duplicate an warp/shop/cashshop/NPC referred to by 'label'.
 Warp duplicates inherit the target location.
 Shop/cashshop duplicates inherit the item list.
 NPC duplicates inherit the script code.
-The rest (name, location, facing, sprite ID, span/trigger area) is 
+The rest (name, location, facing, sprite, span/trigger area) is 
 obtained from the definition of the duplicate (not inherited).
 
 ** Define a function object
@@ -3982,36 +3983,12 @@ night mode or day mode:
 	if (!isnight()) mes "I only prowl in the night.";
 
 ---------------------------------------
-
-*checkre(<type>)
-
-Checks if a renewal feature is enabled or not in renewal.h, and returns 1 
-if enabled and 0 for disabled. The renewal feature to check is determined 
-by the type parameter.
-
- 0 - RENEWAL (game renewal server mode)
- 1 - RENEWAL_CAST (renewal cast time)
- 2 - RENEWAL_DROP (renewal drop rate algorithms)
- 3 - RENEWAL_EXP (renewal exp rate algorithms)
- 4 - RENEWAL_LVDMG (renewal level modifier on damage)
- 5 - RENEWAL_EDP (renewal enchant deadly poison algorithm)
- 6 - RENEWAL_ASPD (renewal ASPD)
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    @ /!\ This command is deprecated @
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-This command is deprecated and it should not be used in new scripts, as it
-is likely to be removed at a later time. Please consider using the respective
-constants RENEWAL, RENEWAL_CAST, RENEWAL_DROP, RENEWAL_EXP, RENEWAL_LVDMG,
-RENEWAL_EDP, RENEWAL_ASPD instead.
-
----------------------------------------
 //=====================================
 3.1 - Checking Item-Related Commands
 //=====================================
 ---------------------------------------
 
-*isequipped(<id>{,<id>{,<id>{,<id>}}})
+*isequipped(<item id>{,<item id>{,<item id>{,<item id>}}})
 
 This function will return 1 if the invoking character has all of the item 
 IDs given equipped (if card IDs are passed, then it checks if the cards 
@@ -4024,19 +4001,22 @@ If even one of the items given is not equipped, 0 will be returned.
 	if (isequipped(4001,4005,4033,4196)) mes "Wow! You're wearing a full complement of possible poring cards!";
 	// (Poring)
 	if (isequipped(4001)) mes "A poring card is useful, don't you think?";
+	// (Earring)
+	if (isequipped(2622)) mes "You got a pair of nice Earring.";
 
 The function was meant for item scripts to support the cards released by 
 Gravity in February 2005, but it will work just fine in normal NPC scripts.
 
 ---------------------------------------
 
-*isequippedcnt(<card id>{,<card id>{,<card id>{,<card id>}}})
+*isequippedcnt(<item id>{,<item id>{,<item id>{,<item id>}}})
 
 This function is similar to 'isequipped', but instead of 1 or 0, it will 
-return the number of cards in the list given that were found on the 
+return the number of equipped items/cards in the list given that were found on the 
 invoking character.
 
 	if (isequippedcnt(4001,4005,4033,4196) == 4) mes "Finally got all four poring cards?";
+	if (isequippedcnt(5353,2622) == 2) mes "You equipped both Helm of Sun and Earring.";
 
 ---------------------------------------
 
@@ -4116,7 +4096,7 @@ will be seen to everyone around but not in chat window.
 
 ---------------------------------------
 
-*warp "<map name>",<x>,<y>;
+*warp "<map name>",<x>,<y>{,<flag>};
 
 This command will take the invoking character to the specified map, and if 
 wanted, specified coordinates too, but these can be random.
@@ -4138,6 +4118,10 @@ There are also three special 'map names' you can use:
 
 "Random" will warp the player randomly on the current map.
 "Save" and "SavePoint" will warp the player back to their save point.
+
+If flag parameter is set to 0, after player warped will be not stopped
+currend running npc script. Running script after warp can be issue for
+Gravity client if warp to other maps.
 
 ---------------------------------------
 
@@ -5850,7 +5834,7 @@ Examples:
 ---------------------------------------
 
 *pcblockmove <id>,<option>;
-
+	
 Prevents the given ID from moving when the option != 0, and 0 enables the 
 ID to move again. The ID can either be the GID of a monster/NPC or account 
 ID of a character, and will run for the attached player if zero is 
@@ -6320,7 +6304,7 @@ A debug message also shows on the console when no events are triggered.
 
 ---------------------------------------
 
-*npctalk "<message>";
+*npctalk "<message>"{,"<npc name>"};
 
 This command will display a message to the surrounding area as if the NPC 
 object running it was a player talking - that is, above their head and in 
@@ -6330,6 +6314,7 @@ the message to complete the effect.
 	// This will make everyone in the area see the NPC greet the character
 	// who just invoked it.
 	npctalk "Hello "+strcharinfo(0)+", how are you?";
+	npctalk "Hello "+strcharinfo(0)+", how are you?","Another_NPC_Name";
 
 ---------------------------------------
 
@@ -6813,7 +6798,8 @@ if any.
 
 The valid information types are:
 
- 0  - Number of users currently chatting.
+ 0  - Number of users currently in the waiting room
+	  $@chatmembers[] - list of user account_id
  1  - Maximum number of users allowed.
  2  - Will return 1 if the waiting room has a trigger set.
       0 otherwise.
@@ -6826,6 +6812,10 @@ The valid information types are:
  32 - Whether or not the waiting room is full.
  33 - Whether the amount of users in the waiting room is higher than the 
       trigger number.
+ 34 - Minimum Base Level to enter waiting room. 
+ 35 - Maximum Base Level to enter waiting room.
+ 36 - Minimum Zeny to enter waiting room. 
+ 
 
 ---------------------------------------
 
