@@ -6603,15 +6603,15 @@ ACMD(mail)
 }
 
 /*==========================================
- * Show Monster DB Info   v 1.0a
+ * Show Monster DB Info   v 1.0b
  * originally by [Lupus]
  * Correção: SlexFire
  *------------------------------------------*/
 ACMD(mobinfo)
 {
-	unsigned char msize[3][7] = {"Small", "Medium", "Large"};
-	unsigned char mrace[12][11] = {"Formless", "Undead", "Beast", "Plant", "Insect", "Fish", "Demon", "Demi-Human", "Angel", "Dragon", "Boss", "Non-Boss"};
-	unsigned char melement[10][8] = {"Neutral", "Water", "Earth", "Fire", "Wind", "Poison", "Holy", "Dark", "Ghost", "Undead"};
+	unsigned char msize[3][7] = {"Pequeno", "Médio", "Grande"};
+	unsigned char mrace[12][11] = {"Amorfo", "Morto-Vivo", "Bruto", "Planta", "Inseto", "Peixe", "Demônio", "Humanóide", "Anjo", "Dragão", "Chefe", "Mini-Boss"};
+	unsigned char melement[10][11] = {"Neutro", "Água", "Terra", "Fogo", "Vento", "Veneno", "Sagrado", "Sombra", "Fantasma", "Morto-Vivo"};
 	char atcmd_output2[CHAT_SIZE_MAX];
 	struct item_data *item_data;
 	struct mob_db *monster, *mob_array[MAX_SEARCH];
