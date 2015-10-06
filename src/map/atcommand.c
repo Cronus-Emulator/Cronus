@@ -6603,8 +6603,9 @@ ACMD(mail)
 }
 
 /*==========================================
- * Show Monster DB Info   v 1.0
+ * Show Monster DB Info   v 1.0a
  * originally by [Lupus]
+ * Correção: SlexFire
  *------------------------------------------*/
 ACMD(mobinfo)
 {
@@ -6615,122 +6616,114 @@ ACMD(mobinfo)
 	struct item_data *item_data;
 	struct mob_db *monster, *mob_array[MAX_SEARCH];
 	int count;
-	int i, k;
-
+	int i, j, k;
+	
 	memset(atcmd_output, '\0', sizeof(atcmd_output));
 	memset(atcmd_output2, '\0', sizeof(atcmd_output2));
-
-	if (!*message) {
-		clif->message(fd, msg_fd(fd,1239)); // Please enter a monster name/ID (usage: @mobinfo <monster_name_or_monster_ID>).
+	
+	if (!message || !*message) {
+		clif->message(fd, msg_txt(1239)); // Please enter a monster name/ID (usage: @mobinfo <monster_name_or_monster_ID>).
 		return false;
 	}
-
+	
 	// If monster identifier/name argument is a name
 	if ((i = mob->db_checkid(atoi(message)))) {
 		mob_array[0] = mob->db(i);
 		count = 1;
 	} else
 		count = mob->db_searchname_array(mob_array, MAX_SEARCH, message, 0);
-
+	
 	if (!count) {
-		clif->message(fd, msg_fd(fd,40)); // Invalid monster ID or name.
+		clif->message(fd, msg_txt(40)); // Invalid monster ID or name.
 		return false;
 	}
-
+	
 	if (count > MAX_SEARCH) {
-		safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,269), MAX_SEARCH, count);
+		sprintf(atcmd_output, msg_txt(269), MAX_SEARCH, count);
 		clif->message(fd, atcmd_output);
 		count = MAX_SEARCH;
 	}
-
+	
 	for (k = 0; k < count; k++) {
 		unsigned int job_exp, base_exp;
-		int j;
-
+		
 		monster = mob_array[k];
-
+		
 		job_exp  = monster->job_exp;
 		base_exp = monster->base_exp;
-
+		
 #ifdef RENEWAL_EXP
 		if( battle_config.atcommand_mobinfo_type ) {
 			base_exp = base_exp * pc->level_penalty_mod(monster->lv - sd->status.base_level, monster->status.race, monster->status.mode, 1) / 100;
 			job_exp = job_exp * pc->level_penalty_mod(monster->lv - sd->status.base_level, monster->status.race, monster->status.mode, 1) / 100;
 		}
 #endif
-
+		
 		// stats
 		if (monster->mexp)
-			safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1240), monster->name, monster->jname, monster->sprite, monster->vd.class_); // MVP Monster: '%s'/'%s'/'%s' (%d)
+			sprintf(atcmd_output, msg_txt(1240), monster->name, monster->jname, monster->sprite, monster->vd.class_); // MVP Monster: '%s'/'%s'/'%s' (%d)
 		else
-			safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1241), monster->name, monster->jname, monster->sprite, monster->vd.class_); // Monster: '%s'/'%s'/'%s' (%d)
+			sprintf(atcmd_output, msg_txt(1241), monster->name, monster->jname, monster->sprite, monster->vd.class_); // Monster: '%s'/'%s'/'%s' (%d)
 		clif->message(fd, atcmd_output);
-
-		safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1242), monster->lv, monster->status.max_hp, base_exp, job_exp, MOB_HIT(monster), MOB_FLEE(monster)); //  Lv:%d  HP:%d  Base EXP:%u  Job EXP:%u  HIT:%d  FLEE:%d
+		
+		sprintf(atcmd_output, msg_txt(1242), monster->lv, monster->status.max_hp, base_exp, job_exp, MOB_HIT(monster), MOB_FLEE(monster)); //  Lv:%d  HP:%d  Base EXP:%u  Job EXP:%u  HIT:%d  FLEE:%d
 		clif->message(fd, atcmd_output);
-
-		safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1243), //  DEF:%d  MDEF:%d  STR:%d  AGI:%d  VIT:%d  INT:%d  DEX:%d  LUK:%d
+		
+		sprintf(atcmd_output, msg_txt(1243), //  DEF:%d  MDEF:%d  STR:%d  AGI:%d  VIT:%d  INT:%d  DEX:%d  LUK:%d
 				monster->status.def, monster->status.mdef, monster->status.str, monster->status.agi,
 				monster->status.vit, monster->status.int_, monster->status.dex, monster->status.luk);
 		clif->message(fd, atcmd_output);
-
-#ifdef RENEWAL
-		safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1291), //  ATK : %d~%d MATK : %d~%d Range : %d~%d~%d  Size : %s  Race : %s  Element : %s(Lv : %d)
-				MOB_ATK1(monster), MOB_ATK2(monster), MOB_MATK1(monster), MOB_MATK2(monster), monster->status.rhw.range,
-				monster->range2 , monster->range3, msize[monster->status.size],
-				mrace[monster->status.race], melement[monster->status.def_ele], monster->status.ele_lv);
-#else
-		safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1244), //  ATK:%d~%d  Range:%d~%d~%d  Size:%s  Race: %s  Element: %s (Lv:%d)
+		
+		sprintf(atcmd_output, msg_txt(1244), //  ATK:%d~%d  Range:%d~%d~%d  Size:%s  Race: %s  Element: %s (Lv:%d)
 				monster->status.rhw.atk, monster->status.rhw.atk2, monster->status.rhw.range,
 				monster->range2 , monster->range3, msize[monster->status.size],
 				mrace[monster->status.race], melement[monster->status.def_ele], monster->status.ele_lv);
-#endif
 		clif->message(fd, atcmd_output);
-
+		
 		// drops
-		clif->message(fd, msg_fd(fd,1245)); //  Drops:
+		clif->message(fd, msg_txt(1245)); //  Drops:
 		strcpy(atcmd_output, " ");
 		j = 0;
 		for (i = 0; i < MAX_MOB_DROP; i++) {
 			int droprate;
-
+			
 			if (monster->dropitem[i].nameid <= 0 || monster->dropitem[i].p < 1 || (item_data = itemdb->exists(monster->dropitem[i].nameid)) == NULL)
 				continue;
-
+			
 			droprate = monster->dropitem[i].p;
 
 #ifdef RENEWAL_DROP
 			if( battle_config.atcommand_mobinfo_type ) {
 				droprate = droprate * pc->level_penalty_mod(monster->lv - sd->status.base_level, monster->status.race, monster->status.mode, 2) / 100;
-
+				
 				if (droprate <= 0 && !battle_config.drop_rate0item)
 					droprate = 1;
 			}
 #endif
-
+			
 			if (item_data->slot)
 				sprintf(atcmd_output2, " - %s[%d]  %02.02f%%", item_data->jname, item_data->slot, (float)droprate / 100);
 			else
 				sprintf(atcmd_output2, " - %s  %02.02f%%", item_data->jname, (float)droprate / 100);
-
+			
 			strcat(atcmd_output, atcmd_output2);
-
+			
 			if (++j % 3 == 0) {
 				clif->message(fd, atcmd_output);
 				strcpy(atcmd_output, " ");
 			}
 		}
-
+		
 		if (j == 0)
-			clif->message(fd, msg_fd(fd,1246)); // This monster has no drops.
+			clif->message(fd, msg_txt(1246)); // This monster has no drops.
 		else if (j % 3 != 0)
 			clif->message(fd, atcmd_output);
 		// mvp
 		if (monster->mexp) {
-			safesnprintf(atcmd_output, sizeof(atcmd_output), msg_fd(fd,1247), monster->mexp); //  MVP Bonus EXP:%u
+			sprintf(atcmd_output, msg_txt(1247), monster->mexp); //  MVP Bonus EXP:%u
 			clif->message(fd, atcmd_output);
-
-			safestrncpy(atcmd_output, msg_fd(fd,1248), sizeof(atcmd_output)); //  MVP Items:
+			
+			strcpy(atcmd_output, msg_txt(1248)); //  MVP Items:
 			j = 0;
 			for (i = 0; i < MAX_MVP_DROP; i++) {
 				if (monster->mvpitem[i].nameid <= 0 || (item_data = itemdb->exists(monster->mvpitem[i].nameid)) == NULL)
@@ -6745,7 +6738,7 @@ ACMD(mobinfo)
 				}
 			}
 			if (j == 0)
-				clif->message(fd, msg_fd(fd,1249)); // This monster has no MVP prizes.
+				clif->message(fd, msg_txt(1249)); // This monster has no MVP prizes.
 			else
 				clif->message(fd, atcmd_output);
 		}
