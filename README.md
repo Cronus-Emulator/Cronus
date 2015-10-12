@@ -57,5 +57,3 @@ Equipe Atual
 
 ### Desenvolvedores
 - SlexFire  - (Coordenador Ragnarok)
-- diogofm   - (Core Developer) 
-- Arkwright - (Script Developer)
