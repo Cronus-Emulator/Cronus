@@ -39,7 +39,7 @@
 #include "map/storage.h"
 #include "map/unit.h"
 #include "common/cbasetypes.h"
-#include "common/malloc.h"
+#include "common/memmgr.h"
 #include "common/md5calc.h"
 #include "common/mmo.h" // NEW_CARTS
 #include "common/nullpo.h"
@@ -19233,7 +19233,7 @@ BUILDIN(bg_join_team) {
 		sd = script->rid2sd(st);
 
 	if( !sd )
-		script_pushint(st, 1);
+		script_pushint(st, -1);
 	else
 		script_pushint(st,bg->team_join(team_id, sd)?0:1);
 

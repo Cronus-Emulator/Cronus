@@ -62,7 +62,6 @@
 #define CL_XXBL			"\033[0;44m"	// default on blue
 #define CL_PASS			"\033[0;32;42m"	// green on green
 
-
 // foreground color and bold font (bright color on windows)
 #define CL_WHITE   CL_BT_WHITE
 #define CL_GRAY    CL_BT_BLACK

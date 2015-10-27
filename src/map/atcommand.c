@@ -41,7 +41,7 @@
 #include "common/cbasetypes.h"
 #include "common/conf.h"
 #include "common/core.h"
-#include "common/malloc.h"
+#include "common/memmgr.h"
 #include "common/mmo.h" // MAX_CARTS
 #include "common/nullpo.h"
 #include "common/random.h"
@@ -433,6 +433,11 @@ ACMD(mapmove) {
 	int16 m = -1;
 
 	memset(map_name, '\0', sizeof(map_name));
+	
+	if( pc_isdead(sd) ) {
+		clif->message(fd, msg_fd(fd,864)); // "Você não pode usar este comando caso esteja morto."
+		return false;
+	}
 
 	if (!*message ||
 		(sscanf(message, "%15s %5hd %5hd", map_name, &x, &y) < 3 &&
@@ -512,6 +517,11 @@ ACMD(where) {
 ACMD(jumpto) {
 	struct map_session_data *pl_sd = NULL;
 
+	if( pc_isdead(sd) ) {
+		clif->message(fd, msg_fd(fd,864)); // "Você não pode usar este comando caso esteja morto."
+		return false;
+	}
+	
 	if (!*message) {
 		clif->message(fd, msg_fd(fd,911)); // Please enter a player name (usage: @jumpto/@warpto/@goto <char name/ID>).
 		return false;
@@ -967,8 +977,8 @@ ACMD(hide) {
 /*==========================================
  * Changes a character's class
  *------------------------------------------*/
-ACMD(jobchange) {
-	
+ACMD(jobchange)
+{
 	int job = 0, upper = 0;
 	bool found = false;
 
@@ -1821,6 +1831,11 @@ ACMD(go) {
 
 	memset(map_name, '\0', sizeof(map_name));
 	memset(atcmd_output, '\0', sizeof(atcmd_output));
+	
+	if( pc_isdead(sd) ) {
+		clif->message(fd, msg_fd(fd,864)); // "Você não pode usar este comando caso esteja morto."
+		return false;
+	}
 
 	if (!*message || sscanf(message, "%11s", map_name) < 1) {
 		// no value matched so send the list of locations
@@ -9590,7 +9605,7 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(refreshall),
 		ACMD_DEF(identify),
 		ACMD_DEF(misceffect),
-		ACMD_DEF(mobalive), // Reintegrado - [SlexFire]
+		ACMD_DEF(mobalive),
 		ACMD_DEF(mobsearch),
 		ACMD_DEF(cleanmap),
 		ACMD_DEF(cleanarea),
