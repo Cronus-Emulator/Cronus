@@ -17,8 +17,8 @@
 // DELAY: o tempo (em milésimos de segundo) antes de conjurar a mesma habilidade novamente.												  					//
 //																																		  					//
 // ESTADO:																																  					//
-//	any (exeto morto) / idle (em espera) / walk (em movimento) / dead (em mortos) /														  					//
-//	loot /attack / angry (como ataque,exeto quando o jogador ainda não atacou o mostro) /												  					//
+//	any (exceto morto) / idle (em espera) / walk (em movimento) / dead (em mortos) /														  					//
+//	loot /attack / angry (como ataque,exceto quando o jogador ainda não atacou o mostro) /												  					//
 //	chase (segue o alvo, depois de ser atacado) / follow (segue o alvo, antes de ser atacado) / anytarget (attack+angry+chase+follow)	  					//
 //																																		  					//
 // Alvo:																																  					//
