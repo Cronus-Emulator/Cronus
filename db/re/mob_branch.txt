@@ -242,7 +242,7 @@
 1304,Aranha Gigante,71428
 1305,Verme Ancião,71428
 1306,Leib Olmai,71428
-1307,Cat O' Nine Tails,71428
+1307,Gato de Nove Caudas,71428
 1308,Panzer Goblin,71428
 1309,Gajomart,71428
 1310,Majoruros,71428
