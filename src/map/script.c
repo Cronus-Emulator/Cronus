@@ -13588,17 +13588,15 @@ BUILDIN(dispbottom)
 	if(sd) {
 		
 		if(script_hasdata(st,3)){
-		const char *message = script_getstr(st,2);
-		unsigned short msg_len = strlen( message ) +1;
-		int color = script_getnum(st,3);
-		int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
-		WFIFOHEAD( sd->fd, msg_len + 12 );
-		WFIFOW( sd->fd, 0 ) = 0x2C1;
-		WFIFOW( sd->fd, 2 ) = msg_len + 12;
-		WFIFOL( sd->fd, 4 ) = 0;
-		WFIFOL( sd->fd, 8 ) = colorcode;
-		safestrncpy( (char*)WFIFOP( sd->fd,12 ), message, msg_len );
-		WFIFOSET( sd->fd, msg_len + 12 );
+			unsigned short msg_len = strlen( message ) +1;
+			int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
+			WFIFOHEAD( sd->fd, msg_len + 12 );
+			WFIFOW( sd->fd, 0 ) = 0x2C1;
+			WFIFOW( sd->fd, 2 ) = msg_len + 12;
+			WFIFOL( sd->fd, 4 ) = 0;
+			WFIFOL( sd->fd, 8 ) = colorcode;
+			safestrncpy( (char*)WFIFOP( sd->fd,12 ), message, msg_len );
+			WFIFOSET( sd->fd, msg_len + 12 );
 		}
 		
 		else {
