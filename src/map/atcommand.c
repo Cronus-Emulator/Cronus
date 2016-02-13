@@ -4313,21 +4313,21 @@ char* txt_time(int fd, unsigned int duration) {
 	seconds = duration - (60 * minutes);
 
 	if (days == 1)
-		tlen += sprintf(tlen + temp1, msg_fd(fd,219), days); // %d day
+		tlen += sprintf(tlen + temp1, msg_fd(fd,219), days); // %d dia
 	else if (days > 1)
-		tlen += sprintf(tlen + temp1, msg_fd(fd,220), days); // %d days
+		tlen += sprintf(tlen + temp1, msg_fd(fd,220), days); // %d dias
 	if (hours == 1)
-		tlen += sprintf(tlen + temp1, msg_fd(fd,221), hours); // %d hour
+		tlen += sprintf(tlen + temp1, msg_fd(fd,221), hours); // %d hora
 	else if (hours > 1)
-		tlen += sprintf(tlen + temp1, msg_fd(fd,222), hours); // %d hours
+		tlen += sprintf(tlen + temp1, msg_fd(fd,222), hours); // %d horas
 	if (minutes < 2)
-		tlen += sprintf(tlen + temp1, msg_fd(fd,223), minutes); // %d minute
+		tlen += sprintf(tlen + temp1, msg_fd(fd,223), minutes); // %d minuto
 	else
-		tlen += sprintf(tlen + temp1, msg_fd(fd,224), minutes); // %d minutes
+		tlen += sprintf(tlen + temp1, msg_fd(fd,224), minutes); // %d minutos
 	if (seconds == 1)
-		sprintf(tlen + temp1, msg_fd(fd,225), seconds); // and %d second
+		sprintf(tlen + temp1, msg_fd(fd,225), seconds); // e %d segundo
 	else if (seconds > 1)
-		sprintf(tlen + temp1, msg_fd(fd,226), seconds); // and %d seconds
+		sprintf(tlen + temp1, msg_fd(fd,226), seconds); // e %d segundos
 
 	return temp1;
 }

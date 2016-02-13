@@ -13577,10 +13577,10 @@ BUILDIN(atcommand) {
  *------------------------------------------*/
 BUILDIN(dispbottom)
 {
-	TBL_PC *sd=script->rid2sd(st);
+	TBL_PC *sd = script->rid2sd(st);
 	const char *message;
 	int color = 0;
-	message=script_getstr(st,2);
+	message = script_getstr(st,2);
 	
 	if (script_hasdata(st,3))
 		color = script_getnum(st,3);
