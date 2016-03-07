@@ -170,7 +170,7 @@ bool pincode_config_read(char *w1, char *w2) {
 			pincode->enabled = atoi(w2);
 #if PACKETVER < 20110309
 			if( pincode->enabled ) {
-				ShowWarning("pincode_enabled requires PACKETVER 20110309 or higher. disabling...\n");
+				ShowWarning("pincode_enabled requer PACKETVER 20110309 ou superior. Desabilitando...\n");
 				pincode->enabled = 0;
 			}
 #endif
@@ -179,7 +179,7 @@ bool pincode_config_read(char *w1, char *w2) {
 		} else if ( strcmpi(w1, "pincode_maxtry") == 0 ) {
 			pincode->maxtry = atoi(w2);
 			if( pincode->maxtry > 3 ) {
-				ShowWarning("pincode_maxtry is too high (%d); maximum allowed: 3! capping to 3...\n", pincode->maxtry);
+				ShowWarning("pincode_maxtry esta muito alto (%d); maximo permitido: 3! nivelando para 3...\n", pincode->maxtry);
 				pincode->maxtry = 3;
 			}
 		} else if ( strcmpi(w1, "pincode_charselect") == 0 ) {

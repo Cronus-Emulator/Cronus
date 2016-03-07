@@ -48,7 +48,7 @@ void loginif_check_shutdown(void)
 /// Called when the connection to Login Server is disconnected.
 void loginif_on_disconnect(void)
 {
-	ShowWarning("Connection to Login Server lost.\n\n");
+	ShowWarning("Conexao com o login-server perdida.\n\n");
 }
 
 
@@ -65,7 +65,7 @@ void loginif_on_ready(void)
 	// if no map-server already connected, display a message...
 	ARR_FIND(0, ARRAYLENGTH(chr->server), i, chr->server[i].fd > 0 && VECTOR_LENGTH(chr->server[i].maps));
 	if (i == ARRAYLENGTH(chr->server))
-		ShowStatus("Awaiting maps from map-server.\n");
+		ShowStatus("Aguardando mapas do map-server.\n");
 }
 
 void do_init_loginif(void)

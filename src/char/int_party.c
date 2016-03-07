@@ -117,7 +117,7 @@ int inter_party_tosql(struct party *p, int flag, int index)
 	party_id = p->party_id;
 
 #ifdef NOISY
-	ShowInfo("Save party request ("CL_BOLD"%d"CL_RESET" - %s).\n", party_id, p->name);
+	ShowInfo("Requisicao para salvar o grupo ("CL_BOLD"%d"CL_RESET" - %s).\n", party_id, p->name);
 #endif
 	SQL->EscapeStringLen(inter->sql_handle, esc_name, p->name, strnlen(p->name, NAME_LENGTH));
 
@@ -175,7 +175,7 @@ int inter_party_tosql(struct party *p, int flag, int index)
 	}
 
 	if( save_log )
-		ShowInfo("Party Saved (%d - %s)\n", party_id, p->name);
+		ShowInfo("Grupo salvo (%d - %s)\n", party_id, p->name);
 	return 1;
 }
 
@@ -191,7 +191,7 @@ struct party_data *inter_party_fromsql(int party_id)
 	int i;
 
 #ifdef NOISY
-	ShowInfo("Load party request ("CL_BOLD"%d"CL_RESET")\n", party_id);
+	ShowInfo("Requisicao para carregar o grupo ("CL_BOLD"%d"CL_RESET")\n", party_id);
 #endif
 	if( party_id <= 0 )
 		return NULL;
@@ -242,7 +242,7 @@ struct party_data *inter_party_fromsql(int party_id)
 	SQL->FreeResult(inter->sql_handle);
 
 	if( save_log )
-		ShowInfo("Party loaded (%d - %s).\n", party_id, p->party.name);
+		ShowInfo("Grupos carregados (%d - %s).\n", party_id, p->party.name);
 	//Add party to memory.
 	CREATE(p, struct party_data, 1);
 	memcpy(p, inter_party->pt, sizeof(struct party_data));
@@ -258,7 +258,7 @@ int inter_party_sql_init(void)
 	inter_party->db = idb_alloc(DB_OPT_RELEASE_DATA);
 	inter_party->pt = (struct party_data*)aCalloc(sizeof(struct party_data), 1);
 	if (!inter_party->pt) {
-		ShowFatalError("inter_party->sql_init: Out of Memory!\n");
+		ShowFatalError("inter_party->sql_init: Fora da memoria!\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -332,7 +332,7 @@ int mapif_party_created(int fd, int account_id, int char_id, struct party *p)
 		WFIFOB(fd,10)=0;
 		WFIFOL(fd,11)=p->party_id;
 		memcpy(WFIFOP(fd,15),p->name,NAME_LENGTH);
-		ShowInfo("int_party: Party created (%d - %s)\n",p->party_id,p->name);
+		ShowInfo("int_party: Grupo criado (%d - %s)\n",p->party_id,p->name);
 	}else{
 		WFIFOB(fd,10)=1;
 		WFIFOL(fd,11)=0;
@@ -352,7 +352,7 @@ void mapif_party_noinfo(int fd, int party_id, int char_id)
 	WFIFOL(fd,4) = char_id;
 	WFIFOL(fd,8) = party_id;
 	WFIFOSET(fd,12);
-	ShowWarning("int_party: info not found (party_id=%d char_id=%d)\n", party_id, char_id);
+	ShowWarning("int_party: Informacao nao encontrada (party_id=%d char_id=%d)\n", party_id, char_id);
 }
 
 //Digest party information
@@ -799,7 +799,7 @@ int inter_party_CharOnline(int char_id, int party_id)
 
 	p = inter_party->fromsql(party_id);
 	if(!p) {
-		ShowError("Character %d's party %d not found!\n", char_id, party_id);
+		ShowError("Personagem %d's do grupo %d nao encontrado!\n", char_id, party_id);
 		return 0;
 	}
 

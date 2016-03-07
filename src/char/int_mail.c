@@ -104,7 +104,7 @@ static int inter_mail_fromsql(int char_id, struct mail_data* md)
 			md->unread++;
 	}
 
-	ShowInfo("mail load complete from DB - id: %d (total: %d)\n", char_id, md->amount);
+	ShowInfo("Emails completamente carregados no DB - id: %d (total: %d)\n", char_id, md->amount);
 	return 1;
 }
 
