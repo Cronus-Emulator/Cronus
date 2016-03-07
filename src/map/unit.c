@@ -1,6 +1,7 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
+// Tradução por Equipe Cronus-Dev
 
 #define HERCULES_CORE
 
@@ -173,7 +174,7 @@ int unit_step_timer(int tid, int64 tick, int id, intptr_t data)
 		return 0;
 
 	if(ud->steptimer != tid) {
-		ShowError("unit_step_timer mismatch %d != %d\n",ud->steptimer,tid);
+		ShowError("unit_step_timer incompativel %d != %d\n",ud->steptimer,tid);
 		return 0;
 	}
 
@@ -239,7 +240,7 @@ int unit_walktoxy_timer(int tid, int64 tick, int id, intptr_t data) {
 	if(ud == NULL) return 0;
 
 	if(ud->walktimer != tid){
-		ShowError("unit_walk_timer mismatch %d != %d\n",ud->walktimer,tid);
+		ShowError("unit_walk_timer incompativel %d != %d\n",ud->walktimer,tid);
 		return 0;
 	}
 	ud->walktimer = INVALID_TIMER;
@@ -915,17 +916,17 @@ int unit_warp(struct block_list *bl,short m,short x,short y,clr_type type)
 	if (x<0 || y<0) {
 		//Random map position.
 		if (!map->search_freecell(NULL, m, &x, &y, -1, -1, 1)) {
-			ShowWarning("unit_warp failed. Unit Id:%d/Type:%d, target position map %d (%s) at [%d,%d]\n", bl->id, bl->type, m, map->list[m].name, x, y);
+			ShowWarning("unit_warp falhou. Unit Id:%d/Tipo:%d, posicao alvo do mapa %d (%s) em [%d,%d]\n", bl->id, bl->type, m, map->list[m].name, x, y);
 			return 2;
 
 		}
 	} else if (map->getcell(m, bl, x, y, CELL_CHKNOREACH)) {
 		//Invalid target cell
-		ShowWarning("unit_warp: Specified non-walkable target cell: %d (%s) at [%d,%d]\n", m, map->list[m].name, x,y);
+		ShowWarning("unit_warp: Especificado celula alvo nao-andavel: %d (%s) em [%d,%d]\n", m, map->list[m].name, x,y);
 
 		if (!map->search_freecell(NULL, m, &x, &y, 4, 4, 1)) {
 			//Can't find a nearby cell
-			ShowWarning("unit_warp failed. Unit Id:%d/Type:%d, target position map %d (%s) at [%d,%d]\n", bl->id, bl->type, m, map->list[m].name, x, y);
+			ShowWarning("unit_warp falhou. Unit Id:%d/Tipo:%d, posicao alvo do mapa %d (%s) em [%d,%d]\n", bl->id, bl->type, m, map->list[m].name, x, y);
 			return 2;
 		}
 	}
@@ -2225,7 +2226,7 @@ int unit_skillcastcancel(struct block_list *bl,int type)
 	else
 		ret = timer->delete( ud->skilltimer, skill->castend_id );
 	if( ret < 0 )
-		ShowError("delete timer error %d : skill %d (%s)\n",ret,skill_id,skill->get_name(skill_id));
+		ShowError("erro ao deletar timer %d : habilidade %d (%s)\n",ret,skill_id,skill->get_name(skill_id));
 
 	ud->skilltimer = INVALID_TIMER;
 
@@ -2448,11 +2449,11 @@ int unit_remove_map(struct block_list *bl, clr_type clrtype, const char* file, i
 					sd->debug_line = 0;
 					sd->debug_func = "";
 				}
-				ShowDebug("unit_remove_map: unexpected state when removing player AID/CID:%d/%d"
+				ShowDebug("unit_remove_map: estado inesperado ao remover jogador AID/CID:%d/%d"
 					" (active=%d connect_new=%d rewarp=%d changemap=%d debug_remove_map=%d)"
-					" from map=%s (users=%d)."
-					" Previous call from %s:%d(%s), current call from %s:%d(%s)."
-					" Please report this!!!\n",
+					" do mapa=%s (usuarios=%d)."
+					" Chamada anterior de %s:%d(%s), chamada atual de %s:%d(%s)."
+					" Favor reportar isso!!!\n",
 					sd->status.account_id, sd->status.char_id,
 					sd->state.active, sd->state.connect_new, sd->state.rewarp, sd->state.changemap, sd->state.debug_remove_map,
 					map->list[bl->m].name, map->list[bl->m].users,
