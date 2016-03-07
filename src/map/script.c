@@ -1,4 +1,5 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
+// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
@@ -45,7 +46,7 @@
 #include "common/nullpo.h"
 #include "common/random.h"
 #include "common/showmsg.h"
-#include "common/socket.h" // usage: getcharip
+#include "common/socket.h" // uso: getcharip
 #include "common/strlib.h"
 #include "common/sysinfo.h"
 #include "common/timer.h"
@@ -116,7 +117,7 @@ const char* script_op2name(int op) {
 	RETURN_OP_NAME(C_REF);
 	RETURN_OP_NAME(C_LSTR);
 
-	// operators
+	// operadores
 	RETURN_OP_NAME(C_OP3);
 	RETURN_OP_NAME(C_LOR);
 	RETURN_OP_NAME(C_LAND);
@@ -149,7 +150,7 @@ const char* script_op2name(int op) {
 #endif // PCRE_SUPPORT
 
 	default:
-		ShowDebug("script_op2name: unexpected op=%d\n", op);
+		ShowDebug("script_op2name: inesperado op=%d\n", op);
 		return "???";
 	}
 #undef RETURN_OP_NAME
@@ -202,7 +203,7 @@ void script_reportsrc(struct script_state *st) {
 	struct block_list* bl;
 
 	if( st->oid == 0 )
-		return; //Can't report source.
+		return; //Não é possível relatar a fonte.
 
 	bl = map->id2bl(st->oid);
 	if( bl == NULL )
@@ -211,15 +212,15 @@ void script_reportsrc(struct script_state *st) {
 	switch( bl->type ) {
 		case BL_NPC:
 			if( bl->m >= 0 )
-				ShowDebug("Source (NPC): %s at %s (%d,%d)\n", ((struct npc_data *)bl)->name, map->list[bl->m].name, bl->x, bl->y);
+				ShowDebug("Source (NPC): %s em %s (%d,%d)\n", ((struct npc_data *)bl)->name, map->list[bl->m].name, bl->x, bl->y);
 			else
-				ShowDebug("Source (NPC): %s (invisible/not on a map)\n", ((struct npc_data *)bl)->name);
+				ShowDebug("Source (NPC): %s (invisivel/fora do mapa)\n", ((struct npc_data *)bl)->name);
 			break;
 		default:
 			if( bl->m >= 0 )
-				ShowDebug("Source (Non-NPC type %d): name %s at %s (%d,%d)\n", bl->type, status->get_name(bl), map->list[bl->m].name, bl->x, bl->y);
+				ShowDebug("Source (Nao e um tipo NPC %d): nome %s em %s (%d,%d)\n", bl->type, status->get_name(bl), map->list[bl->m].name, bl->x, bl->y);
 			else
-				ShowDebug("Source (Non-NPC type %d): name %s (invisible/not on a map)\n", bl->type, status->get_name(bl));
+				ShowDebug("Source (Nao e um tipo NPC %d): nome %s (invisivel/fora do mapa)\n", bl->type, status->get_name(bl));
 			break;
 	}
 }
@@ -231,34 +232,34 @@ void script_reportdata(struct script_data* data)
 		return;
 	switch( data->type ) {
 		case C_NOP:// no value
-			ShowDebug("Data: nothing (nil)\n");
+			ShowDebug("Data: nada (nil)\n");
 			break;
 		case C_INT:// number
-			ShowDebug("Data: number value=%"PRId64"\n", data->u.num);
+			ShowDebug("Data: valor numerico=%"PRId64"\n", data->u.num);
 			break;
 		case C_STR:
 		case C_CONSTSTR:// string
 			if( data->u.str ) {
-				ShowDebug("Data: string value=\"%s\"\n", data->u.str);
+				ShowDebug("Data: valor da string=\"%s\"\n", data->u.str);
 			} else {
-				ShowDebug("Data: string value=NULL\n");
+				ShowDebug("Data: valor da string=NULL\n");
 			}
 			break;
 		case C_NAME:// reference
 			if( reference_tovariable(data) ) {// variable
 				const char* name = reference_getname(data);
-				ShowDebug("Data: variable name='%s' index=%d\n", name, reference_getindex(data));
+				ShowDebug("Data: nome variavel='%s' index=%d\n", name, reference_getindex(data));
 			} else if( reference_toconstant(data) ) {// constant
-				ShowDebug("Data: constant name='%s' value=%d\n", reference_getname(data), reference_getconstant(data));
+				ShowDebug("Data: nome constante='%s' valor=%d\n", reference_getname(data), reference_getconstant(data));
 			} else if( reference_toparam(data) ) {// param
-				ShowDebug("Data: param name='%s' type=%d\n", reference_getname(data), reference_getparamtype(data));
+				ShowDebug("Data: nome do param='%s' tipo=%d\n", reference_getname(data), reference_getparamtype(data));
 			} else {// ???
-				ShowDebug("Data: reference name='%s' type=%s\n", reference_getname(data), script->op2name(data->type));
-				ShowDebug("Please report this!!! - script->str_data.type=%s\n", script->op2name(script->str_data[reference_getid(data)].type));
+				ShowDebug("Data: nome referencial='%s' ti=%s\n", reference_getname(data), script->op2name(data->type));
+				ShowDebug("Porfavor reporte isso!!! - script->str_data.type=%s\n", script->op2name(script->str_data[reference_getid(data)].type));
 			}
 			break;
 		case C_POS:// label
-			ShowDebug("Data: label pos=%"PRId64"\n", data->u.num);
+			ShowDebug("Data: posicao da label=%"PRId64"\n", data->u.num);
 			break;
 		default:
 			ShowDebug("Data: %s\n", script->op2name(data->type));
@@ -289,13 +290,13 @@ void script_reportfunc(struct script_state* st)
 
 	if (params > 0) {
 		int i;
-		ShowDebug("Function: %s (%d parameter%s):\n", script->get_str(id), params, ( params == 1 ) ? "" : "s");
+		ShowDebug("Funcao: %s (%d parametro%s):\n", script->get_str(id), params, ( params == 1 ) ? "" : "s");
 
 		for (i = 2; i <= script_lastdata(st); i++) {
 			script->reportdata(script_getdata(st,i));
 		}
 	} else {
-		ShowDebug("Function: %s (no parameters)\n", script->get_str(id));
+		ShowDebug("Funcao: %s (sem parametros)\n", script->get_str(id));
 	}
 }
 
@@ -320,7 +321,7 @@ void check_event(struct script_state *st, const char *evt)
 {
 	if( evt && evt[0] && !stristr(evt, "::On") )
 	{
-		ShowWarning("NPC event parameter deprecated! Please use 'NPCNAME::OnEVENT' instead of '%s'.\n", evt);
+		ShowWarning("Parametro obsoleto de evento do NPC! Porfavor use 'NOMEDONPC::OnEVENTO' ao inves de '%s'.\n", evt);
 		script->reportsrc(st);
 	}
 }
@@ -675,11 +676,11 @@ void set_label(int l,int pos, const char* script_pos)
 
 	if(script->str_data[l].type==C_INT || script->str_data[l].type==C_PARAM || script->str_data[l].type==C_FUNC) {
 		//Prevent overwriting constants values, parameters and built-in functions [Skotlex]
-		disp_error_message("set_label: invalid label name",script_pos);
+		disp_error_message("set_label: nome de label invalida",script_pos);
 		return;
 	}
 	if(script->str_data[l].label!=-1) {
-		disp_error_message("set_label: dup label ",script_pos);
+		disp_error_message("set_label: label duplicada ",script_pos);
 		return;
 	}
 	script->str_data[l].type=(script->str_data[l].type == C_USERFUNC ? C_USERFUNC_POS : C_POS);
@@ -712,7 +713,7 @@ const char* script_skip_space(const char* p)
 			for(;;)
 			{
 				if( *p == '\0' ) {
-					script->disp_warning_message("script:script->skip_space: end of file while parsing block comment. expected "CL_BOLD"*/"CL_NORM, p);
+					script->disp_warning_message("script:script->skip_space: termino do arquivo ao analisar bloco de comentario. esperado "CL_BOLD"*/"CL_NORM, p);
 					return p;
 				}
 				if( *p == '*' && p[1] == '/' )
@@ -766,7 +767,7 @@ int add_word(const char* p) {
 	// Check for a word
 	len = script->skip_word(p) - p;
 	if( len == 0 )
-		disp_error_message("script:add_word: invalid word. A word consists of undercores and/or alphanumeric characters, and valid variable prefixes/postfixes.", p);
+		disp_error_message("script:add_word: palavra invalida. Uma palavra consiste em sublinhados e/ou caracteres alfanumericos, e variavel valida de prefixos/posfixos.", p);
 
 	// Duplicate the word
 	if( len+1 > script->word_size )
@@ -826,7 +827,7 @@ const char* parse_callfunc(const char* p, int require_paren, int is_custom)
 		script->addl(func);
 		arg = script->buildin[script->str_data[script->buildin_callsub_ref].val];
 		if( *arg == 0 )
-			disp_error_message("parse_callfunc: callsub has no arguments, please review its definition",p);
+			disp_error_message("parse_callfunc: callsub nao tem argumentos, reveja a sua definicao",p);
 		if( *arg != '*' )
 			++arg; // count func as argument
 	} else {
@@ -834,7 +835,7 @@ const char* parse_callfunc(const char* p, int require_paren, int is_custom)
 		const char* name = script->get_str(func);
 		if( !is_custom && strdb_get(script->userfunc_db, name) == NULL ) {
 #endif
-			disp_error_message("parse_line: expect command, missing function name or calling undeclared function",p);
+			disp_error_message("parse_line: espera de comando, faltando o nome da funcao ou funcao chamada nao foi declarada",p);
 #ifdef SCRIPT_CALLFUNC_CHECK
 		} else {;
 			script->addl(script->buildin_callfunc_ref);
@@ -867,7 +868,7 @@ const char* parse_callfunc(const char* p, int require_paren, int is_custom)
 	} else {// <func name> <arg list>
 		if( require_paren ) {
 			if( *p != '(' )
-				disp_error_message("need '('",p);
+				disp_error_message("requer '('",p);
 			++p; // skip '('
 			script->syntax.curly[script->syntax.curly_count].flag = ARGLIST_PAREN;
 		} else if( *p == '(' ) {
@@ -891,12 +892,12 @@ const char* parse_callfunc(const char* p, int require_paren, int is_custom)
 		--script->syntax.curly_count;
 	}
 	if( arg && *arg && *arg != '?' && *arg != '*' )
-		disp_error_message2("parse_callfunc: not enough arguments, expected ','", p, script->config.warn_func_mismatch_paramnum);
+		disp_error_message2("parse_callfunc: sem argumentos suficientes, esperado ','", p, script->config.warn_func_mismatch_paramnum);
 	if( script->syntax.curly[script->syntax.curly_count].type != TYPE_ARGLIST )
-		disp_error_message("parse_callfunc: DEBUG last curly is not an argument list",p);
+		disp_error_message("parse_callfunc: DEBUG ultimo curly nao e uma lista de argumentos",p);
 	if( script->syntax.curly[script->syntax.curly_count].flag == ARGLIST_PAREN ) {
 		if( *p != ')' )
-			disp_error_message("parse_callfunc: expected ')' to close argument list",p);
+			disp_error_message("parse_callfunc: esperado ')' para fechar lista de argumentos",p);
 		++p;
 
 		if( script->str_data[func].val == script->buildin_lang_macro_offset )
@@ -951,7 +952,7 @@ void parse_variable_sub_push(int word, const char *p2)
 		p3 = script->skip_space(p3);
 
 		if( *p3 != ']' ) {// closing parenthesis is required for this script
-			disp_error_message("Missing closing ']' parenthesis for the variable assignment.", p3);
+			disp_error_message("Faltando fechamento de ']' parentesis para a variavel atribuida.", p3);
 		}
 
 		// push the closing function stack operator onto the stack
@@ -998,7 +999,7 @@ const char* parse_variable(const char* p)
 
 		if( !(p = script->skip_space(p)) ) {
 			// end of line or invalid characters remaining
-			disp_error_message("Missing right expression or closing bracket for variable.", p);
+			disp_error_message("Faltando expressao correta ou fechamento para a variavel.", p);
 		}
 	}
 
@@ -1065,7 +1066,7 @@ const char* parse_variable(const char* p)
 	 || script->str_data[word].type == C_USERFUNC_POS
 	) {
 		// cannot assign a variable which exists as a function or label
-		disp_error_message("Cannot modify a variable which has the same name as a function or label.", p);
+		disp_error_message("Nao e possivel modificar uma variavel que tem o mesmo nome de uma funcao ou label.", p);
 	}
 
 	parse_variable_sub_push(word, p2); // Push variable onto the stack
@@ -1164,7 +1165,7 @@ const char* parse_simpleexpr(const char *p)
 	p=script->skip_space(p);
 
 	if(*p==';' || *p==',')
-		disp_error_message("parse_simpleexpr: unexpected end of expression",p);
+		disp_error_message("parse_simpleexpr: fim inesperado de expressao",p);
 	if(*p=='(') {
 		int i = script->syntax.curly_count-1;
 		if (i >= 0 && script->syntax.curly[i].type == TYPE_ARGLIST)
@@ -1182,7 +1183,7 @@ const char* parse_simpleexpr(const char *p)
 			}
 		}
 		if( *p != ')' )
-			disp_error_message("parse_simpleexpr: unmatched ')'",p);
+			disp_error_message("parse_simpleexpr: incomparavel ')'",p);
 		++p;
 	} else if(is_number(p)) {
 		char *np;
@@ -1191,10 +1192,10 @@ const char* parse_simpleexpr(const char *p)
 		lli=strtoll(p,&np,0);
 		if( lli < INT_MIN ) {
 			lli = INT_MIN;
-			script->disp_warning_message("parse_simpleexpr: underflow detected, capping value to INT_MIN",p);
+			script->disp_warning_message("parse_simpleexpr: underflow detectado, nivelando para o valor INT_MIN",p);
 		} else if( lli > INT_MAX ) {
 			lli = INT_MAX;
-			script->disp_warning_message("parse_simpleexpr: overflow detected, capping value to INT_MAX",p);
+			script->disp_warning_message("parse_simpleexpr: overflow detectado, nivelando para o valor INT_MAX",p);
 		}
 		script->addi((int)lli); // Cast is safe, as it's already been checked for overflows
 		p=np;
@@ -1212,17 +1213,17 @@ const char* parse_simpleexpr(const char *p)
 					size_t len = sv->skip_escaped_c(p) - p;
 					size_t n = sv->unescape_c(buf, p, len);
 					if( n != 1 )
-						ShowDebug("parse_simpleexpr: unexpected length %d after unescape (\"%.*s\" -> %.*s)\n", (int)n, (int)len, p, (int)n, buf);
+						ShowDebug("parse_simpleexpr: cumprimento inesperado %d apos unescape (\"%.*s\" -> %.*s)\n", (int)n, (int)len, p, (int)n, buf);
 					p += len;
 					script_string_buf_addb(sbuf, *buf);
 					continue;
 				} else if( *p == '\n' ) {
-					disp_error_message("parse_simpleexpr: unexpected newline @ string",p);
+					disp_error_message("parse_simpleexpr: nova linha inesperada @ string",p);
 				}
 				script_string_buf_addb(sbuf, *p++);
 			}
 			if(!*p)
-				disp_error_message("parse_simpleexpr: unexpected end of file @ string",p);
+				disp_error_message("parse_simpleexpr: fim de arquivo inesperado @ string",p);
 			p++; //'"'
 			p = script->skip_space(p);
 		} while( *p && *p == '"' );
@@ -1326,9 +1327,9 @@ const char* parse_simpleexpr(const char *p)
 					"msgctxt \"%s\"\n"
 					"msgid \"%s\"\n"
 					"msgstr \"\"\n",
-					script->parser_current_file ? script->parser_current_file : "Unknown File",
+					script->parser_current_file ? script->parser_current_file : "Arquivo Desconhecido",
 					lbuf->ptr,
-					script->parser_current_npc_name ? script->parser_current_npc_name : "Unknown NPC",
+					script->parser_current_npc_name ? script->parser_current_npc_name : "NPC Desconhecido",
 					ubuf->ptr
 			);
 			lbuf->pos = 0;
@@ -1341,7 +1342,7 @@ const char* parse_simpleexpr(const char *p)
 
 		// label , register , function etc
 		if(script->skip_word(p)==p)
-			disp_error_message("parse_simpleexpr: unexpected character",p);
+			disp_error_message("parse_simpleexpr: caractere inesperado",p);
 
 		l=script->add_word(p);
 		if( script->str_data[l].type == C_FUNC || script->str_data[l].type == C_USERFUNC || script->str_data[l].type == C_USERFUNC_POS) {
@@ -1370,7 +1371,7 @@ const char* parse_simpleexpr(const char *p)
 			p=script->parse_subexpr(p+1,-1);
 			p=script->skip_space(p);
 			if( *p != ']' )
-				disp_error_message("parse_simpleexpr: unmatched ']'",p);
+				disp_error_message("parse_simpleexpr: incomparavel ']'",p);
 			++p;
 			script->addc(C_FUNC);
 		} else {
@@ -1439,7 +1440,7 @@ const char* script_parse_subexpr(const char* p,int limit)
 			p=script->parse_subexpr(p,-1);
 			p=script->skip_space(p);
 			if( *(p++) != ':')
-				disp_error_message("parse_subexpr: need ':'", p-1);
+				disp_error_message("parse_subexpr: requer ':'", p-1);
 			p=script->parse_subexpr(p,-1);
 		} else {
 			p=script->parse_subexpr(p,opl);
@@ -1459,7 +1460,7 @@ const char* parse_expr(const char *p)
 	switch(*p) {
 	case ')': case ';': case ':': case '[': case ']':
 	case '}':
-		disp_error_message("parse_expr: unexpected char",p);
+		disp_error_message("parse_expr: personagem inesperado",p);
 	}
 	p=script->parse_subexpr(p,-1);
 	return p;
@@ -1504,10 +1505,10 @@ const char* parse_line(const char* p)
 		// variable assignment processed so leave the method
 		if (script->parse_syntax_for_flag) {
 			if (*p2 != ')')
-				disp_error_message("parse_line: need ')'", p2);
+				disp_error_message("parse_line: requer ')'", p2);
 		} else {
 			if (*p2 != ';')
-				disp_error_message("parse_line: need ';'", p2);
+				disp_error_message("parse_line: requer ';'", p2);
 		}
 		return script->parse_syntax_close(p2 + 1);
 	}
@@ -1517,10 +1518,10 @@ const char* parse_line(const char* p)
 
 	if(script->parse_syntax_for_flag) {
 		if( *p != ')' )
-			disp_error_message("parse_line: need ')'",p);
+			disp_error_message("parse_line: requer ')'",p);
 	} else {
 		if( *p != ';' )
-			disp_error_message("parse_line: need ';'",p);
+			disp_error_message("parse_line: requer ';'",p);
 	}
 
 	//Binding decision for if(), for(), while()
@@ -1533,7 +1534,7 @@ const char* parse_line(const char* p)
 const char* parse_curly_close(const char* p)
 {
 	if(script->syntax.curly_count <= 0) {
-		disp_error_message("parse_curly_close: unexpected string",p);
+		disp_error_message("parse_curly_close: string inesperada",p);
 		return p + 1;
 	} else if(script->syntax.curly[script->syntax.curly_count-1].type == TYPE_NULL) {
 		script->syntax.curly_count--;
@@ -1580,7 +1581,7 @@ const char* parse_curly_close(const char* p)
 		p = script->parse_syntax_close(p + 1);
 		return p;
 	} else {
-		disp_error_message("parse_curly_close: unexpected string",p);
+		disp_error_message("parse_curly_close: string inesperada",p);
 		return p + 1;
 	}
 }
@@ -1616,7 +1617,7 @@ const char* parse_syntax(const char* p)
 				pos--;
 			}
 			if(pos < 0) {
-				disp_error_message("parse_syntax: unexpected 'break'",p);
+				disp_error_message("parse_syntax: 'break' inesperado",p);
 			} else {
 				script->syntax.curly[script->syntax.curly_count++].type = TYPE_NULL;
 				script->parse_line(label);
@@ -1624,7 +1625,7 @@ const char* parse_syntax(const char* p)
 			}
 			p = script->skip_space(p2);
 			if(*p != ';')
-				disp_error_message("parse_syntax: need ';'",p);
+				disp_error_message("parse_syntax: requer ';'",p);
 			// Closing decision if, for , while
 			p = script->parse_syntax_close(p + 1);
 			return p;
@@ -1636,7 +1637,7 @@ const char* parse_syntax(const char* p)
 			//Processing case
 			int pos = script->syntax.curly_count-1;
 			if(pos < 0 || script->syntax.curly[pos].type != TYPE_SWITCH) {
-				disp_error_message("parse_syntax: unexpected 'case' ",p);
+				disp_error_message("parse_syntax: 'case' inesperado",p);
 				return p+1;
 			} else {
 				char label[256];
@@ -1657,7 +1658,7 @@ const char* parse_syntax(const char* p)
 				//Decision statement switch
 				p = script->skip_space(p2);
 				if(p == p2) {
-					disp_error_message("parse_syntax: expect space ' '",p);
+					disp_error_message("parse_syntax: aguarda espaco ' '",p);
 				}
 				// check whether case label is integer or not
 				if(is_number(p)) {
@@ -1667,7 +1668,7 @@ const char* parse_syntax(const char* p)
 						p++;
 					p = script->skip_word(p);
 					if(np != p)
-						disp_error_message("parse_syntax: 'case' label is not an integer",np);
+						disp_error_message("parse_syntax: 'case' de label nao e inteira",np);
 				} else {
 					//Check for constants
 					p2 = script->skip_word(p);
@@ -1675,12 +1676,12 @@ const char* parse_syntax(const char* p)
 					memcpy(label,p,v);
 					label[v]='\0';
 					if( !script->get_constant(label, &v) )
-						disp_error_message("parse_syntax: 'case' label is not an integer",p);
+						disp_error_message("parse_syntax: 'case' de label nao e inteira",p);
 					p = script->skip_word(p);
 				}
 				p = script->skip_space(p);
 				if(*p != ':')
-					disp_error_message("parse_syntax: expect ':'",p);
+					disp_error_message("parse_syntax: esperado ':'",p);
 				sprintf(label,"if(%d != $@__SW%x_VAL) goto __SW%x_%x;",
 					v,script->syntax.curly[pos].index,script->syntax.curly[pos].index,script->syntax.curly[pos].count+1);
 				script->syntax.curly[script->syntax.curly_count++].type = TYPE_NULL;
@@ -1696,7 +1697,7 @@ const char* parse_syntax(const char* p)
 				}
 				// check duplication of case label [Rayce]
 				if(linkdb_search(&script->syntax.curly[pos].case_label, (void*)h64BPTRSIZE(v)) != NULL)
-					disp_error_message("parse_syntax: dup 'case'",p);
+					disp_error_message("parse_syntax: 'case' duplicada",p);
 				linkdb_insert(&script->syntax.curly[pos].case_label, (void*)h64BPTRSIZE(v), (void*)1);
 
 				sprintf(label,"__setr $@__SW%x_VAL,0;",script->syntax.curly[pos].index);
@@ -1726,7 +1727,7 @@ const char* parse_syntax(const char* p)
 				pos--;
 			}
 			if(pos < 0) {
-				disp_error_message("parse_syntax: unexpected 'continue'",p);
+				disp_error_message("parse_syntax: 'continue' inesperado",p);
 			} else {
 				script->syntax.curly[script->syntax.curly_count++].type = TYPE_NULL;
 				script->parse_line(label);
@@ -1734,7 +1735,7 @@ const char* parse_syntax(const char* p)
 			}
 			p = script->skip_space(p2);
 			if(*p != ';')
-				disp_error_message("parse_syntax: need ';'",p);
+				disp_error_message("parse_syntax: requer ';'",p);
 			//Closing decision if, for , while
 			p = script->parse_syntax_close(p + 1);
 			return p;
@@ -1746,16 +1747,16 @@ const char* parse_syntax(const char* p)
 			// Switch - default processing
 			int pos = script->syntax.curly_count-1;
 			if(pos < 0 || script->syntax.curly[pos].type != TYPE_SWITCH) {
-				disp_error_message("parse_syntax: unexpected 'default'",p);
+				disp_error_message("parse_syntax: 'default' inesperado",p);
 			} else if(script->syntax.curly[pos].flag) {
-				disp_error_message("parse_syntax: dup 'default'",p);
+				disp_error_message("parse_syntax: 'default' duplicado",p);
 			} else {
 				char label[256];
 				int l;
 				// Put the label location
 				p = script->skip_space(p2);
 				if(*p != ':') {
-					disp_error_message("parse_syntax: need ':'",p);
+					disp_error_message("parse_syntax: requer ':'",p);
 				}
 				sprintf(label,"__SW%x_%x",script->syntax.curly[pos].index,script->syntax.curly[pos].count);
 				l=script->add_str(label);
@@ -1808,7 +1809,7 @@ const char* parse_syntax(const char* p)
 			p=script->skip_space(p2);
 
 			if(*p != '(')
-				disp_error_message("parse_syntax: need '('",p);
+				disp_error_message("parse_syntax: requer '('",p);
 			p++;
 
 			// Execute the initialization statement
@@ -1836,7 +1837,7 @@ const char* parse_syntax(const char* p)
 				script->addc(C_FUNC);
 			}
 			if(*p != ';')
-				disp_error_message("parse_syntax: need ';'",p);
+				disp_error_message("parse_syntax: requer ';'",p);
 			p++;
 
 			// Skip to the beginning of the loop
@@ -1876,7 +1877,7 @@ const char* parse_syntax(const char* p)
 			func_name = script->skip_space(p2);
 			p = script->skip_word(func_name);
 			if( p == func_name )
-				disp_error_message("parse_syntax:function: function name is missing or invalid", p);
+				disp_error_message("parse_syntax:function: esta faltando o nome da funcao ou ela e invalida", p);
 			p2 = script->skip_space(p);
 			if( *p2 == ';' )
 			{// function <name> ;
@@ -1888,7 +1889,7 @@ const char* parse_syntax(const char* p)
 				else if( script->str_data[l].type == C_USERFUNC )
 					;  // already registered
 				else
-					disp_error_message("parse_syntax:function: function name is invalid", func_name);
+					disp_error_message("parse_syntax:function: nome de funcao invalida", func_name);
 
 				// Close condition of if, for, while
 				p = script->parse_syntax_close(p2 + 1);
@@ -1922,13 +1923,13 @@ const char* parse_syntax(const char* p)
 						script->label_add(l,script->pos);
 				}
 				else
-					disp_error_message("parse_syntax:function: function name is invalid", func_name);
+					disp_error_message("parse_syntax:function: nome de funcao invalida", func_name);
 
 				return script->skip_space(p);
 			}
 			else
 			{
-				disp_error_message("expect ';' or '{' at function syntax",p);
+				disp_error_message("precisa de ';' ou '{' a sintaxe da funcao",p);
 			}
 		}
 		break;
@@ -1939,7 +1940,7 @@ const char* parse_syntax(const char* p)
 			char label[256];
 			p=script->skip_space(p2);
 			if(*p != '(') { //Prevent if this {} non-c script->syntax. from Rayce (jA)
-				disp_error_message("need '('",p);
+				disp_error_message("requer '('",p);
 			}
 			script->syntax.curly[script->syntax.curly_count].type  = TYPE_IF;
 			script->syntax.curly[script->syntax.curly_count].count = 1;
@@ -1963,7 +1964,7 @@ const char* parse_syntax(const char* p)
 			char label[256];
 			p=script->skip_space(p2);
 			if(*p != '(') {
-				disp_error_message("need '('",p);
+				disp_error_message("requer '('",p);
 			}
 			script->syntax.curly[script->syntax.curly_count].type  = TYPE_SWITCH;
 			script->syntax.curly[script->syntax.curly_count].count = 1;
@@ -1977,7 +1978,7 @@ const char* parse_syntax(const char* p)
 			p=script->parse_expr(p);
 			p=script->skip_space(p);
 			if(*p != '{') {
-				disp_error_message("parse_syntax: need '{'",p);
+				disp_error_message("parse_syntax: requer '{'",p);
 			}
 			script->addc(C_FUNC);
 			return p + 1;
@@ -1990,7 +1991,7 @@ const char* parse_syntax(const char* p)
 			char label[256];
 			p=script->skip_space(p2);
 			if(*p != '(') {
-				disp_error_message("need '('",p);
+				disp_error_message("requer '('",p);
 			}
 			script->syntax.curly[script->syntax.curly_count].type  = TYPE_WHILE;
 			script->syntax.curly[script->syntax.curly_count].count = 1;
@@ -2069,7 +2070,7 @@ const char* parse_syntax_close_sub(const char* p,int* flag)
 				// else - if
 				p=script->skip_space(p2);
 				if(*p != '(') {
-					disp_error_message("need '('",p);
+					disp_error_message("requer '('",p);
 				}
 				sprintf(label,"__IF%x_%x",script->syntax.curly[pos].index,script->syntax.curly[pos].count);
 				script->addl(script->add_str("__jump_zero"));
@@ -2114,12 +2115,12 @@ const char* parse_syntax_close_sub(const char* p,int* flag)
 		p = script->skip_space(p);
 		p2 = script->skip_word(p);
 		if( p2 - p != 5 || strncmp(p, "while", 5) != 0 ) {
-			disp_error_message("parse_syntax: need 'while'",p);
+			disp_error_message("parse_syntax: requer 'while'",p);
 		}
 
 		p = script->skip_space(p2);
 		if(*p != '(') {
-			disp_error_message("need '('",p);
+			disp_error_message("requer '('",p);
 		}
 
 		// do-block end is a new line
@@ -2145,7 +2146,7 @@ const char* parse_syntax_close_sub(const char* p,int* flag)
 		script->set_label(l,script->pos,p);
 		p = script->skip_space(p);
 		if(*p != ';') {
-			disp_error_message("parse_syntax: need ';'",p);
+			disp_error_message("parse_syntax: requer ';'",p);
 			return p+1;
 		}
 		p++;
@@ -2224,9 +2225,9 @@ void script_set_constant(const char* name, int value, bool isparameter) {
 		script->str_data[n].type = isparameter ? C_PARAM : C_INT;
 		script->str_data[n].val  = value;
 	} else if( script->str_data[n].type == C_PARAM || script->str_data[n].type == C_INT ) {// existing parameter or constant
-		ShowError("script_set_constant: Attempted to overwrite existing %s '%s' (old value=%d, new value=%d).\n", ( script->str_data[n].type == C_PARAM ) ? "parameter" : "constant", name, script->str_data[n].val, value);
+		ShowError("script_set_constant: Tentativa de substituir %s '%s' existente (valor antigo=%d, novo valor=%d).\n", ( script->str_data[n].type == C_PARAM ) ? "parametro" : "constante", name, script->str_data[n].val, value);
 	} else {// existing name
-		ShowError("script_set_constant: Invalid name for %s '%s' (already defined as %s).\n", isparameter ? "parameter" : "constant", name, script->op2name(script->str_data[n].type));
+		ShowError("script_set_constant: Nome invalido para %s '%s' (ja foi definido como %s).\n", isparameter ? "parametro" : "constante", name, script->op2name(script->str_data[n].type));
 	}
 }
 /* adds data to a existent constant in the database, inserted normally via parse */
@@ -2234,17 +2235,17 @@ void script_set_constant2(const char *name, int value, bool isparameter) {
 	int n = script->add_str(name);
 
 	if( script->str_data[n].type == C_PARAM ) {
-		ShowError("script_set_constant2: Attempted to overwrite existing parameter '%s' with a constant (value=%d).\n", name, value);
+		ShowError("script_set_constant2: Tentativa de substituir parametro existente '%s' com uma constante (valor=%d).\n", name, value);
 		return;
 	}
 
 	if( script->str_data[n].type == C_NAME && script->str_data[n].val ) {
-		ShowWarning("script_set_constant2: Attempted to overwrite existing variable '%s' with a constant (value=%d).\n", name, value);
+		ShowWarning("script_set_constant2: Tentativa de substituir variavel existente '%s' com uma constate (valor=%d).\n", name, value);
 		return;
 	}
 
 	if( script->str_data[n].type == C_INT && value && value != script->str_data[n].val ) { // existing constant
-		ShowWarning("script_set_constant2: Attempted to overwrite existing constant '%s' (old value=%d, new value=%d).\n", name, script->str_data[n].val, value);
+		ShowWarning("script_set_constant2: Tentativa de subistituir constante existente '%s' (valor antigo=%d, novo valor=%d).\n", name, script->str_data[n].val, value);
 		return;
 	}
 
@@ -2270,7 +2271,7 @@ void read_constdb(void) {
 	sprintf(line, "%s/const.txt", map->db_path);
 	fp=fopen(line, "r");
 	if(fp==NULL) {
-		ShowError("can't read %s\n", line);
+		ShowError("nao pode ler %s\n", line);
 		return ;
 	}
 	while (fgets(line, sizeof(line), fp)) {
@@ -2357,9 +2358,9 @@ void script_errorwarning_sub(StringBuf *buf, const char* src, const char* file, 
 	error_linepos = p;
 
 	if( line >= 0 )
-		StrBuf->Printf(buf, "script error in file '%s' line %d column %"PRIdPTR"\n", file, line, error_pos-error_linepos+1);
+		StrBuf->Printf(buf, "erro de script no arquivo '%s' linha %d coluna %"PRIdPTR"\n", file, line, error_pos-error_linepos+1);
 	else
-		StrBuf->Printf(buf, "script error in file '%s' item ID %d\n", file, -line);
+		StrBuf->Printf(buf, "erro de script no arquivo '%s' ID do item %d\n", file, -line);
 
 	StrBuf->Printf(buf, "    %s\n", error_msg);
 	for(j = 0; j < CONTEXTLINES; j++ ) {
@@ -2482,7 +2483,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 	else
 	{// requires brackets around the script
 		if( *p != '{' ) {
-			disp_error_message("not found '{'",p);
+			disp_error_message("'{' nao encontrada",p);
 			if (retval) *retval = EXIT_FAILURE;
 		}
 		p = script->skip_space(p+1);
@@ -2515,7 +2516,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 	while( script->syntax.curly_count != 0 || *p != end )
 	{
 		if( *p == '\0' )
-			disp_error_message("unexpected end of script",p);
+			disp_error_message("fim de script inesperado",p);
 		// Special handling only label
 		tmpp=script->skip_space(script->skip_word(p));
 		if(*tmpp==':' && !(strncmp(p,"default:",8) == 0 && p + 7 == tmpp)) {
@@ -2550,14 +2551,14 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 			}
 		} else if(script->str_data[i].type == C_USERFUNC) {
 			// 'function name;' without follow-up code
-			ShowError("parse_script: function '%s' declared but not defined.\n", script->str_buf+script->str_data[i].str);
+			ShowError("parse_script: funcao '%s' declarada mas nao definida.\n", script->str_buf+script->str_data[i].str);
 			if (retval) *retval = EXIT_FAILURE;
 			unresolved_names = true;
 		}
 	}
 
 	if( unresolved_names ) {
-		disp_error_message("parse_script: unresolved function references", p);
+		disp_error_message("parse_script: referencias da funcao nao resolvida", p);
 		if (retval) *retval = EXIT_FAILURE;
 	}
 
@@ -2587,7 +2588,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 			break;
 		case C_NAME:
 			j = (*(int*)(script->buf+i)&0xffffff);
-			ShowMessage(" %s", ( j == 0xffffff ) ? "?? unknown ??" : script->get_str(j));
+			ShowMessage(" %s", ( j == 0xffffff ) ? "?? desconhecido ??" : script->get_str(j));
 			i += 3;
 			break;
 		case C_STR:
@@ -2620,7 +2621,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 TBL_PC *script_rid2sd(struct script_state *st) {
 	TBL_PC *sd;
 	if( !( sd = map->id2sd(st->rid) ) ) {
-		ShowError("script_rid2sd: fatal error ! player not attached!\n");
+		ShowError("script_rid2sd: erro fatal ! jogador nao anexado!\n");
 		script->reportfunc(st);
 		script->reportsrc(st);
 		st->state = END;
@@ -2639,7 +2640,7 @@ char *get_val_instance_str(struct script_state* st, const char* name, struct scr
 	if (st->instance_id >= 0) {
 		return (char*)i64db_get(instance->list[st->instance_id].regs.vars, reference_getuid(data));
 	} else {
-		ShowWarning("script_get_val: cannot access instance variable '%s', defaulting to \"\"\n", name);
+		ShowWarning("script_get_val: nao foi possivel acessar a variavel da instancia '%s', padronizando para \"\"\n", name);
 		return NULL;
 	}
 }
@@ -2655,7 +2656,7 @@ int get_val_instance_num(struct script_state* st, const char* name, struct scrip
 	if (st->instance_id >= 0)
 		return (int)i64db_iget(instance->list[st->instance_id].regs.vars, reference_getuid(data));
 	else {
-		ShowWarning("script_get_val: cannot access instance variable '%s', defaulting to 0\n", name);
+		ShowWarning("script_get_val: nao foi possivel acessar a variavel da instancia '%s', padronizando para 0\n", name);
 		return 0;
 	}
 }
@@ -2685,11 +2686,11 @@ struct script_data *get_val(struct script_state* st, struct script_data* data) {
 		sd = script->rid2sd(st);
 		if( sd == NULL ) {// needs player attached
 			if( postfix == '$' ) {// string variable
-				ShowWarning("script_get_val: cannot access player variable '%s', defaulting to \"\"\n", name);
+				ShowWarning("script_get_val: nao foi possivel acessar a variavel de jogador '%s', padronizando para to \"\"\n", name);
 				data->type = C_CONSTSTR;
 				data->u.str = "";
 			} else {// integer variable
-				ShowWarning("script_get_val: cannot access player variable '%s', defaulting to 0\n", name);
+				ShowWarning("script_get_val: nao foi possivel acessar a variavel de jogador '%s', padronizando para 0\n", name);
 				data->type = C_INT;
 				data->u.num = 0;
 			}
@@ -3056,7 +3057,7 @@ void set_reg_instance_str(struct script_state* st, int64 num, const char* name, 
 				script->array_update(&instance->list[st->instance_id].regs, num, true);
 		}
 	} else {
-		ShowError("script_set_reg: cannot write instance variable '%s', NPC not in a instance!\n", name);
+		ShowError("script_set_reg: variavel de instancia nao pode ser escrita '%s', NPC nao esta em uma instancia!\n", name);
 		script->reportsrc(st);
 	}
 }
@@ -3074,7 +3075,7 @@ void set_reg_instance_num(struct script_state* st, int64 num, const char* name, 
 				script->array_update(&instance->list[st->instance_id].regs, num, true);
 		}
 	} else {
-		ShowError("script_set_reg: cannot write instance variable '%s', NPC not in a instance!\n", name);
+		ShowError("script_set_reg: variavel de instancia nao pode ser escrita '%s', NPC nao esta em uma instancia!\n", name);
 		script->reportsrc(st);
 	}
 }
@@ -3131,7 +3132,7 @@ int set_reg(struct script_state* st, TBL_PC* sd, int64 num, const char* name, co
 		if(script->str_data[script_getvarid(num)].type == C_PARAM) {
 			if( pc->setparam(sd, script->str_data[script_getvarid(num)].val, val) == 0 ) {
 				if( st != NULL ) {
-					ShowError("script:set_reg: failed to set param '%s' to %d.\n", name, val);
+					ShowError("script:set_reg: falha ao definir parametro '%s' to %d.\n", name, val);
 					script->reportsrc(st);
 					// Instead of just stop the script execution we let the character close
 					// the window if it was open.
@@ -3204,7 +3205,7 @@ const char* conv_str(struct script_state* st, struct script_data* data)
 	}
 	else
 	{// unsupported data type
-		ShowError("script:conv_str: cannot convert to string, defaulting to \"\"\n");
+		ShowError("script:conv_str: nao pode ser convertido para uma string, padronizado para \"\"\n");
 		script->reportdata(data);
 		script->reportsrc(st);
 		data->type = C_CONSTSTR;
@@ -3238,12 +3239,12 @@ int conv_num(struct script_state* st, struct script_data* data) {
 			if( num <= INT_MIN )
 			{
 				num = INT_MIN;
-				ShowError("script:conv_num: underflow detected, capping to %ld\n", num);
+				ShowError("script:conv_num: underflow detectado, nivelando para %ld\n", num);
 			}
 			else//if( num >= INT_MAX )
 			{
 				num = INT_MAX;
-				ShowError("script:conv_num: overflow detected, capping to %ld\n", num);
+				ShowError("script:conv_num: overflow detectado, nivelando para %ld\n", num);
 			}
 			script->reportdata(data);
 			script->reportsrc(st);
@@ -3258,7 +3259,7 @@ int conv_num(struct script_state* st, struct script_data* data) {
 	// probably other stuff [FlavioJS]
 	else
 	{// unsupported data type
-		ShowError("script:conv_num: cannot convert to number, defaulting to 0\n");
+		ShowError("script:conv_num: nao foi possivel converter para um numero, padronizando para 0\n");
 		script->reportdata(data);
 		script->reportsrc(st);
 		data->type = C_INT;
@@ -3325,7 +3326,7 @@ struct script_data* push_copy(struct script_stack* stack, int pos) {
 			return script->push_str(stack, C_STR, aStrdup(stack->stack_data[pos].u.str));
 			break;
 		case C_RETINFO:
-			ShowFatalError("script:push_copy: can't create copies of C_RETINFO. Exiting...\n");
+			ShowFatalError("script:push_copy: nao e possivel criar copias de C_RETINFO. Saindo...\n");
 			exit(1);
 			break;
 		default:
@@ -3461,7 +3462,7 @@ struct script_state* script_alloc_state(struct script_code* rootscript, int pos,
 		st->script->instances++;
 	else {
 		struct npc_data *nd = map->id2nd(oid);
-		ShowError("over 65k instances of '%s' script are being run\n",nd ? nd->name : "unknown");
+		ShowError("mais de 65k de instancias do script '%s' estao sendo executadas\n",nd ? nd->name : "desconhecido");
 	}
 
 	if( !st->script->local.vars )
@@ -3483,7 +3484,7 @@ void script_free_state(struct script_state* st) {
 		struct map_session_data *sd = st->rid ? map->id2sd(st->rid) : NULL;
 
 		if(st->bk_st) {// backup was not restored
-			ShowDebug("script_free_state: Previous script state lost (rid=%d, oid=%d, state=%d, bk_npcid=%d).\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
+			ShowDebug("script_free_state: Estado anterior de script perdido (rid=%d, oid=%d, estado=%d, bk_npcid=%d).\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
 		}
 
 		if(sd && sd->st == st) { //Current script is aborted.
@@ -3594,7 +3595,7 @@ void op_3(struct script_state* st, int op)
 		flag = data->u.num == 0 ? 0 : 1;// 0 -> false
 	else
 	{
-		ShowError("script:op_3: invalid data for the ternary operator test\n");
+		ShowError("script:op_3: dados invalidos para o teste de operador ternario\n");
 		script->reportdata(data);
 		script->reportsrc(st);
 		script_removetop(st, -3, 0);
@@ -3643,7 +3644,7 @@ void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 			compiled_regex = libpcre->compile(s2, 0, &pcre_error, &pcre_erroroffset, NULL);
 
 			if( compiled_regex == NULL ) {
-				ShowError("script:op2_str: Invalid regex '%s'.\n", s2);
+				ShowError("script:op2_str: Invalido regex '%s'.\n", s2);
 				script->reportsrc(st);
 				script_pushnil(st);
 				st->state = END;
@@ -3654,7 +3655,7 @@ void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 
 			if( pcre_error != NULL ) {
 				libpcre->free(compiled_regex);
-				ShowError("script:op2_str: Unable to optimize the regex '%s': %s\n", s2, pcre_error);
+				ShowError("script:op2_str: Incapaz de otimizar o regex '%s': %s\n", s2, pcre_error);
 				script->reportsrc(st);
 				script_pushnil(st);
 				st->state = END;
@@ -3671,7 +3672,7 @@ void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 				libpcre->free(compiled_regex);
 				if( extra_regex != NULL )
 					libpcre->free(extra_regex);
-				ShowWarning("script:op2_str: Unable to process the regex '%s'.\n", s2);
+				ShowWarning("script:op2_str: Incapaz de processar o regex '%s'.\n", s2);
 				script->reportsrc(st);
 				script_pushnil(st);
 				st->state = END;
@@ -3704,7 +3705,7 @@ void op_2str(struct script_state* st, int op, const char* s1, const char* s2)
 			return;
 		}
 	default:
-		ShowError("script:op2_str: unexpected string operator %s\n", script->op2name(op));
+		ShowError("script:op2_str: operador de string inesperado %s\n", script->op2name(op));
 		script->reportsrc(st);
 		script_pushnil(st);
 		st->state = END;
@@ -3739,7 +3740,7 @@ void op_2num(struct script_state* st, int op, int i1, int i2)
 	case C_MOD:
 		if( i2 == 0 )
 		{
-			ShowError("script:op_2num: division by zero detected op=%s i1=%d i2=%d\n", script->op2name(op), i1, i2);
+			ShowError("script:op_2num: divisao por zero detectada op=%s i1=%d i2=%d\n", script->op2name(op), i1, i2);
 			script->reportsrc(st);
 			script_pushnil(st);
 			st->state = END;
@@ -3757,20 +3758,20 @@ void op_2num(struct script_state* st, int op, int i1, int i2)
 		case C_SUB: ret = i1 - i2; ret_double = (double)i1 - (double)i2; break;
 		case C_MUL: ret = i1 * i2; ret_double = (double)i1 * (double)i2; break;
 		default:
-			ShowError("script:op_2num: unexpected number operator %s i1=%d i2=%d\n", script->op2name(op), i1, i2);
+			ShowError("script:op_2num: operador de numero inesperado %s i1=%d i2=%d\n", script->op2name(op), i1, i2);
 			script->reportsrc(st);
 			script_pushnil(st);
 			return;
 		}
 		if( ret_double < (double)INT_MIN )
 		{
-			ShowWarning("script:op_2num: underflow detected op=%s i1=%d i2=%d\n", script->op2name(op), i1, i2);
+			ShowWarning("script:op_2num: underflow detectado op=%s i1=%d i2=%d\n", script->op2name(op), i1, i2);
 			script->reportsrc(st);
 			ret = INT_MIN;
 		}
 		else if( ret_double > (double)INT_MAX )
 		{
-			ShowWarning("script:op_2num: overflow detected op=%s i1=%d i2=%d\n", script->op2name(op), i1, i2);
+			ShowWarning("script:op_2num: overflow detectado op=%s i1=%d i2=%d\n", script->op2name(op), i1, i2);
 			script->reportsrc(st);
 			ret = INT_MAX;
 		}
@@ -3840,7 +3841,7 @@ void op_2(struct script_state *st, int op)
 	}
 	else
 	{// invalid argument
-		ShowError("script:op_2: invalid data for operator %s\n", script->op2name(op));
+		ShowError("script:op_2: dados invalidos para o operador %s\n", script->op2name(op));
 		script->reportdata(left);
 		script->reportdata(right);
 		script->reportsrc(st);
@@ -3864,7 +3865,7 @@ void op_1(struct script_state* st, int op)
 
 	if( !data_isint(data) )
 	{// not a number
-		ShowError("script:op_1: argument is not a number (op=%s)\n", script->op2name(op));
+		ShowError("script:op_1: o argumento nao e um numero (op=%s)\n", script->op2name(op));
 		script->reportdata(data);
 		script->reportsrc(st);
 		script_pushnil(st);
@@ -3879,7 +3880,7 @@ void op_1(struct script_state* st, int op)
 		case C_NOT: i1 = ~i1; break;
 		case C_LNOT: i1 = !i1; break;
 		default:
-			ShowError("script:op_1: unexpected operator %s i1=%d\n", script->op2name(op), i1);
+			ShowError("script:op_1: operador inesperado %s i1=%d\n", script->op2name(op), i1);
 			script->reportsrc(st);
 			script_pushnil(st);
 			st->state = END;
@@ -3908,7 +3909,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 		}
 		if (type == 0) {
 			// more arguments than necessary ( should not happen, as it is checked before )
-			ShowWarning("Found more arguments than necessary. unexpected arg type %s\n",script->op2name(data->type));
+			ShowWarning("Encontrado mais argumentos do que o necessario. Tipo de arg inesperado %s\n",script->op2name(data->type));
 			invalid++;
 			break;
 		}
@@ -3922,7 +3923,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 			case 'v':
 				if (!data_isstring(data) && !data_isint(data) && !data_isreference(data)) {
 					// variant
-					ShowWarning("Unexpected type for argument %d. Expected string, number or variable.\n", idx-1);
+					ShowWarning("Tipo de argumento inesperado %d. Esperado string, numero ou variavel.\n", idx-1);
 					script->reportdata(data);
 					invalid++;
 				}
@@ -3930,7 +3931,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 			case 's':
 				if (!data_isstring(data) && !(data_isreference(data) && is_string_variable(name))) {
 					// string
-					ShowWarning("Unexpected type for argument %d. Expected string.\n", idx-1);
+					ShowWarning("Tipo de argumento inesperado %d. Esperado string.\n", idx-1);
 					script->reportdata(data);
 					invalid++;
 				}
@@ -3938,7 +3939,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 			case 'i':
 				if (!data_isint(data) && !(data_isreference(data) && (reference_toparam(data) || reference_toconstant(data) || !is_string_variable(name)))) {
 					// int ( params and constants are always int )
-					ShowWarning("Unexpected type for argument %d. Expected number.\n", idx-1);
+					ShowWarning("Tipo de argumento inesperado %d. Esperado numero.\n", idx-1);
 					script->reportdata(data);
 					invalid++;
 				}
@@ -3946,7 +3947,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 			case 'r':
 				if (!data_isreference(data) || reference_toconstant(data)) {
 					// variables
-					ShowWarning("Unexpected type for argument %d. Expected variable, got %s.\n", idx-1,script->op2name(data->type));
+					ShowWarning("Tipo de argumento inesperado %d. Esperado variavel, obteve %s.\n", idx-1,script->op2name(data->type));
 					script->reportdata(data);
 					invalid++;
 				}
@@ -3954,7 +3955,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 			case 'l':
 				if (!data_islabel(data) && !data_isfunclabel(data)) {
 					// label
-					ShowWarning("Unexpected type for argument %d. Expected label, got %s\n", idx-1,script->op2name(data->type));
+					ShowWarning("Tipo de argumento inesperado %d. Esperado label, obteve %s\n", idx-1,script->op2name(data->type));
 					script->reportdata(data);
 					invalid++;
 				}
@@ -3963,7 +3964,7 @@ void script_check_buildin_argtype(struct script_state* st, int func)
 	}
 
 	if (invalid) {
-		ShowDebug("Function: %s\n", script->get_str(func));
+		ShowDebug("Funcao: %s\n", script->get_str(func));
 		script->reportsrc(st);
 	}
 }
@@ -3981,7 +3982,7 @@ int run_func(struct script_state *st)
 			break;
 	if( i == 0 )
 	{
-		ShowError("script:run_func: C_ARG not found. please report this!!!\n");
+		ShowError("script:run_func: C_ARG nao encontrado. porfavor reporte isso!!!\n");
 		st->state = END;
 		script->reportsrc(st);
 		return 1;
@@ -3995,7 +3996,7 @@ int run_func(struct script_state *st)
 		func = (int)data->u.num;
 	else
 	{
-		ShowError("script:run_func: not a buildin command.\n");
+		ShowError("script:run_func: nao e uma construcao em comando.\n");
 		script->reportdata(data);
 		script->reportsrc(st);
 		st->state = END;
@@ -4010,7 +4011,7 @@ int run_func(struct script_state *st)
 		if (!(script->str_data[func].func(st))) //Report error
 			script->reportsrc(st);
 	} else {
-		ShowError("script:run_func: '%s' (id=%d type=%s) has no C function. please report this!!!\n",
+		ShowError("script:run_func: '%s' (id=%d tipo=%s) nao tem funcao em C. porfavor reporte isso!!!\n",
 		          script->get_str(func), func, script->op2name(script->str_data[func].type));
 		script->reportsrc(st);
 		st->state = END;
@@ -4030,7 +4031,7 @@ int run_func(struct script_state *st)
 		script->pop_stack(st, st->stack->defsp, st->start);// pop distractions from the stack
 		if( st->stack->defsp < 1 || st->stack->stack_data[st->stack->defsp-1].type != C_RETINFO )
 		{
-			ShowWarning("script:run_func: return without callfunc or callsub!\n");
+			ShowWarning("script:run_func: return sem callfunc ou callsub!\n");
 			script->reportsrc(st);
 			st->state = END;
 			return 1;
@@ -4136,7 +4137,7 @@ void script_detach_state(struct script_state* st, bool dequeue_event) {
 			npc->event_dequeue(sd);
 		}
 	} else if(st->bk_st) { // rid was set to 0, before detaching the script state
-		ShowError("script_detach_state: Found previous script state without attached player (rid=%d, oid=%d, state=%d, bk_npcid=%d)\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
+		ShowError("script_detach_state: Encontrado estado em script anterior sem jogador anexado (rid=%d, oid=%d, state=%d, bk_npcid=%d)\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
 		script->reportsrc(st->bk_st);
 
 		script->free_state(st->bk_st);
@@ -4156,7 +4157,7 @@ void script_attach_state(struct script_state* st) {
 		{
 			if(st->bk_st)
 			{// there is already a backup
-				ShowDebug("script_free_state: Previous script state lost (rid=%d, oid=%d, state=%d, bk_npcid=%d).\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
+				ShowDebug("script_free_state: Estado anterior de script perdido (rid=%d, oid=%d, estado=%d, bk_npcid=%d).\n", st->bk_st->rid, st->bk_st->oid, st->bk_st->state, st->bk_npcid);
 			}
 			st->bk_st = sd->st;
 			st->bk_npcid = sd->npc_id;
@@ -4205,7 +4206,7 @@ void run_script_main(struct script_state *st) {
 		switch(c) {
 			case C_EOL:
 				if( stack->defsp > stack->sp )
-					ShowError("script:run_script_main: unexpected stack position (defsp=%d sp=%d). please report this!!!\n", stack->defsp, stack->sp);
+					ShowError("script:run_script_main: posicao de stack inesperada (defsp=%d sp=%d). porfavor reporte isso!!!\n", stack->defsp, stack->sp);
 				else
 					script->pop_stack(st, stack->defsp, stack->sp);// pop unused stack data. (unused return value)
 				break;
@@ -4256,7 +4257,7 @@ void run_script_main(struct script_state *st) {
 				if(st->state==GOTO) {
 					st->state = RUN;
 					if( !st->freeloop && gotocount>0 && (--gotocount)<=0 ) {
-						ShowError("run_script: infinity loop !\n");
+						ShowError("run_script: loop infinito !\n");
 						script->reportsrc(st);
 						st->state=END;
 					}
@@ -4307,12 +4308,12 @@ void run_script_main(struct script_state *st) {
 				break;
 
 			default:
-				ShowError("unknown command : %d @ %d\n",c,st->pos);
+				ShowError("comando desconhecido : %d @ %d\n",c,st->pos);
 				st->state=END;
 				break;
 		}
 		if( !st->freeloop && cmdcount>0 && (--cmdcount)<=0 ) {
-			ShowError("run_script: too many opeartions being processed non-stop !\n");
+			ShowError("run_script: muitas operacoes sendo processadas sem parar !\n");
 			script->reportsrc(st);
 			st->state=END;
 		}
@@ -4329,11 +4330,11 @@ void run_script_main(struct script_state *st) {
 	} else if(st->state != END && st->rid) {
 		//Resume later (st is already attached to player).
 		if(st->bk_st) {
-			ShowWarning("Unable to restore stack! Double continuation!\n");
+			ShowWarning("Nao e possivel restaurar a stack! Continuacao dobrada!\n");
 			//Report BOTH scripts to see if that can help somehow.
-			ShowDebug("Previous script (lost):\n");
+			ShowDebug("Script anterior (perdido):\n");
 			script->reportsrc(st->bk_st);
-			ShowDebug("Current script:\n");
+			ShowDebug("Script atual:\n");
 			script->reportsrc(st);
 
 			script->free_state(st->bk_st);
@@ -4362,7 +4363,7 @@ int script_config_read(char *cfgName) {
 	FILE *fp;
 
 	if( !( fp = fopen(cfgName,"r") ) ) {
-		ShowError("File not found: %s\n", cfgName);
+		ShowError("Arquivo nao encontrado: %s\n", cfgName);
 		return 1;
 	}
 	while (fgets(line, sizeof(line), fp)) {
@@ -4396,7 +4397,7 @@ int script_config_read(char *cfgName) {
 		else if(HPM->parseConf(w1, w2, HPCT_SCRIPT)) {
 			; // handled by plugin
 		} else {
-			ShowWarning("Unknown setting '%s' in file %s\n", w1, cfgName);
+			ShowWarning("Configuracao desconhecida '%s' no arquivo %s\n", w1, cfgName);
 		}
 	}
 	fclose(fp);
@@ -4467,7 +4468,7 @@ void script_setarray_pc(struct map_session_data* sd, const char* varname, uint32
 	int key;
 
 	if( idx >= SCRIPT_MAX_ARRAYSIZE ) {
-		ShowError("script_setarray_pc: Variable '%s' has invalid index '%u' (char_id=%d).\n", varname, idx, sd->status.char_id);
+		ShowError("script_setarray_pc: Indice da variavel '%s' invalida '%u' (char_id=%d).\n", varname, idx, sd->status.char_id);
 		return;
 	}
 
@@ -4550,7 +4551,7 @@ void do_final_script(void) {
 			double mean=0.0f;
 			double median=0.0f;
 
-			ShowNotice("Dumping script str hash information to hash_dump.txt\n");
+			ShowNotice("Despejo de str script informacoes hash para hash_dump.txt\n");
 			memset(count, 0, sizeof(count));
 			fprintf(fp,"num : hash : data_name\n");
 			fprintf(fp,"---------------------------------------------------------------\n");
@@ -4709,12 +4710,12 @@ void script_load_translations(void) {
 	script->add_language("English");/* 0 is default, which is whatever is in the npc files hardcoded (in our case, English) */
 
 	if (libconfig->read_file(&translations_conf, config_filename)) {
-		ShowError("load_translations: can't read '%s'\n", config_filename);
+		ShowError("load_translations: nao pode ler '%s'\n", config_filename);
 		return;
 	}
 
 	if( !(translations = libconfig->lookup(&translations_conf, "translations")) ) {
-		ShowError("load_translations: invalid format on '%s'\n",config_filename);
+		ShowError("load_translations: formato invalido em '%s'\n",config_filename);
 		return;
 	}
 
@@ -4761,7 +4762,7 @@ void script_load_translations(void) {
 	}
 
 	if( k == script->max_lang_id ) {
-		ShowError("load_translations: map server default_language setting '%s' is not a loaded language\n",map->default_lang_str);
+		ShowError("load_translations: map server default_language configurada como '%s' nao existe uma linguagem carregada\n",map->default_lang_str);
 		map->default_lang_id = 0;
 	} else {
 		map->default_lang_id = k;
@@ -4805,7 +4806,7 @@ void script_load_translation(const char *file, uint8 lang_id, uint32 *total) {
 	struct script_string_buf msgid = { 0 }, msgstr = { 0 };
 
 	if( !(fp = fopen(file,"rb")) ) {
-		ShowError("load_translation: failed to open '%s' for reading\n",file);
+		ShowError("load_translation: falha ao abrir '%s' para leitura\n",file);
 		return;
 	}
 
@@ -4905,7 +4906,7 @@ void script_load_translation(const char *file, uint8 lang_id, uint32 *total) {
 	script_string_buf_destroy(&msgid);
 	script_string_buf_destroy(&msgstr);
 
-	ShowStatus("Done reading '"CL_WHITE"%u"CL_RESET"' translations in '"CL_WHITE"%s"CL_RESET"'.\n", translations, file);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' traducoes em '"CL_WHITE"%s"CL_RESET"'.\n", translations, file);
 }
 
 /**
@@ -5169,7 +5170,7 @@ BUILDIN(close2) {
 	if( sd->state.dialog == 1 )
 		st->state = STOP;
 	else {
-		ShowWarning("misuse of 'close2'! trying to use it without prior dialog! skipping...\n");
+		ShowWarning("ma utilizacao de 'close2'! tentando usa-lo sem dialogo previo! skipping...\n");
 		script->reportsrc(st);
 	}
 
@@ -5249,7 +5250,7 @@ BUILDIN(menu)
 
 		if (script_lastdata(st) % 2 == 0) {
 			// argument count is not even (1st argument is at index 2)
-			ShowError("script:menu: illegal number of arguments (%d).\n", (script_lastdata(st) - 1));
+			ShowError("script:menu: numeros de argumentos ilegais (%d).\n", (script_lastdata(st) - 1));
 			st->state = END;
 			return false;
 		}
@@ -5265,7 +5266,7 @@ BUILDIN(menu)
 			if( !data_islabel(data) )
 			{// not a label
 				StrBuf->Destroy(&buf);
-				ShowError("script:menu: argument #%d (from 1) is not a label or label not found.\n", i);
+				ShowError("script:menu: argumento #%d (de 1) nao e uma label ou a label nao foi encontrada.\n", i);
 				script->reportdata(data);
 				st->state = END;
 				return false;
@@ -5288,7 +5289,7 @@ BUILDIN(menu)
 			char* menu;
 			CREATE(menu, char, 2048);
 			safestrncpy(menu, StrBuf->Value(&buf), 2047);
-			ShowWarning("NPC Menu too long! (source:%s / length:%d)\n",nd?nd->name:"Unknown",StrBuf->Length(&buf));
+			ShowWarning("Menu de NPC muito grande! (fonte:%s / comprimeiro:%d)\n",nd?nd->name:"Desconhecido",StrBuf->Length(&buf));
 			clif->scriptmenu(sd, st->oid, menu);
 			aFree(menu);
 		} else
@@ -5298,7 +5299,7 @@ BUILDIN(menu)
 
 		if( sd->npc_menu >= 0xff )
 		{// client supports only up to 254 entries; 0 is not used and 255 is reserved for cancel; excess entries are displayed but cause 'uint8' overflow
-			ShowWarning("buildin_menu: Too many options specified (current=%d, max=254).\n", sd->npc_menu);
+			ShowWarning("buildin_menu: Excesso de opcoes especificadas (atual=%d, max=254).\n", sd->npc_menu);
 			script->reportsrc(st);
 		}
 	}
@@ -5314,7 +5315,7 @@ BUILDIN(menu)
 		sd->state.menu_or_input = 0;
 		if( sd->npc_menu <= 0 )
 		{
-			ShowDebug("script:menu: unexpected selection (%d)\n", sd->npc_menu);
+			ShowDebug("script:menu: selecao inesperada (%d)\n", sd->npc_menu);
 			st->state = END;
 			return false;
 		}
@@ -5329,13 +5330,13 @@ BUILDIN(menu)
 		}
 		if( sd->npc_menu > 0 )
 		{// Invalid selection
-			ShowDebug("script:menu: selection is out of range (%d pairs are missing?) - please report this\n", sd->npc_menu);
+			ShowDebug("script:menu: a selecao esta fora do alcance (%d pares estao em falta?) - porfavor reporte isso\n", sd->npc_menu);
 			st->state = END;
 			return false;
 		}
 		if( !data_islabel(script_getdata(st, i + 1)) )
 		{// TODO remove this temporary crash-prevention code (fallback for multiple scripts requesting user input)
-			ShowError("script:menu: unexpected data in label argument\n");
+			ShowError("script:menu: dados inesperados no argumento da label\n");
 			script->reportdata(script_getdata(st, i + 1));
 			st->state = END;
 			return false;
@@ -5391,7 +5392,7 @@ BUILDIN(select)
 			char* menu;
 			CREATE(menu, char, 2048);
 			safestrncpy(menu, StrBuf->Value(&buf), 2047);
-			ShowWarning("NPC Menu too long! (source:%s / length:%d)\n",nd?nd->name:"Unknown",StrBuf->Length(&buf));
+			ShowWarning("Menu de NPC muito grande! (fonte:%s / comprimento:%d)\n",nd?nd->name:"Desconhecido",StrBuf->Length(&buf));
 			clif->scriptmenu(sd, st->oid, menu);
 			aFree(menu);
 		} else
@@ -5399,7 +5400,7 @@ BUILDIN(select)
 		StrBuf->Destroy(&buf);
 
 		if( sd->npc_menu >= 0xff ) {
-			ShowWarning("buildin_select: Too many options specified (current=%d, max=254).\n", sd->npc_menu);
+			ShowWarning("buildin_select: Excesso de opcoes especificadas (atual=%d, max=254).\n", sd->npc_menu);
 			script->reportsrc(st);
 		}
 	} else if( sd->npc_menu == 0xff ) {// Cancel was pressed
@@ -5468,7 +5469,7 @@ BUILDIN(prompt)
 			char* menu;
 			CREATE(menu, char, 2048);
 			safestrncpy(menu, StrBuf->Value(&buf), 2047);
-			ShowWarning("NPC Menu too long! (source:%s / length:%d)\n",nd?nd->name:"Unknown",StrBuf->Length(&buf));
+			ShowWarning("Menu de NPC muito grande! (fonte:%s / comprimento:%d)\n",nd?nd->name:"Desconhecido",StrBuf->Length(&buf));
 			clif->scriptmenu(sd, st->oid, menu);
 			aFree(menu);
 		} else
@@ -5477,7 +5478,7 @@ BUILDIN(prompt)
 
 		if( sd->npc_menu >= 0xff )
 		{
-			ShowWarning("buildin_prompt: Too many options specified (current=%d, max=254).\n", sd->npc_menu);
+			ShowWarning("buildin_prompt: Excesso de opcoes especificadas (atual=%d, max=254).\n", sd->npc_menu);
 			script->reportsrc(st);
 		}
 	}
@@ -5518,7 +5519,7 @@ BUILDIN(goto)
 {
 	if( !data_islabel(script_getdata(st,2)) )
 	{
-		ShowError("script:goto: not a label\n");
+		ShowError("script:goto: nao e uma label\n");
 		script->reportdata(script_getdata(st,2));
 		st->state = END;
 		return false;
@@ -5543,7 +5544,7 @@ BUILDIN(callfunc)
 	scr = (struct script_code*)strdb_get(script->userfunc_db, str);
 	if( !scr )
 	{
-		ShowError("script:callfunc: function not found! [%s]\n", str);
+		ShowError("script:callfunc: funcao nao encontrada! [%s]\n", str);
 		st->state = END;
 		return false;
 	}
@@ -5601,7 +5602,7 @@ BUILDIN(callsub)
 
 	if( !data_islabel(script_getdata(st,2)) && !data_isfunclabel(script_getdata(st,2)) )
 	{
-		ShowError("script:callsub: argument is not a label\n");
+		ShowError("script:callsub: o argumento nao e uma label\n");
 		script->reportdata(script_getdata(st,2));
 		st->state = END;
 		return false;
@@ -5652,7 +5653,7 @@ BUILDIN(getarg)
 
 	if( st->stack->defsp < 1 || st->stack->stack_data[st->stack->defsp - 1].type != C_RETINFO )
 	{
-		ShowError("script:getarg: no callfunc or callsub!\n");
+		ShowError("script:getarg: sem callfunc ou callsub!\n");
 		st->state = END;
 		return false;
 	}
@@ -5666,7 +5667,7 @@ BUILDIN(getarg)
 		script_pushcopy(st, 3);
 	else
 	{
-		ShowError("script:getarg: index (idx=%d) out of range (nargs=%d) and no default value found\n", idx, ri->nargs);
+		ShowError("script:getarg: indicador (idx=%d) fora do alcance (nargs=%d) e nao foi encontrado valores padroes\n", idx, ri->nargs);
 		st->state = END;
 		return false;
 	}
@@ -5787,7 +5788,7 @@ BUILDIN(warp)
 		ret = pc->setpos(sd,script->mapindexname2id(st,str),x,y,CLR_OUTSIGHT);
 
 	if( ret ) {
-		ShowError("buildin_warp: moving player '%s' to \"%s\",%d,%d failed.\n", sd->status.name, str, x, y);
+		ShowError("buildin_warp: falha ao mover jogador '%s' para \"%s\",%d,%d.\n", sd->status.name, str, x, y);
 		script->reportsrc(st);
 	}
 
@@ -6202,7 +6203,7 @@ BUILDIN(input)
 
 	data = script_getdata(st,2);
 	if( !data_isreference(data) ) {
-		ShowError("script:input: not a variable\n");
+		ShowError("script:input: nao e uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;
@@ -6262,7 +6263,7 @@ BUILDIN(__setr) {
 	data = script_getdata(st,2);
 	//datavalue = script_getdata(st,3);
 	if (!data_isreference(data) || reference_toconstant(data)) {
-		ShowError("script:set: not a variable\n");
+		ShowError("script:set: nao e uma variavel\n");
 		script->reportdata(script_getdata(st,2));
 		st->state = END;
 		return false;
@@ -6275,7 +6276,7 @@ BUILDIN(__setr) {
 	if (not_server_variable(prefix)) {
 		sd = script->rid2sd(st);
 		if (sd == NULL) {
-			ShowError("script:set: no player attached for player variable '%s'\n", name);
+			ShowError("script:set: nao existe jogador anexado para a variavel '%s'\n", name);
 			return true;
 		}
 	}
@@ -6290,13 +6291,13 @@ BUILDIN(__setr) {
 			// array variable being copied into another array variable
 			if (sd == NULL && not_server_variable(*namevalue) && (sd = script->rid2sd(st)) == NULL) {
 				// player must be attached in order to copy a player variable
-				ShowError("script:set: no player attached for player variable '%s'\n", namevalue);
+				ShowError("script:set: nao existe jogador anexado para a variavel '%s'\n", namevalue);
 				return true;
 			}
 
 			if (is_string_variable(namevalue) != is_string_variable(name)) {
 				// non-matching array value types
-				ShowWarning("script:set: two array variables do not match in type.\n");
+				ShowWarning("script:set: duas variaveis arrays nao coicidem o mesmo tipo.\n");
 				return true;
 			}
 
@@ -6350,7 +6351,7 @@ BUILDIN(setarray)
 	data = script_getdata(st, 2);
 	if( !data_isreference(data) || reference_toconstant(data) )
 	{
-		ShowError("script:setarray: not a variable\n");
+		ShowError("script:setarray: nao e uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -6401,7 +6402,7 @@ BUILDIN(cleararray)
 	data = script_getdata(st, 2);
 	if( !data_isreference(data) )
 	{
-		ShowError("script:cleararray: not a variable\n");
+		ShowError("script:cleararray: nao e uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -6455,7 +6456,7 @@ BUILDIN(copyarray)
 	data2 = script_getdata(st, 3);
 	if( !data_isreference(data1) || !data_isreference(data2) )
 	{
-		ShowError("script:copyarray: not a variable\n");
+		ShowError("script:copyarray: nao e uma variavel\n");
 		script->reportdata(data1);
 		script->reportdata(data2);
 		st->state = END;
@@ -6471,7 +6472,7 @@ BUILDIN(copyarray)
 
 	if( is_string_variable(name1) != is_string_variable(name2) )
 	{
-		ShowError("script:copyarray: type mismatch\n");
+		ShowError("script:copyarray: tipo de descasamento\n");
 		script->reportdata(data1);
 		script->reportdata(data2);
 		st->state = END;
@@ -6526,7 +6527,7 @@ BUILDIN(getarraysize)
 	data = script_getdata(st, 2);
 	if( !data_isreference(data) )
 	{
-		ShowError("script:getarraysize: not a variable\n");
+		ShowError("script:getarraysize: nao e uma variavel\n");
 		script->reportdata(data);
 		script_pushnil(st);
 		st->state = END;
@@ -6559,7 +6560,7 @@ BUILDIN(deletearray)
 	data = script_getdata(st, 2);
 	if( !data_isreference(data) )
 	{
-		ShowError("script:deletearray: not a variable\n");
+		ShowError("script:deletearray: nao e uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -6577,7 +6578,7 @@ BUILDIN(deletearray)
 	}
 
 	if( !(src = script->array_src(st,sd,name, reference_getref(data)) ) ) {
-		ShowError("script:deletearray: not a array\n");
+		ShowError("script:deletearray: nao e um array\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -6668,7 +6669,7 @@ BUILDIN(getelementofarray)
 	data = script_getdata(st, 2);
 	if( !data_isreference(data) )
 	{
-		ShowError("script:getelementofarray: not a variable\n");
+		ShowError("script:getelementofarray: nao e uma variavel\n");
 		script->reportdata(data);
 		script_pushnil(st);
 		st->state = END;
@@ -6679,7 +6680,7 @@ BUILDIN(getelementofarray)
 
 	i = script_getnum(st, 3);
 	if (i < 0 || i >= SCRIPT_MAX_ARRAYSIZE) {
-		ShowWarning("script:getelementofarray: index out of range (%"PRId64")\n", i);
+		ShowWarning("script:getelementofarray: indice fora do alcance (%"PRId64")\n", i);
 		script->reportdata(data);
 		script_pushnil(st);
 		st->state = END;
@@ -6790,7 +6791,7 @@ BUILDIN(countitem) {
 	}
 
 	if( id == NULL ) {
-		ShowError("buildin_countitem: Invalid item '%s'.\n", script_getstr(st,2));  // returns string, regardless of what it was
+		ShowError("buildin_countitem: Item invalido '%s'.\n", script_getstr(st,2));  // returns string, regardless of what it was
 		script_pushint(st,0);
 		return false;
 	}
@@ -6828,7 +6829,7 @@ BUILDIN(countitem2) {
 	}
 
 	if( id == NULL ) {
-		ShowError("buildin_countitem2: Invalid item '%s'.\n", script_getstr(st,2));  // returns string, regardless of what it was
+		ShowError("buildin_countitem2: Item invalido '%s'.\n", script_getstr(st,2));  // returns string, regardless of what it was
 		script_pushint(st,0);
 		return false;
 	}
@@ -6875,7 +6876,7 @@ BUILDIN(checkweight)
 	}
 	nbargs = script_lastdata(st)+1;
 	if(nbargs%2) {
-		ShowError("buildin_checkweight: Invalid nb of args should be a multiple of 2.\n");
+		ShowError("buildin_checkweight: Numero de argumento invalidos devem ser multiplos de 2.\n");
 		script_pushint(st,0);
 		return false;
 	}
@@ -6890,12 +6891,12 @@ BUILDIN(checkweight)
 			// item id
 			id = itemdb->exists(script_getnum(st, i));
 		} else {
-			ShowError("buildin_checkweight: invalid type for argument '%d'.\n", i);
+			ShowError("buildin_checkweight: tipo de argumento invalido '%d'.\n", i);
 			script_pushint(st,0);
 			return false;
 		}
 		if( id == NULL ) {
-			ShowError("buildin_checkweight: Invalid item '%s'.\n", script_getstr(st,i));  // returns string, regardless of what it was
+			ShowError("buildin_checkweight: Item invalido '%s'.\n", script_getstr(st,i));  // returns string, regardless of what it was
 			script_pushint(st,0);
 			return false;
 		}
@@ -6903,7 +6904,7 @@ BUILDIN(checkweight)
 
 		amount = script_getnum(st,i+1);
 		if( amount < 1 ) {
-			ShowError("buildin_checkweight: Invalid amount '%d'.\n", amount);
+			ShowError("buildin_checkweight: Quantidade invalida '%d'.\n", amount);
 			script_pushint(st,0);
 			return false;
 		}
@@ -6970,7 +6971,7 @@ BUILDIN(checkweight2)
 
 	if( !data_isreference(data_it) || !data_isreference(data_nb))
 	{
-		ShowError("script:checkweight2: parameter not a variable\n");
+		ShowError("script:checkweight2: o parametro nao e uma variavel\n");
 		script_pushint(st,0);
 		return false;// not a variable
 	}
@@ -6982,7 +6983,7 @@ BUILDIN(checkweight2)
 	name_nb = reference_getname(data_nb);
 
 	if(is_string_variable(name_it) || is_string_variable(name_nb)) {
-		ShowError("script:checkweight2: illegal type, need int\n");
+		ShowError("script:checkweight2: tipo ilegal, precisa de int\n");
 		script_pushint(st,0);
 		return false;// not supported
 	}
@@ -7003,12 +7004,12 @@ BUILDIN(checkweight2)
 		if(fail) continue; //cpntonie to depop rest
 
 		if(itemdb->exists(nameid) == NULL ) {
-			ShowError("buildin_checkweight2: Invalid item '%d'.\n", nameid);
+			ShowError("buildin_checkweight2: Item invalido '%d'.\n", nameid);
 			fail=1;
 			continue;
 		}
 		if(amount < 0 ) {
-			ShowError("buildin_checkweight2: Invalid amount '%d'.\n", amount);
+			ShowError("buildin_checkweight2: Quantidade invalida '%d'.\n", amount);
 			fail = 1;
 			continue;
 		}
@@ -7060,7 +7061,7 @@ BUILDIN(getitem) {
 		// "<item name>"
 		const char *name = script_getstr(st, 2);
 		if( (item_data = itemdb->search_name(name)) == NULL ) {
-			ShowError("buildin_%s: Nonexistant item %s requested.\n", script->getfuncname(st), name);
+			ShowError("buildin_%s: Item nao existente %s requerido.\n", script->getfuncname(st), name);
 			return false; //No item created.
 		}
 		nameid=item_data->nameid;
@@ -7073,7 +7074,7 @@ BUILDIN(getitem) {
 			flag = 1;
 		}
 		if( nameid <= 0 || !(item_data = itemdb->exists(nameid)) ) {
-			ShowError("buildin_%s: Nonexistant item %d requested.\n", script->getfuncname(st), nameid);
+			ShowError("buildin_%s: Item nao existente %s requerido.\n", script->getfuncname(st), nameid);
 			return false; //No item created.
 		}
 	}
@@ -7093,11 +7094,11 @@ BUILDIN(getitem) {
 	if( !strcmp(script->getfuncname(st),"getitembound") ) {
 		int bound = script_getnum(st,4);
 		if( bound < IBT_MIN || bound > IBT_MAX ) { //Not a correct bound type
-			ShowError("script_getitembound: Not a correct bound type! Type=%d\n",bound);
+			ShowError("script_getitembound: Nao e uma tipo de ligacao correto! Ttipo=%d\n",bound);
 			return false;
 		}
 		if( item_data->type == IT_PETEGG || item_data->type == IT_PETARMOR ) {
-			ShowError("script_getitembound: can't bind a pet egg/armor! Type=%d\n",bound);
+			ShowError("script_getitembound: nao e permitido ligar um ovo/armadura de um pet! Tipo=%d\n",bound);
 			return false;
 		}
 		it.bound = (unsigned char)bound;
@@ -7144,7 +7145,7 @@ BUILDIN(getitem2)
 	if( !strcmp(script->getfuncname(st),"getitembound2") ) {
 		bound = script_getnum(st,11);
 		if( bound < IBT_MIN || bound > IBT_MAX ) { //Not a correct bound type
-			ShowError("script_getitembound2: Not a correct bound type! Type=%d\n",bound);
+			ShowError("script_getitembound2: Nao e um tipo de ligacao correto! Tipo=%d\n",bound);
 			return false;
 		}
 		offset += 1;
@@ -7179,7 +7180,7 @@ BUILDIN(getitem2)
 	c4=(short)script_getnum(st,10);
 
 	if (bound && (itemdb_type(nameid) == IT_PETEGG || itemdb_type(nameid) == IT_PETARMOR)) {
-		ShowError("script_getitembound2: can't bind a pet egg/armor! Type=%d\n",bound);
+		ShowError("script_getitembound2: nao e permitido ligar um ovo/armadura de um pet! Tipo=%d\n",bound);
 		return false;
 	}
 
@@ -7259,14 +7260,14 @@ BUILDIN(rentitem) {
 		struct item_data *itd = itemdb->search_name(name);
 		if( itd == NULL )
 		{
-			ShowError("buildin_rentitem: Nonexistant item %s requested.\n", name);
+			ShowError("buildin_rentitem: Item nao existente %s requisitado.\n", name);
 			return false;
 		}
 		nameid = itd->nameid;
 	} else {
 		nameid = script_getnum(st, 2);
 		if( nameid <= 0 || !itemdb->exists(nameid) ) {
-			ShowError("buildin_rentitem: Nonexistant item %d requested.\n", nameid);
+			ShowError("buildin_rentitem: Item nao existente %s requisitado.\n", nameid);
 			return false;
 		}
 	}
@@ -7361,16 +7362,16 @@ BUILDIN(grouprandomitem) {
 	else if ( script->current_item_id )
 		nameid = script->current_item_id;
 	else {
-		ShowWarning("buildin_grouprandomitem: no item id provided and no item attached\n");
+		ShowWarning("buildin_grouprandomitem: nenhum id de item providenciado e nenhum item anexado\n");
 		script_pushint(st, 0);
 		return true;
 	}
 
 	if( !(data = itemdb->exists(nameid)) ) {
-		ShowWarning("buildin_grouprandomitem: unknown item id %d\n",nameid);
+		ShowWarning("buildin_grouprandomitem: id de item desconhecido %d\n",nameid);
 		script_pushint(st, 0);
 	} else if ( !data->group ) {
-		ShowWarning("buildin_grouprandomitem: item '%s' (%d) isn't a group!\n",data->name,nameid);
+		ShowWarning("buildin_grouprandomitem: item '%s' (%d) nao e agrupavel!\n",data->name,nameid);
 		script_pushint(st, 0);
 	} else {
 		script_pushint(st, itemdb->group_item(data->group));
@@ -7399,7 +7400,7 @@ BUILDIN(makeitem)
 	} else {
 		nameid = script_getnum(st, 2);
 		if( nameid <= 0 || !itemdb->exists(nameid)) {
-			ShowError("makeitem: Nonexistant item %d requested.\n", nameid);
+			ShowError("makeitem: Item nao existente %d requisitado.\n", nameid);
 			return false; //No item created.
 		}
 	}
@@ -7417,7 +7418,7 @@ BUILDIN(makeitem)
 		m=map->mapname2mapid(mapname);
 
 	if( m == -1 ) {
-		ShowError("makeitem: creating map on unexistent map '%s'!\n", mapname);
+		ShowError("makeitem: criando em um mapa nao existente '%s'!\n", mapname);
 		return false;
 	}
 
@@ -7572,7 +7573,7 @@ BUILDIN(delitem) {
 		int account_id = script_getnum(st,4);
 		sd = map->id2sd(account_id); // <account id>
 		if (sd == NULL) {
-			ShowError("script:delitem: player not found (AID=%d).\n", account_id);
+			ShowError("script:delitem: jogador nao encontrado (AID=%d).\n", account_id);
 			st->state = END;
 			return false;
 		}
@@ -7587,7 +7588,7 @@ BUILDIN(delitem) {
 		const char* item_name = script_getstr(st, 2);
 		struct item_data* id = itemdb->search_name(item_name);
 		if (id == NULL) {
-			ShowError("script:delitem: unknown item \"%s\".\n", item_name);
+			ShowError("script:delitem: item desconhecido \"%s\".\n", item_name);
 			st->state = END;
 			return false;
 		}
@@ -7595,7 +7596,7 @@ BUILDIN(delitem) {
 	} else {
 		it.nameid = script_getnum(st, 2);// <item id>
 		if (!itemdb->exists(it.nameid)) {
-			ShowError("script:delitem: unknown item \"%d\".\n", it.nameid);
+			ShowError("script:delitem: item desconhecido \"%d\".\n", it.nameid);
 			st->state = END;
 			return false;
 		}
@@ -7611,7 +7612,7 @@ BUILDIN(delitem) {
 		return true;
 	}
 
-	ShowError("script:delitem: failed to delete %d items (AID=%d item_id=%d).\n", it.amount, sd->status.account_id, it.nameid);
+	ShowError("script:delitem: falha ao deletar o item %d (AID=%d item_id=%d).\n", it.amount, sd->status.account_id, it.nameid);
 	st->state = END;
 	clif->scriptclose(sd, st->oid);
 	return false;
@@ -7629,7 +7630,7 @@ BUILDIN(delitem2) {
 		int account_id = script_getnum(st,11);
 		sd = map->id2sd(account_id); // <account id>
 		if (sd == NULL) {
-			ShowError("script:delitem2: player not found (AID=%d).\n", account_id);
+			ShowError("script:delitem2: jogador nao encontrado (AID=%d).\n", account_id);
 			st->state = END;
 			return false;
 		}
@@ -7644,7 +7645,7 @@ BUILDIN(delitem2) {
 		const char* item_name = script_getstr(st, 2);
 		struct item_data* id = itemdb->search_name(item_name);
 		if (id == NULL) {
-			ShowError("script:delitem2: unknown item \"%s\".\n", item_name);
+			ShowError("script:delitem2: item desconhecido \"%s\".\n", item_name);
 			st->state = END;
 			return false;
 		}
@@ -7652,7 +7653,7 @@ BUILDIN(delitem2) {
 	} else {
 		it.nameid = script_getnum(st, 2);// <item id>
 		if( !itemdb->exists( it.nameid ) ) {
-			ShowError("script:delitem: unknown item \"%d\".\n", it.nameid);
+			ShowError("script:delitem: item desconhecido \"%d\".\n", it.nameid);
 			st->state = END;
 			return false;
 		}
@@ -7675,7 +7676,7 @@ BUILDIN(delitem2) {
 		return true;
 	}
 
-	ShowError("script:delitem2: failed to delete %d items (AID=%d item_id=%d).\n", it.amount, sd->status.account_id, it.nameid);
+	ShowError("script:delitem2: falha ao deletar o item %d (AID=%d item_id=%d).\n", it.amount, sd->status.account_id, it.nameid);
 	st->state = END;
 	clif->scriptclose(sd, st->oid);
 	return false;
@@ -7757,7 +7758,7 @@ BUILDIN(getcharid) {
 		case 3: script_pushint(st,sd->status.account_id); break;
 		case 4: script_pushint(st,sd->bg_id); break;
 		default:
-			ShowError("buildin_getcharid: invalid parameter (%d).\n", num);
+			ShowError("buildin_getcharid: parametro invalido (%d).\n", num);
 			script_pushint(st,0);
 			break;
 	}
@@ -7776,7 +7777,7 @@ BUILDIN(getnpcid)
 	{// unique npc name
 		if( ( nd = npc->name2id(script_getstr(st,3)) ) == NULL )
 		{
-			ShowError("buildin_getnpcid: No such NPC '%s'.\n", script_getstr(st,3));
+			ShowError("buildin_getnpcid: Nenhum NPC semelhante '%s'.\n", script_getstr(st,3));
 			script_pushint(st,0);
 			return false;
 		}
@@ -7787,7 +7788,7 @@ BUILDIN(getnpcid)
 			script_pushint(st,nd ? nd->bl.id : st->oid);
 			break;
 		default:
-			ShowError("buildin_getnpcid: invalid parameter (%d).\n", num);
+			ShowError("buildin_getnpcid: parametro invalido (%d).\n", num);
 			script_pushint(st,0);
 			return false;
 	}
@@ -8043,7 +8044,7 @@ BUILDIN(strcharinfo)
 			script_pushconststr(st,map->list[sd->bl.m].name);
 			break;
 		default:
-			ShowWarning("buildin_strcharinfo: unknown parameter.\n");
+			ShowWarning("buildin_strcharinfo: parametro desconhecido.\n");
 			script_pushconststr(st,"");
 			break;
 	}
@@ -8614,7 +8615,7 @@ BUILDIN(delequip)
 		return true;
 	}
 
-	ShowError("script:delequip: no item found in position '%d' for player '%s' (AID:%d/CID:%d).\n", num, sd->status.name,sd->status.account_id, sd->status.char_id);
+	ShowError("script:delequip: item nao encontrado na posicao '%d' para o jogador '%s' (AID:%d/CID:%d).\n", num, sd->status.name,sd->status.account_id, sd->status.char_id);
 	st->state = END;
 	clif->scriptclose(sd, st->oid);
 
@@ -8740,7 +8741,7 @@ BUILDIN(bonus) {
 			pc->bonus5(sd, type, val1, val2, val3, val4, val5);
 			break;
 		default:
-			ShowDebug("buildin_bonus: unexpected number of arguments (%d)\n", (script_lastdata(st) - 1));
+			ShowDebug("buildin_bonus: numero de argumentos nao esperado (%d)\n", (script_lastdata(st) - 1));
 			break;
 	}
 
@@ -9322,7 +9323,7 @@ BUILDIN(setmount)
 	// Color variants for Rune Knight dragon mounts.
 	if (flag != SETMOUNT_TYPE_NONE) {
 		if (flag < SETMOUNT_TYPE_AUTODETECT || flag >= SETMOUNT_TYPE_MAX) {
-			ShowWarning("script_setmount: Unknown flag %d specified. Using auto-detected value.\n", flag);
+			ShowWarning("script_setmount: Flag especificada %d desconhecida. Utilizando valor encontrado.\n", flag);
 			flag = SETMOUNT_TYPE_AUTODETECT;
 		}
 		// Sanity checks and auto-detection
@@ -9731,7 +9732,7 @@ BUILDIN(monster)
 		size = script_getnum(st, 9);
 		if (size > 3)
 		{
-			ShowWarning("buildin_monster: Attempted to spawn non-existing size %d for monster class %d\n", size, class_);
+			ShowWarning("buildin_monster: Tentativa de gerar um tamanho nao existente %d para monstro de classe %d\n", size, class_);
 			return false;
 		}
 	}
@@ -9740,14 +9741,14 @@ BUILDIN(monster)
 	{
 		ai = script_getnum(st, 10);
 		if (ai > AI_FLORA) {
-			ShowWarning("buildin_monster: Attempted to spawn non-existing ai %d for monster class %d\n", ai, class_);
+			ShowWarning("buildin_monster: Tentativa de gerar uma ia nao existente %d para monstro de classe %d\n", ai, class_);
 			return false;
 		}
 	}
 
 	if (class_ >= 0 && !mob->db_checkid(class_))
 	{
-		ShowWarning("buildin_monster: Attempted to spawn non-existing monster class %d\n", class_);
+		ShowWarning("buildin_monster: Tentativa de gerar uma classe de monstro nao existente %d\n", class_);
 		return false;
 	}
 
@@ -9757,13 +9758,13 @@ BUILDIN(monster)
 		m = sd->bl.m;
 	else {
 		if ( ( m = map->mapname2mapid(mapn) ) == -1 ) {
-			ShowWarning("buildin_monster: Attempted to spawn monster class %d on non-existing map '%s'\n",class_, mapn);
+			ShowWarning("buildin_monster: Tentativa de gerar uma classe de monstro %d em um mapa nao existente '%s'\n",class_, mapn);
 			return false;
 		}
 
 		if (map->list[m].flag.src4instance && st->instance_id >= 0) { // Try to redirect to the instance map, not the src map
 			if ((m = instance->mapid2imapid(m, st->instance_id)) < 0) {
-				ShowError("buildin_monster: Trying to spawn monster (%d) on instance map (%s) without instance attached.\n", class_, mapn);
+				ShowError("buildin_monster: Tentando gerar monstro (%d) no mapa instancial (%s) sem instancia anexada.\n", class_, mapn);
 				return false;
 			}
 		}
@@ -9836,7 +9837,7 @@ BUILDIN(areamonster) {
 	if (script_hasdata(st, 11)) {
 		size = script_getnum(st, 11);
 		if (size > 3) {
-			ShowWarning("buildin_monster: Attempted to spawn non-existing size %d for monster class %d\n", size, class_);
+			ShowWarning("buildin_monster: Tentativa de gerar um tamanho nao existente %d para monstro de classe %d\n", size, class_);
 			return false;
 		}
 	}
@@ -9844,7 +9845,7 @@ BUILDIN(areamonster) {
 	if (script_hasdata(st, 12)) {
 		ai = script_getnum(st, 12);
 		if (ai > AI_FLORA) {
-			ShowWarning("buildin_monster: Attempted to spawn non-existing ai %d for monster class %d\n", ai, class_);
+			ShowWarning("buildin_monster: Tentativa de gerar uma ia nao existente %d para monstro de classe %d\n", ai, class_);
 			return false;
 		}
 	}
@@ -9855,12 +9856,12 @@ BUILDIN(areamonster) {
 		m = sd->bl.m;
 	else {
 		if ( ( m = map->mapname2mapid(mapn) ) == -1 ) {
-			ShowWarning("buildin_areamonster: Attempted to spawn monster class %d on non-existing map '%s'\n",class_, mapn);
+			ShowWarning("buildin_areamonster: Tentativa de gerar uma classe de monstro %d em um mapa nao existente '%s'\n",class_, mapn);
 			return false;
 		}
 		if (map->list[m].flag.src4instance && st->instance_id >= 0) { // Try to redirect to the instance map, not the src map
 			if ((m = instance->mapid2imapid(m, st->instance_id)) < 0) {
-				ShowError("buildin_areamonster: Trying to spawn monster (%d) on instance map (%s) without instance attached.\n", class_, mapn);
+				ShowError("buildin_areamonster: Tentando gerar monstro (%d) no mapa instancial (%s) sem uma instancia anexada.\n", class_, mapn);
 				return false;
 			}
 		}
@@ -10047,7 +10048,7 @@ BUILDIN(donpcevent)
 	script->check_event(st, event);
 	if( !npc->event_do(event) ) {
 		struct npc_data * nd = map->id2nd(st->oid);
-		ShowDebug("NPCEvent '%s' not found! (source: %s)\n",event,nd?nd->name:"Unknown");
+		ShowDebug("NPCEvent '%s' nao encontrado! (fonte: %s)\n",event,nd?nd->name:"Desconhecido");
 		script_pushint(st, 0);
 	} else
 		script_pushint(st, 1);
@@ -10068,7 +10069,7 @@ BUILDIN(addtimer)
 		return true;
 
 	if (!pc->addeventtimer(sd,tick,event)) {
-		ShowWarning("buildin_addtimer: Event timer is full, can't add new event timer. (cid:%d timer:%s)\n",sd->status.char_id,event);
+		ShowWarning("buildin_addtimer: o temporizador de eventos esta cheio, nao e possivel adicionar tempo ao evento. (cid:%d timer:%s)\n",sd->status.char_id,event);
 		return false;
 	}
 	return true;
@@ -10131,7 +10132,7 @@ BUILDIN(initnpctimer)
 			nd = (struct npc_data *)map->id2bl(st->oid);
 			flag = script->conv_num(st,data);
 		} else {
-			ShowError("initnpctimer: invalid argument type #1 (needs be int or string)).\n");
+			ShowError("initnpctimer: tipo de argumento invalido #1 (precisa ser int ou string)).\n");
 			return false;
 		}
 	} else
@@ -10175,7 +10176,7 @@ BUILDIN(startnpctimer)
 			nd = (struct npc_data *)map->id2bl(st->oid);
 			flag = script->conv_num(st,data);
 		} else {
-			ShowError("initnpctimer: invalid argument type #1 (needs be int or string)).\n");
+			ShowError("initnpctimer: tipo de argumento invalido #1 (precisa ser int ou string)).\n");
 			return false;
 		}
 	} else
@@ -10216,7 +10217,7 @@ BUILDIN(stopnpctimer) {
 			nd = (struct npc_data *)map->id2bl(st->oid);
 			flag = script->conv_num(st,data);
 		} else {
-			ShowError("initnpctimer: invalid argument type #1 (needs be int or string)).\n");
+			ShowError("initnpctimer: tipo de argumento invalido #1 (precisa ser int ou string)).\n");
 			return false;
 		}
 	} else
@@ -10246,7 +10247,7 @@ BUILDIN(getnpctimer) {
 	if( !nd || nd->bl.type != BL_NPC )
 	{
 		script_pushint(st,0);
-		ShowError("getnpctimer: Invalid NPC.\n");
+		ShowError("getnpctimer: NPC invalido.\n");
 		return false;
 	}
 
@@ -10256,7 +10257,7 @@ BUILDIN(getnpctimer) {
 			if( nd->u.scr.rid ) {
 				sd = map->id2sd(nd->u.scr.rid);
 				if( !sd ) {
-					ShowError("buildin_getnpctimer: Attached player not found!\n");
+					ShowError("buildin_getnpctimer: Nao foi encontrado um jogador anexado!\n");
 					break;
 				}
 				val = (sd->npc_timer_id != INVALID_TIMER);
@@ -10285,7 +10286,7 @@ BUILDIN(setnpctimer)
 
 	if( !nd || nd->bl.type != BL_NPC ) {
 		script_pushint(st,1);
-		ShowError("setnpctimer: Invalid NPC.\n");
+		ShowError("setnpctimer: NPC invalido.\n");
 		return false;
 	}
 
@@ -10304,7 +10305,7 @@ BUILDIN(attachnpctimer) {
 	if( !nd || nd->bl.type != BL_NPC )
 	{
 		script_pushint(st,1);
-		ShowError("setnpctimer: Invalid NPC.\n");
+		ShowError("setnpctimer: NPC invalido.\n");
 		return false;
 	}
 
@@ -10316,7 +10317,7 @@ BUILDIN(attachnpctimer) {
 	if( !sd )
 	{
 		script_pushint(st,1);
-		ShowWarning("attachnpctimer: Invalid player.\n");
+		ShowWarning("attachnpctimer: Jogador invalido.\n");
 		return false;
 	}
 
@@ -10339,7 +10340,7 @@ BUILDIN(detachnpctimer) {
 	if( !nd || nd->bl.type != BL_NPC )
 	{
 		script_pushint(st,1);
-		ShowError("detachnpctimer: Invalid NPC.\n");
+		ShowError("detachnpctimer: NPC invalido.\n");
 		return false;
 	}
 
@@ -10436,14 +10437,14 @@ BUILDIN(itemeffect) {
 		const char *name = script_getstr(st, 2);
 
 		if( ( item_data = itemdb->search_name( name ) ) == NULL ) {
-			ShowError( "buildin_itemeffect: Nonexistant item %s requested.\n", name );
+			ShowError( "buildin_itemeffect: Item nao existente %s requisitado.\n", name );
 			return false;
 		}
 	} else {
 		int nameid = script_getnum(st, 2);
 
 		if( ( item_data = itemdb->exists( nameid ) ) == NULL ) {
-			ShowError("buildin_itemeffect: Nonexistant item %d requested.\n", nameid );
+			ShowError("buildin_itemeffect: Item nao existente %d requisitado.\n", nameid );
 			return false;
 		}
 	}
@@ -10523,7 +10524,7 @@ BUILDIN(getusers) {
 			val = map->getusers();
 			break;
 		default:
-			ShowWarning("buildin_getusers: Unknown type %d.\n", flag);
+			ShowWarning("buildin_getusers: Tipo desconhecido %d.\n", flag);
 			script_pushint(st,0);
 			return false;
 	}
@@ -10907,7 +10908,7 @@ BUILDIN(getstatus)
 
 	if( id <= SC_NONE || id >= SC_MAX )
 	{// invalid status type given
-		ShowWarning("script.c:getstatus: Invalid status type given (%d).\n", id);
+		ShowWarning("script.c:getstatus: Tipo de status invalido (%d).\n", id);
 		return true;
 	}
 
@@ -11695,7 +11696,7 @@ BUILDIN(setmapflag) {
 		} else if (script_isinttype(st, 4)) {
 			val = script_getnum(st, 4);
 		} else {
-			ShowError("buildin_setmapflag: invalid data type for argument 3.\n");
+			ShowError("buildin_setmapflag: tipo de dados do argumento 3 invalido.\n");
 			return false;
 		}
 	}
@@ -11881,7 +11882,7 @@ BUILDIN(pvpon) {
 		return true; // nothing to do
 
 	if( !strdb_exists(map->zone_db,MAP_ZONE_PVP_NAME) ) {
-		ShowError("buildin_pvpon: zone_db missing '%s'\n",MAP_ZONE_PVP_NAME);
+		ShowError("buildin_pvpon: zone_db faltando '%s'\n",MAP_ZONE_PVP_NAME);
 		return true;
 	}
 
@@ -11958,7 +11959,7 @@ BUILDIN(gvgon) {
 		struct block_list bl;
 
 		if( !strdb_exists(map->zone_db,MAP_ZONE_GVG_NAME) ) {
-			ShowError("buildin_gvgon: zone_db missing '%s'\n",MAP_ZONE_GVG_NAME);
+			ShowError("buildin_gvgon: zone_db faltando '%s'\n",MAP_ZONE_GVG_NAME);
 			return true;
 		}
 
@@ -12122,9 +12123,9 @@ BUILDIN(flagemblem) {
 
 	nd = (TBL_NPC*)map->id2nd(st->oid);
 	if( nd == NULL ) {
-		ShowError("script:flagemblem: npc %d not found\n", st->oid);
+		ShowError("script:flagemblem: npc %d nao encontrado\n", st->oid);
 	} else if( nd->subtype != SCRIPT ) {
-		ShowError("script:flagemblem: unexpected subtype %d for npc %d '%s'\n", nd->subtype, st->oid, nd->exname);
+		ShowError("script:flagemblem: subtipo inesperado %d para o npc %d '%s'\n", nd->subtype, st->oid, nd->exname);
 	} else {
 		bool changed = ( nd->u.scr.guild_id != g_id )?true:false;
 		nd->u.scr.guild_id = g_id;
@@ -12155,7 +12156,7 @@ BUILDIN(getcastledata)
 
 	if (gc == NULL) {
 		script_pushint(st,0);
-		ShowWarning("buildin_setcastledata: guild castle for map '%s' not found\n", mapname);
+		ShowWarning("buildin_setcastledata: castelo de guild para o mapa '%s' nao encontrado\n", mapname);
 		return false;
 	}
 
@@ -12184,7 +12185,7 @@ BUILDIN(getcastledata)
 				break;
 			}
 			script_pushint(st,0);
-			ShowWarning("buildin_setcastledata: index = '%d' is out of allowed range\n", index);
+			ShowWarning("buildin_setcastledata: index = '%d' esta fora do intervalo permitido\n", index);
 			return false;
 	}
 	return true;
@@ -12198,12 +12199,12 @@ BUILDIN(setcastledata)
 	struct guild_castle *gc = guild->mapname2gc(mapname);
 
 	if (gc == NULL) {
-		ShowWarning("buildin_setcastledata: guild castle for map '%s' not found\n", mapname);
+		ShowWarning("buildin_setcastledata: castelo de guild para o mapa '%s' nao encontrado\n", mapname);
 		return false;
 	}
 
 	if (index <= 0 || index > 9+MAX_GUARDIANS) {
-		ShowWarning("buildin_setcastledata: index = '%d' is out of allowed range\n", index);
+		ShowWarning("buildin_setcastledata: index = '%d' esta fora do intervalo permitido\n", index);
 		return false;
 	}
 
@@ -12689,7 +12690,7 @@ BUILDIN(guardian) {
 			guardian=script_getnum(st,7);
 			has_index = true;
 		} else {
-			ShowError("script:guardian: invalid data type for argument #6 (from 1)\n");
+			ShowError("script:guardian: tipo de dados do argumento #6 invalido (de 1)\n");
 			script->reportdata(data);
 			return false;
 		}
@@ -13224,7 +13225,7 @@ BUILDIN(playbgmall) {
 		int m;
 
 		if ( ( m = map->mapname2mapid(mapname) ) == -1 ) {
-			ShowWarning("playbgmall: Attempted to play song '%s' on non-existent map '%s'\n",name, mapname);
+			ShowWarning("playbgmall: Tentou reproduzir o som '%s' em um mapa nao existente '%s'\n",name, mapname);
 			return true;
 		}
 
@@ -13235,7 +13236,7 @@ BUILDIN(playbgmall) {
 		int m;
 
 		if ( ( m = map->mapname2mapid(mapname) ) == -1 ) {
-			ShowWarning("playbgmall: Attempted to play song '%s' on non-existent map '%s'\n",name, mapname);
+			ShowWarning("playbgmall: Tentou reproduzir o som '%s' em um mapa nao existente '%s'\n",name, mapname);
 			return true;
 		}
 
@@ -13300,7 +13301,7 @@ BUILDIN(soundeffectall) {
 			int m;
 
 			if ( ( m = map->mapname2mapid(mapname) ) == -1 ) {
-				ShowWarning("soundeffectall: Attempted to play song '%s' (type %d) on non-existent map '%s'\n",name,type, mapname);
+				ShowWarning("soundeffectall: Tentou reproduzir o som '%s' (tipo %d) em um mapa nao existente '%s'\n",name,type, mapname);
 				return true;
 			}
 
@@ -13314,13 +13315,13 @@ BUILDIN(soundeffectall) {
 			int m;
 
 			if ( ( m = map->mapname2mapid(mapname) ) == -1 ) {
-				ShowWarning("soundeffectall: Attempted to play song '%s' (type %d) on non-existent map '%s'\n",name,type, mapname);
+				ShowWarning("soundeffectall: Tentou reproduzir o som '%s' (tipo %d) em um mapa nao existente '%s'\n",name,type, mapname);
 				return true;
 			}
 
 			map->foreachinarea(script->soundeffect_sub, m, x0, y0, x1, y1, BL_PC, name, type);
 		} else {
-			ShowError("buildin_soundeffectall: insufficient arguments for specific area broadcast.\n");
+			ShowError("buildin_soundeffectall: argumentos insuficientes para transmissao em area especifica.\n");
 		}
 	}
 
@@ -13563,7 +13564,7 @@ BUILDIN(atcommand) {
 	}
 
 	if (!atcommand->exec(fd, sd, cmd, false)) {
-		ShowWarning("script: buildin_atcommand: failed to execute command '%s'\n", cmd);
+		ShowWarning("script: buildin_atcommand: falha ao executar o comando '%s'\n", cmd);
 		script->reportsrc(st);
 		ret = false;
 	}
@@ -13709,7 +13710,7 @@ BUILDIN(getmercinfo)
 		int char_id = script_getnum(st,3);
 
 		if ((sd = map->charid2sd(char_id)) == NULL) {
-			ShowError("buildin_getmercinfo: No such character (char_id=%d).\n", char_id);
+			ShowError("buildin_getmercinfo: Sem jogador semelhante (char_id=%d).\n", char_id);
 			script_pushnil(st);
 			return false;
 		}
@@ -13736,7 +13737,7 @@ BUILDIN(getmercinfo)
 		case 6: script_pushint(st,md ? mercenary->get_lifetime(md) : 0); break;
 		case 7: script_pushint(st,md ? md->db->lv : 0); break;
 		default:
-			ShowError("buildin_getmercinfo: Invalid type %d (char_id=%d).\n", type, sd->status.char_id);
+			ShowError("buildin_getmercinfo: Tipo invalido %d (char_id=%d).\n", type, sd->status.char_id);
 			script_pushnil(st);
 			return false;
 	}
@@ -13783,7 +13784,7 @@ BUILDIN(__jump_zero)
 	if (!sel) {
 		int pos;
 		if (!data_islabel(script_getdata(st,3))) {
-			ShowError("script: jump_zero: not a label !\n");
+			ShowError("script: jump_zero: nao e uma label !\n");
 			st->state=END;
 			return false;
 		}
@@ -14104,35 +14105,35 @@ BUILDIN(getmapxy)
 	char mapname[MAP_NAME_LENGTH];
 
 	if( !data_isreference(script_getdata(st,2)) ) {
-		ShowWarning("script: buildin_getmapxy: not mapname variable\n");
+		ShowWarning("script: buildin_getmapxy: sem variavel do mapname\n");
 		script_pushint(st,-1);
 		return false;
 	}
 	if( !data_isreference(script_getdata(st,3)) ) {
-		ShowWarning("script: buildin_getmapxy: not mapx variable\n");
+		ShowWarning("script: buildin_getmapxy: sem variavel do mapx\n");
 		script_pushint(st,-1);
 		return false;
 	}
 	if( !data_isreference(script_getdata(st,4)) ) {
-		ShowWarning("script: buildin_getmapxy: not mapy variable\n");
+		ShowWarning("script: buildin_getmapxy: sem variavel do mapy\n");
 		script_pushint(st,-1);
 		return false;
 	}
 
 	if( !is_string_variable(reference_getname(script_getdata(st, 2))) ) {
-		ShowWarning("script: buildin_getmapxy: %s is not a string variable\n",reference_getname(script_getdata(st, 2)));
+		ShowWarning("script: buildin_getmapxy: %s nao e uma string variavel\n",reference_getname(script_getdata(st, 2)));
 		script_pushint(st,-1);
 		return false;
 	}
 
 	if( is_string_variable(reference_getname(script_getdata(st, 3))) ) {
-		ShowWarning("script: buildin_getmapxy: %s is a string variable, should be int\n",reference_getname(script_getdata(st, 3)));
+		ShowWarning("script: buildin_getmapxy: %s e uma string variavel, deve estar em int\n",reference_getname(script_getdata(st, 3)));
 		script_pushint(st,-1);
 		return false;
 	}
 
 	if( is_string_variable(reference_getname(script_getdata(st, 4))) ) {
-		ShowWarning("script: buildin_getmapxy: %s is a string variable, should be int\n",reference_getname(script_getdata(st, 4)));
+		ShowWarning("script: buildin_getmapxy: %s e uma string variavel, deve estar em int\n",reference_getname(script_getdata(st, 4)));
 		script_pushint(st,-1);
 		return false;
 	}
@@ -14199,7 +14200,7 @@ BUILDIN(getmapxy)
 				bl = &sd->ed->bl;
 			break;
 		default:
-			ShowWarning("script: buildin_getmapxy: Invalid type %d\n", type);
+			ShowWarning("script: buildin_getmapxy: Tipo invalido %d\n", type);
 			script_pushint(st,-1);
 			return false;
 	}
@@ -14544,7 +14545,7 @@ BUILDIN(equip)
 	nameid=script_getnum(st,2);
 	if((item_data = itemdb->exists(nameid)) == NULL)
 	{
-		ShowError("wrong item ID : equipitem(%i)\n",nameid);
+		ShowError("ID errado de item : equipitem(%i)\n",nameid);
 		return false;
 	}
 	ARR_FIND( 0, MAX_INVENTORY, i, sd->status.inventory[i].nameid == nameid && sd->status.inventory[i].equip == 0 );
@@ -14563,13 +14564,13 @@ BUILDIN(autoequip)
 
 	if( ( item_data = itemdb->exists(nameid) ) == NULL )
 	{
-		ShowError("buildin_autoequip: Invalid item '%d'.\n", nameid);
+		ShowError("buildin_autoequip: Item invalido '%d'.\n", nameid);
 		return false;
 	}
 
 	if( !itemdb->isequip2(item_data) )
 	{
-		ShowError("buildin_autoequip: Item '%d' cannot be equipped.\n", nameid);
+		ShowError("buildin_autoequip: Item '%d' nao pode ser equipado.\n", nameid);
 		return false;
 	}
 
@@ -14597,7 +14598,7 @@ BUILDIN(equip2)
 	nameid = script_getnum(st,2);
 	if( (item_data = itemdb->exists(nameid)) == NULL )
 	{
-		ShowError("Wrong item ID : equip2(%i)\n",nameid);
+		ShowError("ID errado de item : equip2(%i)\n",nameid);
 		script_pushint(st,0);
 		return false;
 	}
@@ -14636,9 +14637,9 @@ BUILDIN(setbattleflag)
 	value = script_getstr(st,3);  // HACK: Retrieve number as string (auto-converted) for battle_set_value
 
 	if (battle->config_set_value(flag, value) == 0)
-		ShowWarning("buildin_setbattleflag: unknown battle_config flag '%s'\n",flag);
+		ShowWarning("buildin_setbattleflag: flag do battle_config desconhecida '%s'\n",flag);
 	else
-		ShowInfo("buildin_setbattleflag: battle_config flag '%s' is now set to '%s'.\n",flag,value);
+		ShowInfo("buildin_setbattleflag: battle_config flag '%s' agora esta estabelecida como '%s'.\n",flag,value);
 
 	return true;
 }
@@ -14876,7 +14877,7 @@ BUILDIN(explode)
 
 	if( !data_isreference(data) )
 	{
-		ShowError("script:explode: not a variable\n");
+		ShowError("script:explode: nao e uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -14888,7 +14889,7 @@ BUILDIN(explode)
 
 	if( !is_string_variable(name) )
 	{
-		ShowError("script:explode: not string array\n");
+		ShowError("script:explode: nao e uma string na array\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// data type mismatch
@@ -14935,7 +14936,7 @@ BUILDIN(implode)
 
 	if( !data_isreference(data) )
 	{
-		ShowError("script:implode: not a variable\n");
+		ShowError("script:implode: nao e uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -14946,7 +14947,7 @@ BUILDIN(implode)
 
 	if( !is_string_variable(name) )
 	{
-		ShowError("script:implode: not string array\n");
+		ShowError("script:implode: nao e uma string na array\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// data type mismatch
@@ -14964,7 +14965,7 @@ BUILDIN(implode)
 
 	if (array_size == -1) {
 		//empty array check (AmsTaff)
-		ShowWarning("script:implode: array length = 0\n");
+		ShowWarning("script:implode: cumprimento de array = 0\n");
 		output = (char*)aMalloc(sizeof(char)*5);
 		sprintf(output,"%s","NULL");
 	} else {
@@ -15071,13 +15072,13 @@ BUILDIN(sprintf) {
 			continue;
 		}
 		if(*p=='n') {  // %n
-			ShowWarning("buildin_sprintf: Format %%n not supported! Skipping...\n");
+			ShowWarning("buildin_sprintf: Formato %%n nao suportado! Pulando...\n");
 			script->reportsrc(st);
 			q+=2;
 			continue;
 		}
 		if(arg>=argc) {
-			ShowError("buildin_sprintf: Not enough arguments passed!\n");
+			ShowError("buildin_sprintf: Argumento passado nao e suficiente!\n");
 			aFree(buf);
 			if(buf2) aFree(buf2);
 			StrBuf->Destroy(&final_buf);
@@ -15113,7 +15114,7 @@ BUILDIN(sprintf) {
 				StrBuf->Printf(&final_buf, buf2, script_getnum(st, arg+3));
 			}
 		} else {  // Unsupported type
-			ShowError("buildin_sprintf: Unknown argument type!\n");
+			ShowError("buildin_sprintf: Tipo desconhecido de argumento!\n");
 			aFree(buf);
 			if(buf2) aFree(buf2);
 			StrBuf->Destroy(&final_buf);
@@ -15130,7 +15131,7 @@ BUILDIN(sprintf) {
 
 	// Passed more, than needed
 	if(arg<argc) {
-		ShowWarning("buildin_sprintf: Unused arguments passed.\n");
+		ShowWarning("buildin_sprintf: Argumento passado nao utilizado.\n");
 		script->reportsrc(st);
 	}
 
@@ -15193,7 +15194,7 @@ BUILDIN(sscanf) {
 			continue;
 		}
 		if(arg>=argc) {
-			ShowError("buildin_sscanf: Not enough arguments passed!\n");
+			ShowError("buildin_sscanf: Argumento passado nao e suficiente!\n");
 			script_pushint(st, -1);
 			aFree(buf);
 			if(ref_str) aFree(ref_str);
@@ -15209,7 +15210,7 @@ BUILDIN(sscanf) {
 		// Validate output
 		data = script_getdata(st, arg+4);
 		if(!data_isreference(data) || !reference_tovariable(data)) {
-			ShowError("buildin_sscanf: Target argument is not a variable!\n");
+			ShowError("buildin_sscanf: Argumento alvo nao e uma variavel!\n");
 			script_pushint(st, -1);
 			aFree(buf);
 			if(ref_str) aFree(ref_str);
@@ -15319,7 +15320,7 @@ BUILDIN(replacestr)
 	int i = 0, f = 0;
 
 	if(findlen == 0) {
-		ShowError("script:replacestr: Invalid search length.\n");
+		ShowError("script:replacestr: Cumprimento de pesquisa invalido.\n");
 		st->state = END;
 		return false;
 	}
@@ -15328,7 +15329,7 @@ BUILDIN(replacestr)
 		if( script_isinttype(st,5) ) {
 			usecase = script_getnum(st, 5) != 0;
 		} else {
-			ShowError("script:replacestr: Invalid usecase value. Expected int.\n");
+			ShowError("script:replacestr: Valor de usecase invalido. Int esperada.\n");
 			st->state = END;
 			return false;
 		}
@@ -15336,7 +15337,7 @@ BUILDIN(replacestr)
 
 	if(script_hasdata(st, 6)) {
 		if (!script_isinttype(st, 6) || (count = script_getnum(st, 6)) == 0) {
-			ShowError("script:replacestr: Invalid count value. Expected int.\n");
+			ShowError("script:replacestr: Valor de conta invalida. Int esperada.\n");
 			st->state = END;
 			return false;
 		}
@@ -15399,7 +15400,7 @@ BUILDIN(countstr)
 	int i = 0, f = 0;
 
 	if(findlen == 0) {
-		ShowError("script:countstr: Invalid search length.\n");
+		ShowError("script:countstr: Cumprimento de pesquisa invalido.\n");
 		st->state = END;
 		return false;
 	}
@@ -15408,7 +15409,7 @@ BUILDIN(countstr)
 		if( script_isinttype(st,4) )
 			usecase = script_getnum(st, 4) != 0;
 		else {
-			ShowError("script:countstr: Invalid usecase value. Expected int.\n");
+			ShowError("script:countstr: Valor usecase invalido. Int esperado.\n");
 			st->state = END;
 			return false;
 		}
@@ -15642,7 +15643,7 @@ BUILDIN(setd)
 		sd = script->rid2sd(st);
 		if( sd == NULL )
 		{
-			ShowError("script:setd: no player attached for player variable '%s'\n", buffer);
+			ShowError("script:setd: nenhum jogador anexado para a variavel de jogador '%s'\n", buffer);
 			return true;
 		}
 	}
@@ -15678,7 +15679,7 @@ int buildin_query_sql_sub(struct script_state* st, Sql* handle)
 					return false;
 			}
 		} else {
-			ShowError("script:query_sql: not a variable\n");
+			ShowError("script:query_sql: nao e uma variavel\n");
 			script->reportdata(data);
 			st->state = END;
 			return false;
@@ -15704,10 +15705,10 @@ int buildin_query_sql_sub(struct script_state* st, Sql* handle)
 	// Count the number of columns to store
 	num_cols = SQL->NumColumns(handle);
 	if( num_vars < num_cols ) {
-		ShowWarning("script:query_sql: Too many columns, discarding last %u columns.\n", (unsigned int)(num_cols-num_vars));
+		ShowWarning("script:query_sql: Muitas colunas, descartando ultima %u coluna.\n", (unsigned int)(num_cols-num_vars));
 		script->reportsrc(st);
 	} else if( num_vars > num_cols ) {
-		ShowWarning("script:query_sql: Too many variables (%u extra).\n", (unsigned int)(num_vars-num_cols));
+		ShowWarning("script:query_sql: Muitas variaveis (%u extra).\n", (unsigned int)(num_vars-num_cols));
 		script->reportsrc(st);
 	}
 
@@ -15728,7 +15729,7 @@ int buildin_query_sql_sub(struct script_state* st, Sql* handle)
 		}
 	}
 	if( i == max_rows && max_rows < SQL->NumRows(handle) ) {
-		ShowWarning("script:query_sql: Only %d/%u rows have been stored.\n", max_rows, (unsigned int)SQL->NumRows(handle));
+		ShowWarning("script:query_sql: Somente %d/%u linhas foram armazenadas.\n", max_rows, (unsigned int)SQL->NumRows(handle));
 		script->reportsrc(st);
 	}
 
@@ -15744,7 +15745,7 @@ BUILDIN(query_sql) {
 
 BUILDIN(query_logsql) {
 	if( !logs->config.sql_logs ) {// logs->mysql_handle == NULL
-		ShowWarning("buildin_query_logsql: SQL logs are disabled, query '%s' will not be executed.\n", script_getstr(st,2));
+		ShowWarning("buildin_query_logsql: Logs de SQL estao desativadas, query '%s' nao pode ser executada.\n", script_getstr(st,2));
 		script_pushint(st,-1);
 		return false;
 	}
@@ -15826,7 +15827,7 @@ BUILDIN(callshop)
 	nd = npc->name2id(shopname);
 	if( !nd || nd->bl.type != BL_NPC || (nd->subtype != SHOP && nd->subtype != CASHSHOP) )
 	{
-		ShowError("buildin_callshop: Shop [%s] not found (or NPC is not shop type)\n", shopname);
+		ShowError("buildin_callshop: Loja [%s] nao encontrada (ou o NPC nao e do tipo correto)\n", shopname);
 		script_pushint(st,0);
 		return false;
 	}
@@ -16034,22 +16035,22 @@ BUILDIN(addmonsterdrop) {
 
 	if( monster == mob->dummy ) {
 		if( script_isstringtype(st,2) ) {
-			ShowError("buildin_addmonsterdrop: invalid mob name: '%s'.\n", script_getstr(st,2));
+			ShowError("buildin_addmonsterdrop: nome de mob invalido: '%s'.\n", script_getstr(st,2));
 		} else {
-			ShowError("buildin_addmonsterdrop: invalid mob id: '%d'.\n", script_getnum(st,2));
+			ShowError("buildin_addmonsterdrop: id de mob invalido: '%d'.\n", script_getnum(st,2));
 		}
 		return false;
 	}
 
 	item_id = script_getnum(st,3);
 	if( !itemdb->exists(item_id) ) {
-		ShowError("buildin_addmonsterdrop: Invalid item ID: '%d'.\n", item_id);
+		ShowError("buildin_addmonsterdrop: ID de item invalido: '%d'.\n", item_id);
 		return false;
 	}
 
 	rate = script_getnum(st,4);
 	if( rate < 1 || rate > 10000 ) {
-		ShowWarning("buildin_addmonsterdrop: Invalid drop rate '%d'. Capping to the [1:10000] range.\n", rate);
+		ShowWarning("buildin_addmonsterdrop: Taxa de drop invalida '%d'. Nivelamento para alcance [1:10000].\n", rate);
 		rate = cap_value(rate,1,10000);
 	}
 
@@ -16094,16 +16095,16 @@ BUILDIN(delmonsterdrop) {
 
 	if( monster == mob->dummy ) {
 		if( script_isstringtype(st, 2) ) {
-			ShowError("buildin_delmonsterdrop: invalid mob name: '%s'.\n", script_getstr(st,2));
+			ShowError("buildin_delmonsterdrop: nome de mob invalido: '%s'.\n", script_getstr(st,2));
 		} else {
-			ShowError("buildin_delmonsterdrop: invalid mob id: '%d'.\n", script_getnum(st,2));
+			ShowError("buildin_delmonsterdrop: id de mob invalido: '%d'.\n", script_getnum(st,2));
 		}
 		return false;
 	}
 
 	item_id = script_getnum(st,3);
 	if( !itemdb->exists(item_id) ) {
-		ShowError("buildin_delmonsterdrop: Invalid item ID: '%d'.\n", item_id);
+		ShowError("buildin_delmonsterdrop: ID de item invalido: '%d'.\n", item_id);
 		return false;
 	}
 
@@ -16132,7 +16133,7 @@ BUILDIN(getmonsterinfo)
 
 	mob_id = script_getnum(st,2);
 	if (!mob->db_checkid(mob_id)) {
-		ShowError("buildin_getmonsterinfo: Wrong Monster ID: %i\n", mob_id);
+		ShowError("buildin_getmonsterinfo: ID errado de monstro: %i\n", mob_id);
 		if ( !script_getnum(st,3) ) //requested a string
 			script_pushconststr(st,"null");
 		else
@@ -16246,7 +16247,7 @@ BUILDIN(searchitem)
 
 	if( !data_isreference(data) )
 	{
-		ShowError("script:searchitem: not a variable\n");
+		ShowError("script:searchitem: sem uma variavel\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not a variable
@@ -16265,7 +16266,7 @@ BUILDIN(searchitem)
 
 	if( is_string_variable(name) )
 	{// string array
-		ShowError("script:searchitem: not an integer array reference\n");
+		ShowError("script:searchitem: nao ha uma referencia de array inteira\n");
 		script->reportdata(data);
 		st->state = END;
 		return false;// not supported
@@ -16294,12 +16295,12 @@ BUILDIN(rid2name) {
 			case BL_HOM: script_pushstrcopy(st,((TBL_HOM*)bl)->homunculus.name); break;
 			case BL_MER: script_pushstrcopy(st,((TBL_MER*)bl)->db->name); break;
 			default:
-				ShowError("buildin_rid2name: BL type unknown.\n");
+				ShowError("buildin_rid2name: tipo BL desconhecido.\n");
 				script_pushconststr(st,"");
 				break;
 		}
 	} else {
-		ShowError("buildin_rid2name: invalid RID\n");
+		ShowError("buildin_rid2name: RID invalido\n");
 		script_pushconststr(st,"(null)");
 	}
 	return true;
@@ -16489,7 +16490,7 @@ BUILDIN(unitattack) {
 			((TBL_PET *)unit_bl)->target_id = target_bl->id;
 			break;
 		default:
-			ShowError("script:unitattack: unsupported source unit type %d\n", unit_bl->type);
+			ShowError("script:unitattack: tipo de unidade da source insuportada %d\n", unit_bl->type);
 			script_pushint(st, 0);
 			return false;
 	}
@@ -16690,7 +16691,7 @@ BUILDIN(awake) {
 	struct npc_data* nd;
 
 	if( ( nd = npc->name2id(script_getstr(st, 2)) ) == NULL ) {
-		ShowError("awake: NPC \"%s\" not found\n", script_getstr(st, 2));
+		ShowError("awake: NPC \"%s\" nao encontrado\n", script_getstr(st, 2));
 		return false;
 	}
 
@@ -16735,7 +16736,7 @@ BUILDIN(getvariableofnpc)
 	data = script_getdata(st,2);
 	if( !data_isreference(data) )
 	{// Not a reference (aka varaible name)
-		ShowError("script:getvariableofnpc: not a variable\n");
+		ShowError("script:getvariableofnpc: sem nenhuma variavel\n");
 		script->reportdata(data);
 		script_pushnil(st);
 		st->state = END;
@@ -16745,7 +16746,7 @@ BUILDIN(getvariableofnpc)
 	name = reference_getname(data);
 	if( *name != '.' || name[1] == '@' )
 	{// not a npc variable
-		ShowError("script:getvariableofnpc: invalid scope (not npc variable)\n");
+		ShowError("script:getvariableofnpc: scopo invalido (Sem variavel de npc)\n");
 		script->reportdata(data);
 		script_pushnil(st);
 		st->state = END;
@@ -16755,7 +16756,7 @@ BUILDIN(getvariableofnpc)
 	nd = npc->name2id(script_getstr(st,3));
 	if( nd == NULL || nd->subtype != SCRIPT || nd->u.scr.script == NULL )
 	{// NPC not found or has no script
-		ShowError("script:getvariableofnpc: can't find npc %s\n", script_getstr(st,3));
+		ShowError("script:getvariableofnpc: nao foi possivel encontrar o npc %s\n", script_getstr(st,3));
 		script_pushnil(st);
 		st->state = END;
 		return false;
@@ -16785,7 +16786,7 @@ BUILDIN(warpportal) {
 
 	bl = map->id2bl(st->oid);
 	if( bl == NULL ) {
-		ShowError("script:warpportal: npc is needed\n");
+		ShowError("script:warpportal: e necessario um npc\n");
 		return false;
 	}
 
@@ -16849,7 +16850,7 @@ BUILDIN(checkcell) {
 	cell_chk type = (cell_chk)script_getnum(st,5);
 
 	if ( m == -1 ) {
-		ShowWarning("checkcell: Attempted to run on unexsitent map '%s', type %d, x/y %d,%d\n",script_getstr(st,2),type,x,y);
+		ShowWarning("checkcell: Tentativa de execucao em um mapa inexistente '%s', type %d, x/y %d,%d\n",script_getstr(st,2),type,x,y);
 		return true;
 	}
 
@@ -16875,7 +16876,7 @@ BUILDIN(setcell) {
 	int x,y;
 
 	if ( m == -1 ) {
-		ShowWarning("setcell: Attempted to run on unexistent map '%s', type %d, x1/y1 - %d,%d | x2/y2 - %d,%d\n",script_getstr(st, 2),type,x1,y1,x2,y2);
+		ShowWarning("setcell: Tentativa de execucao em um mapa inexistente '%s', type %d, x1/y1 - %d,%d | x2/y2 - %d,%d\n",script_getstr(st, 2),type,x1,y1,x2,y2);
 		return true;
 	}
 
@@ -17104,7 +17105,7 @@ BUILDIN(questinfo)
 	if (script_hasdata(st, 4)) {
 		int color = script_getnum(st, 4);
 		if (color < 0 || color > 3) {
-			ShowWarning("buildin_questinfo: invalid color '%d', changing to 0\n",color);
+			ShowWarning("buildin_questinfo: cor invalida '%d', mudando para 0\n",color);
 			script->reportfunc(st);
 			color = 0;
 		}
@@ -17117,7 +17118,7 @@ BUILDIN(questinfo)
 		int job = script_getnum(st, 5);
 
 		if (!pc->db_checkid(job)) {
-			ShowError("buildin_questinfo: Nonexistant Job Class.\n");
+			ShowError("buildin_questinfo: Classe nao existente.\n");
 		} else {
 			qi.hasJob = true;
 			qi.job = (unsigned short)job;
@@ -17166,7 +17167,7 @@ BUILDIN(erasequest)
 	if (script_hasdata(st, 3)) {
 		int quest_id;
 		if (script_getnum(st, 3) < script_getnum(st, 2)) {
-			ShowError("buildin_erasequest: The second quest id must be greater than the id of the first.\n");
+			ShowError("buildin_erasequest: A segunda id de busca deve ser maior do que a primeira.\n");
 			return false;
 		}
 		for (quest_id = script_getnum(st, 2); quest_id < script_getnum(st, 3); quest_id++) {
@@ -17189,7 +17190,7 @@ BUILDIN(completequest)
 	if (script_hasdata(st, 3)) {
 		int quest_id;
 		if (script_getnum(st, 3) < script_getnum(st, 2)) {
-			ShowError("buildin_completequest: The second quest id must be greater than the id of the first.\n");
+			ShowError("buildin_completequest: A segunda id de busca deve ser maior do que a primeira.\n");
 			return false;
 		}
 		for (quest_id = script_getnum(st, 2); quest_id < script_getnum(st, 3); quest_id++) {
@@ -17217,7 +17218,7 @@ BUILDIN(questactive) {
 	int qid, i;
 
 	if (sd == NULL) {
-		ShowError("questactive: no player attached!");
+		ShowError("questactive: nenhum jogador anexado!");
 		return false;
 	}
 
@@ -17277,7 +17278,7 @@ BUILDIN(showevent) {
 	if( script_hasdata(st, 3) ) {
 		color = script_getnum(st, 3);
 		if( color < 0 || color > 3 ) {
-			ShowWarning("buildin_showevent: invalid color '%d', changing to 0\n",color);
+			ShowWarning("buildin_showevent: cor invalida '%d', mudando para 0\n",color);
 			script->reportfunc(st);
 			color = 0;
 		}
@@ -17534,7 +17535,7 @@ BUILDIN(bg_get_data)
 	{
 		case 0: script_pushint(st, bgd->count); break;
 		default:
-			ShowError("script:bg_get_data: unknown data identifier %d\n", type);
+			ShowError("script:bg_get_data: dados do identificador desconhecidos %d\n", type);
 			break;
 	}
 
@@ -17555,7 +17556,7 @@ BUILDIN(instance_create) {
 	if( script_hasdata(st,4) ) {
 		type = script_getnum(st, 4);
 		if( type < IOT_NONE || type >= IOT_MAX ) {
-			ShowError("buildin_instance_create: unknown instance type %d for '%s'\n",type,name);
+			ShowError("buildin_instance_create: tipo de instancia desconhecida %d para '%s'\n",type,name);
 			return true;
 		}
 	}
@@ -17567,10 +17568,10 @@ BUILDIN(instance_create) {
 	} else if( res < 0 ) {
 		const char *err;
 		switch(res) {
-			case -3: err = "No free instances"; break;
-			case -2: err = "Invalid party ID"; break;
-			case -1: err = "Invalid type"; break;
-			default: err = "Unknown"; break;
+			case -3: err = "Nenhuma instancia livre"; break;
+			case -2: err = "ID de grupo invalido"; break;
+			case -1: err = "Tipo invalido"; break;
+			default: err = "Desconhecido"; break;
 		}
 		ShowError("buildin_instance_create: %s [%d].\n", err, res);
 		script_pushint(st, -2);
@@ -17591,7 +17592,7 @@ BUILDIN(instance_destroy) {
 	else return true;
 
 	if( !instance->valid(instance_id) ) {
-		ShowError("buildin_instance_destroy: Trying to destroy invalid instance %d.\n", instance_id);
+		ShowError("buildin_instance_destroy: Tentando destruir uma instancia invalida %d.\n", instance_id);
 		return true;
 	}
 
@@ -17614,7 +17615,7 @@ BUILDIN(instance_attachmap)
 		map_name = script_getstr(st, 5);
 
 	if ((m = instance->add_map(name, instance_id, usebasename, map_name)) < 0) { // [Saithis]
-		ShowError("buildin_instance_attachmap: instance creation failed (%s): %d\n", name, m);
+		ShowError("buildin_instance_attachmap: falha na criacao de instancia (%s): %d\n", name, m);
 		script_pushconststr(st, "");
 		return true;
 	}
@@ -17636,7 +17637,7 @@ BUILDIN(instance_detachmap) {
 	else return true;
 
 	if( (m = map->mapname2mapid(str)) < 0 || (m = instance->map2imap(m,instance_id)) < 0 ) {
-		ShowError("buildin_instance_detachmap: Trying to detach invalid map %s\n", str);
+		ShowError("buildin_instance_detachmap: Tentando separar um mapa invalido %s\n", str);
 		return true;
 	}
 
@@ -17684,12 +17685,12 @@ BUILDIN(instance_init) {
 	int instance_id = script_getnum(st, 2);
 
 	if( !instance->valid(instance_id) ) {
-		ShowError("instance_init: invalid instance id %d.\n",instance_id);
+		ShowError("instance_init: id de instancia invalida %d.\n",instance_id);
 		return true;
 	}
 
 	if( instance->list[instance_id].state != INSTANCE_IDLE ) {
-		ShowError("instance_init: instance already initialized.\n");
+		ShowError("instance_init: a instancia ja foi iniciada.\n");
 		return true;
 	}
 
@@ -17742,7 +17743,7 @@ BUILDIN(instance_npcname) {
 		snprintf(npcname, sizeof(npcname), "dup_%d_%d", instance_id, nd->bl.id);
 		script_pushconststr(st,npcname);
 	} else {
-		ShowError("script:instance_npcname: invalid instance NPC (instance_id: %d, NPC name: \"%s\".)\n", instance_id, str);
+		ShowError("script:instance_npcname: NPC de instancia invalido (instance_id: %d, nome do NPC: \"%s\".)\n", instance_id, str);
 		st->state = END;
 		return false;
 	}
@@ -17881,10 +17882,10 @@ BUILDIN(instance_check_party)
 	max  = script_hasdata(st,5) ? script_getnum(st,5) : MAX_LEVEL; // Maxium Level allowed to join the Instance.
 
 	if( min < 1 || min > MAX_LEVEL) {
-		ShowError("instance_check_party: Invalid min level, %d\n", min);
+		ShowError("instance_check_party: Nivel minimo invalido, %d\n", min);
 		return true;
 	} else if(  max < 1 || max > MAX_LEVEL) {
-		ShowError("instance_check_party: Invalid max level, %d\n", max);
+		ShowError("instance_check_party: Nivel maximo invalido, %d\n", max);
 		return true;
 	}
 
@@ -17940,10 +17941,10 @@ BUILDIN(instance_check_guild)
 	max = script_hasdata(st,5) ? script_getnum(st,5) : MAX_LEVEL;
 
 	if( min < 1 || min > MAX_LEVEL ){
-		ShowError("instance_check_guild: Invalid min level, %d\n", min);
+		ShowError("instance_check_guild: Nivel minimo invalido, %d\n", min);
 		return true;
 	} else if( max < 1 || max > MAX_LEVEL ){
-		ShowError("instance_check_guild: Invalid max level, %d\n", max);
+		ShowError("instance_check_guild: Nivel maximo invalido, %d\n", max);
 		return true;
 	}
 
@@ -18046,7 +18047,7 @@ BUILDIN(areamobuseskill) {
 	int range,mobid,skill_id,skill_lv,casttime,emotion,target,cancel;
 
 	if( (m = map->mapname2mapid(script_getstr(st,2))) < 0 ) {
-		ShowError("areamobuseskill: invalid map name.\n");
+		ShowError("areamobuseskill: nome de mapa invalido.\n");
 		return true;
 	}
 
@@ -18107,7 +18108,7 @@ BUILDIN(pushpc)
 
 	if(dir>7)
 	{
-		ShowWarning("buildin_pushpc: Invalid direction %d specified.\n", dir);
+		ShowWarning("buildin_pushpc: Direcao especificada invalida %d.\n", dir);
 		script->reportsrc(st);
 
 		dir%= 8;  // trim spin-over
@@ -18162,13 +18163,13 @@ BUILDIN(searchstores)
 
 	if( !uses )
 	{
-		ShowError("buildin_searchstores: Amount of uses cannot be zero.\n");
+		ShowError("buildin_searchstores: A quantidade de uso nao pode ser zero.\n");
 		return false;
 	}
 
 	if( effect > 1 )
 	{
-		ShowError("buildin_searchstores: Invalid effect id %hu, specified.\n", effect);
+		ShowError("buildin_searchstores: Id de efeito invalido %hu, especifique.\n", effect);
 		return false;
 	}
 
@@ -18196,7 +18197,7 @@ BUILDIN(showdigit)
 
 		if( type > 3 )
 		{
-			ShowError("buildin_showdigit: Invalid type %u.\n", type);
+			ShowError("buildin_showdigit: Tipo invalido %u.\n", type);
 			return false;
 		}
 	}
@@ -18264,7 +18265,7 @@ BUILDIN(getargcount) {
 	struct script_retinfo* ri;
 
 	if( st->stack->defsp < 1 || st->stack->stack_data[st->stack->defsp - 1].type != C_RETINFO ) {
-		ShowError("script:getargcount: used out of function or callsub label!\n");
+		ShowError("script:getargcount: usado fora da funcao ou callsub label!\n");
 		st->state = END;
 		return false;
 	}
@@ -18587,7 +18588,7 @@ BUILDIN(checkre)
 #endif
 			break;
 		default:
-			ShowWarning("buildin_checkre: unknown parameter.\n");
+			ShowWarning("buildin_checkre: parametro desconhecido.\n");
 			break;
 	}
 	return true;
@@ -18601,16 +18602,16 @@ BUILDIN(getrandgroupitem) {
 	int count = script_getnum(st, 3);
 
 	if( !(data = itemdb->exists(nameid)) ) {
-		ShowWarning("buildin_getrandgroupitem: unknown item id %d\n",nameid);
+		ShowWarning("buildin_getrandgroupitem: id de item desconhecido %d\n",nameid);
 		script_pushint(st, 1);
 	} else if ( count <= 0 ) {
-		ShowError("buildin_getrandgroupitem: qty is <= 0!\n");
+		ShowError("buildin_getrandgroupitem: qty e <= 0!\n");
 		script_pushint(st, 1);
 	} else if ( !data->group ) {
-		ShowWarning("buildin_getrandgroupitem: item '%s' (%d) isn't a group!\n",data->name,nameid);
+		ShowWarning("buildin_getrandgroupitem: item '%s' (%d) nao e um grupo!\n",data->name,nameid);
 		script_pushint(st, 1);
 	} else if( !( sd = script->rid2sd(st) ) ) {
-		ShowWarning("buildin_getrandgroupitem: no player attached!! (item %s (%d))\n",data->name,nameid);
+		ShowWarning("buildin_getrandgroupitem: nenhum jogador anexado!! (item %s (%d))\n",data->name,nameid);
 		script_pushint(st, 1);
 	} else {
 		int i, get_count, flag;
@@ -18672,7 +18673,7 @@ BUILDIN(cleanmap)
 		if (x0 > 0 && y0 > 0 && x1 > 0 && y1 > 0) {
 			map->foreachinarea(script->cleanfloor_sub, m, x0, y0, x1, y1, BL_ITEM);
 		} else {
-			ShowError("cleanarea: invalid coordinate defined!\n");
+			ShowError("cleanarea: coordenada definida invalida!\n");
 			return false;
 		}
 	}
@@ -18701,11 +18702,11 @@ BUILDIN(npcskill) {
 	nd = (struct npc_data *)map->id2bl(sd->npc_id);
 
 	if (stat_point > battle_config.max_third_parameter) {
-		ShowError("npcskill: stat point exceeded maximum of %d.\n",battle_config.max_third_parameter );
+		ShowError("npcskill: pontos maximos de status excedido de %d.\n",battle_config.max_third_parameter );
 		return false;
 	}
 	if (npc_level > MAX_LEVEL) {
-		ShowError("npcskill: level exceeded maximum of %d.\n", MAX_LEVEL);
+		ShowError("npcskill: nivel maximo excedido de %d.\n", MAX_LEVEL);
 		return false;
 	}
 	if (nd == NULL) {
@@ -18750,9 +18751,9 @@ BUILDIN(montransform) {
 
 	if( mob_id == 0 ) {
 		if( script_isstringtype(st, 2) )
-			ShowWarning("buildin_montransform: Attempted to use non-existing monster '%s'.\n", script_getstr(st, 2));
+			ShowWarning("buildin_montransform: Tentativa de uso de ID de monstro nao existente '%s'.\n", script_getstr(st, 2));
 		else
-			ShowWarning("buildin_montransform: Attempted to use non-existing monster of ID '%d'.\n", script_getnum(st, 2));
+			ShowWarning("buildin_montransform: Tentativa de uso de ID de monstro nao existente '%d'.\n", script_getnum(st, 2));
 		return false;
 	}
 
@@ -18765,7 +18766,7 @@ BUILDIN(montransform) {
 
 	if (script_hasdata(st, 4)) {
 		if( !(type > SC_NONE && type < SC_MAX) ) {
-			ShowWarning("buildin_montransform: Unsupported status change id %d\n", type);
+			ShowWarning("buildin_montransform: Id de mudanca de status nao suportada %d\n", type);
 			return false;
 		}
 	}
@@ -18853,7 +18854,7 @@ BUILDIN(queuesize) {
 	int idx = script_getnum(st, 2);
 
 	if( idx < 0 || idx >= script->hqs || script->hq[idx].size == -1 ) {
-		ShowWarning("buildin_queuesize: unknown queue id %d\n",idx);
+		ShowWarning("buildin_queuesize: id de fila desconhecido %d\n",idx);
 		script_pushint(st, 0);
 	} else {
 		script_pushint(st, script->hq[ idx ].items);
@@ -18864,7 +18865,7 @@ BUILDIN(queuesize) {
 bool script_hqueue_add(int idx, int var)
 {
 	if( idx < 0 || idx >= script->hqs || script->hq[idx].size == -1 ) {
-		ShowWarning("script_hqueue_add: unknown queue id %d\n",idx);
+		ShowWarning("script_hqueue_add: id de fila desconhecido %d\n",idx);
 		return true;
 	} else {
 		int i;
@@ -18917,7 +18918,7 @@ BUILDIN(queueadd) {
 }
 bool script_hqueue_remove(int idx, int var) {
 	if( idx < 0 || idx >= script->hqs || script->hq[idx].size == -1 ) {
-		ShowWarning("script_hqueue_remove: unknown queue id %d (used with var %d)\n",idx,var);
+		ShowWarning("script_hqueue_remove: id de fila desconhecido %d (usado com variavel %d)\n",idx,var);
 		return true;
 	} else {
 		int i;
@@ -18969,10 +18970,10 @@ BUILDIN(queueopt) {
 	int var = script_getnum(st, 3);
 
 	if( idx < 0 || idx >= script->hqs || script->hq[idx].size == -1 ) {
-		ShowWarning("buildin_queueopt: unknown queue id %d\n",idx);
+		ShowWarning("buildin_queueopt: id de fila desconhecido %d\n",idx);
 		script_pushint(st, 1);
 	} else if( var <= HQO_NONE || var >= HQO_MAX ) {
-		ShowWarning("buildin_queueopt: unknown optionType %d\n",var);
+		ShowWarning("buildin_queueopt: tipo de opcao desconhecida %d\n",var);
 		script_pushint(st, 1);
 	} else {
 		switch( (enum hQueueOpt)var ) {
@@ -18995,7 +18996,7 @@ BUILDIN(queueopt) {
 					script->hq[idx].onMapChange[0] = '\0';
 				break;
 			default:
-				ShowWarning("buildin_queueopt: unsupported optionType %d\n",var);
+				ShowWarning("buildin_queueopt: tipo de opcao nao suportada %d\n",var);
 				script_pushint(st, 1);
 				break;
 		}
@@ -19006,7 +19007,7 @@ BUILDIN(queueopt) {
 bool script_hqueue_del(int idx)
 {
 	if( idx < 0 || idx >= script->hqs || script->hq[idx].size == -1 ) {
-		ShowWarning("script_queue_del: unknown queue id %d\n",idx);
+		ShowWarning("script_queue_del: id de fila desconhecido %d\n",idx);
 		return true;
 	} else {
 		int i;
@@ -19042,7 +19043,7 @@ BUILDIN(queuedel) {
 }
 void script_hqueue_clear(int idx) {
 	if( idx < 0 || idx >= script->hqs || script->hq[idx].size == -1 ) {
-		ShowWarning("script_hqueue_clear: unknown queue id %d\n",idx);
+		ShowWarning("script_hqueue_clear: id de fila desconhecido %d\n",idx);
 		return;
 	} else {
 		struct map_session_data *sd;
@@ -19077,13 +19078,13 @@ BUILDIN(queueiterator) {
 	int i;
 
 	if( qid < 0 || qid >= script->hqs || script->hq[qid].size == -1 || !(queue = script->queue(qid)) ) {
-		ShowWarning("queueiterator: invalid queue id %d\n",qid);
+		ShowWarning("queueiterator: id de fila invalido %d\n",qid);
 		return true;
 	}
 
 	/* what if queue->size is 0? (iterating a empty queue?) */
 	if( queue->size <= 0 ) {
-		ShowWarning("queueiterator: attempting to iterate on on empty queue id %d!\n",qid);
+		ShowWarning("queueiterator: id de fila vazio %d!\n",qid);
 		return true;
 	}
 
@@ -19115,7 +19116,7 @@ BUILDIN(qiget) {
 	int idx = script_getnum(st, 2);
 
 	if( idx < 0 || idx >= script->hqis ) {
-		ShowWarning("buildin_qiget: unknown queue iterator id %d\n",idx);
+		ShowWarning("buildin_qiget: id de fila desconhecido %d\n",idx);
 		script_pushint(st, 0);
 	} else if (script->hqi[idx].pos >= script->hqi[idx].items) {
 		script_pushint(st, 0);
@@ -19132,7 +19133,7 @@ BUILDIN(qicheck) {
 	int idx = script_getnum(st, 2);
 
 	if( idx < 0 || idx >= script->hqis ) {
-		ShowWarning("buildin_qicheck: unknown queue iterator id %d\n",idx);
+		ShowWarning("buildin_qicheck: id de fila desconhecido %d\n",idx);
 		script_pushint(st, 0);
 	} else if (script->hqi[idx].pos >= script->hqi[idx].items) {
 		script_pushint(st, 0);
@@ -19147,7 +19148,7 @@ BUILDIN(qiclear) {
 	int idx = script_getnum(st, 2);
 
 	if( idx < 0 || idx >= script->hqis ) {
-		ShowWarning("buildin_qiclear: unknown queue iterator id %d\n",idx);
+		ShowWarning("buildin_qiclear: id de fila desconhecido %d\n",idx);
 		script_pushint(st, 1);
 	} else {
 		script->hqi[idx].items = -1;
@@ -19170,19 +19171,19 @@ BUILDIN(packageitem) {
 	else if ( script->current_item_id )
 		nameid = script->current_item_id;
 	else {
-		ShowWarning("buildin_packageitem: no item id provided and no item attached\n");
+		ShowWarning("buildin_packageitem: nenhum id de item providenciado e nenhum item anexado\n");
 		script_pushint(st, 1);
 		return true;
 	}
 
 	if( !(data = itemdb->exists(nameid)) ) {
-		ShowWarning("buildin_packageitem: unknown item id %d\n",nameid);
+		ShowWarning("buildin_packageitem: id de item desconhecido %d\n",nameid);
 		script_pushint(st, 1);
 	} else if ( !data->package ) {
-		ShowWarning("buildin_packageitem: item '%s' (%d) isn't a package!\n",data->name,nameid);
+		ShowWarning("buildin_packageitem: item '%s' (%d) nao e um pacote!\n",data->name,nameid);
 		script_pushint(st, 1);
 	} else if( !( sd = script->rid2sd(st) ) ) {
-		ShowWarning("buildin_packageitem: no player attached!! (item %s (%d))\n",data->name,nameid);
+		ShowWarning("buildin_packageitem: nenhum jogador anexado!! (item %s (%d))\n",data->name,nameid);
 		script_pushint(st, 1);
 	} else {
 		itemdb->package_item(sd,data->package);
@@ -19293,7 +19294,7 @@ BUILDIN(checkbound)
 		return false;
 
 	if( !(itemdb->exists(nameid)) ){
-		ShowError("script_checkbound: Invalid item ID = %d\n", nameid);
+		ShowError("script_checkbound: ID de item invalido = %d\n", nameid);
 		return false;
 	}
 
@@ -19301,7 +19302,7 @@ BUILDIN(checkbound)
 		bound_type = script_getnum(st,3);
 
 	if( bound_type <= -1 || bound_type > IBT_MAX ){
-		ShowError("script_checkbound: Not a valid bind type! Type=%d\n", bound_type);
+		ShowError("script_checkbound: Nao e um tipo de ligacao valida! Tipo=%d\n", bound_type);
 	}
 
 	ARR_FIND( 0, MAX_INVENTORY, i, (sd->status.inventory[i].nameid == nameid &&
@@ -19378,7 +19379,7 @@ BUILDIN(instance_set_respawn) {
 	if( instance_id == -1 || !instance->valid(instance_id) )
 		script_pushint(st, 0);
 	else if( (mid = map->mapname2mapid(map_name)) == -1 ) {
-		ShowError("buildin_instance_set_respawn: unknown map '%s'\n",map_name);
+		ShowError("buildin_instance_set_respawn: mapa desconhecido '%s'\n",map_name);
 		script_pushint(st, 0);
 	} else {
 		int i;
@@ -19395,7 +19396,7 @@ BUILDIN(instance_set_respawn) {
 		if( i != instance->list[instance_id].num_map )
 			script_pushint(st, 1);
 		else {
-			ShowError("buildin_instance_set_respawn: map '%s' not part of instance '%s'\n",map_name,instance->list[instance_id].name);
+			ShowError("buildin_instance_set_respawn: mapa '%s' nao faz parte da instancia '%s'\n",map_name,instance->list[instance_id].name);
 			script_pushint(st, 0);
 		}
 	}
@@ -19414,18 +19415,18 @@ BUILDIN(openshop)
 	if (script_hasdata(st, 2)) {
 		const char *name = script_getstr(st, 2);
 		if (!(nd = npc->name2id(name)) || nd->subtype != SCRIPT) {
-			ShowWarning("buildin_openshop(\"%s\"): trying to run without a proper NPC!\n",name);
+			ShowWarning("buildin_openshop(\"%s\"): tentando executar sem um NPC adequado!\n",name);
 			return false;
 		}
 	} else if (!(nd = map->id2nd(st->oid))) {
-		ShowWarning("buildin_openshop: trying to run without a proper NPC!\n");
+		ShowWarning("buildin_openshop: tentando executar sem um NPC adequado!\n");
 		return false;
 	}
 	if (!( sd = script->rid2sd(st))) {
-		ShowWarning("buildin_openshop: trying to run without a player attached!\n");
+		ShowWarning("buildin_openshop: tentando executar sem um jogador anexado!\n");
 		return false;
 	} else if (!nd->u.scr.shop || !nd->u.scr.shop->items) {
-		ShowWarning("buildin_openshop: trying to open without any items!\n");
+		ShowWarning("buildin_openshop: tentando executar sem nenhum item!\n");
 		return false;
 	}
 
@@ -19450,10 +19451,10 @@ BUILDIN(sellitem) {
 	int qty = 0;
 
 	if( !(nd = map->id2nd(st->oid)) ) {
-		ShowWarning("buildin_sellitem: trying to run without a proper NPC!\n");
+		ShowWarning("buildin_sellitem: tentando executar sem um NPC adequado!\n");
 		return false;
 	} else if ( !(it = itemdb->exists(id)) ) {
-		ShowWarning("buildin_sellitem: unknown item id '%d'!\n",id);
+		ShowWarning("buildin_sellitem: id de item desconhecido '%d'!\n",id);
 		return false;
 	}
 
@@ -19472,13 +19473,13 @@ BUILDIN(sellitem) {
 
 	if( nd->u.scr.shop->type == NST_MARKET ) {
 		if( !script_hasdata(st,4) || ( qty = script_getnum(st, 4) ) <= 0 ) {
-			ShowError("buildin_sellitem: invalid 'qty' for market-type shop!\n");
+			ShowError("buildin_sellitem: invalido 'qty' para loja do tipo mercado!\n");
 			return false;
 		}
 	}
 
 	if( ( nd->u.scr.shop->type == NST_ZENY || nd->u.scr.shop->type == NST_MARKET )  && value*0.75 < it->value_sell*1.24 ) {
-		ShowWarning("buildin_sellitem: Item %s [%d] discounted buying price (%d->%d) is less than overcharged selling price (%d->%d) in NPC %s (%s)\n",
+		ShowWarning("buildin_sellitem: O item %s [%d] esta com o preco de compra com desconto (%d->%d) menor do que o preco de venda (%d->%d) no NPC %s (%s)\n",
 					it->name, id, value, (int)(value*0.75), it->value_sell, (int)(it->value_sell*1.24), nd->exname, nd->path);
 	}
 
@@ -19495,7 +19496,7 @@ BUILDIN(sellitem) {
 
 		if( i == nd->u.scr.shop->items ) {
 			if( nd->u.scr.shop->items == USHRT_MAX ) {
-				ShowWarning("buildin_sellitem: Can't add %s (%s/%s), shop list is full!\n", it->name, nd->exname, nd->path);
+				ShowWarning("buildin_sellitem: Nao foi possivel add %s (%s/%s), a lista da loja esta cheia!\n", it->name, nd->exname, nd->path);
 				return false;
 			}
 			i = nd->u.scr.shop->items;
@@ -19521,7 +19522,7 @@ BUILDIN(stopselling) {
 	int i, id = script_getnum(st,2);
 
 	if( !(nd = map->id2nd(st->oid)) || !nd->u.scr.shop ) {
-		ShowWarning("buildin_stopselling: trying to run without a proper NPC!\n");
+		ShowWarning("buildin_stopselling: tentando executar sem um NPC adequado!\n");
 		return false;
 	}
 
@@ -19572,7 +19573,7 @@ BUILDIN(setcurrency)
 	struct npc_data *nd = map->id2nd(st->oid);
 
 	if (!nd) {
-		ShowWarning("buildin_setcurrency: trying to run without a proper NPC!\n");
+		ShowWarning("buildin_setcurrency: tentando executar sem um NPC adequado!\n");
 		return false;
 	}
 
@@ -19593,10 +19594,10 @@ BUILDIN(tradertype) {
 	struct npc_data *nd;
 
 	if( !(nd = map->id2nd(st->oid)) ) {
-		ShowWarning("buildin_tradertype: trying to run without a proper NPC!\n");
+		ShowWarning("buildin_tradertype: tentando executar sem um NPC adequado!\n");
 		return false;
 	} else if ( type < 0 || type > NST_MAX ) {
-		ShowWarning("buildin_tradertype: invalid type param %d!\n",type);
+		ShowWarning("buildin_tradertype: tipo de parametro invalido %d!\n",type);
 		return false;
 	}
 
@@ -19614,7 +19615,7 @@ BUILDIN(tradertype) {
 
 #if PACKETVER < 20131223
 	if( type == NST_MARKET ) {
-		ShowWarning("buildin_tradertype: NST_MARKET is only available with PACKETVER 20131223 or newer!\n");
+		ShowWarning("buildin_tradertype: NST_MARKET e apenas valido no PACKETVER 20131223 ou superior!\n");
 		script->reportsrc(st);
 	}
 #endif
@@ -19633,7 +19634,7 @@ BUILDIN(purchaseok) {
 	struct npc_data *nd;
 
 	if( !(nd = map->id2nd(st->oid)) || !nd->u.scr.shop ) {
-		ShowWarning("buildin_purchaseok: trying to run without a proper NPC!\n");
+		ShowWarning("buildin_purchaseok: tentando executar sem um NPC adequado!\n");
 		return false;
 	}
 
@@ -19652,13 +19653,13 @@ BUILDIN(shopcount) {
 	unsigned short i;
 
 	if( !(nd = map->id2nd(st->oid)) ) {
-		ShowWarning("buildin_shopcount(%d): trying to run without a proper NPC!\n",id);
+		ShowWarning("buildin_shopcount(%d): tentando executar sem um NPC adequado!\n",id);
 		return false;
 	} else if ( !nd->u.scr.shop || !nd->u.scr.shop->items ) {
-		ShowWarning("buildin_shopcount(%d): trying to use without any items!\n",id);
+		ShowWarning("buildin_shopcount(%d): tentando usar sem nenhum item!\n",id);
 		return false;
 	} else if ( nd->u.scr.shop->type != NST_MARKET ) {
-		ShowWarning("buildin_shopcount(%d): trying to use on a non-NST_MARKET shop!\n",id);
+		ShowWarning("buildin_shopcount(%d): tentando usar uma loja non-NST_MARKET!\n",id);
 		return false;
 	}
 
@@ -19718,7 +19719,7 @@ BUILDIN(showscript) {
 	}
 
 	if (!bl) {
-		ShowError("buildin_showscript: Script not attached. (id=%d, rid=%d, oid=%d)\n", id, st->rid, st->oid);
+		ShowError("buildin_showscript: Nenhum Script ligado. (id=%d, rid=%d, oid=%d)\n", id, st->rid, st->oid);
 		script_pushint(st, 0);
 		return false;
 	}
@@ -19790,16 +19791,16 @@ bool script_add_builtin(const struct script_function *buildin, bool override) {
 		while( *p == '?' ) ++p;
 		if( *p == '*' ) ++p;
 		if( *p != 0 ) {
-			ShowWarning("add_builtin: ignoring function \"%s\" with invalid arg \"%s\".\n", buildin->name, buildin->arg);
+			ShowWarning("add_builtin: ignorando funcao \"%s\" com argumento invalido \"%s\".\n", buildin->name, buildin->arg);
 			return false;
 		}
 	}
 	if( !buildin->name || *script->skip_word(buildin->name) != 0 ) {
-		ShowWarning("add_builtin: ignoring function with invalid name \"%s\" (must be a word).\n", buildin->name);
+		ShowWarning("add_builtin: ignorando funcao com nome invalido \"%s\" (deve ser uma palavra).\n", buildin->name);
 		return false;
 	}
 	if ( !buildin->func ) {
-		ShowWarning("add_builtin: ignoring function \"%s\" with invalid source function.\n", buildin->name);
+		ShowWarning("add_builtin: ignorando funcao \"%s\" com a funcao de source invalida.\n", buildin->name);
 		return false;
 	}
 	slen = buildin->arg ? strlen(buildin->arg) : 0;
@@ -20183,15 +20184,15 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(deletepset,"i"), // Delete a pattern set [MouseJstr]
 		BUILDIN_DEF(pcre_match,"ss"),
 #endif
-		BUILDIN_DEF(dispbottom,"s?"), //added from jA [Lupus] - Mod [SlexFire]
+		BUILDIN_DEF(dispbottom,"s?"), //adicionado do jA [Lupus] - Mod [SlexFire]
 		BUILDIN_DEF(getusersname,""),
 		BUILDIN_DEF(recovery,""),
 		BUILDIN_DEF(getpetinfo,"i"),
 		BUILDIN_DEF(gethominfo,"i"),
 		BUILDIN_DEF(getmercinfo,"i?"),
 		BUILDIN_DEF(checkequipedcard,"i"),
-		BUILDIN_DEF(globalmes,"s?"), //end jA addition
-		BUILDIN_DEF(unequip,"i"), // unequip command [Spectre]
+		BUILDIN_DEF(globalmes,"s?"), //fim jA addition
+		BUILDIN_DEF(unequip,"i"), // comando unequip [Spectre]
 		BUILDIN_DEF(getstrlen,"s"), //strlen [Valaris]
 		BUILDIN_DEF(charisalpha,"si"), //isalpha [Valaris]
 		BUILDIN_DEF(charat,"si"),
@@ -20211,24 +20212,24 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(replacestr,"sss??"),
 		BUILDIN_DEF(countstr,"ss?"),
 		BUILDIN_DEF(setnpcdisplay,"sv??"),
-		BUILDIN_DEF(compare,"ss"), // Lordalfa - To bring strstr to scripting Engine.
+		BUILDIN_DEF(compare,"ss"), // Lordalfa - Traz strstr para a Engine de scripting.
 		BUILDIN_DEF(strcmp,"ss"),
-		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] returns Items Buy / sell Price, etc info
-		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] set Items Buy / sell Price, etc info
-		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] returns CARD ID or other info from CARD slot N of equipped item
-		// List of mathematics commands --->
+		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] retorna as informações de compra/venda do item
+		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] define as informações de preço de compra/venda do item
+		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] retorna a ID da carta ou outra informação da carta no slot N equipado no item
+		// Lista de comandos matemáticos --->
 		BUILDIN_DEF(log10,"i"),
 		BUILDIN_DEF(sqrt,"i"), //[zBuffer]
 		BUILDIN_DEF(pow,"ii"), //[zBuffer]
 		BUILDIN_DEF(distance,"iiii"), //[zBuffer]
-		// <--- List of mathematics commands
+		// <--- Lista de comandos matemáticos
 		BUILDIN_DEF(min, "i*"),
 		BUILDIN_DEF(max, "i*"),
 		BUILDIN_DEF(md5,"s"),
-		// [zBuffer] List of dynamic var commands --->
+		// [zBuffer] Lista de comandos de varráveis dinâmicas --->
 		BUILDIN_DEF(getd,"s"),
 		BUILDIN_DEF(setd,"sv"),
-		// <--- [zBuffer] List of dynamic var commands
+		// <--- [zBuffer] Lista de comandos de varráveis dinâmicas
 		BUILDIN_DEF(petstat,"i"),
 		BUILDIN_DEF(callshop,"s?"), // [Skotlex]
 		BUILDIN_DEF(npcshopitem,"sii*"), // [Lance]
@@ -20240,9 +20241,9 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(equip2,"iiiiiii"),
 		BUILDIN_DEF(setbattleflag,"si"),
 		BUILDIN_DEF(getbattleflag,"s"),
-		BUILDIN_DEF(setitemscript,"is?"), //Set NEW item bonus script. Lupus
-		BUILDIN_DEF(disguise,"i"), //disguise player. Lupus
-		BUILDIN_DEF(undisguise,""), //undisguise player. Lupus
+		BUILDIN_DEF(setitemscript,"is?"), //Aciona NOVO script de bonus de item. Lupus
+		BUILDIN_DEF(disguise,"i"), //trasnforma o jogador. Lupus
+		BUILDIN_DEF(undisguise,""), //destransforma o jogador. Lupus
 		BUILDIN_DEF(getmonsterinfo,"ii"), //Lupus
 		BUILDIN_DEF(addmonsterdrop,"vii"),
 		BUILDIN_DEF(delmonsterdrop,"vi"),
@@ -20252,13 +20253,13 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(escape_sql,"v"),
 		BUILDIN_DEF(atoi,"s"),
 		BUILDIN_DEF(strtol,"si"),
-		// [zBuffer] List of player cont commands --->
+		// [zBuffer] Lista de comandos de jogador --->
 		BUILDIN_DEF(rid2name,"i"),
 		BUILDIN_DEF(pcfollow,"ii"),
 		BUILDIN_DEF(pcstopfollow,"i"),
 		BUILDIN_DEF(pcblockmove,"ii"),
 		// <--- [zBuffer] List of player cont commands
-		// [zBuffer] List of mob control commands --->
+		// [zBuffer] Lista de comandos para controle de mob --->
 		BUILDIN_DEF(unitwalk,"ii?"),
 		BUILDIN_DEF(unitkill,"i"),
 		BUILDIN_DEF(unitwarp,"isii"),
@@ -20266,9 +20267,9 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitstop,"i"),
 		BUILDIN_DEF(unittalk,"is"),
 		BUILDIN_DEF(unitemote,"ii"),
-		BUILDIN_DEF(unitskilluseid,"ivi?"), // originally by Qamera [Celest]
+		BUILDIN_DEF(unitskilluseid,"ivi?"), // orignal de Qamera [Celest]
 		BUILDIN_DEF(unitskillusepos,"iviii"), // [Celest]
-		// <--- [zBuffer] List of mob control commands
+		// <--- [zBuffer] Lista de comandos para controle de mob
 		BUILDIN_DEF(sleep,"i"),
 		BUILDIN_DEF(sleep2,"i"),
 		BUILDIN_DEF(awake,"s"),
@@ -20306,11 +20307,11 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(buyingstore,"i"),
 		BUILDIN_DEF(searchstores,"ii"),
 		BUILDIN_DEF(showdigit,"i?"),
-		// WoE SE
+		// GdE SE
 		BUILDIN_DEF(agitstart2,""),
 		BUILDIN_DEF(agitend2,""),
 		BUILDIN_DEF(agitcheck2,""),
-		// BattleGround
+		// Batalha Campal
 		BUILDIN_DEF(waitingroom2bg,"siiss?"),
 		BUILDIN_DEF(waitingroom2bg_single,"isiis"),
 		BUILDIN_DEF(bg_team_setxy,"iii"),
@@ -20324,7 +20325,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(bg_getareausers,"isiiii"),
 		BUILDIN_DEF(bg_updatescore,"sii"),
 
-		// Instancing
+		// Instâncias
 		BUILDIN_DEF(instance_create,"si?"),
 		BUILDIN_DEF(instance_destroy,"?"),
 		BUILDIN_DEF(instance_attachmap,"si??"),
@@ -20344,13 +20345,13 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF2(has_instance,"has_instance2","s"),
 
 		/**
-		 * 3rd-related
+		 * Ralacionado as 3rd
 		 **/
 		BUILDIN_DEF(makerune,"i"),
 		BUILDIN_DEF(hascashmount,""),//[Ind]
 		BUILDIN_DEF(setcashmount,""),//[Ind]
 		/**
-		 * rAthena and beyond!
+		 * rAthena e além!
 		 **/
 		BUILDIN_DEF(getargcount,""),
 		BUILDIN_DEF(getcharip,"?"),
@@ -20364,21 +20365,21 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF2(itemeffect,"consumeitem","v"), /* alias of itemeffect */
 		BUILDIN_DEF(delequip,"i"),
 		/**
-		 * @commands (script based)
+		 * @commands (base de script)
 		 **/
 		BUILDIN_DEF(bindatcmd, "ss???"),
 		BUILDIN_DEF(unbindatcmd, "s"),
 		BUILDIN_DEF(useatcmd, "s"),
 
 		/**
-		 * Item bound [Xantara] [Akinari] [Mhalicot/Hercules]
+		 * Item preso [Xantara] [Akinari] [Mhalicot/Hercules]
 		 **/
 		BUILDIN_DEF2(getitem,"getitembound","vii?"),
 		BUILDIN_DEF2(getitem2,"getitembound2","viiiiiiiii?"),
 		BUILDIN_DEF(countbound, "?"),
 		BUILDIN_DEF(checkbound, "i???????"),
 
-		//Quest Log System [Inkfish]
+		//Sistema de Log de Missões [Inkfish]
 		BUILDIN_DEF(questinfo, "ii??"),
 		BUILDIN_DEF(setquest, "i"),
 		BUILDIN_DEF(erasequest, "i?"),
@@ -20408,14 +20409,14 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(stand, "?"),
 		BUILDIN_DEF(issit, "?"),
 
-		BUILDIN_DEF(montransform, "vi?????"), // Monster Transform [malufett/Hercules]
+		BUILDIN_DEF(montransform, "vi?????"), // Transformação de Monstro [malufett/Hercules]
 
-		/* New BG Commands [Hercules] */
+		/* Novos Comandos da BG [Hercules] */
 		BUILDIN_DEF(bg_create_team,"sii"),
 		BUILDIN_DEF(bg_join_team,"i?"),
 		BUILDIN_DEF(bg_match_over,"s?"),
 
-		/* New Shop Support */
+		/* Suporte para Nova Loja */
 		BUILDIN_DEF(openshop,"?"),
 		BUILDIN_DEF(sellitem,"i??"),
 		BUILDIN_DEF(stopselling,"i"),
@@ -20430,7 +20431,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(_,"s"),
 	};
 	int i, len = ARRAYLENGTH(BUILDIN);
-	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alloc to speed up
+	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alocação para aumento de velocidade
 	memset(script->buildin + script->buildin_count, '\0', sizeof(char *) * len);
 	for( i = 0; i < len; i++ ) {
 		script->add_builtin(&BUILDIN[i], false);
@@ -20453,10 +20454,10 @@ void script_label_add(int key, int pos) {
 }
 
 /**
- * Sets source-end constants for scripts to play with
+ * Definição final de constantes da source para execução de scripts
  **/
 void script_hardcoded_constants(void) {
-	/* server defines */
+	/* definição de servidor */
 	script->set_constant("PACKETVER",PACKETVER,false);
 	script->set_constant("MAX_LEVEL",MAX_LEVEL,false);
 	script->set_constant("MAX_STORAGE",MAX_STORAGE,false);
@@ -20468,7 +20469,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("MAX_CHAT_USERS",MAX_CHAT_USERS,false);
 	script->set_constant("MAX_REFINE",MAX_REFINE,false);
 
-	/* status options */
+	/* opção de status */
 	script->set_constant("Option_Nothing",OPTION_NOTHING,false);
 	script->set_constant("Option_Sight",OPTION_SIGHT,false);
 	script->set_constant("Option_Hide",OPTION_HIDE,false);
@@ -20494,7 +20495,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("Option_Hanbok",OPTION_HANBOK,false);
 	script->set_constant("Option_Oktoberfest",OPTION_OKTOBERFEST,false);
 
-	/* status option compounds */
+	/* opção de status composto */
 	script->set_constant("Option_Dragon",OPTION_DRAGON,false);
 	script->set_constant("Option_Costume",OPTION_COSTUME,false);
 
@@ -20532,7 +20533,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("BG_AREA_WOS",BG_AREA_WOS,false);
 	script->set_constant("BG_QUEUE",BG_QUEUE,false);
 
-	/* Renewal */
+	/* Renovação */
 #ifdef RENEWAL
 	script->set_constant("RENEWAL", 1, false);
 #else
@@ -20571,7 +20572,7 @@ void script_hardcoded_constants(void) {
 }
 
 /**
- * a mapindex_name2id wrapper meant to help with invalid name handling
+ * mapindex_name2id invólucro destinado a ajudar a manipulação de nome inválido
  **/
 unsigned short script_mapindexname2id (struct script_state *st, const char* name) {
 	unsigned short index;
@@ -20584,7 +20585,7 @@ unsigned short script_mapindexname2id (struct script_state *st, const char* name
 }
 
 void script_defaults(void) {
-	// aegis->athena slot position conversion table
+	// aegis->athena posição do slot da tabela de conversão
 	unsigned int equip[SCRIPT_EQUIP_TABLE_SIZE] = {EQP_HEAD_TOP,EQP_ARMOR,EQP_HAND_L,EQP_HAND_R,EQP_GARMENT,EQP_SHOES,EQP_ACC_L,EQP_ACC_R,EQP_HEAD_MID,EQP_HEAD_LOW,EQP_COSTUME_HEAD_LOW,EQP_COSTUME_HEAD_MID,EQP_COSTUME_HEAD_TOP,EQP_COSTUME_GARMENT,EQP_SHADOW_ARMOR, EQP_SHADOW_WEAPON, EQP_SHADOW_SHIELD, EQP_SHADOW_SHOES, EQP_SHADOW_ACC_R, EQP_SHADOW_ACC_L};
 
 	script = &script_s;
@@ -20658,7 +20659,7 @@ void script_defaults(void) {
 	script->final = do_final_script;
 	script->reload = script_reload;
 
-	/* parse */
+	/* analisar */
 	script->parse = parse_script;
 	script->add_builtin = script_add_builtin;
 	script->parse_builtin = script_parse_builtin;
@@ -20796,7 +20797,7 @@ void script_defaults(void) {
 	script->run_func = run_func;
 	script->getfuncname = script_getfuncname;
 
-	/* script_config base */
+	/* base de script_config */
 	script->config.warn_func_mismatch_argtypes = 1;
 	script->config.warn_func_mismatch_paramnum = 1;
 	script->config.check_cmdcount = 65535;
@@ -20814,11 +20815,11 @@ void script_defaults(void) {
 	script->config.loadmap_event_name = "OnPCLoadMapEvent";
 	script->config.baselvup_event_name = "OnPCBaseLvUpEvent";
 	script->config.joblvup_event_name = "OnPCJobLvUpEvent";
-	script->config.ontouch_name = "OnTouch_";  //ontouch_name (runs on first visible char to enter area, picks another char if the first char leaves)
-	script->config.ontouch2_name = "OnTouch";  //ontouch2_name (run whenever a char walks into the OnTouch area)
-	script->config.onuntouch_name = "OnUnTouch";  //onuntouch_name (run whenever a char walks from the OnTouch area)
+	script->config.ontouch_name = "OnTouch_";  //ontouch_name (é executado no primeiro personagem visível que entrar na área, escolhe outro personagem se o primeiro personagem sair)
+	script->config.ontouch2_name = "OnTouch";  //ontouch2_name (executado sempre que um personagem anda para a área do OnTouch)
+	script->config.onuntouch_name = "OnUnTouch";  //onuntouch_name (executado sempre que um personagem anda na área do OnTouch)
 
-	// for ENABLE_CASE_CHECK
+	// para ENABLE_CASE_CHECK
 	script->calc_hash_ci = calc_hash_ci;
 	script->local_casecheck.add_str = script_local_casecheck_add_str;
 	script->local_casecheck.clear = script_local_casecheck_clear;
@@ -20838,10 +20839,10 @@ void script_defaults(void) {
 	script->global_casecheck.str_size = 0;
 	script->global_casecheck.str_pos = 0;
 	memset(script->global_casecheck.str_hash, 0, sizeof(script->global_casecheck.str_hash));
-	// end ENABLE_CASE_CHECK
+	// fim ENABLE_CASE_CHECK
 
 	/**
-	 * Array Handling
+	 * Manuseio de Array
 	 **/
 	script->array_src = script_array_src;
 	script->array_update = script_array_update;

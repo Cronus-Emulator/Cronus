@@ -199,7 +199,7 @@ void irc_parse_sub(int fd, char *str) {
 
 	if ((func = ircbot->func_search(command)) == NULL && (func = ircbot->func_search(source)) == NULL) {
 #ifdef IRCBOT_DEBUG
-		ShowWarning("Unknown command received %s from %s\n",command,source);
+		ShowWarning("Recebido comando desconhecido %s de %s\n",command,source);
 #endif // IRCBOT_DEBUG
 		return;
 	}
@@ -271,7 +271,7 @@ void irc_privmsg_ctcp(int fd, char *cmd, char *source, char *target, char *msg) 
 		ircbot->send(send_string);
 #ifdef IRCBOT_DEBUG
 	} else {
-		ShowWarning("Unknown CTCP command received %s (%s) from %s\n",cmd,msg,source);
+		ShowWarning("Recebido comando CTCP desconhecido %s (%s) de %s\n",cmd,msg,source);
 #endif // IRCBOT_DEBUG
 	}
 }
@@ -291,7 +291,7 @@ void irc_privmsg(int fd, char *cmd, char *source, char *target, char *msg) {
 		irc_privmsg_ctcp(fd, command, source, target, message);
 #ifdef IRCBOT_DEBUG
 	} else if (strcmpi(target, channel->config->irc_nick) == 0) {
-		ShowDebug("irc_privmsg: Received message from %s: '%s'\n", source ? source : "(null)", msg);
+		ShowDebug("irc_privmsg: Mensagem recebida de %s: '%s'\n", source ? source : "(null)", msg);
 #endif // IRCBOT_DEBUG
 	} else if (msg && strcmpi(target, channel->config->irc_channel) == 0) {
 		char source_nick[IRC_NICK_LENGTH], source_ident[IRC_IDENT_LENGTH], source_host[IRC_HOST_LENGTH];
@@ -329,7 +329,7 @@ void irc_userjoin(int fd, char *cmd, char *source, char *target, char *msg) {
 		ircbot->parse_source(source,source_nick,source_ident,source_host);
 
 	if( ircbot->channel ) {
-		snprintf(send_string, 150, "[ #%s ] User IRC.%s joined the channel.",ircbot->channel->name,source_nick);
+		snprintf(send_string, 150, "[ #%s ] Usuario IRC.%s entrou no canal.",ircbot->channel->name,source_nick);
 		clif->channel_msg2(ircbot->channel,send_string);
 	}
 }
@@ -349,9 +349,9 @@ void irc_userleave(int fd, char *cmd, char *source, char *target, char *msg) {
 
 	if( ircbot->channel ) {
 		if (!strcmpi(cmd, "QUIT"))
-			snprintf(send_string, 150, "[ #%s ] User IRC.%s left the channel. [Quit: %s]",ircbot->channel->name,source_nick,msg);
+			snprintf(send_string, 150, "[ #%s ] Usuario IRC.%s saiu do canal. [Saida: %s]",ircbot->channel->name,source_nick,msg);
 		else
-			snprintf(send_string, 150, "[ #%s ] User IRC.%s left the channel. [%s]",ircbot->channel->name,source_nick,msg);
+			snprintf(send_string, 150, "[ #%s ] Usuario IRC.%s saio do canal. [%s]",ircbot->channel->name,source_nick,msg);
 		clif->channel_msg2(ircbot->channel,send_string);
 	}
 }
@@ -370,7 +370,7 @@ void irc_usernick(int fd, char *cmd, char *source, char *target, char *msg) {
 		ircbot->parse_source(source,source_nick,source_ident,source_host);
 
 	if( ircbot->channel ) {
-		snprintf(send_string, 150, "[ #%s ] User IRC.%s is now known as IRC.%s",ircbot->channel->name,source_nick,msg);
+		snprintf(send_string, 150, "[ #%s ] Usuario IRC.%s e agora conhecido como IRC.%s",ircbot->channel->name,source_nick,msg);
 		clif->channel_msg2(ircbot->channel,send_string);
 	}
 }
@@ -416,7 +416,7 @@ void irc_bot_init(bool minimal) {
 		return;
 
 	if (!(ircbot->ip = sockt->host2ip(channel->config->irc_server))) {
-		ShowError("Unable to resolve '%s' (irc server), disabling irc channel...\n", channel->config->irc_server);
+		ShowError("Incapaz de resolver '%s' (irc server), desabilitando canal irc...\n", channel->config->irc_server);
 		channel->config->irc = false;
 		return;
 	}

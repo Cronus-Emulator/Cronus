@@ -66,7 +66,7 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 			break;
 		case IOT_CHAR:
 			if( ( sd = map->id2sd(owner_id) ) == NULL ) {
-				ShowError("instance_create: character %d not found for instance '%s'.\n", owner_id, name);
+				ShowError("instance_create: personagem %d nao encontrado na instancia '%s'.\n", owner_id, name);
 				return -2;
 			}
 			iptr = sd->instance;
@@ -74,7 +74,7 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 			break;
 		case IOT_PARTY:
 			if( ( p = party->search(owner_id) ) == NULL ) {
-				ShowError("instance_create: party %d not found for instance '%s'.\n", owner_id, name);
+				ShowError("instance_create: grupo %d nao encontrado na instancia '%s'.\n", owner_id, name);
 				return -2;
 			}
 			iptr = p->instance;
@@ -82,14 +82,14 @@ int instance_create(int owner_id, const char *name, enum instance_owner_type typ
 			break;
 		case IOT_GUILD:
 			if( ( g = guild->search(owner_id) ) == NULL ) {
-				ShowError("instance_create: guild %d not found for instance '%s'.\n", owner_id, name);
+				ShowError("instance_create: guild %d nao encontrado na instancia '%s'.\n", owner_id, name);
 				return -2;
 			}
 			iptr = g->instance;
 			icptr = &g->instances;
 			break;
 		default:
-			ShowError("instance_create: unknown type %d for owner_id %d and name %s.\n", type,owner_id,name);
+			ShowError("instance_create: tipo desconhecido %d para owner_id %d e nome %s.\n", type,owner_id,name);
 			return -1;
 	}
 
@@ -162,18 +162,18 @@ int instance_add_map(const char *name, int instance_id, bool usebasename, const 
 		return -1; // source map not found
 
 	if( !instance->valid(instance_id) ) {
-		ShowError("instance_add_map: trying to attach '%s' map to non-existing instance %d.\n", name, instance_id);
+		ShowError("instance_add_map: tentando anexar o mapa '%s' para a instancia nao existente %d.\n", name, instance_id);
 		return -1;
 	}
 
 	if( map_name != NULL && strdb_iget(mapindex->db, map_name) ) {
-		ShowError("instance_add_map: trying to create instanced map with existent name '%s'\n", map_name);
+		ShowError("instance_add_map: tentando criar mapa da instancia com nome existente '%s'\n", map_name);
 		return -2;
 	}
 
 	if( map->list[m].instance_id >= 0 ) {
 		// Source map already belong to a Instance.
-		ShowError("instance_add_map: trying to instance already instanced map %s.\n", name);
+		ShowError("instance_add_map: tentando instanciar em um mapa ja instanciado %s.\n", name);
 		return -4;
 	}
 
@@ -201,7 +201,7 @@ int instance_add_map(const char *name, int instance_id, bool usebasename, const 
 
 	if( !map->list[im].index ) {
 		map->list[im].name[0] = '\0';
-		ShowError("instance_add_map: no more free map indexes.\n");
+		ShowError("instance_add_map: sem mapas livres indexados.\n");
 		return -3; // No free map index
 	}
 
@@ -325,7 +325,7 @@ int instance_mapid2imapid(int16 m, int instance_id) {
 	if( map->list[m].flag.src4instance == 0 )
 		return m; // not instances found for this map
 	else if( map->list[m].instance_id >= 0 ) { // This map is a instance, not a src map instance
-		ShowError("map_instance_mapid2imapid: already instanced (%d / %d)\n", m, instance_id);
+		ShowError("map_instance_mapid2imapid: ja instanciado (%d / %d)\n", m, instance_id);
 		return -1;
 	}
 
@@ -343,7 +343,7 @@ int instance_map_npcsub(struct block_list* bl, va_list args) {
 	int16 m = va_arg(args, int); // Destination Map
 
 	if ( npc->duplicate4instance(nd, m) )
-		ShowDebug("instance_map_npcsub:npc_duplicate4instance failed (%s/%d)\n",nd->name,m);
+		ShowDebug("instance_map_npcsub:npc_duplicate4instance falhou (%s/%d)\n",nd->name,m);
 
 	return 1;
 }
@@ -428,7 +428,7 @@ void instance_del_map(int16 m) {
 	int i;
 
 	if( m <= 0 || map->list[m].instance_id == -1 ) {
-		ShowError("instance_del_map: tried to remove non-existing instance map (%d)\n", m);
+		ShowError("instance_del_map: tentativa executada em remover um mapa de instancia nao existente (%d)\n", m);
 		return;
 	}
 
@@ -481,7 +481,7 @@ void instance_del_map(int16 m) {
 	}
 
 	if( i == instance->list[map->list[m].instance_id].num_map )
-		ShowError("map_instance_del: failed to remove %s from instance list (%s): %d\n", map->list[m].name, instance->list[map->list[m].instance_id].name, m);
+		ShowError("map_instance_del: falha em remover %s da lista de instancia (%s): %d\n", map->list[m].name, instance->list[map->list[m].instance_id].name, m);
 
 	if( map->list[m].channel )
 		channel->delete(map->list[m].channel);
@@ -550,7 +550,7 @@ void instance_destroy(int instance_id) {
 			icptr = &g->instances;
 			break;
 		default:
-			ShowError("instance_destroy: unknown type %d for owner_id %d and name '%s'.\n", instance->list[instance_id].owner_type,instance->list[instance_id].owner_id,instance->list[instance_id].name);
+			ShowError("instance_destroy: tipo descinhecido %d para owner_id %d e nome '%s'.\n", instance->list[instance_id].owner_type,instance->list[instance_id].owner_id,instance->list[instance_id].name);
 			break;
 	}
 

@@ -331,7 +331,7 @@ int elemental_clean_single_effect(struct elemental_data *ed, uint16 skill_id) {
 				if( bl ) status_change_end(bl,type,INVALID_TIMER);
 				break;
 			default:
-				ShowWarning("Invalid SC=%d in elemental_clean_single_effect\n",type);
+				ShowWarning("Invalido SC=%d em elemental_clean_single_effect\n",type);
 				break;
 		}
 	}
@@ -791,7 +791,7 @@ int read_elementaldb(void) {
 
 	fp = fopen(line, "r");
 	if( !fp ) {
-		ShowError("read_elementaldb : can't read elemental_db.txt\n");
+		ShowError("read_elementaldb : nao foi possivel ler o elemental_db.txt\n");
 		return -1;
 	}
 
@@ -810,7 +810,7 @@ int read_elementaldb(void) {
 			p = strtok(NULL, ",");
 		}
 		if( i < 26 ) {
-			ShowError("read_elementaldb : Incorrect number of columns at elemental_db.txt line %d.\n", k);
+			ShowError("read_elementaldb : Numero de colunas incorretas no elemental_db.txt linha %d.\n", k);
 			continue;
 		}
 
@@ -845,11 +845,11 @@ int read_elementaldb(void) {
 		estatus->def_ele = ele%10;
 		estatus->ele_lv = ele/20;
 		if( estatus->def_ele >= ELE_MAX ) {
-			ShowWarning("Elemental %d has invalid element type %d (max element is %d)\n", db->class_, estatus->def_ele, ELE_MAX - 1);
+			ShowWarning("Elemental %d contem um tipo de elemento invalido %d (max: %d)\n", db->class_, estatus->def_ele, ELE_MAX - 1);
 			estatus->def_ele = ELE_NEUTRAL;
 		}
 		if( estatus->ele_lv < 1 || estatus->ele_lv > 4 ) {
-			ShowWarning("Elemental %d has invalid element level %d (max is 4)\n", db->class_, estatus->ele_lv);
+			ShowWarning("Elemental %d contem um nivel de elemento invalido %d (max: 4)\n", db->class_, estatus->ele_lv);
 			estatus->ele_lv = 1;
 		}
 
@@ -863,7 +863,7 @@ int read_elementaldb(void) {
 	}
 
 	fclose(fp);
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' elementals in '"CL_WHITE"db/elemental_db.txt"CL_RESET"'.\n",j);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' elementais em '"CL_WHITE"db/elemental_db.txt"CL_RESET"'.\n",j);
 
 	return 0;
 }
@@ -880,7 +880,7 @@ int read_elemental_skilldb(void) {
 	sprintf(line, "%s/%s", map->db_path, "elemental_skill_db.txt");
 	fp = fopen(line, "r");
 	if( !fp ) {
-		ShowError("read_elemental_skilldb : can't read elemental_skill_db.txt\n");
+		ShowError("read_elemental_skilldb : nao foi possivel ler o elemental_skill_db.txt\n");
 		return -1;
 	}
 
@@ -899,20 +899,20 @@ int read_elemental_skilldb(void) {
 			p = strtok(NULL, ",");
 		}
 		if( i < 4 ) {
-			ShowError("read_elemental_skilldb : Incorrect number of columns at elemental_skill_db.txt line %d.\n", k);
+			ShowError("read_elemental_skilldb : Numero incorreto de colunas no elemental_skill_db.txt linha %d.\n", k);
 			continue;
 		}
 
 		class_ = atoi(str[0]);
 		ARR_FIND(0, MAX_ELEMENTAL_CLASS, i, class_ == elemental->db[i].class_);
 		if( i == MAX_ELEMENTAL_CLASS ) {
-			ShowError("read_elemental_skilldb : Class not found in elemental_db for skill entry, line %d.\n", k);
+			ShowError("read_elemental_skilldb : Classe nao encontrada no elemental_db para entrada de habilidade, linha %d.\n", k);
 			continue;
 		}
 
 		skill_id = atoi(str[1]);
 		if( skill_id < EL_SKILLBASE || skill_id >= EL_SKILLBASE + MAX_ELEMENTALSKILL ) {
-			ShowError("read_elemental_skilldb : Skill out of range, line %d.\n", k);
+			ShowError("read_elemental_skilldb : Habilidade fora do alcance, linha %d.\n", k);
 			continue;
 		}
 
@@ -921,12 +921,12 @@ int read_elemental_skilldb(void) {
 
 		skillmode = atoi(str[3]);
 		if( skillmode < EL_SKILLMODE_PASIVE || skillmode > EL_SKILLMODE_AGGRESSIVE ) {
-			ShowError("read_elemental_skilldb : Skillmode out of range, line %d.\n",k);
+			ShowError("read_elemental_skilldb : Skillmode fora do alcance, linha %d.\n",k);
 			continue;
 		}
 		ARR_FIND( 0, MAX_ELESKILLTREE, i, db->skill[i].id == 0 || db->skill[i].id == skill_id );
 		if( i == MAX_ELESKILLTREE ) {
-			ShowWarning("Unable to load skill %d into Elemental %d's tree. Maximum number of skills per elemental has been reached.\n", skill_id, class_);
+			ShowWarning("Nao foi possivel carregar habilidade %d na arvore do Elemental %d's. O numero maximo de habilidade por elemental foi alcancado.\n", skill_id, class_);
 			continue;
 		}
 		db->skill[i].id = skill_id;
@@ -936,7 +936,7 @@ int read_elemental_skilldb(void) {
 	}
 
 	fclose(fp);
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"db/elemental_skill_db.txt"CL_RESET"'.\n",j);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"db/elemental_skill_db.txt"CL_RESET"'.\n",j);
 	return 0;
 }
 

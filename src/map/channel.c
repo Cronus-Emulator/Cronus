@@ -297,7 +297,7 @@ void channel_join_sub(struct channel_data *chan, struct map_session_data *sd, bo
 
 	if (!stealth && (chan->options&HCS_OPT_ANNOUNCE_JOIN)) {
 		char message[60];
-		sprintf(message, "#%s '%s' joined",chan->name,sd->status.name);
+		sprintf(message, "#%s '%s' entrou",chan->name,sd->status.name);
 		clif->channel_msg(chan,sd,message);
 	}
 
@@ -431,7 +431,7 @@ void channel_leave(struct channel_data *chan, struct map_session_data *sd)
 		channel->delete(chan);
 	} else if (!channel->config->closing && (chan->options & HCS_OPT_ANNOUNCE_JOIN)) {
 		char message[60];
-		sprintf(message, "#%s '%s' left",chan->name,sd->status.name);
+		sprintf(message, "#%s '%s' saiu",chan->name,sd->status.name);
 		clif->channel_msg(chan,sd,message);
 	}
 
@@ -628,7 +628,7 @@ void read_channels_config(void)
 			if( libconfig->setting_lookup_string(settings, "irc_channel_network", &irc_server) ) {
 				if( !strstr(irc_server,":") ) {
 					channel->config->irc = false;
-					ShowWarning("channels.conf : network port wasn't found in 'irc_channel_network', disabling irc channel...\n");
+					ShowWarning("channels.conf : a porta de rede nao foi encontrada no 'irc_channel_network', desabilitando o canal irc...\n");
 				} else {
 					unsigned char d = 0, dlen = strlen(irc_server);
 					char server[40];
@@ -648,13 +648,13 @@ void read_channels_config(void)
 				}
 			} else {
 				channel->config->irc = false;
-				ShowWarning("channels.conf : irc channel enabled but irc_channel_network wasn't found, disabling irc channel...\n");
+				ShowWarning("channels.conf : canal irc habilitado mas irc_channel_network nao foi encontrado, desabilitando canal irc...\n");
 			}
 			if( libconfig->setting_lookup_string(settings, "irc_channel_channel", &irc_channel) )
 				safestrncpy(channel->config->irc_channel, irc_channel, 50);
 			else {
 				channel->config->irc = false;
-				ShowWarning("channels.conf : irc channel enabled but irc_channel_channel wasn't found, disabling irc channel...\n");
+				ShowWarning("channels.conf : canal irc habilitado mas irc_channel_channel nao foi encontrado, desabilitando canal irc...\n");
 			}
 			if( libconfig->setting_lookup_string(settings, "irc_channel_nick", &irc_nick) ) {
 				if( strcmpi(irc_nick,"Hercules_chSysBot") == 0 ) {
@@ -663,7 +663,7 @@ void read_channels_config(void)
 					safestrncpy(channel->config->irc_nick, irc_nick, 40);
 			} else {
 				channel->config->irc = false;
-				ShowWarning("channels.conf : irc channel enabled but irc_channel_nick wasn't found, disabling irc channel...\n");
+				ShowWarning("channels.conf : canal irc habilitado mas irc_channel_nick nao foi encontrado, desabilitando canal irc...\n");
 			}
 			if( libconfig->setting_lookup_string(settings, "irc_channel_nick_pw", &irc_nick_pw) ) {
 				safestrncpy(channel->config->irc_nick_pw, irc_nick_pw, 30);
@@ -715,7 +715,7 @@ void read_channels_config(void)
 		if (k < channel->config->colors_count) {
 			channel->config->local_color = k;
 		} else {
-			ShowError("channels.conf: unknown color '%s' for 'map_local_channel_color', disabling '#%s'...\n",local_color,local_name);
+			ShowError("channels.conf: cor desconhecida '%s' para 'map_local_channel_color', desabilitando '#%s'...\n",local_color,local_name);
 			channel->config->local = false;
 		}
 
@@ -729,7 +729,7 @@ void read_channels_config(void)
 		if( k < channel->config->colors_count ) {
 			channel->config->ally_color = k;
 		} else {
-			ShowError("channels.conf: unknown color '%s' for 'ally_channel_color', disabling '#%s'...\n",ally_color,ally_name);
+			ShowError("channels.conf: cor desconhecida '%s' para 'ally_channel_color', desabilitando '#%s'...\n",ally_color,ally_name);
 			channel->config->ally = false;
 		}
 
@@ -743,7 +743,7 @@ void read_channels_config(void)
 		if (k < channel->config->colors_count) {
 			channel->config->irc_color = k;
 		} else {
-			ShowError("channels.conf: unknown color '%s' for 'irc_channel_color', disabling '#%s'...\n",irc_color,irc_name);
+			ShowError("channels.conf: cor desconhecida '%s' para 'irc_channel_color', desabilitando '#%s'...\n",irc_color,irc_name);
 			channel->config->irc = false;
 		}
 
@@ -761,14 +761,14 @@ void read_channels_config(void)
 
 				ARR_FIND(0, channel->config->colors_count, k, strcmpi(channel->config->colors_name[k],color) == 0);
 				if (k == channel->config->colors_count) {
-					ShowError("channels.conf: unknown color '%s' for channel '%s', skipping channel...\n",color,name);
+					ShowError("channels.conf: cor desonhecida '%s' para o canal '%s', pulando canal...\n",color,name);
 					continue;
 				}
 				if (strcmpi(name, channel->config->local_name) == 0
 				 || strcmpi(name, channel->config->ally_name) == 0
 				 || strcmpi(name, channel->config->irc_name) == 0
 				 || strdb_exists(channel->db, name)) {
-					ShowError("channels.conf: duplicate channel '%s', skipping channel...\n",name);
+					ShowError("channels.conf: canal duplicado '%s', pulando canal...\n",name);
 					continue;
 
 				}
@@ -776,7 +776,7 @@ void read_channels_config(void)
 			}
 		}
 
-		ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' channels in '"CL_WHITE"%s"CL_RESET"'.\n", db_size(channel->db), config_filename);
+		ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' canais em '"CL_WHITE"%s"CL_RESET"'.\n", db_size(channel->db), config_filename);
 	}
 	libconfig->destroy(&channels_conf);
 }

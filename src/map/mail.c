@@ -185,7 +185,7 @@ void mail_deliveryfail(struct map_session_data *sd, struct mail_message *msg)
 // This function only check if the mail operations are valid
 bool mail_invalid_operation(struct map_session_data *sd) {
 	if( !map->list[sd->bl.m].flag.town && !pc->can_use_command(sd, "@mail") ) {
-		ShowWarning("clif->parse_Mail: char '%s' trying to do invalid mail operations.\n", sd->status.name);
+		ShowWarning("clif->parse_Mail: personagem '%s' tentando fazer operacoes de correio invalidas.\n", sd->status.name);
 		return true;
 	}
 

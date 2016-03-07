@@ -124,7 +124,7 @@ bool HPM_map_add_atcommand(char *name, AtCommandFunc func) {
 
 	for(i = 0; i < atcommand_list_items; i++) {
 		if( !strcmpi(atcommand_list[i].name,name) ) {
-			ShowDebug("HPM_map_add_atcommand: duplicate command '%s', skipping...\n", name);
+			ShowDebug("HPM_map_add_atcommand: comando duplicado'%s', pulando...\n", name);
 			return false;
 		}
 	}
