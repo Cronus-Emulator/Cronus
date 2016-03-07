@@ -10275,7 +10275,7 @@ bool atcommand_hp_add(char *name, AtCommandFunc func) {
 	/* if commands are added after group permissions are thrown in, they end up with no permissions */
 	/* so we restrict commands to be linked in during boot */
 	if( core->runflag == MAPSERVER_ST_RUNNING ) {
-		ShowDebug("atcommand_hp_add: Comandos não podem ser adicionados após o servidor estar pronto, pulando '%s'...\n",name);
+		ShowDebug("atcommand_hp_add: Comandos nao podem ser adicionados apos o servidor estar pronto, pulando '%s'...\n",name);
 		return false;
 	}
 
