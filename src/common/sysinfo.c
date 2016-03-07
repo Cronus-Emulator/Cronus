@@ -289,8 +289,8 @@ bool sysinfo_svn_get_revision(char **out) {
 				}
 			} else {
 				// Bin File format
-				if (fgets(line, sizeof(line), fp) == NULL) { printf("Can't get bin name\n"); } // Get the name
-				if (fgets(line, sizeof(line), fp) == NULL) { printf("Can't get entries kind\n"); } // Get the entries kind
+				if (fgets(line, sizeof(line), fp) == NULL) { printf("Nao pode obter o nome bin\n"); } // Get the name
+				if (fgets(line, sizeof(line), fp) == NULL) { printf("Nao pode obter os tipos de entrada\n"); } // Get the entries kind
 				if (fgets(line, sizeof(line), fp)) { // Get the rev numver
 					if (*out != NULL)
 						aFree(*out);
@@ -395,7 +395,7 @@ void sysinfo_osversion_retrieve(void) {
 #pragma warning (push)
 #pragma warning (disable : 4996)
 	if (!GetVersionEx((OSVERSIONINFO*) &osvi)) {
-		sysinfo->p->osversion = aStrdup("Unknown Version");
+		sysinfo->p->osversion = aStrdup("Versao desconhecida");
 		return;
 	}
 #pragma warning (pop)
@@ -590,7 +590,7 @@ void sysinfo_osversion_retrieve(void) {
 			else
 				StrBuf->AppendStr(&buf, " Server");
 		} else {
-			StrBuf->Printf(&buf, "Unknown Windows version %d.%d", osvi.dwMajorVersion, osvi.dwMinorVersion);
+			StrBuf->Printf(&buf, "Versao desconhecida do Windows %d.%d", osvi.dwMajorVersion, osvi.dwMinorVersion);
 		}
 	}
 
@@ -668,7 +668,7 @@ void sysinfo_cpu_retrieve(void) {
 		               (si.wProcessorRevision&0xff00)>>8,
 		               (si.wProcessorRevision&0xff));
 	} else {
-		StrBuf->AppendStr(&buf, "Unknown");
+		StrBuf->AppendStr(&buf, "Desconhecido");
 	}
 
 	sysinfo->p->cpu = aStrdup(StrBuf->Value(&buf));
@@ -702,7 +702,7 @@ void sysinfo_arch_retrieve(void) {
 	else if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64) // Itanium
 		sysinfo->p->arch = aStrdup("IA-64");
 	else
-		sysinfo->p->arch = aStrdup("Unknown");
+		sysinfo->p->arch = aStrdup("Desconhecido");
 }
 
 /**
@@ -725,7 +725,7 @@ void sysinfo_vcsrevision_src_retrieve(void) {
 		return;
 	}
 	sysinfo->p->vcstype = VCSTYPE_NONE;
-	sysinfo->p->vcsrevision_src = aStrdup("Unknown");
+	sysinfo->p->vcsrevision_src = aStrdup("Desconhecido");
 }
 #endif // WIN32
 
@@ -747,7 +747,7 @@ void sysinfo_vcstype_name_retrieve(void) {
 			sysinfo->p->vcstype_name = aStrdup("SVN");
 			break;
 		default:
-			sysinfo->p->vcstype_name = aStrdup("Exported");
+			sysinfo->p->vcstype_name = aStrdup("Exportada");
 			break;
 	}
 }
@@ -959,7 +959,7 @@ void sysinfo_vcsrevision_reload(void) {
 	if (sysinfo_svn_get_revision(&sysinfo->p->vcsrevision_scripts)) {
 		return;
 	}
-	sysinfo->p->vcsrevision_scripts = aStrdup("Unknown");
+	sysinfo->p->vcsrevision_scripts = aStrdup("Desconhecido");
 }
 
 /**

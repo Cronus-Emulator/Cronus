@@ -595,7 +595,7 @@ int vShowMessage_(enum msg_type flag, const char *string, va_list ap)
 #endif
 
 	if (!string || *string == '\0') {
-		ShowError("Empty string passed to vShowMessage_().\n");
+		ShowError("String vazia passada para vShowMessage_().\n");
 		return 1;
 	}
 	if(
@@ -610,11 +610,11 @@ int vShowMessage_(enum msg_type flag, const char *string, va_list ap)
 			strftime(timestring, 254, "%m/%d/%Y %H:%M:%S", localtime(&curtime));
 			fprintf(log,"(%s) [ %s ] : ",
 				timestring,
-				flag == MSG_WARNING ? "Warning" :
-				flag == MSG_ERROR ? "Error" :
-				flag == MSG_SQL ? "SQL Error" :
-				flag == MSG_DEBUG ? "Debug" :
-				"Unknown");
+				flag == MSG_WARNING ? "Aviso" :
+				flag == MSG_ERROR ? "Erro" :
+				flag == MSG_SQL ? "Erro SQL" :
+				flag == MSG_DEBUG ? "Depurar" :
+				"Desconhecido");
 			va_copy(apcopy, ap);
 			vfprintf(log,string,apcopy);
 			va_end(apcopy);
@@ -651,22 +651,22 @@ int vShowMessage_(enum msg_type flag, const char *string, va_list ap)
 			strcat(prefix,CL_WHITE"[Info]"CL_RESET":");
 			break;
 		case MSG_NOTICE: //Bright White (Less than a warning)
-			strcat(prefix,CL_WHITE"[Notice]"CL_RESET":");
+			strcat(prefix,CL_WHITE"[MSG]"CL_RESET":");
 			break;
 		case MSG_WARNING: //Bright Yellow
-			strcat(prefix,CL_YELLOW"[Warning]"CL_RESET":");
+			strcat(prefix,CL_YELLOW"[Aviso]"CL_RESET":");
 			break;
 		case MSG_DEBUG: //Bright Cyan, important stuff!
-			strcat(prefix,CL_CYAN"[Debug]"CL_RESET":");
+			strcat(prefix,CL_CYAN"[Depurar]"CL_RESET":");
 			break;
 		case MSG_ERROR: //Bright Red  (Regular errors)
-			strcat(prefix,CL_RED"[Error]"CL_RESET":");
+			strcat(prefix,CL_RED"[Erro]"CL_RESET":");
 			break;
 		case MSG_FATALERROR: //Bright Red (Fatal errors, abort(); if possible)
-			strcat(prefix,CL_RED"[Fatal Error]"CL_RESET":");
+			strcat(prefix,CL_RED"[Erro Fatal]"CL_RESET":");
 			break;
 		default:
-			ShowError("In function vShowMessage_() -> Invalid flag passed.\n");
+			ShowError("Na funcao vShowMessage_() -> Flag passada invalida.\n");
 			return 1;
 	}
 
@@ -690,7 +690,7 @@ int vShowMessage_(enum msg_type flag, const char *string, va_list ap)
 	if(strlen(DEBUGLOGPATH) > 0) {
 		fp=fopen(DEBUGLOGPATH,"a");
 		if (fp == NULL) {
-			FPRINTF(STDERR, CL_RED"[ERROR]"CL_RESET": Could not open '"CL_WHITE"%s"CL_RESET"', access denied.\n", DEBUGLOGPATH);
+			FPRINTF(STDERR, CL_RED"[Erro]"CL_RESET": Falha ao abrir '"CL_WHITE"%s"CL_RESET"', acesso negado.\n", DEBUGLOGPATH);
 			FFLUSH(STDERR);
 		} else {
 			fprintf(fp,"%s ", prefix);
@@ -700,7 +700,7 @@ int vShowMessage_(enum msg_type flag, const char *string, va_list ap)
 			fclose(fp);
 		}
 	} else {
-		FPRINTF(STDERR, CL_RED"[ERROR]"CL_RESET": DEBUGLOGPATH not defined!\n");
+		FPRINTF(STDERR, CL_RED"[Erro]"CL_RESET": DEBUGLOGPATH nao definido!\n");
 		FFLUSH(STDERR);
 	}
 #endif

@@ -69,12 +69,12 @@ void display_title(void) {
 	ShowMessage(""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)           "CL_CLL""CL_NORMAL"\n\n\a");
 
 	ShowInfo("Cronus %d-bit for %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
-	ShowInfo("%s revisao (src): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_src());
-	ShowInfo("%s revisao (scripts): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_scripts());
+	ShowInfo("%s Revisao (src): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_src());
+	ShowInfo("%s Revisao (scripts): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_scripts());
 	ShowInfo("Sistema Operacional: '"CL_WHITE"%s"CL_RESET" [%s]'\n", sysinfo->osversion(), sysinfo->arch());
 	ShowInfo("CPU: '"CL_WHITE"%s [%d]"CL_RESET"'\n", sysinfo->cpu(), sysinfo->cpucores());
 	ShowInfo("Compilado com %s\n", sysinfo->compiler());
-	ShowInfo("Compile Flags: %s\n", sysinfo->cflags());
+	ShowInfo("Flags de Compilacao: %s\n", sysinfo->cflags());
 }
 #ifdef CONSOLE_INPUT
 int console_parse_key_pressed(void)
@@ -155,7 +155,7 @@ CPCMD_C(malloc_usage,server) {
  **/
 CPCMD_C(skip,update) {
 	if( !line ) {
-		ShowDebug("usage example: sql update skip 2013-02-14--16-15.sql\n");
+		ShowDebug("Exemplo de uso: pulando a atualizacao sql de 2013-02-14--16-15.sql\n");
 		return;
 	}
 	Sql_HerculesUpdateSkip(console->input->SQL, line);
@@ -369,7 +369,7 @@ void console_parse_sub(char *line)
 
 	ARR_FIND(0, VECTOR_LENGTH(console->input->command_list), i, strcmpi(tok, VECTOR_INDEX(console->input->command_list, i)->cmd) == 0);
 	if (i == VECTOR_LENGTH(console->input->command_list)) {
-		ShowError("'"CL_WHITE"%s"CL_RESET"' is not a known command, type '"CL_WHITE"help"CL_RESET"' to list all commands\n",line);
+		ShowError("'"CL_WHITE"%s"CL_RESET"' nao e um comando conhecido, digite '"CL_WHITE"help"CL_RESET"' para listar todos os comandos\n",line);
 		return;
 	}
 
@@ -395,12 +395,12 @@ void console_parse_sub(char *line)
 					ShowInfo("- '"CL_WHITE"%s"CL_RESET"' subs\n",sublist);
 					console->input->parse_list_subs(cmd,2);
 				} else {
-					ShowError("'"CL_WHITE"%s"CL_RESET"' doesn't possess any subcommands\n",sublist);
+					ShowError("'"CL_WHITE"%s"CL_RESET"' nao possui nenhum subcomando\n",sublist);
 				}
 				return;
 			}
-			ShowError("'"CL_WHITE"%s"CL_RESET"' is not a known subcommand of '"CL_WHITE"%s"CL_RESET"'\n",tok,cmd->cmd);
-			ShowError("type '"CL_WHITE"%s help"CL_RESET"' to list its subcommands\n",sublist);
+			ShowError("'"CL_WHITE"%s"CL_RESET"' nao e um subcomando conhecido de '"CL_WHITE"%s"CL_RESET"'\n",tok,cmd->cmd);
+			ShowError("digite '"CL_WHITE"%s help"CL_RESET"' para listar todos os subcomandos\n",sublist);
 			return;
 		}
 		entry = VECTOR_INDEX(cmd->u.children, i);
@@ -415,7 +415,7 @@ void console_parse_sub(char *line)
 		if (strlen(sublist) < sizeof(sublist)-1)
 			snprintf(sublist+strlen(sublist), sizeof(sublist), " %s", cmd->cmd);
 	}
-	ShowError("Is only a category, type '"CL_WHITE"%s help"CL_RESET"' to list its subcommands\n",sublist);
+	ShowError("E apenas uma categoria, digite '"CL_WHITE"%s help"CL_RESET"' para listar seus subcomandos\n",sublist);
 }
 void console_parse(char* line) {
 	int c, i = 0, len = MAX_CONSOLE_INPUT - 1;/* we leave room for the \0 :P */
@@ -490,7 +490,7 @@ void console_parse_init(void) {
 	console->input->ptcond = racond_create();
 
 	if( (console->input->pthread = rathread_create(console->input->pthread_main, NULL)) == NULL ){
-		ShowFatalError("console_parse_init: failed to spawn console_parse thread.\n");
+		ShowFatalError("console_parse_init: falhou ao gerar a thread console_parse.\n");
 		exit(EXIT_FAILURE);
 	}
 

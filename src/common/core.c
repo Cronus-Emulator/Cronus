@@ -97,7 +97,7 @@ static BOOL WINAPI console_handler(DWORD c_event) {
 
 static void cevents_init(void) {
 	if (SetConsoleCtrlHandler(console_handler,TRUE)==FALSE)
-		ShowWarning ("Unable to install the console handler!\n");
+		ShowWarning ("Nao foi possivel instalar o manipulador de console!\n");
 }
 #endif
 
@@ -127,7 +127,7 @@ static void sig_proc(int sn) {
 	#ifndef _WIN32
 		case SIGXFSZ:
 			// ignore and allow it to set errno to EFBIG
-			ShowWarning ("Max file size reached!\n");
+			ShowWarning ("Tamanho maximo de arquivo alcancado!\n");
 			//run_flag = 0; // should we quit?
 			break;
 		case SIGPIPE:
@@ -159,7 +159,7 @@ void signals_init (void) {
  */
 void usercheck(void) {
 	if (sysinfo->is_superuser()) {
-		ShowWarning("You are running Hercules with root privileges, it is not necessary.\n");
+		ShowWarning("Voce esta executando o Cronus com privilegios root, isto nao e necessario.\n");
 	}
 }
 
@@ -225,9 +225,9 @@ bool cmdline_arg_add(unsigned int pluginID, const char *name, char shortname, Cm
 static CMDLINEARG(help)
 {
 	int i;
-	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
+	ShowInfo("Uso: %s [opcoes]\n", SERVER_NAME);
 	ShowInfo("\n");
-	ShowInfo("Options:\n");
+	ShowInfo("Opcoes:\n");
 
 	for (i = 0; i < VECTOR_LENGTH(cmdline->args_data); i++) {
 		struct CmdlineArgData *data = &VECTOR_INDEX(cmdline->args_data, i);
@@ -237,8 +237,8 @@ static CMDLINEARG(help)
 		} else {
 			*altname = '\0';
 		}
-		snprintf(paramnames, sizeof(paramnames), "%s%s%s", data->name, altname, (data->options&CMDLINE_OPT_PARAM) ? " <name>" : "");
-		ShowInfo("  %-30s %s [%s]\n", paramnames, data->help ? data->help : "<no description provided>", cmdline->arg_source(data));
+		snprintf(paramnames, sizeof(paramnames), "%s%s%s", data->name, altname, (data->options&CMDLINE_OPT_PARAM) ? " <nome>" : "");
+		ShowInfo("  %-30s %s [%s]\n", paramnames, data->help ? data->help : "<nenhuma descricao fornecida>", cmdline->arg_source(data));
 	}
 	return false;
 }
@@ -247,9 +247,9 @@ static CMDLINEARG(help)
  */
 static CMDLINEARG(version)
 {
-	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://herc.ws/\n");
-	ShowInfo(CL_GREEN"IRC Channel:"CL_RESET"\tirc://irc.rizon.net/#Hercules\n");
-	ShowInfo("Open "CL_WHITE"readme.txt"CL_RESET" for more information.\n");
+	ShowInfo(CL_GREEN"Website/Forum:"CL_RESET"\thttp://forum.cronus-emulator.com/\n");
+	ShowInfo(CL_GREEN"Canal IRC:"CL_RESET"\tirc://irc.rizon.net/#Hercules\n");
+	ShowInfo("Abra "CL_WHITE"readme.txt"CL_RESET" para obter mais informacoes.\n");
 	return false;
 }
 /**
@@ -263,7 +263,7 @@ static CMDLINEARG(version)
 bool cmdline_arg_next_value(const char *name, int current_arg, int argc)
 {
 	if (current_arg >= argc-1) {
-		ShowError("Missing value for option '%s'.\n", name);
+		ShowError("Faltando valor para a opcao '%s'.\n", name);
 		return false;
 	}
 
@@ -295,7 +295,7 @@ int cmdline_exec(int argc, char **argv, unsigned int options)
 		struct CmdlineArgData *data = NULL;
 		const char *arg = argv[i];
 		if (arg[0] != '-') { // All arguments must begin with '-'
-			ShowError("Invalid option '%s'.\n", argv[i]);
+			ShowError("Opcao invalida '%s'.\n", argv[i]);
 			exit(EXIT_FAILURE);
 		}
 		if (arg[1] != '-' && strlen(arg) == 2) {
@@ -306,7 +306,7 @@ int cmdline_exec(int argc, char **argv, unsigned int options)
 		if (j == VECTOR_LENGTH(cmdline->args_data)) {
 			if (options&(CMDLINE_OPT_SILENT|CMDLINE_OPT_PREINIT))
 				continue;
-			ShowError("Unknown option '%s'.\n", arg);
+			ShowError("Opcao desconhecida '%s'.\n", arg);
 			exit(EXIT_FAILURE);
 		}
 		data = &VECTOR_INDEX(cmdline->args_data, j);
@@ -341,10 +341,10 @@ void cmdline_init(void)
 	// Minicore has no HPM. This value isn't used, but the arg_add function requires it, so we're (re)defining it here
 #define HPM_PID_CORE ((unsigned int)-1)
 #endif
-	CMDLINEARG_DEF(help, 'h', "Displays this help screen", CMDLINE_OPT_NORMAL);
-	CMDLINEARG_DEF(version, 'v', "Displays the server's version.", CMDLINE_OPT_NORMAL);
+	CMDLINEARG_DEF(help, 'h', "Exibe esta tela de ajuda", CMDLINE_OPT_NORMAL);
+	CMDLINEARG_DEF(version, 'v', "Exibe a versao do servidor.", CMDLINE_OPT_NORMAL);
 #ifndef MINICORE
-	CMDLINEARG_DEF2(load-plugin, loadplugin, "Loads an additional plugin (can be repeated).", CMDLINE_OPT_PARAM|CMDLINE_OPT_PREINIT);
+	CMDLINEARG_DEF2(load-plugin, loadplugin, "Carrega um plugin adicional (que pode ser repetido).", CMDLINE_OPT_PARAM|CMDLINE_OPT_PREINIT);
 #endif // !MINICORE
 	cmdline_args_init_local();
 }

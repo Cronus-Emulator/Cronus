@@ -75,9 +75,9 @@ int timer_add_func_list(TimerFunc func, char* name) {
 		for( tfl=tfl_root; tfl != NULL; tfl=tfl->next )
 		{// check suspicious cases
 			if( func == tfl->func )
-				ShowWarning("timer_add_func_list: duplicating function %p(%s) as %s.\n",tfl->func,tfl->name,name);
+				ShowWarning("timer_add_func_list: funcao duplicada %p(%s) as %s.\n",tfl->func,tfl->name,name);
 			else if( strcmp(name,tfl->name) == 0 )
-				ShowWarning("timer_add_func_list: function %p has the same name as %p(%s)\n",func,tfl->func,tfl->name);
+				ShowWarning("timer_add_func_list: A funcao %p tem o mesmo nome que %p(%s)\n",func,tfl->func,tfl->name);
 		}
 		CREATE(tfl,struct timer_func_list,1);
 		tfl->next = tfl_root;
@@ -122,7 +122,7 @@ static void rdtsc_calibrate(void){
 	uint64 t1, t2;
 	int32 i;
 
-	ShowStatus("Calibrating Timer Source, please wait... ");
+	ShowStatus("Calibrando o temporizador da source, por favor aguarde... ");
 
 	RDTSC_CLOCK = 0;
 
@@ -136,7 +136,7 @@ static void rdtsc_calibrate(void){
 
 	RDTSC_BEGINTICK = rdtsc_();
 
-	ShowMessage(" done. (Frequency: %u Mhz)\n", (uint32)(RDTSC_CLOCK/1000) );
+	ShowMessage(" Concluido. (Frequencia: %u Mhz)\n", (uint32)(RDTSC_CLOCK/1000) );
 }
 
 #endif
@@ -305,7 +305,7 @@ int timer_add_interval(int64 tick, TimerFunc func, int id, intptr_t data, int in
 	int tid;
 
 	if (interval < 1) {
-		ShowError("timer_add_interval: invalid interval (tick=%"PRId64" %p[%s] id=%d data=%"PRIdPTR" diff_tick=%"PRId64")\n",
+		ShowError("timer_add_interval: Intervalo invalido (tick=%"PRId64" %p[%s] id=%d data=%"PRIdPTR" diff_tick=%"PRId64")\n",
 		          tick, func, search_timer_func_list(func), id, data, DIFF_TICK(tick, timer->gettick()));
 		return INVALID_TIMER;
 	}
@@ -332,11 +332,11 @@ const struct TimerData* timer_get(int tid) {
 /// Returns 0 on success, < 0 on failure.
 int timer_do_delete(int tid, TimerFunc func) {
 	if( tid < 0 || tid >= timer_data_num ) {
-		ShowError("timer_do_delete error : no such timer %d (%p(%s))\n", tid, func, search_timer_func_list(func));
+		ShowError("timer_do_delete error : nenhum temporizador %d (%p(%s))\n", tid, func, search_timer_func_list(func));
 		return -1;
 	}
 	if( timer_data[tid].func != func ) {
-		ShowError("timer_do_delete error : function mismatch %p(%s) != %p(%s)\n", timer_data[tid].func, search_timer_func_list(timer_data[tid].func), func, search_timer_func_list(func));
+		ShowError("timer_do_delete error : incompatibilidade de funcao %p(%s) != %p(%s)\n", timer_data[tid].func, search_timer_func_list(timer_data[tid].func), func, search_timer_func_list(func));
 		return -2;
 	}
 
@@ -367,7 +367,7 @@ int64 timer_settick(int tid, int64 tick)
 	// search timer position
 	ARR_FIND(0, BHEAP_LENGTH(timer_heap), i, BHEAP_DATA(timer_heap)[i] == tid);
 	if (i == BHEAP_LENGTH(timer_heap)) {
-		ShowError("timer_settick: no such timer %d (%p(%s))\n", tid, timer_data[tid].func, search_timer_func_list(timer_data[tid].func));
+		ShowError("timer_settick: nenhum temporizador %d (%p(%s))\n", tid, timer_data[tid].func, search_timer_func_list(timer_data[tid].func));
 		return -1;
 	}
 
