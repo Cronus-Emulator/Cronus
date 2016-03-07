@@ -120,7 +120,7 @@ bool msg_config_read(const char *cfg_name, bool allow_override) {
 
 	nullpo_retr(false, cfg_name);
 	if ((fp = fopen(cfg_name, "r")) == NULL) {
-		ShowError("Messages file not found: %s\n", cfg_name);
+		ShowError("Arquivo de mensagens nao encontrado: %s\n", cfg_name);
 		return false;
 	}
 
@@ -140,7 +140,7 @@ bool msg_config_read(const char *cfg_name, bool allow_override) {
 			if (msg_number >= 0 && msg_number < MAX_MSG) {
 				if (atcommand->msg_table[0][msg_number] != NULL) {
 					if (!allow_override) {
-						ShowError("Duplicate message: ID '%d' was already used for '%s'. Message '%s' will be ignored.\n",
+						ShowError("Mensagem duplicada: ID '%d' ja foi usada para '%s'. A mensagem '%s' sera ignorada.\n",
 						          msg_number, w2, atcommand->msg_table[0][msg_number]);
 						continue;
 					}
@@ -1984,7 +1984,7 @@ ACMD(monster)
 		size = SZ_SMALL;
 
 	if (battle_config.etc_log)
-		ShowInfo("%s monster='%s' name='%s' id=%d count=%d (%d,%d)\n", command, monster, name, mob_id, number, sd->bl.x, sd->bl.y);
+		ShowInfo("%s monstro='%s' nome='%s' id=%d quantidade=%d (%d,%d)\n", command, monster, name, mob_id, number, sd->bl.x, sd->bl.y);
 
 	count = 0;
 	range = (int)sqrt((float)number) +2; // calculation of an odd number (+ 4 area around)
@@ -5752,7 +5752,7 @@ ACMD(autolootitem)
 					if (sd->state.autolootid[i] == 0)
 						continue;
 					if (!(item_data = itemdb->exists(sd->state.autolootid[i]))) {
-						ShowDebug("Non-existant item %d on autolootitem list (account_id: %d, char_id: %d)", sd->state.autolootid[i], sd->status.account_id, sd->status.char_id);
+						ShowDebug("Item nao existente %d na lista do autolootitem (account_id: %d, char_id: %d)", sd->state.autolootid[i], sd->status.account_id, sd->status.char_id);
 						continue;
 					}
 					safesnprintf(atcmd_output, sizeof(atcmd_output), "'%s'/'%s' {%d}", item_data->name, item_data->jname, item_data->nameid);
@@ -6851,7 +6851,7 @@ ACMD(homlevel) {
 	hd = sd->hd;
 
 	if ((htype = homun->class2type(hd->homunculus.class_)) == HT_INVALID) {
-		ShowError("atcommand_homlevel: invalid homun class %d (player %s)\n", hd->homunculus.class_,sd->status.name);
+		ShowError("atcommand_homlevel: classe homunculus invalida %d (player %s)\n", hd->homunculus.class_,sd->status.name);
 		return false;
 	}
 
@@ -6872,7 +6872,7 @@ ACMD(homlevel) {
 			}
 			break;
 		default:
-			ShowError("atcommand_homlevel: unknown htype '%d'\n",htype);
+			ShowError("atcommand_homlevel: tipo de homunculus desconhecido '%d'\n",htype);
 			return false;
 	}
 
@@ -8853,7 +8853,7 @@ ACMD(channel) {
 		// sub1 = list type; sub2 = unused; sub3 = unused
 		if (sub1[0] != '\0' && strcmpi(sub1,"colors") == 0) {
 			for (k = 0; k < channel->config->colors_count; k++) {
-				safesnprintf(atcmd_output, sizeof(atcmd_output), "[ %s list colors ] : %s", command, channel->config->colors_name[k]);
+				safesnprintf(atcmd_output, sizeof(atcmd_output), "[ %s lista de cores ] : %s", command, channel->config->colors_name[k]);
 
 				clif->messagecolor_self(fd, channel->config->colors[k], atcmd_output);
 			}
@@ -9259,7 +9259,7 @@ ACMD(fontcolor) {
 	}
 
 	sd->fontcolor = k + 1;
-	safesnprintf(atcmd_output, sizeof(atcmd_output), "Color changed to '%s'", channel->config->colors_name[k]);
+	safesnprintf(atcmd_output, sizeof(atcmd_output), "Cor alterada para '%s'", channel->config->colors_name[k]);
 	clif->messagecolor_self(fd, channel->config->colors[k], atcmd_output);
 
 	return true;
@@ -9342,7 +9342,7 @@ ACMD(costume){
 /* for debugging purposes (so users can easily provide us with debug info) */
 /* should be trashed as soon as its no longer necessary */
 ACMD(skdebug) {
-	safesnprintf(atcmd_output, sizeof(atcmd_output),"second: %u; third: %u", sd->sktree.second, sd->sktree.third);
+	safesnprintf(atcmd_output, sizeof(atcmd_output),"segundo: %u; terceiro: %u", sd->sktree.second, sd->sktree.third);
 	clif->message(fd,atcmd_output);
 	safesnprintf(atcmd_output, sizeof(atcmd_output),"pc_calc_skilltree_normalize_job: %d",pc->calc_skilltree_normalize_job(sd));
 	clif->message(fd,atcmd_output);
@@ -9360,15 +9360,15 @@ ACMD(cddebug) {
 	struct skill_cd* cd = NULL;
 
 	if (!(cd = idb_get(skill->cd_db,sd->status.char_id))) {
-		clif->message(fd,"No cool down list found");
+		clif->message(fd,"Nao foi encontrado lista de cooldown.");
 	} else {
-		clif->messages(fd,"Found %d registered cooldowns",cd->cursor);
+		clif->messages(fd,"Encontrados %d cooldowns registrados.",cd->cursor);
 		for(i = 0; i < cd->cursor; i++) {
 			if( cd->entry[i] ) {
 				const struct TimerData *td = timer->get(cd->entry[i]->timer);
 
 				if( !td || td->func != skill->blockpc_end ) {
-					clif->messages(fd,"Found invalid entry in slot %d for skill %s",i,skill->dbs->db[cd->entry[i]->skidx].name);
+					clif->messages(fd,"Encontrada entrada invalida no slot %d para a habilidade %s",i,skill->dbs->db[cd->entry[i]->skidx].name);
 					sd->blockskill[cd->entry[i]->skidx] = false;
 				}
 			}
@@ -9378,7 +9378,7 @@ ACMD(cddebug) {
 	if (!cd || (*message && !strcmpi(message,"reset"))) {
 		for(i = 0; i < MAX_SKILL; i++) {
 			if( sd->blockskill[i] ) {
-				clif->messages(fd,"Found skill '%s', unblocking...",skill->dbs->db[i].name);
+				clif->messages(fd,"Habilidade encontrada '%s', desbloqueando...",skill->dbs->db[i].name);
 				sd->blockskill[i] = false;
 			}
 		}
@@ -9404,8 +9404,8 @@ ACMD(lang) {
 	uint8 i;
 
 	if (!*message) {
-		clif->messages(fd,"Usage: @%s <Language>",info->command);
-		clif->messages(fd,"There are %d languages available:",script->max_lang_id);
+		clif->messages(fd,"Uso: @%s <Idioma>",info->command);
+		clif->messages(fd,"Existem %d idiomas disponiveis:",script->max_lang_id);
 		for(i = 0; i < script->max_lang_id; i++)
 			clif->messages(fd,"- %s",script->languages[i]);
 		return false;
@@ -9414,9 +9414,9 @@ ACMD(lang) {
 	for(i = 0; i < script->max_lang_id; i++) {
 		if( strcmpi(message,script->languages[i]) == 0 ) {
 			if( i == sd->lang_id ) {
-				clif->messages(fd,"%s is already set as your language",script->languages[i]);
+				clif->messages(fd,"%s ja esta selecionado como seu idioma.",script->languages[i]);
 			} else {
-				clif->messages(fd,"Your language has been changed from '%s' to '%s'",script->languages[sd->lang_id],script->languages[i]);
+				clif->messages(fd,"Seu idioma foi alterado de '%s' para '%s'",script->languages[sd->lang_id],script->languages[i]);
 				sd->lang_id = i;
 			}
 			break;
@@ -9424,8 +9424,8 @@ ACMD(lang) {
 	}
 
 	if( i == script->max_lang_id ) {
-		clif->messages(fd,"'%s' did not match any language available",message);
-		clif->messages(fd,"There are %d languages available:",script->max_lang_id);
+		clif->messages(fd,"'%s' nao corresponde a nenhum idioma disponivel.",message);
+		clif->messages(fd,"Existem %d idiomas disponiveis:",script->max_lang_id);
 		for(i = 0; i < script->max_lang_id; i++)
 			clif->messages(fd,"- %s",script->languages[i]);
 	}
@@ -9709,7 +9709,7 @@ void atcommand_basecommands(void) {
 
 	for( i = 0; i < ARRAYLENGTH(atcommand_base); i++ ) {
 		if(!atcommand->add(atcommand_base[i].command,atcommand_base[i].func,false)) { // Should not happen if atcommand_base[] array is OK
-			ShowDebug("atcommand_basecommands: duplicate ACMD_DEF for '%s'.\n", atcommand_base[i].command);
+			ShowDebug("atcommand_basecommands: ACMD_DEF duplicado para '%s'.\n", atcommand_base[i].command);
 			continue;
 		}
 	}
@@ -10003,7 +10003,7 @@ bool atcommand_exec(const int fd, struct map_session_data *sd, const char *messa
 		for(i = 0; i < map->list[sd->bl.m].zone->disabled_commands_count; i++) {
 			if( info->func == map->list[sd->bl.m].zone->disabled_commands[i]->cmd ) {
 				if (pc_get_group_level(sd) < map->list[sd->bl.m].zone->disabled_commands[i]->group_lv) {
-					clif->messagecolor_self(sd->fd, COLOR_RED, "This command is disabled in this area");
+					clif->messagecolor_self(sd->fd, COLOR_RED, "Esse comando esta desabilitado nessa area.");
 					return true;
 				} else {
 					break;/* already found the matching command, no need to keep checking -- just go on */
@@ -10088,7 +10088,7 @@ void atcommand_config_read(const char* config_filename) {
 				continue;
 			commandname = config_setting_name(command);
 			if ( !( commandinfo = atcommand->exists(commandname) ) ) {
-				ShowConfigWarning(command, "atcommand_config_read: can not set alias for non-existent command %s", commandname);
+				ShowConfigWarning(command, "atcommand_config_read: nao se pode definir pseudonimo para comando nao-existente %s", commandname);
 				continue;
 			}
 			alias_count = libconfig->setting_length(command);
@@ -10097,7 +10097,7 @@ void atcommand_config_read(const char* config_filename) {
 				if (alias != NULL) {
 					AliasInfo *alias_info;
 					if (strdb_exists(atcommand->alias_db, alias)) {
-						ShowConfigWarning(command, "atcommand_config_read: alias %s already exists", alias);
+						ShowConfigWarning(command, "atcommand_config_read: pseudonimo %s ja existe.", alias);
 						continue;
 					}
 					CREATE(alias_info, AliasInfo, 1);
@@ -10123,7 +10123,7 @@ void atcommand_config_read(const char* config_filename) {
 			command = libconfig->setting_get_elem(nolog, i);
 			commandname = config_setting_name(command);
 			if ( !( commandinfo = atcommand->exists(commandname) ) ) {
-				ShowConfigWarning(command, "atcommand_config_read: can not disable logging for non-existent command %s", commandname);
+				ShowConfigWarning(command, "atcommand_config_read: nao se pode desabilitar logging para comando nao-existente %s", commandname);
 				continue;
 			}
 			commandinfo->log = false;
@@ -10145,7 +10145,7 @@ void atcommand_config_read(const char* config_filename) {
 			command = libconfig->setting_get_elem(help, i);
 			commandname = config_setting_name(command);
 			if ( !( commandinfo = atcommand->exists(commandname) ) )
-				ShowConfigWarning(command, "atcommand_config_read: command %s does not exist", commandname);
+				ShowConfigWarning(command, "atcommand_config_read: comando %s nao existe.", commandname);
 			else {
 				if( commandinfo->help == NULL ) {
 					const char *str = libconfig->setting_get_string(command);
@@ -10157,7 +10157,7 @@ void atcommand_config_read(const char* config_filename) {
 		}
 	}
 
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' command aliases in '"CL_WHITE"%s"CL_RESET"'.\n", num_aliases, config_filename);
+	ShowStatus("Leitura feita '"CL_WHITE"%d"CL_RESET"' pseudonimo de comandos em '"CL_WHITE"%s"CL_RESET"'.\n", num_aliases, config_filename);
 
 	libconfig->destroy(&atcommand_config);
 	return;
@@ -10199,13 +10199,13 @@ void atcommand_db_load_groups(GroupSettings **groups, config_setting_t **command
 			int idx = -1;
 
 			if (group == NULL) {
-				ShowError("atcommand_db_load_groups: group is NULL\n");
+				ShowError("atcommand_db_load_groups: grupo é NULL\n");
 				continue;
 			}
 
 			idx = pcg->get_idx(group);
 			if (idx < 0 || idx >= sz) {
-				ShowError("atcommand_db_load_groups: index (%d) out of bounds [0,%"PRIuS"]\n", idx, sz - 1);
+				ShowError("atcommand_db_load_groups: index (%d) fora dos limites [0,%"PRIuS"]\n", idx, sz - 1);
 				continue;
 			}
 
@@ -10275,7 +10275,7 @@ bool atcommand_hp_add(char *name, AtCommandFunc func) {
 	/* if commands are added after group permissions are thrown in, they end up with no permissions */
 	/* so we restrict commands to be linked in during boot */
 	if( core->runflag == MAPSERVER_ST_RUNNING ) {
-		ShowDebug("atcommand_hp_add: Commands can't be added after server is ready, skipping '%s'...\n",name);
+		ShowDebug("atcommand_hp_add: Comandos não podem ser adicionados após o servidor estar pronto, pulando '%s'...\n",name);
 		return false;
 	}
 
