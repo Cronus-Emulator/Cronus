@@ -5899,6 +5899,43 @@ BUILDIN(areapercentheal) {
 	map->foreachinarea(script->buildin_areapercentheal_sub,m,x0,y0,x1,y1,BL_PC,hp,sp);
 	return true;
 }
+/*==========================================
+* Funcao para o comando areakill [Giovas] 
+*------------------------------------------*/
+int buildin_areakill_sub(struct block_list *bl, va_list ap)
+{
+	status_kill(bl);	
+	return 0;
+}
+
+/*=============================================
+* Matar monstros e jogadores em area [Giovas]
+* Uso: <mapa>,<x>,<y>,<x1>,<y1>,<tipo>
+* tipo: 0 - Players (padrao se omitido), 1 - Monstros, 2 - Ambos
+*---------------------------------------------*/
+BUILDIN(areakill)
+{
+	int16 m, x0, y0, x1, y1, type = 0;
+	const char *mapname;
+	int BL_TYPE;
+
+	mapname = script_getstr(st, 2);
+	x0 = script_getnum(st, 3);
+	y0 = script_getnum(st, 4);
+	x1 = script_getnum(st, 5);
+	y1 = script_getnum(st, 6);
+	if (script_hasdata(st,7))type = script_getnum(st, 7);
+	
+	type = ( type < 1 ? 0 : (type > 1 ? 2 : 1));	
+	BL_TYPE = (type == 0 ? BL_PC : (type == 1 ? BL_MOB : (BL_PC + BL_MOB)));
+
+	if ((m = map->mapname2mapid(mapname)) < 0)
+		return true;
+	
+	map->foreachinarea(script->buildin_areakill_sub, m, x0, y0, x1, y1, BL_TYPE);
+
+	return true;
+}
 
 /*==========================================
  * warpchar [LuzZza]
@@ -19936,6 +19973,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(input,"r??"),
 		BUILDIN_DEF(warp,"sii?"),
 		BUILDIN_DEF(areawarp,"siiiisii??"),
+		BUILDIN_DEF(areakill,"siiii?"), // [Giovas]
 		BUILDIN_DEF(warpchar,"siii"), // [LuzZza]
 		BUILDIN_DEF(warpparty,"siii?"), // [Fredzilla] [Paradox924X]
 		BUILDIN_DEF(warpguild,"siii"), // [Fredzilla]
@@ -20773,6 +20811,7 @@ void script_defaults(void) {
 	script->menu_countoptions = menu_countoptions;
 	script->buildin_areawarp_sub = buildin_areawarp_sub;
 	script->buildin_areapercentheal_sub = buildin_areapercentheal_sub;
+	script->buildin_areakill_sub = buildin_areakill_sub; // [Giovas]
 	script->buildin_delitem_delete = buildin_delitem_delete;
 	script->buildin_delitem_search = buildin_delitem_search;
 	script->buildin_killmonster_sub_strip = buildin_killmonster_sub_strip;

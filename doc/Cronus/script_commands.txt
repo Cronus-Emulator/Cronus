@@ -640,7 +640,7 @@ Strings
 -------
 
 Strings are enclosed in "double quotes". To include the literal double
-quote symbol (") in a string you need to escape it with a blackslash:
+quote symbol (") "in a string you need to escape it with a blackslash:
 
     .@string$ = "This string contains some \"double quote\" symbols";
 
@@ -4082,10 +4082,18 @@ character. It will not be seen by anyone else.
 
 ---------------------------------------
 
-*dispbottom "<message>";
+*dispbottom "<message>"{,<color_flag>};
 
 This command will send the given message into the invoking character's 
 chat window.
+
+//Parameto opicional de cor adicionado por Slex Fire
+
+Para usar uma cor, basta digitar 0x seguido do codigo hexadecimal da cor.
+
+	dispbottom "Esta mensagem é vermelha",0xFF0000;
+Exibe a mensagem "Esta mensagem é vermelha", na cor vermelha, no jogador que está
+attachado ao script.
 
 ---------------------------------------
 
@@ -6906,7 +6914,7 @@ mapflag's state.
 *getbattleflag("<battle flag>")
 
 Sets or gets the value of the given battle flag.
-Battle flags are the flags found in the battle/*.conf files and is also 
+Battle flags are the flags found in the "battle/*.conf/" files and is also 
 used in Lupus' variable rates script.
 
 Examples:
@@ -9048,4 +9056,29 @@ to be used within a "OnPayFunds" event of a NST_CUSTOM trader.
 
 Returns the amount of still-available <Item_ID> in the shop (on a NST_MARKET trader).
 
----------------------------------------
+----------------------------------------------------
+// Equipe Cronus Dev. Comandos
+
+*areakill "<mapa>",<x1>,<y1>,<x2>,<y2>{,<tipo>};
+
+Esse comando funciona semelhante à outros comandos de AREA, ele serve para matar o que estiver na área determinada,
+conforme o <tipo> que for indicado. O <tipo> é um parameto opicional, caso seja omitido o valor será 'zero'. 
+Os tipos são 0= Jogador, 1= Monstro, 2= Ambos. Este comando não precisa estar attachado para funcionar.
+
+	areakill "prt_fild08",100,110,110,120,1;
+	
+Todos os monstros na area entre X 100 Y 110 e X 110 e Y 120, em uma area
+quadrada, no mapa "prt_fild08", vão ser mortos.
+
+	areakill "prontera",150,150,180,180;
+
+Todos os jogadores na area entre X 150 Y 150 e X 180 e Y 180, em uma area
+quadrada, no mapa "prontera", vão ser mortos.
+
+	areakill "izlude",80,50,100,80,2;
+
+Todos os jogadores e monstros na area entre X 80 Y 50 e X 100 e Y 80, em uma area
+quadrada, no mapa "izlude", vão ser mortos.
+
+----------------------------------------------------
+
