@@ -95,7 +95,7 @@ int quest_add(TBL_PC *sd, int quest_id) {
 	struct quest_db *qi = quest->db(quest_id);
 
 	if( qi == &quest->dummy ) {
-		ShowError("quest_add: missao %d nao encontrada no DB.\n", quest_id);
+		ShowError("quest_add: Missao %d nao encontrada no DB.\n", quest_id);
 		return -1;
 	}
 
@@ -146,7 +146,7 @@ int quest_change(TBL_PC *sd, int qid1, int qid2) {
 	struct quest_db *qi = quest->db(qid2);
 
 	if( qi == &quest->dummy ) {
-		ShowError("quest_change: missao %d nao encontrada no DB.\n", qid2);
+		ShowError("quest_change: Missao %d nao encontrada no DB.\n", qid2);
 		return -1;
 	}
 
@@ -389,7 +389,7 @@ int quest_check(TBL_PC *sd, int quest_id, enum quest_check_type type)
 			}
 			return 0;
 		default:
-			ShowError("quest_check_quest: Parametro descinhecido %d",type);
+			ShowError("quest_check_quest: Parametro desconhecido %d",type);
 			break;
 	}
 
@@ -514,7 +514,7 @@ int quest_read_db(void)
 
 	sprintf(filepath, "%s/%s", map->db_path, filename);
 	if (libconfig->read_file(&quest_db_conf, filepath) || !(qdb = libconfig->setting_get_member(quest_db_conf.root, "quest_db"))) {
-		ShowError("nao foi possivel ler %s\n", filepath);
+		ShowError("Nao foi possivel ler %s\n", filepath);
 		return -1;
 	}
 
