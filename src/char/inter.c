@@ -78,7 +78,7 @@ const char* inter_msg_txt(int msg_number) {
 	    msg_table[msg_number] != NULL && msg_table[msg_number][0] != '\0')
 		return msg_table[msg_number];
 
-	return "Unknown";
+	return "Desconhecida";
 }
 
 /**
@@ -100,7 +100,7 @@ bool inter_msg_config_read(const char *cfg_name, bool allow_override)
 
 	nullpo_ret(cfg_name);
 	if ((fp = fopen(cfg_name, "r")) == NULL) {
-		ShowError("Messages file not found: %s\n", cfg_name);
+		ShowError("Arquivo de mensagens nao encontrado: %s\n", cfg_name);
 		return 1;
 	}
 
@@ -123,7 +123,7 @@ bool inter_msg_config_read(const char *cfg_name, bool allow_override)
 			if (msg_number >= 0 && msg_number < MAX_JOB_NAMES) {
 				if (msg_table[msg_number] != NULL) {
 					if (!allow_override) {
-						ShowError("Duplicate message: ID '%d' was already used for '%s'. Message '%s' will be ignored.\n",
+						ShowError("Mensagem duplicada: ID '%d' foi usada por '%s'. A mensagem '%s' sera ignorada.\n",
 						          msg_number, w2, msg_table[msg_number]);
 						continue;
 					}
@@ -441,10 +441,10 @@ void mapif_parse_accinfo(int fd)
 		if ( SQL_ERROR == SQL->Query(inter->sql_handle, "SELECT `account_id`,`name`,`class`,`base_level`,`job_level`,`online` FROM `%s` WHERE `name` LIKE '%s' LIMIT 10", char_db, query_esq)
 				|| SQL->NumRows(inter->sql_handle) == 0 ) {
 			if( SQL->NumRows(inter->sql_handle) == 0 ) {
-				inter->msg_to_fd(fd, u_fd, aid, "No matches were found for your criteria, '%s'",query);
+				inter->msg_to_fd(fd, u_fd, aid, "Nenhuma concordancia foi encontrada para seus criterios, '%s'",query);
 			} else {
 				Sql_ShowDebug(inter->sql_handle);
-				inter->msg_to_fd(fd, u_fd, aid, "An error occurred, bother your admin about it.");
+				inter->msg_to_fd(fd, u_fd, aid, "Ocorreu um erro, alerte seu admin sobre isso.");
 			}
 			SQL->FreeResult(inter->sql_handle);
 			return;
@@ -454,7 +454,7 @@ void mapif_parse_accinfo(int fd)
 				SQL->GetData(inter->sql_handle, 0, &data, NULL); account_id = atoi(data);
 				SQL->FreeResult(inter->sql_handle);
 			} else {// more than one, listing... [Dekamaster/Nightroad]
-				inter->msg_to_fd(fd, u_fd, aid, "Your query returned the following %d results, please be more specific...",(int)SQL->NumRows(inter->sql_handle));
+				inter->msg_to_fd(fd, u_fd, aid, "Sua consulta retornou o seguinte resultado %d, por favor seja ais especifico...",(int)SQL->NumRows(inter->sql_handle));
 				while ( SQL_SUCCESS == SQL->NextRow(inter->sql_handle) ) {
 					int class_;
 					short base_level, job_level, online;
@@ -497,32 +497,32 @@ void mapif_parse_accinfo2(bool success, int map_fd, int u_fd, int u_aid, int acc
 		return; // check if we have a valid fd
 
 	if (!success) {
-		inter->msg_to_fd(map_fd, u_fd, u_aid, "No account with ID '%d' was found.", account_id);
+		inter->msg_to_fd(map_fd, u_fd, u_aid, "Nenhuma conta com o ID '%d' foi encontrada.", account_id);
 		return;
 	}
 
-	inter->msg_to_fd(map_fd, u_fd, u_aid, "-- Account %d --", account_id);
-	inter->msg_to_fd(map_fd, u_fd, u_aid, "User: %s | GM Group: %d | State: %d", userid, group_id, state);
+	inter->msg_to_fd(map_fd, u_fd, u_aid, "-- Conta %d --", account_id);
+	inter->msg_to_fd(map_fd, u_fd, u_aid, "Usuario: %s | Grupo de GM: %d | Estado: %d", userid, group_id, state);
 
 	if (*user_pass != '\0') { /* password is only received if your gm level is greater than the one you're searching for */
 		if (pin_code && *pin_code != '\0')
-			inter->msg_to_fd(map_fd, u_fd, u_aid, "Password: %s (PIN:%s)", user_pass, pin_code);
+			inter->msg_to_fd(map_fd, u_fd, u_aid, "Senha: %s (PIN:%s)", user_pass, pin_code);
 		else
-			inter->msg_to_fd(map_fd, u_fd, u_aid, "Password: %s", user_pass );
+			inter->msg_to_fd(map_fd, u_fd, u_aid, "Senha: %s", user_pass );
 	}
 
-	inter->msg_to_fd(map_fd, u_fd, u_aid, "Account e-mail: %s | Birthdate: %s", email, birthdate);
-	inter->msg_to_fd(map_fd, u_fd, u_aid, "Last IP: %s (%s)", last_ip, geoip->getcountry(sockt->str2ip(last_ip)));
-	inter->msg_to_fd(map_fd, u_fd, u_aid, "This user has logged %d times, the last time were at %s", logincount, lastlogin);
-	inter->msg_to_fd(map_fd, u_fd, u_aid, "-- Character Details --");
+	inter->msg_to_fd(map_fd, u_fd, u_aid, "Conta e-mail: %s | Data de nascimento: %s", email, birthdate);
+	inter->msg_to_fd(map_fd, u_fd, u_aid, "Ultimo IP: %s (%s)", last_ip, geoip->getcountry(sockt->str2ip(last_ip)));
+	inter->msg_to_fd(map_fd, u_fd, u_aid, "Este usuario logou %d vezes, a ultima vez que logou foi em %s", logincount, lastlogin);
+	inter->msg_to_fd(map_fd, u_fd, u_aid, "-- Detalhes do Personagem --");
 
 	if ( SQL_ERROR == SQL->Query(inter->sql_handle, "SELECT `char_id`, `name`, `char_num`, `class`, `base_level`, `job_level`, `online` "
 	                                         "FROM `%s` WHERE `account_id` = '%d' ORDER BY `char_num` LIMIT %d", char_db, account_id, MAX_CHARS)
 	  || SQL->NumRows(inter->sql_handle) == 0 ) {
 		if (SQL->NumRows(inter->sql_handle) == 0) {
-			inter->msg_to_fd(map_fd, u_fd, u_aid, "This account doesn't have characters.");
+			inter->msg_to_fd(map_fd, u_fd, u_aid, "Esta conta nao tem personagens.");
 		} else {
-			inter->msg_to_fd(map_fd, u_fd, u_aid, "An error occurred, bother your admin about it.");
+			inter->msg_to_fd(map_fd, u_fd, u_aid, "Um erro ocorreu, alerte seu admin sobre isto.");
 			Sql_ShowDebug(inter->sql_handle);
 		}
 	} else {
@@ -561,7 +561,7 @@ void inter_savereg(int account_id, int char_id, const char *key, unsigned int in
 		if (sockt->session_is_valid(chr->login_fd))
 			chr->global_accreg_to_login_add(key,index,val,is_string);
 		else {
-			ShowError("Login server unavailable, cant perform update on '%s' variable for AID:%d CID:%d\n",key,account_id,char_id);
+			ShowError("Login-server indisponivel, nao e possivel atualizar '%s' de variavel para AID:%d CID:%d\n",key,account_id,char_id);
 		}
 	} else if ( key[0] == '#' ) {/* local account reg */
 		if( is_string ) {
@@ -619,10 +619,10 @@ int inter_accreg_fromsql(int account_id,int char_id, int fd, int type)
 				Sql_ShowDebug(inter->sql_handle);
 			break;
 		case 1: //account2 reg
-			ShowError("inter->accreg_fromsql: Char server shouldn't handle type 1 registry values (##). That is the login server's work!\n");
+			ShowError("inter->accreg_fromsql: O char-server nao deve manipular valores do tipo 1 de registro (##). Esse e o trabalho do login-server!\n");
 			return 0;
 		default:
-			ShowError("inter->accreg_fromsql: Invalid type %d\n", type);
+			ShowError("inter->accreg_fromsql: Tipo invalido %d\n", type);
 			return 0;
 	}
 
@@ -702,7 +702,7 @@ int inter_accreg_fromsql(int account_id,int char_id, int fd, int type)
 			break;
 #if 0 // This is already checked above.
 		case 1: //account2 reg
-			ShowError("inter->accreg_fromsql: Char server shouldn't handle type 1 registry values (##). That is the login server's work!\n");
+			ShowError("inter->accreg_fromsql: O char-server nao deve manipular valores do tipo 1 de registro (##). Esse e o trabalho do login-server!\n");
 			return 0;
 #endif // 0
 	}
@@ -782,7 +782,7 @@ static int inter_config_read(const char* cfgName)
 	nullpo_retr(1, cfgName);
 	fp = fopen(cfgName, "r");
 	if(fp == NULL) {
-		ShowError("File not found: %s\n", cfgName);
+		ShowError("Arquivo nao encontrado: %s\n", cfgName);
 		return 1;
 	}
 
@@ -812,7 +812,7 @@ static int inter_config_read(const char* cfgName)
 	}
 	fclose(fp);
 
-	ShowInfo ("Done reading %s.\n", cfgName);
+	ShowInfo ("Realizada leitura de %s.\n", cfgName);
 
 	return 0;
 }
@@ -865,7 +865,7 @@ int inter_init_sql(const char *file)
 
 	//DB connection initialized
 	inter->sql_handle = SQL->Malloc();
-	ShowInfo("Connect Character DB server.... (Character Server)\n");
+	ShowInfo("Conectar o DB do servidor de personagens.... (Servidor de Personagens)\n");
 	if( SQL_ERROR == SQL->Connect(inter->sql_handle, char_server_id, char_server_pw, char_server_ip, (uint16)char_server_port, char_server_db) )
 	{
 		Sql_ShowDebug(inter->sql_handle);
@@ -1044,7 +1044,7 @@ int inter_check_ttl_wisdata(void)
 		wis_db->foreach(wis_db, inter->check_ttl_wisdata_sub, tick);
 		for(i = 0; i < wis_delnum; i++) {
 			struct WisData *wd = (struct WisData*)idb_get(wis_db, wis_dellist[i]);
-			ShowWarning("inter: wis data id=%d time out : from %s to %s\n", wd->id, wd->src, wd->dst);
+			ShowWarning("inter: Dado id=%d tempo limite : de %s para %s\n", wd->id, wd->src, wd->dst);
 			// removed. not send information after a timeout. Just no answer for the player
 			//mapif->wis_end(wd, 1); // flag: 0: success to send whisper, 1: target character is not logged in?, 2: ignored by target
 			idb_remove(wis_db, wd->id);
@@ -1078,10 +1078,10 @@ int mapif_parse_WisRequest(int fd)
 	if ( fd <= 0 ) {return 0;} // check if we have a valid fd
 
 	if (RFIFOW(fd,2)-52 >= sizeof(wd->msg)) {
-		ShowWarning("inter: Wis message size too long.\n");
+		ShowWarning("inter: O tamanho desta mensagem e muito longa.\n");
 		return 0;
 	} else if (RFIFOW(fd,2)-52 <= 0) { // normally, impossible, but who knows...
-		ShowError("inter: Wis message doesn't exist.\n");
+		ShowError("inter: Esta mensagem nao existe.\n");
 		return 0;
 	}
 
@@ -1203,7 +1203,7 @@ int mapif_parse_Registry(int fd)
 					inter->savereg(account_id,char_id,key,index,0,true);
 					break;
 				default:
-					ShowError("mapif->parse_Registry: unknown type %d\n",RFIFOB(fd, cursor - 1));
+					ShowError("mapif->parse_Registry: Tipo desconhecido %d\n",RFIFOB(fd, cursor - 1));
 					return 1;
 			}
 
