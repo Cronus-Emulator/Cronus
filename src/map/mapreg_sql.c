@@ -200,7 +200,7 @@ void script_load_mapreg(void) {
 
 
 		if( i64db_exists(mapreg->regs.vars, reference_uid(s, i)) ) {
-			ShowWarning("load_mapreg: duplicate! '%s' => '%s' skipping...\n",varname,value);
+			ShowWarning("load_mapreg: duplicado! '%s' => '%s' pulando...\n",varname,value);
 			continue;
 		}
 		if( varname[length-1] == '$' ) {

@@ -6050,7 +6050,7 @@ ACMD(mobalive)
 	if ((mob_id = atoi(mob_name)) == 0)
 		 mob_id = mob->db_searchname(mob_name);
 	if(mob_id > 0 && mob->db_checkid(mob_id) == 0){
-		snprintf(atcmd_output, sizeof atcmd_output, "ID %s inválido!",mob_name);
+		snprintf(atcmd_output, sizeof atcmd_output, "ID %s invalido!",mob_name);
 		clif->message(fd, atcmd_output);
 		return false;
 	}
@@ -6080,7 +6080,7 @@ ACMD(mobalive)
 		}
 	}
 	if (!number)
-		clif->message(fd, "Monstro não encontrado.");
+		clif->message(fd, "Monstro nao encontrado.");
 		mapit->free(it);
 
 	return true;
@@ -10157,7 +10157,7 @@ void atcommand_config_read(const char* config_filename) {
 		}
 	}
 
-	ShowStatus("Leitura feita '"CL_WHITE"%d"CL_RESET"' pseudonimo de comandos em '"CL_WHITE"%s"CL_RESET"'.\n", num_aliases, config_filename);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' pseudo-comandos em '"CL_WHITE"%s"CL_RESET"'.\n", num_aliases, config_filename);
 
 	libconfig->destroy(&atcommand_config);
 	return;
@@ -10199,7 +10199,7 @@ void atcommand_db_load_groups(GroupSettings **groups, config_setting_t **command
 			int idx = -1;
 
 			if (group == NULL) {
-				ShowError("atcommand_db_load_groups: grupo é NULL\n");
+				ShowError("atcommand_db_load_groups: grupo e NULL\n");
 				continue;
 			}
 

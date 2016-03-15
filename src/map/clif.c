@@ -15029,22 +15029,22 @@ void clif_parse_Auction_register(int fd, struct map_session_data *sd)
 
 	// Invalid Situations...
 	if (auction.price <= 0 || auction.buynow <= 0) {
-		ShowWarning("Character %s trying to register auction wit wrong price.\n", sd->status.name);
+		ShowWarning("Personagem %s tentou registrar no leilao um preco errado.\n", sd->status.name);
 		return;
 	}
 
 	if( sd->auction.amount < 1 ) {
-		ShowWarning("Character %s trying to register auction without item.\n", sd->status.name);
+		ShowWarning("Personagem %s tentou registrar no leilao sem nenhum item.\n", sd->status.name);
 		return;
 	}
 
 	if( auction.price >= auction.buynow ) {
-		ShowWarning("Character %s trying to alter auction prices.\n", sd->status.name);
+		ShowWarning("Personagem %s tentou alterar precos no leilao.\n", sd->status.name);
 		return;
 	}
 
 	if( auction.hours < 1 || auction.hours > 48 ) {
-		ShowWarning("Character %s trying to enter an invalid time for auction.\n", sd->status.name);
+		ShowWarning("Personagem %s tentou inserir um tempo invalido no leilao.\n", sd->status.name);
 		return;
 	}
 
@@ -15309,7 +15309,7 @@ void clif_parse_cashshop_buy(int fd, struct map_session_data *sd)
 		unsigned short* item_list = (unsigned short*)RFIFOP(fd,10);
 
 		if( len < 10 || len != 10 + count * 4) {
-			ShowWarning("Player %u sent incorrect cash shop buy packet (len %u:%u)!\n", sd->status.char_id, len, 10 + count * 4);
+			ShowWarning("Jogador %u enviou um packet de compras no cash shop incorreto (len %u:%u)!\n", sd->status.char_id, len, 10 + count * 4);
 			return;
 		}
 		fail = npc->cashshop_buylist(sd,points,count,item_list);
@@ -16421,7 +16421,7 @@ void clif_parse_ReqOpenBuyingStore(int fd, struct map_session_data* sd) {
 	// TODO: Make this check global for all variable length packets.
 	if( packet_len < 89 )
 	{// minimum packet length
-		ShowError("clif_parse_ReqOpenBuyingStore: Malformed packet (expected length=%u, length=%u, account_id=%d).\n", 89, packet_len, sd->bl.id);
+		ShowError("clif_parse_ReqOpenBuyingStore: Packet mal formado (esperado comprimento=%u, comprimento=%u, account_id=%d).\n", 89, packet_len, sd->bl.id);
 		return;
 	}
 
@@ -16435,7 +16435,7 @@ void clif_parse_ReqOpenBuyingStore(int fd, struct map_session_data* sd) {
 
 	if( packet_len%blocksize )
 	{
-		ShowError("clif_parse_ReqOpenBuyingStore: Unexpected item list size %u (account_id=%d, block size=%u)\n", packet_len, sd->bl.id, blocksize);
+		ShowError("clif_parse_ReqOpenBuyingStore: Tamanho da lista de itens inesperada %u (account_id=%d, block size=%u)\n", packet_len, sd->bl.id, blocksize);
 		return;
 	}
 	count = packet_len/blocksize;
@@ -16600,7 +16600,7 @@ void clif_parse_ReqTradeBuyingStore(int fd, struct map_session_data* sd) {
 
 	if( packet_len < 12 )
 	{// minimum packet length
-		ShowError("clif_parse_ReqTradeBuyingStore: Malformed packet (expected length=%u, length=%u, account_id=%d).\n", 12, packet_len, sd->bl.id);
+		ShowError("clif_parse_ReqTradeBuyingStore: Packet mal formado (esperado comprimento=%u, comprimento=%u, account_id=%d).\n", 12, packet_len, sd->bl.id);
 		return;
 	}
 
@@ -16613,7 +16613,7 @@ void clif_parse_ReqTradeBuyingStore(int fd, struct map_session_data* sd) {
 
 	if( packet_len%blocksize )
 	{
-		ShowError("clif_parse_ReqTradeBuyingStore: Unexpected item list size %u (account_id=%d, buyer_id=%u, block size=%u)\n", packet_len, sd->bl.id, account_id, blocksize);
+		ShowError("clif_parse_ReqTradeBuyingStore: Tamanho da lista de itens inesperada %u (account_id=%d, buyer_id=%u, block size=%u)\n", packet_len, sd->bl.id, account_id, blocksize);
 		return;
 	}
 	count = packet_len/blocksize;
@@ -16720,7 +16720,7 @@ void clif_parse_SearchStoreInfo(int fd, struct map_session_data* sd) {
 
 	if( packet_len < 15 )
 	{// minimum packet length
-		ShowError("clif_parse_SearchStoreInfo: Malformed packet (expected length=%u, length=%u, account_id=%d).\n", 15, packet_len, sd->bl.id);
+		ShowError("clif_parse_SearchStoreInfo: Packet mal formado (esperado comprimento=%u, comprimento=%u, account_id=%d).\n", 15, packet_len, sd->bl.id);
 		return;
 	}
 
@@ -16737,14 +16737,14 @@ void clif_parse_SearchStoreInfo(int fd, struct map_session_data* sd) {
 
 	if( packet_len%blocksize )
 	{
-		ShowError("clif_parse_SearchStoreInfo: Unexpected item list size %u (account_id=%d, block size=%u)\n", packet_len, sd->bl.id, blocksize);
+		ShowError("clif_parse_SearchStoreInfo: Tamanho da lista de itens inesperada %u (account_id=%d, block size=%u)\n", packet_len, sd->bl.id, blocksize);
 		return;
 	}
 	count = packet_len/blocksize;
 
 	if( count < item_count+card_count )
 	{
-		ShowError("clif_parse_SearchStoreInfo: Malformed packet (expected count=%u, count=%u, account_id=%d).\n", item_count+card_count, count, sd->bl.id);
+		ShowError("clif_parse_SearchStoreInfo: Packet mal formado (esperado count=%u, count=%u, account_id=%d).\n", item_count+card_count, count, sd->bl.id);
 		return;
 	}
 
@@ -16902,10 +16902,10 @@ void clif_parse_debug(int fd,struct map_session_data *sd) {
 		if( packet_len == -1 ) {// variable length
 			packet_len = RFIFOW(fd,2);  // clif_parse ensures, that this amount of data is already received
 		}
-		ShowDebug("Packet debug of 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
+		ShowDebug("Debug do Packet 0x%04X (comprimento %d), %s sessao #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
 	} else {
 		packet_len = (int)RFIFOREST(fd);
-		ShowDebug("Packet debug of 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
+		ShowDebug("Debug do Packet 0x%04X (comprimento %d), sessao #%d\n", cmd, packet_len, fd);
 	}
 
 	ShowDump(RFIFOP(fd,0), packet_len);
@@ -17211,7 +17211,7 @@ void clif_cashshop_db(void) {
 	}
 
 	if (libconfig->read_file(&cashshop_conf, config_filename)) {
-		ShowError("can't read %s\n", config_filename);
+		ShowError("nao pode ler %s\n", config_filename);
 		return;
 	}
 
@@ -17234,18 +17234,18 @@ void clif_cashshop_db(void) {
 					struct item_data * data = NULL;
 
 					if( price < 1 ) {
-						ShowWarning("cashshop_db: unsupported price '%d' for entry named '%s' in category '%s'\n", price, name, entry_name);
+						ShowWarning("cashshop_db: preco nao suportado '%d' para entrada '%s' na categoria '%s'\n", price, name, entry_name);
 						continue;
 					}
 
 					if( name[0] == 'I' && name[1] == 'D' && strlen(name) <= 7 ) {
 						if( !( data = itemdb->exists(atoi(name+2))) ) {
-							ShowWarning("cashshop_db: unknown item id '%s' in category '%s'\n", name+2, entry_name);
+							ShowWarning("cashshop_db: id de item desconhecido '%s' na categoria '%s'\n", name+2, entry_name);
 							continue;
 						}
 					} else {
 						if( !( data = itemdb->search_name(name) ) ) {
-							ShowWarning("cashshop_db: unknown item name '%s' in category '%s'\n", name, entry_name);
+							ShowWarning("cashshop_db: nome de item desconhecido '%s' na categoria '%s'\n", name, entry_name);
 							continue;
 						}
 					}
@@ -17262,7 +17262,7 @@ void clif_cashshop_db(void) {
 
 	}
 	libconfig->destroy(&cashshop_conf);
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", item_count_t, config_filename);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", item_count_t, config_filename);
 }
 /// Items that are in favorite tab of inventory (ZC_ITEM_FAVORITE).
 /// 0900 <index>.W <favorite>.B
@@ -17869,7 +17869,7 @@ void clif_show_modifiers (struct map_session_data *sd) {
 	if( sd->status.mod_exp != 100 || sd->status.mod_drop != 100 || sd->status.mod_death != 100 ) {
 		char output[128];
 
-		snprintf(output,128,"Base EXP : %d%% | Base Drop: %d%% | Base Death Penalty: %d%%",
+		snprintf(output,128,"EXP : %d%% | Drop: %d%% | Penalidade de Morte: %d%%",
 				sd->status.mod_exp,sd->status.mod_drop,sd->status.mod_death);
 		clif->broadcast2(&sd->bl,output, strlen(output) + 1, 0xffbc90, 0x190, 12, 0, 0, SELF);
 	}
@@ -18099,7 +18099,7 @@ void clif_parse_RouletteOpen(int fd, struct map_session_data* sd) {
 	struct packet_roulette_open_ack p;
 
 	if( !battle_config.feature_roulette ) {
-		clif->message(fd,"Roulette is disabled");
+		clif->message(fd,"A Roleta da Sorte esta desativada");
 		return;
 	}
 
@@ -18122,7 +18122,7 @@ void clif_parse_RouletteInfo(int fd, struct map_session_data* sd) {
 	unsigned short i, j, count = 0;
 
 	if( !battle_config.feature_roulette ) {
-		clif->message(fd,"Roulette is disabled");
+		clif->message(fd,"A Roleta da Sorte esta desativada");
 		return;
 	}
 
@@ -18146,7 +18146,7 @@ void clif_parse_RouletteInfo(int fd, struct map_session_data* sd) {
 void clif_parse_RouletteClose(int fd, struct map_session_data* sd) __attribute__((nonnull (2)));
 void clif_parse_RouletteClose(int fd, struct map_session_data* sd) {
 	if( !battle_config.feature_roulette ) {
-		clif->message(fd,"Roulette is disabled");
+		clif->message(fd,"A Roleta da Sorte esta desativada");
 		return;
 	}
 
@@ -18162,7 +18162,7 @@ void clif_parse_RouletteGenerate(int fd, struct map_session_data* sd) {
 	short stage = sd->roulette.stage;
 
 	if( !battle_config.feature_roulette ) {
-		clif->message(fd,"Roulette is disabled");
+		clif->message(fd,"A Roleta da Sorte esta desativada");
 		return;
 	}
 
@@ -18218,7 +18218,7 @@ void clif_parse_RouletteRecvItem(int fd, struct map_session_data* sd) {
 	struct packet_roulette_itemrecv_ack p;
 
 	if( !battle_config.feature_roulette ) {
-		clif->message(fd,"Roulette is disabled");
+		clif->message(fd,"A Roleta da Sorte esta desativada");
 		return;
 	}
 
@@ -18293,18 +18293,18 @@ bool clif_parse_roulette_db(void) {
 					struct item_data * data = NULL;
 
 					if( qty < 1 ) {
-						ShowWarning("roulette_db: unsupported qty '%d' for entry named '%s' in category '%s'\n", qty, name, entry_name);
+						ShowWarning("roulette_db: qtd nao suportada '%d' para entrada '%s' na categoria '%s'\n", qty, name, entry_name);
 						continue;
 					}
 
 					if( name[0] == 'I' && name[1] == 'D' && strlen(name) <= 7 ) {
 						if( !( data = itemdb->exists(atoi(name+2))) ) {
-							ShowWarning("roulette_db: unknown item id '%s' in category '%s'\n", name+2, entry_name);
+							ShowWarning("roulette_db: id de item desonhecido '%s' na categoria '%s'\n", name+2, entry_name);
 							continue;
 						}
 					} else {
 						if( !( data = itemdb->search_name(name) ) ) {
-							ShowWarning("roulette_db: unknown item name '%s' in category '%s'\n", name, entry_name);
+							ShowWarning("roulette_db: nome de item desconhecido '%s' na categoria '%s'\n", name, entry_name);
 							continue;
 						}
 					}
@@ -18328,12 +18328,12 @@ bool clif_parse_roulette_db(void) {
 		if( clif->rd.items[i] == limit ) continue;
 
 		if( clif->rd.items[i] > limit ) {
-			ShowWarning("roulette_db: level %d has %d items, only %d supported, capping...\n",i+1,clif->rd.items[i],limit);
+			ShowWarning("roulette_db: nivel %d has %d itens, somente %d suportados, capping...\n",i+1,clif->rd.items[i],limit);
 			clif->rd.items[i] = limit;
 			continue;
 		}
 		/** this scenario = clif->rd.items[i] < limit **/
-		ShowWarning("roulette_db: level %d has %d items, %d are required. filling with apples\n",i+1,clif->rd.items[i],limit);
+		ShowWarning("roulette_db: nivel %d has %d itens, %d foram requisitados. filling with apples\n",i+1,clif->rd.items[i],limit);
 
 		clif->rd.items[i] = limit;
 		RECREATE(clif->rd.nameid[i],int,clif->rd.items[i]);
@@ -18346,7 +18346,7 @@ bool clif_parse_roulette_db(void) {
 			clif->rd.qty[i][j] = 1;
 		}
 	}
-	ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' entries in '"CL_WHITE"%s"CL_RESET"'.\n", item_count_t, config_filename);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", item_count_t, config_filename);
 
 	return true;
 }
@@ -18580,19 +18580,19 @@ int clif_parse(int fd) {
 					//Disassociate character from the socket connection.
 					sockt->session[fd]->session_data = NULL;
 					sd->fd = 0;
-					ShowInfo("Character '"CL_WHITE"%s"CL_RESET"' logged off (using @autotrade).\n", sd->status.name);
+					ShowInfo("Personagem '"CL_WHITE"%s"CL_RESET"' deslogou (usando @autotrade).\n", sd->status.name);
 				} else
 					if (sd->state.active) {
 						// Player logout display [Valaris]
-						ShowInfo("Character '"CL_WHITE"%s"CL_RESET"' logged off.\n", sd->status.name);
+						ShowInfo("Personagem '"CL_WHITE"%s"CL_RESET"' deslogou.\n", sd->status.name);
 						clif->quitsave(fd, sd);
 					} else {
 						//Unusual logout (during log on/off/map-changer procedure)
-						ShowInfo("Player AID:%d/CID:%d logged off.\n", sd->status.account_id, sd->status.char_id);
+						ShowInfo("Jogador AID:%d/CID:%d deslogou.\n", sd->status.account_id, sd->status.char_id);
 						map->quit(sd);
 					}
 			} else {
-				ShowInfo("Closed connection from '"CL_WHITE"%s"CL_RESET"'.\n", sockt->ip2str(sockt->session[fd]->client_addr, NULL));
+				ShowInfo("Fechando conexao de '"CL_WHITE"%s"CL_RESET"'.\n", sockt->ip2str(sockt->session[fd]->client_addr, NULL));
 			}
 			sockt->close(fd);
 			return 0;
@@ -18618,7 +18618,7 @@ int clif_parse(int fd) {
 
 		// filter out invalid / unsupported packets
 		if (cmd > MAX_PACKET_DB || cmd < MIN_PACKET_DB || packet_db[cmd].len == 0) {
-			ShowWarning("clif_parse: Received unsupported packet (packet 0x%04x (0x%04x), %"PRIuS" bytes received), disconnecting session #%d.\n",
+			ShowWarning("clif_parse: Recebido packet nao suportavel (packet 0x%04x (0x%04x), %"PRIuS" bytes recebidos), desconectando sessao #%d.\n",
 			            cmd, RFIFOW(fd,0), RFIFOREST(fd), fd);
 #ifdef DUMP_INVALID_PACKET
 			ShowDump(RFIFOP(fd,0), RFIFOREST(fd));
@@ -18635,7 +18635,7 @@ int clif_parse(int fd) {
 
 			packet_len = RFIFOW(fd,2);
 			if (packet_len < 4 || packet_len > 32768) {
-				ShowWarning("clif_parse: Received packet 0x%04x specifies invalid packet_len (%d), disconnecting session #%d.\n", cmd, packet_len, fd);
+				ShowWarning("clif_parse: Recebido packet 0x%04x especificacoes invalidas packet_len (%d), desconectando sessao #%d.\n", cmd, packet_len, fd);
 #ifdef DUMP_INVALID_PACKET
 				ShowDump(RFIFOP(fd,0), RFIFOREST(fd));
 #endif
@@ -18673,22 +18673,22 @@ int clif_parse(int fd) {
 
 			if( ( fp = fopen( packet_txt , "a" ) ) != NULL ) {
 				if( sd ) {
-					fprintf(fp, "Unknown packet 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
+					fprintf(fp, "Packet desconhecido 0x%04X (comprimento %d), %s sessao #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
 				} else {
-					fprintf(fp, "Unknown packet 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
+					fprintf(fp, "Packet desconhecido 0x%04X (comprimento %d), sessao #%d\n", cmd, packet_len, fd);
 				}
 
 				WriteDump(fp, RFIFOP(fd,0), packet_len);
 				fprintf(fp, "\n");
 				fclose(fp);
 			} else {
-				ShowError("Failed to write '%s'.\n", packet_txt);
+				ShowError("Falha em escrever '%s'.\n", packet_txt);
 
 				// Dump on console instead
 				if( sd ) {
-					ShowDebug("Unknown packet 0x%04X (length %d), %s session #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
+					ShowDebug("Packet desconhecido 0x%04X (comprimento %d), %s sessao #%d, %d/%d (AID/CID)\n", cmd, packet_len, sd->state.active ? "authed" : "unauthed", fd, sd->status.account_id, sd->status.char_id);
 				} else {
-					ShowDebug("Unknown packet 0x%04X (length %d), session #%d\n", cmd, packet_len, fd);
+					ShowDebug("Packet desconhecido 0x%04X (comprimento %d), sessao #%d\n", cmd, packet_len, fd);
 				}
 
 				ShowDump(RFIFOP(fd,0), packet_len);
@@ -18723,7 +18723,7 @@ static void __attribute__ ((unused)) packetdb_addpacket(short cmd, int len, ...)
 	pFunc func;
 
 	if (cmd > MAX_PACKET_DB) {
-		ShowError("Packet Error: packet 0x%x is greater than the maximum allowed (0x%x), skipping...\n", cmd, MAX_PACKET_DB);
+		ShowError("Erro de Packet: packet 0x%x e maior que o maximo permitido (0x%x), pulando...\n", cmd, MAX_PACKET_DB);
 		return;
 	}
 
@@ -18795,7 +18795,7 @@ int do_init_clif(bool minimal)
 
 	sockt->set_defaultparse(clif->parse);
 	if (sockt->make_listen_bind(clif->bind_ip,clif->map_port) == -1) {
-		ShowFatalError("Failed to bind to port '"CL_WHITE"%d"CL_RESET"'\n",clif->map_port);
+		ShowFatalError("Falha em bind para porta '"CL_WHITE"%d"CL_RESET"'\n",clif->map_port);
 		exit(EXIT_FAILURE);
 	}
 
