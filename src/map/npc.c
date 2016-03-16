@@ -4314,6 +4314,7 @@ void npc_read_event_script(void)
 		{"ReAttack Event",script->config.reattack_event_name}, //OnPCReAttackEvent - [SlexFire]
 		{"Attack Event",script->config.attack_event_name}, //OnPCAttackEvent - [SlexFire]
 		{"Take Item",script->config.takeitem_event_name}, //OnTakeItem - [SlexFire]
+		{"Use Skill Event",script->config.skilluse_event_name}, //OnPCUseSkillEvent - [Redx]
 	};
 
 	for (i = 0; i < NPCE_MAX; i++)

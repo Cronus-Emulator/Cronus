@@ -345,6 +345,7 @@ struct Script_Config {
 	const char *loadmap_event_name;
 	const char *baselvup_event_name;
 	const char *joblvup_event_name;
+	const char *skilluse_event_name; //OnPCUseSkillEvent - [Redx]
 
 	const char* ontouch_name;
 	const char* ontouch2_name;

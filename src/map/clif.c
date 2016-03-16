@@ -4932,6 +4932,9 @@ void clif_skill_cooldown(struct map_session_data *sd, uint16 skill_id, unsigned 
 int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick, int sdelay, int ddelay, int64 in_damage, int div, uint16 skill_id, uint16 skill_lv, int type) {
 	unsigned char buf[64];
 	struct status_change *sc;
+	struct map_session_data *sd;    //[Alukas - RedX] Player Session Data
+    struct map_session_data *sddst; //[Alukas - RedX] Target Session Data (If it is also a player character)
+	
 	int damage;
 
 	nullpo_ret(src);
@@ -5013,6 +5016,44 @@ int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick
 	}
 #endif
 
+/*------------------------[OnPCUseSkillEvent]--------------------------*/
+/* Com a inclusão dessa modificação, ao usar uma skill de dano ativara */
+/* o evento OnPCUseSkillEvent, pois a skills são divididas em tipos.   */
+/*          Creditos: [Alukas]         Adaptado por: [Redx]            */
+/*---------------------[Inicio da Modificação]-------------------------*/
+/*       Arquivo: Clif.c             Corpo do: int clif_skill_damage   */
+//----------------------------------------------------------------------/
+
+  	sd = BL_CAST(BL_PC, src); //Casting player session data
+  		if(dst->type == BL_PC)  //Check if the target is a Character
+        sddst = BL_CAST(BL_PC, dst);  //Casting target session data
+
+    if(sd && damage != 0)  //Check if the session data exists and if the skill missed.... (added)
+    {
+        pc_setglobalreg(sd, script->add_str("lskillid"), skill_id);  //This will set the variable lskillid (Last Skill Used ID) in your globalreg table.
+
+				if(dst->type == BL_PC)
+        {
+            pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sddst->status.name);  //This will set the variable lskilldest$ (Last Skill Used Target Name) in your golbalreg table.
+           	npc->script_event(sd, NPCE_USESKILL);  //EVENT TRIGGERING - OnPCUseSkillEvent
+        }
+
+				else if(dst->type == BL_MOB) //If the target is actually a monster.
+        {
+            pc_setglobalreg(sd, script->add_str("lskilldest"), dst->id);  //This will set the variable lskilldest (Last Skill Used Target ID)
+            npc->script_event(sd, NPCE_USESKILL);  //EVENT TRIGGERING - OnPCUseSkillEvent
+        }
+
+        pc_setglobalreg_str(sd, script->add_str("lskilldest$"), ""); //Those lines put the variables back to 0.
+        pc_setglobalreg(sd, script->add_str("lskilldest"), 0);
+        pc_setglobalreg(sd, script->add_str("lskillid"), 0);
+    }
+		/*------------------------[OnPCUseSkillEvent]--------------------------*/
+		/*                       Fim da Modificação                            */
+		//----------------------------------------------------------------------/
+		/*       Arquivo: Clif.c             Corpo do: int clif_skill_damage   */
+		//----------------------------------------------------------------------/
+
 	//Because the damage delay must be synced with the client, here is where the can-walk tick must be updated. [Skotlex]
 	return clif->calc_walkdelay(dst,ddelay,type,damage,div);
 }
@@ -5079,6 +5120,8 @@ int clif_skill_damage2(struct block_list *src, struct block_list *dst, int64 tic
 int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 skill_id,int heal,int fail)
 {
 	unsigned char buf[32];
+	struct map_session_data *sd; //[Alukas - Redx]
+  struct map_session_data *sddst; //[Alukas - Redx]
 
 	nullpo_ret(dst);
 
@@ -5103,6 +5146,45 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 		clif->send(buf,packet_len(0x11a),src,SELF);
 	}
 
+	/*------------------------[OnPCUseSkillEvent]-------------------------------*/
+	/* Com a inclusão dessa modificação, ao usar uma skill que não causa dano   */
+	/* ativara o evento OnPCUseSkillEvent, pois a skills são divididas em tipos.*/
+	/*          Creditos: [Alukas]         Adaptado por: [Redx]                 */
+	/*---------------------[Inicio da Modificação]------------------------------*/
+	/*       Arquivo: Clif.c             Corpo do: int clif_skill_nodamage      */
+	//---------------------------------------------------------------------------/
+
+	sd = BL_CAST(BL_PC, src);
+	if(dst->type == BL_PC)
+		sddst = BL_CAST(BL_PC, dst);
+
+	if(sd && skill_id != SM_MAGNUM) //See note below
+	{
+			pc_setglobalreg(sd, script->add_str("lskillid"), skill_id);
+
+			if(dst->type == BL_PC)
+			{
+				pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sddst->status.name);
+				npc->script_event(sd, NPCE_USESKILL);
+			}
+
+			else if(dst->type == BL_MOB)
+			{
+				pc_setglobalreg(sd, script->add_str("lskilldest"), dst->id);
+				npc->script_event(sd, NPCE_USESKILL);
+			}
+
+			pc_setglobalreg_str(sd, script->add_str("lskilldest$"), "");
+			pc_setglobalreg(sd, script->add_str("lskilldest"), 0);
+			pc_setglobalreg(sd, script->add_str("lskillid"), 0);
+
+	}
+		/*------------------------[OnPCUseSkillEvent]--------------------------*/
+		/*                       Fim da Modificação                            */
+		//----------------------------------------------------------------------/
+		/*       Arquivo: Clif.c             Corpo do: int clif_skill_nodamage */
+		//----------------------------------------------------------------------/
+
 	return fail;
 }
 
@@ -5110,6 +5192,7 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 /// 0117 <skill id>.W <src id>.L <level>.W <x>.W <y>.W <tick>.L
 void clif_skill_poseffect(struct block_list *src, uint16 skill_id, int val, int x, int y, int64 tick) {
 	unsigned char buf[32];
+	struct map_session_data *sd; //[Alukas - Redx]
 
 	nullpo_retv(src);
 
@@ -5126,6 +5209,30 @@ void clif_skill_poseffect(struct block_list *src, uint16 skill_id, int val, int 
 		clif->send(buf,packet_len(0x117),src,SELF);
 	} else
 		clif->send(buf,packet_len(0x117),src,AREA);
+
+		/*------------------------[OnPCUseSkillEvent]-------------------------------*/
+    /* Com a inclusão dessa modificação, ao usar uma skill captara a animação   */
+    /* sendo assim, pegando a maquina de estado do player ao usar aquela skill. */
+    /* Ativando o evento OnPCUseSkillEvent, pois a skills são divididas em tipos*/
+    /*          Creditos: [Alukas]         Adaptado por: [Redx]                 */
+    /*---------------------[Inicio da Modificação]------------------------------*/
+    /*       Arquivo: Clif.c             Corpo do: void clif_skill_poseffect    */
+    //---------------------------------------------------------------------------/
+  sd = BL_CAST(BL_PC, src);
+
+  //On Skill Animation
+  if(sd)
+  {
+    pc_setglobalreg(sd, script->add_str("lskillid"), skill_id);
+    npc->script_event(sd, NPCE_USESKILL); //[Alukas]
+    pc_setglobalreg(sd, script->add_str("lskillid"), 0);
+  }
+ /*------------------------[OnPCUseSkillEvent]--------------------------*/
+ /*                       Fim da Modificação                            */
+ //----------------------------------------------------------------------/
+ /*       Arquivo: Clif.c           Corpo do: void clif_skill_poseffect */
+ //----------
+
 }
 
 /// Presents a list of available warp destinations (ZC_WARPLIST).

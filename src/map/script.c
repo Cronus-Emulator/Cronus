@@ -203,7 +203,7 @@ void script_reportsrc(struct script_state *st) {
 	struct block_list* bl;
 
 	if( st->oid == 0 )
-		return; //Não é possível relatar a fonte.
+		return; //Nao foi possivel relatar a fonte.
 
 	bl = map->id2bl(st->oid);
 	if( bl == NULL )
@@ -5900,11 +5900,11 @@ BUILDIN(areapercentheal) {
 	return true;
 }
 /*==========================================
-* Funcao para o comando areakill [Giovas] 
+* Funcao para o comando areakill [Giovas]
 *------------------------------------------*/
 int buildin_areakill_sub(struct block_list *bl, va_list ap)
 {
-	status_kill(bl);	
+	status_kill(bl);
 	return 0;
 }
 
@@ -5925,13 +5925,13 @@ BUILDIN(areakill)
 	x1 = script_getnum(st, 5);
 	y1 = script_getnum(st, 6);
 	if (script_hasdata(st,7))type = script_getnum(st, 7);
-	
-	type = ( type < 1 ? 0 : (type > 1 ? 2 : 1));	
+
+	type = ( type < 1 ? 0 : (type > 1 ? 2 : 1));
 	BL_TYPE = (type == 0 ? BL_PC : (type == 1 ? BL_MOB : (BL_PC + BL_MOB)));
 
 	if ((m = map->mapname2mapid(mapname)) < 0)
 		return true;
-	
+
 	map->foreachinarea(script->buildin_areakill_sub, m, x0, y0, x1, y1, BL_TYPE);
 
 	return true;
@@ -13619,12 +13619,12 @@ BUILDIN(dispbottom)
 	const char *message;
 	int color = 0;
 	message = script_getstr(st,2);
-	
+
 	if (script_hasdata(st,3))
 		color = script_getnum(st,3);
-	
+
 	if(sd) {
-		
+
 		if(script_hasdata(st,3)){
 			unsigned short msg_len = strlen( message ) +1;
 			int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
@@ -13636,12 +13636,12 @@ BUILDIN(dispbottom)
 			safestrncpy( (char*)WFIFOP( sd->fd,12 ), message, msg_len );
 			WFIFOSET( sd->fd, msg_len + 12 );
 		}
-		
+
 		else {
 			clif_disp_onlyself(sd,message,(int)strlen(message));
 		}
 	}
-	
+
 	return true;
 }
 
@@ -20252,22 +20252,22 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(setnpcdisplay,"sv??"),
 		BUILDIN_DEF(compare,"ss"), // Lordalfa - Traz strstr para a Engine de scripting.
 		BUILDIN_DEF(strcmp,"ss"),
-		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] retorna as informações de compra/venda do item
-		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] define as informações de preço de compra/venda do item
-		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] retorna a ID da carta ou outra informação da carta no slot N equipado no item
-		// Lista de comandos matemáticos --->
+		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] retorna as informacoeses de compra/venda do item
+		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] define as informacÃµes de preco de compra/venda do item
+		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] retorna a ID da carta ou outra informacao da carta no slot N equipado no item
+		// Lista de comandos matematicos --->
 		BUILDIN_DEF(log10,"i"),
 		BUILDIN_DEF(sqrt,"i"), //[zBuffer]
 		BUILDIN_DEF(pow,"ii"), //[zBuffer]
 		BUILDIN_DEF(distance,"iiii"), //[zBuffer]
-		// <--- Lista de comandos matemáticos
+		// <--- Lista de comandos matematicos
 		BUILDIN_DEF(min, "i*"),
 		BUILDIN_DEF(max, "i*"),
 		BUILDIN_DEF(md5,"s"),
-		// [zBuffer] Lista de comandos de varráveis dinâmicas --->
+		// [zBuffer] Lista de comandos de varriveis dinamicas --->
 		BUILDIN_DEF(getd,"s"),
 		BUILDIN_DEF(setd,"sv"),
-		// <--- [zBuffer] Lista de comandos de varráveis dinâmicas
+		// <--- [zBuffer] Lista de comandos de varriveis dinamicas
 		BUILDIN_DEF(petstat,"i"),
 		BUILDIN_DEF(callshop,"s?"), // [Skotlex]
 		BUILDIN_DEF(npcshopitem,"sii*"), // [Lance]
@@ -20363,7 +20363,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(bg_getareausers,"isiiii"),
 		BUILDIN_DEF(bg_updatescore,"sii"),
 
-		// Instâncias
+		// Instancias
 		BUILDIN_DEF(instance_create,"si?"),
 		BUILDIN_DEF(instance_destroy,"?"),
 		BUILDIN_DEF(instance_attachmap,"si??"),
@@ -20389,7 +20389,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(hascashmount,""),//[Ind]
 		BUILDIN_DEF(setcashmount,""),//[Ind]
 		/**
-		 * rAthena e além!
+		 * rAthena e alam!
 		 **/
 		BUILDIN_DEF(getargcount,""),
 		BUILDIN_DEF(getcharip,"?"),
@@ -20417,7 +20417,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(countbound, "?"),
 		BUILDIN_DEF(checkbound, "i???????"),
 
-		//Sistema de Log de Missões [Inkfish]
+		//Sistema de Log de Missoes [Inkfish]
 		BUILDIN_DEF(questinfo, "ii??"),
 		BUILDIN_DEF(setquest, "i"),
 		BUILDIN_DEF(erasequest, "i?"),
@@ -20447,7 +20447,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(stand, "?"),
 		BUILDIN_DEF(issit, "?"),
 
-		BUILDIN_DEF(montransform, "vi?????"), // Transformação de Monstro [malufett/Hercules]
+		BUILDIN_DEF(montransform, "vi?????"), // Transformacao de Monstro [malufett/Hercules]
 
 		/* Novos Comandos da BG [Hercules] */
 		BUILDIN_DEF(bg_create_team,"sii"),
@@ -20469,7 +20469,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(_,"s"),
 	};
 	int i, len = ARRAYLENGTH(BUILDIN);
-	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alocação para aumento de velocidade
+	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alocacao para aumento de velocidade
 	memset(script->buildin + script->buildin_count, '\0', sizeof(char *) * len);
 	for( i = 0; i < len; i++ ) {
 		script->add_builtin(&BUILDIN[i], false);
@@ -20492,10 +20492,10 @@ void script_label_add(int key, int pos) {
 }
 
 /**
- * Definição final de constantes da source para execução de scripts
+ * Definindo final de constantes da source para execucao de scripts
  **/
 void script_hardcoded_constants(void) {
-	/* definição de servidor */
+	/* definicao de servidor */
 	script->set_constant("PACKETVER",PACKETVER,false);
 	script->set_constant("MAX_LEVEL",MAX_LEVEL,false);
 	script->set_constant("MAX_STORAGE",MAX_STORAGE,false);
@@ -20507,7 +20507,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("MAX_CHAT_USERS",MAX_CHAT_USERS,false);
 	script->set_constant("MAX_REFINE",MAX_REFINE,false);
 
-	/* opção de status */
+	/* opcao de status */
 	script->set_constant("Option_Nothing",OPTION_NOTHING,false);
 	script->set_constant("Option_Sight",OPTION_SIGHT,false);
 	script->set_constant("Option_Hide",OPTION_HIDE,false);
@@ -20533,7 +20533,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("Option_Hanbok",OPTION_HANBOK,false);
 	script->set_constant("Option_Oktoberfest",OPTION_OKTOBERFEST,false);
 
-	/* opção de status composto */
+	/* opcao de status composto */
 	script->set_constant("Option_Dragon",OPTION_DRAGON,false);
 	script->set_constant("Option_Costume",OPTION_COSTUME,false);
 
@@ -20571,7 +20571,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("BG_AREA_WOS",BG_AREA_WOS,false);
 	script->set_constant("BG_QUEUE",BG_QUEUE,false);
 
-	/* Renovação */
+	/* Renovacao */
 #ifdef RENEWAL
 	script->set_constant("RENEWAL", 1, false);
 #else
@@ -20610,7 +20610,7 @@ void script_hardcoded_constants(void) {
 }
 
 /**
- * mapindex_name2id invólucro destinado a ajudar a manipulação de nome inválido
+ * mapindex_name2id involucro destinado a ajudar a manipulacao de nome invalido
  **/
 unsigned short script_mapindexname2id (struct script_state *st, const char* name) {
 	unsigned short index;
@@ -20623,7 +20623,7 @@ unsigned short script_mapindexname2id (struct script_state *st, const char* name
 }
 
 void script_defaults(void) {
-	// aegis->athena posição do slot da tabela de conversão
+	// aegis->athena posicao do slot da tabela de conversao
 	unsigned int equip[SCRIPT_EQUIP_TABLE_SIZE] = {EQP_HEAD_TOP,EQP_ARMOR,EQP_HAND_L,EQP_HAND_R,EQP_GARMENT,EQP_SHOES,EQP_ACC_L,EQP_ACC_R,EQP_HEAD_MID,EQP_HEAD_LOW,EQP_COSTUME_HEAD_LOW,EQP_COSTUME_HEAD_MID,EQP_COSTUME_HEAD_TOP,EQP_COSTUME_GARMENT,EQP_SHADOW_ARMOR, EQP_SHADOW_WEAPON, EQP_SHADOW_SHIELD, EQP_SHADOW_SHOES, EQP_SHADOW_ACC_R, EQP_SHADOW_ACC_L};
 
 	script = &script_s;
@@ -20854,10 +20854,10 @@ void script_defaults(void) {
 	script->config.loadmap_event_name = "OnPCLoadMapEvent";
 	script->config.baselvup_event_name = "OnPCBaseLvUpEvent";
 	script->config.joblvup_event_name = "OnPCJobLvUpEvent";
-	script->config.ontouch_name = "OnTouch_";  //ontouch_name (é executado no primeiro personagem visível que entrar na área, escolhe outro personagem se o primeiro personagem sair)
-	script->config.ontouch2_name = "OnTouch";  //ontouch2_name (executado sempre que um personagem anda para a área do OnTouch)
-	script->config.onuntouch_name = "OnUnTouch";  //onuntouch_name (executado sempre que um personagem anda na área do OnTouch)
-
+	script->config.ontouch_name = "OnTouch_";  //ontouch_name (a executado no primeiro personagem visivel que entrar na area, escolhe outro personagem se o primeiro personagem sair)
+	script->config.ontouch2_name = "OnTouch";  //ontouch2_name (executado sempre que um personagem anda para a area do OnTouch)
+	script->config.onuntouch_name = "OnUnTouch";  //onuntouch_name (executado sempre que um personagem anda na area do OnTouch)
+	script->config.skilluse_event_name = "OnPCUseSkillEvent"; //OnPCUseSkillEvent - [Redx]
 	// para ENABLE_CASE_CHECK
 	script->calc_hash_ci = calc_hash_ci;
 	script->local_casecheck.add_str = script_local_casecheck_add_str;
