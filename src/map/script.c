@@ -203,7 +203,7 @@ void script_reportsrc(struct script_state *st) {
 	struct block_list* bl;
 
 	if( st->oid == 0 )
-		return; //Nao foi possivel relatar a fonte.
+		return; //Não foi possivel relatar a fonte.
 
 	bl = map->id2bl(st->oid);
 	if( bl == NULL )
@@ -255,7 +255,7 @@ void script_reportdata(struct script_data* data)
 				ShowDebug("Data: nome do param='%s' tipo=%d\n", reference_getname(data), reference_getparamtype(data));
 			} else {// ???
 				ShowDebug("Data: nome referencial='%s' ti=%s\n", reference_getname(data), script->op2name(data->type));
-				ShowDebug("Porfavor reporte isso!!! - script->str_data.type=%s\n", script->op2name(script->str_data[reference_getid(data)].type));
+				ShowDebug("Por favor reporte isso! - script->str_data.type=%s\n", script->op2name(script->str_data[reference_getid(data)].type));
 			}
 			break;
 		case C_POS:// label
@@ -20252,22 +20252,22 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(setnpcdisplay,"sv??"),
 		BUILDIN_DEF(compare,"ss"), // Lordalfa - Traz strstr para a Engine de scripting.
 		BUILDIN_DEF(strcmp,"ss"),
-		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] retorna as informacoeses de compra/venda do item
-		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] define as informacÃµes de preco de compra/venda do item
-		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] retorna a ID da carta ou outra informacao da carta no slot N equipado no item
-		// Lista de comandos matematicos --->
+		BUILDIN_DEF(getiteminfo,"ii"), //[Lupus] retorna as informações de compra/venda do item
+		BUILDIN_DEF(setiteminfo,"iii"), //[Lupus] define as informações de preço de compra/venda do item
+		BUILDIN_DEF(getequipcardid,"ii"), //[Lupus] retorna a ID da carta ou outra informação da carta no slot N equipado no item
+		// Lista de comandos matemáticos --->
 		BUILDIN_DEF(log10,"i"),
 		BUILDIN_DEF(sqrt,"i"), //[zBuffer]
 		BUILDIN_DEF(pow,"ii"), //[zBuffer]
 		BUILDIN_DEF(distance,"iiii"), //[zBuffer]
-		// <--- Lista de comandos matematicos
+		// <--- Lista de comandos matemáticos
 		BUILDIN_DEF(min, "i*"),
 		BUILDIN_DEF(max, "i*"),
 		BUILDIN_DEF(md5,"s"),
-		// [zBuffer] Lista de comandos de varriveis dinamicas --->
+		// [zBuffer] Lista de comandos de variáveis dinâmicas --->
 		BUILDIN_DEF(getd,"s"),
 		BUILDIN_DEF(setd,"sv"),
-		// <--- [zBuffer] Lista de comandos de varriveis dinamicas
+		// <--- [zBuffer] Lista de comandos de variáveis dinâmicas
 		BUILDIN_DEF(petstat,"i"),
 		BUILDIN_DEF(callshop,"s?"), // [Skotlex]
 		BUILDIN_DEF(npcshopitem,"sii*"), // [Lance]
@@ -20279,9 +20279,9 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(equip2,"iiiiiii"),
 		BUILDIN_DEF(setbattleflag,"si"),
 		BUILDIN_DEF(getbattleflag,"s"),
-		BUILDIN_DEF(setitemscript,"is?"), //Aciona NOVO script de bonus de item. Lupus
-		BUILDIN_DEF(disguise,"i"), //trasnforma o jogador. Lupus
-		BUILDIN_DEF(undisguise,""), //destransforma o jogador. Lupus
+		BUILDIN_DEF(setitemscript,"is?"), //Aciona NOVO script de bônus de item. Lupus
+		BUILDIN_DEF(disguise,"i"), //Transforma o jogador. Lupus
+		BUILDIN_DEF(undisguise,""), //Destransforma o jogador. Lupus
 		BUILDIN_DEF(getmonsterinfo,"ii"), //Lupus
 		BUILDIN_DEF(addmonsterdrop,"vii"),
 		BUILDIN_DEF(delmonsterdrop,"vi"),
@@ -20297,7 +20297,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(pcstopfollow,"i"),
 		BUILDIN_DEF(pcblockmove,"ii"),
 		// <--- [zBuffer] List of player cont commands
-		// [zBuffer] Lista de comandos para controle de mob --->
+		// [zBuffer] Lista de comandos para controle de monstros --->
 		BUILDIN_DEF(unitwalk,"ii?"),
 		BUILDIN_DEF(unitkill,"i"),
 		BUILDIN_DEF(unitwarp,"isii"),
@@ -20363,7 +20363,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(bg_getareausers,"isiiii"),
 		BUILDIN_DEF(bg_updatescore,"sii"),
 
-		// Instancias
+		// Instâncias
 		BUILDIN_DEF(instance_create,"si?"),
 		BUILDIN_DEF(instance_destroy,"?"),
 		BUILDIN_DEF(instance_attachmap,"si??"),
@@ -20417,7 +20417,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(countbound, "?"),
 		BUILDIN_DEF(checkbound, "i???????"),
 
-		//Sistema de Log de Missoes [Inkfish]
+		//Sistema de Log de Missões [Inkfish]
 		BUILDIN_DEF(questinfo, "ii??"),
 		BUILDIN_DEF(setquest, "i"),
 		BUILDIN_DEF(erasequest, "i?"),
@@ -20447,7 +20447,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(stand, "?"),
 		BUILDIN_DEF(issit, "?"),
 
-		BUILDIN_DEF(montransform, "vi?????"), // Transformacao de Monstro [malufett/Hercules]
+		BUILDIN_DEF(montransform, "vi?????"), // Transformação de Monstro [malufett/Hercules]
 
 		/* Novos Comandos da BG [Hercules] */
 		BUILDIN_DEF(bg_create_team,"sii"),
@@ -20469,7 +20469,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(_,"s"),
 	};
 	int i, len = ARRAYLENGTH(BUILDIN);
-	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alocacao para aumento de velocidade
+	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alocação para aumento de velocidade
 	memset(script->buildin + script->buildin_count, '\0', sizeof(char *) * len);
 	for( i = 0; i < len; i++ ) {
 		script->add_builtin(&BUILDIN[i], false);
@@ -20492,10 +20492,10 @@ void script_label_add(int key, int pos) {
 }
 
 /**
- * Definindo final de constantes da source para execucao de scripts
+ * Definindo final de constantes da source para execução de scripts
  **/
 void script_hardcoded_constants(void) {
-	/* definicao de servidor */
+	/* Definições do servidor */
 	script->set_constant("PACKETVER",PACKETVER,false);
 	script->set_constant("MAX_LEVEL",MAX_LEVEL,false);
 	script->set_constant("MAX_STORAGE",MAX_STORAGE,false);
@@ -20507,7 +20507,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("MAX_CHAT_USERS",MAX_CHAT_USERS,false);
 	script->set_constant("MAX_REFINE",MAX_REFINE,false);
 
-	/* opcao de status */
+	/* Opção de status */
 	script->set_constant("Option_Nothing",OPTION_NOTHING,false);
 	script->set_constant("Option_Sight",OPTION_SIGHT,false);
 	script->set_constant("Option_Hide",OPTION_HIDE,false);
@@ -20533,7 +20533,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("Option_Hanbok",OPTION_HANBOK,false);
 	script->set_constant("Option_Oktoberfest",OPTION_OKTOBERFEST,false);
 
-	/* opcao de status composto */
+	/* Opção de status composto */
 	script->set_constant("Option_Dragon",OPTION_DRAGON,false);
 	script->set_constant("Option_Costume",OPTION_COSTUME,false);
 
@@ -20571,7 +20571,7 @@ void script_hardcoded_constants(void) {
 	script->set_constant("BG_AREA_WOS",BG_AREA_WOS,false);
 	script->set_constant("BG_QUEUE",BG_QUEUE,false);
 
-	/* Renovacao */
+	/* Renovação */
 #ifdef RENEWAL
 	script->set_constant("RENEWAL", 1, false);
 #else
@@ -20610,7 +20610,7 @@ void script_hardcoded_constants(void) {
 }
 
 /**
- * mapindex_name2id involucro destinado a ajudar a manipulacao de nome invalido
+ * mapindex_name2id involucro destinado a ajudar a manipulação de nome inválido
  **/
 unsigned short script_mapindexname2id (struct script_state *st, const char* name) {
 	unsigned short index;
@@ -20623,7 +20623,7 @@ unsigned short script_mapindexname2id (struct script_state *st, const char* name
 }
 
 void script_defaults(void) {
-	// aegis->athena posicao do slot da tabela de conversao
+	// aegis->athena posição do slot da tabela de conversão
 	unsigned int equip[SCRIPT_EQUIP_TABLE_SIZE] = {EQP_HEAD_TOP,EQP_ARMOR,EQP_HAND_L,EQP_HAND_R,EQP_GARMENT,EQP_SHOES,EQP_ACC_L,EQP_ACC_R,EQP_HEAD_MID,EQP_HEAD_LOW,EQP_COSTUME_HEAD_LOW,EQP_COSTUME_HEAD_MID,EQP_COSTUME_HEAD_TOP,EQP_COSTUME_GARMENT,EQP_SHADOW_ARMOR, EQP_SHADOW_WEAPON, EQP_SHADOW_SHIELD, EQP_SHADOW_SHOES, EQP_SHADOW_ACC_R, EQP_SHADOW_ACC_L};
 
 	script = &script_s;
@@ -20854,9 +20854,9 @@ void script_defaults(void) {
 	script->config.loadmap_event_name = "OnPCLoadMapEvent";
 	script->config.baselvup_event_name = "OnPCBaseLvUpEvent";
 	script->config.joblvup_event_name = "OnPCJobLvUpEvent";
-	script->config.ontouch_name = "OnTouch_";  //ontouch_name (a executado no primeiro personagem visivel que entrar na area, escolhe outro personagem se o primeiro personagem sair)
-	script->config.ontouch2_name = "OnTouch";  //ontouch2_name (executado sempre que um personagem anda para a area do OnTouch)
-	script->config.onuntouch_name = "OnUnTouch";  //onuntouch_name (executado sempre que um personagem anda na area do OnTouch)
+	script->config.ontouch_name = "OnTouch_";
+	script->config.ontouch2_name = "OnTouch";
+	script->config.onuntouch_name = "OnUnTouch";
 	script->config.skilluse_event_name = "OnPCUseSkillEvent"; //OnPCUseSkillEvent - [Redx]
 	// para ENABLE_CASE_CHECK
 	script->calc_hash_ci = calc_hash_ci;
@@ -20878,7 +20878,7 @@ void script_defaults(void) {
 	script->global_casecheck.str_size = 0;
 	script->global_casecheck.str_pos = 0;
 	memset(script->global_casecheck.str_hash, 0, sizeof(script->global_casecheck.str_hash));
-	// fim ENABLE_CASE_CHECK
+	// fim do ENABLE_CASE_CHECK
 
 	/**
 	 * Manuseio de Array

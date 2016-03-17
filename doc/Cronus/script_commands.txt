@@ -9061,71 +9061,59 @@ Returns the amount of still-available <Item_ID> in the shop (on a NST_MARKET tra
 
 *areakill "<mapa>",<x1>,<y1>,<x2>,<y2>{,<tipo>};
 
-Esse comando funciona semelhante Ã  outros comandos de AREA, ele serve para matar o que estiver na Ã¡rea determinada,
-conforme o <tipo> que for indicado. O <tipo> Ã© um parameto opicional, caso seja omitido o valor serÃ¡ 'zero'.
-Os tipos sÃ£o 0= Jogador, 1= Monstro, 2= Ambos. Este comando nÃ£o precisa estar attachado para funcionar.
+Esse comando funciona é semelhante a outros comandos de AREA, ele serve para matar o que estiver na área determinada,
+conforme o <tipo> que for indicado. O <tipo> é um parêmetro opcional, caso seja omitido o valor será 'zero'.
+Os tipos são: 0= Jogador, 1= Monstro, 2= Ambos. Este comando não precisa estar attachado para funcionar.
 
 	areakill "prt_fild08",100,110,110,120,1;
 
-Todos os monstros na area entre X 100 Y 110 e X 110 e Y 120, em uma area
-quadrada, no mapa "prt_fild08", vÃ£o ser mortos.
+Todos os monstros na área entre X 100 Y 110 e X 110 e Y 120, em uma área
+quadrada, no mapa "prt_fild08", vão ser mortos.
 
 	areakill "prontera",150,150,180,180;
 
-Todos os jogadores na area entre X 150 Y 150 e X 180 e Y 180, em uma area
-quadrada, no mapa "prontera", vÃ£o ser mortos.
+Todos os jogadores na área entre X 150 Y 150 e X 180 e Y 180, em uma área
+quadrada, no mapa "prontera", vão ser mortos.
 
 	areakill "izlude",80,50,100,80,2;
 
-Todos os jogadores e monstros na area entre X 80 Y 50 e X 100 e Y 80, em uma area
-quadrada, no mapa "izlude", vÃ£o ser mortos.
+Todos os jogadores e monstros na área entre X 80 Y 50 e X 100 e Y 80, em uma área
+quadrada, no mapa "izlude", vão ser mortos.
 
 ----------------------------------------------------
 
 *OnPCUseSkillEvent:
 
-Essa label e chamada quando ocorre o evento do uso de uma skill(habilidade).
+Se trata de uma label que é ativada quando o personagem usa uma Skill(habilidade), possibilitando "qualquer" ação,
+quando esta, for executada.
 
-Todo script que tiver essa label, vÃ£o ser chamados a um player executar umas skill,
-por isso vocÃª pode manipular os fins desses eventos conforme sua vontade.
+"A imaginação é o limite!"
 
-"A imaginaÃ§Ã£o Ã© limite!"
+Juntamente com essa label, temos as variáveis especiais:
+ 
+ lskillid =  Variável que contém a ID da skill atualmente executada. 
+ lskilldest$ =  Variável que contém o nome da última skill usada no alvo.
+ lskilldest =  Variável que contém o ID da última skill usada no alvo.
+ 
+Dessa forma você poderá comparar as skills. Sendo possível obter o controle de qualquer skill dentro de uma condição.
 
-Juntamente com essa label, vem ao seu lado a variavel "lskillid" onde vocÃª
-podera comparar skills, receber skills. Ela "assume" a skill que o player exexutar,
-pois essa variavel esta diretamente ligada nas skills, podendo assim identificar a uma delas.
+Simples exemplo de uso:
 
-Ex:
+-	script	OnPCUseSkillEvent_EXEMPLO	-1,{
 
--	script	OnPCUseSkillEvent_SAMPLE	-1,{
-
-OnPCUseSkillEvent: //Label para se chamado o evento, assim que executar alguma skill.
-  if(lskillid == 5) //VericaÃ§Ã£o se a skill que foi executada(recebida na lskillid) Ã© a skill em que esta em verificaÃ§Ã£o(Id: 5, golpe fumegante).
+OnPCUseSkillEvent:
+  if(lskillid == 5) // 5 é o id da skill Golpe Fulminante
   {
-	   mes "VocÃª executou o Golpe Fulmegante!";
-    //mes "VocÃª executou o " + lskillid + "!"; Esse linha exerce o mesmo resultado que a de cima.
+	   mes "Você executou a skill Golpe Fulminante!";
 	   close;
-	}
+  }
 
   else
   {
-    mes "VocÃª nÃ£o executou a skill Golpe Fulmegante e sim a skill " + lskillid; // Se caso a skill executada nÃ£o for a verificada, informa ao player e diz a skill executada
+	   mes "Você não executou a skill Golpe Fulminante!";
+	   close;
   }
 
 }
-
-ExÂ²:
-
--	script	OnPCUseSkillEvent_SAMPLE	-1,{
-
-OnPCUseSkillEvent: //Label para se chamado o evento, assim que executar alguma skill.
-	mes "VocÃª executou a skill " + lskillid; //Exibi qual foi a skill executada.
-
-}
-
-Como pudermos confirmar nÃ³s exemplos acima, a variavel lskillid esta ligada as skills
-e assim ao um player executar alguma skill, ela recebe o valor dessa skill.
-
-Se caso eu executar a skill de Id: 3, ela assumira a skill corresponde ao Id: 3.
 
 ----------------------------------------------------
