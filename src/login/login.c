@@ -341,13 +341,13 @@ void login_fromchar_parse_request_change_email(int fd, int id, const char *const
 	RFIFOSKIP(fd,46);
 
 	if( e_mail_check(email) == 0 )
-		ShowNotice("Char-server '%s': Attempt to create an e-mail on an account with a default e-mail REFUSED - e-mail is invalid (account: %d, ip: %s)\n", server[id].name, account_id, ip);
+		ShowNotice("Char-server '%s':  Tentativa para criar um e-mail em uma conta com e-mail padrão RECUSADO - e-mail invalido (conta: %d, ip: %s)\n ", server[id].name, account_id, ip);
 	else
 	if( !accounts->load_num(accounts, &acc, account_id) || strcmp(acc.email, "a@a.com") == 0 || acc.email[0] == '\0' )
-		ShowNotice("Char-server '%s': Attempt to create an e-mail on an account with a default e-mail REFUSED - account doesn't exist or e-mail of account isn't default e-mail (account: %d, ip: %s).\n", server[id].name, account_id, ip);
+		ShowNotice("Char-server '%s':  Tentativa para criar um e-mail em uma conta com um e-mail padrão RECUSADO - conta nao existe ou e-mail da conta não é padrão (conta: %d, ip: %s).\n", server[id].name, account_id, ip);
 	else {
 		memcpy(acc.email, email, sizeof(acc.email));
-		ShowNotice("Char-server '%s': Create an e-mail on an account with a default e-mail (account: %d, new e-mail: %s, ip: %s).\n", server[id].name, account_id, email, ip);
+		ShowNotice("Char-server '%s':  Criar um e-mail em uma conta com um e-mail padrão (conta: %d, novo e-mail: %s, ip: %s).\n", server[id].name, account_id, email, ip);
 		// Save
 		accounts->save(accounts, &acc);
 	}
