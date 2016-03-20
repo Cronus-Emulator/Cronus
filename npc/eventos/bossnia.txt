@@ -27,7 +27,7 @@ prontera,132,125,4	script	Bossnia Staff#1	4_M_PHILMAN,{
 	mes "'Bossnia Staff'?? Não Não...";
 	mes "Bem, Meu nome não importa.";
 	mes "Algumas vezes você deve ser generoso.";
-	mes "Sem tempo para cosiderar esses pequenos tipos de coisas";
+	mes "Sem tempo para considerar esses pequenos tipos de coisas";
 	mes "enquanto você tem que concentrar em coisas mais importantes.";
 	next;
 	mes "[Riss]";
