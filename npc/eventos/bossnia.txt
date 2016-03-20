@@ -46,7 +46,6 @@ prontera,132,125,4	script	Bossnia Staff#1	4_M_PHILMAN,{
 	mes "Isso realmente foi medonho.";
 	next;
 	mes "[Riss]";
-	mes "If I had reacted a bit later... a few seconds...";
 	mes "Se eu tivesse reagido cedo demais... em poucos segundos";
 	mes "Eu poderia ter morrido.";
 	next;
@@ -58,16 +57,13 @@ prontera,132,125,4	script	Bossnia Staff#1	4_M_PHILMAN,{
 	next;
 	mes "[Riss]";
 	mes "Uh... Você realmente sabe?";
-	mes "Although you know the place, you want to go in...";
 	mes "Embora você conheça o local, você realmente quer entrar?...";
 	mes "Bom, eu vou te levar lá.";
-	mes "But after you went there, don't hold";
 	mes "Mas depois de você ir para lá, não tenha";
 	mes "rancor contra mim. Além disso, te custará 5,000 zeny.";
 	next;
 	if (Zeny > 4999) {
 		mes "[Riss]";
-		mes "Would you really like to take the challenge?";
 		mes "Serio que você gostaria de assumir esse desafio?";
 		mes "Ok, Apenas escolha o curso.";
 		next;
