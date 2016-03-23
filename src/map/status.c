@@ -1,6 +1,7 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
+// Tradução Cronus-Dev Team
 
 #define HERCULES_CORE
 
@@ -57,7 +58,7 @@ struct status_interface *status;
 sc_type status_skill2sc(int skill_id) {
 	int idx;
 	if( (idx = skill->get_index(skill_id)) == 0 ) {
-		ShowError("status_skill2sc: Unsupported skill id %d\n", skill_id);
+		ShowError("status_skill2sc: ID de Habilidade %d nao suportado\n", skill_id);
 		return SC_NONE;
 	}
 	return status->dbs->Skill2SCTable[idx];
@@ -72,7 +73,7 @@ sc_type status_skill2sc(int skill_id) {
 int status_sc2skill(sc_type sc)
 {
 	if( sc < 0 || sc >= SC_MAX ) {
-		ShowError("status_sc2skill: Unsupported status change id %d\n", sc);
+		ShowError("status_sc2skill: ID de mudanca de status %d nao suportado\n", sc);
 		return 0;
 	}
 
@@ -87,7 +88,7 @@ int status_sc2skill(sc_type sc)
 unsigned int status_sc2scb_flag(sc_type sc)
 {
 	if( sc < 0 || sc >= SC_MAX ) {
-		ShowError("status_sc2scb_flag: Unsupported status change id %d\n", sc);
+		ShowError("status_sc2scb_flag: ID de mudanca de status %d nao suportado\n", sc);
 		return SCB_NONE;
 	}
 
@@ -102,7 +103,7 @@ unsigned int status_sc2scb_flag(sc_type sc)
 int status_type2relevant_bl_types(int type)
 {
 	if( type < 0 || type >= SI_MAX ) {
-		ShowError("status_type2relevant_bl_types: Unsupported type %d\n", type);
+		ShowError("status_type2relevant_bl_types: Tipo %d nao suportado\n", type);
 		return BL_NUL;
 	}
 
@@ -112,11 +113,11 @@ int status_type2relevant_bl_types(int type)
 static void set_sc(uint16 skill_id, sc_type sc, int icon, unsigned int flag) {
 	uint16 idx;
 	if( (idx = skill->get_index(skill_id)) == 0 ) {
-		ShowError("set_sc: Unsupported skill id %d\n", skill_id);
+		ShowError("set_sc: ID de Habilidade %d nao suportado\n", skill_id);
 		return;
 	}
 	if( sc < 0 || sc >= SC_MAX ) {
-		ShowError("set_sc: Unsupported status change id %d\n", sc);
+		ShowError("set_sc: ID de mudanca de status %d nao suportado\n", sc);
 		return;
 	}
 
@@ -2000,7 +2001,7 @@ int status_calc_mob_(struct mob_data* md, enum e_status_calc_opt opt) {
 		struct guild_castle *gc;
 		gc=guild->mapname2gc(map->list[md->bl.m].name);
 		if (!gc)
-			ShowError("status_calc_mob: No castle set at map %s\n", map->list[md->bl.m].name);
+			ShowError("status_calc_mob: Sem castelo estabelecido no mapa %s\n", map->list[md->bl.m].name);
 		else
 			if(gc->castle_id < 24 || md->class_ == MOBID_EMPERIUM) {
 #ifdef RENEWAL
@@ -6203,7 +6204,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			} else if (vd)
 				memcpy(&sd->vd, vd, sizeof(struct view_data));
 			else
-				ShowError("status_set_viewdata (PC): No view data for class %d\n", class_);
+				ShowError("status_set_viewdata (PC): Sem visualizacao de dados para a classe %d\n", class_);
 		}
 		break;
 	case BL_MOB:
@@ -6212,7 +6213,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				md->vd = vd;
 			else
-				ShowError("status_set_viewdata (MOB): No view data for class %d\n", class_);
+				ShowError("status_set_viewdata (MOB): Sem visualizacao de dados para a classe %d\n", class_);
 		}
 		break;
 	case BL_PET:
@@ -6229,7 +6230,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 					}
 				}
 			} else
-				ShowError("status_set_viewdata (PET): No view data for class %d\n", class_);
+				ShowError("status_set_viewdata (PET): Sem visualizacao de dados para a classe %d\n", class_);
 		}
 		break;
 	case BL_NPC:
@@ -6238,7 +6239,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				nd->vd = vd;
 			else
-				ShowError("status_set_viewdata (NPC): No view data for class %d (name=%s)\n", class_, nd->name);
+				ShowError("status_set_viewdata (NPC): Sem visualizacao de dados para a classe %d (nome=%s)\n", class_, nd->name);
 		}
 		break;
 	case BL_HOM: //[blackhole89]
@@ -6247,7 +6248,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				hd->vd = vd;
 			else
-				ShowError("status_set_viewdata (HOMUNCULUS): No view data for class %d\n", class_);
+				ShowError("status_set_viewdata (HOMUNCULUS): Sem visualizacao de dados para a classe %d\n", class_);
 		}
 		break;
 	case BL_MER:
@@ -6256,7 +6257,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				md->vd = vd;
 			else
-				ShowError("status_set_viewdata (MERCENARY): No view data for class %d\n", class_);
+				ShowError("status_set_viewdata (MERCENARY): Sem visualizacao de dados para a classe %d\n", class_);
 		}
 		break;
 	case BL_ELEM:
@@ -6265,7 +6266,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 			if (vd)
 				ed->vd = vd;
 			else
-				ShowError("status_set_viewdata (ELEMENTAL): No view data for class %d\n", class_);
+				ShowError("status_set_viewdata (ELEMENTAL): Sem visualizacao de dados para a classe %d\n", class_);
 		}
 		break;
 	}
@@ -6742,7 +6743,7 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 	st = status->get_status_data(bl);
 
 	if( type <= SC_NONE || type >= SC_MAX ) {
-		ShowError("status_change_start: invalid status change (%d)!\n", type);
+		ShowError("status_change_start: Mudanca de status invalida (%d)!\n", type);
 		return 0;
 	}
 
@@ -9069,7 +9070,7 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 			default:
 				if (calc_flag == SCB_NONE && status->dbs->SkillChangeTable[type] == 0 && status->dbs->IconChangeTable[type] == 0) {
 					//Status change with no calc, no icon, and no skill associated...?
-					ShowError("UnknownStatusChange [%d]\n", type);
+					ShowError("Mudanca de Status desconhecida [%d]\n", type);
 					return 0;
 				}
 		}
@@ -9900,7 +9901,7 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 					struct skill_unit_group *group = skill->id2group(sce->val2);
 
 					if (group == NULL) {
-						ShowDebug("status_change_end: SC_DANCING is missing skill unit group (val1=%d, val2=%d, val3=%d, val4=%d, timer=%d, tid=%d, char_id=%d, map=%s, x=%d, y=%d, prev=%s:%d, from=%s:%d). Please report this! (#3504)\n",
+						ShowDebug("status_change_end: SC_DANCING esta faltando grupo de unidade de habilidade (val1=%d, val2=%d, val3=%d, val4=%d, timer=%d, tid=%d, char_id=%d, map=%s, x=%d, y=%d, prev=%s:%d, from=%s:%d). Favor reportar isso! (#3504)\n",
 							sce->val1, sce->val2, sce->val3, sce->val4, sce->timer, tid,
 							sd ? sd->status.char_id : 0,
 							mapindex_id2name(map_id2index(bl->m)), bl->x, bl->y,
@@ -10459,7 +10460,7 @@ int kaahi_heal_timer(int tid, int64 tick, int id, intptr_t data) {
 		return 0;
 
 	if(sce->val4 != tid) {
-		ShowError("kaahi_heal_timer: Timer mismatch: %d != %d\n", tid, sce->val4);
+		ShowError("kaahi_heal_timer: Incompatibilidade de Timer: %d != %d\n", tid, sce->val4);
 		sce->val4 = INVALID_TIMER;
 		return 0;
 	}
@@ -10493,19 +10494,19 @@ int status_change_timer(int tid, int64 tick, int id, intptr_t data) {
 
 	bl = map->id2bl(id);
 	if (!bl) {
-		ShowDebug("status_change_timer: Null pointer id: %d data: %"PRIdPTR"\n", id, data);
+		ShowDebug("status_change_timer: Id de ponteiro nulo: %d dados: %"PRIdPTR"\n", id, data);
 		return 0;
 	}
 	sc = status->get_sc(bl);
 	st = status->get_status_data(bl);
 
 	if (!sc || (sce = sc->data[type]) == NULL) {
-		ShowDebug("status_change_timer: Null pointer id: %d data: %"PRIdPTR" bl-type: %d\n", id, data, bl->type);
+		ShowDebug("status_change_timer: Id de ponteiro nulo: %d dados: %"PRIdPTR" bl-type: %d\n", id, data, bl->type);
 		return 0;
 	}
 
 	if (sce->timer != tid) {
-		ShowError("status_change_timer: Mismatch for type %d: %d != %d (bl id %d)\n",type,tid,sce->timer, bl->id);
+		ShowError("status_change_timer: Incompatibilidade para o tipo %d: %d != %d (bl id %d)\n",type,tid,sce->timer, bl->id);
 		return 0;
 	}
 
@@ -11488,7 +11489,7 @@ void status_get_matk_sub(struct block_list *bl, int flag, unsigned short *matk_m
 		return;
 
 	if ( flag != 0 && flag != 1 && flag != 3 ) {
-		ShowError("status_get_matk_sub: Unknown flag %d!\n", flag);
+		ShowError("status_get_matk_sub: Flag %d desconhecida!\n", flag);
 		return;
 	}
 
@@ -11596,7 +11597,7 @@ int status_get_matk(struct block_list *bl, int flag) {
 		return 1;
 
 	if ( flag < 1 || flag > 3 ) {
-		ShowError("status_get_matk: Unknown flag %d!\n", flag);
+		ShowError("status_get_matk: Flag %d desconhecida!\n", flag);
 		return 1;
 	}
 
@@ -12052,7 +12053,7 @@ void status_read_job_db_sub(int idx, const char *name, config_setting_t *jdb)
 		while ((iname = libconfig->setting_get_string_elem(temp, nidx++))) {
 			int i, iidx, iclass, avg_increment, base;
 			if ((iclass = pc->check_job_name(iname)) == -1) {
-				ShowWarning("status_read_job_db: '%s' trying to inherit unknown '%s'!\n", name, iname);
+				ShowWarning("status_read_job_db: '%s' tentando herdar desconhecido '%s'!\n", name, iname);
 				continue;
 			}
 			iidx = pc->class2idx(iclass);
@@ -12096,7 +12097,7 @@ void status_read_job_db_sub(int idx, const char *name, config_setting_t *jdb)
 		while ((iname = libconfig->setting_get_string_elem(temp, nidx++))) {
 			int i, iidx, iclass, avg_increment, base;
 			if ((iclass = pc->check_job_name(iname)) == -1) {
-				ShowWarning("status_read_job_db: '%s' trying to inherit unknown '%s' HP!\n", name, iname);
+				ShowWarning("status_read_job_db: '%s' tentando herdar desconhecido '%s' HP!\n", name, iname);
 				continue;
 			}
 			iidx = pc->class2idx(iclass);
@@ -12122,7 +12123,7 @@ void status_read_job_db_sub(int idx, const char *name, config_setting_t *jdb)
 		while ((iname = libconfig->setting_get_string_elem(temp, nidx++))) {
 			int i, iidx, iclass, avg_increment, base;
 			if ((iclass = pc->check_job_name(iname)) == -1) {
-				ShowWarning("status_read_job_db: '%s' trying to inherit unknown '%s' SP!\n", name, iname);
+				ShowWarning("status_read_job_db: '%s' tentando herdar desconhecido '%s' SP!\n", name, iname);
 				continue;
 			}
 			iidx = pc->class2idx(iclass);
@@ -12159,7 +12160,7 @@ void status_read_job_db_sub(int idx, const char *name, config_setting_t *jdb)
 			if (w != wlen) {
 				status->dbs->aspd_base[idx][wnames[w].id] = libconfig->setting_get_int(wpn);
 			} else {
-				ShowWarning("status_read_job_db: unknown weapon type '%s'!\n", wname);
+				ShowWarning("status_read_job_db: tipo de arma '%s' desconhecido!\n", wname);
 			}
 		}
 	}
@@ -12223,7 +12224,7 @@ void status_read_job_db(void) { /* [malufett/Hercules] */
 #endif
 
 	if ( libconfig->read_file(&job_db_conf, config_filename) ) {
-		ShowError("can't read %s\n", config_filename);
+		ShowError("nao pode ler %s\n", config_filename);
 		return;
 	}
 	while ( (jdb = libconfig->setting_get_elem(job_db_conf.root, i++)) ) {
@@ -12231,7 +12232,7 @@ void status_read_job_db(void) { /* [malufett/Hercules] */
 		const char *name = config_setting_name(jdb);
 
 		if ( (class_ = pc->check_job_name(name)) == -1 ) {
-			ShowWarning("pc_read_job_db: '%s' unknown job name!\n", name);
+			ShowWarning("pc_read_job_db: '%s' nome de Job desconhecido!\n", name);
 			continue;
 		}
 
@@ -12250,7 +12251,7 @@ bool status_readdb_job2(char* fields[], int columns, int current)
 
 	if(!pc->db_checkid(class_))
 	{
-		ShowWarning("status_readdb_job2: Invalid job class %d specified.\n", class_);
+		ShowWarning("status_readdb_job2: Especificado Job Class invalido %d.\n", class_);
 		return false;
 	}
 	idx = pc->class2idx(class_);
@@ -12297,23 +12298,23 @@ int status_readdb_refine_libconfig_sub(config_setting_t *r, const char *name, co
 	if (strncmp(name, "Armors", 6) == 0) {
 		type = REFINE_TYPE_ARMOR;
 	} else if (strncmp(name, "WeaponLevel", 11) != 0 || !strspn(&name[strlen(name)-1], "0123456789") || (type = atoi(strncpy(lv, name+11, 2))) == REFINE_TYPE_ARMOR) {
-		ShowError("status_readdb_refine_libconfig_sub: Invalid key name for entry '%s' in \"%s\", skipping.\n", name, source);
+		ShowError("status_readdb_refine_libconfig_sub: Nome chave invalido para a entrada '%s' em \"%s\", pulando.\n", name, source);
 		return 0;
 	}
 	if (type < REFINE_TYPE_ARMOR || type >= REFINE_TYPE_MAX) {
-		ShowError("status_readdb_refine_libconfig_sub: Out of range level for entry '%s' in \"%s\", skipping.\n", name, source);
+		ShowError("status_readdb_refine_libconfig_sub: Nivel fora de alcance para a entrada '%s' em \"%s\", pulando.\n", name, source);
 		return 0;
 	}
 	if (!libconfig->setting_lookup_int(r, "StatsPerLevel", &bonus_per_level)) {
-		ShowWarning("status_readdb_refine_libconfig_sub: Missing StatsPerLevel for entry '%s' in \"%s\", skipping.\n", name, source);
+		ShowWarning("status_readdb_refine_libconfig_sub: Faltando StatsPerLevel para a entrada '%s' em \"%s\", pulando.\n", name, source);
 		return 0;
 	}
 	if (!libconfig->setting_lookup_int(r, "RandomBonusStartLevel", &rnd_bonus_lv)) {
-		ShowWarning("status_readdb_refine_libconfig_sub: Missing RandomBonusStartLevel for entry '%s' in \"%s\", skipping.\n", name, source);
+		ShowWarning("status_readdb_refine_libconfig_sub: Faltando RandomBonusStartLevel para a entrada '%s' em \"%s\", pulando.\n", name, source);
 		return 0;
 	}
 	if (!libconfig->setting_lookup_int(r, "RandomBonusValue", &rnd_bonus_v)) {
-		ShowWarning("status_readdb_refine_libconfig_sub: Missing RandomBonusValue for entry '%s' in \"%s\", skipping.\n", name, source);
+		ShowWarning("status_readdb_refine_libconfig_sub: Faltando RandomBonusValue para a entrada '%s' em \"%s\", pulando.\n", name, source);
 		return 0;
 	}
 
@@ -12335,16 +12336,16 @@ int status_readdb_refine_libconfig_sub(config_setting_t *r, const char *name, co
 			char *rlvl = config_setting_name(t);
 			memset(&lv, 0, sizeof(lv));
 			if (!strspn(&rlvl[strlen(rlvl)-1], "0123456789") || (level = atoi(strncpy(lv, rlvl+2, 3))) <= 0) {
-				ShowError("status_readdb_refine_libconfig_sub: Invalid refine level format '%s' for entry %s in \"%s\"... skipping.\n", rlvl, name, source);
+				ShowError("status_readdb_refine_libconfig_sub: Formato de Nivel de Refinamento '%s' invalido para a entrada %s em \"%s\"... pulando.\n", rlvl, name, source);
 				continue;
 			}
 			if (level <= 0 || level > MAX_REFINE) {
-				ShowError("status_readdb_refine_libconfig_sub: Out of range refine level '%s' for entry %s in \"%s\"... skipping.\n", rlvl, name, source);
+				ShowError("status_readdb_refine_libconfig_sub: Nivel de Refinamento '%s' fora de alcance para a entrada %s em \"%s\"... pulando.\n", rlvl, name, source);
 				continue;
 			}
 			level--;
 			if (duplicate[level]) {
-				ShowWarning("status_readdb_refine_libconfig_sub: duplicate rate '%s' for entry %s in \"%s\", overwriting previous entry...\n", rlvl, name, source);
+				ShowWarning("status_readdb_refine_libconfig_sub: taxa '%s' duplicada para a entrada %s em \"%s\", substituindo a entrada anterior...\n", rlvl, name, source);
 			} else {
 				duplicate[level] = true;
 			}
@@ -12364,7 +12365,7 @@ int status_readdb_refine_libconfig_sub(config_setting_t *r, const char *name, co
 			status->dbs->refine_info[type].bonus[i] = bonus[i];
 		}
 	} else {
-		ShowWarning("status_readdb_refine_libconfig_sub: Missing refine rates for entry '%s' in \"%s\", skipping.\n", name, source);
+		ShowWarning("status_readdb_refine_libconfig_sub: Faltando Taxas de Refinamento para a entrada '%s' em \"%s\", pulando.\n", name, source);
 		return 0;
 	}
 	return type+1;
@@ -12394,7 +12395,7 @@ int status_readdb_refine_libconfig(const char *filename) {
 		char *name = config_setting_name(r);
 		if((type=status->readdb_refine_libconfig_sub(r, name, filename))) {
 			if( duplicate[type-1] ) {
-				ShowWarning("status_readdb_refine_libconfig: duplicate entry for %s in \"%s\", overwriting previous entry...\n", name, filename);
+				ShowWarning("status_readdb_refine_libconfig: entrada duplicada para %s em \"%s\", substituindo entrada anterior...\n", name, filename);
 			} else duplicate[type-1] = true;
 			count++;
 		}
@@ -12410,7 +12411,7 @@ bool status_readdb_scconfig(char* fields[], int columns, int current) {
 	char* type = fields[0];
 
 	if( !script->get_constant(type, &val) ){
-		ShowWarning("status_readdb_sc_conf: Invalid status type %s specified.\n", type);
+		ShowWarning("status_readdb_sc_conf: Especificado tipo de status %s invalido.\n", type);
 		return false;
 	}
 
