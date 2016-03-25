@@ -453,7 +453,7 @@ ayothaya,212,169,5	script	Empregada Kafra::kaf_ayothaya	4_F_KAFRA2,{
 
 // Einbech
 //============================================================
-einbech,181,132,5	script	Kafra Employee#ein3::kaf_einbech	4_F_KAFRA8,{
+einbech,181,132,5	script	Empregada Kafra#ein3::kaf_einbech	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
@@ -469,7 +469,7 @@ einbech,181,132,5	script	Kafra Employee#ein3::kaf_einbech	4_F_KAFRA8,{
 
 // Einbroch
 //============================================================
-einbroch,242,205,5	script	Kafra Employee#ein2::kaf_einbroch	4_F_KAFRA8,{
+einbroch,242,205,5	script	Empregada Kafra#ein2::kaf_einbroch	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
@@ -481,7 +481,7 @@ einbroch,242,205,5	script	Kafra Employee#ein2::kaf_einbroch	4_F_KAFRA8,{
 	callfunc "F_KafEnd",0,1,"na cidade de Einbroch";
 }
 
-einbroch,59,203,6	script	Kafra Employee#ein1::kaf_einbroch2	4_F_KAFRA9,{
+einbroch,59,203,6	script	Empregada Kafra#ein1::kaf_einbroch2	4_F_KAFRA9,{
 	cutin "kafra_09",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";

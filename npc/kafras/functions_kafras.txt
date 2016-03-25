@@ -280,22 +280,22 @@ function	script	F_KafStor	{
 			percentheal 0,-10;
 			mes getarg(3);
 			for (.@i = 0; .@i < 5; ++.@i)
-				mes "^666666Thank you.. for... using...^000000";
+				mes "^666666Obrigado por.. usar... nosso serviços...^000000";
 		} else if (getarg(2) == 6) {
 			// Zonda
 			mes getarg(3);
-			mes "Let me open your personal";
-			mes "storage for you right away.";
-			mes "Thanks for supporting Cool";
-			mes "Event Corp. by using our";
-			mes "services. Have a good day~";
+			mes "Deixe-me abrir seu armazém";
+			mes "pessoal para o senhor imediatamente.";
+			mes "Obrigado pelo seu apoio";
+			mes "por usar nossos serviços";
+			mes "Tenha um bom dia~";
 		} else {
 			// Normal message
 			mes getarg(3);
-			mes "Here, let me open";
-			mes "your Storage for you.";
-			mes "Thank you for using";
-			mes "the Kafra Service.";
+			mes "Aqui, deixe-me abrir o";
+			mes "armazém para o senhor.";
+			mes "Obrigado por usar os";
+			mes "serviços Kafra.";
 		}
 	}
 	callfunc("F_CheckKafCode"); //check your storage password, if set
