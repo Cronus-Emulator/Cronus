@@ -284,8 +284,8 @@ function	script	F_KafStor	{
 		} else if (getarg(2) == 6) {
 			// Zonda
 			mes getarg(3);
-			mes "Deixe-me abrir seu armazém";
-			mes "pessoal para o senhor imediatamente.";
+			mes "Deixe-me abrir o seu armazém";
+			mes "pessoal imediatamente.";
 			mes "Obrigado pelo seu apoio";
 			mes "por usar nossos serviços";
 			mes "Tenha um bom dia~";
