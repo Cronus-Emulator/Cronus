@@ -70,7 +70,7 @@
 //=   arg(3): Cost to use Storage
 //=   arg(4): Cost to Rent a Pushcart
 //==========================================================================
-// Traduzido por: Lucas Campos
+// Traduzido por: Lucas Campos Achcar
 //==========================================================================
 
 function	script	F_Kafra	{
@@ -284,18 +284,24 @@ function	script	F_KafStor	{
 		} else if (getarg(2) == 6) {
 			// Zonda
 			mes getarg(3);
-			mes "Let me open your personal";
-			mes "storage for you right away.";
-			mes "Thanks for supporting Cool";
-			mes "Event Corp. by using our";
-			mes "services. Have a good day~";
-		} else {
+			mes "Deixe-me abrir o seu armazém";
+			mes "pessoal imediatamente.";
+			mes "Obrigado pelo seu apoio";
+			mes "por usar nossos serviços";
+			mes "Tenha um bom dia~";
+		} 
+		else if(#kafra_code){
+			mes "Aqui, digite a senha";
+			mes "para abrir o armazém.";
+			mes "Obrigado por usar os";
+			mes "serviços Kafra.";
+		}else {
 			// Normal message
 			mes getarg(3);
-			mes "Here, let me open";
-			mes "your Storage for you.";
-			mes "Thank you for using";
-			mes "the Kafra Service.";
+			mes "Aqui, deixe-me abrir o";
+			mes "armazém para o senhor.";
+			mes "Obrigado por usar os";
+			mes "serviços Kafra.";
 		}
 	}
 	callfunc("F_CheckKafCode"); //check your storage password, if set
@@ -393,7 +399,7 @@ function	script	F_KafCart	{
 		mes getarg(2);
 		mes "Você já tem um";
 		mes "carrinho equipado.";
-		mes "Infelizmente, Não podemos";
+		mes "Infelizmente não podemos";
 		mes "emprestar mais que um";
 		mes "para cada cliente.";
 		return 1;
@@ -528,7 +534,7 @@ function	script	F_SetKafCode	{
 		switch (select("Mudar senha antiga -> 5000z:Remover senha do armazém -> 1000z:Cancelar")) {
 			case 1:
 				mes getarg(0);
-				mes "At first, please enter your ^0000FFold password^000000.";
+				mes "Mas primeiro, por favor, digita sua ^0000FFantiga senha^000000.";
 				@code = callfunc("F_EntKafCode");
 				if (!@code || @code != #kafra_code) {
 					mes "Senha errada. Você não entrou com uma nova senha.";

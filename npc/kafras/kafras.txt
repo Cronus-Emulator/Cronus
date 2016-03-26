@@ -21,31 +21,31 @@
 //= 1.1a Fixed Pre-RE Call and some leftovers. [Lemongrass]
 //= 1.1b Enabled saving in Izlude duplicates (RE). [Euphy]
 //============================================================
-// Traduzido por: Lucas Campos
+// Traduzido por: Lucas Campos Achcar
 //============================================================
 
 // Aldebaran
 //============================================================
-aldeba_in,96,181,4	script	Kafra Service	4_F_KAFRA5,{
+aldeba_in,96,181,4	script	ServiÃ§o Kafra	4_F_KAFRA5,{
 	cutin "kafra_05",2;
 	mes "[Kafra Leilah]";
 	mes "Hm...?";
 	mes "Oh, Bem vindo";
-	mes "a CorporaÃ§Ã£o Kafra.";
-	mes "VocÃª precisa de alguma coisa?";
+	mes "a CorporaÃƒÂ§ÃƒÂ£o Kafra.";
+	mes "VocÃƒÂª precisa de alguma coisa?";
 	next;
 	switch(select("Salvar:Usar Armazem:Alugar Carrinho:Cancelar")) {
 	case 1:
 		mes "[Kafra Leilah]";
 		mes "Seu ponto de partida";
 		mes "foi salvo aqui, dentro";
-		mes "da Corportação Kafra";
+		mes "da CorportaÃ§Ã£o Kafra";
 		mes "Obrigada.";
 		next;
 		savepoint "aldeba_in",96,179;
 		mes "[Kafra Leilah]";
-		mes "Por favor, faça sempre uso";
-		mes "dos serviços da Kafra que estão";
+		mes "Por favor, faÃ§a sempre uso";
+		mes "dos serviÃ§os da Kafra que estÃ£o";
 		mes "disponivis ao longo de toda";
 		mes "Rune Midgard. Obrigado por";
 		mes "visitar o Quartel General da Kafra.";
@@ -54,53 +54,53 @@ aldeba_in,96,181,4	script	Kafra Service	4_F_KAFRA5,{
 	case 2:
 		if (Zeny < 20) {
 			mes "[Kafra Leilah]";
-			mes "Licença, Mas me";
-			mes "parece que você";
-			mes "não possui 20 zeny para pagar";
+			mes "LicenÃ§a, Mas me";
+			mes "parece que vocÃª";
+			mes "nÃ£o possui 20 zeny para pagar";
 			mes "o Armazem, para acessar";
-			mes "É necessário pagar uma taxa.";
+			mes "Ã‰ necessÃ¡rio pagar uma taxa.";
 			close;
 		}
 		mes "[Kafra Leilah]";
 		mes "Embora isso facilite";
-		mes "É exclusivamente desejado para";
+		mes "Ã‰ exclusivamente desejado para";
 		mes "o treinamento dos empregados Kafra";
-		mes "e funcionários administrativas,";
-		mes "Irei acessar o armazem para você.";
+		mes "e funcionÃ¡rios administrativas,";
+		mes "Irei acessar o armazem para vocÃª.";
 		next;
 		Zeny -= 20;
 		RESRVPTS += (20/5);
 		mes "[Kafra Leilah]";
 		mes "No futuro, por favor";
-		mes "Fale com algum funcionário da Kafra";
-		mes "se você deseja usar";
-		mes "algum serviço Kafra.";
-		mes "Obrigado pela sua paciência.";
+		mes "Fale com algum funcionÃ¡rio da Kafra";
+		mes "se vocÃª deseja usar";
+		mes "algum serviÃ§o Kafra.";
+		mes "Obrigado pela sua paciÃªncia.";
 		callfunc("F_CheckKafCode");    //check your storage password, if set
 		close2;
 		openstorage;
 		break;
 	case 3:
 		mes "[Kafra Leilah]";
-		mes "Minhas desculpas, Mas eu não";
-		mes "estou de serviço.";
-		mes "Se eu pudesse, mas na verdade não da";
-		mes "Você não possui nenhum Carrinho disponivel.";
-		mes "Porquê não pergunte para outro";
+		mes "Minhas desculpas, Mas eu nÃ£o";
+		mes "estou de serviÃ§o.";
+		mes "Se eu pudesse, mas na verdade nÃ£o da";
+		mes "VocÃª nÃ£o possui nenhum Carrinho disponivel.";
+		mes "PorquÃª nÃ£o pergunte para outro";
 		mes "empregado de assistencia Kafra?";
 		next;
 		mes "[Kafra Leilah]";
-		mes "Empregados da Kafra estão";
+		mes "Empregados da Kafra estÃ£o";
 		mes "espalhados por todo o";
 		mes "continente de Rune Midgard,";
-		mes "e você é capaz de encontrar-las";
-		mes "em abundância do outro lado do Al De Baran.";
+		mes "e vocÃª Ã© capaz de encontrar-las";
+		mes "em abundÃ¢ncia do outro lado do Al De Baran.";
 		close2;
 		break;
 	case 4:
 		mes "[Kafra Leilah]";
 		mes "^666666*Ufa...*^000000";
-		mes "Ótimo, porque eu estou";
+		mes "Ã“timo, porque eu estou";
 		mes "realmente quebrado";
 		mes "agora. Escolher";
 		mes "''Cancelar'' foi uma boa";
@@ -117,9 +117,9 @@ aldebaran,143,119,4	script	Empregada Kafra::kaf_aldebaran	4_F_KAFRA5,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,1,20,600;
 	savepoint "aldebaran",143,109;
 	callfunc "F_KafEnd",0,1,"na cidade de Al De Baran";
@@ -132,9 +132,9 @@ geffen,120,62,0	script	Empregada Kafra::kaf_geffen	4_F_KAFRA3,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,30,750;
 	savepoint "geffen",119,40;
 	callfunc "F_KafEnd",0,1,"na cidade de Geffen";
@@ -145,9 +145,9 @@ geffen,203,123,2	script	Empregada Kafra::geffen2	4_F_KAFRA4,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,30,750;
 	savepoint "geffen",200,124;
 	callfunc "F_KafEnd",0,1,"na cidade de Geffen";
@@ -160,9 +160,9 @@ morocc,156,97,4	script	Empregada Kafra::kaf_morocc	4_F_KAFRA5,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,60,930;
 	savepoint "morocc",156,46;
 	callfunc "F_KafEnd",0,1,"na cidade de Morroc";
@@ -173,9 +173,9 @@ morocc,160,258,4	script	Kafra::kaf_morocc2	4_F_KAFRA4,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,60,930;
 	savepoint "morocc",157,272;
 	callfunc "F_KafEnd",0,1,"na cidade de Morroc";
@@ -188,9 +188,9 @@ payon,181,104,4	script	Empregada Kafra::kaf_payon	4_F_KAFRA5,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,1,60,930;
 	savepoint "payon",160,58;
 	callfunc "F_KafEnd",0,1,"na cidade de Payon";
@@ -200,9 +200,9 @@ payon,175,226,4	script	Empregada Kafra::kaf_payon2	4_F_KAFRA2,{
 	cutin "kafra_02",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,1,60,930;
 	savepoint "payon",257,242;
@@ -213,9 +213,9 @@ pay_arche,55,123,0	script	Empregada Kafra::kaf_payon3	4_F_KAFRA3,{
 	cutin "kafra_03",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,5,1,90,1200;
 	savepoint "pay_arche",49,144;
@@ -228,9 +228,9 @@ prontera,152,326,3	script	Empregada Kafra::kaf_prontera	4_F_KAFRA6,{
 	cutin "kafra_06",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "prontera",157,327;
@@ -241,9 +241,9 @@ prontera,151,29,0	script	Empregada Kafra::kaf_prontera2	4_F_KAFRA3,{
 	cutin "kafra_03",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "prontera",150,33;
@@ -254,9 +254,9 @@ prontera,29,207,6	script	Empregada Kafra::kaf_prontera3	4_F_KAFRA5,{
 	cutin "kafra_05",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "prontera",33,208;
@@ -267,9 +267,9 @@ prontera,282,200,2	script	Empregada Kafra::kaf_prontera4	4_F_KAFRA4,{
 	cutin "kafra_04",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "prontera",281,203;
@@ -280,9 +280,9 @@ prontera,146,89,6	script	Empregada Kafra::kaf_prontera5	4_F_KAFRA1,{
 	cutin "kafra_01",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "prontera",116,73;
@@ -295,9 +295,9 @@ yuno,152,187,4	script	Empregada Kafra::kaf_yuno	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "yuno",158,125;
@@ -308,9 +308,9 @@ yuno,327,108,4	script	Empregada Kafra::kaf_yuno2	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
-	mes "A Corportação Kafra";
-	mes "sempre trabalhando para você";
-	mes "para você ser atendido da melhor forma possivel.";
+	mes "A CorportaÃ§Ã£o Kafra";
+	mes "sempre trabalhando para vocÃª";
+	mes "para vocÃª ser atendido da melhor forma possivel.";
 	mes "Como eu posso ajudar o senhor?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "yuno",328,101;
@@ -322,9 +322,9 @@ yuno,277,221,4	script	Empregada Kafra::kaf_yuno3	4_F_KAFRA9,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "yuno",274,229;
 	callfunc "F_KafEnd",0,1,"na cidade de Juno";
@@ -337,9 +337,9 @@ alberta,28,229,0	script	Empregada Kafra::kaf_alberta	4_F_KAFRA2,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,50,850;
 	savepoint "alberta",31,231;
 	callfunc "F_KafEnd",0,1,"na cidade de Alberta";
@@ -350,9 +350,9 @@ alberta,113,60,6	script	Empregada Kafra::kaf_alberta2	4_F_KAFRA6,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,0,0,50,850;
 	savepoint "alberta",117,57;
 	callfunc "F_KafEnd",0,1,"na cidade de Alberta";
@@ -365,10 +365,10 @@ comodo,195,150,4	script	Empregada Kafra::kaf_comodo	4_F_KAFRA7,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,0,1,80,1000;
 	savepoint "comodo",204,143;
@@ -380,10 +380,10 @@ cmd_fild07,136,134,4	script	Empregada Kafra::kaf_cmd_fild07	4_F_KAFRA7,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,0,1,80,1000;
 	savepoint "cmd_fild07",127,134;
@@ -397,10 +397,10 @@ cmd_fild07,136,134,4	script	Empregada Kafra::kaf_cmd_fild07	4_F_KAFRA7,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,0,1,40,820;
 	if (RENEWAL)
@@ -425,10 +425,10 @@ amatsu,102,149,4	script	Empregada Kafra::kaf_amatsu	4_F_KAFRA2,{
 	cutin "kafra_02",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,3,1,50,700;
 	savepoint "amatsu",116,94;
@@ -441,10 +441,10 @@ ayothaya,212,169,5	script	Empregada Kafra::kaf_ayothaya	4_F_KAFRA2,{
 	cutin "kafra_02",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,3,1,50,700;
 	savepoint "ayothaya",149,69;
@@ -453,14 +453,14 @@ ayothaya,212,169,5	script	Empregada Kafra::kaf_ayothaya	4_F_KAFRA2,{
 
 // Einbech
 //============================================================
-einbech,181,132,5	script	Kafra Employee#ein3::kaf_einbech	4_F_KAFRA8,{
+einbech,181,132,5	script	Empregada Kafra#ein3::kaf_einbech	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,4,1,40,850;
 	savepoint "einbech",182,124;
@@ -469,25 +469,25 @@ einbech,181,132,5	script	Kafra Employee#ein3::kaf_einbech	4_F_KAFRA8,{
 
 // Einbroch
 //============================================================
-einbroch,242,205,5	script	Kafra Employee#ein2::kaf_einbroch	4_F_KAFRA8,{
+einbroch,242,205,5	script	Empregada Kafra#ein2::kaf_einbroch	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,4,1,50,800;
 	savepoint "einbroch",238,198;
 	callfunc "F_KafEnd",0,1,"na cidade de Einbroch";
 }
 
-einbroch,59,203,6	script	Kafra Employee#ein1::kaf_einbroch2	4_F_KAFRA9,{
+einbroch,59,203,6	script	Empregada Kafra#ein1::kaf_einbroch2	4_F_KAFRA9,{
 	cutin "kafra_09",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,4,1,50,800;
 	savepoint "einbroch",240,197;
 	callfunc "F_KafEnd",0,1,"na cidade de Einbroch";
@@ -499,9 +499,9 @@ gonryun,159,122,4	script	Empregada Kafra::kaf_gonryun	4_F_KAFRA2,{
 	cutin "kafra_02",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,3,1,50,700;
 	savepoint "gonryun",160,62;
 	callfunc "F_KafEnd",0,1,"na cidade de Kunlun";
@@ -513,9 +513,9 @@ lighthalzen,164,100,4	script	Empregada Kafra::kaf_lighthalzen	4_F_KAFRA8,{
 	cutin "kafra_08",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,4,1,40,800;
 	savepoint "lighthalzen",158,94;
 	callfunc "F_KafEnd",0,1,"na cidade de Lighthalzen";
@@ -525,9 +525,9 @@ lighthalzen,191,320,4	script	Empregada Kafra::kaf_lighthalzen2	4_F_KAFRA9,{
 	cutin "kafra_09",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,4,1,40,800;
 	savepoint "lighthalzen",194,313;
 	callfunc "F_KafEnd",0,1,"na cidade de Lighthalzen";
@@ -537,9 +537,9 @@ lhz_in02,237,284,4	script	Empregada Kafra::kaf_lhz_in02	4_F_KAFRA9,{
 	cutin "kafra_09",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo~!";
-	mes "Ao Serviço Kafra";
+	mes "Ao ServiÃ§o Kafra";
 	mes "sempre a seu lado.";
-	mes "Como posso ajudar você?";
+	mes "Como posso ajudar vocÃª?";
 	callfunc "F_Kafra",5,4,1,40,800;
 	savepoint "lhz_in02",278,215;
 	callfunc "F_KafEnd",0,1,"na cidade de Lighthalzen";
@@ -551,10 +551,10 @@ louyang,210,104,5	script	Empregada Kafra::kaf_louyang	4_F_KAFRA1,{
 	cutin "kafra_01",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,3,1,50,700;
 	savepoint "louyang",217,92;
@@ -568,9 +568,9 @@ umbala,87,160,4	script	Empregada Kafra::kaf_umbala	4_F_KAFRA7,{
 	callfunc "F_KafSet";
 	mes "[Empregada Kafra]";
 	mes "Bem vindo a";
-	mes "Corportação Kafra.";
-	mes "Você sabe que nossos";
-	mes "serviços estão sempre";
+	mes "CorportaÃ§Ã£o Kafra.";
+	mes "VocÃª sabe que nossos";
+	mes "serviÃ§os estÃ£o sempre";
 	mes "ao seu lado~";
 	callfunc "F_Kafra",5,0,1,80,0;
 	savepoint "umbala",126,131;
@@ -597,10 +597,10 @@ izlu2dun,106,58,0	script	Empregada Kafra::kaf_izlu2dun	4_F_KAFRA3,{
 	}
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,2,1,120,1200;
 	savepoint "izlu2dun",87,170;
@@ -612,10 +612,10 @@ prt_fild05,290,224,3	script	Empregada Kafra::prt_fild05	4_F_KAFRA4,{
 	cutin "kafra_04",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo!";
-	mes "a Corportação Kafra";
-	mes "Você sempre tem suporte aqui";
+	mes "a CorportaÃ§Ã£o Kafra";
+	mes "VocÃª sempre tem suporte aqui";
 	mes "aventureiro de Rune-Midgard";
-	mes "com esse excelente serviço. Então";
+	mes "com esse excelente serviÃ§o. EntÃ£o";
 	mes "o que eu posso fazer pelo senhor?";
 	callfunc "F_Kafra",5,1,1,40,0;
 	savepoint "prt_fild05",274,243;
@@ -627,10 +627,10 @@ mjolnir_02,83,362,4	script	Empregada Kafra::kaf_mjolnir_02	4_F_KAFRA2,{
 	cutin "kafra_02",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo a";
-	mes "Corportação Kafra.";
-	mes "Empregados Kafra estão";
-	mes "sempre a seu serviço";
-	mes "Como posso ajudar você hoje?";
+	mes "CorportaÃ§Ã£o Kafra.";
+	mes "Empregados Kafra estÃ£o";
+	mes "sempre a seu serviÃ§o";
+	mes "Como posso ajudar vocÃª hoje?";
 	callfunc "F_Kafra",5,6,1,100,0;
 	savepoint "mjolnir_02",98,352;
 	callfunc "F_KafEnd",0,1,"at Mjolnir Dead Pit";
@@ -641,9 +641,9 @@ moc_ruins,59,157,5	script	Empregada Kafra::moc_ruins	4_F_KAFRA4,{
 	cutin "kafra_04",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo a";
-	mes "Corportação Kafra.";
-	mes "Empregados Kafra estão";
-	mes "sempre a seu serviço";
+	mes "CorportaÃ§Ã£o Kafra.";
+	mes "Empregados Kafra estÃ£o";
+	mes "sempre a seu serviÃ§o";
 	mes "O que posso eu fazer pelo senhor hoje?";
 	callfunc "F_Kafra",5,2,1,90,1200;
 	savepoint "moc_ruins",41,141;
@@ -655,10 +655,10 @@ gef_fild10,73,340,5	script	Empregada Kafra::kaf_gef_fild10	4_F_KAFRA2,{
 	cutin "kafra_02",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo a";
-	mes "Corportação Kafra.";
-	mes "Empregados Kafra estão";
-	mes "sempre a seu serviço";
-	mes "Como posso ajudar você hoje?";
+	mes "CorportaÃ§Ã£o Kafra.";
+	mes "Empregados Kafra estÃ£o";
+	mes "sempre a seu serviÃ§o";
+	mes "Como posso ajudar vocÃª hoje?";
 	callfunc "F_Kafra",5,6,1,130,0;
 	savepoint "gef_fild10",54,326;
 	callfunc "F_KafEnd",0,1,"em Orc Dungeon";
@@ -669,10 +669,10 @@ alb2trea,59,69,5	script	Empregada Kafra::kaf_alb2trea	4_F_KAFRA1,{
 	cutin "kafra_01",2;
 	mes "[Empregada Kafra]";
 	mes "Bem vindo a";
-	mes "Corportação Kafra.";
-	mes "Empregados Kafra estão";
-	mes "sempre a seu serviço";
-	mes "Como posso ajudar você hoje?";
+	mes "CorportaÃ§Ã£o Kafra.";
+	mes "Empregados Kafra estÃ£o";
+	mes "sempre a seu serviÃ§o";
+	mes "Como posso ajudar vocÃª hoje?";
 	callfunc "F_Kafra",5,2,1,50,0;
 	savepoint "alb2trea",92,64;
 	callfunc "F_KafEnd",0,1,0,"at Sunken Ship";
