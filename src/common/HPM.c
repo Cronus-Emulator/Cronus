@@ -814,11 +814,12 @@ bool hplugins_parse_conf(const char *w1, const char *w2, enum HPluginConfType po
 }
 
 /**
- * Recebe uma entrada de configura��o de batalha atrav�s de plugins registrados.
+ * Get a battle configuration entry through the registered plugins.
  *
- * @param[in]  w1  Nome da entrada de configura��o.
- * @param[out] value Onde o resultado de configura��o ser� salvo
- * @retval false No caso de dados n�o encontrados
+ * @param[in]  w1    The configuration entry name.
+ * @param[out] value Where the config result will be saved
+ * @retval true in case of data found
+ * @retval false in case of no data found
  */
 bool hplugins_get_battle_conf(const char *w1, int *value)
 {
