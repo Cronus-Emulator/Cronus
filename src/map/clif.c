@@ -4932,6 +4932,8 @@ void clif_skill_cooldown(struct map_session_data *sd, uint16 skill_id, unsigned 
 int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick, int sdelay, int ddelay, int64 in_damage, int div, uint16 skill_id, uint16 skill_lv, int type) {
 	unsigned char buf[64];
 	struct status_change *sc;
+	struct map_session_data *sd;    //[Alukas - RedX]
+    struct map_session_data *sddst; //[Alukas - RedX]
 	int damage;
 
 	nullpo_ret(src);
@@ -5013,6 +5015,39 @@ int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick
 	}
 #endif
 
+/*=================================================
+- Implementação OnPCUseSkillEvent (Skill de Dano)
+- Referência: clif_skill_damage
+- Créditos: [Alukas] - Adaptação[Redx]
+==================================================*/
+  	sd = BL_CAST(BL_PC, src);
+  		if(dst->type == BL_PC)  //Checa se o alvo é um personagem
+        sddst = BL_CAST(BL_PC, dst);
+
+    if(sd && damage != 0)
+    {
+        pc_setglobalreg(sd, script->add_str("lskillid"), skill_id); //Variável que recebe o id da skill = lskillid
+
+				if(dst->type == BL_PC)
+        {
+            pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sddst->status.name);  //Variável que recebe o "nome" da última skill usada no alvo (na tabela global) = lskilldest$ 
+           	npc->script_event(sd, NPCE_USESKILL);
+        }
+
+				else if(dst->type == BL_MOB) //Checa se o alvo é um monstro
+        {
+            pc_setglobalreg(sd, script->add_str("lskilldest"), dst->id);  //Isto definirá a variável "lskilldest", que contém o ID da última skill usada no alvo
+            npc->script_event(sd, NPCE_USESKILL);
+        }
+
+        pc_setglobalreg_str(sd, script->add_str("lskilldest$"), ""); //"Zera" a variável "lskilldest$"
+        pc_setglobalreg(sd, script->add_str("lskilldest"), 0); //"Zera" a variável "lskilldest$"
+        pc_setglobalreg(sd, script->add_str("lskillid"), 0); //"Zera" a variável "lskilldest$"
+    }
+	
+/* --- Fim da implementação da label OnPCUseSkillEvent --- */
+
+
 	//Because the damage delay must be synced with the client, here is where the can-walk tick must be updated. [Skotlex]
 	return clif->calc_walkdelay(dst,ddelay,type,damage,div);
 }
@@ -5079,6 +5114,8 @@ int clif_skill_damage2(struct block_list *src, struct block_list *dst, int64 tic
 int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 skill_id,int heal,int fail)
 {
 	unsigned char buf[32];
+	struct map_session_data *sd; //[Alukas - Redx]
+ 	struct map_session_data *sddst; //[Alukas - Redx]
 
 	nullpo_ret(dst);
 
@@ -5102,6 +5139,41 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 			WBUFL(buf,6)=dst->id;
 		clif->send(buf,packet_len(0x11a),src,SELF);
 	}
+	
+/*=================================================
+- Implementação OnPCUseSkillEvent (Skill sem Dano)
+- Referência: clif_skill_nodamage
+- Créditos: [Alukas] - Adaptação[Redx]
+==================================================*/
+
+	sd = BL_CAST(BL_PC, src);
+	if(dst->type == BL_PC)
+		sddst = BL_CAST(BL_PC, dst);
+
+	if(sd && skill_id != SM_MAGNUM)
+	{
+			pc_setglobalreg(sd, script->add_str("lskillid"), skill_id);
+
+			if(dst->type == BL_PC)
+			{
+				pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sddst->status.name);
+				npc->script_event(sd, NPCE_USESKILL);
+			}
+
+			else if(dst->type == BL_MOB)
+			{
+				pc_setglobalreg(sd, script->add_str("lskilldest"), dst->id);
+				npc->script_event(sd, NPCE_USESKILL);
+			}
+
+			pc_setglobalreg_str(sd, script->add_str("lskilldest$"), "");
+			pc_setglobalreg(sd, script->add_str("lskilldest"), 0);
+			pc_setglobalreg(sd, script->add_str("lskillid"), 0);
+
+	}
+
+/* --- Fim da implementação da label OnPCUseSkillEvent --- */
+
 
 	return fail;
 }
@@ -5110,6 +5182,7 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 /// 0117 <skill id>.W <src id>.L <level>.W <x>.W <y>.W <tick>.L
 void clif_skill_poseffect(struct block_list *src, uint16 skill_id, int val, int x, int y, int64 tick) {
 	unsigned char buf[32];
+	struct map_session_data *sd; //[Alukas - Redx]
 
 	nullpo_retv(src);
 
@@ -5126,6 +5199,25 @@ void clif_skill_poseffect(struct block_list *src, uint16 skill_id, int val, int 
 		clif->send(buf,packet_len(0x117),src,SELF);
 	} else
 		clif->send(buf,packet_len(0x117),src,AREA);
+	
+/*====================================================
+- Implementação OnPCUseSkillEvent (Animação da Skill)
+- Referência: clif_skill_poseffect
+- Créditos: [Alukas] - Adaptação[Redx]
+=====================================================*/
+
+  sd = BL_CAST(BL_PC, src);
+
+  //Na animação da skill
+  if(sd)
+  {
+    pc_setglobalreg(sd, script->add_str("lskillid"), skill_id);
+    npc->script_event(sd, NPCE_USESKILL);
+    pc_setglobalreg(sd, script->add_str("lskillid"), 0);
+  }
+
+/* --- Fim da implementação da label OnPCUseSkillEvent --- */
+
 }
 
 /// Presents a list of available warp destinations (ZC_WARPLIST).
