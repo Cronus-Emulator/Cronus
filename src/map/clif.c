@@ -5041,8 +5041,8 @@ int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick
         }
 
         pc_setglobalreg_str(sd, script->add_str("lskilldest$"), ""); //"Zera" a variável "lskilldest$"
-        pc_setglobalreg(sd, script->add_str("lskilldest"), 0); //"Zera" a variável "lskilldest$"
-        pc_setglobalreg(sd, script->add_str("lskillid"), 0); //"Zera" a variável "lskilldest$"
+        pc_setglobalreg(sd, script->add_str("lskilldest"), 0); //"Zera" a variável "lskilldest"
+        pc_setglobalreg(sd, script->add_str("lskillid"), 0); //"Zera" a variável "lskillid"
     }
 	
 /* --- Fim da implementação da label OnPCUseSkillEvent --- */
