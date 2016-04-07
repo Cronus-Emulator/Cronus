@@ -14684,8 +14684,19 @@ BUILDIN(setbattleflag)
 BUILDIN(getbattleflag)
 {
 	const char *flag;
+	int value;
+
 	flag = script_getstr(st,2);
-	script_pushint(st,battle->config_get_value(flag));
+
+	if (battle->config_get_value(flag, &value)) {
+		script_pushint(st,value);
+		return true;
+	} else {
+		script_pushint(st,0);
+		ShowWarning("buildin_getbattleflag: Requisicao de configuracao de batalha nao existe %s \n", flag);
+		return false;
+	}
+
 	return true;
 }
 
