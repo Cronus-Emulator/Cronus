@@ -1,29 +1,50 @@
-//===== Hercules Script ======================================
-//= Yuno Airport Staff
-//===== By: ==================================================
-//= L0ne_W0lf, Muad_Dib
-//===== Description: =========================================
-//= Yuno Airport Staff
-//===== Additional Comments: =================================
-//= Official NPCs.
-//============================================================
+// --------------------------------------------------- \
+//  _____   _____    _____   __   _   _   _   _____    |
+// /  ___| |  _  \  /  _  \ |  \ | | | | | | /  ___/   | 
+// | |     | |_| |  | | | | |   \| | | | | | | |___    | 
+// | |     |  _  /  | | | | | |\   | | | | | \___  \   |
+// | |___  | | \ \  | |_| | | | \  | | |_| |  ___| |   |
+// \_____| |_|  \_\ \_____/ |_|  \_| \_____/ /_____/   |
+//  _____   _____   _____    _   _____   _____   _____ |
+// /  ___/ /  ___| |  _  \  | | |  _  \ |_   _| /  ___/|
+// | |___  | |     | |_| |  | | | |_| |   | |   | |___ | 
+// \___  \ | |     |  _  /  | | |  ___/   | |   \___  \| 
+//  ___| | | |___  | | \ \  | | | |       | |    ___| || 
+// /_____/ \_____| |_|  \_\ |_| |_|       |_|   /_____/|
+//                                                     |
+//                       2016                          |
+// ----------------------------------------------------/
+// Nome do Script: yuno.txt                            \
+// ----------------------------------------------------/ 
+// Criador: Herc/Cronus Team                           \
+// ----------------------------------------------------/
+// Versão: 1.0                                         \
+// ----------------------------------------------------/
+// Descrição: Aeroplano de Juno                        \
+// ----------------------------------------------------/
+// Alterações:                                         \
+// 1.0 Cabeçalho Cronus, Add Func Sex [Wolf]           /
+// ----------------------------------------------------\
+// Observações:                                        /
+//                                                     \
+// ----------------------------------------------------/
 
-y_airport,143,43,5	script	Airport Staff#y_air1a::y_airport1	4_F_01,{
-	mes "[Airport Staff]";
-	mes "Welcome to Juno Airport where we offer domestic flights to Einbroch, Lighthalzen and Hugel,";
-	mes "and international flights to Izlude and Rachel.";
-	mes "How may I be of service?";
+y_airport,143,43,5	script	Equipe do Aeroporto#y_air1a::y_airport1	4_F_01,{
+	mes "[Equipe do Aeroporto]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno, aqui oferecemos voos domésticos para Einbroch, Lighthalzen e Hugel,";
+	mes "Lighthalzen e Hugel, e internacionais para Izlude e Rachel. ";
+	mes "Gostaria de nossos serviços?";
 	next;
-	if (select("Board the Airship.:Cancel.") == 1) {
-		mes "[Airport Staff]";
-		mes "The boarding fee for all";
-		mes "flights is 1,200 zeny. If you";
-		mes "use a Free Ticket for Airship,";
-		mes "the boarding fee will be waived.So would you like to depart?";
+	if (select("Embarcar.:Cancelar.") == 1) {
+		mes "[Equipe do Aeroporto]";
+		mes "A taxa para os voos custam";
+		mes "1,200 zeny. Caso você tenha";
+		mes "o Bilhete para Aeroplano,";
+		mes "a taxa não será cobrada. Gostaria de embarcar?";
 		next;
-		if (select("Yes:No") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
-				delitem 7311,1; //Free_Flying_Ship_Ticket
+				delitem 7311,1; //Bilhete
 				warp "y_airport",148,51;
 				end;
 			}
@@ -32,126 +53,122 @@ y_airport,143,43,5	script	Airport Staff#y_air1a::y_airport1	4_F_01,{
 				warp "y_airport",148,51;
 				end;
 			}
-			mes "[Airport Staff]";
-			mes "I'm sorry, but you don't";
-			mes "have 1,200 zeny to pay";
-			mes "for the boarding fee.";
+			mes "[Equipe do Aeroporto]";
+			mes "Me desculpe, mas você não";
+			mes "possui os 1,200 zenys para";
+			mes "o embarque.";
 			close;
 		}
 	}
-	mes "[Airport Staff]";
-	mes "Thank you and";
-	mes "have a nice day.";
+	mes "[Equipe do Aeroporto]";
+	mes "Obrigad"+(Sex?"o":"a")+",";
+	mes "e tenha um ótimo dia.";
 	close;
 }
 
 y_airport,158,43,5	duplicate(y_airport1)	Airport Staff#y_air1b	4_F_01
 y_airport,126,43,5	duplicate(y_airport1)	Airport Staff#y_air1c	4_F_01
 
-y_airport,143,49,3	script	Arrival Staff#y_air2a::y_airport2	4_F_01,{
-	mes "[Airport Staff]";
-	mes "Welcome to Juno Airport. If you've just arrived from your";
-	mes "flight, let me guide you to the main terminal. Otherwise, please";
-	mes "board the departing Airship to reach your intended destination.";
+y_airport,143,49,3	script	Equipe da Recepção#y_air2a::y_airport2	4_F_01,{
+	mes "[Equipe da Recepção]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno.";
+	mes "Se você acabou de chegar do seu voo, deixe que eu te guie.";
+	mes "Ou caso prefira, embarque no dirigível e embarque ao seu destino.";
 	next;
-	if (select("Exit to main terminal:Cancel") == 1) {
-		mes "[Airport Staff]";
-		mes "Once you're in the main terminal, you must pay the fee once again";
-		mes "to board a departing Airship. You should only exit if your intended";
-		mes "destination is Juno. Proceed to";
-		mes "exit to the main terminal?";
+	if (select("Sair do terminal principal.:Cancelar") == 1) {
+		mes "[Equipe da Recepção]";
+		mes "Uma vez no terminal principal, você terá que pagar outra taxa para embarcar no digirível.";
+		mes "Você só deverá sair se a cidade de Juno for seu último destino.";
+		mes "Deseja prosseguir para o";
+		mes "terminal principal?";
 		next;
-		if (select("Yes:No") == 1) {
+		if (select("Sim:Não") == 1) {
 			warp "y_airport",142,40;
 			end;
 		}
 	}
-	mes "[Airport Staff]";
-	mes "Alright, thank you";
-	mes "for your patronage";
-	mes "and I hope you have";
-	mes "a pleasant flight~";
+	mes "[Equipe da Recepção]";
+	mes "Tudo certo, obrigad"+(Sex?"o":"a")+"";
+	mes "pelo seu apoio, e espero";
+	mes "que você tenha um voo agradável~";
 	close;
 }
 
 y_airport,126,51,3	duplicate(y_airport2)	Arrival Staff#y_air2b	4_F_01
 y_airport,158,50,3	duplicate(y_airport2)	Arrival Staff#y_air2c	4_F_01
 
-y_airport,145,63,5	script	Domestic Boarding	4_F_02,{
-	mes "[Boarding Staff]";
-	mes "Would you like to board the";
-	mes "Airship that flies to Einbroch,";
-	mes "Lighthalzen and Hugel? If so,";
-	mes "please let me guide you to that";
-	mes "Airship's boarding area.";
+y_airport,145,63,5	script	Voos Domésticos	4_F_02,{
+	mes "[Equipe de Bordo]";
+	mes "Você gostaria de embarcar no ";
+	mes "dirigível que voa até Einbroch,";
+	mes "Lighthalzen e Hugel? Se sim,";
+	mes "deixe que eu te guie até";
+	mes "a área de embarque.";
 	next;
-	if (select("Yes:No") == 1) {
+	if (select("Sim:Não") == 1) {
 		warp "yuno",59,244;
 		end;
 	}
-	mes "[Boarding Staff]";
-	mes "Very well, then.";
-	mes "Thank you for your";
-	mes "patronage, and I hope";
-	mes "you enjoy your travels~";
+	mes "[Equipe de Bordo]";
+	mes "Muito bem, então.";
+	mes "Obrigad"+(Sex?"o":"a")+" por";
+	mes "se tornar um cliente, espero";
+	mes "uma viajem divertida~";
 	close;
 }
 
-y_airport,140,63,5	script	International Boarding	4_F_02,{
-	mes "[Boarding Staff]";
-	mes "Would you like to board";
-	mes "the Airship which flies to";
-	mes "Juno, Izlude and Rachel?";
-	mes "If so, let me guide";
-	mes "you to the boarding area.";
+y_airport,140,63,5	script	Voos Internacionais	4_F_02,{
+	mes "[Equipe de Bordo]";
+	mes "Você deseja embarcar no";
+	mes "dirigível que leva até";
+	mes "Juno, Izlude e Rachel?";
+	mes "Se sim, deixe que eu te guie";
+	mes "até a área de embarque.";
 	next;
-	if (select("Yes:No") == 1) {
+	if (select("Sim:Não") == 1) {
 		warp "yuno",47,244;
 		end;
 	}
-	mes "[Boarding Staff]";
-	mes "Alright, then.";
-	mes "Thank you for flying";
-	mes "with us, and I hope you";
-	mes "enjoy your travels on our";
-	mes "state of the art Airships.";
+	mes "[Equipe de Bordo]";
+	mes "Muito bem, então.";
+	mes "Obrigad"+(Sex?"o":"a")+" por";
+	mes "voar conosco, espero uma";
+	mes "viajem divertida.";
 	close;
 }
 
-yuno,14,262,5	script	Airship Staff#yuno01	4_F_02,{
-	mes "[Airship Staff]";
-	mes "Welcome to Juno Airport.";
-	mes "Please use this door to";
-	mes "board the Airship that will";
-	mes "be flying all the way to Izlude";
-	mes "in the Rune-Midgarts Kingdom,";
-	mes "and to Rachel in the Arunafeltz";
-	mes "Republic.";
+yuno,14,262,5	script	Equipe do Aeroporto#yuno01	4_F_02,{
+	mes "[Equipe do Aeroporto]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno.";
+	mes "Por favor, utilize esta porta";
+	mes "para embarcar no dirigível que";
+	mes "voa até Izlude dentro do";
+	mes "Reino de Rune-Midgard,";
+	mes "e para Rachel na República de";
+	mes "Arunafeltz.";
 	next;
-	mes "[Airship Staff]";
-	mes "Otherwise, if Juno is";
-	mes "your intended destination,";
-	mes "please head down the stairs";
-	mes "and ask the Arrival Staff to lead";
-	mes "you to the main terminal. Thank";
-	mes "you, and enjoy your travels.";
+	mes "[Equipe do Aeroporto]";
+	mes "Ou caso seu destino seja";
+	mes "Juno, desça as escadas e";
+	mes "peça para a Equipe de Recepção";
+	mes "levá-lo até o terminal.";
+	mes "Obrigado, e tenha uma boa viajem.";
 	close;
 }
 
-yuno,88,263,3	script	Airship Staff#yuno02	4_F_02,{
-	mes "[Airship Staff]";
-	mes "Welcome to Juno Airport.";
-	mes "Please use this door to";
-	mes "board the Airship which stops";
-	mes "over Einbroch, Lighthalzen and";
-	mes "Hugel in the Schwaltzvalt Republic.";
+yuno,88,263,3	script	Equipe do Aeroporto#yuno02	4_F_02,{
+	mes "[Equipe do Aeroporto]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno.";
+	mes "Por favor, utilize esta porta";
+	mes "para embarcar no dirigível que";
+	mes "voa até Einbroch, Lighthalzen e";
+	mes "Hugel na República de Schwaltzvalt.";
 	next;
-	mes "[Airship Staff]";
-	mes "Otherwise, if Juno is";
-	mes "your intended destination,";
-	mes "please head down the stairs";
-	mes "and ask the Arrival Staff to lead";
-	mes "you to the main terminal. Thank";
-	mes "you, and enjoy your travels.";
+	mes "[Equipe do Aeroporto]";
+	mes "Ou caso seu destino seja";
+	mes "Juno, desça as escadas e";
+	mes "peça para a Equipe de Recepção";
+	mes "levá-lo até o terminal.";
+	mes "Obrigado, e tenha uma boa viajem.";
 	close;
 }
