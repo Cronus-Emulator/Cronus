@@ -1,30 +1,51 @@
-//===== Hercules Script ======================================
-//= Lighthalzen Airport Staff
-//===== By: ==================================================
-//= L0ne_W0lf, Muad_Dib
-//===== Description: =========================================
-//= Lighthalzen Airport Staff
-//===== Additional Comments: =================================
-//= Official NPCs.
-//============================================================
+// --------------------------------------------------- \
+//  _____   _____    _____   __   _   _   _   _____    |
+// /  ___| |  _  \  /  _  \ |  \ | | | | | | /  ___/   | 
+// | |     | |_| |  | | | | |   \| | | | | | | |___    | 
+// | |     |  _  /  | | | | | |\   | | | | | \___  \   |
+// | |___  | | \ \  | |_| | | | \  | | |_| |  ___| |   |
+// \_____| |_|  \_\ \_____/ |_|  \_| \_____/ /_____/   |
+//  _____   _____   _____    _   _____   _____   _____ |
+// /  ___/ /  ___| |  _  \  | | |  _  \ |_   _| /  ___/|
+// | |___  | |     | |_| |  | | | |_| |   | |   | |___ | 
+// \___  \ | |     |  _  /  | | |  ___/   | |   \___  \| 
+//  ___| | | |___  | | \ \  | | | |       | |    ___| || 
+// /_____/ \_____| |_|  \_\ |_| |_|       |_|   /_____/|
+//                                                     |
+//                       2016                          |
+// ----------------------------------------------------/
+// Nome do Script: lighthalzen.txt.txt                 \
+// ----------------------------------------------------/ 
+// Criador: Herc/Cronus Team                           \
+// ----------------------------------------------------/
+// Versão: 1.0                                         \
+// ----------------------------------------------------/
+// Descrição: Aeroplano de Lighthalzen                 \
+// ----------------------------------------------------/
+// Alterações:                                         \
+// 1.0 Cabeçalho Cronus [Wolf]                         /
+// ----------------------------------------------------\
+// Observações:                                        /
+//                                                     \
+// ----------------------------------------------------/
 
-lhz_airport,143,43,5	script	Airport Staff#lhz_air1a::lhz_airport1	4_F_01,{
-	mes "[Airport Staff]";
-	mes "Welcome to the";
-	mes "Lighthalzen Airport,";
-	mes "where we offer nonstop";
-	mes "flights to Einbroch, Juno and Hugel.";
+lhz_airport,143,43,5	script	Equipe do Aeroporto#lhz_air1a::lhz_airport1	4_F_01,{
+	mes "[Equipe do Aeroporto]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao";
+	mes "Aeroporto de Lighthalzen,";
+	mes "onde oferemos voos frequentes";
+	mes "para Einbroch, Juno e Hugel.";
 	next;
-	if (select("Board the Airship.:Cancel.") == 1) {
-		mes "[Airport Staff]";
-		mes "The boarding fee is";
-		mes "1,200 zeny, but you can";
-		mes "waive the fee if you redeem";
-		mes "a Free Ticket for Airship.";
+	if (select("Embarcar no dirigível.:Cancelar.") == 1) {
+		mes "[Equipe do Aeroporto]";
+		mes "A taxa do voo é de";
+		mes "1,200 zeny, mas caso você";
+		mes "possua o Bilhete para o Aeroplano,";
+		mes "essa taxa não é cobrada.";
 		next;
-		if (select("Yes:No") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
-				delitem 7311,1; //Free_Flying_Ship_Ticket
+				delitem 7311,1; //Bilhete para o Aeroplano
 				warp "lhz_airport",148,51;
 				end;
 			}
@@ -33,47 +54,47 @@ lhz_airport,143,43,5	script	Airport Staff#lhz_air1a::lhz_airport1	4_F_01,{
 				warp "lhz_airport",148,51;
 				end;
 			}
-			mes "[Airship Staff]";
-			mes "I'm sorry, but you don't";
-			mes "have 1,200 zeny to pay";
-			mes "for the boarding fee.";
+			mes "[Equipe do Aeroporto]";
+			mes "Desculpe, mas você não possui";
+			mes "os 1,200 zenys para pagar";
+			mes "o seu voo.";
 			close;
 		}
 	}
-	mes "[Airport Staff]";
-	mes "Thank you and";
-	mes "please come again.";
-	mes "Have a good day~";
+	mes "[Equipe do Aeroporto]";
+	mes "Obrigado, e";
+	mes "por favor, volte novamente.";
+	mes "Tenha um bom dia~";
 	close;
 }
 
 lhz_airport,158,43,5	duplicate(lhz_airport1)	Airship Staff#lhz_air1b	4_F_01
 lhz_airport,126,43,5	duplicate(lhz_airport1)	Airship Staff#lhz_air1c	4_F_01
 
-lhz_airport,143,49,3	script	Arrival Staff#lhz_air2a::lhz_airport2	4_F_01,{
-	mes "[Arrival Staff]";
-	mes "Welcome to Lighthalzen Airport.";
-	mes "Please let me guide you to the";
-	mes "main terminal if you are arriving from your flight. Otherwise, please";
-	mes "board the departing Airship to reach your intended destination.";
+lhz_airport,143,49,3	script	Equipe de Recepção#lhz_air2a::lhz_airport2	4_F_01,{
+	mes "[Equipe de Recepção]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Lighthalzen.";
+	mes "Deixe-me guiá-lo ao seu terminal principal";
+	mes "caso você tenha acabado de chegar.";
+	mes "Ou embarque no dirigível em busca de outro destino.";
 	next;
-	if (select("Exit to main terminal.:Cancel.") == 1) {
-		mes "[Arrival Staff]";
-		mes "Once you're in the main terminal, you will need to pay the fee again";
-		mes "to board an Airship. You should";
-		mes "only exit if Lighthalzen is your intended destination. Shall we";
-		mes "proceed to the main terminal?";
+	if (select("Sair do terminal principal.:Cancelar.") == 1) {
+		mes "[Equipe de Recepção]"
+		mes "Uma vez no terminal principal, você precisará pagar outra";
+		mes "taxa para embarcar no dirigível. Você só deverá";
+		mes "sair caso a cidade de Lighthalzen for seu último destino.";
+		mes "Gostaria de prosseguir ao terminal principal?";
 		next;
-		if (select("Yes:No") == 1) {
+		if (select("Sim:Não") == 1) {
 			warp "lhz_airport",142,40;
 			end;
 		}
 	}
-	mes "[Arrival Staff]";
-	mes "Alright, thank you";
-	mes "for your patronage";
-	mes "and I hope you have";
-	mes "a pleasant flight~";
+	mes "[Equipe de Recepção]";
+	mes "Certo, obrigado";
+	mes "pelo seu apoio e";
+	mes "espero que você tenha";
+	mes "um voo agradável~";
 	close;
 }
 
