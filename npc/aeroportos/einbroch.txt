@@ -97,8 +97,8 @@ airport,143,49,3	script	Equipe de Recepção#airport2a::airport2	4_F_01,{
 	close;
 }
 
-airport,126,51,3	duplicate(airport2)	Arrival Staff#airport2b	4_F_01
-airport,158,50,3	duplicate(airport2)	Arrival Staff#airport2c	4_F_01
+airport,126,51,3	duplicate(airport2)	Equipe de Recepção#airport2b	4_F_01
+airport,158,50,3	duplicate(airport2)	Equipe de Recepção#airport2c	4_F_01
 
 einbroch,94,267,3	script	Equipe do Aeroporto#ein01	4_F_02,{
 	mes "[Equipe do Aeroporto]";
