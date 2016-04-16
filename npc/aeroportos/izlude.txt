@@ -1,31 +1,51 @@
-//===== Hercules Script ======================================
-//= Izlude Airport NPCs
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Description: =========================================
-//= Izlude Airport NPCs
-//===== Additional Comments: =================================
-//= Official NPCs.
-//============================================================
+// --------------------------------------------------- \
+//  _____   _____    _____   __   _   _   _   _____    |
+// /  ___| |  _  \  /  _  \ |  \ | | | | | | /  ___/   | 
+// | |     | |_| |  | | | | |   \| | | | | | | |___    | 
+// | |     |  _  /  | | | | | |\   | | | | | \___  \   |
+// | |___  | | \ \  | |_| | | | \  | | |_| |  ___| |   |
+// \_____| |_|  \_\ \_____/ |_|  \_| \_____/ /_____/   |
+//  _____   _____   _____    _   _____   _____   _____ |
+// /  ___/ /  ___| |  _  \  | | |  _  \ |_   _| /  ___/|
+// | |___  | |     | |_| |  | | | |_| |   | |   | |___ | 
+// \___  \ | |     |  _  /  | | |  ___/   | |   \___  \| 
+//  ___| | | |___  | | \ \  | | | |       | |    ___| || 
+// /_____/ \_____| |_|  \_\ |_| |_|       |_|   /_____/|
+//                                                     |
+//                       2016                          |
+// ----------------------------------------------------/
+// Nome do Script: izlude.txt                          \
+// ----------------------------------------------------/ 
+// Criador: Herc/Cronus Team                           \
+// ----------------------------------------------------/
+// Versão: 1.0                                         \
+// ----------------------------------------------------/
+// Descrição: Aeroplano de Izlude                      \
+// ----------------------------------------------------/
+// Alterações:                                         \
+// 1.0 Cabeçalho Cronus [Wolf]                         /
+// ----------------------------------------------------\
+// Observações:                                        /
+//                                                     \
+// ----------------------------------------------------/
 
 -	script	::Airship_Staff_izlude	-1,{
-	mes "[Airship Staff]";
-	mes "Welcome! Would you like";
-	mes "to board the Airship that";
-	mes "departs on the flight wich stops";
-	mes "in Juno and Rachel?";
+	mes "[Equipe do Aeroporto]";
+	mes "Bem-vind"+(Sex?"o":"a")+"! Gostaria de";
+	mes "embarcar no voo que te leva a";
+	mes "Juno ou Rachel?";
 	next;
-	if (select("Board the Airship to Juno/Rachel.:Cancel.") == 1) {
-		mes "[Airship Staff]";
-		mes "The boarding fee is";
-		mes "1,200 zeny. However, this";
-		mes "charged is waived if you use";
-		mes "a Free Ticket for Airship. Now,";
-		mes "would you still like to board?";
+	if (select("Embarcar no voo para Juno/Rachel.:Cancelar.") == 1) {
+		mes "[Equipe do Aeroporto]";
+		mes "O voo tem um custo de";
+		mes "1,200 zeny. Ou caso você tenha";
+		mes "um Bilhete para o Aeroplano,";
+		mes "sua taxa não é cobrada. Então,";
+		mes "gostaria de embarcar?";
 		next;
-		if (select("Yes:No") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
-				delitem 7311,1; //Free_Flying_Ship_Ticket
+				delitem 7311,1; //Bilhete para o Aeroplano
 				warp "airplane_01",244,58;
 				end;
 			}
@@ -34,16 +54,16 @@
 				warp "airplane_01",244,58;
 				end;
 			}
-			mes "[Airship Staff]";
-			mes "I'm sorry, but you don't";
-			mes "have 1,200 zeny to pay";
-			mes "for the boarding fee.";
+			mes "[Equipe do Aeroporto]";
+			mes "Desculpe, mas você não";
+			mes "possui 1,200 zenys para";
+			mes "pagar o embarque.";
 			close;
 		}
 	}
-	mes "[Airship Staff]";
-	mes "Thank you and";
-	mes "please come again.";
-	mes "Have a good day~";
+	mes "[Equipe do Aeroporto]";
+	mes "Obrigado, e por favor";
+	mes "volte novamente.";
+	mes "Tenha um bom dia~";
 	close;
 }
