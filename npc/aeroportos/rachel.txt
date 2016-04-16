@@ -1,22 +1,43 @@
-//===== Hercules Script ======================================
-//= Rachel Airport NPCs
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Description: =========================================
-//= Rachel Airport NPCs
-//===== Additional Comments: =================================
-//= Official NPCs.
-//============================================================
+// --------------------------------------------------- \
+//  _____   _____    _____   __   _   _   _   _____    |
+// /  ___| |  _  \  /  _  \ |  \ | | | | | | /  ___/   | 
+// | |     | |_| |  | | | | |   \| | | | | | | |___    | 
+// | |     |  _  /  | | | | | |\   | | | | | \___  \   |
+// | |___  | | \ \  | |_| | | | \  | | |_| |  ___| |   |
+// \_____| |_|  \_\ \_____/ |_|  \_| \_____/ /_____/   |
+//  _____   _____   _____    _   _____   _____   _____ |
+// /  ___/ /  ___| |  _  \  | | |  _  \ |_   _| /  ___/|
+// | |___  | |     | |_| |  | | | |_| |   | |   | |___ | 
+// \___  \ | |     |  _  /  | | |  ___/   | |   \___  \| 
+//  ___| | | |___  | | \ \  | | | |       | |    ___| || 
+// /_____/ \_____| |_|  \_\ |_| |_|       |_|   /_____/|
+//                                                     |
+//                       2016                          |
+// ----------------------------------------------------/
+// Nome do Script: rachel.txt                          \
+// ----------------------------------------------------/ 
+// Criador: Herc/Cronus Team                           \
+// ----------------------------------------------------/
+// Versão: 1.0                                         \
+// ----------------------------------------------------/
+// Descrição: Aeroplano de Rachel                      \
+// ----------------------------------------------------/
+// Alterações:                                         \
+// 1.0 Cabeçalho Cronus [Wolf]                         /
+// ----------------------------------------------------\
+// Observações:                                        /
+//                                                     \
+// ----------------------------------------------------/
 
 ra_fild12,295,208,0	script	toairplane#rachel	WARPNPC,1,1,{
 	end;
 OnTouch:
-	mes "To use the airship, you are required to pay 1,200 zeny or a Free Airship Ticket.";
-	mes "Would you like to use the service?";
+	mes "Para usar o aeroplano, você precisará pagar uma taxa de 1,200 zenys ou possuir um Bilhete para o Aeroplano.";
+	mes "Gostaria de utilizar nossos serviços?";
 	next;
-	if (select("Yes:No") == 1) {
+	if (select("Sim:Não") == 1) {
 		if (countitem(7311) > 0) {
-			delitem 7311,1; //Free_Flying_Ship_Ticket
+			delitem 7311,1; //Bilhete para Aeroplano
 			warp "airplane_01",245,60;
 			end;
 		}
@@ -25,10 +46,13 @@ OnTouch:
 			warp "airplane_01",245,60;
 			end;
 		}
-		mes "I am sorry, but you do not have enough money.";
-		mes "Please remember, you are required to pay 1,200 zeny to use the service.";
+		mes "Desculpe, mas você não possui o zeny necessário.";
+		mes "Lembre-se, você precisa possuir o Bilhete para o Aeroplano, ou 
+
+possuir a taxa de embarque equivalente a 1,200 zenys.";
 		close;
 	}
-	mes "Thank you, please come again.";
+	mes "Obrigado, e volte novamente.";
 	close;
 }
+
