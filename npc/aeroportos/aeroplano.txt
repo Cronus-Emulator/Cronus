@@ -1,0 +1,1488 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - aeroplano.txt                                                ||
+//===============================================================||
+// = Cria��o:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Vers�o:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Altera��es:                                                 ||
+// - Cabe�alho [SlexFire]                                        ||
+// - Tradu��o com base em revis�es passadas do cronus [SlexFire] ||
+// - Func. Sex, adicionada em algumas partes [SlexFire]          ||
+//===============================================================||
+// = Descri��o:                                                  ||
+// - Sistema de Aeroplano usado em servidores oficiais           ||
+//===============================================================||
+// = Observa��es:                                                ||
+// - Rota dom�stica do Aeroplano                                 ||
+//   Juno->Einbroch->Lighthalzen->Einbroch->Juno->Hugel          ||
+//---------------------------------------------------------------||
+// - Rota internacional do Aeroplano (RENEWAL)                   ||
+//   ... -> Izlude -> Juno -> Rachel -> ...                      ||
+//===============================================================//
+
+airplane,243,73,0	script	#AirshipWarp-1	WARPNPC,1,1,{
+	end;
+
+OnInit:
+OnHide:
+	specialeffect EF_BASH;
+	disablenpc strnpcinfo(0);
+	end;
+
+OnUnhide:
+	enablenpc strnpcinfo(0);
+	specialeffect EF_SUMMONSLAVE;
+	end;
+
+OnTouch:
+	switch ($@airplanelocation) {
+	case 0: warp "yuno",92,260; end;
+	case 1: warp "einbroch",92,278; end;
+	case 2: warp "lighthalzen",302,75; end;
+	case 3: warp "hugel",181,146; end;
+	}
+}
+
+airplane,243,29,0	duplicate(#AirshipWarp-1)	#AirshipWarp-2	WARPNPC,1,1
+
+airplane,1,1,0	script	Aeroplano_Domestico	-1,{
+	end;
+OnInit:
+	initnpctimer;
+	end;
+OnTimer20000:
+	mapannounce "airplane","Estamos indo para Einbroch.",bc_map,"0x00ff00";
+	end;
+OnTimer50000:
+	mapannounce "airplane","Logo chegaremos em Einbroch.",bc_map,"0x00ff00";
+	end;
+OnTimer60000:
+	$@airplanelocation = 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem-vindo(a) a Einbroch. Tenha uma boa viagem.",bc_map,"0x00ff00";
+	end;
+OnTimer70000:
+	mapannounce "airplane","Atualmente estamos em Einbroch. O Aeroplano vai decolar em breve.",bc_map,"0x00ff00";
+	end;
+OnTimer80000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane","O Aeroplano est� decolando. Nosso pr�ximo destino � Lighthalzen.",bc_map,"0x70dbdb";
+	end;
+OnTimer100000:
+	mapannounce "airplane","Estamos indo para Lighthalzen.",bc_map,"0x70dbdb";
+	end;
+OnTimer130000:
+	mapannounce "airplane","Logo chegaremos em Lighthalzen.",bc_map,"0x70dbdb";
+	end;
+OnTimer140000:
+	$@airplanelocation = 2;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem-vindo(a) a Lighthalzen. Tenha uma boa viagem.",bc_map,"0x70dbdb";
+	end;
+OnTimer150000:
+	mapannounce "airplane","Atualmente estamos em Lighthalzen. O Aeroplano vai decolar em breve.",bc_map,"0x70dbdb";
+	end;
+OnTimer160000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane","O Aeroplano est� deixando o solo. Nosso pr�ximo destino � Einbroch.",bc_map,"0x00ff00";
+	end;
+OnTimer180000:
+	mapannounce "airplane","Estamos indo para Einbroch.",bc_map,"0x00ff00";
+	end;
+OnTimer210000:
+	mapannounce "airplane","Logo chegaremos em Einbroch.",bc_map,"0x00FF00";
+	end;
+OnTimer220000:
+	$@airplanelocation = 1;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem-vindo(a) a Einbroch. Tenha uma boa viagem.",bc_map,"0x00ff00";
+	end;
+OnTimer230000:
+	mapannounce "airplane","Atualmente estamos em Einbroch. O Aeroplano vai decolar em breve.",bc_map,"0x00ff00";
+	end;
+OnTimer240000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane","O Aeroplano est� decolando. Nosso pr�ximo destino � Juno.",bc_map,"0xff8200";
+	end;
+OnTimer260000:
+	mapannounce "airplane","Estamos indo para Juno.",bc_map,"0xff8200";
+	end;
+OnTimer290000:
+	mapannounce "airplane","Logo chegaremos em Juno.",bc_map,"0xff8200";
+	end;
+OnTimer300000:
+	$@airplanelocation = 0;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem-vindo(a) a Juno. Tenha uma boa viagem.",bc_map,"0xff8200";
+	end;
+OnTimer310000:
+	mapannounce "airplane","Atualmente estamos em Juno. O Aeroplano sair� em breve.",bc_map,"0xff8200";
+	end;
+OnTimer320000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane","O Aeroplano est� deixando o solo. Nosso pr�ximo destino � Hugel.",bc_map,"0xca4bf3";
+	end;
+OnTimer340000:
+	mapannounce "airplane","Estamos indo para Hugel.",bc_map,"0xca4bf3";
+	end;
+OnTimer370000:
+	mapannounce "airplane","Logo chegaremos em Hugel.",bc_map,"0xca4bf3";
+	end;
+OnTimer380000:
+	$@airplanelocation = 3;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem-vindo(a) a Hugel. Tenha uma boa viagem.",bc_map,"0xca4bf3";
+	end;
+OnTimer390000:
+	mapannounce "airplane","Atualmente estamos em Hugel. O Aeroplano sair� em breve.",bc_map,"0xca4bf3";
+	end;
+OnTimer400000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane","O Aeroplano est� deixando o solo. Nosso pr�ximo destino � Juno.",bc_map,"0xff8200";
+	end;
+OnTimer420000:
+	mapannounce "airplane","Estamos indo para Juno.",bc_map,"0xff8200";
+	end;
+OnTimer450000:
+	mapannounce "airplane","Logo chegaremos em Juno.",bc_map,"0xff8200";
+	end;
+OnTimer460000:
+	$@airplanelocation = 0;
+	donpcevent "#AirshipWarp-1::OnUnhide";
+	donpcevent "#AirshipWarp-2::OnUnhide";
+	mapannounce "airplane","Bem-vindo(a) a Juno. Tenha uma boa viagem.",bc_map,"0xff8200";
+	end;
+OnTimer470000:
+	mapannounce "airplane","Atualmente estamos em Juno. O Aeroplano sair� em breve.",bc_map,"0xff8200";
+	end;
+OnTimer480000:
+	donpcevent "#AirshipWarp-1::OnHide";
+	donpcevent "#AirshipWarp-2::OnHide";
+	mapannounce "airplane","O Aeroplano est� deixando o solo. Nosso pr�ximo destino � Einbroch.",bc_map,"0x00ff00";
+	stopnpctimer;
+	initnpctimer;
+}
+
+airplane,240,64,5	script	Sa�da#airplane1a::ExitAirplane	4_BOARD3,{
+	end;
+}
+airplane,247,64,5	duplicate(ExitAirplane)	Sa�da#airplane1b	4_BOARD3
+airplane,240,40,1	duplicate(ExitAirplane)	Sa�da#airplane2a	4_BOARD3
+airplane,247,40,1	duplicate(ExitAirplane)	Sa�da#airplane2b	4_BOARD3
+
+airplane,100,69,3	script	Tripula��o do Aeroplano#ein-1	4_M_EIN_SOLDIER,{
+	mes "[Tripula��o do Aeroplano]";
+	mes "Se j� pousamos no";
+	mes "seu destino e voc�";
+	mes "gostaria de sair do";
+	mes "Aeroplano, por favor use as";
+	mes "escadas � frente. Obrigado";
+	mes "por seu apoio.";
+	close;
+}
+
+airplane,64,94,1	script	Crian�a de Umbala#ein_p	4_M_UMKID,{
+	emotion e_swt2;
+	mes "[Crian�a]";
+	if (event_umbala >= 3) {
+		mes "Uau, m�e!";
+		mes "V-veja isso!";
+		mes "N�s estamos voando! N-n�s estamos...";
+		mes "Estamos conhecendo o c�u!";
+	}
+	else {
+		mes "Makumalagu!";
+		mes "Saampa joojimbo";
+		mes "kaku na jedi Solo.";
+		mes "Bwahahahahahahaah!";
+	}
+	close;
+}
+
+airplane,66,93,3	script	Senhora de Umbala#ein_p	4_F_UMWOMAN,{
+	emotion e_dots;
+	mes "[Senhora]";
+	if (event_umbala >= 3) {
+		mes "Shush...";
+		mes "Querido, comporte-se~";
+		mes "N�o se anime tanto";
+		mes "enquanto n�o sairmos";
+		mes "deste lugar p�blico!";
+	}
+	else {
+		mes "Chooktu!";
+		mes "Sacraup matii!";
+		mes "Shaka gurftalfi";
+		mes "huntiki manjoo!";
+	}
+	close;
+}
+
+airplane,71,91,7	script	Homem de Umbala#ein_p	4_M_UMSOLDIER,{
+	if (event_umbala >= 3) {
+		mes "[Chrmlim]";
+		mes "Ei voc�~";
+		mes "Pela sua apar�ncia,";
+		mes "percebo que voc�";
+		mes "consegue me entender.";
+		mes "^333333*Legal...!*^000000";
+		next;
+		emotion e_pif;
+		mes "[Chrmlim]";
+		mes "Tenho ajudado a equipe";
+		mes "do Aeroplano, auxiliando";
+		mes "seus Tripulantes que t�m";
+		mes "medo de altura os levanto para pular";
+		mes "de bungee jumping em Umbala. Legal, em?";
+		next;
+		mes "[Chrmlim]";
+		mes "Mas...";
+		mes "Alguns deles n�o podem";
+		mes "superar seus medos.";
+		mes "Devem participar de";
+		mes "algumas experi�ncias, ^333333em Nifflheim^000000.";
+	}
+	else {
+		mes "[Chrmlim]";
+		mes "Bajoo ga";
+		mes "nukta Aeroplano.";
+		next;
+		mes "[Chrmlim]";
+		mes "...";
+		mes "......";
+		next;
+		emotion e_pif;
+		mes "[Chrmlim]";
+		mes "Shabala moow bajama";
+		mes "Aeroplano kulaha googoona ";
+		mes "salu. Dama, kookoo na nu";
+		mes "yukuta. Um, fashuku na ret!";
+	}
+	close;
+}
+
+airplane,250,58,2	script	Equipe do Aeroplano#airplane	1_F_02,{
+	// Adi��o da Quest de Hugel
+	if (hg_ma1 == 3) {
+		mes "[Equipe do Aeroplano]";
+		mes "Bem-vind"+(Sex?"o":"a")+"";
+		mes "ao Aeroplano.";
+		mes "Como posso ajud�-l"+(Sex?"o?":"a?")+"";
+		next;
+		select("Voc� tem um passageiro chamado Thierry?");
+		mes "[Equipe do Aeroplano]";
+		mes "Me desculpe, mas n�o conhe�o nenhum dos passageiros por esse nome.";
+		close;
+	}
+	// Fim da Quest de Hugel
+	mes "[Assistente do Aeroplano]";
+	mes "Bem-vind"+(Sex?"o":"a")+"";
+	mes "ao Aeroplano.";
+	mes "Como posso ajud�-l"+(Sex?"o?":"a?")+"";
+	next;
+	switch (select("Usando o Aeroplano:Cabine do Capit�o:Instala��es:Cancelar")) {
+	case 1:
+		mes "[Assistente do Aeroplano]";
+		mes "Quando voc� ver uma mensagem";
+		mes "anunciando que n�s";
+		mes "chegamos ao seu destino";
+		mes "por favor, use uma das sa�das";
+		mes "localizadas ao Norte";
+		mes "e ao Sul do aeroplano.";
+		next;
+		mes "[Assistente do Aeroplano]";
+		mes "Se acontecer de voc� perder";
+		mes "sua parada, n�o se preocupe.";
+		mes "O Aeroplano est� constantemente";
+		mes "na rota e voc� ter�";
+		mes "outra chance de descer";
+		mes "em seu destino.";
+		close;
+	case 2:
+		mes "[Assistente do Aeroplano]";
+		mes "A Cabine do Capit�o";
+		mes "fica na parte frontal";
+		mes "do Aeroplano. L�, voc�";
+		mes "pode conhecer o capit�o e";
+		mes "o piloto do Aeroplano.";
+		close;
+	case 3:
+		mes "[Assistente do Aeroplano]";
+		mes "O Aeroplano possui";
+		mes "v�rios mini-games para";
+		mes "o entretenimento de todos";
+		mes "os passageiros. Voc� est�";
+		mes "convidad"+(Sex?"o":"a")+" a testar sua sorte";
+		mes "nos Mini-Games do Aeroplano~";
+		close;
+	case 4:
+		mes "[Assistente do Aeroplano]";
+		mes "Bem, desejo-lhe uma boa";
+		mes "estadia durante o v�o em";
+		mes "nosso Aeroplano. Obrigado";
+		mes "e tenha um bom dia.";
+		close;
+	}
+}
+
+airplane,80,71,2	script	Zerta#01airplane	4_M_BUDDHIST,{
+	mes "[Zerta]";
+	mes "Oh, ol� Aventureiro.";
+	mes "Estou atualmente em uma";
+	mes "Jornada Santa, orando";
+	mes "em prop�sito do continente";
+	mes "de Rune-Midgard.";
+	close;
+}
+
+airplane,65,63,4	script	Maelin#01airplane	4_F_06,{
+	mes "[Maelin]";
+	mes "Humm, este avi�o vai para";
+	mes "Lutie, n�o? Estou";
+	mes "esperando h� muito tempo,";
+	mes "mas at� agora nada de";
+	mes "an�ncio sobre Lutie.";
+	close;
+}
+
+airplane,72,34,6	script	Aanos#01airplane	4_F_GON,{
+	mes "[Aanos]";
+	mes "Oh wooow~";
+	mes "O c�u tem uma apar�ncia";
+	mes "t�o diferente e";
+	mes "ador�vel, visto daqui de cima!";
+	close;
+}
+
+airplane,221,158,2	script	Piloto#airplane	4_M_EIN_SOLDIER,{
+	// Adi��o da quest de Hugel
+	if (hg_ma1 == 3) {
+		mes "[Piloto]";
+		mes "Espero que o drink esteja fresco e saboroso.";
+		mes "Bebidas s�o a minha vida! Beber me d� energia!";
+		mes "N�o vivo sem bebidas!";
+		next;
+		mes "[Piloto]";
+		mes "Mas! Dirigir sob influ�ncia da bebida n�o � bom.";
+		mes "Por�m! Preciso estar bebendo mais e mais!";
+		emotion e_sob;
+		next;
+		select("Voc� conhece um passageiro chamado Thierry?");
+		mes "[Piloto]";
+		mes "Este uniforme";
+		mes "� realmente bonito, mas";
+		mes "n�o gosto de us�-lo";
+		mes "enquanto estou no Aeroplano.";
+		next;
+		mes "[Piloto]";
+		mes "...";
+		mes "......";
+		mes "Ningu�m nunca realmente";
+		mes "entrou neste quarto.";
+		mes "E como sou o capit�o.^FFFFFF ^000000 Eu poderia simplesmente ficar de cuecas.";
+		next;
+		emotion e_omg;
+		mes "[Piloto]";
+		mes "Ah!? O que � isto!";
+		next;
+		mes "- ...Ele n�o est� ouvindo tudo que voc� fala. -";
+		close;
+	}
+	// Fim da quest de Hugel
+	switch (rand(1,4)) {
+	case 1:
+		mes "[Piloto]";
+		mes "Faz bastante tempo";
+		mes "desde que eu";
+		mes "experimentei um bom e gelado";
+		mes "�lcool. Mas a";
+		mes "profiss�o requer que eu";
+		mes "esteja sempre s�brio!";
+		next;
+		mes "[Piloto]";
+		mes "Sempre beba com responsabilidade!";
+		mes "Ainda sim, n�o lembro a";
+		mes "�ltima vez que entrei de f�rias.";
+		mes "Sim, uma bebida, uma TV";
+		mes "e tudo ficar� �timo.";
+		emotion e_sob;
+		close;
+	case 2:
+		mes "[Piloto]";
+		mes "Cara, o clima";
+		mes "est� �timo hoje.";
+		mes "Brilho, o c�u est� aberto";
+		mes "com uma boa visibilidade";
+		mes "e seguran�a, um v�o despreocupado.";
+		close;
+	case 3:
+		mes "[Piloto]";
+		mes "Voc� sabe, seu capit�o �";
+		mes "um homem respeitado. Ele e";
+		mes "seu irm�o s�o atualmente";
+		mes "os mais conhecidos na ind�stria a�rea.";
+		mes "Quem dir�a que nos tornariamos";
+		mes "capit�es de v�o t�o bons?";
+		next;
+		mes "[Piloto]";
+		mes "Apenas entre n�s,";
+		mes "Tenho que dizer a voc�,";
+		mes "o Papai Noel foi para algum";
+		mes "lugar com renas e elfos";
+		mes "que trabalham para ele.";
+		mes "Aquele cara � um g�nio!";
+		close;
+	default:
+		mes "[Piloto]";
+		mes "Voc� sabe, toda essa";
+		mes "coisa de pilotar no ar,";
+		mes "� algo bastante recente, voc� sabe n�o �?";
+		mes "Sim, temos um Aeroplano";
+		mes "voando a uma incr�vel velocidade.";
+		next;
+		emotion e_omg;
+		mes "[Piloto]";
+		mes "Ainda assim, h� sempre algo s�rio,";
+		mes "realmente acontecendo.";
+		mes "Quer dizer, est�vamos";
+		mes "treinando enquanto o Aeroplano";
+		mes "estava sendo inventado.";
+		mes "N�o � uma loucura?!";
+		close;
+	}
+}
+
+airplane,50,66,5	script	Mercador de Ma��s#airplane	4_M_04,{
+	mes "[Fruitz]";
+	mes "Bem-vind"+(Sex?"o":"a")+" a loja do Fruit'z";
+	mes "onde voc� pode";
+	mes "comprar ma��s ou tritur�-las";
+	mes "para fazer Suco de Ma��.";
+	next;
+	switch (select("Comprar Ma��s.:Fazer Suco de Ma��.:Por que voc� est� aqui?:Cancelar.")) {
+	case 1:
+		mes "[Fruitz]";
+		mes "Por favor me diga a quantidade";
+		mes "de Ma��s que voc� deseja";
+		mes "comprar. Cada Ma�� custa 15 zeny";
+		mes "e voc� pode comprar no m�ximo";
+		mes "500 por vez. Digite '0' para cancelar sua compra.";
+		next;
+		while (1) {
+			input .@input;
+			.@pay = .@input * 15;
+			if (.@input == 0) {
+				mes "[Fruitz]";
+				mes "Obrigado por parar";
+				mes "na minha loja. Adeus!";
+				mes "Venha a qualquer hora quando";
+				mes "voc� sentir vontade de ter uma";
+				mes "Ma�� para fazer um lanche ~";
+				close;
+			}
+			else if (.@input < 1 || .@input > 500) {
+				mes "[Fruitz]";
+				mes "Voc� digitou um n�mero";
+				mes "maior do que o valor m�ximo";
+				mes "de 500. Por favor digite";
+				mes "novamente o n�mero de ma��s";
+				mes "que voc� deseja comprar.";
+				next;
+			}
+			else {
+				mes "[Fruitz]";
+				mes "Um total de ^FF0000" + .@input + "^000000 Ma��s";
+				mes "que ir� custar a voc� ^FF0000" + .@pay + " Zeny^000000 zeny.";
+				mes "Voc� gostaria de continuar?";
+				next;
+				if (select("Sim:N�o") == 2) {
+					mes "[Fruitz]";
+					mes "Obrigado por parar";
+					mes "na minha loja. Adeus!";
+					mes "Venha a qualquer hora quando";
+					mes "voc� sentir vontade de ter uma";
+					mes "Ma�� para fazer um lanche ~";
+					close;
+				}
+				break;
+			}
+		}
+		if (Zeny < .@pay) {
+			mes "[Fruitz]";
+			mes "Sinto muito, mas voc� n�o";
+			mes "tem dinheiro suficiente para";
+			mes "comprar muitas Ma��s.";
+			mes "Por favor, verifique o seu zeny ou";
+			mes "compre menos Ma��s.";
+			close;
+		}
+		else if (checkweight(512,.@input) == 0) {
+			mes "[Fruitz]";
+			mes "Hmmm, eu n�o acho que";
+			mes "que voc� tenha espa�o suficiente no";
+			mes "seu invent�rio para levar";
+			mes "muitas Ma��s. Por que voc� n�o libera algum espa�o no seu invent�rio?";
+			close;
+		}
+		else {
+			Zeny -= .@pay;
+			getitem 512,.@input; //Apple
+			mes "[Fruitz]";
+			mes "Obrigado pela visita";
+			mes "na minha loja. Espero que voc� goste";
+			mes "do aroma dessas Ma��s ~!";
+			close;
+		}
+	case 2:
+		mes "[Fruitz]";
+		mes "Tudo bem, precisarei de";
+		mes "^FF00003 Ma��s e 1 Garrafa Vazia^000000";
+		mes "para criar 1 Suco de Ma�� para voc�";
+		mes "Gostaria de continuar?";
+		next;
+		switch (select("Sim:N�o")) {
+		case 1:
+			if (countitem(512) < 3 || countitem(713) < 1) {
+				mes "[Fruitz]";
+				mes "Me desculpe,mas voc� n�o possui";
+				mes "os materiais suficientes para";
+				mes "criar uma Garrafa de Suco de Ma��.";
+				mes "Lembre-se, irei precisar de 3 Ma��s";
+				mes "e 1 Garrafa Vazia.";
+				close;
+			}
+			else {
+				mes "[Fruitz]";
+				mes "Obrigado,";
+				mes "por favor espere um momento.";
+				next;
+				mes "^3355FF*Grind grind*";
+				mes "*Grind grind*";
+				mes "*Clang...!*^000000";
+				next;
+				delitem 512,3; //Ma��
+				delitem 713,1; //Garrafa Vazia
+				getitem 531,1; //Suco de Ma��
+				mes "[Fruitz]";
+				mes "Aqui est�~";
+				mes "Espero que voc� goste!";
+				mes "Por favor fique a vontade";
+				mes "para comprar Ma��s";
+				mes "ou fazer Sucos de Ma�� quando";
+				mes "voc� precisar, aventureiro~";
+				close;
+			}
+		case 2:
+			mes "[Fruitz]";
+			mes "Obrigado por parar";
+			mes "na minha loja. Adeus!";
+			mes "Venha a qualquer hora quando";
+			mes "voc� sentir vontade de ter uma";
+			mes "Ma�� para fazer um lanche ~";
+			close;
+		}
+	case 3:
+		mes "[Fruitz]";
+		mes "Eu costumava ser um andarilho";
+		mes "vagabundo, at� que um dia,";
+		mes "Tirei uma soneca e algo";
+		mes "atingiu minha cabe�a e";
+		mes "acordei do meu sono tranquilo.";
+		next;
+		mes "[Fruitz]";
+		mes "Acontece que eu estava";
+		mes "dormindo embaixo de uma Macieira";
+		mes "e foi quando uma ma�� caiu";
+		mes "e atingiu minha cabe�a.";
+		mes "Eu estava morrendo de fome";
+		mes "e estava prestes a comer aquela Ma��...";
+		next;
+		mes "[Fruitz]";
+		mes "Mas de repente, Kain, meu antigo";
+		mes "amigo desde os tempos de minera��o,";
+		mes "me pediu para ajud�-lo aqui";
+		mes "no Aeroplano. Ent�o eu aceitei, e";
+		mes "foi l� que encontrei pessoas";
+		mes "jogando um Jogo de Dados.";
+		next;
+		mes "[Fruitz]";
+		mes "Estava entediado e curioso";
+		mes "e acabei apostando algumas simples";
+		mes "Ma��s no jogo dos dados.";
+		mes "Mas por alguma raz�o,";
+		mes "eu tive uma incr�vel sorte.";
+		mes "Uma ma�� se multiplicou em duas... ";
+		next;
+		mes "[Fruitz]";
+		mes "Duas tornaram-se quatro";
+		mes "e antes que eu percebesse, eu j� tinha feito";
+		mes "um mercado de Ma��s!";
+		mes "Ganhei tantas ma��s, e";
+		mes "acabei come�ando meu pr�prio neg�cio";
+		mes "aqui no Aeroplano. Estranho, n�o acha?";
+		next;
+		mes "[Fruitz]";
+		mes "Ent�o As ma��s s�o boas";
+		mes "para voc�. Elas foram";
+		mes "certamente muito boas";
+		mes "para mim. Hahahahaah~!";
+		close;
+	case 4:
+		mes "[Fruitz]";
+		mes "Obrigado por";
+		mes "usar minha loja";
+		mes "Adeus~";
+		close;
+	}
+}
+
+//============================================================
+//= Rota internacional do Aeroplano
+//= ... -> Izlude -> Juno -> Rachel -> ...
+//============================================================
+
+airplane_01,243,73,0	script	#AirshipWarp-3	WARPNPC,1,1,{
+	end;
+
+OnTouch:
+	switch ($@airplanelocation2) {
+	case 0: warp "ra_fild12",292,204; end;
+	case 1:
+		if (RENEWAL)
+			warp "izlude",200,73;
+		else
+			warp "izlude",200,56;
+		end;
+	case 2: warp "yuno",12,261; 
+	    end;
+	}
+
+OnInit:
+OnHide:
+	specialeffect EF_BASH;
+	disablenpc strnpcinfo(0);
+	end;
+
+OnUnhide:
+	enablenpc strnpcinfo(0);
+	specialeffect EF_SUMMONSLAVE;
+	end;
+}
+
+airplane_01,243,29,0	duplicate(#AirshipWarp-3)	#AirshipWarp-4	WARPNPC,1,1
+
+airplane_01,1,1,0	script	International_Airship	-1,{
+	end;
+OnInit:
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer25000:
+	mapannounce "airplane_01","Estamos indo para Izlude.",bc_map,"0x00ff00";
+	end;
+OnTimer50000:
+	mapannounce "airplane_01","Logo chegaremos em Izlude.",bc_map,"0x00ff00";
+	end;
+OnTimer60000:
+	$@airplanelocation2 = 1;
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01","Bem-vindo(a) a Izlude. Tenha uma boa viagem.",bc_map,"0x00ff00";
+	end;
+OnTimer70000:
+	mapannounce "airplane_01","Estamos atualmente em Izlude. O Aeroplano vai decolar em breve.",bc_map,"0x00ff00";
+	end;
+OnTimer80000:
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	mapannounce "airplane_01","O Aeroplano est� decolando. Nosso pr�ximo destino � Juno.",bc_map,"0x70dbdb";
+	end;
+OnTimer105000:
+	mapannounce "airplane_01","Estamos indo para Juno.",bc_map,"0x70dbdb";
+	end;
+OnTimer130000:
+	mapannounce "airplane_01","Logo chegaremos em Juno.",bc_map,"0x70dbdb";
+	end;
+OnTimer140000:
+	$@airplanelocation2 = 2;
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01","Bem-vindo(a) a Juno. Tenha uma boa viagem.",bc_map,"0x70dbdb";
+	end;
+OnTimer150000:
+	mapannounce "airplane_01","Estamos atualmente em Juno. O Aeroplano sair� em breve.",bc_map,"0x70dbdb";
+	end;
+OnTimer160000:
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	mapannounce "airplane_01","O Aeroplano est� deixando o solo. Nosso pr�ximo destino � Rachel.",bc_map,"0xFF8200";
+	end;
+OnTimer185000:
+	mapannounce "airplane_01","Estamos indo para Rachel.",bc_map,"0xFF8200";
+	end;
+OnTimer210000:
+	mapannounce "airplane_01","Logo chegaremos em Rachel.",bc_map,"0xFF8200";
+	end;
+OnTimer220000:
+	$@airplanelocation2 = 0;
+	donpcevent "#AirshipWarp-3::OnUnhide";
+	donpcevent "#AirshipWarp-4::OnUnhide";
+	mapannounce "airplane_01","Bem-vindo(a) a Rachel. Tenha uma boa viagem.",bc_map,"0xFF8200";
+	end;
+OnTimer230000:
+	mapannounce "airplane_01","Estamos atualmente em Rachel. O Aeroplano vai decolar em breve.",bc_map,"0xFF8200";
+	end;
+OnTimer240000:
+	donpcevent "#AirshipWarp-3::OnHide";
+	donpcevent "#AirshipWarp-4::OnHide";
+	mapannounce "airplane_01","O Aeroplano est� decolando. Nosso pr�ximo destino � Izlude.",bc_map,"0x00ff00";
+	stopnpctimer;
+	++.moninv;
+	if (.moninv == 7) {
+		if (rand(1,3) == 3) {
+			donpcevent "Airship#airplane02::OnEnable";
+			end;
+		}
+		.moninv = 0;
+	}
+	initnpctimer;
+	end;
+}
+
+airplane_01,240,64,5	script	Sa�da#airplane_011a::ExitAirplane01	4_BOARD3,{
+	end;
+}
+airplane_01,247,64,5	duplicate(ExitAirplane01)	Sa�da#airplane_011b	4_BOARD3
+airplane_01,240,40,1	duplicate(ExitAirplane01)	Sa�da#airplane_012a	4_BOARD3
+airplane_01,247,40,1	duplicate(ExitAirplane01)	Sa�da#airplane_012b	4_BOARD3
+
+airplane_01,250,58,2	script	Equipe do Aeroplano#airplane01	1_F_02,{
+	mes "[Equipe do Aeroplano]";
+	mes "Bem-vind"+(Sex?"o":"a")+"";
+	mes "ao Aeroplano.";
+	mes "Como posso ajud�-l"+(Sex?"o?":"a?")+"";
+	next;
+	switch (select("Usando o Aeroplano:Cabine do Capit�o:Instala��es:Cancelar")) {
+	case 1:
+		mes "[Assistente do Aeroplano]";
+		mes "Quando voc� ver o aviso";
+		mes "anunciando que chegamos";
+		mes "no seu destino desejado,";
+		mes "por favor, use uma das sa�das";
+		mes "localizadas nas partes";
+		mes "norte e sul do Aeroplano.";
+		next;
+		mes "[Assistente do Aeroplano]";
+		mes "Se acontecer de voc� perder";
+		mes "sua parada, n�o se preocupe.";
+		mes "O Aeroplano est� constantemente";
+		mes "na rota e voc� ter�";
+		mes "outra chance para chegar";
+		mes "ao seu destino pretendido.";
+		close;
+	case 2:
+		mes "[Assistente do Aeroplano]";
+		mes "A Cabine do Capit�o";
+		mes "fica na parte frontal";
+		mes "do Aeroplano. L�, voc�";
+		mes "pode conhecer o capit�o e";
+		mes "o piloto do Aeroplano.";
+		close;
+	case 3:
+		mes "[Assistente do Aeroplano]";
+		mes "O Aeroplano possui";
+		mes "v�rios mini-games para";
+		mes "o entretenimento de todos";
+		mes "os passageiros. Voc� est�";
+		mes "convidad"+(Sex?"o":"a")+" a testar sua sorte";
+		mes "nos Mini-Games do Aeroplano~";
+		close;
+	case 4:
+		mes "[Assistente do Aeroplano]";
+		mes "Bem, desejo-lhe uma boa";
+		mes "estadia durante o v�o em";
+		mes "nosso Aeroplano. Obrigado";
+		mes "e tenha um bom dia.";
+		close;
+	}
+}
+
+airplane_01,50,66,5	script	Mercador de Ma��s#air01	4_M_04,{
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto !! -";
+		mes "- Atualmente voc� est� carregando -";
+		mes "- muitos itens com voc�. -";
+		mes "- Por favor, tente novamente -";
+		mes "- depois de perder algum peso. -";
+		close;
+	}
+	mes "[Meltz]";
+	mes "Bem-vind"+(Sex?"o":"a")+" a loja do Meltz's";
+	mes "onde voc� pode";
+	mes "comprar ma��s ou tritur�-las";
+	mes "para fazer Suco de Ma��.";
+	next;
+	switch (select("Comprar Ma��s.:Fazer Suco de Ma��.:Cancelar.")) {
+	case 1:
+		mes "[Meltz]";
+		mes "Por favor digite a quantidade";
+		mes "de ma��s que voc� deseja";
+		mes "comprar. Cada Ma�� custa 15 zenys";
+		mes "e voc� pode comprar um m�ximo";
+		mes "de 500 de uma vez. Por favor digite";
+		mes "'0' para cancelar seu pedido.";
+		next;
+		while (1) {
+			input .@input;
+			.@pay = .@input * 15;
+			if (.@input == 0) {
+				mes "[Meltz]";
+				mes "Obrigado por parar";
+				mes "na minha loja. Adeus!";
+				mes "Venha a qualquer hora quando";
+				mes "voc� sentir vontade de ter uma";
+				mes "Ma�� para fazer um lanche ~";
+				close;
+			}
+			else if (.@input < 1 || .@input > 500) {
+				mes "[Meltz]";
+				mes "Voc� digitou um n�mero";
+				mes "maior do que o valor m�ximo";
+				mes "de 500. Por favor digite";
+				mes "novamente o n�mero de ma��s";
+				mes "que voc� deseja comprar.";
+				next;
+			}
+			else {
+				mes "[Meltz]";
+				mes "Um total de ^FF0000" + .@input + "^000000 Ma��s";
+				mes "que ir� custar a voc� ^FF0000" + .@pay + " Zeny^000000 zeny.";
+				mes "Voc� gostaria de continuar?";
+				next;
+				if (select("Yes:No") == 2) {
+					mes "[Meltz]";
+					mes "Obrigado por parar";
+					mes "na minha loja. Adeus!";
+					mes "Venha a qualquer hora quando";
+					mes "voc� sentir vontade de ter uma";
+					mes "Ma�� para fazer um lanche ~";
+					close;
+				}
+				break;
+			}
+		}
+		if (Zeny < .@pay) {
+			mes "[Meltz]";
+			mes "Sinto muito, voc� n�o tem";
+			mes "dinheiro suficiente com voc�.";
+			mes "Por favor, verifique seus fundos ou";
+			mes "compre menos ma��s.";
+			close;
+		}
+		else if (checkweight(512,.@input) == 0) {
+			mes "[Meltz]";
+			mes "Hmm, acho que voc� n�o tem";
+			mes "espa�o suficiente para transportar";
+			mes "estas muitas ma��s. Voc� pode";
+			mes "liberar espa�o em seu invent�rio";
+			close;
+		}
+		else {
+			Zeny -= .@pay;
+			getitem 512,.@input; //Apple
+			mes "[Meltz]";
+			mes "Obrigado pela visita";
+			mes "na minha loja. Espero que voc� goste";
+			mes "do aroma dessas Ma��s ~!";
+			close;
+		}
+	case 2:
+		mes "[Meltz]";
+		mes "Tudo bem, precisarei de";
+		mes "^FF00003 Ma��s e 1 Garrafa Vazia^000000";
+		mes "para criar 1 Suco de Ma�� para voc�";
+		mes "Gostaria de continuar?";
+		next;
+		switch (select("SIm:N�o")) {
+		case 1:
+			if (countitem(512) < 3 || countitem(713) < 1) {
+				mes "[Meltz]";
+				mes "Me desculpe,mas voc� n�o possui";
+				mes "os materiais suficientes para";
+				mes "criar uma Garrafa de Suco de Ma��.";
+				mes "Lembre-se, irei precisar de 3 Ma��s";
+				mes "e 1 Garrafa Vazia.";
+				close;
+			}
+			else {
+				mes "[Meltz]";
+				mes "Thank you, please wait.";
+				next;
+				mes "^3355FF*Grind* *Grind*";
+				mes "*Grind* *Grind*";
+				mes "*Clang...!*^000000";
+				next;
+				delitem 512,3; //Ma��
+				delitem 713,1; //Garrafa Vazia
+				getitem 531,1; //Suco de Ma��
+				mes "[Meltz]";
+				mes "Aqui est�~";
+				mes "Por favor, venha novamente.";
+				close;
+			}
+		case 2:
+			mes "[Meltz]";
+			mes "Obrigado por parar";
+			mes "na minha loja. Adeus!";
+			mes "Venha a qualquer hora quando";
+			mes "voc� sentir vontade de ter uma";
+			mes "Ma�� para fazer um lanche ~";
+			close;
+		}
+	case 3:
+		mes "[Meltz]";
+		mes "Obrigado por parar";
+		mes "na minha loja. Adeus!";
+		mes "Venha a qualquer hora quando";
+		mes "voc� sentir vontade de ter uma";
+		mes "Ma�� para fazer um lanche ~";
+		close;
+	}
+}
+
+airplane_01,221,158,2	script	Piloto#airplane_01	4_M_EIN_SOLDIER,{
+	switch (rand(1,4)) {
+	case 1:
+		mes "[Piloto]";
+		mes "Longitude, 131 graus leste.";
+		mes "Latitude, 37 graus norte.";
+		mes "Estamos no curso certo, capit�o.";
+		close;
+	case 2:
+		mes "[Piloto]";
+		mes "Parece ser realmente um";
+		mes "dia nublado. Sempre � dif�cil";
+		mes "navegar quando os c�us";
+		mes "n�o est�o limpos. Acho que n�s vamos";
+		mes "precisar amplificar o radar.";
+		close;
+	case 3:
+		mes "[Piloto]";
+		mes "O Capit�o � um bom";
+		mes "homem e eu n�o consigo pensar em";
+		mes "uma pessoa mais fina para comandar";
+		mes "este Aeroplano. Ainda assim, ele � muito";
+		mes "duro, um verdadeiro motorista servo.";
+		next;
+		mes "[^ff0000Tarlock^000000]";
+		mes "^ff0000Ei...!^000000";
+		mes "^ff0000Menos bate-papo^000000";
+		mes "^ff0000e mais pilotagem!^000000";
+		next;
+		mes "[Piloto]";
+		mes "C-certo, senhor!";
+		mes "(Viu o que eu quero dizer?)";
+		close;
+	default:
+		mes "[Piloto]";
+		mes "Este uniforme �";
+		mes "bem elegante, mas";
+		mes "� muito chamativo para";
+		mes "usar pelo Aeroplano.";
+		next;
+		mes "[Piloto]";
+		mes "...";
+		mes "......";
+		mes "Realmente ningu�m";
+		mes "nunca entra neste quarto.";
+		mes "E o capit�o � uma rena.";
+		mes "Eu podia tirar a minha cueca.";
+		next;
+		emotion e_omg;
+		mes "[Piloto]";
+		mes "Oh...! Ol�!";
+		mes "E-e-est� aproveitando o v�o?!";
+		close;
+	}
+}
+
+airplane_01,83,61,2	script	Dianne#01airplane_01	1_F_MARIA,2,2,{
+	mes "[Dianne]";
+	mes "� t�o estranho!";
+	mes "Eu venho visitar";
+	mes "o Capit�o do Aeroplano";
+	mes "e tudo que vejo � esse";
+	mes "alce estranho. Oh!";
+	mes "N�o esperava por essa...";
+	close;
+
+OnTouch:
+	emotion e_sob;
+	end;
+}
+
+airplane_01,69,63,2	script	Mendel#01airplane_01	1_M_JOBTESTER,{
+	mes "[Mendel]";
+	mes "Como eu esperava, as";
+	mes "comidas do v�o s�o";
+	mes "de qualidade 3 estrelas no melhor.";
+	mes "*Harrrumph* Eu realmente deveria";
+	mes "ter trazido meu cozinheiro";
+	mes "Eu desfrutaria de uma verdadeira refei��o.";
+	close;
+}
+
+airplane_01,71,31,2	script	Swordsman Shimizu#air_01	1_M_MOC_LORD,{
+	mes "[Espadachim Shimizu]";
+	mes "Finalmente, depois de cinco";
+	mes "anos esperando...";
+	mes "Terei minha vingan�a!";
+	next;
+	mes "[Espadachim Shimizu]";
+	mes "Eu s�...";
+	mes "Tenho que me certificar";
+	mes "de que n�o perderei minha";
+	mes "parada. Mas logo, muito breve,";
+	mes "terei minha vingan�a.";
+	close;
+}
+
+//============================================================
+//= Desafio de Escrita
+//============================================================
+airplane_01,32,61,4	script	Nils#ein	1_M_03,1,1,{
+	mes "[Nils]";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao";
+	mes "^ff0000Desafio de Escrita RO^000000.";
+	mes "Voc� gostaria de jogar";
+	mes "um r�pido jogo de escrita?";
+	next;
+	switch (select("Jogar ^ff0000Desafio de Escrita RO^000000:Informa��es:Ver recordes:Cancelar")) {
+	case 1:
+		mes "[Nils]";
+		mes "Ok, n�s temos";
+		mes "um novo desafiante!";
+		mes "Digite o seguinte";
+		mes "texto o mais r�pido";
+		mes "que puder sem cometer";
+		mes "nenhum erro! Vamos come�ar~!";
+		setarray .@line1_1$[0],	"^3cbcbccallipygian salacius lascivious^000000",
+					"^3cbcbcBy the power of^000000",
+					"^0000ffthkelfkskeldmsiejdlslehfndkelsheidl^000000",
+					"^3cbcbcburrdingdingdingdilidingdingdingphoohudaamb^000000",
+					"^3cbcbcCoboman no chikara-yumei na^000000",
+					"^3cbcbcEu sou o rei dos esquisitos! Agora^000000",
+					"^3cbcbcVoc� n�o me deu escolha. Eu aposto que^000000";
+		setarray .@line1_2$[0],	"^3cbcbclicentious prurient concupiscent^000000",
+					"^3cbcbcp-po-poi-po-poi-poin-poing^000000",
+					"^3cbcbcskemd^000000",
+					"^3cbcbcandoorabambarambambambambamburanbamding^000000",
+					"^3cbcbcchikara-daiookii na chikara da ze!^000000",
+					"^3cbcbcvoc� conhece meu verdadeiro poder. Obey~!^000000",
+					"^3cbcbchora de revelar meu segredo...^000000";
+		setarray .@line1_3$[0],	"",
+					"^3cbcbcDEUS-POING. EU NUNCA PERCO!^000000",
+					"",
+					"",
+					"^3cbcbcCOBO LIGADO^000000",
+					"",
+					"";
+		setarray .@word1$[0],	"callipygian salacius lascivious licentious prurient concupiscent",
+					"By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE!",
+					"thkelfkskeldmsiejdlslehfndkelsheidlskemd",
+					"burrdingdingdingdilidingdingdingphoohudaambandoorabambarambambambambamburanbamding",
+					"Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON",
+					"Eu sou o rei dos esquisitos! Agora voc� conhece meu verdadeiro poder. Obey~!",
+					"Voc� n�o me deu escolha. Eu aposto que � hora de revelar meu poder...";
+		setarray .@line2_1$[0],	"^3cbcbciMpertuB�VEl Am�Vel SeCreTo E^000000",
+					"^ff1493VeLoCiDaDe Da LuZ ViRaR a EsQuErDa^000000",
+					"^ff1493hfjdkeldjsieldjshfjdjeiskdlefvbd^000000",
+					"^ff1493burapaphuralanderamduanbatuhiwooi^000000",
+					"^ff1493acreditar na sorte do amor suar careta correr^000000",
+					"^800080abriR, Abrir!abr1r.abrirAbrirAbr1rAbRir4brir^000000",
+					"^3cbcbclIberDadE �xtAse JoRnAlIsMo ArMplt^000000";
+		setarray .@line2_2$[0],	"^3cbcbcboLiChe cOnTrA O kArmA JoVem^000000",
+					"^ff1493CeRtO QuEiMe VeRdAdEiRo GaNgSteR bEijo^000000",
+					"",
+					"^ff1493kabamturubamdingding^000000",
+					"^ff1493folktale rodimus optimus bumblebee^000000",
+					"^800080`abrir'4Brir abrir? abrir!111ABRAMESMO^000000",
+					"^3cbcbcDesCobrir dOr de CaBe�a RaiosLunArES jUsTi�A^000000";
+		setarray .@word2$[0],	"iMpertuB�VEl Am�vEl SeGrEdOs E boLiCHE cONtra o kArmA dos JoVeMs",
+					"VeLoCiDaDe Da LuZ ViRaR a EsQuErDa QuEiMe VeRdAdEiRo GaNgSteR bEijo",
+					"hfjdkeldjsieldjshfjdjeiskdlefvbd",
+					"burapaphuralanderamduanbatuhiwooikabamturubamdingding",
+					"acreditar na sorte do amor suar careta correr conto-de-fadas rodimus optimus bumblebee",
+					"abriR, Abrir!abr1r.abrirAbrirAbr1rAbRir4brir`abrir'4Brir abrir? abrir!111ABRAMESMO",
+					"lIberDadE �xtAse JoRnAlIsMo AxIla DesCobrir dOr de CaBe�a RaiosLunArES jUsTi�A";
+		setarray .@letters[0],	1300,
+					1250,
+					1180,
+					1380,
+					1740,
+					1440,
+					1450;
+		.@wordtest = rand(7);
+		next;
+		mes "[Nils]";
+		mes .@line1_1$[.@wordtest];
+		mes .@line1_2$[.@wordtest];
+		mes .@line1_3$[.@wordtest];
+		.@start_time = gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		next;
+		input .@save1$;
+		.@end_time = gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		.@total_time = .@end_time - .@start_time;
+		mes "[Nils]";
+		mes .@line2_1$[.@wordtest];
+		mes .@line2_2$[.@wordtest];
+		.@start_time = gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		next;
+		input .@save2$;
+		.@end_time = gettime(3)*60*60 + gettime(2)*60 + gettime(1);
+		.@total_time = .@total_time + (.@start_time - .@end_time);
+		.@tasoo = (.@letters[.@wordtest] / .@total_time) * 6;
+		if ((.@save1$ == .@word1$[.@wordtest]) && (.@save2$ == .@word2$[.@wordtest])) {
+			mes "[Nils]";
+			mes "Seu recorde � ^ff0000" + .@total_time + " segundos^000000 e";
+			mes "o total de letras s�o " + .@tasoo + ".";
+			next;
+			if (.@tasoo >= 1300) {
+				mes "[Nils]";
+				mes "Humm, n�o � poss�vel";
+				mes "humanamente falando, a menos que";
+				mes "copie e cole toda a";
+				mes "senten�a. Por favor, jogue novamente.";
+				close;
+			}
+			if (.@tasoo >= $050320_ein_typing) {
+				mes "[Nils]";
+				mes "O recorde anterior foi";
+				mes "feito por ^0000ff" + $050320_minus1_typing$ + "^000000";
+				mes "com o total de ^0000ff" + $050320_ein_typing + "^000000 letras.";
+				mes "Por�m, ^ff0000" + strcharinfo(0) + "^000000,";
+				mes "voc� o novo top record";
+				mes "desta vez. Parab�ns!";
+				$050320_minus1_typing$ = strcharinfo(0);
+				$050320_ein_typing = .@tasoo;
+				close;
+			}
+			else {
+				mes "[Nils]";
+				mes "^0000ff" + $050320_minus1_typing$ + "^000000";
+				mes "esse � o recorde";
+				mes "atual conquistado com";
+				mes "um total de ^0000ff" + $050320_ein_typing + "^000000";
+				mes "caracteres. Tente bater";
+				mes "esse record na pr�xima vez~";
+				close;
+			}
+		}
+		else {
+			mes "[Nils]";
+			mes "Oooh...";
+			mes "Me desculpe, mas";
+			mes "voc� digitou o";
+			mes "texto incorreto...";
+			close;
+		}
+	case 2:
+		mes "[Nils]";
+		mes "O ^ff0000Desafio de Escrita RO^000000";
+		mes "� um jogo onde voc� deve digitar";
+		mes "o texto exibido o mais r�pido que voc�";
+		mes "puder. O nome do jogador que possuir o";
+		mes "recorde ser� gravado nos registros. Se voc�";
+		mes "procura fama, essa � sua chance!";
+		next;
+		mes "[Nils]";
+		mes "Eu apenas gostaria de";
+		mes "dizer que voc� deve digitar";
+		mes "todo o texto em uma simples";
+		mes "linha que ser� apresentada a voc�.";
+		mes "Ent�o n�o pressione uma tecla, apenas clique em 'OK.'";
+		close;
+	case 3:
+		mes "[Nils]";
+		mes "^0000ff" + $050320_minus1_typing$ + "^000000";
+		mes "esse � o recorde";
+		mes "atual conquistado com";
+		mes "um total de ^0000ff" + $050320_ein_typing + "^000000";
+		mes "caracteres. Tente bater";
+		mes "esse record na pr�xima vez~";
+		close;
+	case 4:
+		mes "[Nils]";
+		mes "Sinta-se livre para voltar quando quiser e jogar o";
+		mes "^ff0000Desafio de Escrita RO^000000";
+		mes "At� logo~";
+		close;
+	}
+}
+
+//============================================================
+//= Jogo da Ma��
+//============================================================
+airplane_01,33,68,4	script	Clarice	1_F_MERCHANT_02,{
+	mes "[Clarice]";
+	mes "Oi, eu sou Clarice~";
+	mes "Voc� gostaria de";
+	mes "apostar algumas ma��s";
+	mes "no amig�vel jogo dos Dados?";
+	next;
+	callfunc "applegamble","Clarice";
+	end;
+}
+
+function	script	applegamble	{
+
+	switch (select("Jogar:Regras do Jogo:Cancelar")) {
+	case 3:
+		mes "["+getarg(0)+"]";
+		mes "Eu estou pronta para jogar o jogo dos";
+		mes "dados quando voc� quiser.";
+		mes "Quando quiser jogar basta falar comigo, Ok?";
+		close;
+	case 2:
+		mes "["+getarg(0)+"]";
+		mes "As regras do Jogo dos Dados";
+		mes "s�o bastante simples. Primeiro, voc�";
+		mes "deve saber que as apostas s�o Ma��s.";
+		mes "Voc� pode apostar no m�ximo 50";
+		mes "Ma��s por vez. Para que tudo ocorra";
+		mes "bem, eu aceito apenas Ma��s.";
+		next;
+		mes "["+getarg(0)+"]";
+		mes "Mas ei, se voc� possuir tantos zenys";
+		mes "que j� n�o cabem mais em seus bolsos,";
+		mes "tire-os e voc� pode comprar quantas";
+		mes "ma��s quiser no Vendedor de Ma��s~";
+		next;
+		mes "["+getarg(0)+"]";
+		mes "Agora, n�s iremos come�ar rolando";
+		mes "dois dados de 6 lados.";
+		mes "Enquanto for seu turno, voc� poder�";
+		mes "rolar dois dados de 6 lados. Ap�s";
+		mes "isso, n�s teremos a op��o";
+		mes "de rolar um terceiro dado.";
+		next;
+		mes "["+getarg(0)+"]";
+		mes "Agora aqui � a parte importante.";
+		mes "Se ao total nos dados voc� atingir 12,";
+		mes "voc� ir� a fal�ncia";
+		mes "e ir� perder. Caso contr�rio, a";
+		mes "a pessoa com a maior pontua��o";
+		mes "ir� vencer. O que acha?";
+		next;
+		mes "["+getarg(0)+"]";
+		mes "Agora, primeiro voc� deve";
+		mes "decidir se quer jogar o";
+		mes "terceiro dado ou n�o. Ent�o,";
+		mes "dependendo do seu resultado, eu irei";
+		mes "rolar meu terceiro dado... Ou talvez n�o.";
+		next;
+		mes "["+getarg(0)+"]";
+		mes "Enquanto voc� ganhar, voc� ir�";
+		mes "receber o dobro de Ma��s";
+		mes "que voc� apostou.";
+		mes "Mas se por acaso voc� empatar, voc� ir�";
+		mes "receber de volta apenas as Ma��s";
+		mes "que voc� apostou. Justo, certo?";
+		close;
+	case 1:
+		break;
+	}
+	mes "["+getarg(0)+"]";
+	mes "Ah, Ent�o voc� quer jogar comigo?";
+	mes "�timo! Quantas Ma��s";
+	mes "voc� deseja apostar?";
+	mes "Lembre-se, seu limite s�o 50 Ma��s.";
+	mes "Se voc� deseja cancelar, por favor digite '0'.";
+	next;
+	while(1) {
+		input .@amount;
+		if (.@amount == 0) {
+			mes "["+getarg(0)+"]";
+			mes "Mudou de id�ia?";
+			mes "Eu entendo. Bem ent�o,";
+			mes "espero que possamos jogar depois.";
+			close;
+		}
+		else if (.@amount < 1 || .@amount > 50) {
+			mes "["+getarg(0)+"]";
+			mes "Voc� n�o pode apostar mais do que";
+			mes "50 Ma��s. Lembre-se,";
+			mes "precisamos manter as apostas";
+			mes "razo�veis. Por favor digite";
+			mes "um valor n�o superior a 50.";
+			next;
+			continue;
+		}
+		mes "["+getarg(0)+"]";
+		mes "Ent�o voc� estar�";
+		mes "apostando ^FF0000"+.@amount+"^000000 Ma��s.";
+		mes "Certo?";
+		next;
+		if (select("Yes:No") == 2) {
+			mes "["+getarg(0)+"]";
+			mes "Hum, cometi um erro?";
+			mes "Certo, por favor digite";
+			mes "o n�mero de Ma��s que";
+			mes "voc� deseja apostar.";
+			next;
+			continue;
+		}
+		if (countitem(512) <.@amount) {
+			mes "Me desculpe, mas voc�";
+			mes "n�o parecem ter";
+			mes "Ma��s suficientes para essa";
+			mes "aposta... Voc� n�o pode apostar";
+			mes "se n�o tem a aposta, voc� sabe.";
+			next;
+			continue;
+		}
+		delitem 512,.@amount;
+		mes "["+getarg(0)+"]";
+		mes "Bom!";
+		mes "Agora podemos come�ar";
+		mes "este jogo! Irei rolar primeiro~";
+		break;
+	}
+	mes "^3355FF*Rolando e caindo*^000000";
+	next;
+	.@giveapple = .@amount*2;
+	.@table1 = rand(1,6);
+	.@table2 = rand(1,6);
+	.@tablesub = .@table1 + .@table2;
+	.@tabletotal = .@tablesub;
+	mes "["+getarg(0)+"]";
+	mes "Eu tenho um ^0000FF" + .@table1 + "^000000 e um ^0000FF" + .@table2 + "^000000.";
+	mes "Isso � um total de ^0000FF" + .@tablesub + "^000000.";
+	mes "^FF0000" + strcharinfo(0) + "^000000, agora � sua vez.";
+	next;
+	select("Lan�ar Dado.");
+	mes "^3355FF*Rolando e caindo*^000000";
+	.@player1 = rand(1,6);
+	.@player2 = rand(1,6);
+	.@playersub = .@player1 + .@player2;
+	if (.@playersub > 9 && .@amount > 39) {
+		.@player1 = rand(1,6);
+		.@player2 = rand(1,6);
+		.@playersub = .@player1 + .@player2;
+	}
+	.@playertotal = .@playersub;
+	next;
+	mes "["+getarg(0)+"]";
+	mes "^FF0000" + strcharinfo(0) + "^000000, voc� tem ^FF0000" + .@player1 + "^000000 e ^FF0000" + .@player2 + "^000000. O total � ^FF0000" + .@playersub + "^000000 .";
+	next;
+	mes "["+getarg(0)+"]";
+	if(.@playersub == .@tablesub) {
+		mes "Atualmente meu total � ^0000FF" + .@tablesub + "^000000 e ^FF0000" + strcharinfo(0) + "^000000, seu total � ^FF0000" + .@playersub + "^000000. Estamos empatados, gostaria de lan�ar o dado novamente?";
+	} else if (.@playersub > .@tablesub) {
+		mes "Atualmente meu total � ^0000FF" + .@tablesub + "^000000 e ^FF0000" + strcharinfo(0) + "^000000, seu total � ^FF0000" + .@playersub + "^000000. ^FF0000" + strcharinfo(0) + "^000000, atualmente voc� est� ganhando o jogo, gostaria de lan�ar o dado novamente?";
+	} else if(.@tablesub > .@playersub) {
+		mes "Atualmente meu total � ^0000FF" + .@tablesub + "^000000 e ^FF0000" + strcharinfo(0) + "^000000, seu total � ^FF0000" + .@playersub + "^000000. Estou vencendo o jogo. Gostaria de lan�ar o dado novamente?";
+	}
+	next;
+	switch (select("Lan�ar Dado.:Cancelar.")) {
+	case 1:
+		mes "^3355FF*Rolando e caindo*^000000";
+		.@player3 = rand(1,6);
+		.@playertotal += .@player3;
+		next;
+		mes "["+getarg(0)+"]";
+		if (.@playertotal > 12) {
+			mes "^FF0000" + strcharinfo(0) + "^000000, voc� possui ^FF0000" + .@player3 + "^000000 e o total agora � ^FF0000" + .@playertotal + "^000000. Voc� perdeu o jogo. Me desculpe mas, por favor tente novamente.";
+			close;
+		}
+		else if (.@playertotal < .@tablesub) {
+			mes "^FF0000" + strcharinfo(0) + "^000000, voc� possui ^FF0000" + .@player3 + "^000000 e o total agora � ^FF0000" + .@playertotal + "^000000. Mesmo que voc� lance o dado novamente, seu total ainda ser� menor do que o meu.  Voc� perdeu o jogo. Sinto muito e por favor tente novamente.";
+			close;
+		}
+		else if (.@playertotal == .@tablesub) {
+			if (.@tablesub > 8) {
+				mes "^FF0000" + strcharinfo(0) + "^000000, voc� possui ^FF0000" + .@player3 + "^000000 e o total agora � ^FF0000" + .@playertotal + "^000000. Eu n�o quero correr nenhum risco, vamos acabar este jogo num empate. Vamos jogar de novo outra hora~";
+				close2;
+				getitem 512,.@amount; //Ma��
+				end;
+			}
+		}
+		else {
+			mes "^FF0000" + strcharinfo(0) + "^000000, voc� possui ^FF0000" + .@player3 + "^000000 e o total agora � ^FF0000" + .@playertotal + "^000000. Agora � minha vez.";
+		}
+		break;
+	case 2:
+		mes "["+getarg(0)+"]";
+		if (.@playersub > .@tablesub) {
+			mes "Entendo, voc� n�o quer correr risco de perder o jogo. Ok, deixe-me lan�ar os dados novamente.";
+		}
+		else if (.@playersub == .@tablesub) {
+			if (.@tablesub > 8) {
+				mes "Entendo, voc� n�o quer correr risco de perder este jogo. Nem eu, vamos acabar este jogo em um empate. Vamos jogar novamente outra hora~";
+				close2;
+				getitem 512,.@amount; //Ma��
+				end;
+			}
+			mes "Certo.";
+			mes "Vamos rolar os dados novamente.";
+		}
+		else {
+			mes "N�o faria mal tentar.";
+			mes "Bem, eu venci dessa vez.";
+			mes "Sinto muito, vamos tentar jogar";
+			mes "novamente algum dia.";
+			close;
+		}
+		break;
+	}
+	next;
+	mes "^3355FF*Rolando e caindo*^000000";
+	.@table3 = rand(1,6);
+	.@tabletotal += .@table3;
+	next;
+	mes "["+getarg(0)+"]";
+	if (.@tabletotal > 12) {
+		mes "Tenho ^0000FF" + .@table3 + "^000000 e o total agora � ^0000FF" + .@tabletotal + "^000000. Perdi o jogo por que meu total excedeu 12. Deixe-me dar-lhe minhas ma��s. Parab�ns, foi um grande jogo.";
+		close2;
+		getitem 512,.@giveapple; //Ma��
+		end;
+	}
+	else if (.@playertotal > .@tabletotal) {
+		mes "Tenho ^0000FF" + .@table3 + "^000000 e o total agora � ^0000FF" + .@tabletotal + "^000000. Com o total de ^FF0000" + .@playertotal + "^000000 voc� ganhou este jogo, ^FF0000" + strcharinfo(0) + "^000000. Deixe-me dar-lhe minhas ma��s. Foi um grande jogo e espero que possamos jogar novamente em outro momento.";
+		close2;
+		getitem 512,.@giveapple; //Apple
+		end;
+	}
+	else if (.@playertotal == .@tabletotal) {
+		mes "Tenho ^0000FF" + .@table3 + "^000000 e o total agora � ^0000FF" + .@tabletotal + "^000000. Com o total de ^FF0000" + .@playertotal + "^000000 este jogo acabou em empate, ^FF0000" + strcharinfo(0) + "^000000. Deixe-me dar-lhe suas ma��s de volta. Foi um grande jogo e espero que possamos jogar novamente em outro momento.";
+		close2;
+		getitem 512,.@amount; //Apple
+		end;
+	}
+	else if (.@playertotal < .@tabletotal) {
+		mes "Tenho ^0000FF" + .@table3 + "^000000 e o total agora � ^0000FF" + .@tabletotal + "^000000. Com o total de ^FF0000" + .@playertotal + "^000000 voc� perdeu o jogo, ^FF0000" + strcharinfo(0) + "^000000. Lamento, mas por favor, tente novamente.";
+		close;
+	}
+}
