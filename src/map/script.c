@@ -17787,7 +17787,7 @@ BUILDIN(instance_npcname) {
 		instance_id = st->instance_id;
 
 	if( instance_id >= 0 && (nd = npc->name2id(str)) != NULL ) {
-		static char npcname[NAME_LENGTH];
+		static char npcname[NOME_NPC_LEN];
 		snprintf(npcname, sizeof(npcname), "dup_%d_%d", instance_id, nd->bl.id);
 		script_pushconststr(st,npcname);
 	} else {

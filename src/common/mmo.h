@@ -147,6 +147,8 @@
 //For Map Names, which the client considers to be 16 in length including the .gat extension.
 #define MAP_NAME_LENGTH (11 + 1)
 #define MAP_NAME_LENGTH_EXT (MAP_NAME_LENGTH + 4)
+//Tamanho do nome dos NPCs (Max 32 caracteres)
+#define NOME_NPC_LEN (31 + 1) //[SlexFire]
 
 #define MAX_FRIENDS 40
 #define MAX_MEMOPOINTS 3
