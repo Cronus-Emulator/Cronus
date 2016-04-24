@@ -46,7 +46,7 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 ###### Gerente Ragnarok
 - SlexFire   - (Core Developer)
 
-##### Desenvolvedores
+######## Desenvolvedores
 - Gluglu     - (Core Developer)
 - RedX       - (Core Developer)
 - Arkwright  - (Script/DB)
