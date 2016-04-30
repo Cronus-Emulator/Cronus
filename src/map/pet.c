@@ -442,7 +442,7 @@ int pet_recv_petdata(int account_id,struct s_pet *p,int flag) {
 				break;
 		}
 		if(i >= MAX_INVENTORY) {
-			ShowError("pet_recv_petdata: Hatching pet (%d:%s) aborted, couldn't find egg in inventory for removal!\n",p->pet_id, p->name);
+			ShowError("pet_recv_petdata: Chocar pet (%d:%s) cancelado, nao foi possivel econtrar ovo no inventario para remover!\n",p->pet_id, p->name);
 			sd->status.pet_id = 0;
 			return 1;
 		}
@@ -473,7 +473,7 @@ int pet_select_egg(struct map_session_data *sd,short egg_index)
 	if(sd->status.inventory[egg_index].card[0] == CARD0_PET)
 		intif->request_petdata(sd->status.account_id, sd->status.char_id, MakeDWord(sd->status.inventory[egg_index].card[1], sd->status.inventory[egg_index].card[2]) );
 	else
-		ShowError("wrong egg item inventory %d\n",egg_index);
+		ShowError("Item Ovo errado no inventario %d\n",egg_index);
 
 	return 0;
 }
@@ -802,7 +802,7 @@ int pet_randomwalk(struct pet_data *pd, int64 tick)
 			if(i+1>=retrycount){
 				pd->move_fail_count++;
 				if(pd->move_fail_count>1000){
-					ShowWarning("PET can't move. hold position %d, class = %d\n",pd->bl.id,pd->pet.class_);
+					ShowWarning("PET nao pode mover. Posicao travada %d, classe = %d\n",pd->bl.id,pd->pet.class_);
 					pd->move_fail_count=0;
 					pd->ud.canmove_tick = tick + 60000;
 					return 0;
@@ -1191,7 +1191,7 @@ int read_petdb()
 		fp=fopen(line,"r");
 		if (fp == NULL) {
 			if (i == 0)
-				ShowError("can't read %s\n",line);
+				ShowError("nao pode ler %s\n",line);
 			continue;
 		}
 
@@ -1219,20 +1219,20 @@ int read_petdb()
 			}
 
 			if (p == NULL) {
-				ShowError("read_petdb: Insufficient columns in line %d, skipping.\n", lines);
+				ShowError("read_petdb: Colunas insuficiente na linha %d, pulando.\n", lines);
 				continue;
 			}
 
 			// Pet Script
 			if (*p != '{') {
-				ShowError("read_petdb: Invalid format (Pet Script column) in line %d, skipping.\n", lines);
+				ShowError("read_petdb: Formato invalido (Coluna Pet Script) na linha %d, pulando.\n", lines);
 				continue;
 			}
 
 			str[20] = p;
 			p = strstr(p+1,"},");
 			if (p == NULL) {
-				ShowError("read_petdb: Invalid format (Pet Script column) in line %d, skipping.\n", lines);
+				ShowError("read_petdb: Formato invalido (Coluna Pet Script) na linha %d, pulando.\n", lines);
 				continue;
 			}
 			p[1] = '\0';
@@ -1240,7 +1240,7 @@ int read_petdb()
 
 			// Equip Script
 			if (*p != '{') {
-				ShowError("read_petdb: Invalid format (Equip Script column) in line %d, skipping.\n", lines);
+				ShowError("read_petdb: Formato invalido (Coluna Equip Script) na linha %d, pulando.\n", lines);
 				continue;
 			}
 			str[21] = p;
@@ -1250,7 +1250,7 @@ int read_petdb()
 				continue;
 
 			if (!mob->db_checkid(nameid)) {
-				ShowWarning("pet_db reading: Invalid mob-class %d, pet not read.\n", nameid);
+				ShowWarning("pet_db reading: Invalido mob-class %d, pet nao lido.\n", nameid);
 				continue;
 			}
 
@@ -1289,9 +1289,9 @@ int read_petdb()
 		}
 
 		if (j >= MAX_PET_DB)
-			ShowWarning("read_petdb: Reached max number of pets [%d]. Remaining pets were not read.\n ", MAX_PET_DB);
+			ShowWarning("read_petdb: Alcancado o numero maximo de Pets [%d]. O resto dos Pets nao foram lidos.\n ", MAX_PET_DB);
 		fclose(fp);
-		ShowStatus("Done reading '"CL_WHITE"%d"CL_RESET"' pets in '"CL_WHITE"%s"CL_RESET"'.\n", entries, filename[i]);
+		ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' pets em '"CL_WHITE"%s"CL_RESET"'.\n", entries, filename[i]);
 	}
 	return 0;
 }

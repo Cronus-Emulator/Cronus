@@ -68,7 +68,7 @@ void display_title(void) {
 	ShowMessage(""CL_XXBL"          ("CL_BOLD"                                                         "CL_XXBL")"CL_CLL""CL_NORMAL"\n");
 	ShowMessage(""CL_WTBL"          (=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=)           "CL_CLL""CL_NORMAL"\n\n\a");
 
-	ShowInfo("Cronus %d-bit for %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
+	ShowInfo("Cronus %d-bit para %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
 	ShowInfo("%s Revisao (src): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_src());
 	ShowInfo("%s Revisao (scripts): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_scripts());
 	ShowInfo("Sistema Operacional: '"CL_WHITE"%s"CL_RESET" [%s]'\n", sysinfo->osversion(), sysinfo->arch());
