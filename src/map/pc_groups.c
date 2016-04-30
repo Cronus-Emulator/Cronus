@@ -70,7 +70,7 @@ static void read_config(void) {
 			config_setting_t *group = libconfig->setting_get_elem(groups, i);
 
 			if (!libconfig->setting_lookup_int(group, "id", &id)) {
-				ShowConfigWarning(group, "pc_groups:read_config: \"groupos\" lista de membro #%d tem ID indefinido, removendo...", i);
+				ShowConfigWarning(group, "pc_groups:read_config: \"grupos\" lista de membro #%d tem ID indefinido, removendo...", i);
 				libconfig->setting_remove_elem(groups, i);
 				--i;
 				--group_count;
