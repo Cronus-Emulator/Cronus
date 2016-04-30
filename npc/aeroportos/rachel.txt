@@ -47,9 +47,7 @@ OnTouch:
 			end;
 		}
 		mes "Desculpe, mas você não possui o zeny necessário.";
-		mes "Lembre-se, você precisa possuir o Bilhete para o Aeroplano, ou 
-
-possuir a taxa de embarque equivalente a 1,200 zenys.";
+		mes "Lembre-se, você precisa possuir o Bilhete para o Aeroplano, ou possuir a taxa de embarque equivalente a 1,200 zenys.";
 		close;
 	}
 	mes "Obrigado, e volte novamente.";

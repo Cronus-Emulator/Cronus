@@ -78,7 +78,7 @@ airport,143,49,3	script	Equipe de Recepção#airport2a::airport2	4_F_01,{
 	mes "sendo eles Juno, Lighthalzen e Hugel.";
 	next;
 	if (select("Sair do terminal principal.:Cancelar.") == 1) {
-		mes "[Equipe de Recepção]"
+		mes "[Equipe de Recepção]";
 		mes "Uma vez no terminal principal, você precisará pagar outra";
 		mes "taxa para embarcar no dirigível. Você só deverá";
 		mes "sair caso a cidade de Lighthalzen for seu último destino.";
