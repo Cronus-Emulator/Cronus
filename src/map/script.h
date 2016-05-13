@@ -752,6 +752,7 @@ struct script_interface {
 	int (*buildin_instance_warpall_sub) (struct block_list *bl, va_list ap);
 	int (*buildin_mobuseskill_sub) (struct block_list *bl, va_list ap);
 	int (*cleanfloor_sub) (struct block_list *bl, va_list ap);
+	int (*buildin_addrid_sub) (struct block_list *bl, va_list ap);
 	int (*run_func) (struct script_state *st);
 	const char *(*getfuncname) (struct script_state *st);
 	// for ENABLE_CASE_CHECK

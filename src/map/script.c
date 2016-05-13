@@ -11575,6 +11575,98 @@ void script_detach_rid(struct script_state* st) {
 	}
 }
 
+/*=======================================================
+Autor - [digitalhamster]						        |
+Adaptação - [SlexFire]							        |
+Informações:										    |
+http://wiki.cronus-emulator.com/index.php?title=Addrid  |
+=======================================================*/
+static int buildin_addrid_sub(struct block_list *bl,va_list ap)
+{
+	int forceflag;
+	struct map_session_data *sd = (TBL_PC *)bl;
+	struct script_state* st;
+
+	st = va_arg(ap,struct script_state*);
+	forceflag = va_arg(ap,int);
+
+	if(!forceflag || !sd->st)
+		if(sd->status.account_id != st->rid)
+			run_script(st->script,st->pos,sd->status.account_id,st->oid);
+	return 0;
+}
+
+BUILDIN(addrid)
+{
+	struct s_mapiterator* iter;
+	struct block_list *bl;
+	TBL_PC *sd;
+
+	if(st->rid < 1) {
+		st->state = END;
+		bl = map->id2bl(st->oid);
+	} else
+		bl = map->id2bl(st->rid);
+	iter = mapit_getallusers();
+
+	switch(script_getnum(st,2)) {
+		case 0:
+			for( sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); sd = (TBL_PC*)mapit->next(iter)) {
+				if(!script_getnum(st,3) || !sd->st)
+					if(sd->status.account_id != st->rid)
+						run_script(st->script,st->pos,sd->status.account_id,st->oid);
+			}
+			break;
+		case 1:
+			for( sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); sd = (TBL_PC*)mapit->next(iter)) {
+				if(!script_getnum(st,3) || !sd->st)
+					if((sd->bl.m == bl->m) && (sd->status.account_id != st->rid))
+						run_script(st->script,st->pos,sd->status.account_id,st->oid);
+			}
+			break;
+		case 2:
+			if(script_getnum(st,4) == 0) {
+				script_pushint(st,0);
+				return 0;
+			}
+			for( sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); sd = (TBL_PC*)mapit->next(iter)) {
+				if(!script_getnum(st,3) || !sd->st)
+					if((sd->status.account_id != st->rid) && (sd->status.party_id == script_getnum(st,4)))
+						run_script(st->script,st->pos,sd->status.account_id,st->oid);
+			}
+			break;
+		case 3:
+			if(script_getnum(st,4) == 0) {
+				script_pushint(st,0);
+				return 0;
+			}
+			for( sd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); sd = (TBL_PC*)mapit->next(iter)) {
+				if(!script_getnum(st,3) || !sd->st)
+					if((sd->status.account_id != st->rid) && (sd->status.guild_id == script_getnum(st,4)))
+						run_script(st->script,st->pos,sd->status.account_id,st->oid);
+			}
+			break;
+		case 4:
+			map->foreachinarea(buildin_addrid_sub,
+			bl->m,script_getnum(st,4),script_getnum(st,5),script_getnum(st,6),script_getnum(st,7),BL_PC,
+			st,script_getnum(st,3));//4-x0 , 5-y0 , 6-x1, 7-y1
+			break;
+		default:
+			if((map->id2sd(script_getnum(st,2))) == NULL) {
+				script_pushint(st,0);
+				return 0;
+			}
+			if(!script_getnum(st,3) || !map->id2sd(script_getnum(st,2))->st) {
+				run_script(st->script,st->pos,script_getnum(st,2),st->oid);
+				script_pushint(st,1);
+			}
+			return 0;
+	}
+	mapit->free(iter);
+	script_pushint(st,1);
+	return 0;
+}
+
 /*==========================================
  * Attach sd char id to script and detach current one if any
  *------------------------------------------*/
@@ -20136,6 +20228,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(disablewaitingroomevent,"?"),
 		BUILDIN_DEF(getwaitingroomstate,"i?"),
 		BUILDIN_DEF(warpwaitingpc,"sii?"),
+		BUILDIN_DEF(addrid,"i?????"),
 		BUILDIN_DEF(attachrid,"i"),
 		BUILDIN_DEF(detachrid,""),
 		BUILDIN_DEF(isloggedin,"i?"),
