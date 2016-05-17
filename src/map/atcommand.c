@@ -8063,6 +8063,67 @@ ACMD(allowks)
 	return true;
 }
 
+/*=======================================================
+Autor - [zephyrus_cr]						            |
+Adaptação e pequenas modificações - [SlexFire]		    |
+Informações:										    |
+- Procura por um item nas lojas de jogadores.           |
+=======================================================*/
+ACMD(whosell)
+{
+	char item_name[100], output[255];
+	struct s_mapiterator* iter;
+	int item_id, map_id = 0, j, count = 0;
+	struct map_session_data *csd;
+	unsigned int MinPrize = battle_config.vending_max_value, MaxPrize = 0;
+	struct item_data *item_data;
+
+	memset(item_name, '\0', sizeof(item_name));
+
+	if (!message || !*message || sscanf(message, "%99[^\n]", item_name) < 1) {
+		clif->message(fd, "Digite o nome ou ID do item (uso: @whosell <nome ou id do item>).");
+		return false;
+	}
+
+	if ((item_data = itemdb->search_name(item_name)) == NULL &&
+		(item_data = itemdb->exists(atoi(item_name))) == NULL)
+	{
+			clif->messagecolor_self(fd, COLOR_RED, "ID/Nome Inválido!");
+			false;
+	}
+
+	item_id = item_data->nameid;
+	map_id = sd->bl.m;
+
+	iter = mapit_getallusers();
+	for( csd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); csd = (TBL_PC*)mapit->next(iter))
+	{
+		if (csd->vender_id)
+		{
+			for (j = 0; j < csd->vend_num; j++) {
+				if(csd->status.cart[csd->vending[j].index].nameid == item_id) {
+					sprintf(output, "Comerciante: %s | Quant: %d | Preço: %d | Loja: %s | Mapa: %s[%d,%d]", csd->status.name, csd->vending[j].amount, csd->vending[j].value,csd->message,mapindex_id2name(csd->mapindex),csd->bl.x,csd->bl.y);
+					
+					clif->viewpoint(sd, 1, 1, csd->bl.x, csd->bl.y, count+1, 0xFFFFFF);
+					if(csd->vending[j].value < MinPrize) MinPrize = csd->vending[j].value;
+					if(csd->vending[j].value > MaxPrize) MaxPrize = csd->vending[j].value;
+					clif->message(fd, output);
+					count++;
+				}
+			}
+		}
+	}
+	mapit->free(iter);
+
+	if(count > 0) {
+		sprintf(output, "Encontrado(s) %d. Média de preço: %d ~ %d.", count, MinPrize, MaxPrize);
+		clif->message(fd, output);
+	} else
+		clif->messagecolor_self(fd, COLOR_RED, "Item não encontrado.");
+
+	return true;
+}
+
 ACMD(resetstat)
 {
 	pc->resetstate(sd);
@@ -9671,6 +9732,7 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(mail),
 		ACMD_DEF2("noks", ksprotection),
 		ACMD_DEF(allowks),
+		ACMD_DEF(whosell),
 		ACMD_DEF(cash),
 		ACMD_DEF2("points", cash),
 		ACMD_DEF(agitstart2),
