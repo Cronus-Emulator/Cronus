@@ -1,85 +1,81 @@
-// Copyright (c) Hercules Dev Team, licensed under GNU GPL.
-// See the LICENSE file
-// Portions Copyright (c) Athena Dev Teams
+//====================================================================\\
+//                   _____                                            ||
+//                  /  __ \                                           ||
+//                  | /  \/_ __ ___  _ __  _   _ ___                  ||
+//                  | |   | '__/ _ \| '_ \| | | / __|                 ||
+//                  | \__/\ | | (_) | | | | |_| \__ \                 ||
+//                   \____/_|  \___/|_| |_|\__,_|___/                 ||
+//                        Source - 2016                               ||
+//====================================================================||
+// = Arquivo:                                                         ||
+// - renewal.h                                                        ||
+//====================================================================||
+// = Código Base:                                                     ||
+// - eAthena/Hercules/Cronus                                          ||
+//====================================================================||
+// = Sobre:                                                           ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo   ||
+// sob os termos da GNU General Public License conforme publicada     ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou     ||
+// (a seu critério) qualquer versão posterior.                        ||
+//                                                                    ||
+// Este programa é distribuído na esperança de que possa ser útil,    ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de       ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a          ||
+// GNU General Public License para mais detalhes.                     ||
+//                                                                    ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU      ||
+// juntamente com este programa. Se não, veja:                        ||
+// <http://www.gnu.org/licenses/>.                                    ||
+//====================================================================//
+
 #ifndef CONFIG_RENEWAL_H
 #define CONFIG_RENEWAL_H
 
 /**
- * Hercules configuration file (http://herc.ws)
- * For detailed guidance on these check http://herc.ws/wiki/SRC/config/
- **/
-
-/**
- * @INFO: This file holds general-purpose renewal settings, for class-specific ones check /src/config/classes folder
- **/
-
-/**
- * Renewal full toggle switch.
- *
- * Uncomment this line to disable all of the below settings at once.
- * Note: in UNIX builds, this can be easily done without touching this
- * line, by passing --disable-renewal to the configure script:
- * ./configure --disable-renewal
+ * Renovação: Definição Mestre.
+ * Remova o comentário para ativar o modo pré-renovação (Também conhecido como gold times)
+ * PS: Ativando essa definição, automaticamente, todas as definições abaixo serão removidas.
  */
 //#define DISABLE_RENEWAL
 
 
-#ifndef DISABLE_RENEWAL // Do not change this line
+#ifndef DISABLE_RENEWAL // Não altere esta linha.
 
-/// game renewal server mode
-/// (disable by commenting the line)
-///
-/// leave this line to enable renewal specific support such as renewal formulas
+/// Modo renovação
+/// Deixe esta linha ativada para uso de mudanças específicas da renovação (e.g Fórmulas das Habilidades, status e etc)
 #define RENEWAL
 
-/// renewal cast time
-/// (disable by commenting the line)
-///
-/// leave this line to enable renewal casting time algorithms
-/// cast time is decreased by DEX * 2 + INT while 20% of the cast time is not reduced by stats.
-/// example:
-///  on a skill whos cast time is 10s, only 8s may be reduced. the other 2s are part of a
-///  "fixed cast time" which can only be reduced by specialist items and skills
+/// Modo renovação - Conjuração
+/// Tempo de conjuração: Reduzido por (DEX * 2 + INT) enquanto 20% do cast não é removido pelos status (Apenas por itens)
 #define RENEWAL_CAST
 
-/// renewal drop rate algorithms
-/// (disable by commenting the line)
-///
-/// leave this line to enable renewal item drop rate algorithms
-/// while enabled a special modified based on the difference between the player and monster level is applied
-/// based on the http://irowiki.org/wiki/Drop_System#Level_Factor table
+/// Modo renovação - Taxa de Drops
+/// Quando ativado, as taxas de drop sofrem uma modificação de acordo com a diferença entre o nível do personagem ~ nível do monstro
+/// Informações em http://browiki.org/wiki/Drop
 #define RENEWAL_DROP
 
-/// renewal exp rate algorithms
-/// (disable by commenting the line)
-///
-/// leave this line to enable renewal item exp rate algorithms
-/// while enabled a special modified based on the difference between the player and monster level is applied
+/// Modo renovação - Taxa de experiência
+/// Quando ativado, as taxas de experiência sofrem uma modificação de acordo com a diferença entre o nível do personagem ~ nível do monstro
+///Informações em http://browiki.org/wiki/Experi%C3%AAncia
 #define RENEWAL_EXP
 
-/// renewal level modifier on damage
-/// (disable by commenting the line)
-///
-// leave this line to enable renewal base level modifier on skill damage (selected skills only)
+/// Modo renovação - Modificadores de dano
+/// Quando ativado, o nível base afeta o dano de algumas habilidades
 #define RENEWAL_LVDMG
 
-/// renewal enchant deadly poison algorithm
-///
-/// leave this line to enable the renewed EDP algorithm
-/// under renewal mode:
-///  - damage is NOT increased by 400%
-///  - it does NOT affect grimtooth
-///  - weapon and status ATK are increased
-///  - some skill's damage ratio has modified
+/// Modo renovação - EDP
+/// Quando ativado:
+///  - O dano não é aumentado em 400%
+///  - Não afeta a adaga sinistra
+///  - O ataque da arma e o status relacionado aumentam
 #define RENEWAL_EDP
 
-/// renewal ASPD [malufett]
-///
-/// leave this line to enable renewal ASPD
-/// - shield penalty is applied
-/// - AGI has a greater factor in ASPD increase
-/// - there is a change in how skills/items give ASPD
-/// - some skill/item ASPD bonuses won't stack
+/// Modo renovação - ASPD
+/// Quando ativado:
+/// - Penalidade na ASPD é aplicada quando usa-se escudo
+/// - Agilidade tem uma influência maior no aumento da ASPD
+/// - Mudanças em como habilidades/itens modificam esta opção
 #define RENEWAL_ASPD
 
 #endif // DISABLE_RENEWAL
