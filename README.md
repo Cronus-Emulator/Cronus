@@ -48,8 +48,4 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Desenvolvedores
 - Gluglu     - (Core Developer)
-- RedX       - (Core Developer)
-- Arkwright  - (Script/DB)
-- diogofm    - (Script/DB)
-- RodRich    - (Script/DB)
 - Wolf       - (Script/DB)
