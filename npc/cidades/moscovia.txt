@@ -1,110 +1,121 @@
-//===== Hercules Script ======================================
-//= Moscovia Town
-//===== By: ==================================================
-//= Kisuka
-//===== Current Version: =====================================
-//= 1.2
-//===== Description: =========================================
-//= Moscovia Town Script
-//===== Additional Comments: =================================
-//= 1.0 First Version. [Kisuka]
-//= 1.1 Removed villagers (they are part of a quest). [Kisuka]
-//= 1.2 Moved Alberta NPC to pre-re/re paths. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - moscovia.txt                                          	     ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução com base em revisões passadas do cronus [J4ND3RS0N]||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Cidade de Moscovia                                          ||
+//===============================================================//
 
 // Moscovia Transportation :: mosk_trans
 //============================================================
 -	script	::PR_Officer_moscovia	-1,{
-	mes "[Moscovia P.R. Officer]";
-	mes "Moscovia! Do you know Moscovia?";
-	mes "the paradise spreading on the endless seas...";
-	mes "Welcome to Moscovia";
-	mes "It's adventurous and mystic.";
+	mes "[Relações Públicas]";
+	mes "Moscóvia! Você conhece Moscóvia?";
+	mes "O paraíso em meio ao mar sem fim!";
+	mes "Moscóvia é um lugar místico e de aventuras.";
 	next;
-	switch(select("About Moscovia...:Go to Moscovia.:Cancel")) {
+	switch(select("Sobre Moscóvia...:Ir para Moscóvia.:Cancelar")) {
 		case 1:
-			mes "[Moscovia P.R. Officer]";
-			mes "Moscovia is a beautiful kingdom";
-			mes "on an island located north of Rune";
-			mes "Midgarts.";
+			mes "[Relações Públicas]";
+			mes "Moscóvia é um lindo reino ";
+			mes "que fica em uma ilha  ";
+			mes "localizada ao norte de Rune-Midgard.";
 			next;
-			mes "[Moscovia P.R. Officer]";
-			mes "I'm sure that you will be";
-			mes "absolutely fascinated";
-			mes "by Moscovia's beautiful scenery";
-			mes "and gorgeous palace.";
+			mes "[Relações Públicas]";
+			mes "Estou certa de que você vai se encantar com as";
+			mes "maravilhosas paisagens de Moscóvia,";
+			mes "a esplêndida capela";
+			mes "e o palácio.";
 			next;
-			mes "[Moscovia P.R. Officer]";
-			mes "Now that our long winter has";
-			mes "passed,";
-			mes "I'm happy that I can now show you";
-			mes "our gorgeous hometown.";
+			mes "[Relações Públicas]";
+			mes "Estou feliz que posso mostrar a você ";
+			mes "a nossa linda terra-natal";
+			mes "depois que o longo inverno de Moscóvia passou.";
+			mes "Nosso inverno é muito frio!";
 			next;
-			mes "[Moscovia P.R. Officer]";
-			mes "If you feel like visiting Moscovia";
-			mes "take the chance now!";
-			mes "I'll help you to have a nice trip";
-			mes "to Moscovia!";
+			mes "[Relações Públicas]";
+			mes "Se estiver com vontade de visitar Moscóvia,";
+			mes "aproveite esta chance!";
+			mes "Eu garanto que vai ter uma ótima";
+			mes "viagem para Moscóvia!";
 			close;
 		case 2:
-			mes "[Moscovia P.R. Officer]";
-			mes "Ok then, let us start now.";
-			mes "You should pay me 10,000 zeny";
-			mes "to go to Moscovia.";
-			mes "But when you come back,";
-			mes "you don't have to pay.";
+			mes "[Relações Públicas]";
+			mes "Certo então, vamos começar.";
+			mes "O preço total é 10.000 zenys ";
+			mes "para ir até Moscóvia.";
+			mes "Mas quando quiser voltar,";
+			mes "você não vai precisar pagar...";
 			next;
-			mes "[Moscovia P.R. Officer]";
-			mes "Can we leave now?";
+			mes "[Relações Públicas]";
+			mes "Podemos ir agora?";
 			next;
-			if (select("Let's go!:Cancel") == 2) {
-				mes "[Moscovia P.R. Officer]";
-				mes "If you're too busy now,";
-				mes "please tell me again whenever you want.";
-				mes "I'm always ready to guide anyone to Moscovia.";
+			if (select("Vamos!:Cancelar") == 2) {
+				mes "[Relações Públicas]";
+				mes "Se você estiver ocupado agora,";
+				mes "por favor, fale comigo de novo quando quiser.";
+				mes "Estou sempre pronta para ser sua guia pela Moscóvia.";
 				close;
 			}
 			if (Zeny < 10000) {
-				mes "[Moscovia P.R. Officer]";
-				mes "I'm sorry but you don't have";
-				mes "enough zeny now";
-				mes "You need 10,000 zeny";
-				mes "to go to Moscovia";
-				mes "Thank you.";
+				mes "[Relações Públicas]";
+				mes "Desculpe, mas você não tem";
+				mes "zenys suficientes.";
+				mes "é preciso 10000 zenys ";
+				mes "para ir até Moscóvia.";
+				mes "Muito obrigada.";
 				close;
 			} else {
-				mes "[Moscovia P.R. Officer]";
-				mes "Ok then, we're leaving now.";
+				mes "[Relações Públicas]";
+				mes "Certo, então, estamos partindo.";
 				close2;
 				Zeny -= 10000;
 				warp "moscovia",163,55;
 				end;
 			}
 		case 3:
-			mes "[Moscovia P.R. Officer]";
-			mes "If you're too busy now,";
-			mes "please tell me again whenever you want.";
-			mes "I'm always ready to guide anyone to Moscovia.";
+			mes "[Relações Públicas]";
+  			mes "Se você estiver ocupado agora,";
+			mes "por favor, fale comigo de novo quando quiser.";
+	  		mes "Estou sempre pronta para ser sua guia pela Moscóvia.";
 			close;
 	}
 }
 
-moscovia,166,53,4	script	Moscovia P.R. Officer#2	4_F_RUSWOMAN2,{
-	mes "[Moscovia P.R. Officer]";
-	mes "How was your trip?";
-	mes "Do you have good memories from Moscovia?";
-	mes "A ship is now leaving";
-	mes "for Rune Midgarts.";
+moscovia,166,53,4	script	R. Públicas de Moscóvia#2	4_F_RUSWOMAN2,{
+	mes "[Relações Públicas]";
+	mes "E então, como foi a sua viagem?";
+	mes "Leva boas lembranças de Moscóvia?";
+	mes "Um navio está saindo agora ";
+	mes "para Rune-Midgard.";
 	next;
-	if (select("Return to Alberta:Cancel") == 2) {
-		mes "[Moscovia P.R. Officer]";
-		mes "If you want to see more";
-		mes "please take your time.";
+	if (select("Retornar para Alberta:Cancelar") == 2) {
+		mes "[Relações Públicas]";
+		mes "Se você quiser ver mais,";
+		mes "leve o tempo que quiser.";
 		close;
 	}
-	mes "[Moscovia P.R. Officer]";
-	mes "Please come and visit soon.";
-	mes "Ok then, Let's get going.";
+	mes "[Relações Públicas]";
+	mes "Você pode vir quando quiser.";
+	mes "Certo então, vamos lá.";
 	close2;
 	if (RENEWAL)
 		warp "alberta",244,52;
@@ -115,20 +126,19 @@ moscovia,166,53,4	script	Moscovia P.R. Officer#2	4_F_RUSWOMAN2,{
 
 // Moscovia Palace :: mos_swan
 //============================================================
-moscovia,253,166,4	script	Soldier#mosk1	4_M_RUSKNIGHT,{
-	mes "[Soldier]";
-	mes "Our dear Csar Alexsay III is in the palace.";
-	mes "He rules over Moscovia.";
-	mes "Please be careful not to cause him any trouble.";
+moscovia,253,166,4	script	Soldado#mosk1	4_M_RUSKNIGHT,{
+	mes "[Soldado]";
+	mes "Lá está nosso Czar no palácio. Ele governa a nossa Moscovia.";
+	mes "Por favor, tome cuidado para não irritá-lo. .";
 	close;
 }
 
 -	script	Soldier#mosk::MoscSoldier	4_M_RUSKNIGHT,{
-	mes "[Soldier]";
-	mes "Please be silent or the Csar will be angry.";
+	mes "[Soldado]";
+	mes "Por favor, fique quieto ou o Czar vai se irritar.";
 	close;
 }
-mosk_in,118,66,5	duplicate(MoscSoldier)	Soldier#mosk02	4_M_RUSKNIGHT
-mosk_in,133,110,3	duplicate(MoscSoldier)	Soldier#mosk03	4_M_RUSKNIGHT
-mosk_in,133,73,3	duplicate(MoscSoldier)	Soldier#mosk04	4_M_RUSKNIGHT
-mosk_in,113,124,5	duplicate(MoscSoldier)	Soldier#mosk05	4_M_RUSKNIGHT
+mosk_in,118,66,5	duplicate(MoscSoldier)	Soldado#mosk02	4_M_RUSKNIGHT
+mosk_in,133,110,3	duplicate(MoscSoldier)	Soldado#mosk03	4_M_RUSKNIGHT
+mosk_in,133,73,3	duplicate(MoscSoldier)	Soldado#mosk04	4_M_RUSKNIGHT
+mosk_in,113,124,5	duplicate(MoscSoldier)	Soldado#mosk05	4_M_RUSKNIGHT

@@ -1,95 +1,115 @@
-//===== Hercules Script ======================================
-//= Ayotaya Town
-//===== By: ==================================================
-//= MasterOfMuppets
-//===== Current Version: =====================================
-//= 1.9
-//===== Description: =========================================
-//= [Official Conversion]
-//= Ayotaya Town Script
-//===== Additional Comments: =================================
-//= 1.6 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//= 1.7 Fixed character's anme bugs [Lupus]
-//= 1.8 Moved Alberta NPC to pre-re/re paths. [Euphy]
-//= 1.9 Updated Renewal warp coordinates.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - ayothaya.txt                                          	     ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Linne]                                            ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Cidade de Ayothaya                                          ||
+//===============================================================//
 
 // Ayothaya Transportation
 //============================================================
 -	script	::Aibakthing_ayothaya	-1,{
 	mes "[Aibakthing]";
-	mes "Hoo! Hah! Hoo! Hah!";
-	mes "Let me take you away to";
-	mes "a distant spiritual place,";
-	mes "a land of exotic mystery,";
-	mes "my hometown Ayotaya!";
+	mes "Hmm! Hahh! Hmm! Hahh!";
+	mes "Deixe-me apresentar a você minha cidade, Ayothaya";
+	mes "onde vive tudo o que é sagrado e misterioso!";
 	next;
-	switch(select("About Ayotaya.:Go to Ayotaya.:Cancel.")) {
+	switch(select("Fale-me sobre Ayothaya.:Ir para Ayothaya.:Cancelar.")) {
 	case 1:
 		mes "[Aibakthing]";
-		mes "We Ayotayans are a pious people who value peace and sincerity. We endeavor to lead simple, yet noble, lives in harmony with nature.";
+		mes "Nós, os Ayothayanos somos religiosos e";
+		mes "amamos a paz e a sinceridade.";
+		mes "Nós procuramos uma vida nobre e esplêndida.";
+		mes "Somos de natureza gentil, mas";
+		mes "capazes de nos proteger quando é preciso.";
 		next;
 		mes "[Aibakthing]";
-		mes "Our traditional cuisine is world famous. It's no surprise when we serve dishes like Tom Yum Goong, made of Shrimp, Lemon and Chillis, which has a tantalizing aroma and flavor beyond imagining.";
+		mes "A comida é especialmente boa.";
+		mes "Nosso prato mais tradicional é a Sopa Tailandesa";
+		mes "feita com limão, camarões e pimenta";
+		mes "que possui um sabor incrível com aroma único.";
+		mes "E sugiro que você prove-a em Ayothaya.";
 		next;
 		mes "[Aibakthing]";
-		mes "For those who crave adventure, there is an age old story about the Sa-mhing Tiger, an evil creature that haunts our temple ruins.";
+		mes "Na história de Ayothaya existe um fato terrível";
+		mes "que fala sobre uma criatura maligna";
+		mes "chamada 'Tigre Sa-mhing'";
+		mes "que, contam, devorava pessoas.";
 		next;
 		mes "[Aibakthing]";
-		mes "Hoo! Hahh! Hoo! Hahh!";
-		mes "No man alive can resist the";
-		mes "call of this beautiful land.";
-		mes "Rune-Midgardians are";
-		mes "always welcome!";
+		mes "Hmm! Hah! Hmm! Hah!";
+		mes "Ninguém resiste a um convite tão tentador";
+		mes "a visitar uma área tão bela.";
+		mes "Você será Bem-vindo a qualquer hora!";
 		close;
 	case 2:
 		mes "[Aibakthing]";
-		mes "Ah, you must pay 10,000 Zeny";
-		mes "if you wish to visit Ayotaya.";
-		mes "If you're ready, we can leave";
-		mes "right now~";
+		mes "Se você desejar visitar Ayothaya,";
+		mes "Pedirei uma humilde taxa de 10.000 zenys!";
+		mes "Hmm! Hah! Hmm! Hah!";
 		next;
-		if (select("I'm ready, let's go!:No.") == 1) {
+		mes "[Aibakthing]";
+		mes "Agora, você gostaria de visitar Ayothaya!?";
+		next;
+		if (select("Estou pronto, Vamos Lá!:Não, obrigado.") == 1) {
 			if (Zeny > 9999) {
 				mes "[Aibakthing]";
-				mes "Hoo! Hah! Hoo! Hah!";
-				mes "Let us be off! Back to my";
-				mes "beautiful Ayotaya!";
+				mes "Hmm! Hah! Hmm! Hah!";
+				mes "Ah, minha cidade natal, Ayothaya...";
+				mes "Eu estou chegando!";
 				close2;
 				Zeny -= 10000;
 				warp "ayothaya",149,71;
 				end;
 			}
 			mes "[Aibakthing]";
-			mes "I am sorry, but you do not have the 10,000 Zeny to travel to Ayotaya. Such a price is nothing compared to the experiences that await you!";
+			mes "Como falei para você, sem a taxa de 10.000 zenys";
+			mes "você não poderá apreciar a beleza de Ayothaya.";
+			mes "Ao invés de mandar você para lá, vou";
+			mes "chutar o seu traseiro por me fazer gastar meu precioso tempo!";
 			close;
 		}
 		mes "[Aibakthing]";
-		mes "Have you ever dreamed";
-		mes "of a beautiful place filled";
-		mes "with spiritual serenity? You";
-		mes "must have been dreaming";
-		mes "of Ayotaya, my friend.";
+		mes "Se todos sonham em viver em um lugar pacífico e belo, ";
+		mes "este lugar é Ayothaya, minha cidade!";
 		close;
 	case 3:
 		mes "[Aibakthing]";
-		mes "Have you ever dreamed";
-		mes "of a beautiful place filled";
-		mes "with spiritual serenity? You";
-		mes "must have been dreaming";
-		mes "of Ayotaya, my friend.";
+		mes "Se todos sonham em viver em um lugar pacífico e belo, ";
+		mes "este lugar é Ayothaya, minha cidade!";
 		close;
 	}
 }
 
-ayothaya,152,68,1	script	Aibakthing#ayo2	4_M_THAIONGBAK,{
+ayothaya,152,68,1	script	Barqueiro Aibakthing#ayo2	4_M_THAIONGBAK,{
 	mes "[Aibakthing]";
-	mes "Hoo! Hah! Hmm! Hah!";
-	mes "So, how did you like Ayotaya? Did you get a chance to try Tom Yum Goong? When you're ready, I shall take you back home.";
+	mes "Hmm! Hah! Hmm! Hah!";
+	mes "Então, você gostou de conhecer Ayothaya?";
+	mes "Gostou da Sopa Tailandesa? Já é hora de voltar para seu país!";
 	next;
-	if (select("Go back to Alberta.:Cancel.") == 1) {
+	if (select("Voltar para Alberta.:Cancelar.") == 1) {
 		mes "[Aibakthing]";
-		mes "You will be welcome to come back whenever you please. I hope that we will see each other again sometime soon. Thank you~";
+		mes "Estaremos aqui sempre para dar as boas-vindas.";
+		mes "Espero que possamos nos rever em breve!";
+		mes "Faça uma boa viagem!";
 		close2;
 		if (RENEWAL)
 			warp "alberta",235,45;
@@ -98,51 +118,52 @@ ayothaya,152,68,1	script	Aibakthing#ayo2	4_M_THAIONGBAK,{
 		end;
 	}
 	mes "[Aibakthing]";
-	mes "Ah yes. I understand that it is difficult to take leave of such a beautiful place. Do not worry";
-	mes "and take your time.";
+	mes "Ah, eu entendo porque você não quer deixar";
+	mes "um lugar tão belo como Ayothaya.";
+	mes "Não se preocupe, fique o tempo que precisar.";
 	close;
 }
 
-// Generic Ayothaya NPCs
+// NPCs Genéricos de Ayothaya
 //============================================================
-ayothaya,189,120,3	script	Young Man#Thang	4_M_THAIONGBAK,{
+ayothaya,189,120,3	script	Jovem Thang#Thang	4_M_THAIONGBAK,{
 	mes "[Thang]";
-	mes "There's an ancient,";
-	mes "dreadful building in";
-	mes "Ayotaya that no one";
-	mes "here dares approach...";
+	mes "Temos um terrível prédio antigo.";
+	mes "Ninguém se atreve a chegar perto dele.";
 	next;
 	mes "[Thang]";
-	mes "In the past, a few curious people went inside, despite the horror stories, and never returned. What on earth could be going on inside of that place?";
+	mes "No passado, alguns curiosos entraram no edifício,";
+	mes "apesar das histórias terríveis sobre ele.";
+	mes "E nunca voltaram.";
+	mes "Fico imaginando o que acontece lá dentro... ";
 	next;
 	mes "[Thang]";
-	mes "However, if you want to prove your courage to others, confronting the danger inside might be a worthy challenge for an adventurer...";
+	mes "Mas, se você quiser provar a sua coragem";
+	mes "para os outros, seria uma ótima idéia desafiar";
+	mes "um grande perigo... eu acho.";
 	mes "I think.";
 	close;
 }
 
-ayothaya,171,152,5	script	Girl#Lalitha	4_F_THAIAYO,{
+ayothaya,171,152,5	script	Garota#Lalitha	4_F_THAIAYO,{
 	.@sit = rand(1,5);
 	if (.@sit > 0 && .@sit < 3) {
 		mes "[Lalitha]";
-		mes "Hello!";
-		mes "I don't think";
-		mes "we've met before.";
+		mes "Olá! Acredito que não nos conhecemos.";
+		mes "Você é de fora da cidade?";
+		mes "Ah, conheço todas as pessoas";
+		mes "que moram nesta vila.";
 		next;
 		mes "[Lalitha]";
-		mes "You must be";
-		mes "from Rune-Midgard.";
-		mes "After all, I know every single person living in this village.";
-		mes "Heh heh~";
+		mes "Hum... posso saber de onde você é?";
+		mes "Bem, tenho curiosidade sobre várias coisas do mundo exterior.";
+		mes "Como os vestidos e as jóias que as senhoras de outros países usam...";
 		next;
 		mes "[Lalitha]";
-		mes "Hmm...";
-		mes "May I ask about the land you";
-		mes "come from? I'm curious about";
-		mes "a lot of things in the outside world.";
-		next;
-		mes "[Lalitha]";
-		mes "You know, like the dresses and jewelry that ladies wear in other countries, whether or not the men are good looking, what kind of songs you have, what kind of girls that guys over there like...";
+		mes "Também fico querendo saber se os homens são bonitos...";
+		mes "Que tipo de canções existem em seu país?";
+		mes "Que tipo de garotas os homens gostam?";
+		mes "Hum... estou tão curiosa...";
 		emotion e_what;
 		next;
 		mes "[" +strcharinfo(0)+ "]";
@@ -153,165 +174,104 @@ ayothaya,171,152,5	script	Girl#Lalitha	4_F_THAIAYO,{
 		emotion e_swt;
 		next;
 		mes "[Lalitha]";
-		mes "Okay~!";
-		mes "Take care and";
-		mes "enjoy your travels!";
+		mes "OK, cuide-se.";
+		mes "E aproveite a viagem!";
 		close;
 	}
 	else if (.@sit > 2 && .@sit < 6) {
 		mes "[Lalitha]";
-		mes "When you go East from this";
-		mes "village, you will arrive at the ruins of an old shrine. It is now";
-		mes "a nest full of fearsome monsters.";
+		mes "Quando for a leste da vila,";
+		mes "chegará às ruínas que outrora eram um templo.";
+		mes "Agora são um ninho de monstros terríveis.";
 		next;
 		mes "[Lalitha]";
-		mes "If you plan to venture through these ruins, you better prepare";
-		mes "as much as you can!";
+		mes "Se você pretende se aventurar nas ruínas,";
+		mes "é melhor se preparar muito bem.";
 		next;
 		mes "[Lalitha]";
-		mes "Ah...";
-		mes "I wonder where";
-		mes "my Black Knight is~";
-		emotion e_lv;
-		next;
-		mes "["+strcharinfo(0)+"]";
-		mes "Don't you mean...";
-		mes "Knight in shining armor";
-		mes "riding a white horse?";
-		next;
-		mes "[Lalitha]";
-		mes "Hmm...?";
-		mes "Oh, well...";
-		mes "I'll take them both!";
-		mes "Hee hee~!";
+		mes "Ah, queria saber onde está o meu príncipe amaldiçoado.";
 		close;
 	}
 	mes "[Lalitha]";
-	mes "Mmm...?";
-	mes "What's up?";
+	mes "Hã?!?";
+	mes "O que é...?";
 	close;
 }
 
-ayothaya,143,102,5	script	Old Man#ayothaya	4_M_THAIOLD,{
-	mes "[Villager]";
-	mes "Ummm.";
-	mes "Hmmmmm...";
-	mes "Ummmmm...?";
+ayothaya,143,102,5	script	Velho Aldeão#ayothaya	4_M_THAIOLD,{
+	mes "[Velho Aldeão]";
+	mes "Hum hum... ";
+	mes "Hã?";
+	mes "Você deve ser de fora.";
+	mes "Hum hum... você perguntou para onde estou indo?";
+	mes "Estou indo pescar logo adiante.";
 	next;
-	mes "[Villager]";
-	mes "You must be";
-	mes "an outsider.";
-	mes "Yes. Yes, indeed.";
+	mes "[Velho Aldeão]";
+	mes "Hum... quer ouvir uma notícia interessante?";
+	mes "Estão dizendo que alguém encontrou um anel";
+	mes "dentro de um peixe que apanharam no pesqueiro!";
+	mes "Eu também já ouvi falar que várias pessoas encontraram";
+	mes "itens valiosos em peixes.";
 	next;
-	mes "[Villager]";
-	mes "Did you just ask";
-	mes "where am I going?";
-	mes "Why, to the Fishing Spot";
-	mes "just ahead. That's what";
-	mes "we old men do: fish.";
+	mes "[Velho Aldeão]";
+	mes "Isso significa que, se tiver sorte,";
+	mes "poderá se tornar um milionário pescando aqui...";
+	mes "......hu hu hu...";
 	next;
-	mes "[Villager]";
-	mes "Hmmm...";
-	mes "Would you like to hear";
-	mes "something interesting? I've heard that someone found a ring inside";
-	mes "a fish he caught in the";
-	mes "Fishing Spot.";
+	mes "[Velho Aldeão]";
+	mes "!? Ah... entrei para o mercado da pesca!";
+	mes "Nossa... peguei um caminho totalmente errado...";
+	mes "O pesqueiro é do outro lado.";
+	mes "Huhuhu, já que entrei para o mercado da pesca,";
+	mes "não seria uma má idéia dar uma olhada ao redor. Huhuhuhu.";
 	next;
-	mes "[Villager]";
-	mes "Supposedly, there are lots of stories about people finding valuables inside of the fish they've been catching there.";
-	next;
-	mes "[Villager]";
-	mes "If you're lucky enough,";
-	mes "you might even become";
-	mes "a millionaire.";
-	mes "Heh heh heh~";
-	next;
-	mes "[Villager]";
-	mes "...!?";
-	mes "Ah, I came into the fish market! ^666666*Sigh*^000000 It seems I went the wrong way. The Fishing Spot is on the opposite side of this village.";
-	next;
-	mes "[Villager]";
-	mes "Since I'm here, it wouldn't be";
-	mes "a bad idea to look around. All of the seafood in this market is fresh and tasty. You'll regret it if you don't try some of this seafood";
-	mes "at least once.";
+	mes "[Velho Aldeão]";
+	mes "Ah, os produtos aquáticos desse mercado";
+	mes "são todos frescos e saborosos.";
+	mes "Você tem de experimentar pelo menos uma vez, senão pode se arrepender.";
+	mes "Huhu huhuhu...";
 	close;
 }
 
-ayothaya,197,189,5	script	Young Man#1ayothaya	4_M_THAIAYO,{
+ayothaya,197,189,5	script	Jovem Kwan#1ayothaya	4_M_THAIAYO,{
 	mes "[Kwan]";
-	mes "Phew, isn't it";
-	mes "soooo hot today?";
+	mes "É melhor ser cuidadoso quando viajar fora da vila.";
+	mes "Quando estiver fora, há as ruínas de um templo na floresta.";
+	mes "Devo avisá-lo de que é um lugar muito perigoso para uma simples visita.";
 	next;
 	mes "[Kwan]";
-	mes "You must be";
-	mes "from Rune-Midgard, huh?";
-	mes "I've seen a lot of tourists";
-	mes "coming from there recently.";
+	mes "Ouvi dizer que, se você tiver uma espécie de amuleto, poderá entrar no templo sem problemas...";
 	next;
 	mes "[Kwan]";
-	mes "You'd better be really careful if you travel outside of the village. Whatever you do, don't go into";
-	mes "the ruins of an old shrine";
-	mes "in the forest.";
-	next;
-	mes "[Kwan]";
-	mes "That place is far too";
-	mes "dangerous to visit. Still, I hear that if you had some kind of amulet, you could go there with";
-	mes "a little less worry...";
-	next;
-	mes "[Kwan]";
-	mes "Well, anyway, it's still a really good idea to stay away from that place. I hope you enjoy visiting Ayotaya, and that you keep safe~";
+	mes "Mas sugiro que não vá lá.";
+	mes "Espero que aproveite a sua viagem e não fique perambulando pelas áreas perigosas.";
 	close;
 }
 
-ayothaya,214,142,5	script	Young Man#5ayothaya	4_M_THAIONGBAK,{
+ayothaya,214,142,5	script	Jovem Detzi#5ayothaya	4_M_THAIONGBAK,{
 	mes "[Detzi]";
-	mes "In Ayotaya, we have our own traditional martial arts. We, the young men of the village, practice our traditional martial arts in order to become strong.";
+	mes "Nós, homens jovens de Ayothaya, praticamos as tradicionais artes marciais para nos tornarmos mais fortes.";
 	next;
 	mes "[Detzi]";
-	mes "Why don't you learn our martial arts? I guarantee that it will help you greatly in your travels.";
+	mes "Por que você não aprende artes marciais?";
+	mes "Garanto que será de grande ajuda em sua viagem.";
 	close;
 }
 
-ayothaya,241,264,5	script	Young Man#5ayothaya2	4_M_THAIONGBAK,{
+ayothaya,241,264,5	script	Jovem Eik#5ayothaya2	4_M_THAIONGBAK,{
 	mes "[Eik]";
-	mes "Hey...";
-	mes "You look pretty strong";
-	mes "You wanna challenge";
-	mes "me to a match?";
+	mes "Ei... você parece forte. Quer disputar comigo?";
 	next;
-	if (select("Sure!:Nah~") == 1) {
+	if (select("Claro!:Nah~") == 1) {
 		mes "[Eik]";
-		mes "Ow ow ow!";
-		mes "I was just";
-		mes "kidding, man!";
-		next;
-		mes "[Eik]";
-		mes "I'm not so rude as to pick fights with strangers for no reason!";
+		mes "Ei, ei, ei, estava brincando.";
+		mes "Não sou tão rude a ponto de começar uma briga com estranhos sem nenhum motivo.";
 		emotion e_wah;
 		close;
 	}
 	mes "[Eik]";
-	mes "Real power is developed after having thousands of matches with other people. So, don't be afraid of fighting, okay?";
+	mes "O poder verdadeiro nasce de milhares de lutas.";
+	mes "Não tenha medo de lutar.";
 	emotion e_pif;
 	close;
 }
-
-//============================================================
-// Old changelog
-//============================================================
-//= 0.1 Added a Sailor NPC to get back to Alberta [ZoDIaC]
-//= 0.2 fixed coords, dialogues
-//= 0.3 Fixed Warp name, ayotaya doesn't exist, even though iRO
-//=     decided to call it Ayotaya, it really is Ayothaya, like
-//=     that Yuno/Juno thing
-//= 0.4 Added the official warp npc for Ayothaya. [MasterOfMuppets]
-//= 1.0 Added most of the official npcs. The following quests were added: [MasterOfMuppets]
-//=     Tom Yum Goong quest, Holy Threads quest and Holier threads quest.
-//= 1.0a some checks, optimization [Lupus]
-//= 1.1 Missing delitem fixed by Poki#3 [Lupus]
-//= 1.1a Fixed a typo and clarified a comment at the bottom of the script [MasterOfMuppets]
-//= 1.2 Fixed exploits [Lupus]
-//= 1.3 Removed Duplicates [Silent]
-//= 1.4 Moved quests to quests/quests_ayothaya.txt [Evera]
-//= 1.5 Moved a few NPC's to quests/quests_ayothaya.txt [MasterOfMuppets]
-//============================================================

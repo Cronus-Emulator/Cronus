@@ -1,111 +1,113 @@
-//===== Hercules Script ======================================
-//= Louyang City NPCs
-//===== By: ==================================================
-//= Vidar (1.0)
-//= Mass Zero (1.1)
-//= Dino9021, roughly translated by Celest (1.2)
-//= Mass Zero (1.3)
-//= MasterOfMuppets (2.0)
-//= rAthena Dev Team
-//===== Current Version: =====================================
-//= 3.0
-//===== Description: =========================================
-//= [Official Conversion]
-//= Louyang Town Script
-//===== Additional Comments: =================================
-//= 2.9 Rescripted to Aegis 10.3 Standards. [L0ne_W0lf]
-//= 3.0 Moved Alberta NPC to pre-re/re paths. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - louyang.txt                                           	     ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução com base em revisões passadas do cronus [J4ND3RS0N]||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Cidade de Louyang                                           ||
+//===============================================================//
 
 // Louyang Transportation
 //============================================================
 -	script	::Girl_louyang	-1,{
-	mes "[Girl]";
+	mes "[Garota]";
 	mes "La la la la~";
-	mes "I feel so good today~";
-	mes "I'm in the mood to go";
-	mes "on a picnic somewhere~";
+	mes "Hoje eu me sinto tão bem";
+	mes "eu estou com vontade de fazer";
+	mes "um piquenique em algum lugar"; 
 	mes "La la la la~";
 	next;
-	switch(select("About Louyang.:Go to Louyang.:Cancel.")) {
+	switch(select("Sobre Louyang.:Ir para Louyang.:Cancelar.")) {
 	case 1:
-		mes "[Girl]";
-		mes "Oh, are you";
-		mes "interested in Louyang?";
-		mes "It's a nice place to";
-		mes "visit for travelers.";
+		mes "[Garota]";
+		mes "Você está"; 
+		mes "interessado em Louyang?";
+		mes "É um bom lugar para os";
+		mes "aventureiros visitarem.";
 		next;
-		mes "[Girl]";
-		mes "Louyang has a long history";
-		mes "with stories of ancient magic and warriors. It's also rumored that many evil beasts roam the";
-		mes "Louyang area.";
+		mes "[Garota]";
+		mes "Louyang tem uma longa história"; 
+		mes "com contos sobre artes marcias e guerreiros ancestrais. Também é conhecida pelos monstros que rondam a área de Louyang.";
 		next;
-		mes "[Girl]";
-		mes "You can find cure-all medicines, mysterious occurrences, and";
-		mes "martial artists all in one place!";
+		mes "[Garota]";
+		mes "Lá você encontrará medicamentos que curam tudo, ocorrências misteriosas, e artistas marciais tudo em um só lugar!"; 
 		next;
-		mes "[Girl]";
-		mes "I used to train in the martial arts every morning back when I was in Louyang. I might not look like it, but I'm pretty strong!";
+		mes "[Garota]";
+		mes "Eu costumava treinar artes marciais todas as manhãs quando eu estava em Louyang. Pode não parecer, mas eu sou muito forte!";
 		next;
-		mes "[Girl]";
-		mes "If you want to visit";
-		mes "Louyang, feel free to";
-		mes "tell me. Just give me";
-		mes "some Zeny and we'll go~";
-		close;
+		mes "[Garota]"; 
+		mes "Se você quiser visitar";
+		mes "Louyang, sinta se à vontade";
+		mes "para me dizer. É só me dar";
+		mes "algum zeny que iremos.";
+		close; 
 	case 2:
-		mes "[Girl]";
-		mes "I'll guide you to";
-		mes "Louyang right away.";
-		mes "For my service, I am";
-		mes "accepting 10,000 Zeny.";
+		mes "[Garota]";
+		mes "Eu te guiarei";
+		mes "até Louyang imediatamente.";
+		mes "Pelos meus serviços, eu estou";
+		mes "aceitando 10,000 zeny."; 
 		next;
-		mes "[Girl]";
-		mes "So, are you ready?";
+		mes "[Garota]";
+		mes "E então, você está pronto?";
 		next;
-		if (select("Yes!:No.") == 1) {
+		if (select("Sim!:Não.") == 1) {
 			if (Zeny > 9999) {
-				mes "[Girl]";
+				mes "[Garota]";
 				mes "Okay~";
-				mes "Ready!";
-				mes "Have fun!";
+				mes "Pronto!";
+				mes "Divirta-se!";
 				close2;
 				Zeny -= 10000;
 				warp "lou_fild01",190,101;
 				end;
 			}
-			mes "[Girl]";
+			mes "[Garota]";
 			mes "...";
-			mes "You don't seem";
-			mes "to have 10,000 Zeny...";
-			mes "Go get some money first!";
+			mes "Me parece que";
+			mes "você não tem 10,000 zeny...";
+			mes "Vá arrumar algum dinheiro antes!"; 
 			close;
 		}
-		mes "[Girl]";
-		mes "Oh...";
-		mes "It's so disappointing";
-		mes "to hear you say that.";
-		mes "Well, have a good day!";
+		mes "[Garota]";
+		mes "Oh..."; 
+		mes "É tão desapontador te ouvir dizer isto.";
+		mes "Bem, tenha um bom dia!";
 		close;
 	case 3:
-		mes "[Girl]";
+		mes "[Garota]";
 		mes "Oh...";
-		mes "Have a good day!";
+		mes "Tenha um bom dia!";
 		close;
 	}
 }
 
-lou_fild01,190,100,7	script	Girl#1lou	4_F_CHNDRESS1,{
-	mes "[Girl]";
-	mes "Would you";
-	mes "like to go back";
-	mes "to Alberta?";
+lou_fild01,190,100,7	script	Garota#1lou	4_F_CHNDRESS1,{
+	mes "[Garota]"; 
+	mes "Você gostaria de voltar para Alberta?";
 	next;
-	if (select("Go back to Alberta.:Cancel.") == 1) {
-		mes "[Girl]";
-		mes "I hope to";
-		mes "see you again!";
-		mes "Bye bye!";
+	if (select("Voltar para Alberta.:Cancelar.") == 1) {
+		mes "[Garota]";
+		mes "Eu espero"; 
+		mes "te ver novamente!";
+		mes "Tchau Tchau!";
 		close2;
 		if (RENEWAL)
 			warp "alberta",236,40;
@@ -113,35 +115,32 @@ lou_fild01,190,100,7	script	Girl#1lou	4_F_CHNDRESS1,{
 			warp "alberta",235,45;
 		end;
 	}
-	mes "[Girl]";
-	mes "If you like this";
-	mes "area, why don't you";
-	mes "stay and enjoy the";
-	mes "the food and the sights!";
+	mes "[Garota]";
+	mes "Se você gostar desta área, porque não experimentar a comida e apreciar a paisagem!"; 
 	next;
 	if (Sex) {
-		mes "[Girl]";
-		mes "And by sights...";
-		mes "I mean girls!";
+		mes "[Garota]";
+		mes "E por paisagem....";
+		mes "Eu quero dizer as garotas!";
 		mes "Tee hee~";
 	}
 	else {
-		mes "[Girl]";
-		mes "And the boys here";
-		mes "aren't bad looking~";
+		mes "[Garota]";
+		mes "E os garotos aqui";
+		mes "não são tão ruins~";
 	}
 	close;
 }
 
 // Generic Louyang NPCs
 //============================================================
-louyang,297,167,2	script	Muscular Woman#lou	4_F_CHNDRESS1,{
+louyang,297,167,2	script	Mulher Musculosa#lou	4_F_CHNDRESS1,{
 	if (!Sex) {
 		mes "[Zhi Ching Li]";
-		mes "All the members of the Maiden Palace, including myself and our master, are all female.";
+		mes "Todos os membros do Palácio, incluindo eu e nossa mestre, somos todas mulheres.";
 		next;
 		mes "[Zhi Ching Li]";
-		mes "Recently we've had a hard time recruiting new members, so I came here to check if there's any woman who wishes to join us.";
+		mes "Recentemente nós tivemos um treinamento pesado de novos membros, então eu estou aqui para checar se há alguma mulher querendo se alistar.";
 		emotion e_dots;
 		close;
 	}
@@ -153,167 +152,177 @@ louyang,297,167,2	script	Muscular Woman#lou	4_F_CHNDRESS1,{
 	mes "......";
 	next;
 	mes "[Zhi Ching Li]";
-	mes "Please leave me";
-	mes "alone, I'm busy.";
+	mes "Por favor me deixe em paz.";
+	mes "Estou ocupada.";
 	close;
 }
 
-louyang,274,136,4	script	Powerful-looking guy#lou	4_M_CHN8GUEK,{
+louyang,274,136,4	script	Garoto Forte#lou	4_M_CHN8GUEK,{
 	mes "[Akiira]";
-	mes "I am practicing my 'Claw of Dragon.' I not only need to use the power of my fists, I must also condition myself spiritually.";
+	mes "Eu estou praticando o 'Punho do Dragão'. Eu só preciso usar o poder dos meus punhos, também preciso me condicionar espiritualmente.";
 	next;
 	mes "[Akiira]";
-	mes "Every martial art requires";
-	mes "spiritual training since the";
-	mes "mind controls the body.";
-	mes "If you've trained yourself spiritually, you can easily";
-	mes "use any part of the body!";
+	mes "Toda arte marcial requere";
+	mes "treinamento espiritual desde que";
+	mes "a mente controla o corpo.";
+	mes "Se você se treinar espiritualmente, você pode facilmente";
+	mes "usar qualquer parte do corpo!";
 	next;
 	mes "[Akiira]";
-	mes "If you are considering";
-	mes "studying the martial arts, you should first attain knowledge before jumping into the";
-	mes "physical training.";
+	mes "Se você estiver pensando em";
+	mes "estudar artes marciais, você deveria primeiramente ter conhecimento antes de começar";
+	mes "o treino físico.";
 	next;
 	mes "[Akiira]";
-	mes "Learn about the martial arts";
-	mes "and meditate on life's truths. First, you must find peace of mind before you can hope to master the mind and body.";
+	mes "Aprenda sobre as artes marciais";
+	mes "e medite sobre a vida. Primeiro, você deve achar a paz do espírito antes de desejar a melhora da mente de do corpo.";
 	close;
 }
 
-louyang,276,136,4	script	Fist master#lou	4_M_CHN8GUEK,{
+louyang,276,136,4	script	Mestre do Punho#lou	4_M_CHN8GUEK,{
 	mes "[Zhiang Xiau Ji]";
-	mes "Finally...";
-	mes "I have mastered";
-	mes "the 'Claw of Dragon!'";
+	mes "Finalmente...";
+	mes "Eu dominei";
+	mes "o 'Punho do Dragão!'";
+	next;
+	mes "[Zhiang Xiau Ji]"; 
+	mes "Apesar de ter outros passos básicos";
+	mes "eu tive que aprender sobre a história";
+	mes "desta arte, e meditar, focando";
+	mes "no meu desenvolvimento espiritual"; 
+	mes "por três anos.";
 	next;
 	mes "[Zhiang Xiau Ji]";
-	mes "Although there are eight basic steps, I had to learn the history of this art, and meditate, focusing on my spiritual improvement,";
-	mes "for three years.";
+	mes "Depois disso, meu mestre finalmente";
+	mes "começou a me ensinar";
+	mes "a parte física dos outros passos"; 
+	mes "do Punho do Dragão. Eu tenho";
+	mes "me dedicado a esta arte por treze anos.";
 	next;
 	mes "[Zhiang Xiau Ji]";
-	mes "After that, my master finally started to give me the physical training so I could use the eight steps of the Claw of Dragon. I've devoted myself to this art for thirty years.";
+	mes "eu tenho muito orgulho de ter"; 
+	mes "dominado esta arte dez anos antes";
+	mes "do que eu esperava. Agora eu preciso";
+	mes "estudar esta técnica para melhorá-la";
+	mes "corrigindo seus pontos fracos e"; 
+	mes "aumentando seus pontos fortes.";
 	next;
 	mes "[Zhiang Xiau Ji]";
-	mes "I'm very proud that I've";
-	mes "mastered this art ten years earlier than I expected. Now, I need to study this form and improve it by correcting its weak points and enhancing its strengths.";
+	mes "Eu acho que isso vai levar";
+	mes "mais uns dez anos. Mas eu não estou desanimado com isso";
+	mes "nem um pouco.";
 	next;
 	mes "[Zhiang Xiau Ji]";
-	mes "I guess that would take me about ten years. But I'm not disheartened by that at all.";
-	next;
-	mes "[Zhiang Xiau Ji]";
-	mes "When you're learning a martial art, you can't rush yourself and learn everything in a short period of time. It's impossible! Plus, that isn't the essence of art...";
+	mes "Quando você está aprendendo uma arte marcial";
+	mes "você não pode se apressar e aprender"; 
+	mes "tudo em um curto espaço de tempo.";
+	mes "É impossivel! E ainda por cima";
+	mes "essa não é a essência da coisa.";
 	close;
 }
 
-louyang,276,133,0	script	Trainee#1lou::LouTrainee	4_M_CHN8GUEK,{
-	mes "[Trainee]";
+louyang,276,133,0	script	Aprendiz#1lou::LouTrainee	4_M_CHN8GUEK,{
+	mes "[Aprendiz]";
 	mes "Yeeeyap~!";
 	mes "Taaaaaah~~!!";
 	mes "Hooo~.";
 	close;
 }
 
-louyang,276,131,0	script	Trainee#2lou	4_M_CHN8GUEK,{
-	mes "[Trainee]";
+louyang,276,131,0	script	Aprendiz#2lou	4_M_CHN8GUEK,{
+	mes "[Aprendiz]";
 	mes "Tah Tah Tah!";
 	mes "Taaaaaah~~!!";
 	mes "Schwooooooo~";
 	close;
 }
 
-louyang,276,129,0	script	Trainee#3lou	4_M_CHN8GUEK,{
-	mes "[Trainee]";
+louyang,276,129,0	script	Aprendiz#3lou	4_M_CHN8GUEK,{
+	mes "[Aprendiz]";
 	mes "Si!";
 	mes "Ayah!!";
 	close;
 }
 
-louyang,274,133,0	script	Trainee#4lou	4_M_CHN8GUEK,{
-	mes "[Trainee]";
+louyang,274,133,0	script	Aprendiz#4lou	4_M_CHN8GUEK,{
+	mes "[Aprendiz]";
 	mes "Dergh!";
 	mes "Dergh!";
 	mes "Schwa--!";
 	close;
 }
 
-louyang,274,131,0	script	Trainee#5lou	4_M_CHN8GUEK,{
-	mes "[Trainee]";
+louyang,274,131,0	script	Aprendiz#5lou	4_M_CHN8GUEK,{
+	mes "[Aprendiz]";
 	mes "Yah Yah Yah!";
 	mes "Taaaaaah~~!!";
 	mes "Wataaaaaaaah!";
 	close;
 }
 
-louyang,274,129,0	script	Trainee#6lou	4_M_CHN8GUEK,{
-	mes "[Trainee]";
+louyang,274,129,0	script	Aprendiz#6lou	4_M_CHN8GUEK,{
+	mes "[Aprendiz]";
 	mes "Yeeeyap~!";
 	mes "Taaaaaah~~!!";
 	mes "Hooo~";
 	close;
 }
 
-louyang,278,133,0	duplicate(LouTrainee)	Trainee#7lou	4_M_CHN8GUEK
-louyang,278,131,0	duplicate(LouTrainee)	Trainee#8lou	4_M_CHN8GUEK
-louyang,278,129,0	duplicate(LouTrainee)	Trainee#9lou	4_M_CHN8GUEK
-louyang,272,133,0	duplicate(LouTrainee)	Trainee#10lou	4_M_CHN8GUEK
-louyang,272,131,0	duplicate(LouTrainee)	Trainee#11lou	4_M_CHN8GUEK
-louyang,272,129,0	duplicate(LouTrainee)	Trainee#12lou	4_M_CHN8GUEK
+louyang,278,133,0	duplicate(LouTrainee)	Aprendiz#7lou	4_M_CHN8GUEK
+louyang,278,131,0	duplicate(LouTrainee)	Aprendiz#8lou	4_M_CHN8GUEK
+louyang,278,129,0	duplicate(LouTrainee)	Aprendiz#9lou	4_M_CHN8GUEK
+louyang,272,133,0	duplicate(LouTrainee)	Aprendiz#10lou	4_M_CHN8GUEK
+louyang,272,131,0	duplicate(LouTrainee)	Aprendiz#11lou	4_M_CHN8GUEK
+louyang,272,129,0	duplicate(LouTrainee)	Aprendiz#12lou	4_M_CHN8GUEK
 
 // Louyang Viewing Tower
 //============================================================
-lou_in01,25,23,5	script	Friendly Looking Lady#lo	4_F_CHNDRESS3,{
+lou_in01,25,23,5	script	Garota Amigável#lo	4_F_CHNDRESS3,{
 	mes "[Hong Miao]";
-	mes "Welcome.";
+	mes "Bem-Vindo.";
 	next;
 	mes "[Hong Miao]";
-	mes "This is an elevator which leads";
-	mes "to the Observation Tower. We are providing you a safe and fast transfer service for an affordable fee. Would you like to use this service?";
+	mes "Este é um elevador que leva";
+	mes "a Torre de Observação. Nós providenciamos um transporte seguro e rápido por um preço barato. Você gostaria de usar este serviço?";
 	next;
-	switch(select("Information.:Yes.:Maybe next time.")) {
+	switch(select("Informações.:Sim.:Cancelar.")) {
 	case 1:
 		mes "[Hong Miao]";
-		mes "After many suggestions and proposals were sent to the Louyang tourism office, the Observation Tower was built so tourists can enjoy the sights.";
+		mes "Depois de muitas sugestões e propostas sendo mandadas para o escritório de Turismo de Louyang, a Torre de Observação foi construída para os turistas apreciarem a vista.";
 		next;
 		mes "[Hong Miao]";
-		mes "Due to the geographical";
-		mes "features of Louyang, it's difficult to enjoy the breath taking view that our land has to offer.";
-		next;
-		mes "[Hong Miao]";
-		mes "You can come up to the tower by taking the elevator right here. We are providing this quick and safe transfer service for 500 zeny per person.";
+		mes "Você pode subir na torre usando o elevador. Nós estamos disponibilizando este serviço rápido e seguro por 500 zeny por pessoa.";
 		close;
 	case 2:
 		if (Zeny < 500) {
 			mes "[Hong Miao]";
-			mes "I'm sorry, but you do not have enough zeny. I hope you'll come back later to enjoy the Observation Tower. Have a good day.";
+			mes "Desculpe-me, mas você não tem a quantidade de zeny necessária. Espero que você volte para apreciar a Torre de Observação. Tenha um bom dia.";
 			close;
 		}
 		mes "[Hong Miao]";
-		mes "Thank you for your patronage.";
-		mes "We are trying to provide you with the best of service. Please";
-		mes "come again.";
+		mes "Nós tentamos oferecer o melhor serviço.";
+		mes "Volte sempre.";
 		next;
 		Zeny -= 500;
 		warp "lou_in01",17,19;
 		end;
 	case 3:
 		mes "[Hong Miao]";
-		mes "Please come";
-		mes "back later.";
-		mes "Have a good day.";
+		mes "Volte mais tarde.";
+		mes "Tenha um bom dia.";
 		close;
 	}
 }
 
-louyang,84,254,0	script	Exit#lou	HIDDEN_NPC,{
-	mes "^3355FFThere is some sort";
-	mes "of descent apparatus.";
-	mes "Would you like to use it?^000000";
+louyang,84,254,0	script	Saída#lou	HIDDEN_NPC,{
+	mes "^3355FFHá alguns aparatos para descer.";
+	mes "Você gostaria de usá-los?^000000";
 	next;
-	if (select("Yes.:No.") == 1) {
+	if (select("Sim.:Não.") == 1) {
 		if (rand(1,100) == 34) {
 			percentheal -99,0;
 			warp "louyang",86,269;
-			mapannounce "louyang",""+strnpcinfo(0)+" : Oh God, I'm faaaaaaaaaaaalling~~!!!!",bc_map;
+			mapannounce "louyang",""+strnpcinfo(0)+" : Meu Deus, estou caiiiiiiiindo~~!!!!",bc_map;
 		}
 		else {
 			warp "lou_in01",10,18;
@@ -322,31 +331,3 @@ louyang,84,254,0	script	Exit#lou	HIDDEN_NPC,{
 	}
 	close;
 }
-
-//============================================================
-// Old changelog
-//============================================================
-//= Originally made for Vidar
-//= 1.2 Added official warp NPC's
-//= 1.3 Fixed gramatical errors. (Like wtf's with the weird
-//=     texts celest? xD)
-//= 2.0 Completely rewrote the current scripts based on iRO.
-//=     Added the 'Shouting Quest' and the 'Medicine Quest'
-//= 2.1 Optimized, made quest vars unique [Lupus]
-//= 2.1a minor fix, 2.1b Fixed Typos [Nexon]
-//= 2.2 Fixed exploits [Lupus]
-//= 2.2a Updated the color codes a little and fixed the shouting quest
-//=     to broadcast green text.
-//= 2.2b A small fix to the shout quest npc in louyang field not warping you
-//=     back up to the tower if you died or teleported out of there. [MasterOfMuppets]
-//= 2.3 A small fix, the code is so messy I can't believe I scripted it >.< [MasterOfMuppets]
-//= 2.4 Implemented a few more npcs, thanks to Prometheus for them. [MasterOfMuppets]
-//= 2.5 Implemented the Poison King quest, beware of potential bugs. [MasterOfMuppets]
-//= 2.6 Removed Duplicates [Silent]
-//= 2.6a Updated a few names with new item_db.txt names [Evera]
-//= 2.7 Split quests to quests/quests_louyang.txt [Evera]
-//= 2.7a Minor optimizations before Louyang quests [Lupus]
-//= 2.7b Moved guides to the Guides folder. 2.7 more typos [Lupus]
-//= 2.8 Moved some quest-related NPCs to proper file. [SinSloth]
-//= 2.9 Rescripted to Aegis 10.3 Standards. [L0ne_W0lf]
-//============================================================

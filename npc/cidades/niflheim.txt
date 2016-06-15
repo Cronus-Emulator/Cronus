@@ -1,235 +1,234 @@
-//===== Hercules Script ======================================
-//= Niflheim Script
-//===== By: ==================================================
-//= Fyrien, Dizzy, PKGINGO
-//= Official NPCs translated and re-edited by Celest
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= Official NPC's for Niflheim
-//= 1.01 Splitted file(guides, shops). Fixed rand() bugs,
-//=      missing labels bugs, optimization [Lupus]
-//= 1.03 fixed end; -> close;
-//= 1.04-1.05 fixed several bugs with missing CLOSE button, wrong var name
-//=     in Piano Keys quest
-//=     fixed zeny/item, exploit in Sairin, some optimizations [Lupus]
-//= 1.06 some typos in some variables fixed (thx 2 Dr.Evil) [Lupus]
-//= 1.07 Fixed typos [Nexon]
-//= 1.08 Commented "Traveler" out as it is not official & we have correct Bungee quest in.
-//=     Also removed TODO, as they are already done. [Vicious_Pucca]
-//= 1.1 Replaced nif_q_done with MISC_QUEST & 32. nif_t -> @nif_t [Lupus]
-//= 1.2 Removed Duplicates [Silent]
-//= 1.3 Moved Book of Devil and Piano quest to quests/quests_niflheim.txt [Evera]
-//= 1.4 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//=     Removed Cursed Spirits as they were custom.
-//= 1.5 Added dummy "OnMyMobDead" event to Cursed Spirit. [L0ne_W0lf]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - niflheim.txt                                          	     ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução com base em revisões passadas do cronus [J4ND3RS0N]||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Cidade de Niflheim                                          ||
+//===============================================================//
 
 niflheim,52,147,3	script	Keedz#nif	4_M_NFDEADSWDMAN,{
 	mes "[Keedz]";
-	mes "I don't allow any living person";
-	mes "to come in this place!";
+	mes "Não permitirei que qualquer pessoa que esteja viva";
+	mes "venha para esse lugar!";
 	close;
 }
 
 niflheim,195,211,6	script	Gigantia#nif	4_M_NFDEADSWDMAN,3,3,{
 	if (isequipped(5038) || isequipped(2257) || isequipped(2256)) {
 		mes "[" + strcharinfo(0) + "]";
-		mes "What's up?";
+		mes "O que foi?";
 		next;
 		mes "[Gigantia]";
-		mes "Just...";
-		mes "Come over here.";
-		mes "I have something";
-		mes "I must do for you.";
+		mes "Apenas...";
+		mes "Venha até aqui.";
+		mes "tenho algo";
+		mes "que venha servir para você.";
 		next;
 		mes "[Gigantia]";
-		mes "Your horn is crooked.";
-		mes "Always make sure your horn";
-		mes "is worn straight and neat.";
-		mes "The Lord of Death is always";
-		mes "looking at you.";
+		mes "Seu chifre está torto.";
+		mes "Certifique-se sempre se seu chifre";
+		mes "está reto e elegante.";
+		mes "O Senhor dos Mortos sempre";
+		mes "está te vigiando.";
 		close;
 	}
 	mes "[Gigantia]";
-	mes "The Lord of Death knows";
-	mes "and sees all. It's useless";
-	mes "to hide, and escape from";
-	mes "Death's sweet embrace.";
+	mes "O Senhor dos Mortos sabe";
+	mes "e vê tudo. É inútil";
+	mes "se esconder e fugir do";
+	mes "suave abraço da morte.";
 	close;
 
 OnTouch:
 	if (isequipped(5038) || isequipped(2257) || isequipped(2256)) {
 		mes "[Gigantia]";
-		mes "Hey, wait!";
+		mes "Ei, espere!";
 		close;
 	}
 	end;
 }
 
-nif_in,16,27,1	script	Undead Chicken#nif	4_NFCOCK,{
+nif_in,16,27,1	script	Galinha Zumbi#nif	4_NFCOCK,{
 	percentheal -5,0;
-	mes "[Undead Chicken]";
-	mes "I lived a peaceful life as a normal chicken. But then came the day I was tragically killed and eaten by humans. Well... Heh heh~! Now it's my turn! *Cackles*";
+	mes "[Galinha Zumbi]";
+	mes "Eu vivia uma vida pacífica como uma galinha normal. Mas veio o dia que eu fui tragicamente morta e comida por humanos. Bem... Heh heh~! Agora é minha vez! *Nhac!*";
 	next;
 	mes "["+ strcharinfo(0) +"]";
-	mes "Ouch...!";
-	mes "A chicken...";
-	mes "It bit me!";
+	mes "Ai...!";
+	mes "A galinha...";
+	mes "me mordeu!";
 	next;
-	mes "[Undead Chicken]";
+	mes "[Galinha Zumbi]";
 	mes "Ho ho~!";
-	mes "I can talk AND feast";
-	mes "on living humans!";
-	mes "Being a zombie is great!";
-	mes "*Cackles*";
+	mes "Eu posso falar e banquetear";
+	mes "de humanos vivos!";
+	mes "Virar zumbi é maravilhoro!";
+	mes "*Nhac!*";
 	close;
 }
 
-nif_in,16,30,4	script	Undead Familiar#nif	4_NFBAT,{
+nif_in,16,30,4	script	Morcego Vampiro#nif	4_NFBAT,{
 	percentheal -5,0;
 	mes "[Vatoman]";
-	mes "Oooh, how handy, a living";
-	mes "human~! Fresh blood is";
-	mes "always tasty...! I think I'll just";
-	mes "take a liiittle sip.";
+	mes "Oooh, que conveniente,";
+	mes "um humano~! Sangue fresco";
+	mes "é sempre saboroso...! Acho que vou tomar apenas";
+	mes "um gole.";
 	next;
 	mes "[" + strcharinfo(0) + "]";
-	mes "Ow! My vein!";
-	mes "Did you just";
-	mes "suck my blood?!";
+	mes "Ai! Minha veia!";
+	mes "Você chupou";
+	mes "o meu sangue?!";
 	next;
 	mes "[Vatoman]";
 	mes "Mwahahaha~";
-	mes "Foolish mortal!";
-	mes "Beware my powers!";
+	mes "Mortal tolo!";
+	mes "Cuidado com meus poderes!";
 	close;
 }
 
-nif_in,156,93,5	script	Child#niflheim	4_F_NFLOSTGIRL,{
-	mes "[Alakina Ann]";
-	mes "Where...where am I...?";
-	mes "I remember I was sleeping";
-	mes "and when I woke up, I was here...";
-	mes "Mommy, have you seen my mommy?";
-	mes "I wanna go home...*Sob*";
+nif_in,156,93,5	script	Criança#niflheim	4_F_NFLOSTGIRL,{
+	mes "[Anna Alakina]";
+	mes "Onde... Onde estou...?";
+	mes "Me lembro de estar dormindo";
+	mes "e quando acordei estava aqui...";
+	mes "Mamãe, você viu a minha mãe?";
+	mes "Quero ir para casa...*soluço*";
 	next;
-	switch(select("About the witch:About the curse:Cancel.")) {
+	switch(select("Sobre a bruxa:Sobre a maldição:Cancelar.")) {
 	case 1:
-		mes "[Alakina Ann]";
-		mes "Witch...? I've never seen a witch, but I've read about them in books. I'm not sure if they exist or not, but it would be so horrifying if they did...";
+		mes "[Anna Alakina]";
+		mes "Bruxa...? Nuca vi uma bruxa, mas já li sobre elas nos livros.  Não tenho certeza se elas existem ou não, mas seria tão assustador se fosse verdade ...";
 		next;
-		mes "[Alakina Ann]";
-		mes "Why is it so cold in here...?";
-		mes "A-aren't you cold, or even scared? I wanna go home... It's warm over there. Could you help me get back... Please...? H-help me...";
+		mes "[Anna Alakina]";
+		mes "Por que está tão frio aqui...?";
+		mes "Você não esta sentindo frio ou medo? Quero ir para casa... é quente lá. Você poderia me ajudar a voltar para casa... Por favor...? M-me ajude...";
 		close;
 	case 2:
-		mes "[Alakina Ann]";
-		mes "A c-curse...?";
-		mes "My grandma says that there are lots of curses in the world. Some of them, you can tell it's a curse. But there are other curses that follow you throughout life...";
+		mes "[Anna Alakina]";
+		mes "Uma maldição...?";
+		mes "Minha avó disse que existe muitas maldições pelo mundo. Você pode chamar algumas de maldições passageiras. Mas há outras que te seguirão o resto da vida...";
 		next;
-		mes "[Alakina Ann]";
-		mes "Grandma says curses can take other forms... Like if someone's always mad at you, and won't forgive you, you can see that as a curse too.";
+		mes "[Anna Alakina]";
+		mes "Vovó também disse que maldições pode ser de outra forma... Como alguém que está sempre bravo contigo, e não vai te perdoar, você pode considerar isso como uma maldição também.";
 		next;
-		mes "[Alakina Ann]";
-		mes "My grandma told me there's only one spell that can break a strong curse that you can't lift with Blessings...";
+		mes "[Anna Alakina]";
+		mes "Minha avó disse que só existe um encantamento forte o bastante, mais do que Benção, para quebrar uma maldição sobre você...";
 		next;
-		mes "[Alakina Ann]";
+		mes "[Anna Alakina]";
 		mes "Klaatu...";
 		mes "Verata.....";
 		mes "Ne...ni...umm...?";
-		mes "What was the last part?";
-		mes "I-I can't remember";
-		mes "the last part of the spell!";
+		mes "Como é mesma a ultima parte?";
+		mes "E-eu não consigo lembrar";
+		mes "a ultima parte do encantamento!";
 		next;
-		mes "[Alakina Ann]";
-		mes "If you repeat the spell in that order, it will release you from someone's anger and hate. And if you do it near a bad spirit, they might get the curse instead.";
+		mes "[Anna Alakina]";
+		mes "Se você repetir o encanto na ordem, irá te libertar de qualquer de raiva ou ódio que tenham por você. E se fizer perto de um espírito malígno, eles que serão amaldiçoados.";
 		next;
-		mes "[Alakina Ann]";
-		mes "Why are you asking me about these scary kind of things...? I just wanna go home...";
+		mes "[Anna Alakina]";
+		mes "Por que está me perguntando sobre essas coisas assustadoras...? Eu só quero ir para casa...";
 		close;
 	case 3:
-		mes "[Alakina Ann]";
-		mes "It's so cold in here...";
-		mes "I'm freezing...";
-		mes "And I wanna go home and";
-		mes "get away from this scary place...";
+		mes "[Anna Alakina]";
+		mes "Está frio aqui...";
+		mes "Eu estou congelando...";
+		mes "Eu quero ir para casa";
+		mes "e fugir deste lugar assustador...";
 		next;
-		mes "[Alakina Ann]";
-		mes "Please... help me.";
-		mes "Could you take me with you...?";
+		mes "[Anna Alakina]";
+		mes "Por favor... me ajude.";
+		mes "Poderia me levar com você...?";
 		close;
 	}
 }
 
-niflheim,350,258,1	script	Cursed Spirit#nif	4_NFWISP,{
-	killmonster "niflheim","Cursed Spirit#nif::OnMyMobDead";
-	mes "[Ashe Bruce]";
-	mes "I sense you're cursed";
-	mes "by a powerful spell...";
-	mes "Hmm... It's clear what";
-	mes "you must be up to....";
+niflheim,350,258,1	script	Alma Amaldiçoadat#nif	4_NFWISP,{
+	killmonster "niflheim","Alma Amaldiçoada#nif::OnMyMobDead";
+	mes "[Bruce Ashe]";
+	mes "Eu sinto que você está amaldiçoado";
+	mes "por uma magia poderosa...";
+	mes "Hmm... É claro que";
+	mes "você só precisa....";
 	next;
-	mes "[Ashe Bruce]";
-	mes "You wish to get";
-	mes "rid of your curse....";
-	mes "By giving it to me!!";
+	mes "[Bruce Ashe]";
+	mes "Se você quer se livrar";
+	mes "de sua maldição....";
+	mes "Passando-a para mim!!";
 	next;
-	mes "[Ashe Bruce]";
-	mes "Just because I'm a cursed spirit, you adventurers think you can just dump your curses on me?!";
+	mes "[Bruce Ashe]";
+	mes "Só porque eu sou um espírito amaldiçoado, você acha que pode aventurar-se a jogar sua maldição em mim?!";
 	emotion e_an;
 	next;
-	mes "[Ashe Bruce]";
-	mes "I refuse to let";
-	mes "you remain here.....";
-	mes "Leave now, or I will";
-	mes "remove you by force....";
+	mes "[Bruce Ashe]";
+	mes "Me recuso deixar";
+	mes "que você continue aqui.....";
+	mes "saia agora ou irei";
+	mes "tirá-lo a força....";
 	next;
-	mes "[Ashe Bruce]";
-	mes "....And...";
-	mes "....Whatever you do...";
-	mes "....Do NOT touch my books...";
+	mes "[Bruce Ashe]";
+	mes "....E...";
+	mes "....Faça o que fizer...";
+	mes "....NÃO toque em meus livros...";
 	next;
-	switch(select("Touch the first book.:Touch the second book.:Touch the third book.:Okay, I am leaving.")) {
+	switch(select("Tocar no 1º livro.:Tocar no 2º livro.:Tocar no 3º livro.:Tudo bem, estou saindo.")) {
 	case 1:
-		monster "niflheim",349,259,"Rideword",1478,1,"Cursed Spirit#nif::OnMyMobDead";
-		mes "[Ashe Bruce]";
+		monster "niflheim",349,259,"Rideword",1478,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		mes "[Bruce Ashe]";
 		mes "...!...";
-		mes "How dare you touch my books";
-		mes "when I specifically said";
-		mes "'Don't touch my books!'";
+		mes "Como ousa tocar em meus livros";
+		mes "quando eu disse especificamente";
+		mes "'Não toque em meus livros!'";
 		next;
-		mes "[Ashe Bruce]";
+		mes "[Bruce Ashe]";
 		mes "....!...Grrrrr!";
-		mes "I shall tear you apart...!";
-		mes "Be bound by an eternal curse...!";
+		mes "Eu vou te despedaçar...!";
+		mes "Estará sujeito a uma maldição eterna...!";
 		close;
 	case 2:
-		mes "[Ashe Bruce]";
+		mes "[Bruce Ashe]";
 		mes "...!...";
-		mes "You dare touch my books?!";
-		mes "Right after I said not";
-		mes "to touch them...?!";
-		mes "Foolish mortal!";
-		mes "...BEGONE!";
+		mes "Você ousa tocar os meus livros?!";
+		mes "Logo após eu dizer para";
+		mes "não toca-los...?!";
+		mes "Mortal tolo!";
+		mes "...VÁ EMBORA!";
 		close2;
 		warp "niflheim",34,162;
 		end;
 	case 3:
-		mes "[Ashe Bruce]";
+		mes "[Bruce Ashe]";
 		mes "Muhahahaha....";
-		mes "Stubborn mortal~!";
-		mes "Fine! I will give you";
-		mes "a fighting chance and let";
-		mes "you cast a spell.";
+		mes "Mortal Teimoso~!";
+		mes "Bem! Irei te dar";
+		mes "uma chance de lutar e deixarei você";
+		mes "usar um encantamento.";
 		next;
-		mes "[Ashe Bruce]";
-		mes "But Blessings won't";
-		mes "work with the curse";
-		mes "that you have...";
-		mes "And the spell to lift";
-		mes "your curse has been";
-		mes "lost to the ages~!";
+		mes "[Bruce Ashe]";
+		mes "Mas Benção não";
+		mes "funcionará com a maldição";
+		mes "que você tem...";
+		mes "E o encanto para o livrar";
+		mes "de sua maldição";
+		mes "está perdido por eras!";
 		emotion e_gg;
 		next;
 		if (select("Clover:Klaatu:Klaytos") == 2) {
@@ -246,107 +245,107 @@ niflheim,350,258,1	script	Cursed Spirit#nif	4_NFWISP,{
 			case 1:
 				if (morison_meat < 15) {
 					morrison_meat = 15;
-					mes "[Ashe Bruce]";
-					mes "You... You broke the curse!";
-					mes "How did you know that spell?!";
+					mes "[Bruce Ashe]";
+					mes "Você... você quebrou a maldição!";
+					mes "Quem te ensinou esse encanto?!";
 					next;
-					mes "[Ashe Bruce]";
-					mes "I suppose you expect for me to";
-					mes "melt in agony about now, don't";
-					mes "you? Well... Sorry to disappoint";
-					mes "you, mortal, but I can never die!";
+					mes "[Bruce Ashe]";
+					mes "Eu suponho que você espera que eu";
+					mes "derreta em agonia agora";
+					mes "não é? Bem... Sinto desapontá-lo";
+					mes "mortal, mas eu nuca morrerei!";
 					close;
 				}
-				mes "[Ashe Bruce]";
-				mes "...! You cast the correct spell?!";
+				mes "[Bruce Ashe]";
+				mes "...! Você usou o encanto certo?!";
 				mes "...!...";
-				mes "But...You're still cursed...";
+				mes "Mas...Você continua almadiçoado...";
 				mes "Umhaaaaaaaaaaaaaaaaa.....!";
 				close;
 			case 2:
 				if (thai_head == 1) {
 					thai_head = 2;
-					mes "[Ashe Bruce]";
-					mes "What's...";
-					mes "this feeling?";
+					mes "[Bruce Ashe]";
+					mes "O que é...";
+					mes "este sentimento?";
 					next;
-					mes "[Ashe Bruce]";
-					mes "No...!";
-					mes "NOOOOOOOOOOOOOOOO!";
+					mes "[Bruce Ashe]";
+					mes "Não...!";
+					mes "Nããããããããooooo!";
 					next;
-					mes "[Ashe Bruce]";
-					mes "Why did your spell have to work?!";
+					mes "[Bruce Ashe]";
+					mes "Por que seu encanto tinha que funcionar?!";
 					close;
 				}
-				mes "[Ashe Bruce]";
-				mes "You...";
-				mes "cast the correct spell?!";
+				mes "[Bruce Ashe]";
+				mes "Você...";
+				mes "usou o encanto certo?!";
 				next;
-				mes "[Ashe Bruce]";
+				mes "[Bruce Ashe]";
 				mes "Hoho~";
-				mes "But you're still cursed...";
+				mes "Mas continua amaldiçoado...";
 				close;
 			case 3:
 				if (thai_head == 8) {
 					thai_head = 7;
-					mes "[Ashe Bruce]";
-					mes "You... You broke the curse!";
-					mes "Who taught you that spell?!";
+					mes "[Bruce Ashe]";
+					mes "Você... Você quebrou a maldição!";
+					mes "Quem te ensinou esse encanto?!";
 					next;
-					mes "[Ashe Bruce]";
-					mes "I suppose you expect for me to";
-					mes "melt in agony about now, don't";
-					mes "you? Well... Sorry to disappoint";
-					mes "you, mortal, but I can never die!";
+					mes "[Bruce Ashe]";
+					mes "Eu suponho que você espera que eu";
+					mes "derreta em agonia agora";
+					mes "não é? Bem... Sinto desapontá-lo";
+					mes "mortal, mas eu nunca morrerei!";
 					next;
-					mes "[Ashe Bruce]";
-					mes "So long as I'm...";
-					mes "still...";
-					mes "cursed.";
+					mes "[Bruce Ashe]";
+					mes "Enquanto isso eu...";
+					mes "continuarei...";
+					mes "amaldiçoado.";
 					next;
-					mes "[Ashe Bruce]";
-					mes "NOOOOOOOOOO!";
+					mes "[Bruce Ashe]";
+					mes "Nãããããoooo!";
 					close;
 				}
-				mes "[Ashe Bruce]";
-				mes "...! You cast the correct spell?!";
+				mes "[Bruce Ashe]";
+				mes "...! Você usou o encanto certo?!";
 				mes "...!...";
-				mes "But...You're still cursed...";
+				mes "Mas...Você continua almadiçoado...";
 				mes "Umhaaaaaaaaaaaaaaaaa.....!";
 				close;
 			case 4:
 				mes "[Ashe Bruce]";
-				mes "...! You cast the correct spell?!";
+				mes "...! Você usou o encanto certo?!";
 				mes "...!...";
-				mes "But...You're still cursed...";
-				mes "Mwahahahaaaa.....!";
+				mes "Mas...Você continua almadiçoado...";
+				mes "Umhaaaaaaaaaaaaaaaaa.....!";
 				close;
 			}
 		}
-		monster "niflheim",345,259,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		monster "niflheim",347,261,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		monster "niflheim",344,253,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		monster "niflheim",346,251,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		monster "niflheim",349,249,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		monster "niflheim",350,260,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		monster "niflheim",353,256,"Orc Skeleton",1462,1,"Cursed Spirit#nif::OnMyMobDead";
-		mes "[Ashe Bruce]";
+		monster "niflheim",345,259,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		monster "niflheim",347,261,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		monster "niflheim",344,253,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		monster "niflheim",346,251,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		monster "niflheim",349,249,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		monster "niflheim",350,260,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		monster "niflheim",353,256,"Orc Esqueleto",1462,1,"Alma Amaldiçoada#nif::OnMyMobDead";
+		mes "[Bruce Ashe]";
 		mes "Muhahahahahaha!";
-		mes "That's not the right spell!";
-		mes "Now, death awaits you!";
-		mes "You're eternally bound";
-		mes "to the curse...!";
+		mes "Esse não é o encato correto!";
+		mes "Agora, a morte o aguarda!";
+		mes "Você está eternamente preso";
+		mes "nesta maldição...!";
 		close;
 	case 4:
-		mes "[Ashe Bruce]";
+		mes "[Bruce Ashe]";
 		mes "...";
 		mes ".....";
 		next;
-		mes "[Ashe Bruce]";
-		mes "Well then.";
-		mes "Try not to trip on";
-		mes "your feet in your";
-		mes "rush to leave.";
+		mes "[Bruce Ashe]";
+		mes "Pois bem.";
+		mes "Tente não";
+		mes "tropeçar";
+		mes "ao sair.";
 		close;
 	}
 

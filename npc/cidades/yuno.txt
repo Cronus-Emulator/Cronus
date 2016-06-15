@@ -1,58 +1,60 @@
-//===== Hercules Script ======================================
-//= Juno City
-//===== By: ==================================================
-//= KitsuneStarwind, kobra_k88, L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= [Official Conversion]
-//= NPCs for the City of Juno
-//===== Additional Comments: =================================
-//= Added additional npcs.  Added Metto quest. [kobra_k88]
-//= Moved item quest to quest folder. Re-edited a majority of the npcs. [kobra_k88]
-//=a Removed duplicate npcs already found in the sage quest.
-//= Fixed & Spellchecked [massdriller]
-//= 1.3 Started updating Juno NPCs based on iRO. 10% complete.
-//= 1.3.2 Started updating Juno NPCs based on iRO. 30% complete.
-//= 1.3.3 Removed Noyee NPC (it's implemented in sleipnir_seal.txt)
-//= 1.4 Updated to Aegis 10.3 standards. [L0ne_W0lf]
-//=     Added Juno Airship Representative.
-//= 1.4a Corrected a Typo error (bugreport:716) [Samuray22]
-//= 1.5 Added Renewal coordinates for Payon and Izlude. [Euphy]
-//=     Split Soldier NPCs into Pre-RE/RE (sprite change).
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - yuno.txt                                           	     ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução com base em revisões passadas do cronus [J4ND3RS0N]||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Cidade de Juno                                              ||
+//===============================================================//
 
 // Juno
 //============================================================
 yuno,184,173,4	script	Freidrich#juno	4_F_NOVICE,{
 	if (rand(1,5) == 1) {
 		mes "[Freidrich]";
-		mes "^3355FFJuno^000000 is kept aloft in the air by an ancient and mysterious force.";
+		mes "^3355FFJuno^000000 é mantida no ar por uma força anciã misteriosa.";
 		next;
 		mes "[Freidrich]";
-		mes "This power is said to come from a relic from an ancient civilization called ^3355FFJuperos^000000 which existed here long before Juno.";
+		mes "Dizem que este poder vem de uma relíquia de uma antiga civilização chamada ^3355FFJuperos^000000 que existia aqui muito antes de Juno.";
 		next;
 		mes "[Freidrich]";
-		mes "Research revealed that Juno's power source based on ^3355FFPieces of Ymir's Heart^000000. I hear that this power source is found where Juperos used to exist.";
+		mes "Uma investigação revelou que o poder de Juno vem dos ^3355FFPedaços do Coração de Ymir^000000. Ouvi dizer que esta fonte de poder é encontrada onde Juperos existia.";
 		next;
 		mes "[Freidrich]";
-		mes "Since many scholars have been coming to Juno to study and research this power source, our city is basically a well known mecca for scholars.";
+		mes "Desde que muitos estudiosos vieram a Juno para estudar e investigar esta fonte de poder, nossa cidade é basicamente uma capital dos estudiosos.";
 		close;
 	}
 	else {
 		mes "[Freidrich]";
-		mes "The city of Sages,";
-		mes "^3355FFJuno,^000000 is made of";
-		mes "three islands.";
+		mes "A cidade dos sábios,";
+		mes "^3355FFJuno,^000000 é constituída por";
+		mes "três ilhas.";
 		next;
 		mes "[Freidrich]";
-		mes "These are Solomon, the island of honor, Mineta, the island of prosperity, and Snotora, the island of knowledge.";
+		mes "São elas Solomon, a ilha da honra, Mineta, a ilha da prosperidade, e Snotora, a ilha do conhecimento.";
 		next;
 		mes "[Freidrich]";
-		mes "The location of each island is";
-		mes "North-west : Solomon";
-		mes "North-east : Snotora";
-		mes "South : Mineta.";
+		mes "Os locais destas ilhas são:";
+		mes "Noroeste : Solomon";
+		mes "Nordeste : Snotora";
+		mes "Sul: Mineta.";
 		close;
 	}
 }
@@ -61,91 +63,91 @@ yuno,337,227,4	script	Juno Granny#juno	8_F_GRANDMOTHER,{
 	mes "[Granny]";
 	if (rand(1,50) == 1) {
 		if (Zeny > 999) {
-			mes "So, do you enjoy candy?";
+			mes "Então, você gosta de doce?";
 			next;
-			mes "^3355FFGranny hands you some candy^000000.";
-			next;
-			mes "[Granny]";
-			mes "You've already chosen. It doesn't matter whether or not you get this candy. That doesn't matter at all. You have to understand why it's happened.";
+			mes "^3355FFGranny te da alguns doces^000000.";
 			next;
 			mes "[Granny]";
-			mes "Here's ^3355FF1,000 zeny^000000.";
-			mes "Do you accept this?";
+			mes "Você já escolheu. Não importa se você queria ou não pegar estes doces. E não interessa pra ninguém. Você têm que entender porque isso aconteceu.";
 			next;
-			if (select("Accept:Do not accept") == 1) {
+			mes "[Granny]";
+			mes "Aqui está ^3355FF1,000 zeny^000000.";
+			mes "Você aceita?";
+			next;
+			if (select("Aceito:Não aceito") == 1) {
 				mes "[Granny]";
-				mes "*Giggle*";
-				mes "There you go~";
+				mes "*Risos*";
+				mes "Lá vai você~";
 				Zeny -= 1000;
 				getitem 529,1; //Candy
 				next;
 				mes "[Granny]";
-				mes "*Giggle*";
-				mes "Well then...";
-				mes "See you ~";
+				mes "*Risos*";
+				mes "Pois bem...";
+				mes "Até mais ~";
 				close;
 			}
 			mes "[Granny]";
-			mes "Yes, that's right. Now you must ask yourself why you didn't accept the candy I offered.";
+			mes "Sim, esta certo. Agora você tem que perguntar a si mesmo porquer não aceitou o doce que ofereci.";
 			close;
 		}
 		else {
 			mes "*Giggle giggle*";
-			mes "The time has come.";
-			mes "Well then...";
+			mes "A hora chegou.";
+			mes "Pois bem...";
 			close;
 		}
 	}
 	else {
-		mes "I am an old Sage granny who foresees everything...";
+		mes "Sou o Sábio Granny aquele que tudo prevê...";
 		next;
 		mes "[Granny]";
-		mes "Have you heard of a boss monster that has been around Juno for a long time? It's known only as the ^FF3355Lord of the Dead^000000.";
+		mes "Você soube de um monstro chefe que está a muito tempo pelos arredores de Juno? É chamado de ^FF3355Senhor da Morte^000000.";
 		next;
 		mes "[Granny]";
-		mes "It is rumored to be from the realm of the dead. It brings many undead monsters with it, intending to lead living creatures to its cold and icy realm.";
+		mes "Há rumores de que ele veio do mundo dos mortos. Ele traz vários monstros morto-vivos consigo, pretendendo liderar criaturas vivas em seu frio e gelado reino.";
 		next;
 		mes "[Granny]";
-		mes "You have already chosen whether or not you will challenge the Lord of the Dead. All you need to do right now is understand why you made the decision.";
+		mes "Você já deve ter escolhido se vai ou não enfentar o Senhor da Morte. Tudo que precisa fazer agora é saber porque você tomou essa decisão.";
 		close;
 	}
 }
 
 yuno,328,239,4	script	Juno Fighter#juno	4_M_JOB_HUNTER,{
 	mes "[Sergiof]";
-	mes "My name is Sergiof,";
-	mes "the fighter who";
-	mes "serves Granny.";
+	mes "Meu nome é Sergiof,";
+	mes "o lutador que";
+	mes "serve Granny.";
 	next;
 	mes "[Sergiof]";
-	mes "I will tell you about ^3355FFGrand Peco^000000 which is a high level Peco Peco. Grand Peco is faster than Peco Peco and is quite aggressive.";
+	mes "Vou te falar sobre o ^3355FFGrande Peco^000000 que é um Peco Peco de level alto. O Grande Peco é mais rápido que o Peco Peco e é bastante agressivo.";
 	next;
 	mes "[Sergiof]";
-	mes "It attacks using its strong bill and many Peco Pecos follow it. There's quite a difference in power between Peco Peco and the Grand Peco.";
+	mes "Ele ataca usando seu resistente bico e muitos Peco Peco o seguem. Há uma grande diferença entre o poder de um Peco Peco e do Grande Peco.";
 	close;
 }
 
 yuno,343,68,4	script	Juno Despot#juno	4_M_JOB_ASSASSIN,{
 	mes "[Ninno]";
 	if (rand(1,1000) == 1) {
-		mes "You are very lucky to have me tell you this story. This only happens by ^FF33551 out of a 1,000 chance^000000.";
+		mes "Você tem muita sorte de ouvir o que vou te dizer. A chance é de ^FF33551 em 1,000 ^000000.";
 		next;
 		mes "[Ninno]";
-		mes "This world you are experiencing is actually fabricated! It's time for you to see reality for what it is!";
+		mes "O mundo que você esta vivendo atualmente é manipulado! É hora de você enxergar a realidade do jeito que ela é!";
 		next;
 		mes "[Ninno]";
-		mes "Open your eyes! Stop being manipulated by virtual reality!";
+		mes "Abra os olhos! Pare de ser manipulado pela realidade virtual!";
 		close2;
 		warp "prontera",182,206;
 		end;
 	}
-	mes "Have you ever heard of an Egyptian king who was once believed to be a son of a god? His name is ^3355FFPharoah^000000.";
+	mes "Já ouviu falar em um rei Egípcio que acredita-se que é filho de um Deus? Seu nome é ^3355FFFaraó^000000.";
 	next;
 	mes "[Ninno]";
-	mes "He was rumored to be a high sorcerer that used his power to curse innocents. It is said that he is still around, placing his curses on people.";
+	mes "Há rumores de que ele é um grande feiticeiro que amaldiçoou inocentes. Dizem que ele ainda esta por aí, amaldiçoando pessoas.";
 	next;
 	mes "[Ninno]";
-	mes "As an adventurer, it's possible that you may see him in your travels. Be careful...";
+	mes "Como aventureiro, é possível que você o veja em suas viagens. Tenha cuidado...";
 	close;
 }
 
@@ -153,20 +155,20 @@ yuno,165,111,4	script	Juno Sage#juno	2_F_MAGICMASTER,,{
 	mes "[Le Morpheus]";
 	if (rand(1,50) == 25) {
 		if (Zeny > 4999) {
-			mes "Look in my hand. I am holding two different kinds of herbs.";
+			mes "Olhe em minha mão. Estou segurando dois tipos diferentes de ervas.";
 			next;
 			mes "[Le Morpheus]";
-			mes "One is a ^3355FFBlue Herb^000000 which will make you forget about reality and keep you in this virtual reality^000000.";
+			mes "Uma é a ^3355FFErva Azul^000000 que faz você esquecer da realidade e ter alucinações^000000.";
 			next;
 			mes "[Le Morpheus]";
-			mes "The other is a ^FF3355Red Herb^000000 which will reveal to you what is true and real.";
+			mes "A outra é a ^FF3355Erva Vermelha^000000 que revela a você o que é verdadeiro e real.";
 			next;
 			mes "[Le Morpheus]";
-			mes "Whichever one you choose, you must spend ^3355FF5,000 zeny^000000. Now, please select one.";
+			mes "Qualquer uma que escolher, você vai gastar ^3355FF5,000 zeny^000000. Agora, escolha uma.";
 			next;
-			if (select("Choose ^FF3355Red Herb^000000:Choose ^3355FFBlue Herb^000000.") == 1) {
+			if (select("Escolher ^FF3355Erva Vermelha^000000:Escolher ^3355FFErva Azul^000000.") == 1) {
 				mes "[Le Morpheus]";
-				mes "As you have chosen, you will forget everything, and remain in this virtual reality.";
+				mes "A que você escolheu, vai te desligar de tudo e te mostrar alucinações.";
 				Zeny -= 5000;
 				getitem 507,1; //Red_Herb
 				close2;
@@ -174,7 +176,7 @@ yuno,165,111,4	script	Juno Sage#juno	2_F_MAGICMASTER,,{
 				end;
 			}
 			mes "[Le Morpheus]";
-			mes "You will see the truth.";
+			mes "Você verá a verdade.";
 			Zeny -= 5000;
 			getitem 510,1; //Blue_Herb
 			close2;
@@ -182,190 +184,190 @@ yuno,165,111,4	script	Juno Sage#juno	2_F_MAGICMASTER,,{
 			end;
 		}
 		else {
-			mes "Hmm. I'm sorry to say you just missed a fortunate chance. However, I can tell you don't have enough wealth to bring this fortune to fruition.";
+			mes "Hmm. Desculpe dizer que você perdeu uma chance de ouro. No entando, tenho que te dizer que você não têm dinheiro para levar esta maravilha.";
 			close;
 		}
 	}
 	else {
 		mes "^3355FFApocalypse^000000...";
-		mes "It is the name of an android that used to guard Juno long ago.";
+		mes "É o nome do androide que costumava proteger Juno há muito tempo.";
 		next;
 		mes "[Le Morpheus]";
-		mes "Because its artificial intelligence has corrupted over the years, it can no longer distinguish comrades from enemies. Sadly, that android is nothing but a mindless monster now.";
+		mes "Devido sua inteligêngia artificial ter se corrompido com o passar do tempo, ele não pode mais distinguir inimigos de aliados. Infelizmente, este andróide não passa de um monstro estúpido agora.";
 		close;
 	}
 }
 
-yuno,157,205,4	script	Juno Artisan#juno	1_M_JOBGUIDER,{
-	mes "[Artisan]";
-	mes "*Mumble mumble...*";
+yuno,157,205,4	script	Artesão de Juno#juno	1_M_JOBGUIDER,{
+	mes "[Artesão]";
+	mes "*Resmungo resmungo...*";
 	next;
-	mes "[Artisan]";
-	mes "Oh, hello there. Let me introduce myself. I am an artisan who tries to succeed the rights and duties of item makers in Juno.";
+	mes "[Artesão]";
+	mes "Oh, como vai. Deixe me apresentar. Eu sou um artesão que está tentando continuar as tradições e os deveres dos artesões mestres daqui de Juno.";
 	next;
-	switch(select("About Powerful Equipment:About Unique Items:About Authentic Food:End Conversation")) {
+	switch(select("Sobre Equipamentos Poderosos:Sobre Itens Únicos:Sobre Comidas Tradicionais:Finalizar Conversa")) {
 	case 1:
-		mes "[Artisan]";
-		mes "Let me suggest the ^3355FFHoly Guard^000000 and ^3355FFHoly Avenger^000000 which are special items for Crusaders.";
+		mes "[Artesão]";
+		mes "Deixe-me sugerir o ^3355FFArauto Divino^000000 e a ^3355FFVingadora Sagrada^000000 que são itens especiais para Templários.";
 		next;
-		mes "[Artisan]";
-		mes "These pieces of equipment are very light and have sufficient abilities. They also happen to possess holy power.";
+		mes "[Artesão]";
+		mes "Estes equipamentos são bem leves e têm muito potencial. Eles te fazem possuir o poder divino.";
 		next;
-		mes "[Artisan]";
-		mes "Therefore, this equipment is more powerful over some kinds of monsters such as Ghosts or the Undead.";
+		mes "[Artesão]";
+		mes "Portanto, este equipamento é mais forte sobre alguns tipos de monstros, como fantasmas ou mortos-vivos.";
 		next;
-		mes "[Artisan]";
-		mes "However it is rumored that only a few chosen Crusaders are able to obtain those items due of their rarity.";
+		mes "[Artesão]";
+		mes "Entretanto, há rumores de que só alguns Templários escolhidos estão aptos a obter estes itens, devido a suas raridades.";
 		close;
 	case 2:
-		mes "[Artisan]";
-		mes "It looks like a simple scroll marked with concentric circles and a star. Although the ^FF3355Worn-Out Magic Scroll^000000 is very old, it's wanted by many Sages for research purposes.";
+		mes "[Artesão]";
+		mes "Parece que um pergaminho marcado com um pentagrama. Entretanto o ^FF3355Pergaminho Antigo^000000 é muito antigo, é procurado por muitos Sábios para fins de investigação.";
 		next;
-		mes "[Artisan]";
-		mes "It seems you can use that item when you chant a high-level magic spell.";
+		mes "[Artesão]";
+		mes "Parece que você pode usar este item quando conjurar uma magia de alto nível.";
 		close;
 	case 3:
-		mes "[Artisan]";
-		mes "^3355FFRice Cake^000000! Yes, it's a traditional food that's favored by a lot of people. There's a lot of nostalgic memories of old fashioned markets that are connected to the Rice Cake.";
+		mes "[Artesão]";
+		mes "^3355FFBolinho de Arroz^000000! Sim, é uma comida tradicional fornecida por várias pessoas. Há um monte de lembranças nostálgicas de antigos mercadores referente ao Bolinho de Arroz.";
 		next;
-		mes "[Artisan]";
+		mes "[Artesão]";
 		mes "Ahhh~";
-		mes "I wish I could eat a bit of Rice Cake right now.";
+		mes "Eu queria poder comer um Bolinho de Arroz agora.";
 		close;
 	case 4:
-		mes "[Artisan]";
-		mes "Although Juno is known as a city of Sages, I hope you understand that ordinary people live and propser here as well. Please enjoy the unique atmosphere that Juno has to offer.";
+		mes "[Artesão]";
+		mes "Embora Juno seja conhecida como cidade dos sábios,espero que entenda que pessoas comuns vivem aqui também. Por favor, aproveite a atmosfera única que Juno tem a oferecer.";
 		close;
 	}
 }
 
 -	script	::JunoSoldier1	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem-Vindo a Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "There is a monster near here known as Lava Golem. This golem is made from a stone heart whose power happened to be amplified with magic power when it was swept away by molten rock.";
+	mes "[Soldado de Juno]";
+	mes "Existe aqui perto um monstro chamado de Golem de Lava. Este Golem é feito de um coração de pedra cuja potência foi amplificada por magia.";
 	next;
-	mes "[Juno Soldier]";
-	mes "The lava dripping from its body is so hot that it can melt down armor and weapons made out of high quality steel.";
+	mes "[Soldado de Juno]";
+	mes "A lava que fica escorrendo de seu corpo é tão quente que pode derreter as armaduras e armas feitas de aço de alta qualidade.";
 	next;
-	mes "[Juno Soldier]";
-	mes "You'd better be careful when you encounter this monster. It will damage armor and weapons in the twinkling of an eye.";
+	mes "[Soldado de Juno]";
+	mes "É melhor você tomar cuidado quando encontrar este monstro. Destruirá seus equipamentos em um piscar de olhos.";
 	close;
 }
 
 -	script	::JunoSoldier2	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem-Vindo a Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Geographer...";
-	mes "That monster looks like a flower blooming from the ground.";
+	mes "[Soldado de Juno]";
+	mes "Planta Carnívora...";
+	mes "Este monstro parece uma flor brotando do chão.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Strangely, it can extend its body a long distance. Even if you're far away from it, it can still pose a threat.";
+	mes "[Soldado de Juno]";
+	mes "Estranhamente, ela pode estender seu corpo a longas distâncias. Mesmo se você estiver de longe, ela pode ser uma ameaça.";
 	next;
-	mes "[Juno Soldier]";
-	mes "The name of this monster originated from a story about a poor geographer who, unfortunately, was eaten by this monster while he was immersed in his studies.";
+	mes "[Soldado de Juno]";
+	mes "O nome deste monstro, originou-se da história de um pobre geógrafo, que infelizmente, foi devorado por este monstro enquanto ele estava concentrado nos estudos.";
 	close;
 }
 
 -	script	::JunoSoldier3	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem-Vindo a Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Near Juno, there exists a fallen angel named 'False Angel.' It feigns innocence, pretending to bless adventurers and then stabbing them in the back without any warning.";
+	mes "[Soldado de Juno]";
+	mes "Próximo a Juno, existe um falso anjo chamado 'Anjo Fajuto'. Ele finge ser inocente, parecendo abençoar aventureiros e então ele os ataca pelas costas, sem qualquer aviso.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Don't be fooled by its appearance, or you'll find yourself in trouble.";
+	mes "[Soldado de Juno]";
+	mes "Não se engane pelas aparências ou você vai ter sérios problemas.";
 	close;
 }
-
+	
 -	script	::JunoSoldier4	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem-Vindo a Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "'Goat' is a monster that was an antelope living in the high mountains that was somehow turned into a monster.";
+	mes "[Soldado de Juno]";
+	mes "'Bode' é um monstro que foi um antílope e vive em montanhas altas, agora não passa de um monstro qualquer.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Even if you manage to dodge to its horns, you still need to be wary of its powerful legs.";
+	mes "[Soldado de Juno]";
+	mes "Mesmo se você conseguir esquivar-se de seus chifres, ainda precisa tomar cuidado com suas poderosas pernas.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Goat's legs are so strong because it's always climbing cliffs when it's not busy slaughtering the innocent.";
+	mes "[Soldado de Juno]";
+	mes "As pernas do Bode são muito fortes, porque está sempre escalando penhascos quando não está matando inocentes.";
 	close;
 }
-
+	
 -	script	::JunoSoldier5	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem-Vindo a Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Have you ever";
-	mes "seen a Large Jellopy?";
-	mes "Those things are huuuge!";
+	mes "[Soldado de Juno]";
+	mes "Você já viu";
+	mes "um Jellopy Tamanho Família?";
+	mes "Elas são enooormes!";
 	next;
-	mes "[Juno Soldier]";
-	mes "It's hard to believe";
-	mes "that such a large and";
-	mes "shining jellopy even exists!";
+	mes "[Soldado de Juno]";
+	mes "É difícil de acreditar";
+	mes "mais é o maior e mais";
+	mes "brilhante jellopy que existe!";
 	close;
 }
 
 -	script	::JunoSoldier6	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem vindo à Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Among the Sage's weapons, there is a 'Dagger of Counter.'";
+	mes "[Soldado de Juno]";
+	mes "Entre as armas dos Sábios, existe a 'Adaga Certeira'.";
 	next;
-	mes "[Juno Soldier]";
-	mes "Its use is limited to the Sage class, and it increases the chance of inflicting critical attacks. So, for Sages, that dagger can be very useful, as well as make them look stylish in battle.";
+	mes "[Soldado de Juno]";
+	mes "Seu uso é restrito a Sábios, e aumenta a chance de inflingir ataques críticos. Assim, para os Sábios, esta adaga pode ser muito útil, bem como dar mais estilo a eles em batalhas.";
 	close;
-}
-
+}	
+	
 -	script	::JunoSoldier7	-1,{
-	mes "[Juno Soldier]";
-	mes "Welcome to Juno, the city of noble-mindedness.";
+	mes "[Soldado de Juno]";
+	mes "Bem vindo à Juno, a cidade da elevação de espírito.";
 	next;
-	mes "[Juno Soldier]";
-	mes "There is a holy shield named 'Sacred Mission' which can only be used by Crusaders.";
+	mes "[Soldado de Juno]";
+	mes "Aqui tem um escudo sagrado chamado 'Spiritus Sancti' e só pode ser usado por Templários."; //item 2111 - Squall escreveu, e quem ler isso é gay
 	next;
-	mes "[Juno Soldier]";
-	mes "It's a long and narrow shield with an angel wing engraved in the center of the front side. Against Devil and Undead monsters, it is especially powerful.";
+	mes "[Soldado de Juno]";
+	mes "É um longo e estreito escudo com asas de anjo gravadas no centro da frente. é especialmente poderoso contra Demônios e Mortos-Vivos.";
 	close;
 }
 
-yuno,142,183,5	script	Airship Representative	4W_SAILOR,{
-	mes "[Airship Representative]";
-	mes "Good day, I am here to inform you";
-	mes "about the Juno Airship which";
-	mes "we plan to operate in the near future.";
+yuno,142,183,5	script	Repres. do Dirigível	4W_SAILOR,{
+	mes "[Representante do Dirigível]";
+	mes "Olá, estou aqui para informá-lo";
+	mes "sobre o Dirigível de Juno, o qual";
+	mes "pretendemos operar em um futuro próximo.";
 	next;
-	mes "[Air ship Representative]";
-	mes "Unfortunately, it is still in";
-	mes "development, and we've yet";
-	mes "to complete testing. However,";
-	mes "we feel the need to let our";
-	mes "eager customers know of our";
-	mes "progress.";
+	mes "[Representante do Dirigível]";
+	mes "Infelizmente, ele ainda está em";
+	mes "construção e temos ainda,";
+	mes "que completar os testes. No entanto,";
+	mes "sentimos a necessidade de informar";
+	mes "nossos clientes sobre o";
+	mes "progresso.";
 	next;
-	mes "[Airship Representative]";
-	mes "The Airship we're developing will provide you with convenient travel to any town. You can also enjoy the sights while aloft in the sky. Unique products from various areas will also be provided.";
+	mes "[Representante do Dirigível]";
+	mes "A aeronave que estamos desenvolvendo irá fornecer-lhe a conveniência de viajar para qualquer cidade. Você também pode admirar a paisagem enquanto flutua no céu. Produtos únicos de cada área também serão fornecidos.";
 	next;
-	mes "[Airship Representative]";
-	mes "We promise our customers an";
-	mes "amazing travel experience";
-	mes "once the Airship is in";
-	mes "operation. In the meantime,";
-	mes "we are providing a special";
-	mes "teleport service.";
+	mes "[Representante do Dirigível]";
+	mes "Nós prometemos a nossos clientes";
+	mes "uma experiência de viagem incrível";
+	mes "uma vez que a aeronave estiver em";
+	mes "operação. Entretanto,";
+	mes "estamos prestanto um serviço de";
+	mes "teletransporte especial.";
 	next;
-	mes "[Airship Representative]";
-	mes "The teleport fee is 1,800 zeny, regardless of where you want to go. Please let me know your desired destination.";
+	mes "[Representante do Dirigível]";
+	mes "A taxa de teletransporte é 1,800 zeny, independentemente do lugar que você quiser ir. Por favor, diga-me o local desejado.";
 	next;
-	switch(select("Prontera:Izlude:Geffen:Morroc:Payon:Alberta:Comodo:Cancel")) {
+	switch(select("Prontera:Izlude:Geffen:Morroc:Payon:Alberta:Comodo:Cancelar")) {
 		case 1: callsub S_Warp,"prontera",116,72;
 		case 2: if (RENEWAL) callsub S_Warp,"izlude",128,98; else callsub S_Warp,"izlude",94,103;
 		case 3: callsub S_Warp,"geffen",120,39;
@@ -383,9 +385,9 @@ S_Warp:
 		end;
 	}
 	else {
-		mes "[Airship Representative]";
-		mes "I regret to say that you do not have enough zeny with you.";
-		mes "Please check the amount of zeny that you have.";
+		mes "[Representante do Dirigível]";
+		mes "Lamento dizer que você não tem zeny sufciente consigo.";
+		mes "Por favor, verifique quantos zeny você tem.";
 		close;
 	}
 }
