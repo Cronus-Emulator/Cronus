@@ -1,0 +1,225 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - kvm_entrada.txt                                             ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução com base em revisões passadas do Cronus [SlexFire] ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Batalha Campal KvM                                          ||
+//===============================================================//
+
+// Oficial KvM - Guillaume
+//============================================================
+bat_room,164,178,5	script	Oficial de KVM#1	4_M_KY_KNT,{
+	/*
+	.@kvm = questprogress(6026,PLAYTIME);
+	if (.@kvm == 1) {
+		mes "[Oficial KVM de Guillaume]";
+		mes "Eu sei que você já está ao lado dos Croix. Volte para o seu time. Nós não aceitamos traidores para se juntarem ao nosso lado.";
+		close;
+	}
+	else if (.@kvm == 2) erasequest 6026;
+	*/
+	.@permit = questprogress(6025,PLAYTIME);
+	if (.@permit == 1) {
+		mes "[Oficial KVM de Guillaume]";
+		mes "Você já participou recentemente de uma batalha de KVM. Você deve aguardar 5 minutos antes de se inscrever novamente.";
+		close;
+	}
+	else if (.@permit == 2) erasequest 6025;
+	mes "[Oficial KVM de Guillaume]";
+	mes "Vamos mostrar o verdadeiro poder dos Guillaume!";
+	next;
+	switch(select("Vou lutar com vocês.:Terminar conversa.")) {
+	case 1:
+		mes "[Oficial KVM de Guillaume]";
+		mes "Mostre a eles o quanto você é forte.";
+		mes "Hoje, todos ouvirão o grito de triunfo de Guillaume!";
+		close2;
+		//setquest 6025;
+		if (BaseLevel > 79)  warp "bat_room",169,223;
+		else if (BaseLevel < 60) warp "bat_room",197,223;
+		else warp "bat_room",225,223;
+		end;
+	case 2:
+		mes "[Oficial KVM de Guillaume]";
+		mes "Vamos vencer!";
+		close;
+	}
+}
+
+// Cavaleiro de Guillaume - KvM
+//============================================================
+bat_room,167,178,5	script	Cavaleiro de Guillaume#kvm	4_M_KY_SOLD,{
+	mes "[Cavaleiro de Guillaume]";
+	mes "Olá.";
+	mes "O que você quer saber?";
+	next;
+	switch(select("Inscrever-me para KVM.:O que é KVM?:Como participo do KVM?:Quero saber quantos Pontos Kreiger tenho.")) {
+	case 1:
+		mes "[Cavaleiro de Guillaume]";
+		mes "As inscrições ainda não estão abertas.";
+		mes "Para se inscrever, você precisa falar com um Oficial de Alistamento do KVM.";
+		close;
+	case 2:
+		mes "[Cavaleiro de Guillaume]";
+		mes "KVM é a abreviação Kreiger Von Midgard.";
+		mes "Aventureiro, você já sabe do novo mundo que foi descoberto?";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "Nós, da Administração de Guillaume, formamos vários planos para colonizar o novo mundo.";
+		mes "E o KVM é um deles.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "Nós, de um dos muitos países do continente de Midgard,";
+		mes "decidimos empregar aventureiros para o avanço imediato sobre o novo mundo.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "Portanto, para escolher os melhores aventureiros, organizamos o KVM.";
+		mes "Esperamos receber muitos candidatos.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "E também damos algumas recompensas!";
+		mes "Para saber delas, entre em contato com um Oficial de Logística do KVM.";
+		close;
+	case 3:
+		mes "[Cavaleiro de Guillaume]";
+		mes "Basicamente, o KVM é uma batalha 5 contra 5.";
+		mes "Primeiro, você se inscreve com um recepcionista do KVM, em grupo ou individualmente.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "As inscrições em grupo servem para quando você quer entrar no KVM com os membros do seu grupo,";
+		mes "e uma inscrição pessoal serve para quando você quer entrar no KVM por conta própria.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "Por favor, faça a inscrição com um oficial do KVM, e ele entrará em contato com você mais tarde, em Prontera.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "Então, você poderá entrar e seguir as instruções no campo de batalha.";
+		next;
+		mes "[Cavaleiro de Guillaume]";
+		mes "Mas lembre-se, a menos que você esteja no escritório do KVM, ele não poderá entrar em contato com você.";
+		close;
+	case 4:
+		mes "[Cavaleiro de Guillaume]";
+		mes "Seus Pontos Kreiger são:";
+		mes ""+kvm_point+".";
+		close;
+	}
+}
+
+// Oficial KvM - Croix
+//============================================================
+bat_room,164,121,1	script	Oficial de KVM#2	4_M_CRU_KNT,{
+	/*
+	.@kvm = questprogress(6025,PLAYTIME);
+	if (.@kvm == 1) {
+		mes "[Oficial KVM de Croix]";
+		mes "Eu sei que você já está ao lado dos Guillaume. Volte para o seu time. Nós não aceitamos traidores para se juntarem ao nosso lado.";
+		close;
+	}
+	else if (.@kvm == 2) erasequest 6025;
+	*/
+	.@permit = questprogress(6025,PLAYTIME);
+	if (.@permit == 1) {
+		mes "[Oficial KVM de Croix]";
+		mes "Você já participou recentemente de uma batalha de KVM. Você deve aguardar 5 minutos antes de se inscrever novamente.";
+		close;
+	}
+	else if (.@permit == 2) erasequest 6025;
+	mes "[Oficial KVM de Croix]";
+	mes "Vamos mostrar o verdadeiro poder dos Croix!";
+	next;
+	switch(select("Vou lutar com vocês.:Terminar conversa.")) {
+	case 1:
+		mes "[Oficial KVM de Croix]";
+		mes "Mostre a eles o quanto você é forte.";
+		mes "Hoje, todos ouvirão o grito de triunfo de Croix!";
+		close2;
+		//setquest 6026;
+		if (BaseLevel > 79) warp "bat_room",169,207;
+		else if (BaseLevel < 60) warp "bat_room",197,207;
+		else warp "bat_room",225,207;
+		end;
+	case 2:
+		mes "[Oficial KVM de Croix]";
+		mes "Vamos vencer!";
+		close;
+	}
+}
+
+// Cavaleiro de Croix - KvM
+//============================================================
+bat_room,167,121,1	script	Cavaleiro de Croix#kvm	4_M_CRU_SOLD,{
+	mes "[Cavaleiro de Croix]";
+	mes "Olá.";
+	mes "O que você quer saber?";
+	next;
+	switch(select("Inscrever-me para KVM.:O que é KVM?:Como participo do KVM?:Quero saber quantos Pontos Kreiger tenho.")) {
+	case 1:
+		mes "[Cavaleiro de Croix]";
+		mes "As inscrições ainda não estão abertas.";
+		mes "Para se inscrever, você precisa falar com um Oficial de Alistamento do KVM.";
+		close;
+	case 2:
+		mes "[Cavaleiro de Croix]";
+		mes "KVM é a abreviação Kreiger Von Midgard.";
+		mes "Aventureiro, você já sabe do novo mundo que foi descoberto?";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "Nós, da Administração de Croix, formamos vários planos para colonizar o novo mundo.";
+		mes "E o KVM é um deles.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "Nós, de um dos muitos países do continente de Midgard,";
+		mes "decidimos empregar aventureiros para o avanço imediato sobre o novo mundo.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "Portanto, para escolher os melhores aventureiros, organizamos o KVM.";
+		mes "Esperamos receber muitos candidatos.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "E também damos algumas recompensas!";
+		mes "Para saber delas, entre em contato com um Oficial de Logística do KVM.";
+		close;
+	case 3:
+		mes "[Cavaleiro de Croix]";
+		mes "Basicamente, o KVM é uma batalha 5 contra 5.";
+		mes "Primeiro, você se inscreve com um recepcionista do KVM, em grupo ou individualmente.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "As inscrições em grupo servem para quando você quer entrar no KVM com os membros do seu grupo,";
+		mes "e uma inscrição pessoal serve para quando você quer entrar no KVM por conta própria.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "Por favor, faça a inscrição com um oficial do KVM, e ele entrará em contato com você mais tarde, em Prontera.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "Então, você poderá entrar e seguir as instruções no campo de batalha.";
+		next;
+		mes "[Cavaleiro de Croix]";
+		mes "Mas lembre-se, a menos que você esteja no escritório do KVM, ele não poderá entrar em contato com você.";
+		close;
+	case 4:
+		mes "[Cavaleiro de Croix]";
+		mes "Seus Pontos Kreiger são:";
+		mes ""+kvm_point+".";
+		close;
+	}
+}

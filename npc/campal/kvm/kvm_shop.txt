@@ -1,0 +1,316 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - kvm_shop.txt                                                ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução com base em revisões passadas do Cronus [SlexFire] ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Loja - (Pontos KvM)                                         ||
+//===============================================================//
+
+bat_room,151,144,3	script	Negociante KVM#a	4_M_JOB_KNIGHT2,{
+	if (countitem(7773)) {
+		.@pointstoadd = countitem(7773);
+		delitem 7773,.@pointstoadd;
+		kvm_point += .@pointstoadd;
+		mes "[Negociante KVM]";
+		mes "Esses são "+getitemname(7773)+"s?";
+		mes "Nós não aceitamos mais esta moeda,";
+		mes "mas posso trocá-las para você,";
+		mes "Então você tem "+.@pointstoadd+" "+getitemname(7773)+"s?";
+		mes "Tudo bem, agora você tem ^580080"+ kvm_point +"^000000 Pontos KVM.";
+		next;
+	}
+	if (checkweight(1201,1) == 0) {
+		mes "- Espere um minuto! -";
+		mes "- No momento, você está carregando -";
+		mes "- muitos itens. -";
+		mes "- Por favor, alivie a sua carga -";
+		mes "- e tente outra vez. -";
+		close;
+	}
+	mes "[Negociante KVM]";
+	mes "Olá...";
+	mes "Estou encarregado de dar";
+	mes "recompensas em troca de pontos KVM.";
+	mes "Uma escolha errada de item não";
+	mes "poderá ser desfeita. Por favor,";
+	mes "tenha cuidado. Escolha o passo seguinte.";
+	next;
+	.@name$ = strcharinfo(0);
+	switch(select("Ler o Catálogo KVM.:Comprar Itens KVM.:Confirmar Pontos KVM.:Explicação das Recompensas KVM.:Explicação dos Pontos KVM.")) {
+	case 1:
+		mes "[Negociante KVM]";
+		mes "Aqui está o catálogo de itens KVM.";
+		mes "Cada arma custa 2.000 pontos, e";
+		mes "cada item de armadura custa entre";
+		mes "10 e 1.200 pontos. Portanto, tenha";
+		mes "cuidado ao escolher uma recompensa.";
+		close2;
+		readbook 11017,1;
+		end;
+	case 2:
+		mes "[Negociante KVM]";
+		mes "Qual item você quer ver? Consulte-o";
+		mes "^3131FFCatálogo^000000 para ver especificações detalhadas dos itens.";
+		next;
+		switch(select("Arma:Armadura/Acessório:Armadura de Produção em Massa/Acessório:Armadura Pública/Acessório")) {
+		case 1:
+			mes "[Negociante KVM]";
+			mes "Você escolheu a categoria Arma.";
+			mes "Escolha uma subcategoria.";
+			next;
+			switch(select("Adaga/Espada/Lança:Cajado/Maça/Machado/Shuriken:Arco/Katar/Instrumento Musical/Chicote:Livro/Garra:Revólver/Rifle/Gatling/Espingarda/Lança-Granadas")) {
+			case 1:
+				mes "[Negociante KVM]";
+				mes "Você escolheu a categoria Adaga/Espada/Lança.";
+				mes "Escolha uma subcategoria.";
+				next;
+				switch(select("Adaga:Espada de Uma Mão:Espada de Duas Mãos:Lança de Uma Mão:Lança de Duas Mãos")) {
+				case 1: callsub PurchaseItem,13042,0,1; //Krieger_Dagger1
+				case 2:
+					mes "[Negociante KVM]";
+					mes "Você escolheu as Espadas de Uma Mão.";
+					mes "Temos três Espadas de Uma Mão: Flamberge Glorisa, o Florete Glorioso e a Vingadora Sagrada Gloriosa.";
+					mes "Se quiser saber seus detalhes, consulte o catálogo KVM.";
+					mes "Por favor, escolha um dos itens.";
+					next;
+					switch(select("Flamberge Gloriosa:Florete Glorioso:Vingadora Sagrada Gloriosa")) {
+					case 1: callsub PurchaseItem,13416,0,0; //Krieger_Onehand_Sword1
+					case 2: callsub PurchaseItem,13417,0,0; //Krieger_Onehand_Sword2
+					case 3: callsub PurchaseItem,13418,0,0; //Krieger_Onehand_Sword3
+					}
+				case 3: callsub PurchaseItem,1187,0,1; //Krieger_Twohand_Sword1
+				case 4: callsub PurchaseItem,1426,0,1; //Krieger_Onehand_Spear1
+				case 5: callsub PurchaseItem,1486,0,1; //Krieger_Twohand_Spear1
+				}
+			case 2:
+				mes "[Negociante KVM]";
+				mes "Você escolheu a categoria 'Cajado/Maça/Machado/Shuriken'.";
+				mes "Escolha uma subcategoria.";
+				next;
+				switch(select("Cajado:Maça:Machado de Uma Mão:Machado de Duas Mãos:Shuriken")) {
+				case 1:
+					mes "[Negociante KVM]";
+					mes "Você escolheu 'Cajado'.";
+					mes "Temos três Cajados: o Cajado da Destruição Glorioso (de duas mãos), o Cetro Glorioso (de uma mão) e a Varinha de Cura Gloriosa.";
+					mes "Se quiser saber seus detalhes, consulte o catálogo KVM.";
+					mes "Por favor, escolha um dos itens.";
+					next;
+					switch(select("Cajado da Destruição Glorioso:Cetro Glorioso:Varinha de Cura Gloriosa")) {
+					case 1: callsub PurchaseItem,2002,0,0; //Krieger_Twohand_Staff1
+					case 2: callsub PurchaseItem,1640,0,0; //Krieger_Onehand_Staff1
+					case 3: callsub PurchaseItem,1641,0,0; //Krieger_Onehand_Staff2
+					}
+				case 2: callsub PurchaseItem,1546,0,1; //Krieger_Onehand_Mace1
+				case 3: callsub PurchaseItem,1310,0,1; //Krieger_Onehand_Axe1
+				case 4: callsub PurchaseItem,1382,0,1; //Krieger_Twohand_Axe1
+				case 5: callsub PurchaseItem,13307,0,1; //Krieger_Huuma_Shuriken1
+				}
+			case 3:
+				mes "[Negociante KVM]";
+				mes "Você escolheu a categoria 'Arco/Katar/Instrumento Musical/Chicote'.";
+				mes "Escolha uma subcategoria.";
+				next;
+				switch(select("Arco:Katar:Instrumento Musical:Chicote")) {
+				case 1: callsub PurchaseItem,1743,0,1; //Krieger_Bow1
+				case 2:
+					mes "[Negociante KVM]";
+					mes "Você escolheu 'Katar'.";
+					mes "Temos duas Katares: o Rugido Sangrento Glorioso e o Jamadhar Glorioso.";
+					mes "Se quiser saber seus detalhes, consulte o catálogo KVM.";
+					mes "Por favor, escolha um dos itens.";
+					next;
+					switch(select("Rugido Sangrento Glorioso:Jamadhar Glorioso")) {
+					case 1: callsub PurchaseItem,1281,0,0; //Krieger_Katar1
+					case 2: callsub PurchaseItem,1282,0,0; //Krieger_Katar2
+					}
+				case 3: callsub PurchaseItem,1927,0,1; //Krieger_Instrument1
+				case 4: callsub PurchaseItem,1981,0,1; //Krieger_Whip1
+				}
+			case 4:
+				mes "[Negociante KVM]";
+				mes "Você escolheu a categoria 'Livro/Garra'.";
+				mes "Escolha uma subcategoria.";
+				next;
+				switch(select("Livro:Garra")) {
+				case 1:
+					mes "[Negociante KVM]";
+					mes "Você escolheu a categoria 'Livro'.";
+					mes "Temos dois Livros: a Tábula Gloriosa e o Apocalipse Glorioso.";
+					mes "Se quiser saber seus detalhes, consulte o catálogo KVM.";
+					mes "Por favor, escolha um dos itens.";
+					next;
+					switch(select("Tábula Gloriosa:Apocalipse Glorioso")) {
+					case 1: callsub PurchaseItem,1576,0,0; //Krieger_Book1
+					case 2: callsub PurchaseItem,1577,0,0; //Krieger_Book2
+					}
+				case 2:
+					mes "[Negociante KVM]";
+					mes "Você escolheu a categoria 'Garra'.";
+					mes "Temos duas Garras: Garra Gloriosa e Punho Glorioso.";
+					mes "Se quiser saber seus detalhes, consulte o catálogo KVM.";
+					mes "Por favor, escolha um dos itens.";
+					next;
+					switch(select("Garra Gloriosa:Punho Glorioso")) {
+					case 1: callsub PurchaseItem,1826,0,0; //Krieger_Knuckle1
+					case 2: callsub PurchaseItem,1827,0,0; //Krieger_Knuckle2
+					}
+				}
+			case 5:
+				mes "[Negociante KVM]";
+				mes "Você escolheu a categoria 'Revólver/Rifle/Gatling/Espingarda/Lança-Granadas'.";
+				mes "Escolha uma subcategoria.";
+				next;
+				switch(select("Revolver:Rifle:Gatling Gun:Shotgun:Grenade Launcher")) {
+				case 1: callsub PurchaseItem,13110,0,1; //Krieger_Pistol1
+				case 2: callsub PurchaseItem,13176,0,1; //Krieger_Rifle1
+				case 3: callsub PurchaseItem,13177,0,1; //Krieger_Gatling1
+				case 4: callsub PurchaseItem,13178,0,1; //Krieger_Shotgun1
+				case 5: callsub PurchaseItem,13179,0,1; //Krieger_Launcher1
+				}
+			}
+		case 2:
+			mes "[Negociante KVM]";
+			mes "Você escolheu a categoria 'Armadura/Acessório'.";
+			mes "Escolha uma subcategoria.";
+			next;
+			switch(select("Armadura:Capa:Sapatos:Acessório")) {
+			case 1: callsub PurchaseItem,2394,1,2; //Krieger_Suit1
+			case 2: callsub PurchaseItem,2549,2,2; //Krieger_Muffler1
+			case 3: callsub PurchaseItem,2444,3,2; //Krieger_Shoes1
+			case 4: callsub PurchaseItem,2772,4,2; //Krieger_Ring1
+			}
+		case 3:
+			mes "[Negociante KVM]";
+			mes "Você escolheu a categoria 'Armadura de Produção em Massa/Acessório'.";
+			mes "Escolha uma subcategoria.";
+			next;
+			switch(select("Armadura de Produção em Massa:Sapato de Produção em Massa:Acessório de Produção de Massa")) {
+			case 1: callsub PurchaseItem,2395,5,3; //Krieger_Suit2
+			case 2: callsub PurchaseItem,2445,6,3; //Krieger_Shoes2
+			case 3: callsub PurchaseItem,2773,7,3; //Krieger_Ring2
+			}
+		case 4:
+			mes "[Negociante KVM]";
+			mes "Você escolheu a categoria 'Armadura Pública/Acessório'.";
+			mes "Escolha uma subcategoria.";
+			next;
+			switch(select("Armadura Pública:Sapato Público:Acessório Público")) {
+			case 1: callsub PurchaseItem,2396,8,4; //Krieger_Suit3
+			case 2: callsub PurchaseItem,2446,9,4; //Krieger_Shoes3
+			case 3: callsub PurchaseItem,2774,10,4; //Krieger_Ring3
+			}
+		}
+	case 3:
+		mes "[Negociante KVM]";
+		mes ""+ .@name$ +", no momento você tem ^580080"+ kvm_point +"^000000 Pontos KVM.";
+		close;
+	case 4:
+		mes "[Negociante KVM]";
+		mes "Há três categorias de Recompensas KVM: Armas, Armaduras e Acessórios.";
+		next;
+		mes "[Negociante KVM]";
+		mes "As Armas custam 2.000 pontos KVM cada.";
+		mes "Há três tipos de Armaduras, e cada um deles custa 840, 630 e 580 Pontos KVM.";
+		mes "Os Acessórios custam 1.200 pontos KVM cada.";
+		next;
+		mes "[Negociante KVM]";
+		mes "As armas de recompensa KVM são de nível 4; podem ser aprimoradas e têm efeitos especiais: Carniceiro, Destruição e Bênção.";
+		next;
+		mes "[Negociante KVM]";
+		mes "Ao usar todas as três Armaduras, você terá um conjunto especial de opções.";
+		mes "Além disso, quando Acessórios KVM forem usados com medalhas, também gerarão efeitos especiais.";
+		next;
+		mes "[Negociante KVM]";
+		mes "Finalmente, temos Armaduras e Acessórios de Suprimento.";
+		mes "Jogadores com nível acima de 60, podem se equipar com Armaduras de Produção em Massa; Também há um limite de nível para Armaduras Públicas.";
+		close;
+	case 5:
+		mes "[Negociante KVM]";
+		mes "Os Pontos KVM são concedidos quando você ganha, perde ou empata batalhas Kreiger Von Midgard (KVM).";
+		mes "Você pode trocar esses pontos por recompensas especiais.";
+		close;
+	}
+
+PurchaseItem:
+	// Preço para armas, Suit1, Muffler1, Shoes1, Ring1m Suit2, Shoes2, Ring2, Suit3, Shoes3, Ring3
+	setarray .@prices[0],2000,840,630,580,1200,120,70,200,15,10,30;
+
+	mes "[Negociante KVM]";
+
+	if (!getarg(2))
+		mes "Você escolheu ^ff0000"+getitemname(getarg(0))+"^000000.";
+	else if (getarg(2) == 1)
+		mes "Só temos uma "+callfunc("F_GetWeaponType",getarg(0))+": "+getitemname(getarg(0))+".";
+	else if (getarg(2) == 2) {
+		mes "Você escolheu '"+callfunc("F_GetArmorType",getarg(0))+"'.";
+		mes "Para quem tem nível acima de 80, a armadura que temos é esta: ^ff0000"+getitemname(getarg(0))+"^000000.";
+	}
+	else if (getarg(2) == 3) {
+		mes "Você escolheu a categoria 'Mass-Production "+callfunc("F_GetArmorType",getarg(0))+"'.";
+		mes "Só temos uma de Produção em Massa "+callfunc("F_GetArmorType",getarg(0))+": ^ff0000"+getitemname(getarg(0))+"^000000.";
+	}
+	else if (getarg(2) == 4) {
+		mes "Você escolheu 'Pública "+callfunc("F_GetArmorType",getarg(0))+"'.";
+		mes "Só temos uma Pública "+callfunc("F_GetArmorType",getarg(0))+": ^ff0000"+getitemname(getarg(0))+"^000000.";
+	}
+
+	if (!getarg(1))
+		mes "Ela custa ^0000ff2,000^000000 Pontos KVM. "+ .@name$ +", seus pontos são: ^580080"+ kvm_point +"^000000 Pontos KVM.";
+	else if (getarg(1) == 4)
+		mes "Ela custa ^0000ff1,200^000000 Pontos KVM. "+ .@name$ +", seus pontos são: ^580080"+ kvm_point +"^000000 Pontos KVM.";
+	else
+		mes "Ela custa ^0000ff"+.@prices[getarg(1)]+"^000000 Pontos KVM. "+ .@name$ +", seus pontos são: ^580080"+ kvm_point +"^000000 Pontos KVM.";
+
+	mes "Tem certeza de que quer este item?";
+	next;
+	switch(select("Não, não quero comprar.:Sim, quero comprar.")) {
+	case 1:
+		mes "[Negociante KVM]";
+		mes "Você optou por não comprar.";
+		mes "Tenha cuidado ao comprar um item.";
+		break;
+	case 2:
+		if (kvm_point >= .@prices[getarg(1)]) {
+			kvm_point -= .@prices[getarg(1)];
+			getitem getarg(0),1;
+			mes "[Negociante KVM]";
+			mes "Você comprou: "+getitemname(getarg(0))+".";
+			if (!getarg(1))
+				mes "Seus Pontos KVM foram reduzidos em ^0000ff"+getarg(1)+"^000000 pontos, você agora tem ^580080"+kvm_point+"^000000 Pontos KVM.";
+			if (getarg(1) == 4)
+				mes "Seus Pontos KVM foram reduzidos em ^0000ff1,200^000000 pontos, você agora tem ^580080"+kvm_point+"^000000 Pontos KVM.";
+			else
+				mes "Seus Pontos KVM foram reduzidos em ^0000ff"+.@prices[getarg(1)]+"^000000 pontos, você agora tem ^580080"+kvm_point+"^000000 Pontos KVM.";
+		}
+		else {
+			mes "[Negociante KVM]";
+			if (!getarg(1))
+				mes "Você precisa de ^0000ff2,000^000000 Pontos KVM para comprar este item.";
+			else if (getarg(1) == 4)
+				mes "Você precisa de ^0000ff1,200^000000 Pontos KVM para comprar este item.";
+			else
+				mes "Você precisa de ^0000ff"+.@prices[getarg(1)]+"^000000 Pontos KVM para comprar este item.";
+				mes "Contudo, seus Pontos KVM agora são ^580080"+ kvm_point +"^000000.";
+				mes "Volte quando tiver pontos suficientes.";
+		}
+	}
+	close;
+}
