@@ -340,20 +340,20 @@ bat_room,1,151,3	script	Switch#batgnd	4_DOG01,{
 		next;
 		switch(select("Fechar Campo de Batalha:Abrir Campo de Batalha:Resetar a01:Resetar b01:Resetar a02:Resetar b02")) {
 		case 1:
-			disablenpc "Tierra Gorge Officer#01a";
-			disablenpc "Tierra Gorge Officer#02a";
-			disablenpc "Tierra Gorge Officer#01b";
-			disablenpc "Tierra Gorge Officer#02b";
+			disablenpc "Oficial de Tierra#01a";
+			disablenpc "Oficial de Tierra#02a";
+			disablenpc "Oficial de Tierra#01b";
+			disablenpc "Oficial de Tierra#02b";
 			disablenpc "Oficial de Flavius#01a";
 			disablenpc "Oficial de Flavius#01b";
 			disablenpc "Oficial de Flavius#02a";
 			disablenpc "Oficial de Flavius#02b";
 			break;
 		case 2:
-			enablenpc "Tierra Gorge Officer#01a";
-			enablenpc "Tierra Gorge Officer#02a";
-			enablenpc "Tierra Gorge Officer#01b";
-			enablenpc "Tierra Gorge Officer#02b";
+			enablenpc "Oficial de Tierra#01a";
+			enablenpc "Oficial de Tierra#02a";
+			enablenpc "Oficial de Tierra#01b";
+			enablenpc "Oficial de Tierra#02b";
 			enablenpc "Oficial de Flavius#01a";
 			enablenpc "Oficial de Flavius#01b";
 			enablenpc "Oficial de Flavius#02a";
