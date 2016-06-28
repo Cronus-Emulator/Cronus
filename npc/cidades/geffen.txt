@@ -21,104 +21,105 @@
 //= 1.8 Fixed character's name and swapped gender dialogues [Lupus]
 //= 1.9 Replaced effect numerics with constants. [Samuray22]
 //= 2.0 Bug fixes (bugreport:7928) [DeadlySilence]
+//= 2.1 Traduzido por Roberto (roberto@cronus-emulator.com)
 //============================================================
 
 geffen,59,143,0	script	Meera	4_F_02,{
 	mes "[Meera]";
-	mes "Welcome to Geffen,";
-	mes "the City of Magic!";
+	mes "Bem vindo a Geffen,";
+	mes "a Cidade da Magia!";
 	next;
 	mes "[Meera]";
-	mes "I don't know much about magic, but do you know what tastes magical? ^CC6600Honey^000000!";
+	mes "Eu não sei muito sobre magia, mas qual é o seu gosto mágico? ^CC6600Mel^000000!";
 	next;
 	mes "[Meera]";
-	mes "It's soooo sweet and delicious. I'm not sure if it's an aphrodisiac, but I know for a fact that it will relieve you of fatigue and help you recover from wounds!";
+	mes "Isto é muiiiito doce e delicioso. Não tenho certeza se é um afrodiziaco, mas eu sei de um fato que vai alivia-lo da fadiga e recuperar sua saúde!";
 	next;
 	mes "[Meera]";
-	mes "Hornets living in the grasslands spend their lives gathering nectar at the Queen Bee's command. Honey is made from the nectar they gather.";
+	mes "Os zangões vivem nos campos e passam a vida recolhendo o néctar sob comando da Abelha Rainha. O Mel é feito a partir do nectar que eles reúnem.";
 	next;
 	mes "[Meera]";
-	mes "But that's not all. There's a special kind of honey that's made for only Queen Bees to eat:";
-	mes "^CC6600Royal Jelly^000000!";
+	mes "Mas isso não é tudo. Há um tipo especial de mel que é feito somente para as Abelhas Rainhas comerem:";
+	mes "^CC6600Geléia Real^000000!";
 	next;
 	mes "[Meera]";
-	mes "Nothing can compare to the luscious flavor of Royal Jelly. And I think it's even better for you than ordinary Honey!";
+	mes "Nada se compara ao delicioso sabor da Geléia Real. E eu acho que é melhor pra você do que o mel comum!";
 	close;
 }
 
 geffen,156,190,0	script	Orwalk	4_KID01,{
 	mes "[Orwalk]";
-	mes "...Interesting.";
-	mes "Most intriguing.";
-	mes "Oh! Let me tell you";
-	mes "this marvelous story~";
+	mes "...Interessante.";
+	mes "Muito intrigante.";
+	mes "Oh! Deixe-me lhe contar";
+	mes "esta história maravilhosa~";
 	next;
 	mes "[Orwalk]";
-	mes "While I was researching magic, I discovered this mysterious scroll. It describes this tree named Yggdrasil.";
+	mes "Quando eu estava pesquisando magia, eu descobri este pergaminho misterioso. Ele descrevia esta árvore chamada Yggdrasil.";
 	next;
 	mes "[Orwalk]";
-	mes "The leaves, seeds and fruit of Yggdrasil link every living thing in this world. According to this scroll, Yggdrasil is also involved in the creation of the world.";
+	mes "As folhas, sementes e frutos de Yggdrasil ligam todos os seres vivos deste mundo. De acordo com este pergaminho, Yggdrasil também está envolvido com a criação do mundo.";
 	next;
 	mes "[Orwalk]";
-	mes "Speaking of which, I've also heard of a rumor about a miraculous tree in some land near Comodo. They must be connected, I'm sure of it!";
+	mes "Falando nisso, também ouvi falar de um rumor sobre uma árvore em um terreno perto de Comodo. Eles devem ser ligados, tenho certeza disso!";
 	close;
 }
 
 geffen_in,164,109,0	script	Wizard Stanza	1_M_WIZARD,{
 	mes "[Stanza]";
-	mes "I sense the presence of a mighty spirit. Can it be you...?";
+	mes "Eu senti a presença de um espírito poderoso. Pode ser você...?";
 	next;
 	mes "[Stanza]";
 	if (BaseJob == Job_Mage)
-		mes "It seems that you are trained in the mystic arts. Magic... Its power is governed by the law of cause and effect.";
+		mes "Parece que você está treinado nas artes místicas. Magia... Seu poder é regido pelas leis da causa e efeito.";
 	else if (BaseJob == Job_Acolyte) {
 		mes "Ah...";
-		mes "I see that you wield holy power in one way or another. I suppose Holy power may be considered one form of mystical energy.";
+		mes "Vejo que você exerce o poder santo, de uma forma ou de outra. Suponho que o Poder Santo pode ser considerado uma forma de energia mística.";
 	}
 	else if (Class == Job_Novice)
-		mes "Although you may not be able to use magic or any other kind of powerful skills for now, this knowledge may be helpful in the future, young Novice...";
+		mes "Embora você não seja capaz de usar magia ou qualquer tipo de habilidades poderosas por agora, este conhecimento pode lhe ser útil no futuro, jovem Noviço...";
 	else
-		mes "Although you are not formally trained in the use of magic, you use skills which draw upon otherworldly energies, whether you know it or not...";
+		mes "Embora você não seja formamelmente treinado no uso de magias, você usa as habilidades que atraem sob as energias do além, quer você saiba disso ou não...";
 	next;
 	mes "[Stanza]";
-	mes "If you use mystic energy for the purpose of harming others, or to defy the rules set by Mother Nature, that power will naturally be turned against you. Remember, you reap what you sow.";
+	mes "Se você usa a energia mística pra prejudicar os outros ou para desafiar as regras da Mãe Natureza, o poder irá naturalmente se virar contra você. Lembre-se, você colhe o que planta.";
 	next;
 	mes "[Stanza]";
-	mes "But there is an item that can protect the caster from ill consequence, allowing the safe use of certain magics. These are the shining, mystical stones known as Gemstones.";
+	mes "Mas há um item que pode lhe proteger do lançador de consequencia doente, permitindo o uso seguro de certos mágicos. Estas são as brilhantes pedras místicas chamadas Pedras Preciosas.";
 	next;
 	mes "[Stanza]";
-	mes "Gemstone...";
-	mes "If you wish to use your powers to the fullest, remember this item.";
+	mes "Pedra Preciosa...";
+	mes "Se você deseja usar seus poderes ao máximo, lembre-se deste item.";
 	close;
 }
 
 geffen,147,26,0	script	Ralphie	4W_M_01,{
 	mes "[Ralphie]";
-	mes "Somewhere in this world, there is a rare Staff which can transform psychic energy into physical force, endowing its owner with ^990000destructive power^000000...";
+	mes "Em algum lugar neste mundo, há uma equipe rara que pode transformar energia psíquica em vigor físico, dotando seu dono com ^990000poder destrutivo^000000...";
 	next;
 	mes "[Ralphie]";
-	mes "With that, anyone could be as strong as Hercules... Even a weakling like me! Hahahahahah,";
-	mes "I must have it!";
+	mes "Com isso, qualquer um poderia ser forte como Hercules... Mesmo um fracote como eu! Hahahahahah,";
+	mes "Tenho que ter isso!";
 	next;
 	emotion e_gasp;
 	mes "[Ralphie]";
-	mes "...Good Heavens!";
-	mes "Since when were";
-	mes "you listening?";
+	mes "...Céus!";
+	mes "Desde quando";
+	mes "você estava ouvindo?";
 	next;
 	mes "[Ralphie]";
-	mes "Did you happen";
-	mes "to hear any of that?";
+	mes "Por acaso";
+	mes "você não ouviu nada disso?";
 	mes "Muhwaha... ha. Ha.";
 	next;
 	mes "[Ralphie]";
-	mes "Well...";
-	mes "I didn't say anything. But if";
-	mes "I did, forget all about it,";
-	mes "whatever it was~";
+	mes "Bem...";
+	mes "Eu não disse nada. Mas se";
+	mes "eu disse, esqueça tudo sobre isso,";
+	mes "o que quer que fosse~";
 	next;
 	mes "[Ralphie]";
-	mes "...Boy, this is awkward.";
+	mes "...Rapaz, isso é estranho.";
 	close;
 }
 
@@ -126,16 +127,16 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 	if (getequipid(1) == 2299) {
 		mes "[Stacey]";
 		mes "Oh...!";
-		mes "Is that an Orc Helm you're wearing?! That's so cool! Wow...";
+		mes "É um Elmo de Orc que você está vestindo?! Isso é muito legal! Wow...";
 		next;
 		mes "[Stacey]";
 		if (Sex) {
-			mes "You look so...";
-			mes "Rugged and manly~";
+			mes "Você parece tão...";
+			mes "Robusto e viril~";
 		}
 		else {
 			mes "Oooh~!";
-			mes "I'm so jealous!";
+			mes "Estou com tanta inveja!";
 		}
 		close;
 	}
@@ -145,36 +146,36 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 		mes "Wow...";
 		next;
 		mes "[Stacey]";
-		mes "That's...";
-		mes "That's a Helmet";
-		mes "of Orc Hero!";
+		mes "Isto...";
+		mes "Isto é um capacete";
+		mes "de orc Herói!";
 		next;
 		mes "[Stacey]";
 		if (Sex) {
-			mes "It's...";
-			mes "It's like you're surrounded by this incredibly masculine aura! Oooh~! You must be irresistable to all the girls!";
+			mes "Isto...";
+			mes "É como se você estivesse cercado por uma aurea masculina! Oooh~! Você deve ser irresistível para todas as garotas!";
 			next;
 			emotion e_lv;
 			mes "[Stacey]";
-			mes "And I'm no exception.";
+			mes "E eu não sou exceção.";
 		}
 		else {
-			mes "Goodness, you must be so strong!";
-			mes "But I thought only members of the Orc Tribe could wear those?";
+			mes "Nossa, você deve ser tão forte!";
+			mes "Mas eu pensei que apenas membros da Tribo de Orcs usavam isso?";
 		}
 		close;
 	}
 	else {
 		mes "[Stacey]";
-		mes "Hello~!";
-		mes "Oh, aren't you";
-		mes "an adventurer?";
+		mes "Olá~!";
+		mes "Oh, você não é";
+		mes "um aventureiro?";
 		next;
 		mes "[Stacey]";
-		mes "Have you ever seen any Orcs from the Demi-Human tribe? If you go down southward from here, I think you can find Orcs in the deep forest.";
+		mes "Você já viu alguns Orcs da tribo de Demi-Human? Se você descer para o sul a partir daqui, eu acho que você pode encontrar Orcs na floresta profunda.";
 		next;
 		mes "[Stacey]";
-		mes "I hear that Orcs have their own culture and language, supposedly just like us humans. Does that mean Orcs go on dates...?";
+		mes "Eu ouvi que os Orcs possuem uma cultura e linguagem própria, supostamente apenas como nós humanos. Será que os Orcs vão a encontros...?";
 		next;
 		mes "[Stacey]";
 		mes "You know, where they tenderly whisper sweet nothings and then... Oh! I really want to know!";
@@ -184,33 +185,33 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 
 geffen_in,34,170,0	script	Theodore	1_M_01,{
 	mes "[Theodore]";
-	mes "Hello!";
-	mes "Isn't it a";
-	mes "wonderful";
-	mes "day today?";
+	mes "Olá!";
+	mes "Não está um";
+	mes "maravilhoso";
+	mes "dia hoje?";
 	next;
 	mes "[Theodore]";
-	mes "Well, I wouldn't know. I've been studying too hard to become a Mage. I've been staying up all night, agonizing over anything that's magical.";
+	mes "Bem, eu não sei. Venho estudando duro para me tornar um Mago. Fico acordado a noite toda, agonizando sobre tudo que é mágico.";
 	next;
 	mes "[Theodore]";
-	mes "*Sigh...*";
-	mes "I especially worry about all the drawbacks to using magic.";
+	mes "*Suspiro..*";
+	mes "Eu me preocupo especialmente sobre todas as desvantagens de utilizar magia.";
 	next;
 	mes "[Theodore]";
-	mes "Oh darn! It was really annoying when a long-ranged enemy found me the last time I went exploring. That crummy monster disrupted the casting of all my spells! I didn't hit it at all!";
+	mes "Oh droga! Foi realmente irritante quando um inimigo de longa data me encontrou na ultima vez que estava explorando. Esse monstro miserável interrompeu todos os meus feitiços! Não consegui atingir tudo!";
 	next;
 	mes "[Theodore]";
-	mes "After that, I realized I needed some sort of weapon to counter long-ranged attacks from enemies. Something that can attack from a distance...";
+	mes "Depois disso, eu percebi que precisava de algum tipo de arma para combater os ataques de longo alcance dos inimigos. Algo que posso atacar a longas distâncias...";
 	next;
 	mes "[Theodore]";
-	mes "Some sort of...";
-	mes "Sharp, piercing";
-	mes "projectile launcher, preferably made out of wood.";
+	mes "Algum tipo de...";
+	mes "Afiação, perfuração";
+	mes "lançador de projétil, preferencialmente feito com madeira.";
 	next;
 	mes "[Theodore]";
-	mes "But where could";
-	mes "I find something";
-	mes "like that?!";
+	mes "Mas onde";
+	mes "eu poderia encontrar";
+	mes "algo como isso?!";
 	close;
 }
 
@@ -220,55 +221,55 @@ geffen,146,148,4	script	Suspicious Guy	4W_M_03,6,6,{
 OnTouch:
 	mes "[?]";
 	mes "^333333*Psssst!*";
-	mes "H-Hey you!";
-	mes "You wanna get your hands on some great stuff? Come on over!^000000";
+	mes "E-Ei você!";
+	mes "Você quer começar suar mãos em algo grande? Venha aqui!^000000";
 	next;
 	mes "[Suspicious Guy]";
 	if (Sex)
-		mes "Hey there tough guy. You look smart enough to recognize a bargain when it's right in front of your eyes.";
+		mes "Ei cara forte. Você parece suficientemente inteligente para reconhecer uma pechincha quando ele está bem na frente de seus olhos.";
 	else
-		mes "Well, well, well. Aren't you a pretty girl. Today just happens to be your lucky day!";
+		mes "Ora, ora, ora. Você não é uma garota bonita. Hoje é apenas o seu dia de sorte!";
 	next;
 	mes "[Suspicious Guy]";
-	mes "So just tell me what you want, and I'll cut you a deal from amongst my valuable, yet affordable, wares.";
+	mes "Então me diga o que você quer e eu irei fazer um acordo sobre algo de valor, mercadorias mais valiosas.";
 	next;
-	switch(select("Gimme some potion so I can recover HP.:Um, you got a Knife?:Don't you have a good Manteau?:Don't you have something besides this?")) {
+	switch(select("Me dê alguma poção para eu recuperar HP.:Uhm, você quer uma Faca?:Don't you have a good Manteau?:Você não tem algo além disso?")) {
 	case 1:
 		mes "[Suspicious Guy]";
 		mes "Ah, you into Potions, eh?";
-		mes "Yeah, I got the stuff!";
+		mes "Sim, eu tenho essas coisas!";
 		next;
 		mes "[Suspicious Guy]";
-		mes "Here it is! High quality Red Potion! It starts working right away once you take it. Once it hits your lips, you can't stop. This stuff is that good.";
+		mes "Aqui está! Uma Poção Vermelha de Alta qualidade! Começa a funcionar imediatamente depois de tomá-lo. Assim que ele toca seus lábios, você não pode pará-lo. Este material é muito bom.";
 		next;
 		mes "[Suspicious Guy]";
-		mes "C'mon dude. This is the latest Red Potion. I got it from a close friend of a friend, you know, a real dependable source, and it's real cheap too. You can't pass this up!";
+		mes "Vamos lá cara. Esta é a ultima Poção Vermelha. Eu o consegui de um amigo próximo de um amigo, você sabe, uma fonte confiável de verdade, e é realmente barato também. Você não pode passar sobre essa!";
 		next;
-		select("Uh, can I buy White Potions instead?");
+		select("Uh, eu posso comprar Poções Brancas em vez disso?");
 		mes "[Suspicious Guy]";
-		mes "White Potions? Oh, those don't exist. But, er, if someone's selling that kind of stuff, bring it to me so I can, um, test the difference. But yeah, I got the real stuff.";
-		next;
-		mes "[Suspicious Guy]";
-		mes "You can heal all your wounds by drinking Red Potions! And I'll sell you one for just ^FF3333500 zeny^000000!";
+		mes "Poções Brancas? Oh, elas não existem. Mas, er, se alguém está vendendo este tipo de coisa, traga um para mim para que eu possa, uhm.. testar a diferença. Mas sim, eu tenho o materal real.";
 		next;
 		mes "[Suspicious Guy]";
-		mes "Now, how cheap is that?! Since they're in such high demand, I can only sell you 100 of";
-		mes "them at a time.";
+		mes "Você pode curar todas as suas feridas ao tomar as Poções Vermelhas! E eu irei vender por apenas ^FF3333500 zeny^000000!";
+		next;
+		mes "[Suspicious Guy]";
+		mes "Agora, quão barato ele é?! Como eles são em alta demanda, só posso lhe vender apenas 100";
+		mes "de cada vez.";
 		next;
 		while(1) {
 			input .@input;
 			if (.@input == 0) {
 				mes "[Suspicious Guy]";
 				if (Sex)
-					mes "Ah duuuuuude~ You're breakin' my heart! I mean, at these prices, I'm practically performing charity!";
+					mes "Ah caaara~ Você está partindo meu coração! Quer dizer, a estes preços, eu estou praticamente realizando caridade!";
 				else
-					mes "W-waaaait! You didn't let me tell you the part about how Red Potions help you lose and gain weight in all the right places! Waaaaait!";
+					mes "E-espeeeere! Você não deixou-me dizer a parte sobre como as Poções Vermelhas pode ajudá-lo a perder e ganhar peso em todos os lugares certos! Espeeeere!";
 				close;
 			}
 			else if (.@input > 100) {
 				mes "[Suspicious Guy]";
-				mes "Whoa...";
-				mes "I can't let you buy that many. I mean, it's not like, you know, there's a trace impurity in these Potions or anything like that...";
+				mes "Uau...";
+				mes "Não posso deixa-lo comprar muitos. Quer dizer.. não é gosto, você sabe, há um traço de impureza nessas poções ou algo do tipo...";
 				next;
 			}
 			else
@@ -277,13 +278,13 @@ OnTouch:
 		.@Red_potion_hap = .@input * 500;
 		if (Zeny < .@Red_potion_hap) {
 			mes "[Suspicious Guy]";
-			mes "Oh maaan~";
-			mes "Are you";
-			mes "short on dough?";
-			mes "That's no good.";
+			mes "Oh caaaara~";
+			mes "Você está";
+			mes "com a grana curta?";
+			mes "Isso não é bom.";
 			next;
 			mes "[Suspicious Guy]";
-			mes "^333333Now I gotta find some other sucker to dump this junk on!^000000 *Ahem* I mean, come again!";
+			mes "^333333Agora eu tenho que encontrar algum outro otário para despejar este lixo!^000000 *Ahem* Quero dizer, vamos novamente!";
 			close;
 		}
 		Zeny -= .@Red_potion_hap;
@@ -292,12 +293,12 @@ OnTouch:
 	case 2:
 		mes "[Suspicious Guy]";
 		if (Sex) {
-			mes "What would a strong guy like you want a knife for? Those will just break under the force of your incredibly powerful swings!";
+			mes "O que um cara forte quer com uma faca? Aquilo só irá romper com a força de seus balanços incrivelmente poderosos!";
 			next;
 			mes "[Suspicious Guy]";
-			mes "Now...";
-			mes "What you really";
-			mes "need is a ^FF3333manly Dagger^000000.";
+			mes "Agora...";
+			mes "O que você realmente precisa";
+			mes "é de uma ^FF3333Adaga viril^000000.";
 		}
 		else {
 			mes "A nice lady like you? Come on now, kitchen knives are for old naggy wives and the hired help.";
