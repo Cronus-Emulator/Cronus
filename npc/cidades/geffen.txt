@@ -1,28 +1,29 @@
-//===== Hercules Script ======================================
-//= Geffen Town
-//===== By: ==================================================
-//= Everybody mentioned in the comments
-//===== Current Version: =====================================
-//= 2.0
-//===== Description: =========================================
-//= [Official Conversion]
-//= Geffen Town NPCs
-//===== Additional Comments: =================================
-//= Fully working
-//= 1.1 Spell Checked [massdriller]
-//= 1.2 Fixed more typos [Nexon]
-//= 1.3 added a Level 4 weapon quest related NPC [MasterOfMuppets]
-//= 1.4 Removed Duplicates [Silent]
-//= 1.5 Fixed some typos and coordinates [Musashiden]
-//= 1.5a Fixed a small typo [Evera]
-//= 1.6 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//= 1.6a Small bug fix. (end -> next) care of Lesbian. [L0ne_W0lf]
-//= 1.7 Fixed bad NPC header data to comply with rev. 11603. [L0ne_W0lf]
-//= 1.8 Fixed character's name and swapped gender dialogues [Lupus]
-//= 1.9 Replaced effect numerics with constants. [Samuray22]
-//= 2.0 Bug fixes (bugreport:7928) [DeadlySilence]
-//= 2.1 Traduzido por Roberto (roberto@cronus-emulator.com)
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - geffen.txt                                                  ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0a                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Roberto]                                          ||
+// - Tradução [SlexFire]                                         ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - NPCs referentes a cidade de Geffen                          ||
+//===============================================================//
 
 geffen,59,143,0	script	Meera	4_F_02,{
 	mes "[Meera]";
@@ -169,7 +170,10 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 		mes "[Stacey]";
 		mes "Olá~!";
 		mes "Oh, você não é";
+		if (Sex)
 		mes "um aventureiro?";
+		else
+		mes "uma aventureira?";
 		next;
 		mes "[Stacey]";
 		mes "Você já viu alguns Orcs da tribo de Demi-Human? Se você descer para o sul a partir daqui, eu acho que você pode encontrar Orcs na floresta profunda.";
@@ -178,44 +182,44 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 		mes "Eu ouvi que os Orcs possuem uma cultura e linguagem própria, supostamente apenas como nós humanos. Será que os Orcs vão a encontros...?";
 		next;
 		mes "[Stacey]";
-		mes "You know, where they tenderly whisper sweet nothings and then... Oh! I really want to know!";
+		mes "Sabe, onde eles sussuram coisas bonitas e depois... Ah! Eu realmente queria saber!";
 		close;
 	}
 }
 
-geffen_in,34,170,0	script	Theodore	1_M_01,{
-	mes "[Theodore]";
+geffen_in,34,170,0	script	Theodoro	1_M_01,{
+	mes "[Theodoro]";
 	mes "Olá!";
 	mes "Não está um";
 	mes "maravilhoso";
 	mes "dia hoje?";
 	next;
-	mes "[Theodore]";
+	mes "[Theodoro]";
 	mes "Bem, eu não sei. Venho estudando duro para me tornar um Mago. Fico acordado a noite toda, agonizando sobre tudo que é mágico.";
 	next;
-	mes "[Theodore]";
+	mes "[Theodoro]";
 	mes "*Suspiro..*";
 	mes "Eu me preocupo especialmente sobre todas as desvantagens de utilizar magia.";
 	next;
-	mes "[Theodore]";
+	mes "[Theodoro]";
 	mes "Oh droga! Foi realmente irritante quando um inimigo de longa data me encontrou na ultima vez que estava explorando. Esse monstro miserável interrompeu todos os meus feitiços! Não consegui atingir tudo!";
 	next;
-	mes "[Theodore]";
+	mes "[Theodoro]";
 	mes "Depois disso, eu percebi que precisava de algum tipo de arma para combater os ataques de longo alcance dos inimigos. Algo que posso atacar a longas distâncias...";
 	next;
-	mes "[Theodore]";
+	mes "[Theodoro]";
 	mes "Algum tipo de...";
 	mes "Afiação, perfuração";
 	mes "lançador de projétil, preferencialmente feito com madeira.";
 	next;
-	mes "[Theodore]";
+	mes "[Theodoro]";
 	mes "Mas onde";
 	mes "eu poderia encontrar";
 	mes "algo como isso?!";
 	close;
 }
 
-geffen,146,148,4	script	Suspicious Guy	4W_M_03,6,6,{
+geffen,146,148,4	script	Cara Suspeito	4W_M_03,6,6,{
 	end;
 
 OnTouch:
@@ -224,42 +228,42 @@ OnTouch:
 	mes "E-Ei você!";
 	mes "Você quer começar suar mãos em algo grande? Venha aqui!^000000";
 	next;
-	mes "[Suspicious Guy]";
+	mes "[Cara Suspeito]";
 	if (Sex)
 		mes "Ei cara forte. Você parece suficientemente inteligente para reconhecer uma pechincha quando ele está bem na frente de seus olhos.";
 	else
 		mes "Ora, ora, ora. Você não é uma garota bonita. Hoje é apenas o seu dia de sorte!";
 	next;
-	mes "[Suspicious Guy]";
+	mes "[Cara Suspeito]";
 	mes "Então me diga o que você quer e eu irei fazer um acordo sobre algo de valor, mercadorias mais valiosas.";
 	next;
 	switch(select("Me dê alguma poção para eu recuperar HP.:Uhm, você quer uma Faca?:Don't you have a good Manteau?:Você não tem algo além disso?")) {
 	case 1:
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		mes "Ah, you into Potions, eh?";
 		mes "Sim, eu tenho essas coisas!";
 		next;
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		mes "Aqui está! Uma Poção Vermelha de Alta qualidade! Começa a funcionar imediatamente depois de tomá-lo. Assim que ele toca seus lábios, você não pode pará-lo. Este material é muito bom.";
 		next;
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		mes "Vamos lá cara. Esta é a ultima Poção Vermelha. Eu o consegui de um amigo próximo de um amigo, você sabe, uma fonte confiável de verdade, e é realmente barato também. Você não pode passar sobre essa!";
 		next;
 		select("Uh, eu posso comprar Poções Brancas em vez disso?");
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		mes "Poções Brancas? Oh, elas não existem. Mas, er, se alguém está vendendo este tipo de coisa, traga um para mim para que eu possa, uhm.. testar a diferença. Mas sim, eu tenho o materal real.";
 		next;
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		mes "Você pode curar todas as suas feridas ao tomar as Poções Vermelhas! E eu irei vender por apenas ^FF3333500 zeny^000000!";
 		next;
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		mes "Agora, quão barato ele é?! Como eles são em alta demanda, só posso lhe vender apenas 100";
 		mes "de cada vez.";
 		next;
 		while(1) {
 			input .@input;
 			if (.@input == 0) {
-				mes "[Suspicious Guy]";
+				mes "[Cara Suspeito]";
 				if (Sex)
 					mes "Ah caaara~ Você está partindo meu coração! Quer dizer, a estes preços, eu estou praticamente realizando caridade!";
 				else
@@ -267,7 +271,7 @@ OnTouch:
 				close;
 			}
 			else if (.@input > 100) {
-				mes "[Suspicious Guy]";
+				mes "[Cara Suspeito]";
 				mes "Uau...";
 				mes "Não posso deixa-lo comprar muitos. Quer dizer.. não é gosto, você sabe, há um traço de impureza nessas poções ou algo do tipo...";
 				next;
@@ -277,13 +281,13 @@ OnTouch:
 		}
 		.@Red_potion_hap = .@input * 500;
 		if (Zeny < .@Red_potion_hap) {
-			mes "[Suspicious Guy]";
-			mes "Oh caaaara~";
-			mes "Você está";
-			mes "com a grana curta?";
-			mes "Isso não é bom.";
+			mes "[Cara Suspeito]";
+			mes "Ahh~";
+			mes "Então você";
+			mes "está sem grana?";
+			mes "Que pena.";
 			next;
-			mes "[Suspicious Guy]";
+			mes "[Cara Suspeito]";
 			mes "^333333Agora eu tenho que encontrar algum outro otário para despejar este lixo!^000000 *Ahem* Quero dizer, vamos novamente!";
 			close;
 		}
@@ -291,55 +295,55 @@ OnTouch:
 		getitem 501,.@input; //Red_Potion
 		break;
 	case 2:
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		if (Sex) {
 			mes "O que um cara forte quer com uma faca? Aquilo só irá romper com a força de seus balanços incrivelmente poderosos!";
 			next;
-			mes "[Suspicious Guy]";
+			mes "[Cara Suspeito]";
 			mes "Agora...";
-			mes "O que você realmente precisa";
-			mes "é de uma ^FF3333Adaga viril^000000.";
+			mes "O que você realmente";
+			mes "precisa é de uma ^FF3333faca para homem^000000.";
 		}
 		else {
-			mes "A nice lady like you? Come on now, kitchen knives are for old naggy wives and the hired help.";
+			mes "Uma boa moça como você querendo uma faca? Ah, facas de cozinha são para esposas donas de casa.";
 			next;
-			mes "[Suspicious Guy]";
-			mes "Now...";
-			mes "What you really";
-			mes "need is a fine, exquisite";
-			mes "^FF3333French Dagger^000000 to match your beauty and elegance.";
+			mes "[Cara Suspeito]";
+			mes "Agora...";
+			mes "O que você realmente";
+			mes "precisa é de uma boa e afiada";
+			mes "^FF3333Adaga Francesa^000000 para combinar com sua beleza e elegância.";
 		}
 		next;
-		mes "[Suspicious Guy]";
-		mes "I call it...";
-		mes "The ^FF3333Main Gauche^000000! I invented it myself. And I'm only selling it for 9,400 zeny!";
+		mes "[Cara Suspeito]";
+		mes "Eu a chamo de...";
+		mes "^FF3333Main Gauche^000000! Eu mesmo inventei-a. E vendo por apenas 9400 zenys!";
 		next;
-		select("Aren't you going to give me a sheath too?");
-		mes "[Suspicious Guy]";
-		mes "A sheath?";
-		mes "Whoa, that's almost asking too much! Alright, alright...";
+		select("Você vai me dar a bainha também?");
+		mes "[Cara Suspeito]";
+		mes "Uma bainha?";
+		mes "Nossa, você está pedindo demais! Mas está bem...";
 		next;
-		mes "[Suspicious Guy]";
-		mes "Since I like you so much, I'm giving you a free sheath with your purchase! Now how's that";
-		mes "for a bargain?";
+		mes "[Cara Suspeito]";
+		mes "Como eu gostei de você, vou te dar uma bainha de graça. Que tal isso,";
+		mes "não é uma excelente barganha?";
 		next;
-		mes "[Suspicious Guy]";
-		mes "There's no way you can pass this up! Now, how many do you want?";
+		mes "[Cara Suspeito]";
+		mes "Você não pode perder essa chance! Quantas você quer?";
 		next;
 		while(1) {
 			input .@input;
 			if (.@input == 0) {
-				mes "[Suspicious Guy]";
-				mes "Man, how many chances of a lifetime have you passed up? Man, I hope you win the lottery...";
-				mes "You'd probably";
-				mes "pass that up too.";
+				mes "[Cara Suspeito]";
+				mes "Nossa, quantas chances como essa você deixou passar? Espero que você ganhe na loteria...";
+				mes "Você provavelmente";
+				mes "deixaria passar também.";
 				close;
 
 			}
 			else if (.@input > 100) {
-				mes "[Suspicious Guy]";
-				mes "Whoa!";
-				mes "I can't sell that many Daggers! That'll attract the Prontera Chiv--I mean, um, I was gonna donate some Daggers to... Hungry children?";
+				mes "[Cara Suspeito]";
+				mes "Uau!";
+				mes "Não posso te vender tantas! Isso chamaria a atenção da Cavalaria de Pront--Digo, é, eu ia doar algumas adagas para... Crianças carentes?";
 				next;
 			}
 			else
@@ -347,51 +351,51 @@ OnTouch:
 		}
 		.@Main_gauche_hap = .@input * 9400;
 		if (Zeny < .@Main_gauche_hap) {
-			mes "[Suspicious Guy]";
-			mes "Short on zeny?";
-			mes "When the greatest deal in your life is right before your eyes?! Tragic, truly tragic...";
+			mes "[Cara Suspeito]";
+			mes "Sem dinheiro?";
+			mes "Quando o melhor negócio da sua vida seria fechado? Trágico, realmente trágico...";
 			close;
 		}
 		Zeny -= .@Main_gauche_hap;
 		getitem 1207,.@input; //Main_Gauche
 		break;
 	case 3:
-		mes "[Suspicious Guy]";
+		mes "[Cara Suspeito]";
 		if (Sex)
-			mes "A Manteau? That's old news! You know what's the latest in protective armors?";
+			mes "Um manto? Que besteira! Existe algo muito melhor em matéria de armaduras!";
 		else
-			mes "Now why would such a beautiful woman wear something out of style? You know what would make you look even better?";
+			mes "Por que uma menina tão bonita usaria algo tão fora de moda? Sabe o que te deixaria ainda mais bela?";
 		next;
-		mes "[Suspicious Guy]";
-		mes "That's right!";
-		mes "A Hood! Wearing one of those is the quickest way to win respect these days!";
+		mes "[Cara Suspeito]";
+		mes "Isso mesmo!";
+		mes "Um capuz! Usar um desses é a melhor maneira de ganhar respeito hoje em dia!";
 		next;
-		mes "[Suspicious Guy]";
-		mes "If you've got a Hood on, monsters will fear you and run away in terror! And check out this sturdy fabric. I can pull it all I want and it won't tear!";
+		mes "[Cara Suspeito]";
+		mes "Se você usar um capuz, os monstros terão medo e fugirão de você! E olhe só o tecido. Posso puxar o quanto quiser que não rasga.";
 		next;
-		select("This hood has no drawstrings...? ");
-		mes "[Suspicious Guy]";
-		mes "Haha! What are you saying? You don't need drawstrings! The space age Rayon and Nylon and Krypton fibers keep the Hood secure on your head!";
+		select("Esse capuz não tem fecho...?");
+		mes "[Cara Suspeito]";
+		mes "O que você está dizendo? Não precisa de fecho! As fibras Rayon e Nylon e Krypton de que ele é feito mantêm o capuz seguro em sua cabeça!";
 		next;
-		mes "[Suspicious Guy]";
-		mes "Man...";
-		mes "So much technology was invested into this Hood. Can you believe I'm only selling it for 930 zeny?";
+		mes "[Cara Suspeito]";
+		mes "Cara...";
+		mes "Muita tecnologia foi investida nesse capuz. Você acredita que eu vou vendê-lo por apenas 930 zenys?";
 		next;
-		mes "[Suspicious Guy]";
-		mes "Clearly, this is the deal of the century. So how many do you want?";
+		mes "[Cara Suspeito]";
+		mes "É o negócio do século. Então, quantos você quer?";
 		next;
 		while(1) {
 			input .@input;
 			if (.@input == 0) {
-				mes "[Suspicious Guy]";
-				mes "Awww...";
-				mes "It wasn't because of the whole drawstrings thing, was it?";
+				mes "[Cara Suspeito]";
+				mes "Ahhh...";
+				mes "Não foi por causa do fecho, né?";
 				close;
 			}
 			else if (.@input > 100) {
-				mes "[Suspicious Guy]";
-				mes "Whoa~!";
-				mes "I can't sell you that many! What are you trying to do, take advantage of me?";
+				mes "[Cara Suspeito]";
+				mes "Nossa~!";
+				mes "Não posso vender tantos! O que você está fazendo, tentando tirar vantagem?";
 				next;
 			}
 			else
@@ -399,55 +403,55 @@ OnTouch:
 		}
 		.@Hood__hap = .@input * 930;
 		if (Zeny < .@Hood__hap) {
-			mes "[Suspicious Guy]";
-			mes "Oh nuts...";
-			mes "Short on zeny, eh?";
+			mes "[Cara Suspeito]";
+			mes "Ah...";
+			mes "Sem dinheiro, não é?";
 			close;
 		}
 		Zeny -= .@Hood__hap;
 		getitem 2501,.@input; //Hood
 		break;
 	case 4:
-		mes "[Suspicious Guy]";
-		mes "Man...";
-		mes "You sure like to ask for the impossible. Well, let me tell you right now. No other Merchant in the world sells the goods only I can offer.";
+		mes "[Cara Suspeito]";
+		mes "Cara...";
+		mes "Você gosta de pedir o impossível. Vou te contar uma coisa. Nenhum outro mercador vende os meus produtos. São únicos.";
 		next;
-		mes "[Suspicious Guy]";
-		mes "You just gotta believe me!";
+		mes "[Cara Suspeito]";
+		mes "Você tem que acreditar!";
 		close;
 	}
-	mes "[Suspicious Guy]";
-	mes "No need to look anywhere else at all when I clearly have the best items around!";
+	mes "[Cara Suspeito]";
+	mes "Não precisa ir a nenhum outro lugar, já que obviamente eu tenho os melhores itens!";
 	next;
-	mes "[Suspicious Guy]";
-	mes "Please come back sometime, and buy more of my stuff. I love a customer who knows what they want! Hehe~";
+	mes "[Cara Suspeito]";
+	mes "Volte sempre, e compre mais coisas. Adoro um cliente que sabe o que quer! Hehe~";
 	close;
 }
 
 geffen_in,22,125,1	script	Crumpler	1_M_HOF,{
 	mes "[Crumpler]";
 	mes "Ooooh~!";
-	mes "You sure are dressed pretty,";
-	mes "ya fancy schmancy Mage!";
+	mes "Você está bem vestido, maguinho,";
+	mes "vai tirar um coelho da cartola?";
 	next;
 	if (Class == Job_Mage) {
-		mes "^3355FFSomeday, you swear to yourself, you will have your bloody revenge on this belligerent drunk for besmirching the proud Mage profession. Someday...^000000";
+		mes "^3355FFAlgum dia, você promete a si mesmo, você se vingará desse bêbado que difamou os Magos. Algum dia...^000000";
 		close;
 	}
 	else if (Class == Job_Wizard) {
-		select("Actually, I'm a Wizard.");
+		select("Na verdade, sou um Bruxo.");
 		mes "[Crumpler]";
-		mes "I'm so scared!";
-		mes "A Wizard?! Bwahaha!";
+		mes "Ahh que medo!";
+		mes "Um Bruxo?! *Pff*";
 		next;
 		mes "[Crumpler]";
-		mes "Everyone knows Wizards are all intelligence and no strength! Come on, smart man! Show me how tough you are!";
+		mes "Todos sabemos que Bruxos são inteligentes, mas sem força nenhuma! Venha, espertalhão! Mostre seus poderes!";
 		next;
-		switch(select("Meteor Storm!:Lord of Vermilion!:Show Mercy.")) {
+		switch(select("Chuva de Meteoros!:Ira de Thor!:Mostrar compaixão.")) {
 		case 1:
 			mes "[Crumpler]";
 			mes "Huh?";
-			mes "What'd you just say?";
+			mes "O que você disse?";
 			next;
 			mes "[Crumpler]";
 			mes "...";
@@ -458,176 +462,176 @@ geffen_in,22,125,1	script	Crumpler	1_M_HOF,{
 			next;
 			mes "[Crumpler]";
 			mes "Ooooooooh";
-			mes "crraaaap!";
+			mes "droooooga!";
 			emotion e_gasp;
 			next;
 			mes "[Crumpler]";
-			mes "Help meeeee!";
+			mes "Socorrooooo!";
 			specialeffect EF_METEORSTORM;
 			close;
 		case 2:
 			mes "[Crumpler]";
 			mes "Hahahahaah!";
-			mes "Silly Wizard! Only a monster like Baphomet can handle a big spell like th--";
+			mes "Tolo! Só um monstro como o Baphomet pode usar um feitiço como es--";
 			next;
 			mes "[Crumpler]";
-			mes "Oh sweet lord...";
-			mes "You're serious...";
+			mes "Meu deus...";
+			mes "Você está falando sério...";
 			next;
 			specialeffect EF_LORD;
 			mes "[Crumpler]";
 			mes "ARRRRRGH~!";
-			mes "IT BUUUURNS!";
+			mes "ESTÁ QUENTEEEEE!";
 			close;
 		case 3:
 			mes "["+strcharinfo(0)+"]";
-			mes "No...";
-			mes "I can only use";
-			mes "my powers for good.";
+			mes "Não...";
+			mes "Só posso usar meus";
+			mes "poderes para o bem.";
 			next;
 			mes "[Crumpler]";
-			mes "Haw haw!";
-			mes "Good...";
-			mes "For nothing!";
+			mes "Ha Ha!";
+			mes "Bem...";
+			mes "Por nada!";
 			close;
 		}
 	}
 	else if (Class == Job_Sage) {
-		select("Actually, sir, I'm a Sage.");
+		select("Na verdade, senhor, sou um Sábio.");
 		mes "[Crumpler]";
-		mes "A...";
-		mes "Sage?";
+		mes "Um...";
+		mes "Sábio?";
 		emotion e_what;
 		next;
 		mes "[Crumpler]";
-		mes "I don't know what that is. But I guess it can't be half as bad as a Mage.";
+		mes "Não sei o que é isso. Mas suponho que não pode ser tão ruim quanto um Mago.";
 		next;
 		mes "[Crumpler]";
-		mes "Soooo...";
-		mes "Wanna drink with me?";
+		mes "Entãooo...";
+		mes "Quer beber comigo?";
 		close;
 	}
 	else {
 		mes "[Crumpler]";
-		mes "Wait a sec...";
-		mes "You're not a Mage!";
-		mes "J-just how drunk am I?!";
+		mes "Espere um momento...";
+		mes "Você não é um mago!";
+		mes "Devo estar muito bêbado!";
 		next;
 		mes "[Crumpler]";
-		mes "Man, I hate Mages with a passion! Always studying and chanting and making taxes high and stuff...";
+		mes "Cara, eu odeio magos! Sempre estudando e cantando e aumentando as taxas...";
 		next;
 		mes "[Crumpler]";
-		mes "Taking our jobs, censoring the media, ruining our education system, causing air pollution, starting wars, making rap music...";
+		mes "Roubando nossos empregos, censurando a mídia, arruinando nosso sistema educacional, piorando a poluição do ar, guerreando, compondo raps...";
 		close;
 	}
 }
 
 geffen_in,59,61,1	script	Skyler	1_M_PUBMASTER,{
 	mes "[Skyler]";
-	mes "Hello hello.";
-	mes "You're not looking";
-	mes "for Eric, are you?";
+	mes "Olá, olá.";
+	mes "Você não está procurando";
+	mes "pelo Eric, está?";
 	next;
-	if (select("Eric? Who's that?:Yes. Yes, I am.") == 1) {
+	if (select("Eric? Quem é esse?:Sim. Sim, estou.") == 1) {
 		mes "[Skyler]";
-		mes "Oh, I see. He's just some guy in the room to the left of me. He's always working on some sort of project.";
+		mes "Ah, desculpe. Ele é o homem no quarto à minha esquerda. Ele está sempre trabalhando em algum tipo de projeto.";
 		next;
 		mes "[Skyler]";
-		mes "Something to do with these magic sort of Ear Muffs. I guess he's been looking for investors to help him finish building whatever he's making.";
+		mes "Alguma coisa a ver com Ear Muffs. Acho que ele está procurando investidores para ajudá-lo a terminar o que ele está fazendo.";
 		close;
 	}
 	mes "[Skyler]";
-	mes "Oh, alright. You can find Eric in the room to the left of me. He'll probably be happy to know someone is interested in what he's trying to build.";
+	mes "Ah, certo. Você encontrará o Eric no quarto à minha esquerda. Ele ficará feliz em saber que alguém está interessado no que ele está construindo.";
 	next;
 	mes "[Skyler]";
-	mes "From what I remember, he seemed really discouraged, thinking he'd never be able to finish his little project.";
+	mes "Pelo que me lembro, ele estava desencorajado, achando que nunca terminaria seu projeto.";
 	next;
 	mes "[Skyler]";
-	mes "I'm glad to hear you've come this way to help out that young fellow.";
+	mes "Fico contente de saber que você veio até aqui para ajudá-lo.";
 	close;
 }
 
-geffen_in,27,134,5	script	Waitress#elen	4_F_02,{
+geffen_in,27,134,5	script	Garçonete#elen	4_F_02,{
 	mes "[Elenore]";
-	mes "This place...";
-	mes "Certainly has";
-	mes "atmosphere.";
+	mes "Esse lugar...";
+	mes "Tem uma atmosfera";
+	mes "diferente.";
 	next;
 	mes "[Elenore]";
-	mes "We've got some kind of Fortune Teller that's always hanging around in the corner, and a loud, belligerent drunk who's always picking on Mages.";
+	mes "Nós temos uma espécie de vidente que está sempre por aí, e um bêbado que passa o dia inteiro reclamando dos magos.";
 	next;
 	mes "[Elenore]";
-	mes "So...";
-	mes "What can";
-	mes "I do for you?";
+	mes "Bem...";
+	mes "O que posso";
+	mes "fazer por você?";
 	next;
-	if (select("May I have a drink?:Is there any interesting gossip?") == 1) {
+	if (select("Posso beber algo?:Você tem novidades para me contar?") == 1) {
 		mes "[Elenore]";
-		mes "Well...";
-		mes "If you're looking for alcohol, King Tristram III outlawed it a while ago. Now I hear they only serve it in certain places.";
+		mes "Bem...";
+		mes "Se você quiser algo alcoólico, o Rei Tristam III proibiu a venda. Ouvi dizer que agora só podem serví-lo em determinados lugares.";
 		next;
 		mes "[Elenore]";
-		mes "Still, people manage to get drunk off the imitation drinks that we serve here. I guess it's all psychological.";
+		mes "Mesmo assim as pessoas conseguem ficar bêbadas com os drinques sem álcool que servimos aqui. Acho que é psicológico.";
 		next;
 		mes "[Elenore]";
-		mes "I reeeeally want to be able to visit that place where they serve real drinks. I hear it's just like paradise!";
+		mes "Eu realmentee queria poder visitar o lugar em que servem drinques de verdade. Ouvi dizer que é o paraíso!";
 		close;
 	}
 	switch(rand(1,4)) {
 	case 1:
 		mes "[Elenore]";
-		mes "Gossip...?";
-		mes "Well, I've heard that they're opening a new Airship Service";
-		mes "in Juno!";
+		mes "Novidades...?";
+		mes "Bem, ouvi dizer que estão abrindo";
+		mes "um novo aeroporto em Juno!";
 		next;
 		mes "[Elenore]";
-		mes "Or at least, they're planning to. The airship isn't really ready to take off just yet. In the meantime, there's some weird customer representative over there who's offering a teleport service.";
+		mes "Ou pelo menos, estão planejando. O avião ainda não está pronto para decolar. Enquanto isso existe uma espécie de representante da corporação lá, oferecendo serviços de teletransporte.";
 		next;
 		mes "[Elenore]";
-		mes "It seems like Kafra Corporation may finally have a competitor! Then again, I don't think many girls are as attractive as the Kafra Employees...";
+		mes "Parece que a Corporação Kafra finalmente tem concorrência! Mas não acho que existam muitas garotas atraentes como as garotas Kafra...";
 		break;
 	case 2:
 		mes "[Elenore]";
-		mes "Have you heard?";
-		mes "There are some new fashions floating around the Rune-Midgarts Kingdom!";
+		mes "Você não ouviu?";
+		mes "Há uma nova moda no Reino de Rune-Midgard!";
 		next;
 		mes "[Elenore]";
-		mes "People have been coming in, wearing some cute new hats. There was this cute Teddy Bear Hat I've never seen before, and a girl came in wearing these black Kitty Ears...";
+		mes "As pessoas estão vindo, usando chapéus novos e bonitinhos! Vi um de ursinho, e teve uma garota que chegou usando orelhinhas de gato pretas...";
 		next;
 		mes "[Elenore]";
-		mes "Of course, not every popular style suits my taste. I mean, I saw someone walking around with a Mushroom on their head. And I hear someone has been making hats made out of Fish?";
+		mes "Claro, nem todo estilo popular me agrada. Porque sabe, eu vi um cara andando com um cogumelo na cabeça. E ouvi dizer que tem alguém fazendo chapéus de peixes!";
 		next;
 		mes "[Elenore]";
-		mes "I guess those";
-		mes "kinds of hats are too";
-		mes "artistic for my taste.";
+		mes "Acho que chapéus";
+		mes "como esses são";
+		mes "artísticos demais para o meu gosto.";
 		break;
 	case 3:
 		mes "[Elenore]";
-		mes "Gossip, eh?";
+		mes "Novidades?";
 		next;
 		mes "[Elenore]";
-		mes "Well...";
-		mes "I hear there's this person somewhere in Rune-Midgard...";
+		mes "Bem...";
+		mes "Ouvi dizer que tem uma pessoa em Rune-Midgard...";
 		next;
 		mes "[Elenore]";
 		if (Sex)
-			mes "Tell me, have you ever heard of "+strcharinfo(0)+"? He's supposed to be the suavest hero around!";
+			mes "Você ouviu falar de "+strcharinfo(0)+"? Ele é supostamente o herói mais lindo da região!";
 		else
-			mes "Have you ever heard of "+strcharinfo(0)+"? People say she's one of the prettiest girls in all of Rune-Midgard!";
+			mes "Você ouviu falar de"+strcharinfo(0)+"? Dizem que ela é uma das meninas mais bonitas de Rune-Midgard!";
 		break;
 	case 4:
 		switch(rand(1,2)) {
 		case 1:
 			mes "[Elenore]";
-			mes "Gossip, eh?";
-			mes "W-wait...";
+			mes "Novidades?";
+			mes "E-espere...";
 			next;
 			mes "[Elenore]";
 			mes "Ugh...";
 			mes "Ooooh...";
-			mes "My he-head...";
-			mes "It huuurts...";
+			mes "Minha c-cabeça...";
+			mes "Está doendo...";
 			next;
 			mes "[William's Spirit]";
 			mes "^990000You get the hell away from my daughter, low-life, before I sell your organs for zeny!";
@@ -686,7 +690,7 @@ geffen_in,27,134,5	script	Waitress#elen	4_F_02,{
 	close;
 }
 
-geffen_in,70,67,3	script	Waitress#elise	4_F_01,{
+geffen_in,70,67,3	script	Garçonete#elise	4_F_01,{
 	mes "[Elisa]";
 	mes "Hello there~";
 	mes "Can I help you";
