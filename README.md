@@ -48,4 +48,3 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Desenvolvedores
 - Gluglu     - (Core Developer)
-- Wolf       - (Script/DB)
