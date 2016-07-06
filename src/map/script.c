@@ -16769,7 +16769,7 @@ BUILDIN(unitskillusepos) {
 
 /*=================================================
 - Comando: unitdelmob
-- Descriï¿½ï¿½o: Remove um monstro pelo GID
+- Descrição: Remove um monstro pelo GID
 - Uso: unitdelmob <GID do Mob>;
 - Por: SlexFire
 ==================================================*/
@@ -20434,6 +20434,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitemote,"ii"),
 		BUILDIN_DEF(unitskilluseid,"ivi?"), // orignal de Qamera [Celest]
 		BUILDIN_DEF(unitskillusepos,"iviii"), // [Celest]
+		BUILDIN_DEF(unitdelmob,"i"), // [SlexFire]
 		// <--- [zBuffer] Lista de comandos para controle de mob
 		
 		BUILDIN_DEF(sleep,"i"),
