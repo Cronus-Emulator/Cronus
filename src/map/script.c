@@ -16767,6 +16767,26 @@ BUILDIN(unitskillusepos) {
 	return true;
 }
 
+/*=================================================
+- Comando: unitdelmob
+- Descri��o: Remove um monstro pelo GID
+- Uso: unitdelmob <GID do Mob>;
+- Por: SlexFire
+==================================================*/
+BUILDIN(unitdelmob)
+{
+	int id;
+	struct block_list *bl = NULL;
+	
+	id = script_getnum(st,2);
+	bl = map->id2bl(id);	
+	
+	if(bl && bl->type = BL_MOB)
+		unit->free(bl,0);
+	
+	return true;
+}
+
 // <--- [zBuffer] List of mob control commands
 
 /// Pauses the execution of the script, detaching the player
@@ -19882,6 +19902,7 @@ BUILDIN(mergeitem)
 
 	return true;
 }
+
 /** place holder for the translation macro **/
 BUILDIN(_) {
 	return true;
@@ -20395,12 +20416,14 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(escape_sql,"v"),
 		BUILDIN_DEF(atoi,"s"),
 		BUILDIN_DEF(strtol,"si"),
+		
 		// [zBuffer] Lista de comandos de jogador --->
 		BUILDIN_DEF(rid2name,"i"),
 		BUILDIN_DEF(pcfollow,"ii"),
 		BUILDIN_DEF(pcstopfollow,"i"),
 		BUILDIN_DEF(pcblockmove,"ii"),
-		// <--- [zBuffer] List of player cont commands
+		// <--- [zBuffer] Lista de comandos de jogador
+		
 		// [zBuffer] Lista de comandos para controle de monstros --->
 		BUILDIN_DEF(unitwalk,"ii?"),
 		BUILDIN_DEF(unitkill,"i"),
@@ -20412,6 +20435,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitskilluseid,"ivi?"), // orignal de Qamera [Celest]
 		BUILDIN_DEF(unitskillusepos,"iviii"), // [Celest]
 		// <--- [zBuffer] Lista de comandos para controle de mob
+		
 		BUILDIN_DEF(sleep,"i"),
 		BUILDIN_DEF(sleep2,"i"),
 		BUILDIN_DEF(awake,"s"),
