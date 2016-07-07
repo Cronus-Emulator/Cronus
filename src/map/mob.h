@@ -161,6 +161,8 @@ struct mob_data {
 		unsigned int steal_coin_flag : 1;
 		unsigned int soul_change_flag : 1; // Celest
 		unsigned int alchemist: 1;
+		unsigned int no_rand_walk: 1; //SlexFire
+		unsigned int killer: 1; //SlexFire
 		unsigned int spotted: 1;
 		unsigned int npc_killmonster: 1; //for new killmonster behavior
 		unsigned int rebirth: 1; // NPC_Rebirth used
@@ -194,6 +196,10 @@ struct mob_data {
 
 	int deletetimer;
 	int master_id,master_dist;
+	
+	// AI MOB [SlexFire]
+	TBL_NPC *nd;
+	unsigned short callback_flag;
 
 	int8 skill_idx;// key of array
 	int64 skilldelay[MAX_MOBSKILL];

@@ -16781,7 +16781,7 @@ BUILDIN(unitdelmob)
 	id = script_getnum(st,2);
 	bl = map->id2bl(id);	
 	
-	if(bl && bl->type = BL_MOB)
+	if(bl && bl->type == BL_MOB)
 		unit->free(bl,0);
 	
 	return true;
@@ -16805,7 +16805,7 @@ BUILDIN(unitvincmob)
 		TBL_NPC* nd = NULL;
 		
 		if(script_hasdata(st,3))
-			nd = npc->nameid(script_get_str(st,3));
+			nd = npc->name2id(script_getstr(st,3));
 		else
 		{
 			struct block_list* npc_bl = map->id2bl(st->oid);
