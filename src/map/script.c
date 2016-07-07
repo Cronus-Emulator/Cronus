@@ -16787,6 +16787,40 @@ BUILDIN(unitdelmob)
 	return true;
 }
 
+/*=================================================
+- Comando: unitvincmob
+- Descrição: Vincula um mob a um npc
+- Uso: unitvincmob <GID do Mob>{, <"Nome do NPC">};
+- Por: SlexFire
+==================================================*/
+BUILDIN(unitvincmob)
+{
+	struct block_list* mob_bl;
+	
+	mob_bl = map->id2bl(script_getnum(st,2));
+	
+	if(mob_bl != NULL && mob_bl->type == BL_MOB)
+	{
+		TBL_MOB* md = (TBL_MOB*)mob_bl;
+		TBL_NPC* nd = NULL;
+		
+		if(script_hasdata(st,3))
+			nd = npc->nameid(script_get_str(st,3));
+		else
+		{
+			struct block_list* npc_bl = map->id2bl(st->oid);
+			
+			if(npc_bl != NULL && npc_bl->type == BL_NPC)
+				nd = (TBL_NPC*)npc_bl;
+		}
+		
+		if(nd != NULL)
+			md->nd = nd;
+	}
+	
+	return true;
+}
+
 // <--- [zBuffer] List of mob control commands
 
 /// Pauses the execution of the script, detaching the player
@@ -20435,6 +20469,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitskilluseid,"ivi?"), // orignal de Qamera [Celest]
 		BUILDIN_DEF(unitskillusepos,"iviii"), // [Celest]
 		BUILDIN_DEF(unitdelmob,"i"), // [SlexFire]
+		BUILDIN_DEF(unitvincmob,"i?"), // [SlexFire]
 		// <--- [zBuffer] Lista de comandos para controle de mob
 		
 		BUILDIN_DEF(sleep,"i"),
