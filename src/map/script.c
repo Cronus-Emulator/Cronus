@@ -16767,12 +16767,12 @@ BUILDIN(unitskillusepos) {
 	return true;
 }
 
-/*=================================================
-- Comando: unitdelmob
-- Descrição: Remove um monstro pelo GID
-- Uso: unitdelmob <GID do Mob>;
-- Por: SlexFire
-==================================================*/
+/*========================================\
+- Comando: unitdelmob                     |
+- Descrição: Remove um monstro pelo GID   |
+- Uso: unitdelmob <GID do Mob>;           |
+- Por: SlexFire                           |
+=========================================*/
 BUILDIN(unitdelmob)
 {
 	int id;
@@ -16787,12 +16787,12 @@ BUILDIN(unitdelmob)
 	return true;
 }
 
-/*=================================================
-- Comando: unitvincmob
-- Descrição: Vincula um mob a um npc
-- Uso: unitvincmob <GID do Mob>{, <"Nome do NPC">};
-- Por: SlexFire
-==================================================*/
+/*===================================================\
+- Comando: unitvincmob                               |
+- Descrição: Vincula um mob a um npc                 |
+- Uso: unitvincmob <GID do Mob>{, <"Nome do NPC">};  |
+- Por: SlexFire                                      |
+====================================================*/
 BUILDIN(unitvincmob)
 {
 	struct block_list* mob_bl;
@@ -16817,6 +16817,49 @@ BUILDIN(unitvincmob)
 		if(nd != NULL)
 			md->nd = nd;
 	}
+	
+	return true;
+}
+
+/*======================================================\
+- Comando: unitgetdatamob                               |
+- Descrição: Captura os dados do mob de acordo com os   |
+  parâmetros passados.                                  |
+- Uso: unitgetdatamob <GID do Mob>{, <"Parâmetro">};    |
+- Por: SlexFire                                         |
+=======================================================*/
+BUILDIN(unitgetdatamob) {
+	
+	int id;
+	int64 num;
+	char *name;
+	struct mob_data *md = NULL;
+	TBL_PC *sd = st->rid?map->id2sd(st->rid):NULL;
+	id = script_getnum(st,2);
+	
+	if(!(md = (struct mob_data *)map->id2bl(id)) || md->bl.type != BL_MOB || !data_isreference(script_getdata(st,3)) ){
+		ShowWarning("buildin_getmobdata: Erro no parametro!\n");
+		return -1;
+	}
+	
+	num = st->stack->stack_data[st->start+3].u.num;
+	name = (char *)(script->str_buf + script->str_data[num&0x00ffffff].str);
+	setd_sub(st,sd,name,0,(void *)(int)md->class_,script_getref(st,3));
+	setd_sub(st,sd,name,1,(void *)(int)md->level,script_getref(st,3));
+	setd_sub(st,sd,name,2,(void *)(int)md->status.hp,script_getref(st,3));
+	setd_sub(st,sd,name,3,(void *)(int)md->status.max_hp,script_getref(st,3));
+	setd_sub(st,sd,name,4,(void *)(int)md->master_id,script_getref(st,3));
+	setd_sub(st,sd,name,5,(void *)(int)md->bl.m,script_getref(st,3));
+	setd_sub(st,sd,name,6,(void *)(int)md->bl.x,script_getref(st,3));
+	setd_sub(st,sd,name,7,(void *)(int)md->bl.y,script_getref(st,3));
+	setd_sub(st,sd,name,8,(void *)(int)md->status.speed,script_getref(st,3));
+	setd_sub(st,sd,name,9,(void *)(int)md->status.mode,script_getref(st,3));
+	setd_sub(st,sd,name,10,(void *)(int)md->special_state.ai,script_getref(st,3));
+	setd_sub(st,sd,name,11,(void *)(int)md->sc.option,script_getref(st,3));
+	setd_sub(st,sd,name,12,(void *)(int)md->ud.dir,script_getref(st,3));
+	setd_sub(st,sd,name,13,(void *)(int)md->state.killer,script_getref(st,3));
+	setd_sub(st,sd,name,14,(void *)(int)md->callback_flag,script_getref(st,3));
+	setd_sub(st,sd,name,15,(void *)(int)md->state.no_rand_walk,script_getref(st,3));
 	
 	return true;
 }
@@ -20470,6 +20513,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitskillusepos,"iviii"), // [Celest]
 		BUILDIN_DEF(unitdelmob,"i"), // [SlexFire]
 		BUILDIN_DEF(unitvincmob,"i?"), // [SlexFire]
+		BUILDIN_DEF(unitgetdatamob,"i*"), // [SlexFire]
 		// <--- [zBuffer] Lista de comandos para controle de mob
 		
 		BUILDIN_DEF(sleep,"i"),
