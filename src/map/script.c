@@ -16838,7 +16838,7 @@ BUILDIN(unitgetdatamob) {
 	id = script_getnum(st,2);
 	
 	if(!(md = (struct mob_data *)map->id2bl(id)) || md->bl.type != BL_MOB || !data_isreference(script_getdata(st,3)) ){
-		ShowWarning("buildin_getmobdata: Erro no parametro!\n");
+		ShowWarning("buildin_unitgetdatamob: Erro no parametro!\n");
 		return -1;
 	}
 	
@@ -16861,6 +16861,55 @@ BUILDIN(unitgetdatamob) {
 	setd_sub(st,sd,name,14,(void *)(int)md->callback_flag,script_getref(st,3));
 	setd_sub(st,sd,name,15,(void *)(int)md->state.no_rand_walk,script_getref(st,3));
 	
+	return true;
+}
+
+/*=============================================================\
+- Comando: unitsetdatamob                                      |
+- Descrição: Insere/Substitui os dados do mob de acordo com os |
+  parâmetros passados.                                         |
+- Uso: unitsetdatamob <GID do Mob>,<Tipo>,<Valor>;             |
+- Por: SlexFire                                                |
+==============================================================*/
+BUILDIN(unitsetdatamob) {
+	
+	struct block_list* mob_bl;
+
+	mob_bl = map->id2bl(script_getnum(st,2));
+
+	if( mob_bl != NULL && mob_bl->type == BL_MOB )
+	{
+		TBL_MOB* md = (TBL_MOB*)mob_bl;
+		int type;
+		int value;
+
+		type = script_getnum(st,3);
+		value = script_getnum(st,4);
+
+		switch( type )
+		{
+		case 0:  md->class_ = (short)value; break;
+		case 1:  md->level = (unsigned short)value; break;
+		case 2:  md->status.hp = (unsigned int)value; break;
+		case 3:  md->status.max_hp = (unsigned int)value; break;
+		case 4:  md->master_id = value; break;
+		case 5:  md->bl.m = (short)value; break;
+		case 6:  md->bl.x = (short)value; break;
+		case 7:  md->bl.y = (short)value; break;
+		case 8:  md->status.speed = (unsigned short)value; break;
+		case 9:  md->status.mode = (unsigned short)value; break;
+		case 10: md->special_state.ai = (unsigned int)value; break;
+		case 11: md->sc.option = (unsigned short)value; break;
+		case 12: md->ud.dir = (unsigned char)value; break;
+		case 13: md->state.killer = value > 0 ? 1 : 0; break;
+		case 14: md->callback_flag = (short)value; break;
+		case 15: md->state.no_rand_walk = value > 0 ? 1 : 0; break;
+		default:
+			ShowError("buildin_unitsetdatamob: Identificador de dados desconhecido %d\n", type);
+			return 1;
+		}
+	}
+
 	return true;
 }
 
@@ -20514,6 +20563,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitdelmob,"i"), // [SlexFire]
 		BUILDIN_DEF(unitvincmob,"i?"), // [SlexFire]
 		BUILDIN_DEF(unitgetdatamob,"i*"), // [SlexFire]
+		BUILDIN_DEF(unitsetdatamob,"iii"), // [SlexFire]
 		// <--- [zBuffer] Lista de comandos para controle de mob
 		
 		BUILDIN_DEF(sleep,"i"),
