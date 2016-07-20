@@ -16770,7 +16770,7 @@ BUILDIN(unitskillusepos) {
 /*========================================\
 - Comando: unitdelmob                     |
 - Descrição: Remove um monstro pelo GID   |
-- Uso: unitdelmob <GID do Mob>;           |
+- Uso: unitdelmob <gid do mob>;           |
 - Por: SlexFire                           |
 =========================================*/
 BUILDIN(unitdelmob)
@@ -16790,7 +16790,7 @@ BUILDIN(unitdelmob)
 /*===================================================\
 - Comando: unitvincmob                               |
 - Descrição: Vincula um mob a um npc                 |
-- Uso: unitvincmob <GID do Mob>{, <"Nome do NPC">};  |
+- Uso: unitvincmob <gid do mob>{, <"nome do npc">};  |
 - Por: SlexFire                                      |
 ====================================================*/
 BUILDIN(unitvincmob)
@@ -16825,7 +16825,7 @@ BUILDIN(unitvincmob)
 - Comando: unitgetdatamob                               |
 - Descrição: Captura os dados do mob de acordo com os   |
   parâmetros passados.                                  |
-- Uso: unitgetdatamob <GID do Mob>{, <"Parâmetro">};    |
+- Uso: unitgetdatamob <gid do mob>{, <"parâmetro">};    |
 - Por: SlexFire                                         |
 =======================================================*/
 BUILDIN(unitgetdatamob) {
@@ -16868,7 +16868,7 @@ BUILDIN(unitgetdatamob) {
 - Comando: unitsetdatamob                                      |
 - Descrição: Insere/Substitui os dados do mob de acordo com os |
   parâmetros passados.                                         |
-- Uso: unitsetdatamob <GID do Mob>,<Tipo>,<Valor>;             |
+- Uso: unitsetdatamob <gid do mob>,<tipo>,<valor>;             |
 - Por: SlexFire                                                |
 ==============================================================*/
 BUILDIN(unitsetdatamob) {
