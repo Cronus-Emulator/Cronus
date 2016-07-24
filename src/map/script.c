@@ -16913,6 +16913,73 @@ BUILDIN(unitsetdatamob) {
 	return true;
 }
 
+/*==================================================\
+- Comando: unitauxmob                               |
+- Descrição: Transforma o mob em auxilixar pelo GID |
+- Uso1: unitauxmob <gid do mob>, <"nome do char">;  |
+- Uso2: unitauxmob <gid do mob>, <id do alvo>;      |
+- Por: SlexFire                                     |
+===================================================*/
+BUILDIN(unitauxmob) {
+
+	struct block_list *mob_bl;
+
+	mob_bl = map->id2bl(script_getnum(st, 2));
+
+	if (mob_bl != NULL && mob_bl->type == BL_MOB)
+	{
+		TBL_MOB *md = (TBL_MOB*)mob_bl;
+		struct block_list *tbl = NULL;
+		struct script_data *data;
+
+		data = script_getdata(st, 3);
+		script->get_val(st, data);
+		if (data_isstring(data))
+		{
+			TBL_PC* sd = map->nick2sd(script->conv_str(st, data));
+			if (sd != NULL)
+				tbl = &sd->bl;
+		}
+		if (data_isint(data))
+		{
+			TBL_PC* sd = map->id2sd(script->conv_num(st, data));
+			if (sd != NULL)
+				tbl = &sd->bl;
+		}
+
+		if (tbl != NULL)
+		{
+			struct unit_data* ud;
+
+			md->master_id = tbl->id;
+			md->state.killer = 1;
+			md->special_state.ai = AI_ATTACK;
+			mob->convaux(md);
+			ud = unit->bl2ud(mob_bl);
+			if (ud != NULL)
+			{
+				if (ud->target != 0)
+					md->target_id = ud->target;
+				else if (ud->skilltarget != 0)
+					md->target_id = ud->skilltarget;
+				if (md->target_id != 0)
+					unit->walktobl(&md->bl, map->id2bl(md->target_id), 65025, 2);
+			}
+		}
+		else if (tbl == NULL)
+		{
+			tbl = map->id2bl(script->conv_num(st, data));
+		}
+		else
+		{
+			ShowError("buildin_unitauxmob: Tipo de argumento invalido #1 (precisa ser int ou string)).\n");
+			return false;
+		}
+	}
+
+	return true;
+}
+
 // <--- [zBuffer] List of mob control commands
 
 /// Pauses the execution of the script, detaching the player
@@ -20564,6 +20631,7 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(unitvincmob,"i?"), // [SlexFire]
 		BUILDIN_DEF(unitgetdatamob,"i*"), // [SlexFire]
 		BUILDIN_DEF(unitsetdatamob,"iii"), // [SlexFire]
+		BUILDIN_DEF(unitauxmob,"i?"), // [SlexFire]
 		// <--- [zBuffer] Lista de comandos para controle de mob
 		
 		BUILDIN_DEF(sleep,"i"),

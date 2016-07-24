@@ -1917,6 +1917,40 @@ int mob_timer_delete(int tid, int64 tick, int id, intptr_t data) {
 	return 0;
 }
 
+/*============================================
+* Função complementar para conversão de mobs
+* em auxiliares.
+* by: SlexFire
+*--------------------------------------------*/
+int mob_convaux_sub(struct block_list *bl, va_list ap) {
+
+	struct mob_data *md, *md2 = NULL;
+
+	nullpo_retr(0, bl);
+	nullpo_retr(0, ap);
+	nullpo_retr(0, md = (struct mob_data *)bl);
+
+	md2 = va_arg(ap, TBL_MOB *);
+
+	if (md->master_id > 0 && md->master_id == md2->bl.id) {
+		md->state.killer = md2->state.killer;
+		md->special_state.ai = md2->special_state.ai;
+		md->nd = md2->nd;
+		md->callback_flag = md2->callback_flag;
+	}
+
+	return 0;
+}
+
+int mob_convaux(struct mob_data *md)
+{
+	nullpo_retr(0, md);
+
+	map->foreachinmap(mob_convaux_sub, md->bl.m, BL_MOB, md);
+	return 0;
+}
+//---- Fim da função complementar ---- //
+
 /*==========================================
  *
  *------------------------------------------*/
@@ -5133,4 +5167,5 @@ void mob_defaults(void) {
 	mob->load = mob_load;
 	mob->clear_spawninfo = mob_clear_spawninfo;
 	mob->destroy_mob_db = mob_destroy_mob_db;
+	mob->convaux = mob_convaux;
 }

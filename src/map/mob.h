@@ -391,6 +391,7 @@ struct mob_interface {
 	void (*load) (bool minimal);
 	void (*clear_spawninfo) ();
 	void (*destroy_mob_db) (int index);
+	int	(*convaux) (struct mob_data *md); // Manipulação de Mobs [SlexFire]
 };
 
 #ifdef HERCULES_CORE
