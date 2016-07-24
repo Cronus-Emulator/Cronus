@@ -3880,6 +3880,7 @@ int skill_castend_damage_id(struct block_list* src, struct block_list *bl, uint1
 					clif->slide(src, src->x, src->y);
 					clif->fixpos(src);
 					clif->spiritball(src);
+					clif->specialeffect(src, 328, AREA); //Fix it animação do asura [SlexFire]
 				}
 			}
 			break;
