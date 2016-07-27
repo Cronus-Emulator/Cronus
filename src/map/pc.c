@@ -1048,7 +1048,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 	sd->login_id2 = login_id2;
 
 	if (pc->set_group(sd, group_id) != 0) {
-		ShowWarning("pc_authok: %s (AID:%d) logado em um grupo de indentificação desconhecida (%d)! desconectado...\n",
+		ShowWarning("pc_authok: %s (AID:%d) logado em um grupo de identificacao desconhecida (%d)! desconectado...\n",
 			st->name, sd->status.account_id, group_id);
 		clif->authfail_fd(sd->fd, 0);
 		return false;
@@ -1064,7 +1064,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 	//Set the map-server used job id. [Skotlex]
 	i = pc->jobid2mapid(sd->status.class_);
 	if (i == -1) { //Invalid class?
-		ShowError("pc_authok: classe invalida %d para players %s (%d:%d). Classe modificada para noviço.\n", sd->status.class_, sd->status.name, sd->status.account_id, sd->status.char_id);
+		ShowError("pc_authok: classe invalida %d para players %s (%d:%d). Classe modificada para novico.\n", sd->status.class_, sd->status.name, sd->status.account_id, sd->status.char_id);
 		sd->status.class_ = JOB_NOVICE;
 		sd->class_ = MAPID_NOVICE;
 	} else
