@@ -1,16 +1,28 @@
-//===== Hercules Script ======================================
-//= War of Emperium (Al De Baran)
-//===== By: ==================================================
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.2
-//===== Description: =========================================
-//= NPCs that relate to Al De Baran Guild Castle 3
-//===== Additional Comments: =================================
-//= 1.0 First Version. No longer uses functions. [L0ne_W0lf]
-//= 1.1 Removed dialog from interior flags. [L0ne_W0lf]
-//= 1.2 Partially rewrote Script. [Masao]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - aldeg_cas03.txt                                             ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.2                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Script referente ao 3º Castelo de Al de baran               ||
+//===============================================================//
 
 // Guild Flag (Outside Castle)
 //============================================================
@@ -19,25 +31,20 @@
 	.@GID = getcastledata("aldeg_cas03",1);
 
 	if (.@GID == 0) {
-		mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+		mes "[Decreto de Rune-Midgard ]";
 		mes " ";
-		mes "1. Follow the ordinance of The Divine Rune-Midgarts Kingdom, ";
-		mes "We declare that";
-		mes "there is no formal master of this castle.";
+		mes "1. Pela ordenança do Divino Reino de Rune-Midgad, declaramos que não há nenhum mestre formal deste castelo.";
 		mes " ";
-		mes "2. To the one who can ";
-		mes "overcome all trials";
-		mes "and destroy the Emperium,";
-		mes "the king will endow the one with";
-		mes "ownership of this castle.";
+		mes "2. Para quem puder superar todas provações e destruír o Emperium.";
+		mes "O rei vai reconhecer esse como proprietário do castelo.";
 		close;
 	}
 	if (getcharid(2) == .@GID) {
-		mes "[ Echoing Voice ]";
-		mes "Brave ones...";
-		mes "Do you wish to return to your honorable place?";
+		mes "[ Voz Sussurrando ]";
+		mes "Aos bravos...";
+		mes "Deseja retornar ao seu palácio de honra?";
 		next;
-		if(select("Return to the guild castle.:Quit.") == 1) {
+		if(select("Retornar ao Castelo.:Sair.") == 1) {
 			close2;
 			if (getcharid(2) == getcastledata("aldeg_cas03",1)) {
 				warp "aldeg_cas03",205,186;
@@ -47,16 +54,14 @@
 		}
 		close;
 	}
-	mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+	mes "[Decreto de Rune-Midgard ]";
 	mes " ";
-	mes "1. Follow the ordinance of The Divine Rune-Midgarts Kingdom, ";
-	mes "we approve that this place is in";
-	mes "the private prossession of ^ff0000"+getguildname(.@GID)+"^000000 Guild.";
+	mes "1. Pela ordenança do Divino Reino de Rune-Midgard que este lugar é de posse privada do Clã:";
+	mes "^ff0000"+getguildname(.@GID)+"^000000.";
 	mes " ";
-	mes "2. The guild Master of ^ff0000"+getguildname(.@GID)+"^000000 Guild is";
-	mes "^ff0000"+getguildmaster(.@GID)+"^000000";
-	mes "If there is anyone who objects to this,";
-	mes "prove your strength and honor with a steel blade in your hand.";
+	mes "2. O mestre deste castelo ^ff0000"+getguildname(.@GID)+"^000000 é ^ff0000"+getguildmaster(.@GID)+"^000000.";
+	mes "Se há alguém que se opõe a isso.";
+	mes "Prove sua força e honra com uma lâmina de aço em sua mão.";
 	close;
 
 OnRecvCastleA03:
@@ -101,7 +106,7 @@ aldebaran,134,97,4	duplicate(InsideFlagsA3)	Nuernberg#20	GUILD_FLAG
 
 // Kafra Employee
 //============================================================
-aldeg_cas03,118,76,0	duplicate(guildkafra)	Kafra Staff#aldeg_cas03	4_F_KAFRA1
+aldeg_cas03,118,76,0	duplicate(guildkafra)	Funcionária Kafra#aldeg_cas03	4_F_KAFRA1
 
 // Steward
 //============================================================
@@ -112,9 +117,9 @@ aldeg_cas03,110,118,0	duplicate(cm)	Nahzarf#aldeg_cas03	1_M_JOBTESTER
 aldeg_cas03,229,267,0	script	#lever_A03	HIDDEN_NPC,{
 
 	mes " ";
-	mes "There's a small lever. Will you pull it?";
+	mes "Há uma alavanca pequena. Puxar isto?";
 	next;
-	if(select("Pull.:Do not.") == 1) {
+	if(select("Puxar.:Não Puxar.") == 1) {
 		close2;
 		warp "aldeg_cas03",110,119;
 		end;
@@ -136,4 +141,4 @@ aldeg_cas03,206,32,0	duplicate(Gld_Agit_Manager)	Agit#aldeg_cas03	-1
 
 // Guardians
 //============================================================
-aldeg_cas03,110,118,0	duplicate(Gld_Guard_Template)	Guardian#aldeg_cas03	-1
+aldeg_cas03,110,118,0	duplicate(Gld_Guard_Template)	Guardião#aldeg_cas03	-1
