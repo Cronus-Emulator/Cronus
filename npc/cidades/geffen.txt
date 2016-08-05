@@ -20,6 +20,7 @@
 // - Cabeçalho [SlexFire]                                        ||
 // - Tradução [Roberto]                                          ||
 // - Tradução [SlexFire]                                         ||
+// - Tradução [Nerd]                                             ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - NPCs referentes a cidade de Geffen                          ||
@@ -633,55 +634,55 @@ geffen_in,27,134,5	script	Garçonete#elen	4_F_02,{
 			mes "Minha c-cabeça...";
 			mes "Está doendo...";
 			next;
-			mes "[William's Spirit]";
-			mes "^990000You get the hell away from my daughter, low-life, before I sell your organs for zeny!";
-			mes "You hear me?!^000000";
+			mes "[Espírito de William]";
+			mes "^990000Saia de perto da minha filha, escória, antes que eu venda seus orgãos por zeny!";
+			mes "Tá me ouvindo?!^000000";
 			next;
 			mes "[Elenore]";
-			mes "*Cough*";
+			mes "*cof*";
 			mes "Oh...!";
-			mes "Sorry about that!";
-			mes "I must be coming";
-			mes "down with the flu!";
-			mes "...Or something.";
+			mes "Desculpe por isso!";
+			mes "Eu devo estar com";
+			mes "um começo de gripe!";
+			mes "...Ou algo do tipo.";
 			next;
-			mes "^3355FFWeird...";
-			mes "Her voice was";
-			mes "really deep for";
-			mes "a minute there...";
+			mes "^3355FFEstranho...";
+			mes "A voz dela tava";
+			mes "realmente grossa por";
+			mes "um minuto, ali...";
 			break;
 		case 2:
-			mes "[William's Spirit]";
-			mes "^990000Hey you sex crazed bastard!! Stop looking at my daughter like that before I rip out your eyes, and eat them with pasta!^000000";
+			mes "[Espírito de William]";
+			mes "^990000Ei, seu maníaco sexual!!! Pare de olhar pra minha filha desse jeito, antes que eu arranque seus olhos e os coma com macarrão!^000000";
 			next;
 			mes "["+strcharinfo(0)+"]";
 			if (Sex) {
 				mes "Huh...?";
-				mes "C-come again?";
+				mes "D-de novo?";
 				next;
 				mes "[Elenore]";
 				mes "Huh...?";
-				mes "Oh, Dad must have possessed me again. It happens to me and my sister all the time.";
+				mes "Oh, papai deve ter me possuído de novo. Acontece comigo e minha irmã o tempo todo.";
 				next;
 				mes "["+strcharinfo(0)+"]";
-				mes "No kidding?";
-				mes "Huh. Total bummer.";
+				mes "Sério?";
+				mes "Huh. É uma chatice.";
 				next;
 				mes "[Elenore]";
-				mes "Yeah...";
-				mes "Tell me about it.";
+				mes "É...";
+				mes "Me fala disso.";
 				break;
 			}
 			else {
-				mes "W-waaaaait~";
-				mes "But, But I'm a girl!";
+				mes "E-espeeeeeera~";
+				mes "Mas, mas eu sou uma garota!";
 				next;
-				mes "[William's Spirit]";
-				mes "^990000What part of ^FF0000I will whup you where you stand^000000 ^990000do you not understand?! Now, quit it you pervert!^000000";
+				mes "[Espírito de William]";
+				mes "^990000Que parte do ^FF0000eu vou gritar onde você estiver^000000 ^990000você não entendeu?! Agora sai daqui, pervertido!^000000";
 				next;
-				mes "^3355FFWaaah~!";
-				mes "How did she";
-				mes "get all scary?!^000000";
+				mes "^3355FFAaaah~!";
+				mes "Como ela ficou";
+				mes "tão assustadora?!^000000";
 				break;
 			}
 		}
@@ -692,186 +693,186 @@ geffen_in,27,134,5	script	Garçonete#elen	4_F_02,{
 
 geffen_in,70,67,3	script	Garçonete#elise	4_F_01,{
 	mes "[Elisa]";
-	mes "Hello there~";
-	mes "Can I help you";
-	mes "with anything?";
+	mes "Olá~";
+	mes "Posso te ajudar";
+	mes "com alguma coisa?";
 	next;
-	if (select("May I ask for a drink?:Is there any interesting gossip lately?") == 1) {
+	if (select("Um drink, por favor!:Tem alguma fofoca interessante recentemente?") == 1) {
 		mes "[Elisa]";
-		mes "A...";
+		mes "Um...";
 		mes "Drink?";
 		next;
 		mes "[Elisa]";
-		mes "You know that we don't serve alcohol here anymore. We just have all these fake, flavorless drinks that have no effect. Yeah, they're pretty boring...";
+		mes "Você sabe que nós não servimos mais álcool por aqui. Só temos esses drinks falsos que nem tem gosto nem efeito. É, eles são chatos...";
 		next;
 		mes "[Elisa]";
-		mes "We pretty much only serve water around here. That, and really bad alcoholic imitation drinks.";
+		mes "Só servimos praticamente água, aqui. Isso e umas imitações ruins de drinks alcóolicos.";
 		next;
 		mes "[Elisa]";
-		mes "It's horrible that King Tristram III outlawed alcohol in the kingdom! It's probably the only bad decision he's made throughout his entire reign!";
+		mes "É horrível que o Rei Tristram III proibiu álcool no nosso reino! É provavelmente a única decisão ruim que ele tomou durante todo seu reinado!";
 		close;
 	}
 	switch(rand(1,4)) {
 	case 1:
 		mes "[Elisa]";
-		mes "You know";
-		mes "what's so weird?";
+		mes "Sabe o que é";
+		mes "tão estranho?";
 		next;
 		mes "[Elisa]";
-		mes "I went down to the Prontera Sanctuary, and I could have sworn";
-		mes "that a Priest got married to a Priestess!";
+		mes "Fui pro santuário de Prontera e tenho certeza que vi";
+		mes "um sacerdote casando com uma sacerdotisa!";
 		next;
 		mes "[Elisa]";
-		mes "I really had no idea whether or not Priests could marry, but since King Tristram III was there himself,";
-		mes "I suppose that it's okay!";
+		mes "Eu não tinha ideia se sacerdotes poderiam se casar ou não, mas até o Rei Tristram estava lá,";
+		mes "então acho que está tudo bem!";
 		break;
 	case 2:
 		mes "[Elisa]";
-		mes "I don't like to stereotype people, but haven't you noticed that Swordsmen and Knights";
-		mes "tend to be, you know...";
+		mes "Não gosto de estereotipar as pessoas, mas você já percebeu que os espadachins e cavaleiros";
+		mes "tendem a ser, você sabe...";
 		next;
 		mes "[Elisa]";
-		mes "...INT challenged?";
-		mes "All they seem to know";
-		mes "is smashing things!";
+		mes "...desafiados em INT?";
+		mes "Tudo que eles parecem saber";
+		mes "é esmagar coisas!";
 		break;
 	case 3:
 		mes "[Elisa]";
-		mes "Rumors...?";
-		mes "Hmmmm, well...";
+		mes "Rumores...?";
+		mes "Hmmmm, bem...";
 		next;
 		mes "[Elisa]";
-		mes "You know the name";
-		mes "of our kingdom, right?";
-		mes "The Rune-Midgarts Kingdom?";
+		mes "Você sabe o nome";
+		mes "do nosso reino, certo?";
+		mes "O reino de Rune-Midgarts?";
 		next;
 		mes "[Elisa]";
-		mes "I hear that it was originally called the Rune-Midgard Kingdom, after our continent. However, for some reason, the name was changed to 'Rune-Midgarts.'";
+		mes "Ouvi dizer que originalmente ele era chamado de reino de Rune-Midgard, por causa do nosso continente. Entretanto, por alguma razão, o nome mudou para 'Rune-Midgarts.'";
 		next;
 		mes "[Elisa]";
-		mes "It was obviously a wise decision, since too many people kept confusing the our continent with our kingdom. Weird, huh?";
+		mes "Obviamente foi uma boa decisão, já que as pessoas ficavam confundindo o continente com o reino. Estranho, né?";
 		break;
 	case 4:
 		switch(rand(1,2)) {
 		case 1:
 			mes "[Elisa]";
-			mes "Rumors...?";
-			mes "Hmmmm, well...";
+			mes "Rumores...?";
+			mes "Hmmmm, bem...";
 			next;
 			mes "[Elisa]";
-			mes "That's funny...";
-			mes "I, I can't think of anything. E-everything feels so fuzzy...";
+			mes "Isso é engraçado...";
+			mes "Eu, eu não consigo pensar em nada. T-tá tudo parecendo tão estranho...";
 			next;
 			mes "...";
 			next;
 			mes "...";
 			mes "......";
 			next;
-			mes "[William's Spirit]";
-			mes "^990000Stay away from my daughter, or I'll beat your brains out, punk! Elisa's gonna marry a doctor! Or a lawyer!^000000";
+			mes "[Espírito de William]";
+			mes "^990000Sai de perto da minha filha, ou eu vou estourar seus miolos! Elisa vai casar com um médico! Ou um advogado.^000000";
 			next;
 			mes "["+strcharinfo(0)+"]";
 			if (Sex) {
-				mes "Y-y-y-yes, sir!";
+				mes "S-s-s-sim, senhor!";
 				next;
-				mes "^3355FFThat was scary...!";
-				mes "It looks like a father's love endures forever, even in the afterlife.^000000";
+				mes "^3355FFIsso foi assustador...!";
+				mes "Parece que o amor de um pai dura pra sempre, mesmo depois da morte.^000000";
 			}
 			else {
 				mes "But...";
 				mes "I'm a girl!";
 				next;
-				mes "[William's Spirit]";
-				mes "^990000WHAT...?!";
-				mes "That's even worse!!^000000";
+				mes "[Espírito de William]";
+				mes "^990000QUE...?!";
+				mes "É pior ainda!!^000000";
 				next;
-				mes "^3355FFThat was scary...!";
-				mes "It looks like a father's love endures forever, even in the afterlife.^000000";
+				mes "^3355FFIsso foi assustador...!";
+				mes "Parece que o amor de um pai dura pra sempre, mesmo depois da morte.^000000";
 			}
 			break;
 		case 2:
-			mes "[William's Spirit]";
-			mes "^990000How dare you try to pick up on my precious daughter! Do you wish to taste an angry father's fury?!^000000";
+			mes "[Espírito de William]";
+			mes "^990000Como você ousa tentar dar em cima da minha filha preciosa! Quer provar a raiva de um pai furioso?!^000000";
 			next;
 			mes "[Elisa]";
-			mes "W-whoa...!";
-			mes "I'm so sorry!";
+			mes "O-opa...!";
+			mes "Me desculpa!";
 			next;
 			mes "[Elisa]";
-			mes "It's just...";
-			mes "The spirit of my father,";
-			mes "God rest his soul, is";
-			mes "a little overprotective!";
+			mes "É só que...";
+			mes "O espírito do meu pai,";
+			mes "que Deus o tenha, é";
+			mes "um pouco super protetor!";
 			next;
-			mes "^3355FFYou step away.";
-			mes "Very. Carefully.^000000";
+			mes "^3355FFVocê se afasta.";
+			mes "Muito. Cuidadosamente.^000000";
 			break;
 		}
 	}
 	close;
 }
 
-geffen_in,79,76,2	script	Merchant Daven	2_M_PHARMACIST,{
-	mes "[Merchant Daven]";
-	mes "I remember Geffen";
-	mes "back when it was boring. ";
+geffen_in,79,76,2	script	Mercador Daven	2_M_PHARMACIST,{
+	mes "[Mercador Daven]";
+	mes "Eu lembro de Geffen";
+	mes "quando ainda era chata. ";
 	next;
-	mes "[Merchant Daven]";
-	mes "But now there are Mages and Wizards, and a flourishing";
-	mes "economy in this town!";
+	mes "[Mercador Daven]";
+	mes "Mas agora tem Magos e Bruxos e uma economia";
+	mes "próspera nessa cidade!";
 	next;
-	switch(select("Mages...?:Economy?:Who are you?")) {
+	switch(select("Magos...?:Economia?:Quem é você?")) {
 	case 1:
 		if (BaseJob == Job_Mage) {
-			mes "[Merchant Daven]";
-			mes "Mages are wielders of magic. But you would know more about that topic now, wouldn't you?";
+			mes "[Mercador Daven]";
+			mes "Magos são os manejadores de magia. Mas você vai saber mais sobre esse tópico agora, né?";
 		}
 		else {
-			mes "[Merchant Daven]";
-			mes "Mages and Wizards are always carrying books and studying magic. That's just the way they are.";
+			mes "[Mercador Daven]";
+			mes "Magos e Bruxos estão sempre carregando livros e estudando magia. É assim que eles são.";
 			next;
-			mes "[Merchant Daven]";
-			mes "There's a Magic School in the NorthWest part of the city for Novices interested in becoming Mages. There, they can learn the basics of magic.";
+			mes "[Mercador Daven]";
+			mes "Tem uma escola de magia no noroeste da cidade, para aprendizes interessados em se tornar Magos. Lá, eles podem aprender o básico de magia.";
 			next;
-			mes "[Merchant Daven]";
-			mes "After becoming well experienced in the use of magic, Mages can become qualified to become Wizards.";
+			mes "[Mercador Daven]";
+			mes "Depois de se tornar experiente no uso de magia, Magos podem se qualificar para se tornar Bruxos.";
 			next;
-			mes "[Merchant Daven]";
-			mes "Wizards have access to more powerful and destructive magic spells than Mages. Mages can apply to become Wizards at the top of Geffen Tower.";
+			mes "[Mercador Daven]";
+			mes "Bruxos tem acesso a magias mais poderosas e destrutivas do que os Magos. Magos podem aplicar para se tornar Bruxos no topo da Torre de Geffen.";
 		}
 		break;
 	case 2:
 		if (Class == Job_Blacksmith) {
-			mes "[Merchant Daven]";
-			mes "The economy...?";
-			mes "Why, that's all thanks to Blacksmiths! But you should know that already, shouldn't you?";
+			mes "[Mercador Daven]";
+			mes "A economia...?";
+			mes "Isso é tudo graças aos Ferreiros! Mas você já deve saber disso, não é mesmo?";
 		}
 		else {
-			mes "[Merchant Daven]";
-			mes "Well, I guess you can thank the Blacksmiths for the economy here in Geffen. Sure, they always dirty, sweaty, smelly and talk kind of rudely...";
+			mes "[Mercador Daven]";
+			mes "Bem, acho que você pode agradecer aos Ferreiros pela economia aqui em Geffen. Com certeza, eles sempre sujos, suados, fedendo e falam meio rude...";
 			next;
-			mes "[Merchant Daven]";
-			mes "But they're hard working people. Also, the ores they refine and the weapons they create are high in demand.";
+			mes "[Mercador Daven]";
+			mes "Mas são pessoas que trabalham duro. E também, os minérios que eles refinam e as armas que criam tem alta demanda.";
 			next;
-			mes "[Merchant Daven]";
-			mes "Adventurers pay Blacksmiths lots of their hard earned zeny for the high quality weapons that only they can create.";
+			mes "[Mercador Daven]";
+			mes "Aventureiros pagam aos Ferreiros um monte do seus suados zenys por armas de alta qualidade que somente eles podem criar.";
 		}
 		break;
 	case 3:
-		mes "[Merchant Daven]";
-		mes "Me? I'm the world's most prettiest street merchant. Heh heh~";
+		mes "[Mercador Daven]";
+		mes "Eu? Eu sou o vendedor de rua mais lindo do mundo. Heh heh~";
 		next;
-		select("...^EE0000Magnum Break^000000!");
+		select("...^EE0000Impacto Explosivo^000000!");
 		if (Class == Job_Swordman) {
-			mes "[Merchant Daven]";
-			mes "Whoa, whoa!";
-			mes "It was just a joke!";
-			mes "Forgive me!";
+			mes "[Mercador Daven]";
+			mes "Opa, opa!";
+			mes "Era só uma piada!";
+			mes "Me desculpe!";
 		}
 		else {
-			mes "[Merchant Daven]";
-			mes "Magnum Break?";
-			mes "But you can't even do that, can you?";
+			mes "[Mercador Daven]";
+			mes "Impacto Explosivo?";
+			mes "Mas você nem sabe fazer isso, sabe?";
 		}
 		break;
 	}
@@ -880,24 +881,24 @@ geffen_in,79,76,2	script	Merchant Daven	2_M_PHARMACIST,{
 
 geffen_in,114,73,5	script	Hadenheim	4_M_SEAMAN,{
 	mes "[Hans Hadenheim]";
-	mes "Man, the Rune-Midgard continent sure is big! How's it going, youngster?";
+	mes "Cara, o continente de Rune-Midgard é tão grande! Como vai você, jovem?";
 	next;
 	mes "[Hans Hadenheim]";
-	mes "This Geffen sure is strange. But it was worth it to travel here all the way from the Schubaltzwald Republic.";
+	mes "Essa Geffen é estranha. Mas valeu a pena viajar da República de Schubaltzwald até aqui.";
 	next;
-	if (select("Schubaltzwald Republic?:So, why are you traveling?") == 1) {
+	if (select("República de Schubaltzwald?:Então, por que você está viajando?") == 1) {
 		mes "[Hans Hadenheim]";
-		mes "You...";
-		mes "Don't know the";
-		mes "Schubaltzwald Republic?";
+		mes "Você...";
+		mes "Não conhece a";
+		mes "República de Schubaltzwald?";
 		next;
 		mes "[Hans Hadenheim]";
-		mes "You know, ally of the Rune-Midgarts Kingdom. Um... Our capital city is Juno?";
+		mes "Voce sabe, aliado do reino de Rune-Midgarts. Um... Nossa cidade capital é Juno?";
 		next;
 		mes "[Hans Hadenheim]";
-		mes "You should really";
-		mes "read up on your";
-		mes "world events!";
+		mes "Você realmente deveria";
+		mes "se atualizar nos";
+		mes "eventos globais!";
 		close;
 	}
 	mes "[Hans Hadenheim]";
