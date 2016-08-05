@@ -40,11 +40,8 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 #### Equipe Atual
 
 ###### Administradores
-- Raizen	    - Carlos Lain
 - Roberto	   - Roberto Oliveira
-
-###### Gerente Ragnarok
-- SlexFire   - (Core Developer)
+- SlexFire
 
 ###### Desenvolvedores
-- Gluglu     - (Core Developer)
+- Nerdz (Script/Core Developer)
