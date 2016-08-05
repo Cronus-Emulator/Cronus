@@ -1,12 +1,28 @@
-//===== Hercules Script ======================================
-//= War of Emperium SE - Mardol
-//===== By: ==================================================
-//= Euphy
-//===== Current Version: =====================================
-//= 1.0
-//===== Additional Comments: =================================
-//= 1.0 Merged to template file.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - arug_cas01.txt                                              ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Duplicatas dos Scripts nos Castelos para GDE 2º Edição      ||
+//===============================================================//
 
 -	duplicate(Manager#template)	Manager#arug_cas01	-1
 -	duplicate(gard#template)	gard1#arug_cas01	-1
@@ -20,29 +36,29 @@
 
 arug_cas01,92,380,3	duplicate(Steward#template)	Steward#ar01	1_M_JOBTESTER
 arug_cas01,112,193,1	duplicate(Guardian#template)	Brace#ar01	4_M_LGTGUARD
-arug_cas01,31,362,3	duplicate(Kafra#template)	Kafra Employee#ar01	4_F_KAFRA1
-arug_cas01,211,234,0	duplicate(Guardian Stone#template)	1st Guardian Stone#ar01	CLEAR_NPC
-arug_cas01,308,189,0	duplicate(Guardian Stone#template)	2nd Guardian Stone#ar01	CLEAR_NPC
-arug_cas01,247,52,0	duplicate(Control#template)	Control Device01#ar01	HIDDEN_NPC
-arug_cas01,118,131,0	duplicate(Control#template)	Control Device02#ar01	HIDDEN_NPC
-arug_cas01,82,172,0	duplicate(Control#template)	Control Device03#ar01	HIDDEN_NPC
+arug_cas01,31,362,3	duplicate(Kafra#template)	Funcionária Kafra#ar01	4_F_KAFRA1
+arug_cas01,211,234,0	duplicate(Guardian Stone#template)	1º Runa Guardiã#ar01	CLEAR_NPC
+arug_cas01,308,189,0	duplicate(Guardian Stone#template)	2º Runa Guardiã#ar01	CLEAR_NPC
+arug_cas01,247,52,0	duplicate(Control#template)	Dispositivo 01#ar01	HIDDEN_NPC
+arug_cas01,118,131,0	duplicate(Control#template)	Dispositivo 02#ar01	HIDDEN_NPC
+arug_cas01,82,172,0	duplicate(Control#template)	Dispositivo 03#ar01	HIDDEN_NPC
 arug_cas01,259,371,0	duplicate(Switch#template)	#aru01_switch	HIDDEN_NPC
-arug_cas01,157,345,3	duplicate(Sunflower#template)	Mysterious Sunflower#06	4_RED_FLOWER
+arug_cas01,157,345,3	duplicate(Sunflower#template)	Girasol Misterioso#06	4_RED_FLOWER
 
-arug_cas01,74,232,0	script	LF-01#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","First Gate House",158,237,"Second Gate House",297,248; }
-arug_cas01,77,232,0	script	LF-02#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 1-1",197,144,"Defense Area 1-2",245,103; }
-arug_cas01,80,232,0	script	LF-03#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 2-1",256,35,"Defense Area 2-2",186,26; }
-arug_cas01,83,232,0	script	LF-04#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 2-3",146,65,"Defense Area 2-4",176,111; }
-arug_cas01,86,232,0	script	LF-05#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 3-1",94,126,"Defense Area 3-2",126,126; }
-arug_cas01,89,232,0	script	LF-06#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 3-3",68,171,"Defense Area 3-4",105,182; }
+arug_cas01,74,232,0	script	LF-01#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Primeiro Portão",158,237,"Segundo Portão",297,248; }
+arug_cas01,77,232,0	script	LF-02#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-1",197,144,"Área de Defesa 1-2",245,103; }
+arug_cas01,80,232,0	script	LF-03#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-1",256,35,"Área de Defesa 2-2",186,26; }
+arug_cas01,83,232,0	script	LF-04#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-3",146,65,"Área de Defesa 2-4",176,111; }
+arug_cas01,86,232,0	script	LF-05#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 3-1",94,126,"Área de Defesa 3-2",126,126; }
+arug_cas01,89,232,0	script	LF-06#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 3-3",68,171,"Área de Defesa 3-4",105,182; }
 arug_cas01,92,232,0	script	LF-07#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Gate House Fork",233,130; }
 arug_cas01,95,232,0	script	LF-08#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Area 1-1",197,144,"Area 2-1",256,35,"Area 3-1",146,65; }
 arug_cas01,98,232,0	script	LF-09#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Area 1-2",245,103,"Area 2-2",186,26,"Area 3-3",68,171; }
-arug_cas01,101,232,0	script	LF-10#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Convenience Facility",121,357; }
-arug_cas01,72,176,0	script	Mardol#LF_ar01_1::LF_ar01_1	HIDDEN_NPC,{ callfunc "LinkFlag","Emperium Center",67,193; }
+arug_cas01,101,232,0	script	LF-10#arug_cas01	HIDDEN_NPC,{ callfunc "LinkFlag","Central de Conveniência",121,357; }
+arug_cas01,72,176,0	script	Mardol#LF_ar01_1::LF_ar01_1	HIDDEN_NPC,{ callfunc "LinkFlag","Central do Emperium",67,193; }
 arug_cas01,103,186,0	duplicate(LF_ar01_1)	Mardol#LF_ar01_2	HIDDEN_NPC
 arug_cas01,92,126,4	script	Mardol#LF_ar01_3::LF_ar01_2	HIDDEN_NPC,{
-	callfunc "LinkFlag","Emperium Center",67,193;
+	callfunc "LinkFlag","Central do Emperium",67,193;
 	end;
 OnAgitInit2:
 OnRecvCastleAr01:

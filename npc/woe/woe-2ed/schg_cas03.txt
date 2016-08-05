@@ -1,12 +1,28 @@
-//===== Hercules Script ======================================
-//= War of Emperium SE - Vidblainn
-//===== By: ==================================================
-//= Euphy
-//===== Current Version: =====================================
-//= 1.0
-//===== Additional Comments: =================================
-//= 1.0 Merged to template file.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - schg_cas03.txt                                              ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Duplicatas dos Scripts nos Castelos para GDE 2º Edição      ||
+//===============================================================//
 
 -	duplicate(Manager#template)	Manager#schg_cas03	-1
 -	duplicate(gard#template)	gard1#schg_cas03	-1
@@ -20,26 +36,26 @@
 
 schg_cas03,88,90,3	duplicate(Steward#template)	Steward#sc03	1_M_JOBTESTER
 schg_cas03,287,226,5	duplicate(Guardian#template)	Elzee#sc03	4_M_LGTGUARD
-schg_cas03,50,50,3	duplicate(Kafra#template)	Kafra Employee#sc03	4_F_KAFRA1
-schg_cas03,242,309,0	duplicate(Guardian Stone#template)	1st Guardian Stone#sc03	CLEAR_NPC
-schg_cas03,376,250,0	duplicate(Guardian Stone#template)	2nd Guardian Stone#sc03	CLEAR_NPC
-schg_cas03,335,298,0	duplicate(Control#template)	Control Device01#sc03	HIDDEN_NPC
-schg_cas03,200,227,0	duplicate(Control#template)	Control Device02#sc03	HIDDEN_NPC
-schg_cas03,273,205,0	duplicate(Control#template)	Control Device03#sc03	HIDDEN_NPC
+schg_cas03,50,50,3	duplicate(Kafra#template)	Funcionária Kafra#sc03	4_F_KAFRA1
+schg_cas03,242,309,0	duplicate(Guardian Stone#template)	1º Runa Guardiã#sc03	CLEAR_NPC
+schg_cas03,376,250,0	duplicate(Guardian Stone#template)	2º Runa Guardiã#sc03	CLEAR_NPC
+schg_cas03,335,298,0	duplicate(Control#template)	Dispositivo 01#sc03	HIDDEN_NPC
+schg_cas03,200,227,0	duplicate(Control#template)	Dispositivo 02#sc03	HIDDEN_NPC
+schg_cas03,273,205,0	duplicate(Control#template)	Dispositivo 03#sc03	HIDDEN_NPC
 schg_cas03,199,25,0	duplicate(Switch#template)	#sch03_switch	HIDDEN_NPC
-schg_cas03,25,22,3	duplicate(Sunflower#template)	Mysterious Sunflower#03	4_BLUE_FLOWER
+schg_cas03,25,22,3	duplicate(Sunflower#template)	Girasol Misterioso#03	4_BLUE_FLOWER
 
-schg_cas03,346,211,0	script	LF-01#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","First Gate House",262,323,"Second Gate House",378,263; }
-schg_cas03,346,207,0	script	LF-02#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Center 1 Area",306,320; }
-schg_cas03,346,203,0	script	LF-03#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 2-1",309,292,"Defense Area 2-2",348,292; }
+schg_cas03,346,211,0	script	LF-01#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Primeiro Portão",262,323,"Segundo Portão",378,263; }
+schg_cas03,346,207,0	script	LF-02#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área Central 1",306,320; }
+schg_cas03,346,203,0	script	LF-03#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-1",309,292,"Área de Defesa 2-2",348,292; }
 schg_cas03,346,199,0	script	LF-04#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Center 2 Area",266,263; }
-schg_cas03,346,195,0	script	LF-05#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 3-1",226,220,"Defense Area 3-2",185,249; }
+schg_cas03,346,195,0	script	LF-05#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 3-1",226,220,"Área de Defesa 3-2",185,249; }
 schg_cas03,346,191,0	script	LF-06#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Center 3 Area",271,226; }
 schg_cas03,301,213,0	script	LF-07#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Area 1-2",262,323,"Area 2-2",378,263,"Area 3-2",306,320; }
 schg_cas03,301,209,0	script	LF-08#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Area 2-1",309,292,"Area 2-2",348,292,"Center 2 Area",326,263; }
 schg_cas03,301,194,0	script	LF-09#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Area 3-1",226,220,"Area 3-2",185,249,"Center 3 Area",271,226; }
-schg_cas03,301,190,0	script	LF-10#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Convenience Facility",57,13; }
-schg_cas03,335,305,0	script	Vidblainn#LF_sc03_1::LF_sc03_1	HIDDEN_NPC,{ callfunc "LinkFlag","Emperium Center",308,202; }
+schg_cas03,301,190,0	script	LF-10#schg_cas03	HIDDEN_NPC,{ callfunc "LinkFlag","Central de Conveniência",57,13; }
+schg_cas03,335,305,0	script	Vidblainn#LF_sc03_1::LF_sc03_1	HIDDEN_NPC,{ callfunc "LinkFlag","Central do Emperium",308,202; }
 schg_cas03,322,305,0	duplicate(LF_sc03_1)	Vidblainn#LF_sc03_2	HIDDEN_NPC
 schg_cas03,352,248,0	duplicate(LF_sc03_1)	Vidblainn#LF_sc03_3	HIDDEN_NPC
 schg_cas03,320,283,0	duplicate(LF_sc03_1)	Vidblainn#LF_sc03_4	HIDDEN_NPC
@@ -50,7 +66,7 @@ schg_cas03,207,228,0	duplicate(LF_sc03_1)	Vidblainn#LF_sc03_8	HIDDEN_NPC
 schg_cas03,266,206,0	duplicate(LF_sc03_1)	Vidblainn#LF_sc03_9	HIDDEN_NPC
 schg_cas03,266,197,0	duplicate(LF_sc03_1)	Vidblainn#LF_sc03_10	HIDDEN_NPC
 schg_cas03,283,206,2	script	Vidblainn#LF_sc03_11::LF_sc03_2	GUILD_FLAG,{
-	callfunc "LinkFlag","Emperium Center",308,202;
+	callfunc "LinkFlag","Central do Emperium",308,202;
 	end;
 OnAgitInit2:
 OnRecvCastleSc03:

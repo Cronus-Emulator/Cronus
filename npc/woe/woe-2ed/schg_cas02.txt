@@ -1,12 +1,28 @@
-//===== Hercules Script ======================================
-//= War of Emperium SE - Andlangr
-//===== By: ==================================================
-//= Euphy
-//===== Current Version: =====================================
-//= 1.0
-//===== Additional Comments: =================================
-//= 1.0 Merged to template file.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - schg_cas02.txt                                              ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Duplicatas dos Scripts nos Castelos para GDE 2º Edição      ||
+//===============================================================//
 
 -	duplicate(Manager#template)	Manager#schg_cas02	-1
 -	duplicate(gard#template)	gard1#schg_cas02	-1
@@ -20,24 +36,24 @@
 
 schg_cas02,105,378,3	duplicate(Steward#template)	Steward#sc02	1_M_JOBTESTER
 schg_cas02,140,184,3	duplicate(Guardian#template)	Endeef#sc02	4_M_LGTGUARD
-schg_cas02,131,365,3	duplicate(Kafra#template)	Kafra Employee#sc02	4_F_KAFRA1
-schg_cas02,231,57,0	duplicate(Guardian Stone#template)	1st Guardian Stone#sc02	CLEAR_NPC
-schg_cas02,335,231,0	duplicate(Guardian Stone#template)	2nd Guardian Stone#sc02	CLEAR_NPC
-schg_cas02,288,97,0	duplicate(Control#template)	Control Device01#sc02	HIDDEN_NPC
-schg_cas02,230,209,0	duplicate(Control#template)	Control Device02#sc02	HIDDEN_NPC
-schg_cas02,159,143,0	duplicate(Control#template)	Control Device03#sc02	HIDDEN_NPC
+schg_cas02,131,365,3	duplicate(Kafra#template)	Funcionária Kafra#sc02	4_F_KAFRA1
+schg_cas02,231,57,0	duplicate(Guardian Stone#template)	1º Runa Guardiã#sc02	CLEAR_NPC
+schg_cas02,335,231,0	duplicate(Guardian Stone#template)	2º Runa Guardiã#sc02	CLEAR_NPC
+schg_cas02,288,97,0	duplicate(Control#template)	Dispositivo 01#sc02	HIDDEN_NPC
+schg_cas02,230,209,0	duplicate(Control#template)	Dispositivo 02#sc02	HIDDEN_NPC
+schg_cas02,159,143,0	duplicate(Control#template)	Dispositivo 03#sc02	HIDDEN_NPC
 schg_cas02,257,369,0	duplicate(Switch#template)	#sc02_switch 	HIDDEN_NPC
-schg_cas02,174,328,3	duplicate(Sunflower#template)	Mysterious Sunflower#02	4_BLUE_FLOWER
+schg_cas02,174,328,3	duplicate(Sunflower#template)	Girasol Misterioso#02	4_BLUE_FLOWER
 
-schg_cas02,143,198,0	script	LF-01#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","First Gate House",235,44,"Second Gate House",302,233; }
-schg_cas02,143,202,0	script	LF-02#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 1-1",317,83,"Defense Area 1-2",359,83; }
-schg_cas02,143,206,0	script	LF-03#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 2-1",283,79,"Defense Area 2-2",280,122; }
-schg_cas02,145,208,0	script	LF-04#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 3-1",215,110,"Defense Area 3-2",255,215; }
-schg_cas02,180,208,0	script	LF-05#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Center 1 Area",338,153,"Center 2 Area",213,226; }
-schg_cas02,182,206,0	script	LF-06#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 1-1",317,83,"Defense Area 2-1",283,79,"Defense Area 3-1",215,110; }
+schg_cas02,143,198,0	script	LF-01#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Primeiro Portão",235,44,"Segundo Portão",302,233; }
+schg_cas02,143,202,0	script	LF-02#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-1",317,83,"Área de Defesa 1-2",359,83; }
+schg_cas02,143,206,0	script	LF-03#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-1",283,79,"Área de Defesa 2-2",280,122; }
+schg_cas02,145,208,0	script	LF-04#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 3-1",215,110,"Área de Defesa 3-2",255,215; }
+schg_cas02,180,208,0	script	LF-05#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área Central 1",338,153,"Center 2 Area",213,226; }
+schg_cas02,182,206,0	script	LF-06#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-1",317,83,"Área de Defesa 2-1",283,79,"Área de Defesa 3-1",215,110; }
 schg_cas02,182,202,0	script	LF-07#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Area 1-2",359,83,"Area 2-2",280,122,"Area 3-2",255,215; }
-schg_cas02,182,198,0	script	LF-08#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Convenience Facility",101,306; }
-schg_cas02,235,222,0	script	Andlangr#LF_sc02_1::LF_sc02_1	HIDDEN_NPC,{ callfunc "LinkFlag","Emperium Center",136,188; }
+schg_cas02,182,198,0	script	LF-08#schg_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Central de Conveniência",101,306; }
+schg_cas02,235,222,0	script	Andlangr#LF_sc02_1::LF_sc02_1	HIDDEN_NPC,{ callfunc "LinkFlag","Central do Emperium",136,188; }
 schg_cas02,157,136,0	duplicate(LF_sc02_1)	Andlangr#LF_sc02_2	HIDDEN_NPC
 schg_cas02,168,136,4	duplicate(LF_sc02_1)	Andlangr#LF_sc02_3	HIDDEN_NPC
 schg_cas02,320,232,4	duplicate(LF_sc02_1)	Andlangr#LF_sc02_4	HIDDEN_NPC

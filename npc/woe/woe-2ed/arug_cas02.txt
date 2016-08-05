@@ -1,12 +1,28 @@
-//===== Hercules Script ======================================
-//= War of Emperium SE - Cyr
-//===== By: ==================================================
-//= Euphy
-//===== Current Version: =====================================
-//= 1.0
-//===== Additional Comments: =================================
-//= 1.0 Merged to template file.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - arug_cas02.txt                                              ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Duplicatas dos Scripts nos Castelos para GDE 2º Edição      ||
+//===============================================================//
 
 -	duplicate(Manager#template)	Manager#arug_cas02	-1
 -	duplicate(gard#template)	gard1#arug_cas02	-1
@@ -20,24 +36,24 @@
 
 arug_cas02,303,341,3	duplicate(Steward#template)	Steward#ar02	1_M_JOBTESTER
 arug_cas02,38,259,5	duplicate(Guardian#template)	Yumenes#ar02	4_M_LGTGUARD
-arug_cas02,354,326,3	duplicate(Kafra#template)	Kafra Employee#ar02	4_F_KAFRA1
-arug_cas02,33,168,0	duplicate(Guardian Stone#template)	1st Guardian Stone#ar02	CLEAR_NPC
-arug_cas02,245,168,0	duplicate(Guardian Stone#template)	2nd Guardian Stone#ar02	CLEAR_NPC
-arug_cas02,143,228,0	duplicate(Control#template)	Control Device01#ar02	HIDDEN_NPC
-arug_cas02,118,356,0	duplicate(Control#template)	Control Device02#ar02	HIDDEN_NPC
-arug_cas02,56,308,0	duplicate(Control#template)	Control Device03#ar02	HIDDEN_NPC
+arug_cas02,354,326,3	duplicate(Kafra#template)	Funcionária Kafra#ar02	4_F_KAFRA1
+arug_cas02,33,168,0	duplicate(Guardian Stone#template)	1º Runa Guardiã#ar02	CLEAR_NPC
+arug_cas02,245,168,0	duplicate(Guardian Stone#template)	2º Runa Guardiã#ar02	CLEAR_NPC
+arug_cas02,143,228,0	duplicate(Control#template)	Dispositivo 01#ar02	HIDDEN_NPC
+arug_cas02,118,356,0	duplicate(Control#template)	Dispositivo 02#ar02	HIDDEN_NPC
+arug_cas02,56,308,0	duplicate(Control#template)	Dispositivo 03#ar02	HIDDEN_NPC
 arug_cas02,386,227,0	duplicate(Switch#template)	#aru02_switch	HIDDEN_NPC
-arug_cas02,350,294,3	duplicate(Sunflower#template)	Mysterious Sunflower#07	4_RED_FLOWER
+arug_cas02,350,294,3	duplicate(Sunflower#template)	Girasol Misterioso#07	4_RED_FLOWER
 
-arug_cas02,98,270,0	script	LF-01#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","First Gate House",10,187,"Second Gate House",268,187; }
-arug_cas02,98,266,0	script	LF-02#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 1-1",66,31,"Defense Area 1-2",212,31; }
-arug_cas02,98,262,0	script	LF-03#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 1-3",90,120,"Defense Area 1-4",188,119; }
-arug_cas02,98,258,0	script	LF-04#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 2-1",119,183,"Defense Area 2-2",159,183; }
-arug_cas02,98,253,0	script	LF-05#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 2-3",156,324,"Defense Area 2-4",174,372; }
-arug_cas02,98,249,0	script	LF-06#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Defense Area 3-1",28,325,"Defense Area 3-2",57,325; }
+arug_cas02,98,270,0	script	LF-01#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Primeiro Portão",10,187,"Segundo Portão",268,187; }
+arug_cas02,98,266,0	script	LF-02#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-1",66,31,"Área de Defesa 1-2",212,31; }
+arug_cas02,98,262,0	script	LF-03#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 1-3",90,120,"Área de Defesa 1-4",188,119; }
+arug_cas02,98,258,0	script	LF-04#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-1",119,183,"Área de Defesa 2-2",159,183; }
+arug_cas02,98,253,0	script	LF-05#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 2-3",156,324,"Área de Defesa 2-4",174,372; }
+arug_cas02,98,249,0	script	LF-06#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Área de Defesa 3-1",28,325,"Área de Defesa 3-2",57,325; }
 arug_cas02,98,245,0	script	LF-07#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Center 2nd Area",156,263,"Center 3rd Area",43,354; }
-arug_cas02,98,241,0	script	LF-08#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Convenience Facility",387,323; }
-arug_cas02,216,92,0	script	Cyr#LF_ar02_1::LF_ar02_1	HIDDEN_NPC,{ callfunc "LinkFlag","Emperium Center",43,256; }
+arug_cas02,98,241,0	script	LF-08#arug_cas02	HIDDEN_NPC,{ callfunc "LinkFlag","Central de Conveniência",387,323; }
+arug_cas02,216,92,0	script	Cyr#LF_ar02_1::LF_ar02_1	HIDDEN_NPC,{ callfunc "LinkFlag","Central do Emperium",43,256; }
 arug_cas02,63,92,0	duplicate(LF_ar02_1)	Cyr#LF_ar02_2	HIDDEN_NPC
 arug_cas02,127,133,4	duplicate(LF_ar02_1)	Cyr#LF_ar02_3	HIDDEN_NPC
 arug_cas02,152,133,4	duplicate(LF_ar02_1)	Cyr#LF_ar02_4	HIDDEN_NPC
@@ -50,7 +66,7 @@ arug_cas02,30,317,0	duplicate(LF_ar02_1)	Cyr#LF_ar02_10	HIDDEN_NPC
 arug_cas02,9,190,0	duplicate(LF_ar02_1)	Cyr#LF_ar02_11	HIDDEN_NPC
 arug_cas02,271,190,0	duplicate(LF_ar02_1)	Cyr#LF_ar02_12	HIDDEN_NPC
 arug_cas02,129,178,4	script	Cyr#LF_ar02_13::LF_ar02_2	GUILD_FLAG,{
-	callfunc "LinkFlag","Emperium Center",43,256;
+	callfunc "LinkFlag","Central do Emperium",43,256;
 	end;
 OnAgitInit2:
 OnRecvCastleAr02:
