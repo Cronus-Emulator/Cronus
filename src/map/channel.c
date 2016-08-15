@@ -662,7 +662,7 @@ void read_channels_config(void)
 					channel->config->irc = false;
 					ShowWarning("channels.conf : a porta de rede nao foi encontrada no 'irc_channel_network', desabilitando o canal irc...\n");
 				} else {
-					unsigned char d = 0, dlen = strlen(irc_server);
+					unsigned int d = 0, dlen = strlen(irc_server);
 					char server[40];
 					if (dlen > 39)
 						dlen = 39;

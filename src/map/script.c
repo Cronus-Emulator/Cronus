@@ -13718,7 +13718,7 @@ BUILDIN(dispbottom)
 	if(sd) {
 
 		if(script_hasdata(st,3)){
-			unsigned short msg_len = strlen( message ) +1;
+			unsigned int msg_len = strlen( message ) +1;
 			int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
 			WFIFOHEAD( sd->fd, msg_len + 12 );
 			WFIFOW( sd->fd, 0 ) = 0x2C1;
