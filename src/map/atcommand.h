@@ -129,9 +129,9 @@ struct atcommand_interface {
 	const char* (*msgsd) (struct map_session_data *sd, int msg_number);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void atcommand_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct atcommand_interface *atcommand;
 

@@ -33,7 +33,7 @@
 // contêm o principal "main".                                         ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h"
 #include "core.h"

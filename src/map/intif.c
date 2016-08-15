@@ -33,7 +33,7 @@
 // (comunicação entre 'char/inter.c' ou submodulos).                  ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // GP_BOUND_ITEMS
 #include "intif.h"

@@ -1,7 +1,7 @@
 // Copyright (c) Hercules Dev Team, licensed under GNU GPL.
 // See the LICENSE file
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "HPMmap.h"
 

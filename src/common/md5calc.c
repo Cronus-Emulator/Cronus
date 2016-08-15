@@ -37,7 +37,7 @@
  *
  ***********************************************************/
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "md5calc.h"
 

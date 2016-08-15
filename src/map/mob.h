@@ -394,9 +394,9 @@ struct mob_interface {
 	int	(*convaux) (struct mob_data *md); // Manipulação de Mobs [SlexFire]
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void mob_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct mob_interface *mob;
 

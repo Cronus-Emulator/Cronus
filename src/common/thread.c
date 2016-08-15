@@ -31,7 +31,7 @@
 // Author: Florian Wilkemeyer <fw@f-ws.de>
 
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "thread.h"
 

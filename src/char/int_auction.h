@@ -52,9 +52,9 @@ struct inter_auction_interface {
 	void (*sql_final) (void);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_auction_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_auction_interface *inter_auction;
 

@@ -34,7 +34,7 @@
 // outras coisas relacionadas.                                        ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // CELL_NOSTACK, CIRCULAR_AREA, CONSOLE_INPUT, DBPATH, RENEWAL
 #include "map.h"

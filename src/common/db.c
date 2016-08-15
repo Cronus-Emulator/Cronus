@@ -99,7 +99,7 @@
  * @see #db.h
 \*****************************************************************************/
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "db.h"
 

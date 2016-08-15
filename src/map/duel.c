@@ -32,7 +32,7 @@
 // Funções do sitema de duelo                                         ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "duel.h"
 

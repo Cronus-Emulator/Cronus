@@ -32,7 +32,7 @@
 // Funções para sistema de email                                      ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "mail.h"
 

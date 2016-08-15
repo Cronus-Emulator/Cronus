@@ -96,9 +96,9 @@ struct pc_groups_interface {
 	int (*get_idx) (GroupSettings *group);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void pc_groups_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct pc_groups_interface *pcg;
 

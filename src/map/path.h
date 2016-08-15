@@ -53,9 +53,9 @@ struct path_interface {
 	int (*distance_client) (int dx, int dy);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void path_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct path_interface *path;
 

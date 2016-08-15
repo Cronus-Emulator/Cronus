@@ -32,7 +32,7 @@
 // Funções para recurso de busca de vendedores(player shop)           ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "searchstore.h" // struct s_search_store_info
 

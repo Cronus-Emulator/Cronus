@@ -33,7 +33,7 @@
 // (criar, destruir, mensagens, juntar a partida, etc)                ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "battleground.h"
 

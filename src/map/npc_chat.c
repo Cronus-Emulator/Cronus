@@ -32,7 +32,7 @@
 // Funções para PCRE e interação com NPC.                             ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #ifdef PCRE_SUPPORT
 

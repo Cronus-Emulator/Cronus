@@ -29,7 +29,7 @@
 // <http://www.gnu.org/licenses/>.                                    ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "utils.h"
 

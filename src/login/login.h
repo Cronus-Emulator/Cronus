@@ -224,12 +224,12 @@ struct login_interface {
 	char *NET_CONF_NAME; ///< Network configuration filename
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 extern struct mmo_char_server server[MAX_SERVERS];
 extern struct Login_Config login_config;
 
 void login_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct login_interface *login;
 

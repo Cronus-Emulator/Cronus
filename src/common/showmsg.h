@@ -151,9 +151,9 @@ struct showmsg_interface {
 #define ShowFatalError(fmt, ...) (showmsg->showFatalError((fmt), ##__VA_ARGS__))
 #define ShowConfigWarning(config, fmt, ...) (showmsg->showConfigWarning((config), (fmt), ##__VA_ARGS__))
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void showmsg_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct showmsg_interface *showmsg;
 

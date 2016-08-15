@@ -34,7 +34,7 @@
 // atcommand)                                                         ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "pc_groups.h"
 

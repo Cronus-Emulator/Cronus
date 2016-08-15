@@ -2085,9 +2085,9 @@ struct skill_interface {
 	void (*get_requirement_unknown) (struct status_change *sc, struct map_session_data* sd, uint16 *skill_id, uint16 *skill_lv, struct skill_condition *req);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void skill_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct skill_interface *skill;
 

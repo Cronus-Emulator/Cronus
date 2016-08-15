@@ -49,9 +49,9 @@ struct inter_pet_interface {
 	int (*parse_frommap) (int fd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_pet_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_pet_interface *inter_pet;
 

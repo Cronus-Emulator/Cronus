@@ -33,7 +33,7 @@
 // e relacionados.                                                    || 
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "quest.h"
 

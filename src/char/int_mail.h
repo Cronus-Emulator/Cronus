@@ -52,9 +52,9 @@ struct inter_mail_interface {
 	void (*sendmail) (int send_id, const char* send_name, int dest_id, const char* dest_name, const char* title, const char* body, int zeny, struct item *item);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_mail_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_mail_interface *inter_mail;
 

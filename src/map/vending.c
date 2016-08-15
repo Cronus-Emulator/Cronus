@@ -32,7 +32,7 @@
 // Funções para vendas de mercador(criação, compras)                  ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "vending.h"
 

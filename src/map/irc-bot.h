@@ -59,9 +59,9 @@ struct irc_bot_interface {
 	void (*usernick) (int fd, char *cmd, char *source, char *target, char *msg);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void ircbot_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct irc_bot_interface *ircbot;
 

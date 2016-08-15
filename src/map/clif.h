@@ -1323,9 +1323,9 @@ struct clif_interface {
 	void (*pHotkeyRowShift) (int fd, struct map_session_data *sd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void clif_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct clif_interface *clif;
 

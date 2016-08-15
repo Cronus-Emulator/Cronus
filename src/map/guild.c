@@ -33,7 +33,7 @@
 // outras coisas relacionadas ao clan.                                ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // GP_BOUND_ITEMS
 #include "guild.h"

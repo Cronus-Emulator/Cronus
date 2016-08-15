@@ -16,8 +16,8 @@
 
 #define HPShared extern
 
-#ifndef HERCULES_CORE
+#ifndef CRONUS_CORE
 #include "common/HPMi.h"
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 #endif // COMMON_HERCULES_H

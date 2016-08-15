@@ -32,7 +32,7 @@
 
 /// See sysinfo.h for a description of this file
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "sysinfo.h"
 

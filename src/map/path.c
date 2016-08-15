@@ -33,7 +33,7 @@
 // (check_distance, procurar o path para qual unidade usara)          ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // CELL_NOSTACK, CIRCULAR_AREA
 #include "path.h"

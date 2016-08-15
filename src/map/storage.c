@@ -34,7 +34,7 @@
 // o storage(baú), recuperar um item armazenado.                      ||             
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "storage.h"
 

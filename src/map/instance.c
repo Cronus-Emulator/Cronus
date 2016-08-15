@@ -32,7 +32,7 @@
 // Funções para sistema de instancia                                  ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // CELL_NOSTACK
 #include "instance.h"

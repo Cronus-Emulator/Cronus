@@ -32,7 +32,7 @@
 // Funções do sistema elemental do sorcerer(criação, deletar, etc)    ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "elemental.h"
 

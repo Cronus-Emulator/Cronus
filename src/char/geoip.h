@@ -53,9 +53,9 @@ struct geoip_interface {
 	void (*init) (void);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void geoip_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct geoip_interface *geoip;
 

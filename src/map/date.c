@@ -32,7 +32,7 @@
 // Funções de tempo                                                   ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "date.h"
 

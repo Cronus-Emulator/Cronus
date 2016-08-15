@@ -68,7 +68,7 @@
  * @see common#ers.h                                                         *
 \*****************************************************************************/
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "ers.h"
 

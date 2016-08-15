@@ -129,9 +129,9 @@ struct log_interface {
 	bool (*should_log_item) (int nameid, int amount, int refine, struct item_data *id);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void log_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct log_interface *logs;
 

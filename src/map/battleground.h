@@ -125,9 +125,9 @@ struct battleground_interface {
 	void (*config_read) (void);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void battleground_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct battleground_interface *bg;
 

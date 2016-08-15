@@ -32,7 +32,7 @@
 // Funções para o sistema de log do servidor                          ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "log.h"
 

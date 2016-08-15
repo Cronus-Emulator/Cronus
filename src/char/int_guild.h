@@ -83,9 +83,9 @@ struct inter_guild_interface {
 	int (*broken) (int guild_id);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_guild_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_guild_interface *inter_guild;
 

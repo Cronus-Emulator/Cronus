@@ -32,7 +32,7 @@
 // Funções para o database de itens                                   ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // DBPATH, RENEWAL
 #include "itemdb.h"

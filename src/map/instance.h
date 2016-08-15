@@ -82,9 +82,9 @@ struct instance_interface {
 	int (*destroy_timer) (int tid, int64 tick, int id, intptr_t data);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void instance_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct instance_interface *instance;
 

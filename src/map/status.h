@@ -2191,9 +2191,9 @@ struct status_interface {
 	void (*read_job_db_sub) (int idx, const char *name, config_setting_t *jdb);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void status_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct status_interface *status;
 

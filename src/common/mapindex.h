@@ -122,9 +122,9 @@ struct mapindex_interface {
 	bool (*check_default) (void);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void mapindex_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct mapindex_interface *mapindex;
 

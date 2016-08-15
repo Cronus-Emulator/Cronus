@@ -641,11 +641,11 @@ struct battle_interface {
 	void (*calc_misc_attack_unknown) (struct block_list *src, struct block_list *target, uint16 *skill_id, uint16 *skill_lv, int *mflag, struct Damage *md);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 extern struct Battle_Config battle_config;
 
 void battle_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct battle_interface *battle;
 

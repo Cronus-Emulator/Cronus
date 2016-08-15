@@ -795,9 +795,9 @@ struct script_interface {
 	void (*run_item_unequip_script) (struct map_session_data *sd, struct item_data *data, int oid);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void script_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct script_interface *script;
 

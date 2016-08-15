@@ -72,9 +72,9 @@ struct sysinfo_interface {
 	void (*final) (void);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void sysinfo_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct sysinfo_interface *sysinfo;
 

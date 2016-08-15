@@ -25,9 +25,9 @@ struct trade_interface {
 	void (*commit) (struct map_session_data *sd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void trade_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct trade_interface *trade;
 

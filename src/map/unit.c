@@ -33,7 +33,7 @@
 // habilidades de uso, a pé, siga e etc.                              ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // RENEWAL_CAST
 #include "unit.h"

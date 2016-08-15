@@ -61,9 +61,9 @@ struct quest_interface {
 	struct quest_db *(*read_db_sub) (config_setting_t *cs, int n, const char *source);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void quest_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct quest_interface *quest;
 

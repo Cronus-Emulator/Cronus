@@ -118,9 +118,9 @@ struct libconfig_interface {
 	int (*setting_copy) (config_setting_t *parent, const config_setting_t *src);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void libconfig_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct libconfig_interface *libconfig;
 

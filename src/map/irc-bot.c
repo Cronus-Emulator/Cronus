@@ -2,7 +2,7 @@
 // See the LICENSE file
 // Base Author: shennetsind @ http://herc.ws
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "irc-bot.h"
 

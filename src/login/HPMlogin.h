@@ -32,7 +32,7 @@
 #ifndef LOGIN_HPMLOGIN_H
 #define LOGIN_HPMLOGIN_H
 
-#ifndef HERCULES_CORE
+#ifndef CRONUS_CORE
 #error You should never include HPMlogin.h from a plugin.
 #endif
 

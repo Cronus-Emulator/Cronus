@@ -33,7 +33,7 @@
 // junte-se/auto-join, licença, divulgar, alterar opções)             ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "channel.h"
 

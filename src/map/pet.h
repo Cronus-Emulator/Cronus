@@ -153,9 +153,9 @@ struct pet_interface {
 	int (*read_db) ();
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void pet_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct pet_interface *pet;
 

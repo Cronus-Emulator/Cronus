@@ -48,9 +48,9 @@ struct inter_mercenary_interface {
 	int (*parse_frommap) (int fd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_mercenary_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_mercenary_interface *inter_mercenary;
 

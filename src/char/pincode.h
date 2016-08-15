@@ -69,9 +69,9 @@ struct pincode_interface {
 	bool (*config_read) (char *w1, char *w2);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void pincode_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct pincode_interface *pincode;
 

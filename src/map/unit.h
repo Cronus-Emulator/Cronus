@@ -136,12 +136,12 @@ struct unit_interface {
 	int (*free) (struct block_list *bl, clr_type clrtype);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 extern const short dirx[8];
 extern const short diry[8];
 
 void unit_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct unit_interface *unit;
 

@@ -55,9 +55,9 @@ struct chat_interface {
 	struct chat_data* (*create) (struct block_list* bl, const char* title, const char* pass, int limit, bool pub, int trigger, const char* ev, int zeny, int minLvl, int maxLvl);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void chat_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct chat_interface *chat;
 

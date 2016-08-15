@@ -34,7 +34,7 @@
 // contêm dados de bônus tambem.                                      ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // DBPATH, GP_BOUND_ITEMS, MAX_SPIRITBALL, RENEWAL, RENEWAL_ASPD, RENEWAL_CAST, RENEWAL_DROP, RENEWAL_EXP, SECURE_NPCTIMEOUT
 #include "pc.h"

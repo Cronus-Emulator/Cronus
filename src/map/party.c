@@ -33,7 +33,7 @@
 // (criação, convite, apagar, alterar opções, etc)                    ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // GP_BOUND_ITEMS, RENEWAL_EXP
 #include "party.h"

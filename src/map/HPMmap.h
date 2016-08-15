@@ -4,7 +4,7 @@
 #ifndef MAP_HPMMAP_H
 #define MAP_HPMMAP_H
 
-#ifndef HERCULES_CORE
+#ifndef CRONUS_CORE
 #error You should never include HPMmap.h from a plugin.
 #endif
 

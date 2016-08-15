@@ -33,7 +33,7 @@
 // (criação, apagar, pegar stats, morte e etc)                        ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // DBPATH
 #include "homunculus.h"

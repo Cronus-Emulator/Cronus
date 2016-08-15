@@ -52,9 +52,9 @@ struct inter_storage_interface {
 	int (*parse_frommap) (int fd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_storage_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_storage_interface *inter_storage;
 

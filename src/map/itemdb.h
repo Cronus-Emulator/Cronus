@@ -613,9 +613,9 @@ struct itemdb_interface {
 	bool (*lookup_const) (const config_setting_t *it, const char *name, int *value);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void itemdb_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct itemdb_interface *itemdb;
 

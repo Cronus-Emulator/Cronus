@@ -74,9 +74,9 @@ struct inter_party_interface {
 	int (*CharOffline) (int char_id, int party_id);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void inter_party_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct inter_party_interface *inter_party;
 

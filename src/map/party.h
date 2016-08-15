@@ -136,9 +136,9 @@ struct party_interface {
 	int (*db_final) (DBKey key, DBData *data, va_list ap);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void party_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct party_interface *party;
 

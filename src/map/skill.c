@@ -34,7 +34,7 @@
 // do 'db/skill_*.txt')                                               ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // DBPATH, MAGIC_REFLECTION_TYPE, OFFICIAL_WALKPATH, RENEWAL, RENEWAL_CAST, VARCAST_REDUCTION()
 #include "skill.h"

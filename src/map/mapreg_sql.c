@@ -2,7 +2,7 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "mapreg.h"
 

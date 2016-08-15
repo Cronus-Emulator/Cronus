@@ -182,9 +182,9 @@ struct intif_interface {
 	void (*pDeleteHomunculusOk) (int fd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void intif_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct intif_interface *intif;
 

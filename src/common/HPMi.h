@@ -256,14 +256,14 @@ struct HPMi_interface {
 
 	Sql *sql_handle;
 };
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 #define HPM_SYMBOL(n, s) (HPM->share((s), (n)), true)
-#else // ! HERCULES_CORE
+#else // ! CRONUS_CORE
 HPExport struct HPMi_interface HPMi_s;
 HPExport struct HPMi_interface *HPMi;
 HPExport void *(*import_symbol) (char *name, unsigned int pID);
 #define HPM_SYMBOL(n, s) ((s) = import_symbol((n),HPMi->pid))
-#endif // !HERCULES_CORE
+#endif // !CRONUS_CORE
 
 
 #endif /* COMMON_HPMI_H */

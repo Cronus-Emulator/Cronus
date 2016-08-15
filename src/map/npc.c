@@ -33,7 +33,7 @@
 // os PCN e chama os NPC'S.                                           ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // NPC_SECURE_TIMEOUT_INPUT, NPC_SECURE_TIMEOUT_MENU, NPC_SECURE_TIMEOUT_NEXT, SECURE_NPCTIMEOUT, SECURE_NPCTIMEOUT_INTERVAL
 #include "npc.h"

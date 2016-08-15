@@ -224,9 +224,9 @@ struct socket_interface {
 	void (*net_config_read) (const char *filename);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void socket_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct socket_interface *sockt;
 

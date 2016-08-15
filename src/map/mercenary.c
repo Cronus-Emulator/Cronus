@@ -33,7 +33,7 @@
 // (criação, procurar, pegar status, morte)                           ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "mercenary.h"
 

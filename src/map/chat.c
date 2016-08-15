@@ -33,7 +33,7 @@
 // para sala de chat, proprietario da mudança, etc.)                  ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "chat.h"
 

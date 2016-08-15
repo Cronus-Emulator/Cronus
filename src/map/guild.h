@@ -163,9 +163,9 @@ struct guild_interface {
 	void (*castle_reconnect_sub) (void *key, void *data, va_list ap);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void guild_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct guild_interface *guild;
 

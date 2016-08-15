@@ -33,7 +33,7 @@
 // calcular os efeitos como um bonus temporario)                      ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // ANTI_MAYAP_CHEAT, DBPATH, DEFTYPE_MAX, DEFTYPE_MIN, DEVOTION_REFLECT_DAMAGE, RENEWAL, RENEWAL_ASPD, RENEWAL_EDP
 #include "status.h"

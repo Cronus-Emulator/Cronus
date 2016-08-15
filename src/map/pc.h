@@ -1069,9 +1069,9 @@ END_ZEROED_BLOCK; /* End */
 	int (*check_job_name) (const char *name);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void pc_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct pc_interface *pc;
 

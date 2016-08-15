@@ -33,7 +33,7 @@
 // adicionar/deletar itens de tade.                                   ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "trade.h"
 

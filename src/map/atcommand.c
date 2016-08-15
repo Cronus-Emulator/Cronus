@@ -2,7 +2,7 @@
 // See the LICENSE file
 // Portions Copyright (c) Athena Dev Teams
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "config/core.h" // AUTOLOOTITEM_SIZE, AUTOTRADE_PERSISTENCY, MAX_SUGGESTIONS, MOB_FLEE(), MOB_HIT(), RENEWAL, RENEWAL_DROP, RENEWAL_EXP
 #include "atcommand.h"

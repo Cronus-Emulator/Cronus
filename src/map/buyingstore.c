@@ -32,7 +32,7 @@
 // Funções para lojas de compra do jogador(criar, buscar, vender)     ||
 //====================================================================//
 
-#define HERCULES_CORE
+#define CRONUS_CORE
 
 #include "buyingstore.h" // struct s_buyingstore
 
