@@ -6,7 +6,7 @@
 #define MAP_BATTLEGROUND_H
 
 #include "map/map.h" // EVENT_NAME_LENGTH
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 #include "common/mmo.h" // struct party
 

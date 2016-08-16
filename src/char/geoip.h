@@ -32,7 +32,7 @@
 #ifndef CHAR_GEOIP_H
 #define CHAR_GEOIP_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 /**
  * GeoIP information

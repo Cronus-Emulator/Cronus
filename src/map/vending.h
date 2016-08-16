@@ -5,7 +5,7 @@
 #ifndef MAP_VENDING_H
 #define MAP_VENDING_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 
 struct map_session_data;

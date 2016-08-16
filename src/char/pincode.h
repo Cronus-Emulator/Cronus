@@ -32,7 +32,7 @@
 #ifndef CHAR_PINCODE_H
 #define CHAR_PINCODE_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 struct char_session_data;
 

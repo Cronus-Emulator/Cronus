@@ -73,7 +73,7 @@
 #ifndef COMMON_DB_H
 #define COMMON_DB_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 #include <stdarg.h>
 

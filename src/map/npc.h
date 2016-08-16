@@ -8,7 +8,7 @@
 #include "map/map.h" // struct block_list
 #include "map/status.h" // struct status_change
 #include "map/unit.h" // struct unit_data
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 
 struct hplugin_data_store;

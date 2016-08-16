@@ -6,7 +6,7 @@
 #define MAP_CHRIF_H
 
 #include "map/map.h" //TBL_PC
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 
 struct eri;

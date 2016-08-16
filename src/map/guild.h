@@ -6,7 +6,7 @@
 #define MAP_GUILD_H
 
 #include "map/map.h" // EVENT_NAME_LENGTH, TBL_PC
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 #include "common/mmo.h"
 

@@ -6,7 +6,7 @@
 #define MAP_ATCOMMAND_H
 
 #include "map/pc_groups.h"
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/conf.h"
 #include "common/db.h"
 

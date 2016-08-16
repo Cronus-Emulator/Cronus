@@ -39,7 +39,7 @@
  * cached at compile time)
  */
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 struct sysinfo_private;
 

@@ -32,7 +32,7 @@
 #ifndef COMMON_MAPINDEX_H
 #define COMMON_MAPINDEX_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 #include "common/mmo.h"
 

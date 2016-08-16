@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_MAIL_H
 #define CHAR_INT_MAIL_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 struct item;
 struct mail_data;

@@ -32,7 +32,7 @@
 #ifndef CHAR_MAPIF_H
 #define CHAR_MAPIF_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/mmo.h"
 
 struct WisData;

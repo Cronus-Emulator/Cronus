@@ -5,7 +5,7 @@
 #ifndef MAP_STORAGE_H
 #define MAP_STORAGE_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/db.h"
 
 struct guild_storage;

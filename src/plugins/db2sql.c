@@ -3,7 +3,7 @@
 
 #include "config/core.h"
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/cbasetypes.h"
 #include "common/conf.h"
 #include "common/memmgr.h"

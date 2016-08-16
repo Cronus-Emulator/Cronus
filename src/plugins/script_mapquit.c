@@ -18,7 +18,7 @@
 
 /// mapquit() script command
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "map/map.h"
 #include "map/script.h"
 

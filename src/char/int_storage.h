@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_STORAGE_H
 #define CHAR_INT_STORAGE_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 struct storage_data;
 struct guild_storage;

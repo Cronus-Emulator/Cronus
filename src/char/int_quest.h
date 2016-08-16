@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_QUEST_H
 #define CHAR_INT_QUEST_H
 
-#include "common/hercules.h"
+#include "config/cronus.h"
 
 /**
  * inter_quest interface

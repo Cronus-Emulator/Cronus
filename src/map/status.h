@@ -6,7 +6,7 @@
 #define MAP_STATUS_H
 
 #include "common/conf.h"
-#include "common/hercules.h"
+#include "config/cronus.h"
 #include "common/mmo.h" // NEW_CARTS
 
 struct block_list;
