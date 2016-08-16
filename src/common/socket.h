@@ -32,7 +32,7 @@
 #ifndef COMMON_SOCKET_H
 #define COMMON_SOCKET_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/conf.h"
 #include "common/db.h"
 

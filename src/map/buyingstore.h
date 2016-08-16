@@ -5,7 +5,7 @@
 #ifndef MAP_BUYINGSTORE_H
 #define MAP_BUYINGSTORE_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/mmo.h" // MAX_SLOTS
 
 struct map_session_data;

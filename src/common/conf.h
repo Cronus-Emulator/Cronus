@@ -32,7 +32,7 @@
 #ifndef COMMON_CONF_H
 #define COMMON_CONF_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #include <libconfig/libconfig.h>
 

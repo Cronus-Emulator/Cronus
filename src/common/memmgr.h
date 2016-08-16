@@ -32,7 +32,7 @@
 #ifndef COMMON_MEMMGR_H
 #define COMMON_MEMMGR_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #define ALC_MARK __FILE__, __LINE__, __func__
 

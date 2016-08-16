@@ -18,7 +18,7 @@
 
 /// mapquit() script command
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "map/map.h"
 #include "map/script.h"
 

@@ -6,7 +6,7 @@
 #define MAP_INSTANCE_H
 
 #include "map/script.h" // struct reg_db
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/mmo.h" // struct point
 
 struct hplugin_data_store;

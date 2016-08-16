@@ -37,7 +37,7 @@
 #define MAP_MAPREG_H
 
 #include "map/script.h" // struct reg_db
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 
 struct eri;

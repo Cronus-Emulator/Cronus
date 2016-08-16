@@ -5,7 +5,7 @@
 #ifndef MAP_INTIF_H
 #define MAP_INTIF_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 /**
  * Declarations

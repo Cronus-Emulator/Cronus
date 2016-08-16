@@ -5,7 +5,7 @@
 #ifndef MAP_TRADE_H
 #define MAP_TRADE_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 //Max distance from traders to enable a trade to take place.
 //TODO: battle_config candidate?

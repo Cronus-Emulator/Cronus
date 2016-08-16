@@ -6,7 +6,7 @@
 #define MAP_BATTLE_H
 
 #include "map/map.h" //ELE_MAX
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 /**
  * Declarations

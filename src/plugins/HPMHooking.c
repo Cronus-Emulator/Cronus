@@ -2,7 +2,7 @@
 // See the LICENSE file
 // Sample Hercules Plugin
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 #include "common/memmgr.h"
 #include "common/mmo.h"

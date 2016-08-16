@@ -17,7 +17,7 @@
 #include "map/status.h" // enum sc_type, OPTION_*
 #include "map/unit.h" // struct unit_data, struct view_data
 #include "map/vending.h" // struct s_vending
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/ers.h" // struct eri
 #include "common/mmo.h" // JOB_*, MAX_FAME_LIST, struct fame_list, struct mmo_charstatus, NEW_CARTS
 

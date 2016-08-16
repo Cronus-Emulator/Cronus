@@ -5,7 +5,7 @@
 #ifndef MAP_MAIL_H
 #define MAP_MAIL_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct item;
 struct mail_message;

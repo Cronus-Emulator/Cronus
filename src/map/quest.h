@@ -6,7 +6,7 @@
 #define MAP_QUEST_H
 
 #include "map/map.h" // TBL_PC
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/conf.h"
 
 #define MAX_QUEST_DB (60355+1) // Highest quest ID + 1

@@ -32,7 +32,7 @@
 #ifndef COMMON_HPMI_H
 #define COMMON_HPMI_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/console.h"
 #include "common/core.h"
 #include "common/showmsg.h"

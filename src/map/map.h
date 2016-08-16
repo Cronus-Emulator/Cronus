@@ -6,7 +6,7 @@
 #define MAP_MAP_H
 
 #include "map/atcommand.h"
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/core.h" // CORE_ST_LAST
 #include "common/db.h"
 #include "common/mapindex.h"

@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_HOMUN_H
 #define CHAR_INT_HOMUN_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 /**
  * inter_homunculus interface

@@ -39,7 +39,7 @@
  * cached at compile time)
  */
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct sysinfo_private;
 

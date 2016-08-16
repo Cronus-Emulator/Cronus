@@ -32,7 +32,7 @@
 #ifndef COMMON_CORE_H
 #define COMMON_CORE_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 
 /* so that developers with --enable-debug can raise signals from any section of the code they'd like */

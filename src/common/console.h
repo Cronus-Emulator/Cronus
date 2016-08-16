@@ -32,7 +32,7 @@
 #ifndef COMMON_CONSOLE_H
 #define COMMON_CONSOLE_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 #include "common/mutex.h"
 #include "common/spinlock.h"

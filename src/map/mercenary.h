@@ -6,7 +6,7 @@
 
 #include "map/status.h" // struct status_data, struct status_change
 #include "map/unit.h" // struct unit_data
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct map_session_data;
 

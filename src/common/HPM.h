@@ -36,7 +36,7 @@
 #error You should never include HPM.h from a plugin.
 #endif
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 #include "common/HPMi.h"
 

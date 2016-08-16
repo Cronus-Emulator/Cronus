@@ -32,7 +32,7 @@
 #ifndef COMMON_SHOWMSG_H
 #define COMMON_SHOWMSG_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #include <libconfig/libconfig.h>
 

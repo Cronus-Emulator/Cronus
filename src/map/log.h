@@ -5,7 +5,7 @@
 #ifndef MAP_LOG_H
 #define MAP_LOG_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/sql.h"
 
 /**

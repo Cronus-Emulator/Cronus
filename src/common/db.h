@@ -73,7 +73,7 @@
 #ifndef COMMON_DB_H
 #define COMMON_DB_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #include <stdarg.h>
 

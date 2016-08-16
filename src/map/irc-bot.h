@@ -6,7 +6,7 @@
 #ifndef MAP_IRC_BOT_H
 #define MAP_IRC_BOT_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #define IRC_NICK_LENGTH 40
 #define IRC_IDENT_LENGTH 40

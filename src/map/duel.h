@@ -5,7 +5,7 @@
 #ifndef MAP_DUEL_H
 #define MAP_DUEL_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct map_session_data;
 

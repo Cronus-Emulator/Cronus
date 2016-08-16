@@ -32,7 +32,7 @@
 #ifndef LOGIN_LOGIN_H
 #define LOGIN_LOGIN_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/core.h" // CORE_ST_LAST
 #include "common/db.h"
 #include "common/mmo.h" // NAME_LENGTH,SEX_*

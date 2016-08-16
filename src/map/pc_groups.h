@@ -5,7 +5,7 @@
 #ifndef MAP_PC_GROUPS_H
 #define MAP_PC_GROUPS_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/conf.h"
 #include "common/db.h"
 

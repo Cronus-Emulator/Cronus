@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_MERCENARY_H
 #define CHAR_INT_MERCENARY_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct mmo_charstatus;
 

@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_PARTY_H
 #define CHAR_INT_PARTY_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 #include "common/mmo.h"
 

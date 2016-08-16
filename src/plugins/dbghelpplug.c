@@ -5,7 +5,7 @@
 // Ported from eAthena Dev Team's version @ http://eathena-project.googlecode.com/svn/trunk/src/plugins/dbghelpplug.c
 // Currently supported dbghelp 5.1
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #include "common/sysinfo.h"
 

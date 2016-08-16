@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_ELEMENTAL_H
 #define CHAR_INT_ELEMENTAL_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 /**
  * inter_elemental_interface interface

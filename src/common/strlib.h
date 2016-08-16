@@ -32,7 +32,7 @@
 #ifndef COMMON_STRLIB_H
 #define COMMON_STRLIB_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 #include <stdarg.h>
 #include <string.h>

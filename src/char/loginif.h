@@ -32,7 +32,7 @@
 #ifndef CHAR_LOGINIF_H
 #define CHAR_LOGINIF_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct char_session_data;
 

@@ -7,7 +7,7 @@
 
 #include "map/map.h" // struct block_list
 #include "map/status.h" // enum sc_type
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 #include "common/mmo.h" // MAX_SKILL, struct square
 

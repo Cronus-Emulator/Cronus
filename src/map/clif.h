@@ -7,7 +7,7 @@
 
 #include "map/map.h"
 #include "map/packets_struct.h"
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/mmo.h"
 
 #include <stdarg.h>

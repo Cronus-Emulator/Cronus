@@ -32,7 +32,7 @@
 #ifndef CHAR_INT_STORAGE_H
 #define CHAR_INT_STORAGE_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 struct storage_data;
 struct guild_storage;

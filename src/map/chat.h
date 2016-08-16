@@ -6,7 +6,7 @@
 #define MAP_CHAT_H
 
 #include "map/map.h" // struct block_list, CHATROOM_TITLE_SIZE
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 
 struct chat_data;

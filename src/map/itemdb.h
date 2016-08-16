@@ -6,7 +6,7 @@
 #define MAP_ITEMDB_H
 
 /* #include "map/map.h" */
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/conf.h"
 #include "common/db.h"
 #include "common/mmo.h" // ITEM_NAME_LENGTH

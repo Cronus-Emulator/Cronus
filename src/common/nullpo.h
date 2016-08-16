@@ -32,7 +32,7 @@
 #ifndef COMMON_NULLPO_H
 #define COMMON_NULLPO_H
 
-#include "config/cronus.h"
+#include "common/cronus.h"
 
 // enabled by default on debug builds
 #if defined(DEBUG) && !defined(NULLPO_CHECK)

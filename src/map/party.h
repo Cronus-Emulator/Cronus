@@ -6,7 +6,7 @@
 #define MAP_PARTY_H
 
 #include "map/map.h" // TBL_PC
-#include "config/cronus.h"
+#include "common/cronus.h"
 #include "common/db.h"
 #include "common/mmo.h" // struct party
 
