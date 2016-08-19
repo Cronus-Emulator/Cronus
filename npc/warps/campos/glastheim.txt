@@ -1,17 +1,23 @@
-//===== Hercules Script ======================================
-//= Glastheim Warp Script
-//===== By: ==================================================
-//= Athena (1.0)
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= Warp Points for Glastheim
-//===== Additional Comments: =================================
-//= Split off npc_warp.txt, 1.1 added gl18-2 [Lupus]
-//= optimized random warp [Lupus] fixed looped warps
-//= 1.4 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
-//= 1.5 Fixed random warp coordinates. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: Athena                                             ||
+// - Versão: 1.5                                                 ||
+//===============================================================||
+// - Descrição: Portais em GlastHeim                             ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================||
+// - Nota: Isso deveria ficar na pasta de portais para cavernas  ||
+//===============================================================//
 
 //Glastheim
 gef_fild06,20,304,0	warp	gef027	3,3,glast_01,370,304

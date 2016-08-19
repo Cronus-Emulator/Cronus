@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - payg_cas04.txt                                              ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.4                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 4º Castelo de Payon                     ||
+// -  Scripts referentes ao 4º Castelo de Payon                  ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flags (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Sacred Altar#1::OutsideFlagsPA4	GUILD_FLAG,{
 
 	.@GID = getcastledata("payg_cas04",1);
@@ -74,8 +76,9 @@ pay_gld,143,160,0	duplicate(OutsideFlagsPA4)	Sacred Altar#2	GUILD_FLAG
 pay_gld,133,151,2	duplicate(OutsideFlagsPA4)	Sacred Altar#3	GUILD_FLAG
 pay_gld,153,166,1	duplicate(OutsideFlagsPA4)	Sacred Altar#4	GUILD_FLAG
 
-// Guild Flags (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Sacred Altar#5::InsideFlagsPA4	GUILD_FLAG,{
 	end;
 
@@ -91,21 +94,25 @@ payg_cas04,248,160,6	duplicate(InsideFlagsPA4)	Sacred Altar#8	GUILD_FLAG
 payg_cas04,232,181,4	duplicate(InsideFlagsPA4)	Sacred Altar#9	GUILD_FLAG
 payg_cas04,239,181,4	duplicate(InsideFlagsPA4)	Sacred Altar#10	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 payon,118,322,4	duplicate(InsideFlagsPA4)	Sacred Altar#11	GUILD_FLAG
 payon,166,165,3	duplicate(InsideFlagsPA4)	Sacred Altar#12	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 payg_cas04,40,235,1	duplicate(guildkafra)	Funcionária Kafra#payg_cas04	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 payg_cas04,38,284,3	duplicate(cm)	DJ#payg_cas04	1_M_JOBTESTER
 
-// Treasure Room Exit
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 payg_cas04,151,47,0	script	#lever_PA04	HIDDEN_NPC,{
 
 	mes " ";
@@ -119,18 +126,22 @@ payg_cas04,151,47,0	script	#lever_PA04	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Switch
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 payg_cas04,52,48,0	duplicate(gdlever)	#payg_cas04	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 payg_cas04,147,48,0	duplicate(Gld_Trea_Spawn)	Treasure#payg_cas04	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 payg_cas04,271,29,0	duplicate(Gld_Agit_Manager)	Agit#payg_cas04	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 payg_cas04,38,284,3	duplicate(Gld_Guard_Template)	Guardião#payg_cas04	-1

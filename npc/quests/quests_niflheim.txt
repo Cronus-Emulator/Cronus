@@ -1,55 +1,51 @@
-//===== Hercules Script ======================================
-//= Quest NPCs related to Niflheim
-//===== By: ==================================================
-//= The rAthena Dev Team
-//===== Current Version: =====================================
-//= 1.6
-//===== Description: =========================================
-//= [Official Conversion]
-//= Piano Key Ouest
-//= - Escape from Niflheim
-//= - Variables in use: nif_esc, MISC_QUEST (Bit 32)
-//= Message Delivery Quest
-//= - Deliver a message to Erious' departed wife.
-//= - Variables in use: nif_revive, MISC_QUEST (Bit 16384)
-//===== Additional Comments: =================================
-//= 1.0 Initial release, moved Book of Devil and Piano quest
-//=     from npc/cities/niflheim.txt [Evera]
-//= 1.1 Optimized Book of Devil quest. used bit-wise var,
-//=     Optimized Piano Quest - now uses 1 variable [Lupus]
-//= 1.2 Fixed bad NPC header data to comply with rev. 11603. [L0ne_W0lf]
-//= 1.3 Moved the Book of Devil quest to custom folder. [L0ne_W0lf]
-//=     Updated to Aegis 10.3 Standed, added Message Delivery Quest.
-//=     Rescripted Piano Quest. Prior quest progress will be lost.
-//= 1.4 Fixed NPCs using ID 111 when it shoudl have been 139. [L0ne_W0lf]
-//= 1.5 Swapped NPC IDs back from last change (139 back to 111). [L0ne_W0lf]
-//=     Clicking will do nothing, you have to still "touch" the npc.
-//= 1.6 Added questlog support. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - quests_niflheim.txt                                         ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.6                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quests em Niflheim                                          ||
+//===============================================================//
 
 // Piano Quest :: nif_ryu
 //============================================================
 niflheim,224,243,3	script	Alreg#nif	4_M_NFDEADMAN,{
 	if (nif_piano) nif_piano = 0;
 	mes "[Alreg]";
-	mes "Me like meat, muheh.";
-	mes "You! Look tempting.";
+	mes "Eu gosto de carne, haha.";
+	mes "Você!?";
+	mes "*Olhar tentador*.";
 	next;
 	mes "[Alreg]";
-	mes "Me want to taste you.";
+	mes "Eu quero saborear você!";
 	next;
 	mes "^FF3355*Crunch* Crunch*^000000";
 	if (nif_esc == 0 && (MISC_QUEST & 32) == 0) {
 		percentheal -60,0;
 		next;
-		mes "["+ strcharinfo(0) +"]";
-		mes "NooOOoOOoOoO~!";
+		mes "["+strcharinfo(0)+"]";
+		mes "NãoOoOOOoOoo~!";
 		next;
 		mes "[Alreg]";
-		mes "It long time since I had meat";
-		mes "so... so good. You taste";
-		mes "good. Alreg give you this";
-		mes "for payback. Present!";
+		mes "Faz muito tempo desde que não via carne, então...";
+		mes "Seu sabor é bom.";
+		mes "Tome isso, é um presente!";
 		mes "*Burrrp*";
 		nif_esc = rand(1,2);
 		getitem 7184,1; //Piano_Keyboard
@@ -57,119 +53,105 @@ niflheim,224,243,3	script	Alreg#nif	4_M_NFDEADMAN,{
 	}
 	percentheal -30,0;
 	next;
-	mes "["+ strcharinfo(0) +"]";
-	mes "Ow~! What are you";
-	mes "trying to do, kill me?!";
+	mes "["+strcharinfo(0)+"]";
+	mes "Ow~! O que você está tentando fazer, me matar?";
 	next;
 	mes "[Alreg]";
-	mes "Hm? Oh, no no no.";
-	mes "Me am trying to eat you.";
+	mes "Hum? Não, não não não.";
+	mes "Eu estou tentando te comer!";
 	close;
 }
 
 nif_in,105,81,3	script	Crayu#nif	4_M_NFDEADMAN2,{
 	mes "[Crayu]";
-	mes "Living one...";
-	mes "Listen to this song...";
-	mes "It's been sung by many for a";
-	mes "long time, but nobody knows";
-	mes "when it was made or who wrote it.";
+	mes "Viva...";
+	mes "Escute esse som...";
+	mes "Vem sendo cantado por muitos por um bom tempo.";
+	mes "Mas ninguém sabe quando foi feito ou quem escreveu.";
 	next;
 	mes "[Crayu]";
-	mes "^FF00001. Mountain sunset to the west";
-	mes "^FF00002. Where the purple dusk falls ";
-	mes "^FF00003. Surrounded by beautiful melody";
-	mes "^FF00004. You become the key that ignores its master^000000";
+	mes "^FF00001. Montanha-Sol para o oeste";
+	mes "^FF00002. Onde o crepúsculo é roxo ";
+	mes "^FF00003. Rodeado por uma bela melodia";
+	mes "^FF00004. Você se torna a chave que ignora o capitão^000000";
 	next;
 	if (nif_esc == 1 || nif_esc == 4) {
 		mes "[Crayu]";
-		mes "Okay, wait! Here's a test for you!";
+		mes "Certo, espere!";
+		mes "Aqui está um teste para você!";
 		switch(rand(1,4)) {
 		case 1:
-			.@songline$ = "Mountain sunset to the west";
-			mes "Write down the first line of the song.";
+			.@songline$ = "Por-do-Sol ao oeste da montanha";
+			mes "Anote a primeira linha da canção.";
 			break;
 		case 2:
-			.@songline$ = "Where the purple dusk falls";
-			mes "Write down the second line of the song.";
+			.@songline$ = "Onde o crepúsculo é roxo";
+			mes "Anote a segunda linha da canção.";
 			break;
 		case 3:
-			.@songline$ = "Surrounded by beautiful melody";
-			mes "Write down the third line of the song.";
+			.@songline$ = "Rodeado por uma bela melodia";
+			mes "Anote a terceira linha da canção.";
 			break;
 		case 4:
-			.@songline$ = "You become the key that ignores its master";
-			mes "Write down the fourth line of the song.";
+			.@songline$ = "Você se torna a chave que ignora seu mestre";
+			mes "Anote a quarta linha da canção.";
 			break;
 		}
 		next;
 		input .@input$;
 		if (.@input$ == .@songline$) {
 			mes "[Crayu]";
-			mes "Excellent...!";
-			mes "So you've been listening~!";
-			mes "That makes you one of my";
-			mes "favorite guests. Here's a";
-			mes "little reward for you.";
+			mes "Excelente..!";
+			mes "Então você está escutando!";
+			mes "Isso faz de você uma das minhas pesoas favoritas.";
+			mes "Aqui está um pequeno prêmio para você.";
 			next;
 			if (nif_esc == 1) nif_esc = 3;
 			else nif_esc = 6;
 			getitem 7184,1; //Piano_Keyboard
 			mes "[Crayu]";
-			mes "Lastly, I hope you will show your";
-			mes "respect to other Bards, just as";
-			mes "you have done for me.";
+			mes "Por último, espero que você mostre seu respeito pelos os outros Bardos.";
+			mes "Tal como você fez comigo.";
 			close;
 		}
 		else {
 			mes "[Crayu]";
-			mes "*Sigh*... If you had only";
-			mes "listened to me, it would";
-			mes "have been easy to answer.";
-			mes "Try to remember the line";
-			mes "and try again!";
+			mes "*Suspiro*...";
+			mes "Se você só tivesse ouvidos para mim, isso seria fácil de responder.";
+			mes "Tente lembrar a linha e tente novamente!";
 			close;
 		}
 	}
 	next;
 	mes "[Crayu]";
-	mes "I wonder what the lyrics mean...";
-	mes "They seem quite profound...";
-	mes "I have the feeling that this song";
-	mes "carries some secret.";
+	mes "Eu gostaria de saber o que as letras significam...";
+	mes "Elas parecem muito profundas...";
+	mes "Tenho a sensação de que está canção carrega algum segredo...";
 	close;
 }
 
 nif_in,31,20,3	script	Kuzkahina#nif	4_M_NFDEADMAN2,{
 	if (nif_esc == 2 || nif_esc == 3) {
 		mes "[Kuzkahina]";
-		mes "I don't understand";
-		mes "why I can't make any";
-		mes "money with this store...";
-		mes "Even when I was alive";
-		mes "I could never make any";
-		mes "money with my businesses...";
+		mes "Eu não entendo porque eu não posso ganhar dinheiro com essa loja...";
+		mes "Mesmo enquando eu estava vivo eu nunca pude fazer dinheiro com meu trabalho...";
 		next;
 		mes "[Kuzkahina]";
-		mes "Hey you! Make yourself useful";
-		mes "and throw this away when you leave.";
+		mes "Ei, você!";
+		mes "Sinta-se útil e jogue isso fora quando sair.";
 		nif_esc += 2;
 		getitem 7184,1; //Piano_Keyboard
 		next;
 		mes "[Kuzkahina]";
-		mes "Gosh, what's with this store?";
-		mes "How did I end up hiring such useless employees...?";
-		mes "*mumble mumble*";
-		mes "*mumble mumble*";
+		mes "Caramba, O que há com esta loja?";
+		mes "Como é que eu acabei contratando esses trabalhadores inúteis...?";
+		mes "*resmungo*";
+		mes "*resmungo*";
 		close;
 	}
 	mes "[Kuzkahina]";
-	mes "I don't understand";
-	mes "why I can't make any";
-	mes "money with this store...";
-	mes "Even when I was alive";
-	mes "I could never make any";
-	mes "money with my businesses...";
+	mes "Eu não entendo porque eu não posso ganhar dinheiro com essa loja...";
+	mes "Mesmo enquando eu estava vivo eu nunca pude fazer dinheiro com meu trabalho...";
 	close;
 }
 
@@ -178,12 +160,11 @@ niflheim,208,103,1	script	#Graveyard1	HIDDEN_NPC,1,1,{
 
 OnTouch:
 	if (nif_esc == 5 || nif_esc == 7 || nif_esc == 8 || nif_esc == 10) {
-		mes "^3355FFYou found something";
-		mes "half-buried near a grave.";
-		mes "It looks very well-shaped.^000000";
+		mes "^3355FFVocê encontrou algo meio-enterrado perto de um túmulo.";
+		mes "Isso parece ter sido muito bem feito.^000000";
 		next;
-		mes "^3355FFWould you like to pick it up?^000000";
-		if (select("Yes:No") == 1) {
+		mes "^3355FFVocê gostaria de pegar?^000000";
+		if (select("Sim:Não") == 1) {
 			if (nif_esc < 10)
 				nif_esc += 2;
 			else if (nif_esc == 10)
@@ -200,12 +181,11 @@ niflheim,169,71,1	script	#Graveyard2	HIDDEN_NPC,1,1,{
 
 OnTouch:
 	if (nif_esc == 6 || nif_esc == 9) {
-		mes "^3355FFYou found something";
-		mes "half-buried near a grave.";
-		mes "It looks very well-shaped.^000000";
+		mes "^3355FFVocê encontrou algo meio-enterrado perto de um túmulo.";
+		mes "Isso parece ter sido muito bem feito.^000000";
 		next;
-		mes "^3355FFWould you like to pick it up?^000000";
-		if (select("Yes:No") == 1) {
+		mes "^3355FFVocê gostaria de pegar?^000000";
+		if (select("Sim:Não") == 1) {
 			nif_esc += 2;
 			getitem 7184,1; //Piano_Keyboard
 		}
@@ -219,29 +199,19 @@ nif_in,115,181,0	script	#Piano	HIDDEN_NPC,1,1,{
 
 OnTouch:
 	if (nif_esc == 0 && (MISC_QUEST & 32) == 0) {
-		mes "^3355FFYou see a big, heavy piano.";
-		mes "You get the feeling that";
-		mes "its music would sound magnificient.^000000";
+		mes "^3355FFVocê vê um grande e pesado piano.";
+		mes "Você tem a sensação de que sua música soaria magnífica.^000000";
 		next;
-		mes "^3355FFAs you examine the piano,";
-		mes "you find that 7 keys";
-		mes "are missing in the";
-		mes "middle of the keyboard.";
-		mes "If you had all the keys,";
-		mes "you could play music...^000000";
+		mes "^3355FFAo examinar o piano, você encontra 7 teclas que estão faltando no meio do piano.";
+		mes "Se você tivesse todas as teclas você poderia tocar uma música...^000000";
 		close;
 	}
 	if (nif_esc == 11 && countitem(7184) > 5) {
 		nif_esc = 12;
 		delitem 7184,6; //Piano_Keyboard
-		mes "^3355FFYou took the keys you've found";
-		mes "and inserted them into";
-		mes "each empty space.^000000";
+		mes "^3355FFVocê pegou as teclas que encontrou e inseriu dentro de cada espaço vazio.^000000";
 		next;
-		mes "^3355FFBut then you realize";
-		mes "that you're missing the last";
-		mes "key for the space on the far";
-		mes "left of the keyboard...^000000";
+		mes "^3355FFMas aí você percebe que você está faltando a última tecla que fica no espaço do canto esquerdo do teclado...^000000";
 		close;
 	}
 	end;
@@ -252,9 +222,7 @@ nif_in,114,181,0	script	#Piano3	HIDDEN_NPC,1,1,{
 
 OnTouch:
 	if (nif_esc == 12 || nif_esc == 13 || MISC_QUEST & 32) {
-		mes "^3355FFAs you bend towards";
-		mes "the final empty key space";
-		mes "to take a better look at it...^000000";
+		mes "^3355FFVocê olha para o espaço vazio da última tecla e mais atento olha novamente...^000000";
 		next;
 		soundeffect "complete.wav",0;
 		next;
@@ -262,10 +230,8 @@ OnTouch:
 			MISC_QUEST |= 32;
 			nif_piano = 0;
 		}
-		mes "^3355FFYou begin to feel dizzy and";
-		mes "your body feels as if it were";
-		mes "floating in air. Then, your";
-		mes "vision starts to blur...^000000";
+		mes "^3355FFVocê começa a sentir tonturas e seu corpo se sente como se estivese flutuando no ar.";
+		mes "Então, sua visão começa a embaçar...^000000";
 		close2;
 		warp "nif_in",179,163;
 		end;
@@ -273,21 +239,15 @@ OnTouch:
 	end;
 }
 
-nif_in,188,168,3	script	Witch#nif	4_F_NFDEADMGCIAN,{
+nif_in,188,168,3	script	Bruxa#nif	4_F_NFDEADMGCIAN,{
 	mes "[Kirkena]";
-	mes "Huh? ...You're alive, aren't you?";
-	mes "I'm not sure how more of you are";
-	mes "able to get here and I don't";
-	mes "know your reasons for coming,";
-	mes "but this place is dangerous for";
-	mes "the living.";
+	mes "Huh? ...Você está vivo, não está?";
+	mes "Não sei como você foi capaz de chegar aqui sem eu ter conhecimento disso,";
+	mes "Mas esse lugar é perigoso para se viver.";
 	next;
 	mes "[Kirkena]";
-	mes "I am sending you back";
-	mes "outside of this town.";
-	mes "If you can help it, you";
-	mes "better not come back to";
-	mes "this place.";
+	mes "Estou te enviando de volta para fora dessa cidade.";
+	mes "Se você quer ajudar, é melhor não voltar a esse lugar.";
 	close2;
 	warp "umbala",138,208;
 	end;
@@ -298,138 +258,112 @@ nif_in,188,168,3	script	Witch#nif	4_F_NFDEADMGCIAN,{
 prt_in,161,20,3	script	Erious#nif	4_F_03,{
 	if (MISC_QUEST & 16384) {
 		mes "[Erious]";
-		mes "I wish you safety from harm";
-		mes "in your journeys, adventurer.";
+		mes "Desejo-lhe muita segurança em suas viagens, aventureiro.";
 		close;
 	}
 	if (nif_revive == 0) {
 		mes "[Erious]";
-		mes "*Sob*Sob*";
-		mes "*Cries* Wahhh...!";
-		mes "Elly, how could you";
-		mes "leave me this way...";
+		mes "*Choro Choro*";
+		mes "*Choro* Ahhh..!";
+		mes "Elly, como você pôde me deixar assim...";
 		emotion e_sob;
 		next;
-		if (select("Comfort him.:Neglect him.") == 1) {
+		if (select("Confortá-lo.:Ignorá-lo.") == 1) {
 			mes "[Erious]";
-			mes "Ah, thank you for your kindness.";
-			mes "*Sob* My wife died while I was on";
-			mes "a trip. I'm so sorry that I";
-			mes "couldn't be with her when";
-			mes "the end came...";
+			mes "Ah, obrigado por sua gentileza.";
+			mes "*Choro*";
+			mes "Minha esposa morreu enquanto eu estava em uma viagem.";
+			mes "Eu sinto muito que não pude estar com ela quando o fim chegou...";
 			next;
 			mes "[Erious]";
-			mes "I wish I could talk to my Elly,";
-			mes "although I know it's too late now.";
-			mes "*Cries* But... there is one last";
-			mes "hope that I have. My absolute";
-			mes "final chance...";
+			mes "Eu gostaria de poder falar com a minha Elly, embora seja muito tarde agora.";
+			mes "*Choro*";
+			mes "Mas, tenho uma última esperança, minha última chance...";
 			next;
 			mes "[Erious]";
-			mes "I was told that somewhere";
-			mes "in this world, there exists a town";
-			mes "where the dead reside. I might be";
-			mes "able to meet my wife there, but";
-			mes "I cannot leave my children here";
-			mes "without me. *Cries*";
+			mes "Foi-me dito que em algum lugar neste mundo, existe uma cidade onde os mortos residem.";
+			mes "Eu poderia ser capaz de encontrar minha esposa lá, mas não posso deixar meus filhos aqui sem mim.";
+			mes "*Choro*";
 			next;
-			if (select("I can deliver your message to her.:I am so sorry to hear that.") == 1) {
+			if (select("Posso falar com ela.:Sinto em ouvir isso.") == 1) {
 				mes "[Erious]";
-				mes "Oh, can you?";
-				mes "Thank you so much for your";
-				mes "generosity. If you can do";
-				mes "this for me, I would be";
-				mes "greatly indebted to you.";
+				mes "Nossa, você pode?";
+				mes "Muito obrigado por sua generosidade.";
+				mes "Se você puder fazer isso por mim, eu serei muito grato a você.";
 				next;
 				mes "[Erious]";
-				mes "You're an adventurer, aren't you?";
-				mes "If your journeys take you to that";
-				mes "town of the dead, and if you";
-				mes "happen to meet her by chance...";
+				mes "Você é um aventureiro, não é?";
+				mes "Se suas viagens levá-lo para a cidade dos mortos.";
+				mes "Se se você encontra-la por acaso...";
 				next;
 				mes "[Erious]";
-				mes "Please send Elly a message for me,";
-				mes "let her know that what happened";
-				mes "a month ago was all my fault.";
-				mes "Thank you for your help,";
-				mes "and please take care.";
+				mes "Por favor, traga uma mensagem de Elly para mim.";
+				mes "Deixe que ela saiba que o que aconteceu há um mês, foi tudo minha culpa.";
+				mes "Obrigado por sua ajuda, e por favor se cuide.";
 				nif_revive = 1;
 				setquest 11038;
 				close;
 			}
 			mes "[Erious]";
-			mes "*Cries* Is there no way that I";
-			mes "can see her again? If I could";
-			mes "talk to her at least once more,";
-			mes "even if it's the last time,";
-			mes "I would do anything...";
+			mes "*Choro*";
+			mes "Não há nenhuma maneira que eu possa vê-la de novo?";
+			mes "Se eu pudesse falar com ela pelo menos uma vez mais, mesmo que seja a última vez eu faria qualquer coisa...";
 			close;
 		}
 		mes "[Erious]";
-		mes "*Cries* Eeeeelllllyyyy~~~~!";
-		mes "I never thought that would be";
-		mes "the last time we would see";
-		mes "each other...";
-		mes "*Sob*...";
+		mes "*Choros* Eeeeelllllyyyy...!";
+		mes "Eu nunca pensei que seria a última vez que a veria meu amor...";
+		mes "*Choro*...";
 		close;
 	}
 	else if (nif_revive == 1) {
 		mes "[Erious]";
-		mes "This place I was told about...";
-		mes "The town of the dead...";
-		mes "From what I remember, it was";
-		mes "located near some rest area.";
+		mes "Me falaram sobre este lugar...";
+		mes "A cidade da morte...";
+		mes "Pelo que me lembro, ela é localizada perto de algumas áreas de descanso.";
 		next;
 		mes "[Erious]";
-		mes "All day and night, it's filled";
-		mes "with never ending screams of";
-		mes "agony and despair. I hope that";
-		mes "this will be helpful in your search.";
+		mes "Todo o dia e noite, ela está cheia de gritos de agonia e desespero.";
+		mes "Espero que isso seja útil em sua busca.";
 		close;
 	}
 	else if (nif_revive == 5 || nif_revive == 6) {
 		mes "[Erious]";
-		mes "Oh my! You really found the town,";
-		mes "have you? I really appreciate that";
-		mes "you've endured all this hardship";
-		mes "for me... Um...So in the end...";
-		mes "Were you able to meet my Elly?";
+		mes "Impressionante!";
+		mes "Você realmente encontrou a cidade, não foi?";
+		mes "Realmente incrível.";
+		mes "você já enfrentou todas as dificuldades por mim...";
+		mes "Hum... Então, afinal...";
+		mes "Você foi capaz de falar com Elly?";
 		next;
-		if (select("Yes.:Sorry, I couldn't.") == 1) {
+		if (select("Sim.:Desculpe, eu não posso.") == 1) {
 			if (nif_revive == 6 && countitem(934) > 0) {
 				mes "[Erious]";
-				mes "Are you serious? What did she say?";
-				mes "Did she say she will forgive me?";
+				mes "Você está falando sério?";
+				mes "O que ela disse?";
+				mes "Ela disse que vai me perdoar?";
 				next;
-				select("Yes. And she gave me...this.");
+				select("Sim. E ela me deu...isso.");
 				delitem 934,1; //Mementos
 				mes "[Erious]";
-				mes "Ah...In this box were the gifts";
-				mes "I gave her when we started";
-				mes "seeing each other. She had a";
-				mes "serious illness even before we";
-				mes "met, so I promised her that I";
-				mes "would cure her illness...";
+				mes "Ah ... Nesta caixa estão os presentes que lhe dei quando começamos a nos conhecer.";
+				mes "Ela tinha uma doença grave.";
+				mes "Antes mesmo de descobrirmos o que era eu a prometi que iria curar sua doença...";
 				next;
 				mes "[Erious]";
-				mes "That's why I went on that trip...";
-				mes "to find a cure or medicine";
-				mes "for her... But my efforts turned";
-				mes "out to be a good for nothing.";
+				mes "É por isso que eu fui na viagem...";
+				mes "para encontrar uma cura ou remédio para ela...";
+				mes "Mas meus esforços não serviram para nada.";
 				mes "...................";
 				mes ".........";
 				next;
 				mes "[Erious]";
-				mes "Anyway, I appreciate your";
-				mes "generousity. I want to pay";
-				mes "you back for all the trouble";
-				mes "I caused you, but I only have";
-				mes "the medicine I found for her";
-				mes "illness during this trip.";
+				mes "De qualquer forma, agradeço a sua generosidade.";
+				mes "Eu quero pagar a você por todos os problemas que te causei.";
+				mes "Mas eu só tenho o remédio que eu encontrei para ela durante minha viagem.";
 				next;
 				mes "[Erious]";
-				mes "I hope you will take this medicine";
-				mes "as a token of my gratitute.";
+				mes "Espero que você tome esse medicamento quando precisar como um sinal da minha gratidão.";
 				next;
 				if (checkweight(610,26)) {
 					MISC_QUEST |= 16384;
@@ -439,42 +373,33 @@ prt_in,161,20,3	script	Erious#nif	4_F_03,{
 					getitem 608,2; //Seed_Of_Yggdrasil
 					getitem 610,10; //Leaf_Of_Yggdrasil
 					mes "[Erious]";
-					mes "Thank you for everything.";
-					mes "I wish you luck and safety";
-					mes "in your adventures.";
+					mes "Obrigado por tudo.";
+					mes "Desejo-lhe sorte e segurança em suas aventuras.";
 					close;
 				}
 				mes "[Erious]";
-				mes "I have something to give you,";
-				mes "but you're carrying too much";
-				mes "stuff for me to give it to";
-				mes "right now. Why don't you";
-				mes "store your items somewhere?";
+				mes "Eu tenho algo para lhe dar, mas você está carregando muitos itens com você no momento.";
+				mes "Por que você não guarda alguns de seus itens?";
 				close;
 			}
 			else if (nif_revive == 6 && countitem(934) < 1) {
 				mes "[Erious]";
-				mes "Hmm...this is odd. I'm sure she would give you something as a token of meeting her. By any chance, is there anything that you've forgetten to bring me?";
+				mes "Hmm...isto é estranho. Tenho certeza que ela lhe daria algo como um sinal de conhecê-la.";
+				mes "Por acaso, existe alguma coisa que você não se lembra de me trazer?";
 				close;
 			}
 			mes "[Erious]";
-			mes "I guess you misunderstood";
-			mes "something or you're trying";
-			mes "to scam a man in grief.";
+			mes "Acho que você entendeu mal ou você está achando meus sentimentos uma farsa de homem em luto.";
 			close;
 		}
 		if (nif_revive == 5) {
 			mes "[Erious]";
-			mes "I see...you have failed to find";
-			mes "her... However, I also understand";
-			mes "that fulfilling my request may";
-			mes "be impossible...";
+			mes "Eu vejo, você não conseguiu encontrar ela...";
+			mes "No entanto, eu também entendo que cumprir o meu pedido pode ser impossível...";
 			next;
 			mes "[Erious]";
-			mes "You've really gone out of your way";
-			mes "to help me, so I want to give you";
-			mes "something as a token of my";
-			mes "gratitute.";
+			mes "Você realmente saiu do seu caminho para me ajudar.";
+			mes "Então eu quero dar-lhe algo como um sinal da minha gratidão.";
 			next;
 			if (checkweight(610,10)) {
 				MISC_QUEST |= 16384;
@@ -482,24 +407,20 @@ prt_in,161,20,3	script	Erious#nif	4_F_03,{
 				completequest 11042;
 				getitem 610,10; //Leaf_Of_Yggdrasil
 				mes "[Erious]";
-				mes "Thank you for everything.";
-				mes "I wish you luck and safety";
-				mes "from harm in your journeys.";
+				mes "Obrigado por tudo.";
+				mes "Desejo-lhe sorte e segurança em suas viagens.";
 				close;
 			}
 			mes "[Erious]";
-			mes "I have something to give you,";
-			mes "but you're carrying too much";
-			mes "stuff for me to give it to";
-			mes "right now. Why don't you";
-			mes "store your items somewhere?";
+			mes "Eu tenho algo para lhe dar, mas você está carregando muitas coisas por enquanto.";
+			mes "Por que você não guarda alguns de seus itens?";
 			close;
 		}
 		mes "[Erious]";
-		mes "I see...";
-		mes "...Wait! Doesn't that belong";
-		mes "to my wife, Elly? Why are you";
-		mes "trying to cheat a grieving man...?";
+		mes "Eu vejo...";
+		mes "...Espere!";
+		mes "Não tem nada que pertença à minha esposa, Elly?";
+		mes "Por que você está tentando enganar um homem de luto...?";
 		close;
 	}
 	end;
@@ -508,64 +429,49 @@ prt_in,161,20,3	script	Erious#nif	4_F_03,{
 umbala,215,181,3	script	Billik	4_M_JOB_KNIGHT1,{
 	if (nif_revive > 1 || MISC_QUEST & 16384) {
 		mes "[Billik]";
-		mes "Well, long time no see.";
-		mes "If you have a chance in the";
-		mes "future, let's meet in the";
-		mes "town of the dead later.";
-		mes "Hahahaha~";
+		mes "Bem, faz muito tempo que não te vejo.";
+		mes "Se você tiver uma chance no futuro, vamos nos encontrar na cidade da morte.";
+		mes "Hahahaha.";
 		emotion e_no1;
 		close;
 	}
 	if (nif_revive == 1) {
 		mes "[Billik]";
-		mes "The Town of the dead...";
-		mes "It's a very dangerous place.";
-		mes "Why would you want to go there?";
+		mes "A cidade dos mortos...";
+		mes "É um lugar muito perigoso.";
+		mes "Por que você quer ir para lá?";
 		next;
-		if (select("I have to meet somebody there.:It's a part of my adventure.") == 1) {
+		if (select("Tenho que encontrar alguém lá.:É parte da minha aventura.") == 1) {
 			mes "[Billik]";
-			mes "Someone you have to meet there...";
-			mes "Hmm... I suppose you wish to";
-			mes "contact the dead...";
-			mes "I can also see that you're";
-			mes "determined to go.";
+			mes "Você tem que encontrar alguém lá...";
+			mes "Hum... Eu suponho que você deseje contato com os mortos...";
+			mes "Eu também posso ver que você está determinado com isso.";
 			next;
 			mes "[Billik]";
-			mes "*Sigh* Okay, if you really want to";
-			mes "go, you must find a man named";
-			mes "'Feylin.' It's very important to";
-			mes "let him know that I introduced";
-			mes "him to you.";
+			mes "*Suspiro* Ok, se você realmente quer ir, você deve encontrar um homem chamado 'Feylin.'";
+			mes "É muito importante que ele saiba que eu apresentei ele a você.";
 			next;
 			mes "[Billik]";
-			mes "He's not very trusting, but he";
-			mes "likes roses a lot, so bring a rose";
-			mes "for him. That way, he'll know for";
-			mes "sure that I've sent you.";
+			mes "Ele não é muito de confiança, mas ele gosta muito de rosas, por isso leve uma rosa para ele.";
+			mes "Dessa forma, ele irá saber que eu o enviei.";
 			nif_revive = 2;
 			changequest 11038,11039;
 			next;
 			mes "[Billik]";
-			mes "The town of the dead is located";
-			mes "north of this place. Remember, it";
-			mes "is very dangerous to go there,";
-			mes "even for well experienced";
-			mes "adventurers, so...";
-			mes "Be careful.";
+			mes "A cidade dos mortos está localizada ao norte desse lugar.";
+			mes "Lembre-se, é muito perigoso ir até lá mesmo para um aventureiro experiente, então...";
+			mes "Tenha cuidado.";
 			close;
 		}
 		mes "[Billik]";
-		mes "Hahaha~ I guess you like adventure";
-		mes "as much as I do. Although it's a";
-		mes "very dangrous place, you will be";
-		mes "paid back for your effort after";
-		mes "you get there. But be careful.";
+		mes "Hahaha. Eu acho que você gosta de aventura tanto quanto eu.";
+		mes "Embora seja um lugar muito perigoso, você será recompensado na volta pelo seu esforço mas, tenha cuidado.";
 		close;
 	}
 	else if (nif_revive == 0) {
 		mes "[Billik]";
-		mes "What brings you here? I'm busy,";
-		mes "leave if you don't have any business.";
+		mes "O que te traz aqui?";
+		mes "Estou ocupado, saia se você não tiver nada a tratar.";
 		close;
 	}
 }
@@ -573,100 +479,77 @@ umbala,215,181,3	script	Billik	4_M_JOB_KNIGHT1,{
 niflheim,153,215,3	script	Feylin	4_M_NFDEADMAN2,{
 	if (nif_revive == 2) {
 		mes "[Feylin]";
-		mes "Poor "+((Sex)?"guy":"girl")+"...";
-		mes "Dying at such a young age...";
-		mes "I am always sorry to see the";
-		mes "young pass away.";
+		mes "Pobre "+((Sex)?"rapaz":"garota")+"...";
+		mes "Morrer em uma idade tão jovem...";
+		mes "É triste ver os jovens morrendo.";
 		next;
 		mes "[Feylin]";
 		mes "............??";
-		mes "Oh, I see you're not dead yet,";
-		mes "are you? It's unbelievable to";
-		mes "see another living person";
-		mes "in this town.";
+		mes "Ah, eu vejo que você não está morto ainda, está?";
+		mes "É inacreditavel ver outra pessoa viva nesta cidade.";
 		next;
 		mes "[Feylin]";
-		mes "Are you coming to rescue someone,";
-		mes "or do you have another purpose?";
-		mes "If you came here to meet a";
-		mes "deceased friend of yours, you've";
-		mes "come to the wrong person.";
+		mes "Você vem para resgatar alguém, ou você tem outra finalidade?";
+		mes "Se você veio aqui para encontrar um falecido amigo seu, você veio falar com a pessoa errada.";
 		next;
 		mes "[Feylin]";
-		mes "Nobody in Niffelheim can";
-		mes "perform that kind of miracle...";
+		mes "Ninguém no Niflheim pode realizar esse tipo de milagre...";
 		next;
 		mes "[Feylin]";
-		mes "I can tell you have been through";
-		mes "much hardship, but unfortunately,";
-		mes "you came here for nothing. I hope";
-		mes "you go back to where you came";
-		mes "from before it's too late.";
+		mes "Eu posso dizer que você já passou muito sofrimento, mas infelizmente, você veio aqui para nada.";
+		mes "Espero você volte de onde veio de antes que seja tarde demais.";
 		nif_revive = 3;
 		changequest 11039,11040;
 		close;
 	}
 	else if (nif_revive == 3) {
 		mes "[Feylin]";
-		mes "I've asked you to leave this";
-		mes "town immediately. I'm sorry";
-		mes "but I know nothing about what";
-		mes "you are asking.";
+		mes "Eu lhe pedi para sair desta cidade imediatamente.";
+		mes "Sinto muito mas eu não sei nada sobre o que você está me perguntando.";
 		emotion e_an;
 		next;
-		if (select("But...:I am sorry.") == 1) {
+		if (select("Mas...:Desculpe-me.") == 1) {
 			mes "[Feylin]";
-			mes "You must know something...";
-			mes "Otherwise, you wouldn't be";
-			mes "so stubborn. I am not sure";
-			mes "who told you contacting the";
-			mes "dead might be possible...";
+			mes "Você deve saber de algo...";
+			mes "Caso contrário, não seria tão teimoso.";
+			mes "Eu não tenho certeza de quem te disse que entrar em contato com o mortos poderia ser possível...";
 			next;
 			mes "[Feylin]";
-			mes "But I surely wouldn't have told";
-			mes "you. Besides, speaking about";
-			mes "such things is taboo.";
+			mes "Mas eu certamente não teria dito isso a você.";
+			mes "Além disso, falar sobre tais coisas é tabu.";
 			nif_revive = 4;
 			changequest 11040,11041;
 			close;
 		}
 		mes "[Feylin]";
-		mes "Please consider leaving this";
-		mes "place as soon as possible.";
-		mes "Nobody should stay in";
-		mes "Niflheim for too long.";
+		mes "Por favor, considere deixar esse lugar o mais rapidamente possível.";
+		mes "Ninguém deve ficar em Niflheim por muito tempo.";
 		close;
 	}
 	else if (nif_revive == 4) {
 		if (countitem(748) > 0) {
 			mes "[Feylin]";
-			mes "Huh, Billik must have sent you.";
-			mes "Since I'm indebted to him, I";
-			mes "suppose I will help you.";
-			mes "But let me warn you.";
-			mes "The price that I demand may be";
-			mes "more that you expect...";
+			mes "Huh, Billik deve ter enviado você.";
+			mes "Como estou em dívida com ele, eu suponho que irá ajudá-lo.";
+			mes "Mas deixe-me avisá-lo:";
+			mes "O preço que eu exijo pode ser maior do que o esperado...";
 			next;
-			if (select("I'm willing to do this.:I don't think I can do this.") == 1) {
+			if (select("Eu faço isso.:Acho que não consigo.") == 1) {
 				if (BaseLevel > 79) {
 					mes "[Feylin]";
-					mes "Alright, but you must promise";
-					mes "me that you will not let other";
-					mes "people know what I am about";
-					mes "to tell you.";
+					mes "Tudo bem, mas você tem que prometer-me que você não vai deixar outras pessoas saberem o que eu estou para lhe dizer.";
 					next;
 					mes "[Feylin]";
-					mes "This sorcery requires great";
-					mes "sacrifice. Needless to say, there";
-					mes "is a chance that this spell may";
-					mes "fail. I must also have";
-					mes "10 Yggdrasil Leaf to cast this";
-					mes "spell. Do you wish to continue?";
+					mes "Esta magia requer um grande sacrifício.";
+					mes "Não é preciso dizer, há uma chance dessa magia falhar.";
+					mes "Eu também preciso de 10 Folhas de Yggdrasil para conjurar essa magia.";
+					mes "Você deseja continuar?";
 					next;
-					if (select("Yes:No") == 1) {
+					if (select("Sim:Não") == 1) {
 						if (countitem(610) > 9) {
 							mes "[Feylin]";
-							mes "I see. Then we shall begin.";
+							mes "Eu entendo.";
+							mes "Então vamos começar.";
 							mes "Woombahsokasabahah!";
 							mes "Woombah woombah hoombabah!";
 							mes "Yeeeeep!";
@@ -674,10 +557,9 @@ niflheim,153,215,3	script	Feylin	4_M_NFDEADMAN2,{
 							.@nif_revive1 = rand(1,100);
 							if (.@nif_revive1 > 0) && (.@nif_revive1 < 88) {
 								mes "[Feylin]";
-								mes "...I am sorry.";
-								mes "I have failed to summon";
-								mes "who you wish to see. I am";
-								mes "really sorry for this result.";
+								mes "...Me desculpe.";
+								mes "Eu falhei ao invocar como você pode ver.";
+								mes "Eu realmente peço sinceras desculpas.";
 								emotion e_omg;
 								delitem 748,1; //Witherless_Rose
 								delitem 610,10; //Leaf_Of_Yggdrasil
@@ -686,10 +568,7 @@ niflheim,153,215,3	script	Feylin	4_M_NFDEADMAN2,{
 								percentheal -99,0;
 								next;
 								mes "[Feylin]";
-								mes "Unfortunately, it may be";
-								mes "impossible to summon the";
-								mes "spirit of the person with";
-								mes "whom you wished to speak...";
+								mes "Infelizmente, parece ser impossível invocar o espírito da pessoa que você deseja falar...";
 								close;
 							}
 							else if (.@nif_revive1 > 87) && (.@nif_revive1 < 101) {
@@ -702,95 +581,76 @@ niflheim,153,215,3	script	Feylin	4_M_NFDEADMAN2,{
 								next;
 								mes "[Elly]";
 								mes "..........";
-								mes ".....Umm...";
-								mes "...Wasn't I just dead?";
-								mes "Um, do I know you?";
+								mes ".....Humm...";
+								mes "...Não estava apenas morto?";
+								mes "Hum, não é?";
 								next;
-								select("I brought a message from your husband.");
+								select("Eu trouxe uma mensagem de seu marido.");
 								mes "[Elly]";
-								mes "Oh...I see...I'm sorry that I could not meet him before I died...";
-								mes "So what is his message for me?";
+								mes "Ah...Eu entendo...Eu sinto muito por não ter conseguido ajudá-lo antes de ter morrido..";
+								mes "Então, qual é sua mensagem para mim?";
 								next;
-								select("Forgive him for what happened a month ago.");
+								select("Perdoe-o pelo que aconteceu há um mês.");
 								mes "[Elly]";
-								mes "*Sigh* He's such a nice husband...";
-								mes "He pays such attention, even to";
-								mes "the little things. Though, I";
-								mes "should be the one apologizing";
-								mes "to him...";
+								mes "*Suspiro* Ele é um marido tão bom...";
+								mes "Ele presta tanta atenção, até mesmo para pequenas coisas.";
+								mes "Embora, eu deva ter sido a única a perdoá-lo...";
 								next;
 								mes "[Elly]";
-								mes "Please give him this box, and tell";
-								mes "him to forget about me. He should";
-								mes "live the rest of his life happily";
-								mes "with someone else. Oh, also let";
-								mes "him know that I forgive him.";
+								mes "Por favor lhe entregue esta caixa, e diga para ele se esquecer de mim.";
+								mes "Ele deve viver o resto de sua vida feliz com outra pessoa.";
+								mes "Ah, também diga a ele que eu o perdôo.";
 								nif_revive = 6;
 								changequest 11040,11043;
 								getitem 934,1; //Mementos
 								next;
 								mes "[Elly]";
-								mes "I am glad to hear from my";
-								mes "husband one more time. But I";
-								mes "think I have to go now.";
-								mes "Thank you for your trouble.";
-								mes "Farewell...";
+								mes "Estou feliz de ouvir sobre meu marido.";
+								mes "Mas eu acho que eu tenho que ir agora.";
+								mes "Obrigado por sua mensagem.";
+								mes "Adeus...";
 								next;
 								mes "[Elly]";
 								mes ".....................";
 								mes "....................";
 								next;
 								mes "[Feylin]";
-								mes "I guess you have accomplished what";
-								mes "you wanted. Well then, be careful";
-								mes "when you go back...";
+								mes "Eu acho que você conseguiu o que você queria.";
+								mes "Bem, então, tome cuidado quando você voltar...";
 								close;
 							}
 						}
 						else {
 							mes "[Feylin]";
-							mes "If you don't have the";
-							mes "items, we cannot proceed.";
-							mes "Remember, I need 10 Yggdrasil";
-							mes "Leaves to perform this spell.";
-							mes "Please bring them as soon";
-							mes "as possible.";
+							mes "Se você não tem os itens, nós não podemos continuar.";
+							mes "Lembre-se, eu preciso de 10 Folhas de Yggdrasil para recriar essa magia.";
+							mes "Por favor traga-as e será possível.";
 							close;
 						}
 					}
 					mes "[Feylin]";
-					mes "I hope you will bring the items";
-					mes "first. But... I don't have the";
-					mes "confidence to promise that";
-					mes "this spell will cast successfully.";
+					mes "Eu espero que você me traga os itens primeiro.";
+					mes "Mas... Eu não posso prometer que essa magia será conjurada com sucesso.";
 					close;
 				}
 				mes "[Feylin]";
-				mes "Hmm... You don't seem to have";
-				mes "the strength to endure the";
-				mes "casting of this spell. At";
-				mes "your current strength, this";
-				mes "spell will kill you.";
-				mes "I cannot take that risk.";
+				mes "Hum... Você não parece ter a força e o vigor necessário para conjurar essa magia.";
+				mes "Com sua força atual, essa magia irá matá-lo.";
+				mes "Eu não posso correr esse risco.";
 				close;
 			}
 			mes "[Feylin]";
-			mes "You made a good decision.";
-			mes "It's not a good idea to perform";
-			mes "this kind of sorcery in the";
-			mes "first place because of the";
-			mes "risks involved...";
+			mes "Você fez uma boa escolha.";
+			mes "Não é uma boa idéia executar esse tipo de magia no primeiro lugar que imaginar por causa dos riscos envolvidos...";
 			close;
 		}
 		mes "[Feylin]";
-		mes "No matter how many times you ask";
-		mes "me, I cannot help you. Please";
-		mes "leave this place as soon as you can.";
+		mes "Não importa quantas vezes você me perguntar eu não vou te ajudar.";
+		mes "Por favor saia deste lugar assim que puder.";
 		close;
 	}
 	mes "[Feylin]";
-	mes "What makes you to come to such";
-	mes "a dangerous town? Please leave";
-	mes "this place as soon as you can.";
+	mes "O que você fez para chegar nessa cidade tão perigosa?";
+	mes "Por favor saia deste lugar assim que puder.";
 	close;
 }

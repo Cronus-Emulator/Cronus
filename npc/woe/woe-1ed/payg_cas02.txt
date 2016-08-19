@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - payg_cas02.txt                                              ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.4                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 2º Castelo de Payon                     ||
+// -  Scripts referentes ao 2º Castelo de Payon                  ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flags (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Scarlet Palace#1::OutsideFlagsPA2	GUILD_FLAG,{
 
 	.@GID = getcastledata("payg_cas02",1);
@@ -74,8 +76,9 @@ pay_gld,292,120,6	duplicate(OutsideFlagsPA2)	Scarlet Palace#2	GUILD_FLAG
 pay_gld,291,135,6	duplicate(OutsideFlagsPA2)	Scarlet Palace#3	GUILD_FLAG
 pay_gld,271,163,0	duplicate(OutsideFlagsPA2)	Scarlet Palace#4	GUILD_FLAG
 
-// Guild Flags (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Scarlet Palace#5::InsideFlagsPA2	GUILD_FLAG,{
 	end;
 
@@ -91,21 +94,25 @@ payg_cas02,209,49,0	duplicate(InsideFlagsPA2)	Scarlet Palace#8	GUILD_FLAG
 payg_cas02,59,282,4	duplicate(InsideFlagsPA2)	Scarlet Palace#9	GUILD_FLAG
 payg_cas02,70,282,4	duplicate(InsideFlagsPA2)	Scarlet Palace#10	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 payon,97,322,4	duplicate(InsideFlagsPA2)	Scarlet Palace#11	GUILD_FLAG
 payon,166,173,3	duplicate(InsideFlagsPA2)	Scarlet Palace#12	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 payg_cas02,22,275,5	duplicate(guildkafra)	Funcionária Kafra#payg_cas02	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 payg_cas02,22,260,7	duplicate(cm)	Cherieos#payg_cas02	1_M_JOBTESTER
 
-// Treasure Room Exit
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 payg_cas02,149,149,0	script	#lever_PA02	HIDDEN_NPC,{
 
 	mes " ";
@@ -119,18 +126,22 @@ payg_cas02,149,149,0	script	#lever_PA02	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Switch
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 payg_cas02,278,247,0	duplicate(gdlever)	#payg_cas02	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 payg_cas02,145,144,0	duplicate(Gld_Trea_Spawn)	Treasure#payg_cas02	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 payg_cas02,39,25,0	duplicate(Gld_Agit_Manager)	Agit#payg_cas02	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 payg_cas02,22,260,7	duplicate(Gld_Guard_Template)	Guardião#payg_cas02	-1

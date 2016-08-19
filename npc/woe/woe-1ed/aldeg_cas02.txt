@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - aldeg_cas02.txt                                             ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.2                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 2º Castelo de Al de baran               ||
+// -  Scripts referentes ao 2º Castelo de Al de baran            ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flags (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Hohenschwangau#1::OutsideFlagsA2	GUILD_FLAG,{
 
 	.@GID = getcastledata("aldeg_cas02",1);
@@ -72,8 +74,9 @@ OnRecvCastleA02:
 alde_gld,99,251,4	duplicate(OutsideFlagsA2)	Hohenschwangau#1-2	GUILD_FLAG
 alde_gld,99,244,4	duplicate(OutsideFlagsA2)	Hohenschwangau#2	GUILD_FLAG
 
-// Guild Flags (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Hohenschwangau#3::InsideFlagsA2	GUILD_FLAG,{
 	end;
 
@@ -97,20 +100,24 @@ aldeg_cas02,197,40,2	duplicate(InsideFlagsA2)	Hohenschwangau#14	GUILD_FLAG
 aldeg_cas02,32,213,2	duplicate(InsideFlagsA2)	Hohenschwangau#15	GUILD_FLAG
 aldeg_cas02,121,29,2	duplicate(InsideFlagsA2)	Hohenschwangau#16	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 aldebaran,149,97,4	duplicate(InsideFlagsA2)	Hohenschwangau#17	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 aldeg_cas02,84,74,0	duplicate(guildkafra)	Funcionária Kafra#aldeg_cas02	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 aldeg_cas02,78,74,0	duplicate(cm)	Chenchenlie#aldeg_cas02	1_M_JOBTESTER
 
-// Treasure Room Lever
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 aldeg_cas02,139,234,0	script	#lever_A02	HIDDEN_NPC,{
 
 	mes " ";
@@ -124,18 +131,22 @@ aldeg_cas02,139,234,0	script	#lever_A02	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Lever
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 aldeg_cas02,194,136,0	duplicate(gdlever)	#aldeg_cas02	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 aldeg_cas02,135,230,0	duplicate(Gld_Trea_Spawn)	Treasure#aldeg_cas02	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 aldeg_cas02,214,24,0	duplicate(Gld_Agit_Manager)	Agit#aldeg_cas02	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 aldeg_cas02,78,74,0	duplicate(Gld_Guard_Template)	Guardião#aldeg_cas02	-1

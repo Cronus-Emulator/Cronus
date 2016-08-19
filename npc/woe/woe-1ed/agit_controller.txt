@@ -1,28 +1,20 @@
-//===============================================================\\
-//                _____                                          ||
-//               /  __ \                                         ||
-//               | /  \/_ __ ___  _ __  _   _ ___                ||
-//               | |   | '__/ _ \| '_ \| | | / __|               ||
-//               | \__/\ | | (_) | | | | |_| \__ \               ||
-//                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - agit_controller.txt                                         ||
-//===============================================================||
-// = Criação:                                                    ||
-// - eA/Herc/Cronus                                              ||
-//===============================================================||
-// = Versão:                                                     ||
-// - 2.0a                                                        ||
-//===============================================================||
-// = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
-// - Tradução [Spell Master]                                     ||
-//===============================================================||
-// = Descrição:                                                  ||
-// - Inicia e Termina a GDE primeira edição                      ||
-//===============================================================//
+/*--------------------------------------------------------------------------*\
+|                ________ ______ ____ _  __ __  _________                    |
+|               /   _____/ __  //    / \/  / / / /  ____/                    |
+|              /   /    /   __// // /     / /_/ /\___  /                     |
+|              \   \___/_/\__\/____/__/\_/_____//_____/                      |
+|               \_____/  NPC - SCRIPT                                        |
+|                                                                            |
++----------------------------------------------------------------------------+
+| - Por: kalen                                                               |
+| - Versão: 2.0a                                                             |
++----------------------------------------------------------------------------+
+| - Descrição: Inicia e Termina a GDE primeira edição                        |
++----------------------------------------------------------------------------+
+| - [ Alterações ] -                                                         |
+| - Cabeçalho: Spell Master                                                  |
+| - Tradução: Spell Master                                                   |
+\*--------------------------------------------------------------------------*/
 
 //| To know how to set up WoE times, go to doc\woe_time_explanation.txt
 // WoE Start/Stop times
@@ -72,3 +64,24 @@ S_DisplayOwners:
 	}
 	end;
 }
+
+//============================================================
+//= v1.1a changed OnInit to OnAgitInit.[kobra_k88]
+//= v1.2 added gettime checks. removed $AgitStarted var.[kobra_k88]
+//= v1.3 Moved treasure spawn time here.[kobra_k88]
+//= v1.3a Implemented Shadowlady's idea to allow for different
+//= start/stop times on different days.[kobra_k88]
+//= 1.4 Fixed treasure chests spawn! We had to unroll some loops
+//= Now they appear in castles from 00:01 to 00:24. [Lupus]
+//= 1.5 Fixed WOE end messages on non-WOE days, by Avaj
+//= 1.5a missing tabs [KarLaeda]
+//= 1.6 Corrected multiple "WoE has begun" announces [ultramage]
+//= 1.7 Commented out the WoE start and end announces. [L0ne_W0lf]
+//= 1.8 Castle owners displayed when WoE starts and finished. [L0ne_W0lf]
+//= 1.8a Will now report unoccupied castles at start/end. [L0ne_W0lf]
+//= 1.8b Whoops. Fixed a mistake :D [L0ne_W0lf]
+//= 1.9 Rearranged the time-checks so they no longer use goto. [L0ne_W0lf]
+//=	Removed treasure spawning function calls. (No longer needed)
+//= 2.0 Added WoE Battle Log support for broadcasts. [L0ne_W0lf]
+//= 2.0a Removed some brackets
+//============================================================

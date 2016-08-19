@@ -1,82 +1,72 @@
-//===== Hercules Script ======================================
-//= Bunny Band Quest
-//===== By: ==================================================
-//= rAthena Dev Team
-//===== Current Version: =====================================
-//= 1.6
-//===== Description: =========================================
-//= [Official Conversion]
-//= Quest to obtain a Bunny Band headgear.
-//===== Additional Comments: =================================
-//= 1.5 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//	Changed @BUNYBAN back to BUNYBND, it should be this way.
-//	Removed duplicates. NPC is ALberta-only.
-//= 1.6 Cleaning. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - bunnyband.txt                                               ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.6                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quest das Orelhas de Coelho.                                ||
+//===============================================================//
 
-alberta,26,229,0	script	Kafra Employee#bunny	4_M_01,{
+alberta,26,229,0	script	Funcionária Kafra#bunny	4_M_01,{
 	if (BUNYBND == 1) {
-		mes "[Kafra Employee]";
-		mes "Hello there~!";
-		mes "How'd you like to";
-		mes "participate in Kafra";
-		mes "Corporation's special";
-		mes "^529DFFBunny Band Event^000000?";
+		mes "[Funcionária Kafra]";
+		mes "Olá você aí!!";
+		mes "Você gostaria de participar do Evento especial da ^529DFFOrelha de Coelho^000000 da Corporação Kafra?";
 		next;
-		switch(select("Sure, I brought the items.:Event Information:Cancel")) {
+		switch(select("Claro, está aqui os itens.:Informações do Evento.:Cancelar")) {
 		case 1:
-			mes "[Kafra Employee]";
-			mes "Alrighty~";
-			mes "Let me check to";
-			mes "see if you brought";
-			mes "all the items...";
+			mes "[Funcionária Kafra]";
+			mes "Ok.~";
+			mes "Deixe-me verificar vendo se você trouxe todos os itens...";
 			next;
 			setarray .@items[0],949,100,706,1,722,1,2213,1;
 			for(.@i = 0; .@i<8; .@i += 2)
 				if (countitem(.@items[.@i]) < .@items[.@i+1]) {
-					mes "[Kafra Employee]";
-					mes "Ooh, I'm sorry";
-					mes "but you need to";
-					mes "bring at least";
+					mes "[Funcionária Kafra]";
+					mes "Ooh, eu sinto muito mas você precisa trazer pelo menos:";
 					mes .@items[.@i+1]+" "+getitemname(.@items[.@i])+((!.@i)?"s.":".");
 					close;
 				}
-			mes "[Kafra Employee]";
-			mes "Great, I see that";
-			mes "you've gathered";
-			mes "everything I need to";
-			mes "make the Bunny Band.";
-			mes "Please wait a moment";
-			mes "while I put it together...";
+			mes "[Funcionária Kafra]";
+			mes "Perfeito, eu vejo que você pegou tudo que eu preciso para fazer a Orelha de Coelho.";
+			mes "Por favor espere um momento enquanto eu coloco eles juntos...";
 			next;
 			for(.@i = 0; .@i<8; .@i += 2)
 				if (countitem(.@items[.@i]) < .@items[.@i+1]) {
-					mes "[Kafra Employee]";
-					mes "Hm? I'm sorry,";
-					mes "but I actually can't";
-					mes "make this right now. You";
-					mes "need "+.@items[.@i+1]+" "+getitemname(.@items[.@i])+((!.@i)?"s":"");
-					mes "in order for me to put this";
-					mes "Bunny Band together...";
+					mes "[Funcionária Kafra]";
+					mes "Hm? Sinto muito, mas eu realmente não posso fazer isso agora.";
+					mes "Você precisa "+callfunc("F_InsertPlural",.@Items[.@i+1],getitemname(.@Items[.@i]))+"em ordem para eu colocar isso junto na Orelha de Coelho...";
 					close;
 				}
 			delitem 949,100; //Feather
 			delitem 706,1; //Four_Leaf_Clover
 			delitem 722,1; //Scarlet_Jewel
 			delitem 2213,1; //Cat_Hairband
-			mes "[Kafra Employee]";
-			mes "Ah, here you go~";
-			mes "The perfect Bunny Band!";
-			mes "Well, I hope you enjoy it.";
+			mes "[Funcionária Kafra]";
+			mes "Ah, aqui vai!~";
+			mes "A perfeita Orelha de Coelho!";
+			mes "Bem, espero que goste.";
 			getitem 2214,1; //Bunny_Band
 			BUNYBND = 0;
 			next;
-			mes "[Kafra Employee]";
-			mes "Thank you for";
-			mes "participating in this";
-			mes "special event and your";
-			mes "continued patronage";
-			mes "of the Kafra Services~";
+			mes "[Funcionária Kafra]";
+			mes "Obrigado por participar deste evento especial e que é patrocinado pelos Serviços Kafra.";
 			close;
 		case 2:
 			goto L_Info;
@@ -84,31 +74,26 @@ alberta,26,229,0	script	Kafra Employee#bunny	4_M_01,{
 			close;
 		}
 	}
-	mes "[Kafra Employee]";
-	mes "Hi there~! Would you like";
-	mes "to join our special ^529DFFBunny";
-	mes "Band Event^000000 hosted by the Kafra";
-	mes "Corporation and sponsored by";
-	mes "the Alberta Merchant Guild?";
+	mes "[Funcionária Kafra]";
+	mes "Oi você aí~! Você gostaria de juntar-se ao nosso especial ^529DFFEvento da Orelha de Coelho^000000 feito pela Corporação";
+	mes "Kafra e patrocinado pela a Corporação de Mercadores de Alberta?";
 	next;
-	switch(select("Join the Event:Event Information:Cancel")) {
+	switch(select("Entrar no Evento.:Informação do Evento.:Cancelar.")) {
 	case 1:
 		BUNYBND = 1;
-		mes "[Kafra Employee]";
-		mes "Great! Thanks for";
-		mes "participating! If you";
-		mes "haven't already heard,";
-		mes "you need to collect these";
-		mes "items if you want me put a";
-		mes "Bunny Band together for you...";
+		mes "[Funcionária Kafra]";
+		mes "Ótimo!";
+		mes "Obrigado por participar!";
+		mes "Se você ainda não ouviu, você precisa coletar esses itens, caso você deseje que eu coloque uma Orelha de Coelho em você!...";
 		next;
-		mes "[Kafra Employee]";
-		mes "100 Feathers,";
-		mes "1 Four-Leaf Clover,";
-		mes "1 Kitty Band and";
-		mes "1 Pearl. That's it!";
-		mes "Good luck and I'll be";
-		mes "waiting for you here~";
+		mes "[Funcionária Kafra]";
+		mes "100 Pulmas,";
+		mes "1 Trevo de Quatro Folhas,";
+		mes "1 Orelha de Gato e";
+		mes "1 Pérola.";
+		mes "É isso aí!";
+		mes "Boa sorte e eu vou estar esperando por você aqui.";
+		close;
 		close;
 	case 2:
 		break;
@@ -116,36 +101,19 @@ alberta,26,229,0	script	Kafra Employee#bunny	4_M_01,{
 		close;
 	}
 L_Info:
-	mes "[Kafra Employee]";
-	mes "To thank our valued";
-	mes "customers, Kafra Corporation";
-	mes "has prepared a special event";
-	mes "where Kafra Employee will assemble";
-	mes "Bunny Bands for adventurers";
-	mes "who bring the required items.";
+	mes "[Funcionária Kafra]";
+	mes "Para agradecer os nossos valiosos clientes, Corporação Kafra preparou um evento especial";
+	mes "Onde a funcionária Kafra irá montar Orelhas de Coelho para os aventureiros que trouxerem os itens necessários.";
 	next;
-	mes "[Kafra Employee]";
-	mes "For this special,";
-	mes "one of a kind item,";
-	mes "bring 100 Feathers,";
-	mes "1 Four-Leaf Clover,";
-	mes "1 Kitty Band and";
-	mes "1 Pearl.";
+	mes "[Funcionária Kafra]";
+	mes "Para este tipo de item muito especial, você deve";
+	mes "trazer 100 Plumas,";
+	mes "1 Trevo de Quatro Folhas,";
+	mes "1 Orelha de Gato e";
+	mes "1 Pérola.";
 	next;
-	mes "[Kafra Employee]";
-	mes "When you're ready,";
-	mes "come back and bring";
-	mes "those items to me.";
-	mes "(Sponsored by the";
-	mes "Alberta Merchant Guild).";
+	mes "[Funcionária Kafra]";
+	mes "Quando estiver pronto, volte e traga os itens para mim.";
+	mes "(Patrocinado pela Corporação de Mercadores de Alberta).";
 	close;
 }
-
-//============================================================
-// Old changelog
-//============================================================
-//= 1.1 using duplicate command
-//= 1.2 Fixed NPC location, removed NPC dupes [Lupus]
-//= 1.3 RE-Fixed exploit V_V, also cleared used VAR [Lupus]
-//= 1.4 replaced BUNYBND with @BUNYBND [Lupus]
-//============================================================

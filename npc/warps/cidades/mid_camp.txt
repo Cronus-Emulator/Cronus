@@ -1,21 +1,21 @@
-//===== Hercules Script ======================================
-//= Another World Warp Script
-//===== By: ==================================================
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= [Official Conversion]
-//= Warp Points for Another World
-//= Warp points to and from fild22b and mid_camp are temporary.
-//===== Additional Comments: =================================
-//= 1.0 First Version.
-//= 1.1 Fixed a small bug by brianlew, bugreport:1824 [Brainstorm]
-//= 1.2 Corrected the observatory warp portal, thanks to Ziu. [brianluau]
-//= 1.3 Added warps, and also Updated warp positions. [L0ne_W0lf]
-//= 1.4 Removed the warp from midgard camp to morroc field. [L0ne_W0lf]
-//= 1.5 Remove a warp. [Joseph]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: L0ne_W0lf                                          ||
+// - Versão: 1.5                                                 ||
+//===============================================================||
+// - Descrição: Portais no Campo de Expedição                    ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================//
 
 mid_camp,205,211,0	warp	mid_weapon1-1	1,1,mid_campin,229,123
 mid_campin,232,123,0	warp	mid_weapon1-2	1,1,mid_camp,208,211

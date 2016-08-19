@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - gefg_cas02.txt                                              ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.2                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 2º Castelo de Geffen                    ||
+// -  Scripts referentes ao 2º Castelo de Geffen                 ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flag (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Eeyorbriggar#1::OutsideFlagsG2	GUILD_FLAG,{
 
 	.@GID = getcastledata("gefg_cas02",1);
@@ -74,8 +76,9 @@ gef_fild13,312,243,4	duplicate(OutsideFlagsG2)	Eeyorbriggar#2	GUILD_FLAG
 gef_fild13,290,243,4	duplicate(OutsideFlagsG2)	Eeyorbriggar#3	GUILD_FLAG
 gef_fild13,324,243,4	duplicate(OutsideFlagsG2)	Eeyorbriggar#4	GUILD_FLAG
 
-// Guild Flag (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Eeyorbriggar#5::InsideFlagsG2	GUILD_FLAG,{
 	end;
 
@@ -92,20 +95,24 @@ gefg_cas02,37,168,6	duplicate(InsideFlagsG2)	Eeyorbriggar#9	GUILD_FLAG
 gefg_cas02,68,47,2	duplicate(InsideFlagsG2)	Eeyorbriggar#10	GUILD_FLAG
 gefg_cas02,68,36,2	duplicate(InsideFlagsG2)	Eeyorbriggar#11	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 geffen,112,129,1	duplicate(InsideFlagsG2)	Eeyorbriggar#12	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 gefg_cas02,23,66,3	duplicate(guildkafra)	Funcionária Kafra#gefg_cas02	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 gefg_cas02,12,66,5	duplicate(cm)	Esmarehk#gefg_cas02	1_M_JOBTESTER
 
-// Treasure Room Exit
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 gefg_cas02,145,114,0	script	#lever_G02	HIDDEN_NPC,{
 
 	mes " ";
@@ -119,18 +126,22 @@ gefg_cas02,145,114,0	script	#lever_G02	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Switch
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 gefg_cas02,167,40,0	duplicate(gdlever)	#gefg_cas02	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 gefg_cas02,140,116,0	duplicate(Gld_Trea_Spawn)	Treasure#gefg_cas02	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 gefg_cas02,176,178,0	duplicate(Gld_Agit_Manager)	Agit#gefg_cas02	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 gefg_cas02,12,66,5	duplicate(Gld_Guard_Template)	Guardião#gefg_cas02	-1

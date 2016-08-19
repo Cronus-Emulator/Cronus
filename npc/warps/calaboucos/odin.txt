@@ -1,19 +1,21 @@
-//===== Hercules Script ======================================
-//= Odin Temple Warp Script
-//===== By: ==================================================
-//= birkiczd  (1.0)
-//===== Current Version: =====================================
-//= 1.4
-//===== Description: =========================================
-//= Warp Points for Odin Temple
-//===== Additional Comments: =================================
-//= 1.1 Move the Saylor from Hugel.txt here. [Poki#3]
-//=     Hako's Sprite, cords and price is official. The text is not.
-//= 1.2 Removed Duplicates [Silent]
-//= 1.3 Official warps [Playtester]
-//= 1.4 Moved Sailor to Hugel quest file since he's part of
-//=     Odin's Excavation Quest. [SinSloth]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: Birkiczd                                           ||
+// - Versão: 1.4                                                 ||
+//===============================================================||
+// - Descrição: Portais no Santuário de Odin                     ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================//
 
 odin_tem01,378,182,0	warp	odin01	1,1,odin_tem02,28,180
 odin_tem02,21,180,0	warp	odin02	1,1,odin_tem01,373,182

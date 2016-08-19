@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - prtg_cas03.txt                                              ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.4                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 3º Castelo de Prontera                  ||
+// -  Scripts referentes ao 3º Castelo de Prontera               ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flags (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Fadhgridh#1::OutsideFlagsPR3	GUILD_FLAG,{
 
 	.@GID = getcastledata("prtg_cas03",1);
@@ -74,8 +76,9 @@ prt_gld,147,136,4	duplicate(OutsideFlagsPR3)	Fadhgridh#2	GUILD_FLAG
 prt_gld,158,140,4	duplicate(OutsideFlagsPR3)	Fadhgridh#3	GUILD_FLAG
 prt_gld,158,136,4	duplicate(OutsideFlagsPR3)	Fadhgridh#4	GUILD_FLAG
 
-// Guild Flags (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Fadhgridh#5::InsideFlagsPR3	GUILD_FLAG,{
 	end;
 
@@ -95,20 +98,24 @@ prtg_cas03,169,210,4	duplicate(InsideFlagsPR3)	Fadhgridh#12	GUILD_FLAG
 prtg_cas03,162,201,4	duplicate(InsideFlagsPR3)	Fadhgridh#13	GUILD_FLAG
 prtg_cas03,165,201,4	duplicate(InsideFlagsPR3)	Fadhgridh#14	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 prontera,143,203,2	duplicate(InsideFlagsPR3)	Fadhgridh#15	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 prtg_cas03,181,215,4	duplicate(guildkafra)	Funcionária Kafra#prtg_cas03	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 prtg_cas03,51,100,4	duplicate(cm)	Sttick#prtg_cas03	1_M_JOBTESTER
 
-// Treasure Room Exit
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 prtg_cas03,193,130,0	script	#Lever_PR03	HIDDEN_NPC,{
 
 	mes " ";
@@ -122,18 +129,22 @@ prtg_cas03,193,130,0	script	#Lever_PR03	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Switch
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 prtg_cas03,5,70,0	duplicate(gdlever)	#prtg_cas03	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 prtg_cas03,189,132,0	duplicate(Gld_Trea_Spawn)	Treasure#prtg_cas03	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 prtg_cas03,17,221,0	duplicate(Gld_Agit_Manager)	Agit#prtg_cas03	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 prtg_cas03,51,100,4	duplicate(Gld_Guard_Template)	Guardião#prtg_cas03	-1

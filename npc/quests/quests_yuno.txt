@@ -1,99 +1,104 @@
-//===== Hercules Script ======================================
-//= Quest NPCs related to Juno
-//===== By: ==================================================
-//= rAthena Dev Team; L0ne_W0lf
-//===== Current Version: =====================================
-//= 2.0a
-//===== Description: =========================================
-//= [Official Conversion]
-//= Metto Quest:
-//= - Not really sure exaclty what it's for. :P
-//= - Variable in use: metto_q (max 9)
-//= Alchemist Brothers:
-//= - Used in part of the Alchemist job quest.
-//= - Variable in use: bros_q (max 1)
-//= Doomed Swords Part 2:
-//= - Continuation of the Comodo Quest
-//= - Part 1: Found in Quests_Comodo.txt
-//= - Part 3: Found in Doomed_Swords.txt
-//= - Variable in use dmdswrd_Q (Max 45)
-//===== Additional Comments: =================================
-//= 1.1 Re-did the text and re-organized the script.  Corrected some items. [kobra_k88]
-//= 1.2 Added part to Bro's for alchemist quest [Darkchild]
-//= 1.3 fixed that part of Alch Job Quest. [Lupus]
-//= 1.4 Fixed exploit [Lupus]
-//= 1.5 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//=     Merged metto_quest.txt into Juno quest file.
-//=     Added the Juno portion of the Doomed Swords quest.
-//= 1.6 Fixed various errors in the Bajin NPC. [L0ne_W0lf]
-//= 1.7 Changed ALCH_Q check and set to corrispond to new alchemist job quest. [L0ne_W0lf]
-//= 1.8 Fixed metto_q never reaching 2. Made some names more unique. [L0ne_W0lf]
-//= 1.9 Fixed Missing Variables in Metto quest. (bugreport:473) [Samuray22]
-//= 2.0 Added missing checkweights. [L0ne_W0lf]
-//= 2.0a Fixed several typos (bugreport:1786) [akrus]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - quests_yuno.txt                                             ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.0a                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução: "Sem informação"                                  ||
+// - Correção da Tradução: [Spell Master]                        ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quests em Juno                                              ||
+//===============================================================//
 
 // Metto Quest :: yuno_ryusei
 //============================================================
 yuno_in03,26,39,3	script	Metto#juno	4_M_SEAMAN,{
 	mes "[Metto]";
 	if (metto_q == 0) {
-		mes "In the Lab today, in the Lab tomorrow! Everyday is filled with research! Even if it takes my entire life, I will not give up until I have made a new Juno...";
+		mes "Hoje e amanha no laboratório!";
+		mes "Todo o dia será preenchido com a pesquisa!";
+		mes "Mesmo que demore toda a minha vida, eu não vou desistir até criar uma nova Juno...";
 		next;
-		mes "[Metto]";
-		mes "A new Juno in which all will bask in the light of my genius! If I can just harness the power of flight... I know I can do it!";
+		mes "[Meto]";
+		mes "Uma nova Juno, em que todos vão conhecer a luz de um gênio!";
+		mes "Se eu puder criar o poder de voar... Eu sei que posso fazê-lo!";
 		next;
-		mes "[Metto]";
-		mes "^FF0000Wagan^000000 said that my idea was crazy and impossible. But I am no fool, I won't be swayed by his words of mockery!";
+		mes "[Meto]";
+		mes "^FF0000Wagan^000000 disse que a minha idéia era louca e impossível.";
+		mes "Mas eu não sou idiota, eu não vou ser influenciado por suas palavras de escárnio!";
 		close;
 	}
 	else if (metto_q == 1) {
 		metto_q = 2;
-		mes "I'm going to ask my colleague ^FF0000Stangckle^000000 to help me. I am sure he will be more than willing to help out an old friend.";
+		mes "Eu vou pedir ajuda ao meu colega ^FF0000Stangckle^000000.";
+		mes "Tenho certeza que ele estará mais do que disposto a ajudar um velho amigo.";
 		next;
-		mes "[Metto]";
-		mes "If I had that fellow's help, this would be much easier. Pray! Pray to whatever God you believe that we will succeed!";
+		mes "[Meto]";
+		mes "Se eu tivesse a ajuda de um companheiro, isso seria muito mais fácil.";
+		mes "Ore! Ore para Deus e acredite, que você terá sucesso!";
 		close;
 	}
 	else if (metto_q == 3) {
 		metto_q = 4;
-		mes "What? That punk Stangckle said he doesn't want to help me?! This is not good. This will slow my research considerably.";
+		mes "O quê? Stangckle disse que não quer me ajudar?!";
+		mes "Isso não é bom.";
+		mes "Isto irá diminuir consideravelmente minha pesquisa.";
 		next;
-		mes "[Metto]";
+		mes "[Meto]";
 		mes "...";
-		mes "What will";
-		mes "I do now?!";
+		mes "O que será";
+		mes "que eu faço agora?!";
 		next;
-		mes "[Metto]";
-		mes "Luckily, I have a back up plan. I am positive that my friend and colleague ^FF0000Kato^000000 will lend his aid.";
+		mes "[Meto]";
+		mes "Felizmente, eu tenho um plano reserva.";
+		mes "Tenho certeza de que meu amigo e colega ^FF0000Kato^000000 vai me oferecer sua ajuda.";
 		next;
-		mes "[Metto]";
-		mes "If I can only study his super robot, Great Z, I can continue my research...";
+		mes "[Meto]";
+		mes "Se eu puder estudar seu super robô, Grande Z, eu poderei continuar minha pesquisa...";
 		next;
-		mes "[Metto]";
-		mes "I guess if Stangckle doesn't want to help me, he can have it his way. I must continue my research, whether or not he helps me.";
+		mes "[Meto]";
+		mes "Eu acho que se Stangckle não quer me ajudar, pois ele têm seu caminho.";
+		mes "Devo continuar a minha pesquisa, ele me ajudando ou não.";
 		next;
-		mes "[Metto]";
-		mes "Expect great things, young friend. Muahahahha.";
+		mes "[Meto]";
+		mes "Espere por grandes coisas, jovem amigo.";
+		mes "Muahahahha.";
 		close;
 	}
 	else if (metto_q == 5) {
 		metto_q = 6;
-		mes "What? You mean to tell me that the very thing I need to continue my research, the mighty Great Z, has been destroyed?!!";
+		mes "O quê?";
+		mes "Você quer me dizer que a coisa que eu preciso para continuar a minha pesquisa, o poderoso Grande Z, foi destruída?!!";
 		next;
-		mes "[Metto]";
-		mes "Nooooo~!! Why? Why would they do that? Are the Gods cursing me?!";
+		mes "[Meto]";
+		mes "Nãoooo!!!";
+		mes "Por por que eles fariam isso?";
+		mes "São os Deuses me xingando?!";
 		next;
-		mes "[Metto]";
-		mes "Wait, I need...";
-		mes "To calm down...";
+		mes "[Meto]";
+		mes "Espere, eu preciso...";
+		mes "Manter a calma...";
 		next;
-		mes "[Metto]";
-		mes "If I can just get the help of professor ^FF0000CiCi^000000 with his Riding Engine theory, I might be able to finish my research...";
+		mes "[Meto]";
+		mes "Se eu conseguise a ajuda do professor ^FF0000Cici^000000, com a sua teoria do motor de equitação.";
+		mes "Eu poderia ser capaz de terminar minha pesquisa...";
 		next;
-		mes "[Metto]";
-		mes "I still";
-		mes "have hope!";
+		mes "[Meto]";
+		mes "Eu ainda tenho esperança!";
 		mes "Ha! Ha! Ha!";
 		close;
 	}
@@ -101,38 +106,50 @@ yuno_in03,26,39,3	script	Metto#juno	4_M_SEAMAN,{
 		metto_q = 8;
 		mes "...";
 		next;
-		mes "[Metto]";
+		mes "[Meto]";
 		mes "...";
 		mes "......";
 		next;
-		mes "[Metto]";
-		mes "How can this happen 3 times in a row? Its true, the Gods have forsaken me! I'm ruined... RUINED!!!";
+		mes "[Meto]";
+		mes "Como isso pôde acontecer três vezes seguidas?";
+		mes "É verdade, os Deuses me abandonaram!";
+		mes "Estou arruinado!";
 		next;
-		mes "[Metto]";
-		mes "What can I do now...? Has the time really come for me to forfeit all my years of research?";
+		mes "[Meto]";
+		mes "O que posso fazer agora...?";
+		mes "Será que realmente chegou a hora em que eu vou perder todos os meus anos de pesquisa?";
 		next;
-		mes "[Metto]";
-		mes "I know I've disappointed you, but please, forget all about me.";
+		mes "[Meto]";
+		mes "Eu sei que eu te desapontei, mas por favor, esqueça tudo sobre mim.";
 		next;
-		mes "[Metto]";
-		mes "Who would do this to me? What kind of malicious person would shatter a man's dreams??";
+		mes "[Meto]";
+		mes "Quem faria isso comigo?";
+		mes "Que tipo de pessoa mal-intencionada poderia destruir os sonhos de um homem???";
 		next;
-		mes "[Metto]";
-		mes "I'm tired of this. I think that the time has come for me to give up. It's all over. Please don't be too disappointed...";
+		mes "[Meto]";
+		mes "Estou cansada disso.";
+		mes "Eu acho que chegou a hora de desistir.";
+		mes "Está tudo acabado.";
+		mes "Por favor, não fique muito desapontado...";
 		close;
 	}
 	else if (metto_q == 8) {
-		mes "Maybe I should look into a job change. I hear it is a popular decision these days.";
+		mes "Talvez eu deva mudar de emprego.";
+		mes "Ouvi dizer que é uma decisão popular nos dias de hoje.";
 		next;
-		mes "[Metto]";
-		mes "I wonder what I should look into? All I know for sure is that I don't want to be scientist anymore. I'm done with research...";
+		mes "[Meto]";
+		mes "Eu me pergunto o que eu devo me tornar?";
+		mes "Tudo que eu sei é que com certeza, eu não quero mais ser um cientista.";
+		mes "Eu estou farto de pesquisas...";
 		close;
 	}
 	else {
-		mes "I better get going to check this new thing out. What are you still doing here? I'll be leaving in a bit.";
+		mes "É melhor eu sair e ir ver como está lá fora.";
+		mes "O que você ainda está fazendo aqui? Eu vou sair um pouco.";
 		next;
-		mes "[Metto]";
-		mes "I need to get ready! You go ahead and take off, I'll be going out soon.";
+		mes "[Meto]";
+		mes "Eu preciso me preparar!";
+		mes "Vá em frente e saia daqui, eu vou sair em breve.";
 		close;
 	}
 }
@@ -140,117 +157,134 @@ yuno_in03,26,39,3	script	Metto#juno	4_M_SEAMAN,{
 yuno_in01,17,30,5	script	Wagan#juno	4_M_03,{
 	mes "[Wagan]";
 	if (metto_q == 0) {
-		mes "I'm sure that you know our city has been living off our research for many years.";
+		mes "Eu tenho certeza que você sabe que a nossa cidade tem vivido fora de nossa pesquisa por muitos anos.";
 		next;
 		mes "[Wagan]";
-		mes "We owe this quality of life to those who have dedicated their lives to research and study.";
+		mes "Devemos essa qualidade de vida à aqueles que têm dedicado suas vidas com pesquisas e estudos.";
 		next;
 		mes "[Wagan]";
-		mes "So we help each other and study together. It is nice to have such solid support around when we are conducting research.";
+		mes "Assim, ajudamos uns aos outros e estudamos juntos.";
+		mes "É bom ter suporte sólido quando estamos realizando pesquisas.";
 		next;
 		mes "[Wagan]";
-		mes "But there are those few bad apples that just drive me crazy...";
+		mes "Mas há aquelas poucas maçãs podres que me deixam louco...";
 		next;
 		mes "[Wagan]";
-		mes "It's good to try hard, but there are those selfish and crazy mad scientists that make things harder for the rest of us.";
+		mes "É bom tentar, mas há aqueles cientistas egoístas e loucos que deixam as coisas mais difíceis para o resto de nós.";
 		next;
 		mes "[Wagan]";
-		mes "Out of all those, ^FF0000Metto^000000 must be the worst by far. He's into crazy things...";
+		mes "Entre todos eles, ^FF0000Meto^000000 deve ser o pior de longe.";
+		mes "Ele está em pesquisas malucas...";
 		next;
 		mes "[Wagan]";
-		mes "For science, he's destroyed public facilities, has been the cause of noise and air pollution and generally disturbing the peace...";
+		mes "Para a ciência, ele está destruído instalações públicas, isso tem sido a causa do ruído e poluição do ar, ele está perturbando a paz...";
 		next;
 		mes "[Wagan]";
-		mes "And he's justifying his behavior under the excuse of research! He's a crazy fellow who's taken it too far!";
+		mes "E ele está justificando seu comportamento sob a desculpa de pesquisa!";
+		mes "Ele é um sujeito maluco que está indo longe demais!";
 		next;
 		mes "[Wagan]";
-		mes "I wish there was a way that we could stop him from wrecking it for the rest of us. Some brave, daring soul should be able to do something...";
+		mes "Eu gostaria que houvesse uma maneira de impedi-lo de destruir tudo para o resto de nós.";
+		mes "Alguma alma corajosa e ousada deve ser capaz de fazer algo...";
 		next;
-		if (select("Leave it to me.:I wish your village luck in doing so.") == 1) {
+		if (select("Deixa comigo.:Lhe desejo sorte.") == 1) {
 			if (Class == Job_Novice) {
 				mes "[Wagan]";
-				mes "Hmm...";
-				mes "Thanks for the offer, but I don't think this is something that you could do...";
+				mes "Hum...";
+				mes "Obrigado pela oferta, mas eu não acho que isso seja algo que você possa fazer...";
 				next;
 				mes "[Wagan]";
-				mes "I think we need someone a bit harsher to help us out. I think it would be a little too much for a Novice.";
+				mes "Eu acho que nós precisamos de alguém um pouco mais duro para nos ajudar.";
+				mes "Eu acho que seria um pouco demais para um iniciante.";
 				next;
 				mes "[Wagan]";
-				mes "Please don't be";
-				mes "offended by this.";
+				mes "Por favor, não se ofenda com isso.";
 				close;
 			}
 			metto_q = 1;
 			mes "[Wagan]";
-			mes "Oh, are you going to take care of this for us? We would be very grateful.";
+			mes "Ah, você vai cuidar disso para nós?";
+			mes "Ficaríamos muito gratos.";
 			next;
 			mes "[Wagan]";
-			mes "But how do you plan to go about doing this? I'm guessing it's harder than it sounds...";
+			mes "Mas o que você pretende fazer sobre isso?";
+			mes "Eu estou supondo que é mais difícil do que parece...";
 			next;
-			if (select("Of course I have a plan.:I guess I need a plan.") == 1) {
+			if (select("Eu tenho um plano.:Eu acho que preciso de um plano.") == 1) {
 				mes "[Wagan]";
-				mes "I have faith in you. You should know that he believes in fate. Use that to your advantage.";
+				mes "Eu tenho fé em você.";
+				mes "Você deve saber que ele acredita em destino.";
+				mes "Use isso a seu favor.";
 				next;
 				mes "[Wagan]";
-				mes "I feel much better knowing you will take care of this little problem...";
+				mes "Eu me sinto muito melhor sabendo que você vai cuidar desse pequeno problema...";
 				close;
 			}
 			mes "[Wagan]";
-			mes "Hmmm... I admire your zeal, but how do you expect to accomplish anything without a plan?";
+			mes "Humm... Admiro seu zelo, mas como você esperar conseguir realizar qualquer coisa sem um plano?";
 			next;
 			mes "[Wagan]";
-			mes "You need a ruse to trick him into quitting. Something subtle, like... Hmm...";
+			mes "Você precisa de um ardil plano para enganá-lo e o fazer desistir.";
+			mes "Algo sutil, como... Hmm...";
 			next;
 			mes "[Wagan]";
-			mes "...Sabotaging his experiments and making it look like it was his destiny to fail!";
+			mes "...Sabotar suas experiências e fazer com que pareça que seu destino era falhar!";
 			next;
 			mes "[Wagan]";
-			mes "He's talkative, so if you approach him, he'll tell you all you need to know.";
+			mes "Ele é falante, por isso, se você se aproximar dele, ele vai lhe dizer tudo o que você precisa saber.";
 			next;
 			mes "[Wagan]";
-			mes "Yeah...";
-			mes "I've been thinking of this plan for a while...";
+			mes "Sim...";
+			mes "Eu estive pensando nesse plano por um tempo...";
 			close;
 		}
 		mes "[Wagan]";
-		mes "We will have to pray for fate to help us. Now to think of it, Metto is a strong believer in fate.";
+		mes "Vamos ter que rezar para o destino nos ajudar.";
+		mes "Agora, preciso pensar sobre isso, Meto acredita muito no destino.";
 		next;
 		mes "[Wagan]";
-		mes "If only we could use that to our advantage...";
+		mes "Se pudéssemos usar isso a nosso favor...";
 		close;
 	}
 	else if (metto_q == 8) {
-		mes "Thank you for your help. Because of your work in ridding us of Metto, we have one less worry.";
+		mes "Agradeço pela ajuda.";
+		mes "Graças ao seu trabalho em livrar-nos de Meto, temos uma preocupação a menos.";
 		next;
 		mes "[Wagan]";
-		mes "I'm sure the people of Juno are very thankful. Here is a little token of our appreciation...";
+		mes "Tenho certeza que o povo de Juno vai ficar muito grato.";
+		mes "Aqui está um pequeno presente como agradecimento...";
 		next;
 		mes "[Wagan]";
 		if (Class == Job_Sage) {
 			if (MaxWeight - Weight < 300) {
-				mes "Oh no, it seems that you are carrying too much stuff! Would you make some room?";
+				mes "Ah, não, parece que você está carregando muita coisa!";
+				mes "Você poderia arrumar algum espaço?";
 				close;
 			}
 			metto_q = 9;
-			mes "I wish you luck in your future endeavors...";
+			mes "Desejo-lhe sorte em seus futuros empreendimentos...";
 			getitem 715,10; //Yellow_Gemstone
 			close;
 		}
 		if (MaxWeight - Weight < 150) {
-			mes "Oh no, it seems that you are carrying too much! Would you make some room?";
+			mes "Ah, não, parece que você está carregando muita coisa!";
+			mes "Você poderia arrumar algum espaço?";
 			close;
 		}
 		metto_q = 9;
-		mes "I wish you luck in your future endeavors...";
+		mes "Desejo-lhe sorte em seus futuros empreendimentos...";
 		getitem 717,5; //Blue_Gemstone
 		close;
 	}
 	else if (metto_q == 9) {
-		mes "Things around here seem much more peaceful without that Metto around. Thanks for your help.";
+		mes "As coisas por aqui parecem muito mais pacíficas, sem Meto por perto.";
+		mes "Obrigado pela sua ajuda.";
 		close;
 	}
 	else {
-		mes "How goes your work with Metto? Hopefully the plan is going well. I'm sorry to bother you with such a task.";
+		mes "Como vai o seu trabalho com Meto?";
+		mes "Espero que o plano esteja indo bem.";
+		mes "Desculpe incomodá-lo com tal tarefa.";
 		close;
 	}
 }
@@ -258,9 +292,11 @@ yuno_in01,17,30,5	script	Wagan#juno	4_M_03,{
 yuno_in01,17,95,5	script	Stangckle#juno	4W_M_03,{
 	mes "[Stangckle]";
 	if (metto_q == 2) {
-		mes "What can I do for you? My colleague Metto is coming here soon, so I don't have much time. So what did you say you needed?";
+		mes "O que eu posso fazer por você?";
+		mes "Meu colega Meto chegará aqui em breve, por isso eu não tenho muito tempo.";
+		mes "Então, o que você disse que precisava?";
 		next;
-		if (select("I'm here to stop your research.:I don't need anything.") == 1) {
+		if (select("Estou aqui pela pesquisa.:Eu não preciso de nada.") == 1) {
 			metto_q = 3;
 			mes "[Stangckle]";
 			mes "...";
@@ -275,44 +311,51 @@ yuno_in01,17,95,5	script	Stangckle#juno	4W_M_03,{
 			mes ".........";
 			next;
 			mes "[Stangckle]";
-			mes "Is that true?? Metto doesn't think of me as a colleague, but still wants me to help him?!";
+			mes "Isso é verdade? Meto não pensa em mim como um colega, mas ainda precisa de minha ajuda?!";
 			next;
 			mes "[Stangckle]";
-			mes "He only sees me as an assistant and is going to steal all the credit for our discoveries?!";
+			mes "Ele só me vê como um assistente e vai roubar todo o crédito pelas nossas descobertas?!";
 			next;
 			mes "[Stangckle]";
-			mes "This guy can't be trusted! The rumors were true: he really is mad!";
+			mes "Esse cara não é confiável!";
+			mes "Os rumores eram verdadeiros, ele realmente é louco!";
 			next;
 			mes "[Stangckle]";
-			mes "And to think, I really respected that traitor! I can't even stand to see that guy's face anymore.";
+			mes "E pensar que eu realmente respeitei esse traidor!";
+			mes "Eu não quero mais nem ver sua cara.";
 			next;
 			mes "[Stangckle]";
-			mes "I'm glad that an honest, trustworthy person such as yourself had the guts to tell me. Thank you.";
+			mes "Eu estou contente que uma pessoa honesta e confiável como você teve a coragem de me contar.";
+			mes "Obrigado.";
 			next;
 			mes "[Stangckle]";
-			mes "Now if you'll excuse me, I have work to do.";
+			mes "Agora, se você me der licença, tenho trabalho a fazer.";
 			close;
 		}
 		mes "[Stangckle]";
-		mes "What are you doing then? Stop wasting my time.";
+		mes "O que você está fazendo?";
+		mes "Pare de desperdiçar meu tempo.";
 		close;
 	}
 	else if (metto_q == 0) {
-		mes "I am one of the scientists in this city. My name is Stangckle.";
+		mes "Eu sou um dos cientistas desta cidade.";
+		mes "Meu nome é Stangckle.";
 		next;
 		mes "[Stangckle]";
-		mes "You should remember my name, it may be useful to you in the future.";
+		mes "Você deve guardar meu nome, pode lhe ser útil no futuro.";
 		close;
 	}
 	else if (metto_q == 1) {
-		mes "I am one of the scientists in this city. My name is Stangckle.";
+		mes "Eu sou um dos cientistas desta cidade.";
+		mes "Meu nome é Stangckle.";
 		next;
 		mes "[Stangckle]";
-		mes "You should remember my name, it may be useful to you in the future.";
+		mes "Você deve guardar meu nome, pode lhe ser útil no futuro.";
 		close;
 	}
 	else {
-		mes "So Metto has become one of those mad scientists. I guess that is the choice he has ultimately made for his life.";
+		mes "Então Meto tornou-se um dos cientistas loucos.";
+		mes "Eu acho que é a pior escolha que ele fez para sua vida.";
 		close;
 	}
 }
@@ -320,47 +363,54 @@ yuno_in01,17,95,5	script	Stangckle#juno	4W_M_03,{
 yuno_in01,19,183,5	script	Kato#juno	1_M_JOBTESTER,{
 	mes "[Kato]";
 	if (metto_q == 4) {
-		mes "I am a scientist researching all sorts of things.";
+		mes "Eu sou um cientista a pesquisar todos os tipos de coisas.";
 		next;
 		mes "[Kato]";
-		mes "Of course, my research is private and confidential. But is there anything I can do for you?";
+		mes "Claro, minha pesquisa é privada e confidencial.";
+		mes "Mas há algo que eu possa fazer por você?";
 		next;
-		if (select("I want to stop you from making a mistake.:Just saying hello.") == 1) {
+		if (select("Eu vim lhe ajudar.:Apenas dizer Olá.") == 1) {
 			metto_q = 5;
 			mes "[Kato]";
-			mes "What? Metto said, my Great Z is inferior to Stangckles research?!";
+			mes "O quê? Meto disse, que meu Grande Z é inferior à pesquisa de Stangckles?!";
 			next;
 			mes "[Kato]";
-			mes "H-he said I should rename my invention to 'Lame Z?' *Sniff* I... I don't believe it... *Sob*";
+			mes "E-ele disse que eu deveria mudar o nome de minha invenção para 'Lixo Z?'";
+			mes "*Choro*";
+			mes "E-Eu não acredito...";
+			mes "*Choro*";
 			next;
 			mes "[Kato]";
-			mes "I-If my invention is no good, then I guess I should destroy my Great Z... *sigh*";
+			mes "S-se a minha invenção não é boa, então eu acho que eu deveria destruir a minha Grande Z...";
+			mes "*Choro*";
 			next;
 			mes "[Kato]";
-			mes "Thank you for letting me know. I know it wasn't easy to tell me.";
+			mes "Obrigado por me avisar.";
+			mes "Eu sei que não foi fácil me dizer isso.";
 			close;
 		}
 		mes "[Kato]";
 		mes ".........................";
-		mes "Okay...";
-		mes "Um... Hey.";
+		mes "Ok...";
+		mes "Hum... Oi.";
 		close;
 	}
 	else if (metto_q == 6 || metto_q == 7 || metto_q == 8 || metto_q == 9) {
-		mes "I am interested in researching artificial intelligence. You know, like robots.";
+		mes "Estou interessado em pesquisar a inteligência artificial.";
+		mes "Você sabe, a dos os robôs.";
 		next;
 		mes "[Kato]";
-		mes "I know it a very difficult feat to accomplish, but where there's a will, there's a way.";
+		mes "Eu sei que um feito muito difícil de se realizar, mas onde há uma vontade, há um caminho.";
 		next;
 		mes "[Kato]";
-		mes "If you ever see something really amazing like this, you'll know its my handiwork.";
+		mes "Se você já viu algo realmente incrível, espere até conhecer minha obra prima.";
 		close;
 	}
 	else {
-		mes "I am a scientist of Artificial Intelligence and Robotics.";
+		mes "Eu sou um cientista que estuda Inteligência Artificial e Robótica.";
 		next;
 		mes "[Kato]";
-		mes "I don't have a specific project right now, but my latest creation, the 'Great Z,' is truly a product of sheer and utter genius.";
+		mes "Eu não tenho um projeto específico agora, mas a minha mais recente criação, o Grande 'Z' é verdadeiramente um produto de gênio, é o mais pura e completa invenção.";
 		close;
 	}
 }
@@ -368,54 +418,65 @@ yuno_in01,19,183,5	script	Kato#juno	1_M_JOBTESTER,{
 yuno_in03,178,43,0	script	CiCi#juno	2_M_MOLGENSTEIN,{
 	if (metto_q == 6) {
 		mes "[CiCi]";
-		mes "My name is CiCi. I am one of the three great scientists in this city.";
+		mes "Meu nome é CiCi.";
+		mes "Eu sou um dos três grandes cientistas desta cidade.";
 		next;
 		mes "[CiCi]";
-		mes "There are many great scientists in this city, but being in the top three is a true honor. Don't you agree?";
+		mes "Há muitos grandes cientistas nesta cidade, mas estar entre os três primeiros é uma verdadeira honra.";
+		mes "Você não concorda?";
 		next;
 		mes "[CiCi]";
-		mes "Well, I think I've bragged a little too much now, what can I do for you?";
+		mes "Bem, eu acho que já me gabei um pouco demais, agora, o que eu posso fazer por você?";
 		next;
-		switch(select("I want to warn you.:Nothing, just saying Hi.")) {
+		switch(select("Eu quero lhe avisar.:Nada mesmo.")) {
 		case 1:
 			metto_q = 7;
 			mes "[CiCi]";
-			mes "Hm? Metto said that he doesn't need my Riding Engine theory?! Hmpf, what an ingrate!";
+			mes "Hum? Meto disse que ele não precisa da minha teoria sobre Montarias?!";
+			mes "Hmpf, que ingrato!!!";
 			next;
 			mes "[CiCi]";
-			mes "I have half a mind to teach him a little something about true science and intelligent research.";
+			mes "Eu deveria era ir ensiná-lo um pouco sobre a verdadeira ciência e a pesquisa inteligente.";
 			next;
 			mes "[CiCi]";
-			mes "He thinks that I owe him an apology?! For what? Why should I apologize...?!";
+			mes "Ele acha que eu devo-lhe um pedido de desculpas?!";
+			mes "Por quê?";
+			mes "Por que eu deveria pedir desculpas...?!";
 			next;
 			mes "[CiCi]";
-			mes "Whatever, I really didn't have the necessary parts to help him anyway. I guess, either way, he would not have had a chance.";
+			mes "Seja como for, eu realmente não tenho as peças necessárias para ajudá-lo.";
+			mes "Eu acho que, de qualquer forma, ele não merecia.";
 			next;
 			mes "[CiCi]";
-			mes "Let him know I really don't want to be a part of what he is doing. He isn't even doing the type of research that we would be able to publicize.";
+			mes "Deixe que ele saiba que eu realmente não quero fazer parte do que ele está fazendo.";
+			mes "Ele não está mesmo fazendo o tipo de pesquisa que seria capaz de divulgar.";
 			close;
 			break;
 		case 2:
 			mes "[CiCi]";
-			mes "What? That's it? I was bored before you came, but you've managed to bore me even more.";
+			mes "O quê? É isso?";
+			mes "Eu estava entediado antes de você chegar, mas você conseguiu me deixar ainda mais.";
 			break;
 		}
 	}
 	else if (metto_q < 6) {
 		mes "[CiCi]";
-		mes "My name is CiCi. I am one of the three great scientists in this city.";
+		mes "Meu nome é CiCi.";
+		mes "Eu sou um dos três grandes cientistas desta cidade.";
 		next;
 		mes "[CiCi]";
-		mes "There are many great scientists here, but being in the top three is a true honor, wouldn't you agree?";
+		mes "Há muitos grandes cientistas aqui, mas estar entre os três primeiros é uma verdadeira honra, não concorda?";
 		close;
 	}
 	else {
 		mes "[CiCi]";
-		mes "Hmmm...";
-		mes "I want to improve the Riding Engine in a new way, but I lack the parts I need...";
+		mes "Humm...";
+		mes "Eu quero melhorar o motor da Equitação de uma maneira nova, mas me falta as peças que eu preciso...";
 		next;
 		mes "[CiCi]";
-		mes "What a headache~ And Metto has never offered me any help at all. This will not be easy.";
+		mes "Isso é uma dor de cabeça.";
+		mes "E Meto nunca me ofereceu nenhuma ajuda com nada.";
+		mes "Isto não será fácil.";
 		close;
 	}
 }
@@ -424,21 +485,22 @@ yuno_in03,178,43,0	script	CiCi#juno	2_M_MOLGENSTEIN,{
 //============================================================
 yuno_in01,103,157,3	script	Bain#juno	4W_M_02,{
 	if (checkweight(1201,1) == 0) {
-		mes "- Wait a minute !! -";
-		mes "- Currently you're carrying -";
-		mes "- too many items with you. -";
-		mes "- Please try again -";
-		mes "- after you loose some weight. -";
+		mes "Espere um minuto!!";
+		mes "Você está carregandomuitos itens com você.";
+		mes "Por favor, tente novamente depois de perder um pouco de peso. -";
 		close;
 	}
 	if (countitem(974) > 0 && countitem(612) > 4 && countitem(1003) > 4 && countitem(7068) > 4 && countitem(7043) > 4 && countitem(757) > 2 && countitem(756) > 2 && Zeny > 2000) {
 		if (ALCH_Q == 23) ALCH_Q = 24;
 		.@kyulkwa = rand(1,10);
 		mes "[Bain]";
-		mes "Oh ho ho... These are the parts that I needed. Thank you so much.";
+		mes "Oh ho ho...";
+		mes "Estas são as peças que eu precisava.";
+		mes "Muito obrigado.";
 		next;
 		mes "[Bain]";
-		mes "Okay, let's try this out! Hold on for just a second!";
+		mes "Ok, vamos tentar fazer isso!";
+		mes "Segure-se por apenas um segundo!";
 		next;
 		mes "^3355FF*Vrrrmmmmm*^000000";
 		next;
@@ -455,69 +517,61 @@ yuno_in01,103,157,3	script	Bain#juno	4W_M_02,{
 	}
 	if (bros_q == 1) {
 		mes "[Bain]";
-		mes "In case you";
-		mes "forgot, these are the";
-		mes "required materials.";
-		mes "Write it down if you need to.";
+		mes "No caso de você esquecer, estes são os materiais necessários.";
+		mes "Anote-os se precisar.";
 		next;
 		mes "[Bain]";
-		mes "^FF00001 Mixture^000000, ^FF00005 Mini-Furnace^000000,";
-		mes "^FF00005 Burnt Tree^000000 , ^FF00005 Coal^000000,";
-		mes "^FF00005 Fine Sand^000000, ^FF00003 Rough Elunium^000000,";
-		mes "^FF00003 Rough Oridecon^000000^000000.";
+		mes "^FF00001 Místura^000000, ^FF00005 Mini-Fornalha^000000,";
+		mes "^FF00005 Carvão^000000 , ^FF00005 Madeira Queimada^000000,";
+		mes "^FF00005 Areia Fina^000000, ^FF00003 Minério de Elunium^000000,";
+		mes "^FF00003 Minério Oridecon^000000^000000.";
 		next;
 		mes "[Bain]";
-		mes "In addition to this, you ";
-		mes "will need 2,000 zeny.";
-		mes "Good Luck...";
+		mes "Além desto, é necessário 2,000 zeny.";
+		mes "Boa sorte...";
 		close;
 	}
 	if (bros_q == 0) {
 		mes "[Bain]";
-		mes "We are going to invent a doll that can can talk and communicate! Well, at least, I'm trying to.";
+		mes "Vamos inventar uma boneca que pode falar e comunicar-se!";
+		mes "Bem, pelo menos, eu estou tentando.";
 		next;
 		mes "[Bain]";
-		mes "I got the idea from a historical legend. I figure that if it's been done before, this project is definitely possible.";
+		mes "Eu tive a idéia de uma lenda histórica.";
+		mes "Eu acho que, se isso já foi feito antes, esse projeto é definitivamente possível.";
 		next;
 		mes "[Bain]";
-		mes "But right now, I lack the supplies";
-		mes "and parts that I need to attempt";
-		mes "this feat. I don't know how";
-		mes "they gathered all the necessary materials....";
+		mes "Mas agora, eu não tenho os suprimentos e peças que eu preciso para tentar este feito.";
+		mes "Eu não sei como eles reuniram todos os materiais necessários....";
 		next;
 		mes "[Bain]";
-		mes "Money can only buy some of what I";
-		mes "need. There are also those items";
-		mes "that need to be taken from";
-		mes "monsters that are much too";
-		mes "powerful. How will I continue my research?";
+		mes "O dinheiro pode comprar apenas um pouco do que eu";
+		mes "preciso.";
+		mes "Há também aqueles artigos que devem ser obtidos a partir de monstros que são muito poderosos.";
+		mes "Como eu vou continuar minha pesquisa?";
 		next;
-		if (select("I'll get them for you.:Good luck.") == 1) {
+		if (select("Vou trazer para você.:Boa sorte.") == 1) {
 			bros_q = 1;
 			mes "[Bain]";
-			mes "Really? Such benevolence is rare";
-			mes "in this day and age. We would be";
-			mes "grateful for your assistance.";
-			mes "Here are the items that we will be";
-			mes "needing.";
+			mes "Sério?";
+			mes "Tal benevolência é rara hoje em dia.";
+			mes "Somos gratos pela sua ajuda.";
+			mes "Aqui estão os itens que serão necessários.";
 			next;
 			mes "[Bain]";
-			mes "^FF00001 Mixture^000000, ^FF00005 Mini-Furnace^000000,";
-			mes "^FF00005 Burnt Tree^000000 , ^FF00005 Coal^000000,";
-			mes "^FF00005 Fine Sand^000000, ^FF00003 Rough Elunium^000000,";
-			mes "^FF00003 Rough Oridecon^000000^000000.";
+			mes "^FF00001 Místura^000000, ^FF00005 Mini-Fornalha^000000,";
+			mes "^FF00005 Carvão^000000 , ^FF00005 Madeira Queimada^000000,";
+			mes "^FF00005 Areia Fina^000000, ^FF00003 Minério de Elunium^000000,";
+			mes "^FF00003 Minério Oridecon^000000^000000.";
 			next;
 			mes "[Bain]";
-			mes "We will also need 2,000 Zeny.";
-			mes "The money will help pay for the";
-			mes "minor expenses involved in undertaking this endeavor.";
-			mes "Godspeed.";
+			mes "Nós também precisaremos de 2,000 Zeny.";
+			mes "O dinheiro vai ajudar a pagar pequenas despesas envolvidas na realização deste empreendimento.";
+			mes "Boa Sorte.";
 			close;
 		}
 		mes "[Bain]";
-		mes "I wish I could be";
-		mes "a strong adventurer";
-		mes "like you.";
+		mes "Eu gostaria de ser um poderoso aventureiro assim como você.";
 		close;
 	}
 
@@ -532,47 +586,47 @@ S_DelItems:
 	Zeny -= 2000;
 	getitem getarg(0),getarg(1); //Gold
 	mes "[Bain]";
-	mes "AHHH, it is a success!";
-	mes "I don't know if we can do anything else,";
+	mes "AHHH, foi um sucesso!";
+	mes "Eu não sei se podemos fazer algo:";
 	if (getarg(2) == 1)
-		mes "but this time we have created "+getarg(1);
+		mes "Desta vez nós criamos "+getarg(1);
 	else
-		mes "but this time we have created";
-	mes "^FF0000"+getitemname(getarg(0))+"^000000 !";
+		mes "Desta vez nós criamos ^FF0000"+getitemname(getarg(0))+"^000000 !";
 	next;
 	mes "[Bain]";
-	mes "Now that we know that it works";
-	mes "I don't have any need for this.";
-	mes "Why don't you take it? Oh,";
-	mes "and if you find any more parts,";
-	mes "bring them to me again. Heheheh.";
+	mes "Agora que sabemos que ele funciona";
+	mes "Eu não preciso mais disso.";
+	mes "Você o aceitaria?";
+	mes "Ah, e se você encontrar algumas peças a mais traga-os para mim de novo.";
+	mes "Heheheh.";
 	next;
 	mes "[Bain]";
-	mes "Thank you for helping me out.";
-	mes "You have my eternal gratitude.";
-	mes "I wish you luck in your journeys!";
+	mes "Obrigado por me ajudar.";
+	mes "Você tem a minha eterna gratidão.";
+	mes "Desejo-lhe sorte em suas viagens!";
 	close;
 }
 
 yuno_in01,100,153,7	script	Bajin	1_M_01,0,0,{
 	if (checkweight(1201,1) == 0) {
-		mes "- Wait a minute !! -";
-		mes "- Currently you're carrying -";
-		mes "- too many items with you. -";
-		mes "- Please try again -";
-		mes "- after you loose some weight. -";
+		mes "Espere um minuto!!";
+		mes "Você está carregandomuitos itens com você.";
+		mes "Por favor, tente novamente depois de perder um pouco de peso. -";
 		close;
 	}
 	if (countitem(974) > 0 && countitem(612) > 4 && countitem(1003) > 4 && countitem(7068) > 4 && countitem(7043) > 4 && countitem(757) > 2 && countitem(756) > 2 && Zeny > 2000) {
 		if (ALCH_Q == 23) ALCH_Q = 24;
 		.@kyulkwa = rand(1,10);
 		mes "[Bajin]";
-		mes "Oh ho ho... These are the parts";
-		mes "that I needed. Thank you so much.";
-		mes "Okay, let's try this out!";
-		mes "Hold on for just a second!";
+		mes "Oh ho ho...";
+		mes "Estas são as peças que eu precisava.";
+		mes "Muito obrigado.";
 		next;
-		mes "^3355FF*Vrrrmrmrmrmrmrmrmrmrmrmmmmm*^000000";
+		mes "[Bajin]";
+		mes "Ok, vamos tentar fazer isso!";
+		mes "Segure-se por apenas um segundo!";
+		next;
+		mes "^3355FF*Vrrrmmmmm*^000000";
 		next;
 		mes "^3355FF*Pakakkakakakkakaakapakakkakak*^000000";
 		next;
@@ -588,62 +642,57 @@ yuno_in01,100,153,7	script	Bajin	1_M_01,0,0,{
 	}
 	if (bros_q == 1) {
 		mes "[Bajin]";
-		mes "In case you";
-		mes "forgot, these are the";
-		mes "required materials.";
-		mes "Write it down if you need to.";
+		mes "No caso de você esquecer, estes são os materiais necessários.";
+		mes "Anote-os se precisar.";
 		next;
 		mes "[Bajin]";
-		mes "^FF00001 Mixture^000000, ^FF00005 Mini-Furnace^000000,";
-		mes "^FF00005 Burnt Tree^000000 , ^FF00005 Coal^000000,";
-		mes "^FF00005 Fine Sand^000000, ^FF00003 Rough Elunium^000000,";
-		mes "^FF00003 Rough Oridecon^000000^000000.";
+		mes "^FF00001 Místura^000000, ^FF00005 Mini-Fornalha^000000,";
+		mes "^FF00005 Carvão^000000 , ^FF00005 Madeira Queimada^000000,";
+		mes "^FF00005 Areia Fina^000000, ^FF00003 Minério de Elunium^000000,";
+		mes "^FF00003 Minério Oridecon^000000^000000.";
 		next;
 		mes "[Bajin]";
-		mes "In addition to this, you ";
-		mes "will need 2,000 zeny.";
-		mes "Good Luck...";
+		mes "Além desto, é necessário 2,000 zeny.";
+		mes "Boa sorte...";
 		close;
 	}
 	if (bros_q == 0) {
 		mes "[Bajin]";
-		mes "We are going to invent a doll that can can talk and communicate! Well, at least, I'm trying to.";
+		mes "Vamos inventar uma boneca que pode falar e comunicar-se!";
+		mes "Bem, pelo menos, eu estou tentando.";
 		next;
 		mes "[Bajin]";
-		mes "I got the idea from a historical legend. I figure that if it's been done before, this project is definitely possible.";
+		mes "Eu tive a idéia de uma lenda histórica.";
+		mes "Eu acho que, se isso já foi feito antes, esse projeto é definitivamente possível.";
 		next;
 		mes "[Bajin]";
-		mes "But right now, I lack the supplies";
-		mes "and parts that I need to attempt";
-		mes "this feat. I don't know how";
-		mes "they gathered all the necessary materials....";
+		mes "Mas agora, eu não tenho os suprimentos e peças que eu preciso para tentar este feito.";
+		mes "Eu não sei como eles reuniram todos os materiais necessários....";
 		next;
 		mes "[Bajin]";
-		mes "Money can only buy some of what I";
-		mes "need. There are also those items";
-		mes "that need to be taken from";
-		mes "monsters that are much too";
-		mes "powerful. How will I continue my research?";
+		mes "O dinheiro pode comprar apenas um pouco do que eu";
+		mes "preciso.";
+		mes "Há também aqueles artigos que devem ser obtidos a partir de monstros que são muito poderosos.";
+		mes "Como eu vou continuar minha pesquisa?";
 		next;
-		if (select("I'll get them for you.:Good luck.") == 1) {
+		if (select("Vou trazer para você.:Boa sorte.") == 1) {
 			bros_q = 1;
 			mes "[Bajin]";
-			mes "Oh, you are too kind.";
-			mes "We would be grateful for your assistance.";
-			mes "Here are the items that we will be";
-			mes "needing.";
+			mes "Sério?";
+			mes "Tal benevolência é rara hoje em dia.";
+			mes "Somos gratos pela sua ajuda.";
+			mes "Aqui estão os itens que serão necessários.";
 			next;
 			mes "[Bajin]";
-			mes "^FF00001 Mixture^000000, ^FF00005 Mini-Furnace^000000,";
-			mes "^FF00005 Burnt Tree^000000 , ^FF00005 Coal^000000,";
-			mes "^FF00005 Fine Sand^000000, ^FF00003 Rough Elunium^000000,";
-			mes "^FF00003 Rough Oridecon^000000^000000.";
+			mes "^FF00001 Místura^000000, ^FF00005 Mini-Fornalha^000000,";
+			mes "^FF00005 Carvão^000000 , ^FF00005 Madeira Queimada^000000,";
+			mes "^FF00005 Areia Fina^000000, ^FF00003 Minério de Elunium^000000,";
+			mes "^FF00003 Minério Oridecon^000000^000000.";
 			next;
 			mes "[Bajin]";
-			mes "We will also need 2,000 Zeny.";
-			mes "The money will help pay for the";
-			mes "minor expenses in undertaking this endeavor.";
-			mes "Godspeed.";
+			mes "Nós também precisaremos de 2,000 Zeny.";
+			mes "O dinheiro vai ajudar a pagar pequenas despesas envolvidas na realização deste empreendimento.";
+			mes "Boa Sorte.";
 			close;
 		}
 		close;
@@ -660,66 +709,69 @@ S_DelItems:
 	Zeny -= 2000;
 	getitem getarg(0),getarg(1); //Gold
 	mes "[Bajin]";
-	mes "AHHH, it is a success!";
-	mes "I don't know if we can do anything else,";
+	mes "AHHH, foi um sucesso!";
+	mes "Eu não sei se podemos fazer algo:";
 	if (getarg(2) == 1)
-		mes "but this time we have created "+getarg(1);
+		mes "Desta vez nós criamos "+getarg(1);
 	else
-		mes "but this time we have created";
-	mes "^FF0000"+getitemname(getarg(0))+"^000000 !";
+		mes "Desta vez nós criamos ^FF0000"+getitemname(getarg(0))+"^000000 !";
 	next;
 	mes "[Bajin]";
-	mes "Now that we know that it works";
-	mes "I don't have any need for this.";
-	mes "Why don't you take it? Oh,";
-	mes "and if you find any more parts,";
-	mes "bring them to me again. Heheheh.";
+	mes "Agora que sabemos que ele funciona";
+	mes "Eu não preciso mais disso.";
+	mes "Você o aceitaria?";
+	mes "Ah, e se você encontrar algumas peças a mais traga-os para mim de novo.";
+	mes "Heheheh.";
 	next;
 	mes "[Bajin]";
-	mes "Thank you for helping me out.";
-	mes "You have my eternal gratitude.";
-	mes "I wish you luck in your journeys!";
+	mes "Obrigado por me ajudar.";
+	mes "Você tem a minha eterna gratidão.";
+	mes "Desejo-lhe sorte em suas viagens!";
 	close;
 }
 
 // Doomed Swords - Juno Portion :: matnani_yuno
 //============================================================
-yuno,157,87,4	script	A Citizen of Juno#juno	8_F,{
+yuno,157,87,4	script	Cidadão de Juno#juno	8_F,{
 	mes "[Shalima]";
-	mes "When you go north from Al De Baran, you will arrive at 'Elmeth Plateau,' a place covered with molten rock.";
+	mes "Quando você vai para o norte de Al De Baran, você vai chegar ao 'Planalto Elmeth, um lugar coberto com rocha derretida.";
 	next;
 	mes "[Shalima]";
-	mes "On the top of a mountain connected to the plateau, you can find a bridge which leads you to this place!, ^3355FFJuno,^000000 the city of Sages.";
+	mes "No topo de uma montanha ligado ao planalto, você pode encontrar uma ponte que leva você a este lugar!";
+	mes "^3355FFJuno,^000000 a cidade dos Sábios.";
 	next;
 	if (dmdswrd_Q == 23) {
 		mes "[Shalima]";
-		mes "Oh...?";
-		mes "what is that shining object you're carrying with you? Isn't that...?";
+		mes "Ah...?";
+		mes "o que é esse objeto brilhante que você está carregando com você?";
+		mes "Não seria o...?";
 		next;
 		mes "[Shalima]";
-		mes "The ^3355FFStamp of Muriniel^000000? What a surprise!";
+		mes "O ^3355FFSelo de  Muriniel^000000? Que surpresa!";
 		next;
 		mes "[Shalima]";
-		mes "When you go East from the entrance of Juno, you will find the Street of Book Stores. If you have some time, please visit ^3355FFSir Yklah^000000 who is one of 3 well-known sages in Juno.";
+		mes "Quando você vai para o leste a partir da entrada de Juno, você vai encontrar a Rua das livrarias.";
+		mes "Se você tiver algum tempo, visite o ^3355FFSr. Yklah^000000 que é um dos três famosos sábios de Juno.";
 		next;
 		mes "[Shalima]";
-		mes "I believe he may take some special interest in the Stamp you are carrying.";
+		mes "Eu acredito que ele pode ter algum interesse especial na selo que você está carregando.";
 		close;
 	}
 	else {
 		mes "[Shalima]";
-		mes "In Juno, you can visit places such as the 'Juphero Plaza,' 'Juno Conference Hall,' 'Schweicherbil Magic Academy', or the 'Monster Museum.' These places are famous around the world!";
+		mes "Em Juno, você pode visitar lugares como a 'Praça de Juperos', 'a Conferência Municipal de Juno','a Academia Mágica de Schweicherbil', ou o 'Museu de Monstros'.";
+		mes "Esses lugares são famosos em todo o mundo!";
 		next;
 		mes "[Shalima]";
-		mes "You may also wish to drop by the 'Sage Castle,' where people can change their jobs into 'Sage,' one of the more unique classes.";
+		mes "Você também pode ir ao 'Sábio Castelo', onde as pessoas podem mudar de classe para 'Sábio', uma das classes mais poderosas.";
 		next;
 		mes "[Shalima]";
-		mes "If you're interested in the Sage class, why don't you go look around the castle?";
+		mes "Se você estiver interessado na classe Sábio, por que você não vai até as proximidades do castelo?";
 		close;
 	}
 }
 
-yuno,261,99,4	script	Sage Yklah#juno	4_M_JOB_WIZARD,{
+yuno,261,99,4	script	Sábio Yklah#juno	4_M_JOB_WIZARD,{
 	if (dmdswrd_Q == 23 || dmdswrd_Q == 24 || dmdswrd_Q == 25) {
 		switch(dmdswrd_Q) {
 		case 23:
@@ -727,535 +779,590 @@ yuno,261,99,4	script	Sage Yklah#juno	4_M_JOB_WIZARD,{
 			mes "- ! ! ! -";
 			next;
 			mes "[Yklah]";
-			mes "That item...";
-			mes "That shining item you're carrying, isn't that...? ^3355FFStamp of Muriniel^000000?! Oh! What a surprise!";
+			mes "Esse item...";
+			mes "Esse item brilhante que você está carregando, não seria o...";
+			mes "^3355FFSelo de Muriniel^000000?!";
+			mes "Ah! Que surpresa!";
 			next;
 			mes "[Yklah]";
-			mes "I've heard that it's from a hot and dry land, but I never dreamed I'd be able to see it with my own eyes!";
+			mes "Ouvi dizer que ele é de uma terra quente e seca, mas eu nunca sonhei que eu seria capaz de vê-lo com meus próprios olhos!";
 			next;
 			mes "[Yklah]";
-			mes "Who are you...? Who are you carrying this legendary item for?";
+			mes "Quem é você...?";
+			mes "Porque você está carregando este item lendário?";
 			next;
-			switch(select("(Show him the slate):I'm a genius!:I'm a GM!")) {
+			switch(select("Mostre-lhe a lousa:Eu sou um Gênio!:Eu sou um GM!")) {
 			case 1:
 				mes "[Yklah]";
-				mes "...I can't believe my eyes! Only a chosen few can possess the Stamp of Muriniel...";
+				mes "...Eu não posso acreditar em meus olhos!";
+				mes "Apenas alguns poucos escolhidos podem possuir o Selo de Muriniel...";
 				next;
 				mes "[Yklah]";
-				mes "Oh yes. That's right, that's right. As far as I can tell, you don't seem to understand how to use this item...";
+				mes "Ah, sim.";
+				mes "É isso mesmo, isso é certo.";
+				mes "Tanto quanto eu posso dizer, você não parece entender como usar esse item...";
 				next;
 				mes "[Yklah]";
-				mes "There is one old song in Juno, about ^3355FF'The Doomed Sword'^000000 that you may have been looking for.";
+				mes "Há uma velha canção em Juno, sobre ^3355FF'A Espada da Perdição'^000000 que você pode está procurando.";
 				next;
 				mes "[Yklah]";
-				mes "'Even if you're running toward a light on the other side of the mist, you can't reach it.'";
+				mes "'Mesmo se você está correndo em direção a uma luz do outro lado da névoa, você pode não ancança-la.'";
 				next;
 				mes "[Yklah]";
-				mes "'The chime of the bell from across the valley cannot be held in your hand.'";
+				mes "'O carrilhão do sino de todo o vale não pode ser realizada em sua mão.'";
 				next;
 				mes "[Yklah]";
-				mes "Yes, it's sort of a difficult song to understand, but it's supposed to express how Sages in ancient times feel about obtaining the doomed swords.";
-				//mes "that's how exactly sages in ancient ages felt about obtaining the doomed sword.";
+				mes "Sim, é uma espécie de canção difícil de entender, mas que deveria expressar como Sábios em tempos antigos se sentiam ao saber das espadas amaldiçoadas.";
 				next;
 				mes "[Yklah]";
-				mes "If you're still set on the idea of obtaining the doomed sword, come and talk to me sometime.";
+				mes "Se você ainda está definido na idéia de obter a espada amaldiçoada, venha falar comigo algum dia.";
 				next;
 				mes "[Yklah]";
-				mes "As you already possess the Stamp of Muriniel, I am more than willing to help you.";
+				mes "Como você já possui o Selo de Muriniel, eu estou mais do que disposto a ajudá-lo.";
 				dmdswrd_Q = 24;
 				close;
 			case 2:
-				mes "[Yklah]";
-				mes "Hmm?";
-				mes "A genius you say? How can you say that in a city full of wise men? That's nothing special.";
+				mes "Hum?";
+				mes "Um gênio você diz?";
+				mes "Como você pode dizer isso, em uma cidade cheia de homens sábios?";
+				mes "Isso não é nada especial.";
 				next;
 				mes "[Yklah]";
-				mes "Plus, if you're a colleague, I think I would remember you. I don't tend to forget people that I've met at least once.";
+				mes "Além disso, se você é um colega, eu acho que vou lembrar de você.";
+				mes "Eu não costumo esquecer as pessoas que eu conheci pelo menos uma vez.";
 				close;
 			case 3:
 				mes "[Yklah]";
-				mes "A...";
+				mes "Hum...";
 				mes "GM?";
 				next;
 				mes "[Yklah]";
-				mes "I don't understand what you're talking about. But there's an ancient Juno song about this GM you speak of...";
+				mes "Eu não entendo o que você está falando.";
+				mes "Mas há uma canção antiga Juno sobre este GM de que fala...";
 				next;
 				mes "[Yklah]";
-				mes "'^FF3355Impersonating GMs is punishable with a permanent account block^000000.' But what could it possibly mean?";
+				mes "'^FF3355Se passar por GMs acarreta em uma punição a sua conta permanente^000000.'";
+				mes "Mas o que poderia possivelmente significar?";
 				next;
-				mes "^3355FFHow depressing!^000000";
+				mes "^3355FFQue deprimente!^000000";
 				close;
 			}
 		case 24:
 			if (countitem(7030) > 2 && countitem(913) > 9 && countitem(7032) > 0) {
 				mes "[Yklah]";
-				mes "Hmm! Good job, you brought all of the items. Try inserting them in the grooves.";
+				mes "Hum! Bom trabalho, você trouxe todos os itens.";
+				mes "Tentar colocá-los nos encaixes.";
 				next;
 				mes "[Yklah]";
-				mes "To be honest, I thought about it before, but this is the first time that I'll actually try this experiment. Go ahead, I want to see what happens!";
+				mes "Para ser honesto, eu pensei sobre isso antes, mas esta é a primeira vez que eu vou realmente tentar esta experiência.";
+				mes "Vá em frente, eu quero ver o que acontece!";
 				next;
-				mes "^3355FFYou inserted items";
-				mes "in the grooves .^000000";
+				mes "^3355FFVocê inseriu os itens nos encaixes .^000000";
 				delitem 7030,3; //Claw_Of_Desert_Wolf
 				delitem 913,10; //Tooth_Of_Bat
 				delitem 7032,1; //Piece_Of_Egg_Shell
 				next;
 				mes "^3355FF*Crank Crank*^000000";
-				mes "^3355FFYou hear a strange sound come from inside the statue.^000000";
+				mes "^3355FFVocê ouve um som estranho vindo de dentro da estátua.^000000";
 				next;
-				mes "^3355FF*Click*";
-				mes "*Click Click*^000000";
+				mes "^3355FF*Trink*";
+				mes "*Trink Trink*^000000";
 				next;
-				mes "^3355FFA small hole opened near the foot of the statue, and a ^9999FF Stamp of Muriniel^3355FF came out of the hole.^000000";
+				mes "^3355FFE de um pequeno buraco aberto perto do pé da estátua, sai um ^9999FFSelo de  Muriniel^3355FF.^000000";
 				next;
-				mes "^3355FFYou got ^9999FFA piece from the Stamp of Muriniel^3355FF.^000000";
+				mes "^3355FFVocê tem ^9999FFUm pedaço da Selo de  Muriniel^3355FF.^000000";
 				next;
 				mes "[Yklah]";
-				mes "Huh?! That piece seems to fit to the stamp you have. Why don't you try joining them together?";
+				mes "Huh?! Aquele pedaço parece se encaixar com o selo que você tem.";
+				mes "Por que você não tentar juntar eles em um só?";
 				next;
-				mes "^3355FFYou join the two stamps together.^000000";
+				mes "^3355FFVocê junta os dois selos em um só.^000000";
 				next;
-				mes "^3355FFYou got the";
-				mes "True Stamp of Muriniel.^000000";
+				mes "^3355FFVocê obteve o verdadeiro Selo de  Muriniel.^000000";
 				dmdswrd_Q = 25;
 				next;
 				mes "[Yklah]";
-				mes "Oh? This pattern is...!! Ah, now I see how it works. Now, please listen...";
+				mes "Ah? Este padrão é...!!";
+				mes "Ah, agora eu vou ver como ele funciona.";
+				mes "Agora, por favor, ouça...";
 				next;
 				mes "[Yklah]";
-				mes "I'd like you to bring the slate to Snotora, the island of knowledge, that is a part of Juno. You will find a Statue of the Goddess Snotora somewhere on the island.";
+				mes "Eu preciso que você traga a ardósia para Snotora, a ilha do conhecimento, que é uma parte de Juno.";
+				mes "Você vai encontrar uma estátua da Deusa Snotora em algum lugar da ilha.";
 				next;
 				mes "[Yklah]";
-				mes "Near the statue, you will find ^3355FFSyklah^000000, one of well-known 3 sages in Juno. Speak to him, he will tell you something about the pattern on the slate.";
+				mes "Perto da estátua, você encontrará ^3355FFSyklah^000000, um dos três sábios famosos de Juno.";
+				mes "Fale com ele, ele vai lhe dizer algo sobre o padrão da lousa.";
 				next;
 				mes "[Yklah]";
-				mes "May God";
-				mes "light your way...";
+				mes "Que Deus ilumine seus caminhos...";
 				close;
 			}
 			else {
 				mes "[Yklah]";
-				mes "Let me tell you everything I know about the doomed sword. There's an old song about the legendary doomed sword...";
+				mes "Deixe-me dizer-lhe tudo o que sei sobre A Espada da Perdição.";
+				mes "Há uma velha canção sobre a lendária espada amaldiçoada...";
 				next;
 				mes "[Yklah]";
-				mes "^3355FFYou, the one with sincere faith, who humbly accepts the prosperity of Mineta, the knowledge of Snotora and the honor of Solomon...^000000";
+				mes "^3355FFVocê, o único com fé sincera, que humildemente aceita a prosperidade de Mineta, o conhecimento de Snotora e a honra de Salomão...^000000";
 				next;
 				mes "[Yklah]";
-				mes "^3355FFI hereby grant you this column of light. The Three Sages of Juno will be your guide^000000.";
+				mes "^3355FFTenho a honra de conceder-lhe esta coluna de luz.";
+				mes "Os Três Sábios de Juno serão o seu guia^000000.";
 				next;
 				mes "[Yklah]";
-				mes "Well, if you already know a little bit about Juno, you'd know that Juno consists of 3 islands that represent propsperity, knowledge and honor.";
+				mes "Bem, se você já sabe um pouco sobre Juno, você sabe que Juno é composto por 3 ilhas que representam o conhecimento, prosperidade, e honra.";
 				next;
 				mes "[Yklah]";
-				mes "The 3 sages described in the song represent each island. By now, you've probably guessed that I am one of them.";
+				mes "Os 3 sábios descritos na canção representar cada ilha.";
+				mes "Até agora, você provavelmente já descobriu que eu sou um deles.";
 				next;
 				mes "[Yklah]";
-				mes "There is a Juno tradition in which the three best Sages are chosen to represent each of Juno's islands.";
+				mes "Há uma tradição de Juno em que os três melhores Sábios são escolhidos para representar cada uma das ilhas de Juno.";
 				next;
 				mes "[Yklah]";
-				mes "As one of the three, I will serve as one of your guides in this part of your journey for the doomed sword.";
+				mes "Como um dos três, vou servir como um dos seus guias nesta parte da sua jornada para obter a espada amaldiçoada.";
 				next;
-				mes "^3355FFYklah pointed at a pole of the statue with his finger, and you see that there is a strange pattern engraved on the pole.^000000";
-				next;
-				mes "[Yklah]";
-				mes "Now, look at this. This statue was erected to pay tribute to one of the first 3 sages. When you look into the bottom of the pole, you will see several small grooves.";
+				mes "^3355FFYklah apontou para um pólo da estátua com o dedo, e você verá que há um estranho padrão gravado no pólo.^000000";
 				next;
 				mes "[Yklah]";
-				mes "If you insert some items in the grooves, we may get some more clues relating to the doomed sword.";
+				mes "Agora, olhe para isto.";
+				mes "Esta estátua foi erguida para prestar homenagem a um dos primeiros três sábios.";
+				mes "Quando você olha para o fundo do pólo, você vai ver várias pequenas ranhuras.";
 				next;
 				mes "[Yklah]";
-				mes "From the stories that I've been told by great Sages, I've figured exactly which items you'll need to place into those grooves.";
+				mes "Se você inserir alguns itens nas ranhuras, podemos obter mais algumas pistas relacionadas a espada amaldiçoada.";
 				next;
 				mes "[Yklah]";
-				mes "You will need...";
-				mes "^3355FF3 Claw of Desert Wolf^000000";
-				mes "^3355FF10 Tooth of Bat^000000";
-				mes "^3355FF1 Piece of Egg Shell^000000.";
+				mes "A partir das histórias que eu tenho ouvido de grandes sábios, eu descobri exatamente quais itens você precisa colocar nessas ranhuras.";
 				next;
 				mes "[Yklah]";
-				mes "Return once you have obtained those items, and we will speak of the doomed sword again.";
+				mes "Você vai precisar de...";
+				mes "^3355FF3 Garras de Lobo do Deserto^000000";
+				mes "^3355FF10 Dentes de Morcego^000000";
+				mes "^3355FF1 Pedaço de Casca de Ovo^000000.";
 				next;
 				mes "[Yklah]";
-				mes "For your information, you can obtain the claw of desert wolf from the Morroc desert, and the tooth of bat can be found in most caves around the world.";
+				mes "Volte depois de ter obtido esses itens, e vamos falar da Espada da Perdição novamente.";
 				next;
 				mes "[Yklah]";
-				mes "Lastly, the piece of egg shell can be found from solid egg monsters in the Payon cave.";
+				mes "Para sua informação, você pode obter a garra de lobo do deserto do deserto Morroc, eo dente de morcego pode ser encontrado na maioria das cavernas ao redor do mundo.";
+				next;
+				mes "[Yklah]";
+				mes "Por fim, o pedaço de casca de ovo pode ser encontrado a partir de monstros ovo sólidos na caverna de Payon.";
 				close;
 			}
 		case 25:
 			mes "[Yklah]";
-			mes "From the stories that I've been told by great Sages, I've figured exactly which items you'll need to place into those grooves.";
+			mes "A partir das histórias que eu tenho ouvido de grandes sábios, eu descobri exatamente quais itens você precisa colocar nessas ranhuras.";
 			next;
 			mes "[Yklah]";
-			mes "You will need...";
-			mes "^3355FF3 Claw of Desert Wolf^000000";
-			mes "^3355FF10 Tooth of Bat^000000";
-			mes "^3355FF1 Piece of Egg Shell^000000.";
+			mes "Você vai precisar de...";
+			mes "^3355FF3 Garras de Lobo do Deserto^000000";
+			mes "^3355FF10 Dentes de Morcego^000000";
+			mes "^3355FF1 Pedaço de Casca de Ovo^000000.";
 			next;
 			mes "[Yklah]";
-			mes "Return once you have obtained those items, and we will speak of the doomed sword again.";
+			mes "Volte depois de ter obtido esses itens, e vamos falar da Espada da Perdição novamente.";
 			next;
 			mes "[Yklah]";
-			mes "For your information, you can obtain the claw of desert wolf from the Morroc desert, and the tooth of bat can be found in most caves around the world.";
+			mes "Para sua informação, você pode obter a garra de lobo do deserto do deserto Morroc, eo dente de morcego pode ser encontrado na maioria das cavernas ao redor do mundo.";
 			next;
 			mes "[Yklah]";
-			mes "Lastly, the piece of egg shell can be found from solid egg monsters in the Payon cave.";
+			mes "Por fim, o pedaço de casca de ovo pode ser encontrado a partir de monstros ovo sólidos na caverna de Payon.";
 			close;
 		}
 	}
 	else {
 		mes "[Yklah]";
-		mes "^3355FFJuphero^000000...";
-		mes "That was the name of the city that once existed in ancient times.";
+		mes "^3355FFJuperos^000000...";
+		mes "Esse era o nome da cidade que uma vez existiu nos tempos antigos.";
 		next;
 		mes "[Yklah]";
-		mes "The most intelligent and talented people of that time lived there, harnessing the pieces of Ymir's heart to power their civilization.";
+		mes "As pessoas mais inteligentes e talentosos da época viviam lá, aproveitando os pedaços do coração de Ymir ao poder de sua civilização.";
 		next;
 		mes "[Yklah]";
-		mes "Unfortunately, they happened to abuse that great power and somehow destroyed themselves.";
+		mes "Infelizmente, aconteceu o abuso do grande poder e de alguma forma, destruíram-se.";
 		next;
 		mes "[Yklah]";
-		mes "If you long to acquire God's knowledge, you must first be humble. Otherwise...";
+		mes "Se tiver tempo para adquirir o conhecimento de Deus, você deve primeiro ser humilde. Caso contrário...";
 		close;
 	}
 }
 
-yuno,305,207,4	script	Sage Syklah#juno	4_M_JOB_WIZARD,{
+yuno,305,207,4	script	Sábio Syklah#juno	4_M_JOB_WIZARD,{
 	if (dmdswrd_Q == 25 || dmdswrd_Q == 26 || dmdswrd_Q == 27) {
 		switch(dmdswrd_Q) {
 		case 25:
 			mes "[Syklah]";
-			mes "What's that?!";
-			mes "Can it be the Stamp of Muriniel?";
+			mes "O que é isso?!";
+			mes "É a Selo de Muriniel?";
 			next;
 			mes "[Syklah]";
-			mes "Now, we shall battle to the death to see if you are worthy of possessing this item. Prepare yourself!";
+			mes "Agora, vamos lutar até a morte para ver se você é digno de possuir este item. Prepare-se!";
 			next;
 			mes "[Syklah]";
 			mes "...";
-			mes "Muhahahahaha!!! Don't worry, I was only messing with you. Yklah told me that you might be coming.";
+			mes "Muhahahahaha!!!";
+			mes "Não se preocupe, eu só estava brincando com você.";
+			mes "Yklah me disse que você pode estar vindo.";
 			next;
 			mes "[Syklah]";
-			mes "It is said that The Stamp of Muriniel chooses its owner by its own will, and will not appear otherwise.";
+			mes "Diz-se que o Selo de Muriniel escolhe seu dono pela sua própria vontade, e não aparece de outra forma.";
 			next;
 			mes "[Syklah]";
-			mes "Even though I am one of the three great Sages of Juno, I've never even seen this item before.";
+			mes "Mesmo que eu seja um dos três grandes sábios de Juno, eu nunca vi esse item antes.";
 			next;
 			mes "[Syklah]";
-			mes "Yklah gave me an idea about the Stamp of Muriniel you've brought, so we'll try it out as well.";
+			mes "Yklah me deu uma idéia sobre o Selo de Muriniel que você possui, por isso vamos experimentá-lo bem.";
 			next;
 			mes "[Syklah]";
-			mes "The pattern engraved on the Stamp of Muriniel has shapes that are similar to the pattern engraved on this^3355FFStatue of the Goddess Snotora^000000.";
+			mes "O padrão gravado no Selo de Muriniel tem formas que são semelhantes aos do padrão gravado nesta ^3355FFEstátua da Deusa Snotora^000000.";
 			next;
-			mes "^3355FFYou see for yourself that, indeed, the pattern on the statue of the Goddess Snotora matches that on the Stamp of Muriniel.^000000";
-			next;
-			mes "[Syklah]";
-			mes "When I was young, I learned about a legendary stamp ink related to this statue. But at the time, it made no sense to me. Just how legendary can stamp ink be?";
+			mes "^3355FFVocê vê por si mesmo que, de fato, o padrão da estátua da Deusa Snotora corresponde ao que está no Selo de Muriniel.^000000";
 			next;
 			mes "[Syklah]";
-			mes "But now I believe that this stamping ink can be used with this Stamp of Muriniel.";
+			mes "Quando eu era jovem, eu aprendi sobre uma tinta de carimbo lendário relacionado com esta estátua.";
+			mes "Mas, na época, não fazia sentido para mim. Dizem que apenas os objetos lendários podem ser carimbados com a tinta";
 			next;
 			mes "[Syklah]";
-			mes "But even though I've learned how to make this special stamping ink, it is too difficult for me to collect the materials that are necessary to create it.";
+			mes "Por isso acreditamos que esta tinta de estampagem pode ser usados com este Selo de Muriniel.";
 			next;
 			mes "[Syklah]";
-			mes "Okay, if you're ready, please bring me the following items. I feel like making legendary red ink, so bring me...";
+			mes "Mas mesmo que eu tenha aprendido a fazer esta tinta carimbo especial, é muito difícil para mim recolher os materiais que são necessários para criá-la.";
 			next;
 			mes "[Syklah]";
-			mes "^3355FF20 Red Herb^000000,";
-			mes "^3355FF5 Stone^000000 and";
-			mes "^3355FF1 Stone Heart^000000.";
-			mes "The Stone Heart will be used as a bottle to hold this special ink.";
+			mes "Ok, se você estiver pronto, por favor, me traga os seguintes itens.";
+			mes "Eu me lhe digo como fazer tinta vermelha lendária, por isso me traga...";
 			next;
 			mes "[Syklah]";
-			mes "I think that's all I need. Anyway, I believe that gathering these items shouldn't be a difficult task for you. Good luck to you.";
+			mes "^3355FF20 Ervas Vermelhas^000000,";
+			mes "^3355FF5 Pedras^000000 e";
+			mes "^3355FF1 Coração de Pedra^000000.";
+			mes "O Coração de Pedra irá ser usado como uma garrafa para guardar esta tinta especial.";
+			next;
+			mes "[Syklah]";
+			mes "Acho que isso é tudo que eu preciso.";
+			mes "De qualquer forma, eu acredito que a coleta desses itens não deve ser uma tarefa difícil para você.";
+			mes "Boa sorte.";
 			dmdswrd_Q = 26;
 			close;
 		case 26:
 			if (countitem(7049) > 4 && countitem(953) > 0 && countitem(507) > 19) {
 				mes "[Syklah]";
 				mes "Hahaha...!";
-				mes "So you've already gathered the items I've asked for. Good, good. Let's get started...";
+				mes "Então você já reuniu os itens que eu pedi.";
+				mes "Bom, muito bom.";
+				mes "Vamos começar...";
 				delitem 7049,5; //Stone
 				delitem 953,1; //Stone_Heart
 				delitem 507,20; //Red_Herb
 				next;
-				mes "^3355FFSage Syklah grinded the stones and stone heart and molded them into a strange shape.^000000";
+				mes "^3355FFO Sábio Syklah moí as pedras e o coração de pedra e moldado de uma forma estranha.^000000";
 				next;
-				mes "^3355FFHe then ground the red herbs and placed them into the stone mold.^000000";
+				mes "^3355FFEle, então, pega as ervas vermelhas e as coloca dentro do molde de pedra.^000000";
 				next;
-				mes "^3355FFAfterwards, he then took a strangely shaped capsule from his pocket, sprinkled some liquid from it, and began to chant a spell...^000000";
+				mes "^3355FFDepois, ele então pegou uma cápsula de forma estranha do bolso, polvilhado algum líquido a partir dele, e começou a cantar um feitiço...^000000";
 				next;
 				mes "[Syklah]";
 				mes "Haooooh...";
-				mes "Doo de doo de~ Dah dah dah Dan dan dan Dah dah dah! Nu ha nu ha nu hahaha... Moo hee moo hee moo hee~";
+				mes "Doo de doo de Dah dah dah Dan dan dan Dah dah dah!";
+				mes "Nu ha nu ha nu hahaha...";
+				mes "Moo hee moo hee moo hee";
 				mes "- Pah ahhhh !! -";
 				next;
-				mes "^3355FFThe Stamping Ink of Muriniel has been created, and has been given to you by the sage Syklah.^000000";
+				mes "^3355FFA tinta de carimbo de Muriniel foi criado, e foi dado a você pelo Sábio Syklah.^000000";
 				dmdswrd_Q = 27;
 				next;
 				mes "[Syklah]";
-				mes "Now, with this stamping ink, you are able to use the Stamp of Muriniel.";
+				mes "Agora, com esta tinta de carimbo, você é capaz de usar o Selo de Muriniel.";
 				next;
 				mes "[Syklah]";
-				mes "Now, I don't think you can use the stamp just anywhere. After all, it is a legendary item.";
+				mes "Mas, eu acho que você não poderá usar o carimbo em qualquer lugar.";
+				mes "Afinal, é um item lendário.";
 				next;
 				mes "[Syklah]";
-				mes "Please visit the Third Sage ^3355FFEsklah^000000 who stays on Solomon, the island of prosperity, here in Juno.";
+				mes "Por favor visite o Terceiro Sábio ^3355FFEsklah^000000 que fica no Salomão, a ilha da prosperidade, aqui em Juno.";
 				next;
 				mes "[Syklah]";
-				mes "He will be able to tell you more about where to use this stamp. However, be careful. He is the most fastidious sage among all of us.";
+				mes "Ele será capaz de lhe dizer mais sobre onde usar este selo.";
+				mes "No entanto, tenha cuidado.";
+				mes "Ele é o sábio mais exigente entre todos nós.";
 				close;
 			}
 			else {
 				mes "[Syklah]";
-				mes "I hope you will bring me what I need to make the 'Stamp of Muriniel' ink soon.";
+				mes "Eu espero que você me traga o que eu preciso para fazer o 'Selo de Muriniel' em breve.";
 				next;
 				mes "[Syklah]";
-				mes "I will need...";
-				mes "^3355FF20 Red Herb^000000,";
-				mes "^3355FF5 Stone^000000 and";
-				mes "^3355FF1 Stone Heart^000000.";
+				mes "Eu irei precisar de...";
+				mes "^3355FF20 Ervas Vermelhas^000000,";
+				mes "^3355FF5 Pedras^000000 e";
+				mes "^3355FF1 Coração de Pedra^000000.";
 				close;
 			}
 		case 27:
 			mes "[Syklah]";
-			mes "Please visit ^3355FFEsklah^000000 on the island of prosperity, Solomon. But be careful. He is the most exacting Sage out of all of us.";
+			mes "Por favor visite ^3355FFEsklah^000000 na ilha de prosperidade, Salomão.";
+			mes "Mas tenha cuidado.";
+			mes "Ele é o Sábio mais exigente de todos nós.";
 			close;
 		}
 	}
 	else {
 		mes "[Syklah]";
-		mes "The people here keep talking of some suspicious man living in Juno.";
+		mes "As pessoas aqui continuam a falar que um homem suspeito está aqui em Juno.";
 		next;
 		mes "[Syklah]";
-		mes "Supposedly, he's pretty dangerous, and is always immersing himself in some kind of research.";
+		mes "Supostamente, ele é muito perigoso, e está sempre mergulhando em algum tipo de pesquisa.";
 		next;
 		mes "[Syklah]";
-		mes "People already consider him a 'Mad Scientist,' wasting his time studying impractical things beyond the understanding of normal people.";
+		mes "As pessoas já o consideram um 'Cientista Louco', perdendo seu tempo estudando coisas impraticáveis que vai além da compreensão das pessoas normais.";
 		next;
 		mes "[Syklah]";
-		mes "It's rumored that this scientist is responsible for creating 'Blazer,' a monster made of magic flame.";
+		mes "Há rumores de que o cientista é responsável pela criação do 'Blazer', um monstro feito de chama mágica.";
 		next;
 		mes "[Syklah]";
-		mes "It's a dangerous and fearsome monster that casts spells like Fire Bolt and Fire Ball that lives outside of Juno.";
+		mes "É um monstro perigoso e temível que lança feitiços como Lanças de Fogo e Bola de Fogo que vive fora de Juno.";
 		close;
 	}
 }
 
-yuno,213,298,4	script	Sage Esklah#juno	4_M_JOB_WIZARD,{
+yuno,213,298,4	script	Sábio Esklah#juno	4_M_JOB_WIZARD,{
 	if (dmdswrd_Q == 27 || dmdswrd_Q == 28 || dmdswrd_Q == 29 || dmdswrd_Q == 30) {
 		switch(dmdswrd_Q) {
 		case 27:
 			mes "[Esklah]";
-			mes "Hm...?";
-			mes "You must be the one who holds the Stamp of Muriniel...";
+			mes "Hum...?";
+			mes "Você deve ser o único que possui o Selo de Muriniel...";
 			next;
 			mes "[Esklah]";
-			mes "Heh, you don't look like much. But even though you're ordinary looking, you possess the legendary item!";
+			mes "Heh, você não parece grande coisa.";
+			mes "Mas mesmo que você tenha essa aparência comum, você possui o item lendário!";
 			next;
 			mes "[Esklah]";
-			mes "Only a few people in Rune-Midgard's history have been chosen to use the ^3355FFStamp of Muriniel.^000000";
+			mes "Apenas algumas poucas pessoas na história de Rune-Midgard foram escolhidos para usar o ^3355FFSelo de Muriniel.^000000";
 			next;
 			mes "[Esklah]";
-			mes "However, it's my job to test whether or not you are truly qualified to possess it.";
+			mes "No entanto, é o meu trabalho testar se você está ou não realmente qualificados para possuí-lo.";
 			next;
 			mes "[Esklah]";
-			mes "Let me tell you about the stamp craftman ^3355FFMuriniel^000000.";
+			mes "Deixe-me falar sobre o artesão de selos ^3355FFMuriniel^000000.";
 			next;
 			mes "[Esklah]";
-			mes "This man lived long ago, somewhere in Mt. Mjornir. He was eager in his studies, and wanted to recreate every pattern that existed in the world.";
+			mes "Este homem viveu há muito tempo, em algum lugar do Monte Mjolnir.";
+			mes "Ele estava ansioso em seus estudos, e queria recriar cada padrão que existiu no mundo.";
 			next;
 			mes "[Esklah]";
-			mes "Believing that people were obstacles to his study of patterns, he lived in seclusion, studying alone.";
+			mes "Acreditando que as pessoas eram obstáculos para seu estudo de padrões, ele viveu em reclusão, estudando sozinho.";
 			next;
 			mes "[Esklah]";
-			mes "While studying patterns one day, he happened to find a magic circle that connected this world to another world.";
+			mes "Ao estudar os padrões, um dia, ele encontrou um círculo mágico que ligava este mundo a um outro mundo.";
 			next;
 			mes "[Esklah]";
-			mes "That circle was totally different from ones used by Mages, Wizards or sages. This pattern had the power to summon an evil creature from the other world.";
+			mes "Esse círculo era totalmente diferente dos usados por magos, feiticeiros ou sábios.";
+			mes "Este padrão tinha o poder de convocar uma criatura do mal do outro mundo.";
 			next;
 			mes "[Esklah]";
-			mes "In order to summon the creature, the pattern must be created in the perfect location. Muriniel began to explore various places and finally found the spot he was looking for.";
+			mes "A fim de chamar a criatura, o padrão deve ser criado no local perfeito.";
+			mes "Muriniel começou a explorar vários lugares e, finalmente, encontrou o local que estava procurando.";
 			next;
 			mes "[Esklah]";
-			mes "The place he found is now ^3355FFMuriniel's Cottage^000000. But to see that place, you will first need the ^3355FFCompass of Muriniel^000000.";
+			mes "O lugar que ele encontrou agora é a ^3355FFCasa de Campo de Muriniel^000000.";
+			mes "Mas para chegar à aquele lugar, primeiro você precisa da ^3355FFBússola de Muriniel^000000.";
 			next;
 			mes "[Esklah]";
-			mes "Heh heh. That's right, making the Compass of Muriniel will be my test for you.";
+			mes "Heheh. É isso mesmo, fazer a Bússola de Muriniel será o meu teste para você.";
 			next;
 			mes "[Esklah]";
-			mes "Now listen carefully, I won't tell you more than once. I will need you to collect some items to make the ^3355FFCompass of Muriniel^000000.";
+			mes "Agora, preste atenção, eu não vou te dizer mais de uma vez.";
+			mes "Eu preciso de você para coletar alguns itens para fazer a ^3355FFBússola de Muriniel^000000.";
 			next;
 			mes "[Esklah]";
-			mes "Bring me...";
-			mes "^3355FF2 Iron Ore^000000,";
-			mes "^3355FF10 Acorn^000000 and";
-			mes "^3355FF5 Decayed Nail^000000.";
+			mes "Traga-me...";
+			mes "^3355FF2 Minérios de Ferro^000000,";
+			mes "^3355FF10 Avelãs^000000 e";
+			mes "^3355FF5 Unhas Apodrecidas^000000.";
 			next;
 			mes "[Esklah]";
-			mes "For someone seeking the doomed sword, this should be a relatively simple task. Now go, and bring me what I have asked.";
+			mes "Para alguém que procura a espada amaldiçoada, esta deve ser uma tarefa relativamente simples.";
+			mes "Agora vá, e traga-me o que eu pedi.";
 			dmdswrd_Q = 28;
 			close;
 		case 28:
 			if (countitem(1002) > 1 && countitem(1026) > 9 && countitem(957) > 4) {
 				mes "[Esklah]";
-				mes "Let's see.";
-				mes "2 Iron Ore...";
-				mes "10 Acorn...";
-				mes "5 Decayed Nail...";
-				mes "Good, that's everything!";
+				mes "Vejamos.";
+				mes "2 Minérios de Ferro...";
+				mes "10 Avelãs...";
+				mes "5 Unhas Apodrecidas...";
+				mes "Bom, está tudo aqui!";
 				delitem 1002,2; //Iron_Ore
 				delitem 1026,10; //Acorn
 				delitem 957,5; //Decayed_Nail
 				next;
 				mes "[Esklah]";
-				mes "Good work. Now, while I make the body of the compass, you can go and bring me the rest of the items I'll need.";
+				mes "Bom trabalho.";
+				mes "Agora, enquanto eu faço o corpo da bússola, você pode ir e me trazer o resto dos itens que você precisa.";
 				next;
 				mes "[Esklah]";
-				mes "Muhahahaha! What's with that look? You know how this kind of business gets done!";
+				mes "Muhahahaha!";
+				mes "O que há com esse olhar?";
+				mes "Você sabe como esse tipo de negócio é feito!";
 				next;
 				mes "[Esklah]";
-				mes "Now stop whining";
-				mes "and go bring...";
-				mes "^3355FF2 Brigan^000000 and";
-				mes "^3355FF1 Phracon^000000.";
-				mes "Now isn't that simple?";
+				mes "Agora, pare de se lamentar e me traga...";
+				mes "^3355FF2 Brigans^000000 e";
+				mes "^3355FF1 Fracon^000000.";
+				mes "Isso não é simples?";
 				mes "Muhahahaha!!";
 				dmdswrd_Q = 29;
 				close;
 			}
 			mes "[Esklah]";
-			mes "Now listen carefully. I won't tell you more than once. I need some items to create the ^3355FFCompass of Muriniel^000000.";
+			mes "Agora ouça com atenção.";
+			mes "Eu não vou dizer mais de uma vez.";
+			mes "Eu preciso de alguns itens para criar a ^3355FFBússola de Muriniel^000000.";
 			next;
 			mes "[Esklah]";
-			mes "Bring me...";
-			mes "^3355FF2 Iron Ore^000000,";
-			mes "^3355FF10 Acorn^000000, and";
-			mes "^3355FF5 Decayed Nail^000000.";
+			mes "Traga-me...";
+			mes "^3355FF2 Minérios de Ferro^000000,";
+			mes "^3355FF10 Avelãs^000000, e";
+			mes "^3355FF5 Unhas Apodrecidas^000000.";
 			close;
 		case 29:
 			if (countitem(7054) > 1 && countitem(1010) > 0) {
 				mes "[Esklah]";
-				mes "Now...";
-				mes "Show me";
-				mes "what you brought.";
-				mes "That's 2 Brigan and...";
-				mes "1 Phracon. Hmm. Very good.";
-				mes "Now let me get to work.";
+				mes "Agora...";
+				mes "Me mostre o que você trouxe.";
+				mes "São 2 Brigans e...";
+				mes "1 Fracon. Hum...";
+				mes "Muito bom.";
+				mes "Agora deixe-me começar a trabalhar.";
 				delitem 7054,2; //Brigan
 				delitem 1010,1; //Phracon
 				next;
 				mes "[Esklah]";
-				mes "Hmm...";
-				mes "Let's see...";
-				mes "There, it's finished.";
+				mes "Hum...";
+				mes "Vejamos...";
+				mes "Está pronto.";
 				next;
-				mes "^3355FFSage Esklah handed you the ^3355FFCompass of Muriniel^000000.";
+				mes "^3355FFo Sábio Esklah entregou para você a ^3355FFBússola Muriniel^000000.";
 				next;
-				mes "^3355FFIn the direction the compass is pointing, some words are engraved...^000000";
+				mes "^3355FFNa direção que a bússola está apontando, algumas palavras estão gravadas...^000000";
 				next;
-				mes "^3355FF- Mountain Mjornir -^000000";
+				mes "^3355FF- Monte Mjolnir -^000000";
 				mes "^3355FF- mjolnir_02 . 170 193 -^000000";
 				next;
 				mes "[Esklah]";
-				mes "Look at the middle of compass carefully to find the place you must use the stamp. I wish you the best of luck in your journey.";
+				mes "Olhe para o meio da bússola com cuidado para encontrar o lugar que você deve usar o selo.";
+				mes "Desejo-lhe uma boa sorte na sua jornada.";
 				dmdswrd_Q = 30;
 				close;
 			}
 			mes "[Esklah]";
-			mes "Listen carefully!";
-			mes "I want you to bring...";
-			mes "^3355FF2 Brigan^000000 and";
-			mes "^3355FF1 Phracon^000000";
-			mes "Isn't that simple and easy?";
-			mes "Muhahaha! Now, get a move on!";
+			mes "Ouça com atenção!";
+			mes "Eu quero que você traga...";
+			mes "^3355FF2 Brigans^000000 e";
+			mes "^3355FF1 Fracon^000000";
+			mes "Não é simples e fácil?";
+			mes "Muhahaha!";
+			mes "Agora, mova-se!";
 			close;
 		case 30:
-			mes "^3355FFYou look into the compass of Muriniel and take note of the engraving...^000000";
+			mes "^3355FFVocê olha para a bússola de Muriniel e anota a gravura...^000000";
 			next;
-			mes "^3355FF- Mountain Mjornir -^000000";
+			mes "^3355FF- Monte Mjolnir -^000000";
 			mes "^3355FF- mjolnir_02 . 170 193 -^000000";
 			close;
 		}
 	}
 	else {
 		mes "[Esklah]";
-		mes "I remember watching a harmless";
-		mes "piece of paper floating";
-		mes "through the air...";
+		mes "Lembro-me de assistir a um inofensivo pedaço de papel flutuante através do ar...";
 		next;
 		mes "[Esklah]";
-		mes "As I was thinking of how wonderfully poetic that image was, that paper suddenly attacked me! Me, one of Juno's greatest Sages!";
+		mes "Eu estava pensando em como maravilhosamente poética a imagem era, até que o papel de repente me atacou!";
+		mes "Eu, um dos maiores sábios de Juno!";
 		next;
 		mes "[Esklah]";
-		mes "I tried defending myself with my trusty sword, but being paper-thin, that monster managed to dodge all of my blows. I had to cast magic in order to destroy it.";
+		mes "Tentei defender-me com a minha espada de confiança, mas sendo um papel fino, aquele monstro conseguiu se esquivar todos os meus golpes.";
+		mes "Eu tinha que lançar uma magia, a fim de destruí-lo.";
 		next;
 		mes "[Esklah]";
-		mes "Later, I learned that monster is known as ^3355FFThe Paper^000000.";
+		mes "Mais tarde, aprendi que o monstro é conhecido como ^3355FFO Papel^000000.";
 		next;
 		mes "[Esklah]";
-		mes "It used to be a part of an old book that contained a lot of ancient knowledge about Juno, but somehow, became a monster. Isn't that peculiar?";
+		mes "Ela costumava ser uma parte de um livro antigo que continha uma grande quantidade de conhecimento antigo sobre Juno.";
+		mes "Mas de alguma forma, tornou-se um monstro.";
+		mes "Isso não é peculiar?";
 		close;
 	}
 }
 
-mjolnir_02,170,193,4	script	Muriniel's Cottage#juno	HIDDEN_NPC,{
+mjolnir_02,170,193,4	script	Casa de Muriniel#juno	HIDDEN_NPC,{
 	if (dmdswrd_Q == 30 || dmdswrd_Q == 31) {
 		switch(dmdswrd_Q) {
 		case 30:
-			mes "^3355FFMuriniel's pattern is carved into the wooden floor.^000000";
+			mes "^3355FFUm exemplar de Muriniel está exposto no chão de madeira.^000000";
 			next;
-			mes "^3355FFUsing the ^9999FFStamp of Muriniel^3355FF and the ^9999FFStamping Ink of Muriniel^3355FF, you fit the stamp into the pattern on the floor.^000000";
+			mes "^3355FFUsando o ^9999FFSelo de Muriniel^3355FF e a ^9999FFTinta do Carimbo de Muriniel^3355FF, você encaixa o selo para o padrão no chão.^000000";
 			next;
 			mes "^3355FF*Woon Woon*^000000";
 			next;
-			mes "^3355FFYou can faintly hear someone's voice softly in the distance.^000000";
+			mes "^3355FFVocê pode ouvir fracamente a voz de alguém distânte.^000000";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "You, who are in the future, let me introduce myself.";
+			mes "[Recado de Muriniel]";
+			mes "Você, que está no futuro, deixe-me apresentar-me.";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "My name is Muriniel, the stamp craftman living in your past. I appreciate that you have overcome many obstacles to reach this place.";
+			mes "[Recado de Muriniel]";
+			mes "Meu nome é Muriniel, quando vivo fiz um selo artesanal em meu passado.";
+			mes "Eu imagino que você teve de superar muitos obstáculos para chegar a este lugar.";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "However, you must first prove that you are qualified to wield the great power of the doomed sword.";
+			mes "[Recado de Muriniel]";
+			mes "No entanto, você deve primeiro provar que você está qualificado para exercer o grande poder da Espada da Perdição.";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "The great Sages in Juno have helped me to install this magical system in my cottage to leave my message to you, adventurer in the future.";
+			mes "[Recado de Muriniel]";
+			mes "Os grandes sábios em Juno me ajudaram a instalar este sistema mágico em minha casa para deixar a minha mensagem para você, aventureiro do futuro.";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "I know that you seek more power by obtaining a doomed sword. But not just anyone can handle the might of a doomed sword.";
+			mes "[Recado de Muriniel]";
+			mes "Eu sei que você procura mais poder através da obtenção de uma espada amaldiçoada.";
+			mes "Mas não é qualquer um que pode lidar com o poder da Espada da Perdição.";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "And I shudder to think what would happen if such power were to fall into evil hands. The test I have prepared cannot begin until Autumn follows a hot summer.";
+			mes "[Recado de Muriniel]";
+			mes "E eu estremeço só de pensar o que aconteceria se tal poder fosse cair nas mãos do mal.";
+			mes "O teste que eu preparei não pode começar até o outono seguido de um verão quente.";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "I shall give you an item that promises you of the quest I will give you in the future. Return to this place when the trees begin to shed their leaves...";
+			mes "[Recado de Muriniel]";
+			mes "Vou dar-lhe um item que promete-lhe a missão que vos darei no futuro.";
+			mes "Volte a este lugar quando as árvores começarem a lançar suas folhas...";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "Until that time comes, prepare yourself. And stay alive.";
+			mes "[Recado de Muriniel]";
+			mes "Até esse momento chegar, prepare-se.";
+			mes "E fique vivo.";
 			next;
 			mes "^3355FF*Bzzzt!*";
 			mes "*Bzzzzzzt--*^000000";
 			next;
-			mes "^3355FFSuddenly, the Stamp of Muriniel and the Compass of Muriniel break open to reveal a small, shining object.^000000";
+			mes "^3355FFDe repente, o Selo de Muriniel e a Bússola de Muriniel quebraram abrindo um pequeno, e brilhante objeto.^000000";
 			next;
-			mes "^3355FFYou have received the ^9999FFDignity of Muriniel^000000.";
+			mes "^3355FFVocê recebeu a ^9999FFDignidade de Muriniel^000000.";
 			dmdswrd_Q = 31;
 			close;
 		case 31:
-			mes "^3355FFYou can faintly hear someone's voice coming from somewhere...^000000";
+			mes "^3355FFVocê pode ouvir fracamente a voz de alguém vindo de algum lugar...^000000";
 			next;
-			mes "[Muriniel's Recording]";
-			mes "Please remember to return to this place when the trees begin to shed their leaves. Until then, prepare yourself and stay alive.";
+			mes "[Recado de Muriniel]";
+			mes "Por favor, lembre-se de voltar a este lugar quando as árvores começarem a perder suas folhas.";
+			mes "Até então, prepare-se e continue vivo.";
 			close;
 		}
 	}
 	else {
-		mes "'Muriniel's Cottage'";
+		mes "'Casa de Muriniel'";
 		next;
-		mes "^3355FFFor some reason, that message is written in this place. But what could be so significant about a cottage like this?^000000";
+		mes "^3355FFPor alguma razão, a mensagem foi escrita neste lugar.";
+		mes "Mas o que poderia ter de tão importante em uma casa como esta?^000000";
 		close;
 	}
 }

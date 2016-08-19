@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - aldeg_cas05.txt                                             ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.2                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 5º Castelo de Al de baran               ||
+// - Scripts referentes ao 5º Al de baran                        ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flag (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Rothenburg#1::OutsideFlagsA5	GUILD_FLAG,{
 
 	.@GID = getcastledata("aldeg_cas05",1);
@@ -72,8 +74,9 @@ OnRecvCastleA05:
 alde_gld,265,93,6	duplicate(OutsideFlagsA5)	Rothenburg#1-2	GUILD_FLAG
 alde_gld,265,87,6	duplicate(OutsideFlagsA5)	Rothenburg#2	GUILD_FLAG
 
-// Guild Flag (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Rothenburg#3::InsideFlagsA5	GUILD_FLAG,{
 	end;
 
@@ -99,20 +102,24 @@ aldeg_cas05,154,51,2	duplicate(InsideFlagsA5)	Rothenburg#16	GUILD_FLAG
 aldeg_cas05,22,211,2	duplicate(InsideFlagsA5)	Rothenburg#17	GUILD_FLAG
 aldeg_cas05,150,202,2	duplicate(InsideFlagsA5)	Rothenburg#18	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 aldebaran,128,97,4	duplicate(InsideFlagsA5)	Rothenburg#19	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 aldeg_cas05,31,190,0	duplicate(guildkafra)	Funcionária Kafra#aldeg_cas05	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 aldeg_cas05,51,179,0	duplicate(cm)	Esmarehk#aldeg_cas05	1_M_JOBTESTER
 
-// Treasure Room Exit
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 aldeg_cas05,64,8,0	script	#lever_A05	HIDDEN_NPC,{
 
 	mes " ";
@@ -126,24 +133,22 @@ aldeg_cas05,64,8,0	script	#lever_A05	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Switch
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 aldeg_cas05,22,205,0	duplicate(gdlever)	#aldeg_cas05	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 aldeg_cas05,62,12,0	duplicate(Gld_Trea_Spawn)	Treasure#aldeg_cas05	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 aldeg_cas05,28,102,0	duplicate(Gld_Agit_Manager)	Agit#aldeg_cas05	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 aldeg_cas05,52,179,0	duplicate(Gld_Guard_Template)	Guardião#aldeg_cas05	-1
-
-//============================================================
-//= 1.0 First Version. No longer uses functions. [L0ne_W0lf]
-//= 1.1 Removed dialog from interior flags. [L0ne_W0lf]
-//= 1.2 Partially rewrote Script. [Masao]
-//============================================================

@@ -1,16 +1,21 @@
-//===== Hercules Script ======================================
-//= Einbroch Field Warp Script
-//===== By: ==================================================
-//= Sara-chan (1.0), SSUNNY@YOUNG(1.2)
-//===== Current Version: =====================================
-//= 1.2
-//===== Description: =========================================
-//= Warp Points for Lighthalzen Field
-//===== Additional Comments: =================================
-// Field update - Einbroch and Lhztargen by Sara - Version 1.0
-// 1.1 moved field warps from town warps [Lupus]
-// 1.2 Updated Warps, work done by SSUNNY@YOUNG in Korean eA site [Vicious]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: Sara-Chan                                          ||
+// - Versão: 1.2                                                 ||
+//===============================================================||
+// - Descrição: Portais nos campos de Einbroch/Einbech           ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================//
 
 
 //Einbroch Field <-> Juno Field

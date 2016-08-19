@@ -1,17 +1,21 @@
-//===== Hercules Script ======================================
-//= Umbala Dungeon (Yggdrasil Cave) Warp Script
-//===== By: ==================================================
-//= Darkchild (1.0vA); Athena (1.0vB)
-//===== Current Version: =====================================
-//= 1.4 (Akaru)
-//===== Description: =========================================
-//= [Official Conversion]
-//= Warp Points for Umbala Dungeon (Yggdrasil Cave)
-//===== Additional Comments: =================================
-//= 1.2 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
-//= 1.3 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//= 1.4 Commented out warp from Umbala, should be pre-re only. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: Akaru                                              ||
+// - Versão: 1.4                                                 ||
+//===============================================================||
+// - Descrição: Portais na Loja de Carpintaria                   ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================//
 
 //umbala,106,285,0	warp	um_dun1-1	1,1,um_dun01,42,30
 um_dun01,42,27,0	warp	um_dun1-2	1,1,umbala,109,284

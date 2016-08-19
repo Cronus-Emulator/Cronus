@@ -1,22 +1,21 @@
-//===== Hercules Script ======================================
-//= Payon Warps
-//===== By: ==================================================
-//= Muad Dib (1.0)
-//= Darkchild (1.1)
-//= Nana (1.3)
-//===== Current Version: =====================================
-//= 1.7
-//===== Description: =========================================
-//= Payon warps
-//===== Additional Comments: =================================
-//= Warps Done By Muad Dib, All Credits To Him
-//= 1.2 Removed Duplicated Warp
-//= 1.3 Separated and reorganized field and dungeons
-//= 1.4 Fixed warp payonwarp031 [Yor]
-//= 1.5 Removed Payonwarp006, it was a duplicate [MasterOfMuppets]
-//= 1.6 Changed trigger area of payon -> pay_fild08  warp. [L0ne_W0lf]
-//= 1.7 Moved Castle Map warps to warps/guild/guildcastles.txt. [Masao]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: Nana                                               ||
+// - Versão: 1.7                                                 ||
+//===============================================================||
+// - Descrição: Portais em Payon                                 ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================//
 
 // == Official Warps From kRO Screenshots ==
 

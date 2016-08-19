@@ -1,249 +1,286 @@
-//===== Hercules Script ======================================
-//= Juice Maker Quest
-//===== By: ==================================================
-//= kobra_k88
-//===== Current Version: =====================================
-//= 2.1
-//===== Description: =========================================
-//= [Official Conversion]
-//= Learn where to turn apples, bananas, carrots, and grapes
-//= into juice.
-//= Condition if done: (MISC_QUEST & 1)
-//===== Additional Comments: =================================
-//= 1.9 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//=     Added tracking variables in, which are unset when complete.
-//= 2.0 Added missing checkweight. [L0ne_W0lf]
-//= 2.1 Fixed dialog for if your missing the needed items (He always said the dialog for grape juice). [Kisuka]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - juice_maker.txt                                             ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.1                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Fabricação de Sucos                                         ||
+//===============================================================//
 
 prt_in,49,172,3	script	Marianne#juice	1_M_INNKEEPER,{
 	if (MISC_QUEST&1 || morison_meat == 15) {
-		mes "[Housewife Marianne]";
-		mes "Whew...!";
-		mes "Still, he won't eat anything unless it's Meat. But maybe he will eat fruit if it was cut so that it was easy to eat. Like, if it was blended into juice...";
+		mes "[Dona Marianne]";
+		mes "Ufa...!";
+		mes "Ainda assim, ele não vai comer nada que não seja carne.";
+		mes "Mas talvez ele coma uma fruta se ela for cortada de uma maneira fácil de se comer.";
+		mes "Talvez se for misturada ao suco...";
 		next;
 		mother_marienu = 0;
 		morison_meat = 0;
 		MISC_QUEST |= 1;
-		mes "[Housewife Marianne]";
-		mes "Ah! Come to think of it, I heard they were making fruit juice somewhere. Now where was it... Payon Village, or Morroc?";
+		mes "[Dona Marianne]";
+		mes "Ah! Pense a respeito, eu ouvi falar que estavam fazendo sucos de fruta em algum lugar.";
+		mes "Não recordo onde foi...";
+		mes "Vila de Payon, ou Morroc?";
 		close;
 	}
 	if (mother_marienu == 1) {
-		mes "[Housewife Marianne]";
-		mes "Morrison!! Eat some fruits!! You don't want to become a slobby fat pig when you grow up, do you?";
+		mes "[Dona Marianne]";
+		mes "Morrison!!";
+		mes "Coma algumas frutas!!";
+		mes "Você não quer se tornar um porco gordo quando crescer, não é?";
 		next;
-		if (select("Talk:Cancel") == 1) {
-			mes "[Housewife Marianne]";
-			mes "Hm? ...You!";
-			mes "You're the one who gave, my little Morrison that Meat?! Did you come here thinking I wouldn't know about it?!";
+		if (select("Conversar:Cancelar") == 1) {
+			mes "[Dona Marianne]";
+			mes "Hum? ...Você!";
+			mes "Você é o único que ofereceu a meu pequeno Morrison um pouco de carne não foi?!";
+			mes "Você veio aqui pensando que eu não sei disso?!";
 			next;
-			mes "[Housewife Marianne]";
-			mes "Go away, get out of my house NOW!!";
+			mes "[Dona Marianne]";
+			mes "Saia daqui, deixe minha casa AGORA!!";
 			close;
 		}
-		mes "[Housewife Marianne]";
-		mes "Morrison!! I'm going to be very very mad if you keep doing this!";
+		mes "[Dona Marianne]";
+		mes "Morrison!!";
+		mes "Eu vou ficar muito irritada se você continuar fazendo isso!";
 		close;
 	}
 	if (morison_meat > 0) {
 		mother_marienu = 1;
-		mes "[Housewife Marianne]";
-		mes "Oh!!.... This...";
-		mes "what is this...??";
-		mes "How could you do something like this to my boy?!";
+		mes "[Dona Marianne]";
+		mes "Ohh!!.... Isso...";
+		mes "O que é isso...??";
+		mes "Como você pode fazer algo assim para o meu menino?!";
 		next;
-		mes "[Housewife Marianne]";
-		mes "Argh! Get out of my house right this instant!";
+		mes "[Dona Marianne]";
+		mes "Ahh! Deixe a minha casa agora mesmo!";
 		close;
 	}
-	mes "[Housewife Marianne]";
-	mes "Morrison!! Please eat some fruits!! Please~!";
+	mes "[Dona Marianne]";
+	mes "Morrison!!";
+	mes "Por favor coma mais frutas!!";
+	mes "Por favor!";
 	next;
-	mes "[Housewife Marinaa]";
-	mes "Sigh~!! Like father, like son...";
+	mes "[Dona Marianne]";
+	mes "*Suspiro*...";
+	mes "Tal pai, tal filho...";
 	next;
 	switch(select("Talk:Cancel")) {
 		mes "[Housewife Marianne]";
-		mes "*Sigh*... This is Morrison...";
-		mes "My one and only son.";
+		mes "*Suspiro*...";
+		mes "Esse é Morrison...";
+		mes "Meu primeiro e único filho.";
 		next;
-		mes "[Housewife Marianne]";
-		mes "But these days, he just won't eat fruits. His face is so dull because he refuses to eat healthy. He just wants to eat Meat. I need to find a way to feed him fruits or vegetables....";
+		mes "[Dona Marianne]";
+		mes "Mas a alguns dias ele não quer mais comer frutas.";
+		mes "Seu rosto está tão sem graça, porque ele se recusa a comer uma coisa saudável.";
+		mes "Ele só quer comer carne.";
+		mes "Eu preciso encontrar uma maneira de alimentá-lo com frutas ou legumes....";
 		close;
 	}
 	mes "[Housewife Marianne]";
-	mes "Morrison!! You're going to be in big trouble if you keep this up!";
+	mes "Morrison!!";
+	mes "Você estará em apuros se continuar assim!";
 	close;
 }
 
 prt_in,47,173,3	script	Morrison#juice	4W_M_01,{
 	if (MISC_QUEST&1 || morison_meat == 15) {
-		mes "[Little Morrison]";
-		mes "Bleh... Forget it.";
-		mes "I'm just going to shrivel to death just eating fruits. Don't bother worrying about me .";
+		mes "[Pequeno Morrison]";
+		mes "Hum...";
+		mes "Esqueça isso.";
+		mes "Eu estarei caminhando para a morte se comer apenas frutas.";
+		mes "Não se preocupe comigo .";
 		close;
 	}
 	if (morison_meat > 9) {
-		mes "[Little Morrison]";
-		mes "Ah... so full~";
-		mes "I think I can live now.";
-		mes "You don't have to give me any more Meat. I feel like I'm going to explode if I eat any more.";
+		mes "[Pequeno Morrison]";
+		mes "Ah... estou cheio.";
+		mes "Eu acho que posso viver agora.";
+		mes "Você não precisa me dar mais carne.";
+		mes "Eu sinto que irei explodir se comer mais.";
 		if (morison_meat == 10) {
 			next;
 			++morison_meat;
-			mes "[Little Morrison]";
-			mes "Oh... and... um.";
-			mes "Take this.";
+			mes "[Pequeno Morrison]";
+			mes "Ah... e... hum.";
+			mes "Pegue isso.";
 			next;
-			mes "[Little Morrison]";
-			mes "It's a little something I've been saving to eat for later, but since you gave me Meat, I think I can pass on the sweets.";
+			mes "[Pequeno Morrison]";
+			mes "É uma coisinha que eu estava guardando para comer mais tarde, mas já que você me deu Carne, eu acho que posso te dar os doces.";
 			close;
 			getitem 529,3; //Candy
 			getitem 530,1; //Candy_Striper
 		}
 		close;
 	}
-	mes "[Little Morrison]";
-	mes "Agh....Noooo!!!";
-	mes "No, don't make me eat it! I can't bear to taste fruits!";
+	mes "[Pequeno Morrison]";
+	mes "Por favor....Nãoooo!!!";
+	mes "Não, não me faça comê-las!";
+	mes "Eu não posso suportar o sabor das frutas!";
 	next;
 	if (countitem(517) > 0) {
-		switch(select("Talk:Show the Meat:Cancel")) {
-		case 1:
-			mes "[Little Morrison]";
-			mes "Aaaagh!! Once or twice is enough!! I refuse to eat any more fruits! You have to peel them and there's so much juice that it makes you feel icky...";
+		switch(select("Conversar:Mostrar a Carne:Cancelar")) {
+			case 1:
+			mes "[Pequeno Morrison]";
+			mes "Uma ou duas vezes é o suficiente!";
+			mes "Eu me recuso a comer mais frutas!";
+			mes "Você tem que descascá-las e não há muito suco para cobrir o gosto nojento delas...";
 			next;
-			mes "[Little Morrison]";
-			mes "And they're all slippery and sour... Even if I eat it, I still feel hungry. Aaaah~! Give me Meat!";
+			mes "[Pequeno Morrison]";
+			mes "E todos eles são escorregadios e azedos...";
+			mes "Mesmo se eu comer isso, eu ainda sentirei fome.";
+			mes "Aaaah! Me traga Carne!";
 			close;
-		case 2:
-			mes "[Little Morrison]";
-			mes "Ooh! M-Meaaat~";
-			mes "Ah... hu...hungry...";
-			mes "The scent of Meat...";
-			mes "Excuse me...";
-			mes "C-can I please have one?";
+			case 2:
+			mes "[Pequeno Morrison]";
+			mes "Ooh! C-caarne";
+			mes "Ah... fo...fooome...";
+			mes "O cheiro de carne...";
+			mes "Desculpe-me...";
+			mes "P-pode me dar uma por favor?";
 			next;
-			if (select("Give Meat:Don't Give Meat") == 1) {
+			if (select("Dar carne:Não dar carne") == 1) {
 				delitem 517,1; //Meat
 				++morison_meat;
-				mes "[Little Morrison]";
-				mes "Wow~!!! Meat!!";
-				mes "So yummy!";
-				mes "Thank you,";
-				mes "I think I can";
-				mes "live now.";
-				mes "*Chew chew*";
+				mes "[Pequeno Morrison]";
+				mes "Uau!!! Carne!!";
+				mes "Muito delicioso!";
+				mes "Obrigado, eu acho que posso viver agora.";
+				mes "*Mastigando mastigando*";
 				close;
 			}
 			morison_meat = 15;
-			mes "[Little Morrison]";
-			mes "Waah...!";
-			mes "Fine, I get it now.";
-			mes "Adults are all the same!";
+			mes "[Pequeno Morrison]";
+			mes "Aah...!";
+			mes "Ótimo, agora entendi.";
+			mes "Adultos são todos iguais!";
 			close;
-		case 3:
-			mes "[Little Morrison]";
-			mes "Aaaaah!!! No matter what, I'm not going to eat fruits and vegetables!";
+			case 3:
+			mes "[Pequeno Morrison]";
+			mes "Aaaaah!!!";
+			mes "Não importa, eu não vou comer frutas e legumes!";
 			close;
 		}
 	}
 	if (select("Talk:Cancel") == 1) {
-		mes "[Little Morrison]";
-		mes "Aaah!! I can't eat any more fruits!";
+		mes "[Pequeno Morrison]";
+		mes "Aaah!!";
+		mes "Eu não quero comer mais frutas!";
 		next;
-		mes "[Little Morrison]";
-		mes "I refuse to eat any more fruits! You have to peel them and there's so much juice that it makes you feel icky...";
+		mes "[Pequeno Morrison]";
+		mes "Eu me recuso a comer mais frutas!";
+		mes "Você tem que descascá-las e não há muito suco para cobrir o gosto nojento delas...";
 		next;
-		mes "[Little Morrison]";
-		mes "And they're all slippery and sour... Even if I eat it, I still feel hungry.";
-		mes "Aaaah~!";
-		mes "Give me Meat!";
+		mes "[Pequeno Morrison]";
+		mes "E todos elas são escorregadias e azedas...";
+		mes "Mesmo se eu comê-las, eu ainda vou sentir fome.";
+		mes "Aaaah!";
+		mes "Traga-me carne!";
 		close;
 	}
-	mes "[Little Morrison]";
-	mes "Aaaaah!!! No matter what, I'm not going to eat fruits and vegetables!";
+	mes "[Pequeno Morrison]";
+	mes "Aaaaah!!!";
+	mes "Não importa, eu não vou comer frutas e legumes!";
 	close;
 }
 
 payon_in03,188,146,5	script	Marx Hansen#juice	4_M_04,{
 	if (checkweight(1201,1) == 0) {
-		mes "- Wait a moment! -";
-		mes "- Currently you're carrying -";
-		mes "- too many items with you. -";
-		mes "- Please come back later -";
-		mes "- after you put some items into kafra storage. -";
+		mes "- Espere um momento! -";
+		mes "- Atualmente você está carregando -";
+		mes "- muitos itens com você. -";
+		mes "- Por favor volte aqui novamente -";
+		mes "- após você guardar alguns de seus itens no Armazém Kafra.";
 		close;
 	}
 	if (MISC_QUEST&1) {
-		mes "[Merchant Marx Hansen]";
-		mes "Welcome.";
-		mes "Did you come to";
-		mes "process fruits as well?";
+		mes "[Mercador Marx Hansen]";
+		mes "Bem-vindo.";
+		mes "Você veio para fazer algum suco de frutas não foi?";
 		next;
-		switch(select("Make Juice.:Talk and get information about fruit processing.:Cancel.")) {
-		case 1:
-			mes "[Merchant Marx Hansen]";
-			mes "What kind of fruit juice would you like to make?";
-			next;
-			switch(select("Apple Juice:Banana Juice:Carrot Juice:Grape Juice:Cancel")) {
+		switch(select("Fazer Suco.:Conversar sobre a criação de sucos.:Cancelar.")) {
 			case 1:
+			mes "[Mercador Marx Hansen]";
+			mes "Que tipo de suco de frutas você gostaria de fazer?";
+			next;
+			switch(select("Suco de Maçã:Suco de Banana:Suco de Cenoura:Suco de Uva:Cancelar")) {
+				case 1:
 				.@fruit = 512;
 				.@juice = 531;
 				break;
-			case 2:
+				case 2:
 				.@fruit = 513;
 				.@juice = 532;
 				break;
-			case 3:
+				case 3:
 				.@fruit = 515;
 				.@juice = 534;
 				break;
-			case 4:
+				case 4:
 				.@fruit = 514;
 				.@juice = 533;
 				break;
-			case 5:
-				mes "[Merchant Marx Hansen]";
-				mes "Well then...";
-				mes "See you next time.";
+				case 5:
+				mes "[Mercador Marx Hansen]";
+				mes "Então bem...";
+				mes "Vejamos a próxima etapa.";
 				close;
 			}
 			if (countitem(.@fruit) == 0 || countitem(713) == 0 || Zeny < 3) {
-				mes "[Merchant Marx Hansen]";
-				mes "Oh no...";
-				mes "You don't have all the necessary materials. To make "+getitemname(.@juice)+", I need 1 "+getitemname(.@fruit)+" and 1 Empty Bottle. I will also need a 3 zeny fee.";
+				mes "[Mercador Marx Hansen]";
+				mes "Ah não...";
+				mes "Você não tem todos os materiais necessários.";
+				mes "Para criar "+getitemname(.@suco)+", eu preciso de 1 "+getitemname(.@fruta)+" e 1 Garrafa Vazia.";
+				mes "Também é necessário uma taxa de 3 zenys como pagamento.";
 				next;
-				mes "[Merchant Marx Hansen]";
-				mes "When you have prepared everything, I will blend the fruit to give you delicious juice.";
+				mes "[Mercador Marx Hansen]";
+				mes "Quando você tiver tudo pronto, fale comigo e eu irei fazer um delicioso suco para você.";
 				close;
 			}
-
-			mes "[Merchant Marx Hansen]";
-			mes "How many would you like?";
+			mes "[Mercador Marx Hansen]";
+			mes "Qual a quantidade que você deseja?";
 			next;
-			switch(select("As many as I can.:I want a certain amount.:Cancel.")) {
-			case 1:
+			switch(select("Quantos eu puder.:Eu escolho a quantidade.:Cancelar.")) {
+				case 1:
 				.@make = countitem(.@fruit);
 				if (countitem(713) < .@make) .@make = countitem(713);
 				if (Zeny/3 < .@make) .@make = Zeny/3;
 				break;
-			case 2:
-				mes "[Merchant Marx Hansen]";
-				mes "Choose a number less than 100. If you don't want to, put '0'. You can make up to " + countitem(.@fruit) + " bottles of juice.";
+				case 2:
+				mes "[Mercador Marx Hansen]";
+				mes "Escolha um número menor que 100.";
+				mes "Se você deseja cancelar, digite '0'.";
+				mes "Você pode fazer até "+countitem(.@fruta)+" garrafas de suco.";
 				next;
 				while(1) {
 					input .@input;
 					if (.@input == 0) {
-						mes "[Merchant Marx Hansen]";
-						mes "Well then...";
-						mes "Come again.";
+						mes "[Mercador Marx Hansen]";
+						mes "Bem então...";
+						mes "Volte quando quiser.";
 						close;
 					}
 					else if (.@input > 100) {
-						mes "[Merchant Marx Hansen]";
-						mes "More than 100 bottles is impossible. Choose a different amount.";
+						mes "[Mercador Marx Hansen]";
+						mes "Mais do que 100 garrafas é impossível.";
+						mes "Escolha uma quantidade diferente.";
 						next;
 					}
 					else {
@@ -252,84 +289,89 @@ payon_in03,188,146,5	script	Marx Hansen#juice	4_M_04,{
 				}
 				.@make = .@input;
 				break;
-			case 3:
-				mes "[Merchant Marx Hansen]";
-				mes "Well then...";
-				mes "Come again.";
+				case 3:
+				mes "[Mercador Marx Hansen]";
+				mes "Bem então...";
+				mes "Volte quando quiser.";
 				close;
 			}
-
 			.@total_zeny = 3 * .@make;
-
 			if (countitem(.@fruit) < .@make || countitem(713) < .@make || Zeny < .@total_zeny) {
-				mes "[Merchant Marx Hansen]";
-				mes "Oh no...";
-				mes "You don't have all the necessary materials. I can't help a situation like this. I guess you collect what you need.";
+				mes "[Mercador Marx Hansen]";
+				mes "Ah não...";
+				mes "Você não possui todos os materiais necessários.";
+				mes "Eu não posso te ajudar numa situação como essa.";
+				mes "Você deve coletar o que é necessário.";
 				close;
 			}
 			delitem .@fruit,.@make;
 			delitem 713,.@make;
 			Zeny -= .@total_zeny;
 			getitem .@juice,.@make;
-
-			mes "[Merchant Marx Hansen]";
-			mes "Here you go! Fresh and delicious juice as promised. It should be very refreshing and palatable.";
+			mes "[Mercador Marx Hansen]";
+			mes "Aqui está!";
+			mes "O suco fresco e delicioso que prometi.";
+			mes "Deve estar muito refrescante e saboroso.";
 			next;
-			mes "[Merchant Marx Hansen]";
-			mes "Well then...";
-			mes "Come again.";
+			mes "[Mercador Marx Hansen]";
+			mes "Bem então...";
+			mes "Volte quando quiser.";
 			close;
-		case 2:
-			mes "[Merchant Marx Hansen]";
-			mes "Before humans were able to develop such vast societies, they gathered fruit from trees to survive. Fruits may have been nature's blessing that allowed us to exist in the world.";
+			case 2:
+			mes "[Mercador Marx Hansen]";
+			mes "Antes de os seres humanos serem capazes de desenvolver todas essas sociedades, eles coletavam frutas das árvores para sobreviverem.";
+			mes "Frutos são a benção da natureza que nos permitiu existir no mundo.";
 			next;
-			mes "[Merchant Marx Hansen]";
-			mes "Since life became so prosperous, the younger generation seems not to eat fruit any more. So, I started thinking of ways to make fruit easier to eat.";
+			mes "[Mercador Marx Hansen]";
+			mes "Desde que a vida se tornou tão próspera, a geração mais jovem parece que não valoriza mais as frutas.";
+			mes "Então, comecei a pensar em maneiras de tornar a fruta mais fácil de se comer.";
 			next;
-			mes "[Merchant Marx Hansen]";
-			mes "I realized that when you make fruit juice, it's more convenient to eat and has a much better taste.";
+			mes "[Mercador Marx Hansen]";
+			mes "Eu percebi que a forma ideal seria fazer sucos de frutas, eles são mais convenientes para se comer e tem um sabor muito melhor.";
 			next;
-			mes "# Fruit Juice Information #";
-			mes "^CC4E5C- Apple Juice -^000000";
-			mes "Apple x 1 ea, Empty Bottle x 1 ea, 3 zeny.";
+			mes "# Sucos de Fruta Informações #";
+			mes "^CC4E5C- Suco de Maçã -^000000";
+			mes "Maçã x 1, Garrafa Vazia x 1, 3 zenys.";
 			mes "";
-			mes "^E3CF57- Banana Juice -^000000";
-			mes "Banana x 1 ea, Empty Bottle x 1 ea, 3 zeny.";
+			mes "^E3CF57- Suco de Banana -^000000";
+			mes "Banana x 1, Garrafa Vazia x 1, 3 zenys.";
 			mes "";
-			mes "^ED9121- Carrot Juice -^000000";
-			mes "Carrot x 1 ea, Empty Bottle x 1 ea, 3 zeny.";
+			mes "^ED9121- Suco de Cenoura -^000000";
+			mes "Cenoura x 1, Garrafa Vazia x 1, 3 zenys.";
 			mes "";
-			mes "^CC00FF- Grape Juice -^000000";
-			mes "Grape x 1 ea, Empty Bottle x 1 ea, 3 zeny.";
+			mes "^CC00FF- Suco de Uva -^000000";
+			mes "Uva x 1, Garrafa Vazia x 1, 3 zenys.";
 			close;
-		case 3:
-			mes "[Merchant Marx Hansen]";
-			mes "Hey!";
-			mes "If you visit";
-			mes "somebody, talk to them!";
+			close;
+			case 3:
+			mes "[Mercador Marx Hansen]";
+			mes "Ei!";
+			mes "Se você encontrar";
+			mes "alguém, avise a elas sobre os sucos!";
 			close;
 		}
 	}
 	else {
-		mes "[Merchant Marx Hansen]";
-		mes "Welcome.";
-		mes "How may I help you?";
+		mes "[Mercador Marx Hansen]";
+		mes "Bem-vindo.";
+		mes "Como posso ajudá-lo?";
 		next;
-		if (select("Talk:Cancel") == 1) {
-			mes "[Merchant Marx Hansen]";
-			mes "Before humans were able to develop such vast societies, they gathered fruit from trees to survive. Fruits may have been nature's blessing that allowed us to exist in the world.";
+		if (select("Conversar:Cancelar") == 1) {
+			mes "[Mercador Marx Hansen]";
+			mes "Antes de os seres humanos serem capazes de desenvolver todas essas sociedades, eles coletavam frutas das árvores para sobreviverem.";
+			mes "Frutos são a benção da natureza que nos permitiu existir no mundo.";
 			next;
-			mes "[Merchant Marx Hansen]";
-			mes "Since life became so prosperous, the younger generation seems not to eat fruit any more. So, I started thinking of ways to make fruit easier to eat.";
+			mes "[Mercador Marx Hansen]";
+			mes "Desde que a vida se tornou tão próspera, a geração mais jovem parece que não valoriza mais as frutas.";
+			mes "Então, comecei a pensar em maneiras de tornar a fruta mais fácil de se comer.";
 			next;
-			mes "[Merchant Marx Hansen]";
-			mes "I realized that when you make fruit juice, it's more convenient to eat and has a much better taste.";
+			mes "[Mercador Marx Hansen]";
+			mes "Eu percebi que a forma ideal seria fazer sucos de frutas, eles são mais convenientes para se comer e tem um sabor muito melhor.";
 			close;
 		}
-		mes "[Merchant Marx Hansen]";
-		mes "Hey!";
-		mes "If you vist";
-		mes "somebody, talk to them!";
+		mes "[Mercador Marx Hansen]";
+		mes "Ei!";
+		mes "Se você encontrar alguém, avise a elas sobre os sucos!";
 		close;
 	}
 }
