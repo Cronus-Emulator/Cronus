@@ -1,20 +1,21 @@
-//===== Hercules Script ======================================
-//= Kiel Warp Script (Kiel Buildings)
-//===== By: ==================================================
-//= Playtester; L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.6
-//===== Description: =========================================
-//= Warp Points for all Kiel Buildings
-//===== Additional Comments: =================================
-//= 1.0 Added Kiel warps thanks to Celestria [Playtester]
-//= 1.1 Added more warps thanks to Celestria [Playtester]
-//= 1.2 Added warps according to Kiel quest [Playtester]
-//= 1.3 Removed and altered exploitable warps for Kiel Hyre Quest. [L0ne_W0lf]
-//= 1.4 Removed FIELD entrance into Kiel Hyre's Villa. [L0ne_W0lf]
-//= 1.5 Rewrite of the warps. No more exploits/bugs should be present after this. [L0ne_W0lf]
-//= 1.6 Thanks Tsuyuki for pointing out that bug! Bah! [L0ne_W0lf]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: L0ne_W0lf                                          ||
+// - Versão: 1.6                                                 ||
+//===============================================================||
+// - Descrição: Portais na academia de kiel                      ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+//===============================================================//
 
 //============================================================
 // Kiel Hyre Academy (kh_school)

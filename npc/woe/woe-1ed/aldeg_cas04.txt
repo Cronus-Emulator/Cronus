@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - aldeg_cas04.txt                                             ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,15 +14,20 @@
 // - 1.2                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
+// - Cabeçalho [SlexFire], [Spell Master]                        ||
 // - Tradução [Spell Master]                                     ||
+// - Revisão em busca de erros [Spell Master]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Script referente ao 4º Castelo de Al de baran               ||
+// - Scripts referentes ao 4º Al de baran                        ||
+//===============================================================||
+// = Observações:                                                ||
+// - Arquivo revisado, não foram encontrados erros               ||
 //===============================================================//
 
-// Guild Flag (Outside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Porta dos Castelos)
+//===============================================================
 -	script	Wuerzburg#1::OutsideFlagsA4	GUILD_FLAG,{
 
 	.@GID = getcastledata("aldeg_cas04",1);
@@ -72,8 +74,9 @@ OnRecvCastleA04:
 alde_gld,239,246,2	duplicate(OutsideFlagsA4)	Wuerzburg#1-2	GUILD_FLAG
 alde_gld,239,239,2	duplicate(OutsideFlagsA4)	Wuerzburg#2	GUILD_FLAG
 
-// Guild Flag (Inside Castle)
-//============================================================
+//===============================================================
+// Bandeiras (Dentro dos Castelos)
+//===============================================================
 -	script	Wuerzburg#3::InsideFlagsA4	GUILD_FLAG,{
 	end;
 
@@ -100,20 +103,24 @@ aldeg_cas04,133,220,2	duplicate(InsideFlagsA4)	Wuerzburg#17	GUILD_FLAG
 aldeg_cas04,169,22,2	duplicate(InsideFlagsA4)	Wuerzburg#18	GUILD_FLAG
 aldeg_cas04,169,15,2	duplicate(InsideFlagsA4)	Wuerzburg#19	GUILD_FLAG
 
-// Guild Flag (Town)
-//============================================================
+//===============================================================
+// Bandeiras (Cidades)
+//===============================================================
 aldebaran,131,97,4	duplicate(InsideFlagsA4)	Wuerzburg#20	GUILD_FLAG
 
-// Kafra Employee
-//============================================================
+//===============================================================
+// Funcionária Kafra
+//===============================================================
 aldeg_cas04,45,88,0	duplicate(guildkafra)	Funcionária Kafra#aldeg_cas04	4_F_KAFRA1
 
-// Steward
-//============================================================
+//===============================================================
+// Gerente
+//===============================================================
 aldeg_cas04,67,116,0	duplicate(cm)	Brymhensen#aldeg_cas04	1_M_JOBTESTER
 
-// Treasure Room Exit
-//============================================================
+//===============================================================
+// Saída da Sala do Tesouro
+//===============================================================
 aldeg_cas04,83,17,0	script	#lever_A04	HIDDEN_NPC,{
 
 	mes " ";
@@ -127,18 +134,22 @@ aldeg_cas04,83,17,0	script	#lever_A04	HIDDEN_NPC,{
 	close;
 }
 
-// Guild Dungeon Switch
-//============================================================
+//===============================================================
+// Entrada para o Calabouço
+//===============================================================
 aldeg_cas04,76,64,0	duplicate(gdlever)	#aldeg_cas04	HIDDEN_NPC
 
-// Guild Treasure Spawns
-//============================================================
+//===============================================================
+// Sala do Tesouro
+//===============================================================
 aldeg_cas04,84,13,0	duplicate(Gld_Trea_Spawn)	Treasure#aldeg_cas04	-1
 
-// AGIT Manager
-//============================================================
+//===============================================================
+// Gerenciamento
+//===============================================================
 aldeg_cas04,36,218,0	duplicate(Gld_Agit_Manager)	Agit#aldeg_cas04	-1
 
-// Guardians
-//============================================================
+//===============================================================
+// Guardiões
+//===============================================================
 aldeg_cas04,67,116,0	duplicate(Gld_Guard_Template)	Guardião#aldeg_cas04	-1

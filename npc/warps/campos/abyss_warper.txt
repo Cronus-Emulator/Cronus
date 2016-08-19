@@ -1,146 +1,102 @@
-//===== Hercules Script ======================================
-//= Abyss Cave Warper
-//===== By: ==================================================
-//= erKURITA
-//===== Current Version: =====================================
-//= 1.4
-//===== Description: =========================================
-//= Warper to Abyss Cave. and warper out
-//===== Additional Comments: =================================
-//= 1.0 Added by Nexon [Nexon]
-//= 1.1 Removed Duplicates [Silent]
-//= 1.2 Fixed tab - missing pillar's appeared [Lupus]
-//= 1.3 Updated Abyss Lake entrance based on official [SinSloth]
-//= 1.3a Removed .GATs [Lupus]
-//= 1.4 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// - Criação: erKURITA                                           ||
+// - Versão: 1.4                                                 ||
+//===============================================================||
+// - Descrição: Acesso ao subterraneo do Lago do Abismo          ||
+//===============================================================||
+// - Alterações:                                                 ||
+// - Cabeçalho: [SlexFire], [Spell Master]                       ||
+// - Informação do cabeçalho: [Spell Master]                     ||
+// - Tradução: [Spell Master]                                    ||
+// - Reformulado a estrutura do script: [Spell Master]           ||
+//===============================================================//
 
-hu_fild05,168,304,0	script	Column#abyss1	HIDDEN_NPC,{
-
-	mes "^3355FFThere are 3 oddly";
-	mes "shaped grooves on";
-	mes "the surface of this";
-	mes "column. It seems that";
-	mes "certain dragon body parts";
-	mes "would fit perfectly into";
-	mes "the column grooves.^000000";
-	if((countitem(1035)) && (countitem(1036)) && (countitem(1037)))
-	{
+hu_fild05,168,304,0	script	Coluna#abyss1	HIDDEN_NPC,{
+	mes "^3355FFHá 3 encaixes amoldados na superfície desta coluna.";
+	mes "Parece aquelas certas partes do corpo do dragão se ajustam perfeitamente nos encaixes.^000000";
+	if((countitem(1035)) && (countitem(1036)) && (countitem(1037))) {
 		next;
-		switch( select( "Insert Dragon Body Parts","Eat Dragon Body Parts" ) )
-		{
+		switch(select( "Colocar as partes do Dragão","Ficar com as partes do Dragão" )) {
 			case 1:
-				mes "^3355FFYou carefully place a";
-				mes "Dragon Canine into one of";
-				mes "the grooves, and then you";
-				mes "hear a powerful rumbling";
-				mes "from within the column.^000000";
-				specialeffect EF_WINDHIT;
-				next;
-				mes "^3355FFYou slowly insert a";
-				mes "Dragon Scale into another";
-				mes "of the column's grooves,";
-				mes "trigerring another small";
-				mes "tremor from the column.^000000";
-				specialeffect EF_WINDHIT;
-				next;
-				mes "^3355FFYou cautiously insert";
-				mes "a Dragon Tail into the";
-				mes "final groove. Lights shine";
-				mes "forth from cracks in the";
-				mes "column's surface...^000000";
-				specialeffect EF_WINDHIT;
-				next;
-				mes "^3355FFThe ground beneath";
-				mes "your feet begins to";
-				mes "violently shake.^000000";
-				specialeffect EF_BOWLINGBASH;
-				donpcevent "AbyssWarp::OnWarp";
-				specialeffect2 EF_PORTAL;
-				delitem 1035,1;
-				delitem 1036,1;
-				delitem 1037,1;
-				close2;
-				warp "hu_fild05",184,204;
-				end;
-
+			mes "^3355FFVocê coloca o canino cuidadosamente no encaixe, e então você ouve um estrondo poderoso dentro da coluna.^000000";
+			specialeffect EF_WINDHIT;
+			next;
+			mes "^3355FFVocê coloca a cabeça de Dragão lentamente em outro encaixes, novamente ouve outro tremor dentro da coluna.^000000";
+			specialeffect EF_WINDHIT;
+			next;
+			mes "^3355FFVocê cudadosamente inserem a Calda do Dragão no encaixe final.";
+			mes "Luzes emanam palas fendas na superfície da coluna...^000000";
+			specialeffect EF_WINDHIT;
+			next;
+			mes "^3355FF chão em baixo de seus pés começa violentamente a tremer.^000000";
+			specialeffect EF_BOWLINGBASH;
+			donpcevent "AbyssWarp::OnWarp";
+			specialeffect2 EF_PORTAL;
+			delitem 1035,1;
+			delitem 1036,1;
+			delitem 1037,1;
+			close2;
+			warp "hu_fild05",184,204;
+			end;
 			case 2:
-				mes "^3355FFYou gingerly place a";
-				mes "Dragon's Canine, a Dragon";
-				mes "Scale, and a Dragon Tail into";
-				mes "your mouth and slowly begin";
-				mes "to chew. Nothing happens";
-				mes "and the taste of these items";
-				mes "is surprisingly putrid.^000000";
-				next;
-				emotion e_rice,1;
-				delitem 1035,1;
-				delitem 1036,1;
-				delitem 1037,1;
-				percentheal -10,0;
-				close;
+			mes "^3355FFNada acontece.^000000";
+			next;
+			emotion e_rice,1;
+			delitem 1035,1;
+			delitem 1036,1;
+			delitem 1037,1;
+			percentheal -10,0;
+			close;
 		}
 	}
 	close;
 }
 
-hu_fild05,171,211,0	script	Column#abyss2	HIDDEN_NPC,1,1,{
-
-	mes "^3355FFThis column looks";
-	mes "very similar to the";
-	mes "one you've seen in";
-	mes "the lake. There is";
-	mes "a conspicious blue";
-	mes "groove on its surface.^000000";
+hu_fild05,171,211,0	script	Coluna#abyss2	HIDDEN_NPC,1,1,{
+	mes "^3355FFEsta coluna parece bem parecida com a que você viu no lago.";
+	mes "Há um enstranho artefato azul na superfície.^000000";
 	next;
-	switch( select( "Touch the Groove","Remove Item from Groove" ) )
-	{
+	switch(select( "Toque o artefato","Remover o artefato" )) {
 		case 1:
-			mes "^3355FF*Clatter Clatter*^000000";
-			next;
-			mes "^3355FFThe light emanating from";
-			mes "the groove distorts and";
-			mes "the column starts to shake.";
-			mes "You hear a faint rumbling";
-			mes "from inside the column.^000000";
-			specialeffect EF_WINDHIT;
-			next;
-			mes "*Ggghhhhhzzzz!*";
-			mes "*BAM!*";
-			next;
-			mes "^3355FFThe light shining from";
-			mes "the column's groove grows";
-			mes "brighter as you feel the";
-			mes "ground beneath your feet";
-			mes "begin to slowly sink away...^000000";
-			next;
-			specialeffect EF_BOWLINGBASH;
-			specialeffect2 EF_PORTAL;
-			close2;
-			warp "hu_fild05",169,305;
-			end;
-
+		mes "^3355FF*Ruídos*^000000";
+		next;
+		mes "^3355FFUma luz clara emana do encaixe e a coluna começa a tremer.";
+		mes "Você ouve um estrondoso barunho vindo de dentro da coluna.^000000";
+		specialeffect EF_WINDHIT;
+		next;
+		mes "*Ggghhhhhzzzz!*";
+		mes "*BAM!*";
+		next;
+		mes "^3355FFA luz vinda do encaixe dica mais luminosa ainda e você sente o chão em baixo de seus pés começar a afundar lentamente...^000000";
+		next;
+		specialeffect EF_BOWLINGBASH;
+		specialeffect2 EF_PORTAL;
+		close2;
+		warp "hu_fild05",169,305;
+		end;
 		case 2:
-			mes "^3355FF*Ppppsssh!*";
-			mes "You accidentally";
-			mes "broke the item.^000000";
-			specialeffect EF_WINDHIT;
-			next;
-			mes "^3355FF*Gggggggghhhhhhhhzzzzzzjjjjhh!*^000000";
-			next;
-			mes "^3355FFThe light emanating from";
-			mes "the groove distorts and";
-			mes "the column starts to shake.";
-			mes "The tremors in the ground";
-			mes "make it difficult to stand";
-			mes "steadily, but suddently you";
-			mes "are warped somewhere else...^000000";
-			next;
-			specialeffect EF_BOWLINGBASH;
-			specialeffect2 EF_PORTAL;
-			close2;
-			warp "hu_fild05",157,284;
-			end;
+		mes "^3355FF*Ppppsssh!*";
+		mes "Você quebrou o artefato acidentalmente.^000000";
+		specialeffect EF_WINDHIT;
+		next;
+		mes "^3355FF*Gggggggghhhhhhhhzzzzzzjjjjhh!*^000000";
+		next;
+		mes "^3355FFUma luz clara emana do encaixe e a coluna começa a tremer.";
+		mes "O chão começa a termer sendo difícil ficar de pé...^000000";
+		next;
+		specialeffect EF_BOWLINGBASH;
+		specialeffect2 EF_PORTAL;
+		close2;
+		warp "hu_fild05",157,284;
+		end;
 	}
 }
 
