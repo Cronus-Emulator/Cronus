@@ -5508,7 +5508,7 @@ void clif_displaymessage(const int fd, const char* mes) {
 		/** so we redirect to ZC_NPC_CHAT **/
 		clif->messagecolor_self(fd, COLOR_DEFAULT, mes);
 	#else
-		size_t len;
+		uint32_t len;
 
 		if ( ( len = strnlen(mes, 255) ) > 0 ) { // don't send a void message (it's not displaying on the client chat). @help can send void line.
 			WFIFOHEAD(fd, 5 + len);
