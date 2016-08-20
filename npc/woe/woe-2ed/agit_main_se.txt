@@ -5,10 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
-//===============================================================||
-// = Nome do NPC:                                                ||
-// - agit_main_se.txt                                            ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -17,38 +14,45 @@
 // - 1.4a                                                        ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [SlexFire]                                        ||
-// - Tradução [Spell Master]                                     ||
+// - Cabeçalho [SlexFire], [Spell Master].                       ||
+// - Tradução [Spell Master].                                    ||
+// - Remoção dos spawns de monstros depois de quebrar o emperium ||
+// e finalizar a Woe [Spell Master].                             ||
+// - Correção do erro onde monstros eram invocados mesmo que o   ||
+// castelo já possuía ocupante [Spell Master].                   ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Gerencia Scripts da GDE Segunda edição                      ||
-//===============================================================||
-// = Observações:                                                ||
-// - Efetuar revisão!                                            ||
+// - Gerencia Scripts da GDE Segunda Edição                      ||
 //===============================================================//
 
-// Core, triggers all other events
+//============================================================
+// Engatilhamento de todos eventos
 //============================================================
 -	script	Manager#template	-1,{
 OnAgitInit2:
 OnRecvCastle2:
 	if (strnpcinfo(2) == "template") end;
 	if (!getcastledata(strnpcinfo(2),1)) {
-		donpcevent strnpcinfo(0)+"::OnStart";
-		// Monster spawns are identical for all castles.
-		monster strnpcinfo(2),0,0,"Druida Malígno",1117,10;
-		monster strnpcinfo(2),0,0,"Khalitzburg",1132,4;
-		monster strnpcinfo(2),0,0,"Cavaleiro do Abismo",1219,3;
-		monster strnpcinfo(2),0,0,"Executor",1205,1;
-		monster strnpcinfo(2),0,0,"Penomena",1216,10;
-		monster strnpcinfo(2),0,0,"Alarme",1193,18;
-		monster strnpcinfo(2),0,0,"Relógio",1269,9;
-		monster strnpcinfo(2),0,0,"Raydric Arqueiro",1276,12;
-		monster strnpcinfo(2),0,0,"Andarilho",1208,3;
-		monster strnpcinfo(2),0,0,"Alice",1275,1;
-		monster strnpcinfo(2),0,0,"Cavaleiro Sanguinário",1268,2;
-		monster strnpcinfo(2),0,0,"Senhor das Trevas",1272,2;
-		monster strnpcinfo(2),0,0,"Gerente",1270,4;
+		if (agitcheck2()) {
+			donpcevent strnpcinfo(0)+"::OnStart";
+			// Invocações de monstros são idênticas para todos castelos.
+			monster strnpcinfo(2),0,0,"Druida Malígno",1117,10;
+			monster strnpcinfo(2),0,0,"Khalitzburg",1132,4;
+			monster strnpcinfo(2),0,0,"Cavaleiro do Abismo",1219,3;
+			monster strnpcinfo(2),0,0,"Executor",1205,1;
+			monster strnpcinfo(2),0,0,"Penomena",1216,10;
+			monster strnpcinfo(2),0,0,"Alarme",1193,18;
+			monster strnpcinfo(2),0,0,"Relógio",1269,9;
+			monster strnpcinfo(2),0,0,"Raydric Arqueiro",1276,12;
+			monster strnpcinfo(2),0,0,"Andarilho",1208,3;
+			monster strnpcinfo(2),0,0,"Alice",1275,1;
+			monster strnpcinfo(2),0,0,"Cavaleiro Sanguinário",1268,2;
+			monster strnpcinfo(2),0,0,"Senhor das Trevas",1272,2;
+			monster strnpcinfo(2),0,0,"Gerente",1270,4;
+		}
+	}
+	else {
+		killmonsterall strnpcinfo(2);
 	}
 	if (getcastledata(strnpcinfo(2),9) < 1)
 		disablenpc "Funcionária Kafra#"+substr(strnpcinfo(2),0,1)+substr(strnpcinfo(2),8,9);
@@ -59,7 +63,8 @@ OnAgitStart2:
 	if (agitcheck2()) {
 		maprespawnguildid strnpcinfo(2),getcastledata(strnpcinfo(2),1),2;
 		gvgon strnpcinfo(2);
-		donpcevent strnpcinfo(0)+"::OnStart";
+		//donpcevent strnpcinfo(0)+"::OnStart";
+		donpcevent strnpcinfo(0)+"::OnRecvCastle2";
 	}
 	else for(.@i = 0; .@i<4; ++.@i)
 		donpcevent "RL"+.@i+"#"+strnpcinfo(2)+"::OnDisable";
@@ -68,6 +73,7 @@ OnAgitStart2:
 OnAgitEnd2:
 	if (strnpcinfo(2) == "template") end;
 	gvgoff strnpcinfo(2);
+	killmonsterall strnpcinfo(2);
 	if (getcastledata(strnpcinfo(2),1)) {
 		.@str$ = substr(strnpcinfo(2),0,1)+substr(strnpcinfo(2),8,9);
 		killmonster strnpcinfo(2),"Steward#"+.@str$+"::OnStartArena";
@@ -89,9 +95,9 @@ OnGuildBreak:
 
 OnStart:
 	// $agit_ar0x[] - $agit_sc0x[]
-	// 1st Guardian stone, 2nd Guardian stone, Barrier 1, Barrier 2, Barrier 3, Summon Guardians
-	// Settings for all but Summon Guardians: 0 = Okay | 1 = Destroyed | 2 = Repairing
-	// Summon Guardians: 0 = Do not Summon | 1 = Summon
+	// 1ª Runa Guardiã, 2ª Runa Guardiã, Barricada 1, Barricada 2, Barricada 3, Guardiões
+	// Definições para Todos os Guardiões: 0 = Ativo | 1 = Destruído | 2 = Reparando
+	// Convocação de Guardiões: 0 = Não é possível convocar | 1 = Convocável
 	if (getcastledata(strnpcinfo(2),1)) {
 		setarray getd("$agit_"+substr(strnpcinfo(2),0,1)+substr(strnpcinfo(2),8,9)+"[0]"),0,0,0,0,0,0;
 		donpcevent "df1#"+strnpcinfo(2)+"::OnEnable";
@@ -106,12 +112,12 @@ OnEmpSpawn:
 	if (compare(strnpcinfo(2),"arug")) {
 		if (strnpcinfo(2) == "arug_cas01") setarray .@i[0],87,219;
 		else if (strnpcinfo(2) == "arug_cas02") setarray .@i[0],89,256;
-		else setarray .@i[0],141,293;	// Castles 3,4,5 are identical.
+		else setarray .@i[0],141,293;	// Castelos 3,4,5 são idênticos.
 	}
 	else {
 		if (strnpcinfo(2) == "schg_cas02") setarray .@i[0],162,193;
 		else if (strnpcinfo(2) == "schg_cas03") setarray .@i[0],338,202;
-		else setarray .@i[0],120,272;	// Castles 1,4,5 are identical.
+		else setarray .@i[0],120,272;	// Castelos 1,4,5 são idênticos.
 	}
 	monster strnpcinfo(2),.@i[0],.@i[1],"Emperium",1288,1,"Steward#"+.@str$+"::OnStartArena";
 	end;
@@ -142,7 +148,7 @@ OnChange:
 	end;
 
 OnClock0001:
-	// Spawn Treasure Chests based on castle economy.
+	// Invocação dos Baús do Tesouro baseados na economia do castelo.
 	if (strnpcinfo(2) == "template") end;
 	if (!getcastledata(strnpcinfo(2),1)) end;
 	killmonster strnpcinfo(2),strnpcinfo(0)+"::OnTreasureDied";
@@ -172,7 +178,7 @@ OnClock0001:
 			setarray .@treasurex[0],382,383,384,385,386,387,384,385,386,387,388,389,382,383,384,385,386,387,384,385,386,387,388,389;
 			setarray .@treasurey[0],231,231,231,231,231,231,230,230,230,230,230,230,225,225,225,225,225,225,224,224,224,224,224,224;
 		}
-		else { 	// Castles 3,4,5 are identical, except 4's treasure.
+		else { 	// Castelos 3,4,5 são idênticos, excexto o 4º baú.
 			.@treasurebox = (strnpcinfo(2) == "arug_cas04")?1946:1945;
 			setarray .@treasurex[0],291,292,293,294,295,296,293,294,295,296,297,298,291,292,293,294,295,296,293,294,295,296,297,298;
 			setarray .@treasurey[0],276,276,276,276,276,276,274,274,274,274,274,274,272,272,272,272,272,272,269,269,269,269,269,269;
@@ -189,7 +195,7 @@ OnClock0001:
 			setarray .@treasurex[0],189,190,191,192,193,194,189,190,191,192,193,194,189,190,191,192,193,194,189,190,191,192,193,194;
 			setarray .@treasurey[0], 21, 21, 21, 21, 21, 21, 19, 19, 19, 19, 19, 19, 17, 17, 17, 17, 17, 17, 15, 15, 15, 15, 15, 15;
 		}
-		else {	// Castles 1,4,5 are identical, except treasures.
+		else {	// Castelos 1,4,5 são idênticos, exceto nos baús do tesouro.
 			if (strnpcinfo(2) == "schg_cas01") .@treasurebox = 1938;
 			else if (strnpcinfo(2) == "schg_cas04") .@treasurebox = 1941;
 			else .@treasurebox = 1942;
@@ -210,7 +216,8 @@ OnTreasureDied:
 	end;
 }
 
-// Guild Manager
+//============================================================
+// Gerenciamento da Guilda
 //============================================================
 -	script	Steward#template	-1,{
 	.@GID = getcastledata(strnpcinfo(4),1);
@@ -231,7 +238,7 @@ OnTreasureDied:
 	mes "[Mordomo]";
 	mes "Ah, Mestre ^FF0000"+getguildmaster(.@GID)+"^000000...";
 	mes "Como posso lhe servir hoje?";
-	mes "Havia um aspecto da manutenção deste lugar que você quis discutir?";
+	mes "Há ulgum aspecto da manutenção deste lugar que você queira discutir?";
 	next;
 	switch(select("Instrução do Castelo:Investir no Crescimento Comercial:Investir no crescimento Defensivo:Contrato com Corp. Kafra:Ir para sala do mestre")) {
 	case 1:
@@ -260,7 +267,7 @@ OnTreasureDied:
 			}
 			++.@j;
 		}
-		// Quadruple the cost of investing if you've already invested once.
+		// Quadruplica o custo caso você já tenha investido.
 		if (getcastledata(strnpcinfo(4),4))
 			.@eco_invest *= 4;
 		mes "[Mordomo]";
@@ -327,7 +334,7 @@ OnTreasureDied:
 			}
 			++.@j;
 		}
-		// Quadruple the cost of investing if you've already invested once.
+		// Quadruplica o custo caso você já tenha investido.
 		if (getcastledata(strnpcinfo(4),5))
 			.@def_invest *= 4;
 		mes "[Mordomo]";
@@ -349,11 +356,11 @@ OnTreasureDied:
 			close;
 		}
 		if (getcastledata(strnpcinfo(4),5) == 0) {
-			mes "Nós precisamos de ^FF0000"+.@def_invest+"^000000 Zeny para investir no defesas.";
+			mes "Nós precisamos de ^FF0000"+.@def_invest+"^000000 Zeny para investir na defesa.";
 			mes "Você quer investir agora?";
 		}
 		else {
-			mes "Nós precisamos de ^FF0000"+.@def_invest+"^000000 Zeny para investir no defesas.";
+			mes "Nós precisamos de ^FF0000"+.@def_invest+"^000000 Zeny para investir na defesa.";
 			mes "Você quer investir agora?";
 		}
 		next;
@@ -374,7 +381,6 @@ OnTreasureDied:
 			setcastledata strnpcinfo(4),5,getcastledata(strnpcinfo(4),5)+1;
 			mes "[Mordomo]";
 			mes "Um uso inteligente dos fundos do clã, Mestre.";
-			//mes "Increasing the frequency of treasure procured by the guild will definitely help us all."; // Não tem nada a ver com investimento na defesa
 			mes "Aumentando com freqüência nossas defesas, os resultados obtidos serão bem satisfatórios.";
 			close;
 		case 2:
@@ -428,7 +434,7 @@ OnTreasureDied:
 		else {
 			mes "[Mordomo]";
 			mes "Você quer contratá uma Funcionária de Kafra para servir ao nosso castelo?";
-			mes "terá que pagar ^FF000010,000 Zeny^000000.";
+			mes "Terá que pagar ^FF000010,000 Zeny^000000.";
 			next;
 			switch(select("Contratar:Cancelar")) {
 			case 1:
@@ -485,12 +491,12 @@ OnTreasureDied:
 			if (compare(strnpcinfo(4),"arug")) {
 				if (strnpcinfo(4) == "arug_cas01") setarray .@i[0],250,363;
 				else if (strnpcinfo(4) == "arug_cas02") setarray .@i[0],382,227;
-				else setarray .@i[0],292,266;	// Castles 3,4,5 are identical.
+				else setarray .@i[0],292,266;	// Castelos 3,4,5 são idênticos.
 			}
 			else {
 				if (strnpcinfo(4) == "schg_cas02") setarray .@i[0],249,373;
 				else if (strnpcinfo(4) == "schg_cas03") setarray .@i[0],190,16;
-				else setarray .@i[0],381,381;	// Castles 1,4,5 are identical.
+				else setarray .@i[0],381,381;	// Castelos 1,4,5 são idênticos.
 			}
 			warp strnpcinfo(4),.@i[0],.@i[1];
 			end;
@@ -509,23 +515,22 @@ OnStop:
 OnStartArena:
 	.@GID = getcharid(2);
 	.@region$ = (compare(strnpcinfo(4),"arug"))?"Arunafeltz":"Schwaltzvalt";
-	// Lower castle Economy
+	// Economia do Castelo Baixa
 	.@Economy = getcastledata(strnpcinfo(4),2)-5;
 	if (.@Economy < 0) .@Economy = 0;
 	setcastledata strnpcinfo(4),2,.@Economy;
-	// Lower Castle Defence
+	// Defesa do Castelo Baixa
 	.@defence = getcastledata(strnpcinfo(4),3)-5;
 	if (.@defence < 0) .@defence = 0;
 	setcastledata strnpcinfo(4),3,.@defence;
-	// Set new owner
+	// Definindo novo dono do castelo
 	setcastledata strnpcinfo(4),1,.@GID;
-	// Clear castle's data.
+	// Apagando dados do castelo
 	for(.@i = 4; .@i<10; ++.@i)
 		setcastledata strnpcinfo(4),.@i,0;
-	// Disable Kafra
+	// Desabilitando a Kafra
 	disablenpc "Funcionária Kafra#"+strnpcinfo(2);
 
-//	announce "The ["+getguildname(.@GID)+"] guild conquered the ["+.@region$+" "+charat(strnpcinfo(2),3)+"] fortress of "+getcastlename(strnpcinfo(4))+"!",bc_all|bc_woe;
 	announce "O Clã ["+getguildname(.@GID)+"] conquistou o a fortaleza "+getcastlename(strnpcinfo(4))+" em ["+.@region$+" "+charat(strnpcinfo(2),3)+"]!",bc_all|bc_woe;
 
 	mapannounce strnpcinfo(4),"O emperium foi despedaçado!",bc_map,"0x00FF00",FW_NORMAL,20,0,40;
@@ -541,7 +546,8 @@ OnStartArena:
 	end;
 }
 
-// Castle Guardians
+//============================================================
+// Guardiões do Castelo
 //============================================================
 -	script	Guardian#template	-1,{
 	.@GID = getcastledata(strnpcinfo(4),1);
@@ -592,16 +598,6 @@ OnStartArena:
 						mes "Há uma é a segunda linha de defesa para a fortaleza, que são os ^4D4DFFPortões^000000, enquanto as Runas Guardiãs não forem destruídas eles serão inatigíveis.";
 						mes "Estes portões são localizados em diferentes partes da fortaleza.";
 						next;
-						/* Isso não é nessesário só vai falar denovo o trecho acima de outra forma
-						mes .@n$;
-						mes "Barricades are protected by";
-						mes "Guardian Stones, and are";
-						mes "restored when the Guardian";
-						mes "Stones are retrieved. However,";
-						mes "it is not as easy to restore";
-						mes "destroyed Fortress Gates.";
-						next;
-						*/
 						mes .@n$;
 						mes "Os Portões da Fortaleza podem ser restaurados quando o ^4D4DFFLíder do Clã de uma fortaleza muda^000000, ou se a ^4D4DFFRestauração é requisitada pelo líder do clã dono do castelo^000000.";
 						close;
@@ -682,7 +678,7 @@ OnStartArena:
 	}
 	else {
 		mes .@n$;
-		mes "Who are you?";
+		mes "Quem é você?";
 		mes "Salafrário!";
 		mes "Saia dessa fortalesa agora!";
 		close;
@@ -693,7 +689,8 @@ OnInit:
 	end;
 }
 
-// Guild Kafras
+//============================================================
+// Kafras
 //============================================================
 -	script	Kafra#template	-1,{
 	cutin "kafra_01",2;
@@ -779,7 +776,7 @@ OnInit:
 	}
 	else {
 		mes "[Funcionária Kafra]";
-		mes "Me desculpe, mas eu fui contratada exclusivamente para servir aos membros da guilda ^FF0000"+getguildname(.@GID)+"^000000.";
+		mes "Me desculpe, mas eu fui contratada exclusivamente para servir aos membros do clã ^FF0000"+getguildname(.@GID)+"^000000.";
 		mes "Você vai ter que falar com outra Funcionária Kafra para ajudá-lo...";
 		close2;
 		cutin "kafra_01",255;
@@ -787,7 +784,8 @@ OnInit:
 	}
 }
 
-// Guardian Stones (2)
+//============================================================
+// Runas Guardiãs (2)
 //============================================================
 -	script	Guardian Stone#template	-1,{
 	.@GID = getcastledata(strnpcinfo(4),1);
@@ -816,7 +814,7 @@ OnInit:
 			setarray .@stone$[0],"Elunium","Oridecon","Pedras";
 			.@i = select("Elunium:Oridecon:Pedra")-1;
 			if (.@i == 2) .@nice += 10;
-			mes "^3355FF"+.@stone$[.@i]+" foram colocado no centro.^000000";
+			mes "^3355FF"+.@stone$[.@i]+" foram colocados no centro.^000000";
 			next;
 			.@i = select("Elunium:Oridecon:Pedra")-1;
 			if (.@i == 0) .@nice += 10;
@@ -860,12 +858,12 @@ OnInit:
 					}
 					else {
 						mes "^3355FFAs gemas foram arrumadas com sucesso, e a Runa Guardiã foi reparada com sucesso.^000000";
-						delitem 984,1; //Oridecon
-						delitem 985,1; //Elunium
+						delitem 984,1;   //Oridecon
+						delitem 985,1;   //Elunium
 						delitem 7049,30; //Stone
-						delitem 717,5; //Blue_Gemstone
-						delitem 715,5; //Yellow_Gemstone
-						delitem 716,5; //Red_Gemstone
+						delitem 717,5;   //Gema Azul
+						delitem 715,5;   //Gema Amarela
+						delitem 716,5;   //Gema Vermelha
 						close2;
 						donpcevent "df"+.@num+"#"+strnpcinfo(4)+"::OnEnable";
 						specialeffect EF_ICECRASH;
@@ -886,10 +884,10 @@ OnInit:
 			else {
 				mes "^3355FFApós todo esse trabalho...";
 				mes "Parece que você não foi possível reconstruir a Runa Guardiã, e você também perdeu os materiais.^000000";
-				delitem 7049,10; //Stone
-				delitem 717,2; //Blue_Gemstone
-				delitem 715,2; //Yellow_Gemstone
-				delitem 716,2; //Red_Gemstone
+				delitem 7049,10; //Pedra
+				delitem 717,2;   //Gema Azul
+				delitem 715,2;   //Gema Amarela
+				delitem 716,2;   //Gema Vermelha
 				close;
 			}
 		}
@@ -911,11 +909,11 @@ OnEnable:
 	end;
 }
 
-// Control Devices (3)
+//============================================================
+// Dispositivos (3)
 //============================================================
 -	script	Control#template	-1,{
 	.@GID = getcastledata(strnpcinfo(4),1);
-	//.@num = atoi(charat(strnpcinfo(1),15)); // Original para Control Device 
 	.@num = atoi(charat(strnpcinfo(1),13));
 	.@var$ = "$agit_"+strnpcinfo(2);
 	if (getcharid(2) == .@GID) {
@@ -996,11 +994,11 @@ OnEnable:
 								next;
 								switch(select("Tronco:Aço:Emveretarcon:Oridecon")) {
 								case 1:
-									mes "^3355FFVocê tentou usar madeira para consertar o problema, mas parece ter piorado o problema.";
+									mes "^3355FFVocê tentou usar madeira para consertar o problema, mas parece ter piorado ainda mais.";
 									mes "Você terá que começar novamente.^000000";
 									close;
 								case 2:
-									mes "^3355FFVocê usou aço para soldar todas as rachaduras:";
+									mes "^3355FFVocê usou aço para soldar todas as rachaduras.";
 									mes "O portão começou a aparentar estar mais sólido.^000000";
 									++.@rp_temp;
 									++.@ro_of02;
@@ -1054,10 +1052,10 @@ OnEnable:
 					else {
 						if (.@rp_temp == .@ro_of01) {
 							mes "^3355FFO portão do castelo foi reparado com sucesso!^000000";
-							delitem 1019,30; //Wooden_Block
-							delitem 999,10; //Steel
+							delitem 1019,30; //Tronco
+							delitem 999,10;  //Aço
 							delitem 1011,10; //Emveretarcon
-							delitem 984,5; //Oridecon
+							delitem 984,5;   //Oridecon
 							close2;
 							donpcevent "RL"+.@num+"#"+strnpcinfo(4)+"::OnEnable";
 							disablenpc strnpcinfo(0);
@@ -1075,10 +1073,10 @@ OnEnable:
 						else {
 							mes "^3355FFA parede foi quebrada, e a tentativa de reparar o Portão do Castelo falhou.";
 							mes "Você perdeu seus recursos para reparo...^000000";
-							delitem 984,2; //Oridecon
-							delitem 999,4; //Steel
-							delitem 1019,14; //Wooden_Block
-							delitem 1011,3; //Emveretarcon
+							delitem 984,2;   //Oridecon
+							delitem 999,4;   //Aço
+							delitem 1019,14; //Tronco
+							delitem 1011,3;  //Emveretarcon
 							close;
 						}
 					}
@@ -1102,12 +1100,13 @@ OnEnable:
 	end;
 }
 
-// Guardian Summoners (2)
+//============================================================
+// Invocação dos Guardiões (2)
 //============================================================
 -	script	gard#template	-1,{
 OnEnable:
-	// .@x[i],.@y[i]: Normal coordinates, #0-21.
-	// .@w[x],.@w[y]: Special coordinates if 'defence' is under 11.
+	// .@x[i],.@y[i]: Coordenadas Normais, #0-21.
+	// .@w[x],.@w[y]: Coordenadas expeciais quando a defesa é superior a 11.
 	if (compare(strnpcinfo(2),"arug")) {
 		if (strnpcinfo(2) == "arug_cas01") {
 			setarray .@w[0],195,250,292,188;
@@ -1119,7 +1118,7 @@ OnEnable:
 			setarray .x[0],104,67,67,113,122,67, 90, 91,122, 20,67, 175,204,211,209,161,186,183,150,161,209,211;
 			setarray .y[0], 32,36,85, 87,112,60,167,119,112,169,85,  31, 32, 63, 88, 91,170,121,110, 91, 88, 63;
 		}
-		else {	// Castles 3,4,5 are identical.
+		else {	// Castelos 3,4,5 são idênticos.
 			setarray .@w[0],66,157,211,159;
 			setarray .x[0],130,128,128,128,110,91,65, 65,110,128,128, 156,172,154,156,155,187,212,211,155,156,172;
 			setarray .y[0], 60, 77, 90,100, 96,53,71,103, 96,100, 77, 101, 95, 90, 77, 60, 54, 67,105, 60, 77, 95;
@@ -1136,8 +1135,8 @@ OnEnable:
 			setarray .x[0],323,273,288,306,323,323,273,288,306,273,273, 338,364,365,317,338,338,364,365,317,364,329;
 			setarray .y[0],308,309,306,326,308,308,309,306,325,309,309, 309,305,261,318,310,309,305,261,318,305,314;
 		}
-		else {	// Castles 1,4,5 are identical.
-			setarray .@w[0],108,32,128,42,187,15;	// Contains an extra pair, for whatever reason.
+		else {	// Castelos 1,4,5 são idênticos.
+			setarray .@w[0],108,32,128,42,187,15;	// Contém um par extra. (Porque?: Spell Master)
 			setarray .x[0],111,109,65,110,88,64,47,109,111,112,120, 130,129,151,187,128,152,187,128,130,130,151;
 			setarray .y[0], 18, 44,22, 40,20,40,43, 48, 18, 32, 37,  22, 47, 18, 15, 42, 43, 15, 42, 22, 28, 18;
 		}
@@ -1224,19 +1223,20 @@ OnReset:
 	end;
 }
 
-// Guardian Stone Summoners (2)
+//============================================================
+// Invocação das Runas Guardiãs (2)
 //============================================================
 -	script	df#template	-1,{
 OnEnable:
 	if (compare(strnpcinfo(2),"arug")) {
 		if (strnpcinfo(2) == "arug_cas01") setarray .@i[0],210,234,308,189;
 		else if (strnpcinfo(2) == "arug_cas02") setarray .@i[0],33,168,245,168;
-		else setarray .@i[0],65,171,212,149;	// Castles 3,4,5 are identical.
+		else setarray .@i[0],65,171,212,149;	// Castelos 3,4,5 são idênticos.
 	}
 	else {
 		if (strnpcinfo(2) == "schg_cas02") setarray .@i[0],231,58,335,230;
 		else if (strnpcinfo(2) == "schg_cas03") setarray .@i[0],242,309,376,251;
-		else setarray .@i[0],27,35,207,75;	// Castles 1,4,5 are identical.
+		else setarray .@i[0],27,35,207,75;	// Castelos 1,4,5 são idênticos.
 	}
 	.@num = atoi(charat(strnpcinfo(1),2));
 	.@j = (.@num == 1)?0:2;
@@ -1277,7 +1277,8 @@ OnTimer300000:
 	end;
 }
 
-// Barrier Summoners (4)
+//============================================================
+// Invocação das Barricadas (4)
 //============================================================
 -	script	RL#template	-1,{
 OnEnable:
@@ -1294,7 +1295,7 @@ OnEnable:
 				setarray .@x[0],137,139,141,143;
 				setarray .@y[0],137,137,137,137;
 			}
-			else {	// Castles 3,4,5 are identical.
+			else {	// Castelos 3,4,5 são idênticos.
 				setarray .@wall[0],138,110,8,6,0;
 				setarray .@x[0],139,141,143,145;
 				setarray .@y[0],111,111,111,111;
@@ -1311,7 +1312,7 @@ OnEnable:
 				setarray .@x[0],326,328,330;
 				setarray .@y[0],300,300,300;
 			}
-			else {	// Castles 1,4,5 are identical.
+			else {	// Castelos 1,4,5 são idênticos.
 				setarray .@wall[0],114,48,13,6,0;
 				setarray .@x[0],115,117,119,121,123,125;
 				setarray .@y[0], 49, 49, 49, 49, 49, 49;
@@ -1330,7 +1331,7 @@ OnEnable:
 				setarray .@x[0],151,153,155,157,159,161;
 				setarray .@y[0],222,222,222,222,222,222;
 			}
-			else {	// Castles 3,4,5 are identical.
+			else {	// Castelos 3,4,5 são idênticos.
 				setarray .@wall[0],139,158,6,6,1;
 				setarray .@x[0],140,142,144,139,141,143;
 				setarray .@y[0],157,157,157,156,156,156;
@@ -1347,7 +1348,7 @@ OnEnable:
 				setarray .@x[0],326,328,330,327,329,331;
 				setarray .@y[0],278,278,278,279,279,279;
 			}
-			else {	// Castles 1,4,5 are identical.
+			else {	// Castelos 1,4,5 são idênticos.
 				setarray .@wall[0],114,51,13,6,1;
 				setarray .@x[0],115,117,119,121,123,125;
 				setarray .@y[0], 50, 50, 50, 50, 50, 50;
@@ -1366,7 +1367,7 @@ OnEnable:
 				setarray .@x[0],126,126,126,127,127,127;
 				setarray .@y[0],343,345,347,344,346,348;
 			}
-			else {	// Castles 3,4,5 are identical.
+			else {	// Castelos 3,4,5 são idênticos.
 				setarray .@wall[0],138,210,8,6,1;
 				setarray .@x[0],140,142,144,139,141,143;
 				setarray .@y[0],209,209,209,208,208,208;
@@ -1383,7 +1384,7 @@ OnEnable:
 				setarray .@x[0],201,201,201,202,202,202;
 				setarray .@y[0],231,233,235,232,234,236;
 			}
-			else {	// Castles 1,4,5 are identical.
+			else {	// Castelos 1,4,5 são idênticos.
 				setarray .@wall[0],114,154,13,6,1;
 				setarray .@x[0],115,117,119,121,123,125;
 				setarray .@y[0],153,153,153,153,153,153;
@@ -1402,7 +1403,7 @@ OnEnable:
 				setarray .@x[0], 40, 42, 44, 46;
 				setarray .@y[0],315,315,315,315;
 			}
-			else {	// Castles 3,4,5 are identical.
+			else {	// Castelos 3,4,5 são idênticos.
 				setarray .@wall[0],138,263,8,6,1;
 				setarray .@x[0],139,141,143,145;
 				setarray .@y[0],262,262,262,262;
@@ -1419,7 +1420,7 @@ OnEnable:
 				setarray .@x[0],284,284,284,284;
 				setarray .@y[0],199,201,203,205;
 			}
-			else {	// Castles 1,4,5 are identical.
+			else {	// Castelos 1,4,5 são idênticos.
 				setarray .@wall[0],116,241,11,6,1;
 				setarray .@x[0],116,118,120,122;
 				setarray .@y[0],240,240,240,240;
@@ -1453,7 +1454,8 @@ OnDisable:
 	end;
 }
 
-// Link Flags (function)
+//============================================================
+// Bandeiras de Ligação (Função)
 //============================================================
 function	script	LinkFlag	{
 	if (!getcharid(2) || getcharid(2) != getcastledata(strnpcinfo(4),1)) end;
@@ -1482,7 +1484,8 @@ function	script	LinkFlag	{
 	close;
 }
 
-// Return Flags (function)
+//============================================================
+// Bandeiras de Retorno (Função)
 //============================================================
 function	script	ReturnFlag	{
 	.@str$ = (compare(strnpcinfo(4),"aru"))?"Arunafeltz":"Schwaltzvalt";
@@ -1501,12 +1504,12 @@ function	script	ReturnFlag	{
 			if (compare(getarg(0),"arug")) {
 				if (getarg(0) == "arug_cas01") setarray .@i[0],67,193;
 				else if (getarg(0) == "arug_cas02") setarray .@i[0],43,256;
-				else setarray .@i[0],121,318;	// Castles 3,4,5 are identical.
+				else setarray .@i[0],121,318;	// Castelos 3,4,5 são idênticos.
 			}
 			else {
 				if (getarg(0) == "schg_cas02") setarray .@i[0],136,188;
 				else if (getarg(0) == "schg_cas03") setarray .@i[0],308,202;
-				else setarray .@i[0],120,290;	// Castles 1,4,5 are identical.
+				else setarray .@i[0],120,290;	// Castelos 1,4,5 são idênticos.
 			}
 			warp getarg(0),.@i[0],.@i[1];
 		}
@@ -1521,7 +1524,8 @@ function	script	ReturnFlag	{
 	close;
 }
 
-// Treasure Room Switches
+//============================================================
+// Alavanca para sala do tesouro
 //============================================================
 -	script	Switch#template	-1,{
 	mes " ";
@@ -1531,18 +1535,19 @@ function	script	ReturnFlag	{
 	if (compare(strnpcinfo(4),"arug")) {
 		if (strnpcinfo(4) == "arug_cas01") setarray .@i[0],121,357;
 		else if (strnpcinfo(4) == "arug_cas02") setarray .@i[0],387,323;
-		else setarray .@i[0],321,57;	// Castles 3,4,5 are identical.
+		else setarray .@i[0],321,57;	// Castelos 3,4,5 são idênticos.
 	}
 	else {
 		if (strnpcinfo(4) == "schg_cas02") setarray .@i[0],339,79;
 		else if (strnpcinfo(4) == "schg_cas03") setarray .@i[0],57,13;
-		else setarray .@i[0],275,244;	// Castles 1,4,5 are identical.
+		else setarray .@i[0],275,244;	// Castelos 1,4,5 são idênticos.
 	}
 	warp strnpcinfo(4),.@i[0],.@i[1];
 	close;
 }
 
-// Guild Dungeon Warps
+//============================================================
+// Entrada para o Calabouço
 //============================================================
 -	script	Sunflower#template	-1,{
 	if (getcharid(2) == getcastledata(strnpcinfo(4),1)) {
@@ -1571,12 +1576,3 @@ function	script	ReturnFlag	{
 	}
 }
 
-//============================================================
-//= 0.x Previous authors: L0ne_W0lf, Zephyrus, Brian.
-//= 1.0 If anything breaks, blame Maki. [Euphy]
-//= 1.1 Fixed an incorrect label execution. [Euphy]
-//= 1.2 Hopefully fixed a processing error. [Euphy]
-//= 1.3 Fixed barricade issue in schg_cas02. [Cookie]
-//= 1.4 Added OnGuildBreak event and a spawn check. [Euphy]
-//= 1.4a Fixed Guardian Stone respawns. [Euphy]
-//============================================================
