@@ -1,22 +1,25 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable return warp.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.6
-//===== Description: =========================================
-//= Disables the following items:
-//=   Butterfly Wing (602), Siege Teleport Scroll (14591),
-//=   Yellow/Green/Red/Blue Butterfly Wings (14582-14585),
-//=   Dungeon Teleport Scrolls (14527/14581)
-//= Also restricts "warpparty" and "warpguild" script commands.
-//===== Additional Comments: =================================
-//= 1.3 - According to the patch, enabled Butterfly wings in the Castles. [Lupus]
-//= 1.4 - Enabled Butterfly wings on PvP maps. [Skotlex]
-//= 1.4a - Added job_knt. [Samuray22]
-//= 1.5 - Commented out new_zone entries. [L0ne_W0lf]
-//= 1.6 - Enabled B. wings on all maps but que_hugel. [L0ne_W0lf]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Mapflag: noreturn.                                          ||
+// = Versão: 1.6                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Orientação no cabeçaho [Spell Master]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Desabilita retorno ao mapa.                                 ||
+//                                                               ||
+// Exemplo:                                                      ||
+// Uso de itens como Asa de Borboleta.                           ||
+// Comandos como "warpparty" e "warpguild" etc...                ||
+//===============================================================//
 
 // Cities ========================
 //ayo_in01	mapflag	noreturn

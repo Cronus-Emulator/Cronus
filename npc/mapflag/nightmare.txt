@@ -1,18 +1,27 @@
-//===== Hercules Script ======================================
-//= Mapflag: Nightmare mode.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.0
-//===== Description: =========================================
-//= Players drop items/equipment on death.
-//= pvp_nightmaredrop	id,type,percent
-//=   id: Drop a specific item ID or "random"
-//=   type: "inventory", "equip", or "all"
-//=   percent: Rate of item drop.
-//===== Additional Comments: =================================
-//= 1.0 - Initial script.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Mapflag: pvp_nightmaredrop.                                 ||
+// = Versão: 1.0                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Orientação no cabeçaho [Spell Master]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Mapa de Status PVP onde quem é nocauteado pode perder itens.||
+//                                                               ||
+// - Modo de uso                                                 ||
+// pvp_nightmaredrop	id,type,percent                          ||
+// * id: Id do item expecífico exempo 1201 (Faca)                ||
+// * type: inventory(Iventário), equip(Equipado), all (Qualquer) ||
+// * percent: Chance de acontecer (100 é igual a 1%)             ||
+//===============================================================//
 
 pvp_n_1-1	mapflag	pvp_nightmaredrop	random,equip,300
 pvp_n_2-1	mapflag	pvp_nightmaredrop	random,equip,300

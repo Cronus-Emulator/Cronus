@@ -1,20 +1,21 @@
-//===== Hercules Script ======================================
-//= Mapflag: Disable Warp Portal memory.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.8b
-//===== Description: =========================================
-//= Prevents players from using /memo on a map.
-//= Also disables marriage warp skills.
-//===== Additional Comments: =================================
-//= 1.6a - Added up to Hugel maps. [Lupus]
-//= 1.6b - Added job_knt map. [Samuray22]
-//= 1.7 - Added all novice maps. [L0ne_W0lf]
-//= 1.8 - Added nameless_i location. [Lupus]
-//= 1.8a - Removed duplicate gef_cas nomemo mapflags. [Yommy]
-//= 1.8b - Removed duplicate arug_dun01 & schg_dun01 entries. [Gepard]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Mapflag: nomemo.                                            ||
+// = Versão: 1.8                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Orientação no cabeçaho [Spell Master]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Mapas bloqueados a usar o comando "/memo"                   ||
+//===============================================================//
 
 // Towns  ====================
 ayo_in01	mapflag	nomemo

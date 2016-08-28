@@ -1,21 +1,20 @@
-//===== Hercules Script ======================================
-//= Mapflag: Jail.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.0
-//===== Description: =========================================
-//= pvp: Turns on PvP mode
-//= pvp_noparty: Can't attack player in same party
-//= nobranch: No Dead Branching allowed.
-//= nomemo: No Warp Portal Memory Point allowed.
-//= nopenalty: No Exp. penalty when player dies.
-//= nosave: No saving respawn point allowed. Use SavePoint to use the
-//=                players previous savepoint, or choose one manually.
-//= noteleport: No Teleporting allowed.  No fly wings or butterfly wings.
-//===== Additional Comments: =================================
-//= 1.0 - Initial script.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.0                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Orientação no cabeçaho [Spell Master]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Flags para sec_pri (Prisão).                                ||
+//===============================================================//
 
 // No Memory =============================
 sec_pri	mapflag	nomemo
