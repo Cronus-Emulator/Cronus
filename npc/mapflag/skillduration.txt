@@ -1,22 +1,33 @@
-//===== Hercules Script ======================================
-//= Mapflag: Adjust Skill Duration.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.0
-//===== Description: =========================================
-//= This mapflag allows you to control the duration of unit
-//= skills in any map.
-//= Example (1):
-//= prontera	mapflag	adjust_unit_duration	PR_SANCTUARY	50
-//= Halves the duration of Sanctuary in Prontera.
-//=
-//= Example (2):
-//= prontera	mapflag	adjust_unit_duration	WZ_QUAGMIRE	250
-//= Increases duration of Quagmire by 2.5 times in Prontera.
-//===== Disclaimer: ==========================================
-//= Be aware that some skill units have their visual effect
-//= durations not controlled by the server (e.g. Storm Gust).
-//===== Additional Comments: =================================
-//= 1.0 - Initial script.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Mapflag: adjust_unit_duration.                              ||
+// = Versão: 1.0                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Orientação no cabeçaho [Spell Master]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Este tipo de definição altera o tempo de duração na         ||
+// habilidade para o mapa.                                       ||
+//                                                               ||
+// * Exemplo:                                                    ||
+// prontera	mapflag	adjust_unit_duration	PR_SANCTUARY	50   ||
+//  Faz com que a habilidade Santuário dure metade de seu tempo  ||
+// original.                                                     ||
+//                                                               ||
+// * Exemplo 2:                                                  ||
+// prontera	mapflag	adjust_unit_duration	PR_SANCTUARY	200  ||
+//  Faz com que a habilidade Santuário dure o dobro de seu tempo ||
+// original.                                                     ||
+//                                                               ||
+// * Nota o dano de uma habilidade é sempre definida como 100.   ||
+// * Nota2 para que isso funcione a habilidade deve possuir      ||
+// de duração tempo.                                             ||
+//===============================================================//

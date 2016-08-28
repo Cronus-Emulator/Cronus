@@ -1,18 +1,21 @@
-//===== Hercules Script ======================================
-//= Mapflag: Guild versus Guild mode.
-//===== By: ==================================================
-//= Hercules Dev Team
-//===== Current Version: =====================================
-//= 1.2
-//===== Description: =========================================
-//= Players can attack other guilds, and will have their guild
-//= icons shown. WoE damage reductions will also take place.
-//= gvg: Turns on GvG mode
-//= gvg_castle: Describes castle maps for WoE.
-//===== Additional Comments: =================================
-//= 1.1 - Added Novice Guild Castles.
-//= 1.2 - Updated with new meanings of gvg and gvg_castle.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Mapflag: gvg.                                               ||
+// = Versão: 1.0                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Orientação no cabeçaho [Spell Master]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Mapas onde Status GVG (Guild VS Guild) é permanente.        ||
+//===============================================================//
 
 // GvG Arenas =============
 guild_vs1	mapflag	gvg
