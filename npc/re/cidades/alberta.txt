@@ -34,7 +34,7 @@ alberta,246,29,3	duplicate(Aibakthing_ayothaya)	Aibakthing#ayo	4_M_THAIONGBAK
 
 // cities/gonryun.txt
 //============================================================
-alberta,246,62,3	duplicate(Kunlun_Envoy_gonryun)	Enviada de Kunlun#gon	4_M_TWMIDMAN
+alberta,246,62,3	duplicate(Kunlun_Envoy_gonryun)	Barqueiro de Kunlun#gon	4_M_TWMIDMAN
 
 // cities/louyang.txt
 //============================================================
