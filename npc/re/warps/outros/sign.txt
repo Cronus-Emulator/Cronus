@@ -10,7 +10,8 @@
 // = Versão: 1.4                                                 ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [Spell Master]                                    ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Adesão do Cabeçalho [Spell Master]                          ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Portais para quest O Sinal                                  ||

@@ -10,7 +10,8 @@
 // = Versão: 1.0a                                                ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Cabeçalho [Spell Master]                                    ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Adesão do Cabeçalho [Spell Master]                          ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Portais nos Calabouços de Eclage                            ||
