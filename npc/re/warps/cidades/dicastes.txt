@@ -1,19 +1,21 @@
-//===== Hercules Script ======================================
-//= El Dicastes Warp Script
-//===== By: ==================================================
-//= Chilly, Muad_Dib
-//===== Current Version: =====================================
-//= 1.3
-//===== File Encoding ========================================
-//= CP-949 (EUC-KR compatible). Do NOT read/save it as UTF-8.
-//===== Description: =========================================
-//= Warp Points for El Dicastes
-//===== Additional Comments: =================================
-//= 1.0 First Version.
-//= 1.1 Added Elevators.
-//= 1.2 Removed a warp. [Joseph]
-//= 1.3 Updated to match official script. [Joseph]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.3                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [Spell Master]                                    ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Portais em Dicastes                                         ||
+//===============================================================//
 
 // Town Warps
 dicastes01,283,285,0	warp	eldicastes0001	1,1,dic_in01,45,30
@@ -33,42 +35,42 @@ dic_in01,45,244,0	warp	eldicastes0014	1,1,dicastes02,119,235
 dic_in01,299,248,0	warp	eldicastes0015	1,1,dic_in01,262,191
 
 dic_in01,242,182,0	script	#eldicastes0016	CLEAR_NPC,{
-	if (isequipped(2782)) select("Administrative Office");
+	if (isequipped(2782)) select("Escritório administrativo");
 	else select("¡÷¡ú¡ð");
 	warp "dic_in01",138,221;
 	end;
 }
 
 // Elevators
--	script	Elevator#main	-1,{
+-	script	Elevador#main	-1,{
 	.@n = atoi(strnpcinfo(2));
 	.@eq = (isequipped(2782))?1:0;
 	if (.@n <= 4) {
-		.@m$ = (.@eq)?"Civil Services:Archive Room:Situation Room:Administrative Office":"¢³¡ð¡Ð:¡ñ¡ñ¡ò:¡ø¡ø¡ð:¡÷¡ú¡ð";
+		.@m$ = (.@eq)?"Administrações civis:Quarto de arquivo:Quarto de situação:Escritório administrativo":"¢³¡ð¡Ð:¡ñ¡ñ¡ò:¡ø¡ø¡ð:¡÷¡ú¡ð";
 		setarray .@xy, 45,286,36,212,122,282,121,201;
 	}
 	else if (.@n <= 11) {
-		.@m$ = (.@eq)?"Residential Zone 1:Residential Zone 2:Residential Zone 3:Pub Burman Flone":"¡ô¡õ¡ñ ¡þ :¢³¡ü¡Ð ¡ú :¡ï¢³¢¤ ¢² :¢±¡Ð¡ñ";
+		.@m$ = (.@eq)?"Área Residencial 1:Área Residencial 2:Área Residencial 3:Bar Burman Flone":"¡ô¡õ¡ñ ¡þ :¢³¡ü¡Ð ¡ú :¡ï¢³¢¤ ¢² :¢±¡Ð¡ñ";
 		setarray .@xy, 42,115,110,108,178,108,260,115;
 	}
 	else if (.@n <= 13) {
-		.@m$ = (.@eq)?"Battle Station:Galten Quarters":"¡ø¡ô¡ï ¡ò :¡ü¡÷¡ó ¡÷ ";
+		.@m$ = (.@eq)?"Estação de Batalha:Quartel Galten":"¡ø¡ô¡ï ¡ò :¡ü¡÷¡ó ¡÷ ";
 		setarray .@xy, 385,272,385,208;
 	}
 	.@m = select(.@m$) - 1;
 	warp "dic_in01",.@xy[.@m*2],.@xy[.@m*2+1];
 	end;
 }
-dic_in01,46,288,0	duplicate(Elevator#main)	Elevator#1	CLEAR_NPC
-dic_in01,122,284,0	duplicate(Elevator#main)	Elevator#2	CLEAR_NPC
-dic_in01,121,203,0	duplicate(Elevator#main)	Elevator#3	CLEAR_NPC
-dic_in01,35,214,0	duplicate(Elevator#main)	Elevator#4	CLEAR_NPC
-dic_in01,44,116,0	duplicate(Elevator#main)	Elevator#5	CLEAR_NPC
-dic_in01,112,108,0	duplicate(Elevator#main)	Elevator#6	CLEAR_NPC
-dic_in01,180,108,0	duplicate(Elevator#main)	Elevator#7	CLEAR_NPC
-dic_in01,261,115,0	duplicate(Elevator#main)	Elevator#8	CLEAR_NPC
-dic_in01,57,48,0	duplicate(Elevator#main)	Elevator#9	CLEAR_NPC
-dic_in01,137,46,0	duplicate(Elevator#main)	Elevator#10	CLEAR_NPC
-dic_in01,222,46,0	duplicate(Elevator#main)	Elevator#11	CLEAR_NPC
-dic_in01,388,272,0	duplicate(Elevator#main)	Elevator#12	CLEAR_NPC
-dic_in01,389,208,0	duplicate(Elevator#main)	Elevator#13	CLEAR_NPC
+dic_in01,46,288,0	duplicate(Elevator#main)	Elevador#1	CLEAR_NPC
+dic_in01,122,284,0	duplicate(Elevador#main)	Elevador#2	CLEAR_NPC
+dic_in01,121,203,0	duplicate(Elevador#main)	Elevador#3	CLEAR_NPC
+dic_in01,35,214,0	duplicate(Elevador#main)	Elevador#4	CLEAR_NPC
+dic_in01,44,116,0	duplicate(Elevador#main)	Elevador#5	CLEAR_NPC
+dic_in01,112,108,0	duplicate(Elevador#main)	Elevador#6	CLEAR_NPC
+dic_in01,180,108,0	duplicate(Elevador#main)	Elevador#7	CLEAR_NPC
+dic_in01,261,115,0	duplicate(Elevador#main)	Elevador#8	CLEAR_NPC
+dic_in01,57,48,0	duplicate(Elevador#main)	Elevador#9	CLEAR_NPC
+dic_in01,137,46,0	duplicate(Elevador#main)	Elevador#10	CLEAR_NPC
+dic_in01,222,46,0	duplicate(Elevador#main)	Elevador#11	CLEAR_NPC
+dic_in01,388,272,0	duplicate(Elevador#main)	Elevador#12	CLEAR_NPC
+dic_in01,389,208,0	duplicate(Elevador#main)	Elevador#13	CLEAR_NPC
