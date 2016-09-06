@@ -1,61 +1,65 @@
-//===== Hercules Script ======================================
-//= Izlude Dungeon Renewal Warp Script
-//===== By: ==================================================
-//= Athena (1.0)
-//= Nana (1.1)
-//===== Current Version: =====================================
-//= 1.3
-//===== Description: =========================================
-//= Warp Points for Bibilyn Island & Undersea Cave
-//===== Additional Comments: =================================
-//= 1.2 Moved common warps to base path. [Euphy]
-//= 1.3 Added Undersea Tunnel 6th floor warper.
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.3                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução: [Spell Master]                                    ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Porteiros para o 5º Andar do Túneo Submarino                ||
+//===============================================================//
 
 // Undersea Tunnel Warper
 //============================================================
-iz_dun04,130,234,5	script	Gatekeeper#iz_dun	4_M_CRU_SOLD,{
-	mes "[Gatekeeper]";
-	mes "Halt!";
-	mes "What brings you here, Adventurer?";
-	mes "We've discovered a new floor of this underwater city.";
+iz_dun04,130,234,5	script	Porteiro#iz_dun	4_M_CRU_SOLD,{
+	mes "[Porteiro]";
+	mes "Parado!";
+	mes "O que o traz aqui, Aventureiro?";
+	mes "Nós um andar novo desta cidade subaquática.";
 	next;
-	mes "[Gatekeeper]";
-	mes "Do you think you're up to the challenge?";
-	mes "The monsters here are between levels 110 and 124.";
-	mes "And you must beware of the Kraken!";
+	mes "[Porteiro]";
+	mes "Você pensa que você está pronto para o desafio?";
+	mes "Os monstros aqui estão entre níveis 110 e 124.";
+	mes "E você tem que se precaver contra o Kraken!";
 	next;
-	switch(select("Release the Kraken!:I'll stay here.")) {
+	switch(select("Que venha o Kraken!:Eu vou ficará aqui.")) {
 	case 1:
-		mes "[Gatekeeper]";
-		mes "Be cautious and good luck.";
-		mes "If you see the Kraken be sure you have your friends to help or do what we do and run.";
+		mes "[Porteiro]";
+		mes "Tenha sorte e cauta.";
+		mes "Se você vê o Kraken esteja certo que você tem seus amigos para ajudar, ou faça o que nós fazemos, corremos.";
 		close2;
 		warp "iz_dun05",141,187;
 		end;
 	case 2:
-		mes "[Gatekeeper]";
-		mes "It's always best to be prepared before exploring a new area.";
-		mes "Come back when you're ready to go.";
+		mes "[Porteiro]";
+		mes "Sempre é melhor para estar preparado antes de explorar uma área nova.";
+		mes "Volte quando você estiver pronto ir.";
 		close;
 	}
 }
 
-iz_dun05,142,190,5	script	Guard#iz_dun	4_M_CRU_SOLD,{
-	mes "[Gatekeeper]";
-	mes "So I guess you want to go back to the fifth floor?";
+iz_dun05,142,190,5	script	Guarda#iz_dun	4_M_CRU_SOLD,{
+	mes "[Porteiro]";
+	mes "Assim, eu suponho que você queira voltar para o andar anterior?";
 	next;
-	switch(select("Yes!:No, I'll stay.")) {
+	switch(select("Sim!:Não, eu quero ficar.")) {
 	case 1:
-		mes "[Gatekeeper]";
-		mes "Be safe, adventurer.";
+		mes "[Porteiro]";
+		mes "Esteja seguro, aventureiro.";
 		close2;
 		warp "iz_dun04",129,232;
 		end;
 	case 2:
-		mes "[Gatekeeper]";
-		mes "You're not going?";
-		mes "You're braver than I thought.";
+		mes "[Porteiro]";
+		mes "Você não vai?";
+		mes "Você é mais corajoso do que eu pensei.";
 		close;
 	}
 }

@@ -14,7 +14,6 @@
 // - Descrição: Portais nos subterraneos da torre do relógio     ||
 //===============================================================||
 // - Alterações:                                                 ||
-// - Cabeçalho: [SlexFire], [Spell Master]                       ||
 // - Informação do cabeçalho: [Spell Master]                     ||
 //===============================================================//
 
