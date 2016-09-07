@@ -9866,7 +9866,8 @@ void clif_parse_GlobalMessage(int fd, struct map_session_data* sd)
 
 #ifdef PCRE_SUPPORT
 	// trigger listening npcs
-	map->foreachinrange(npc_chat->sub, &sd->bl, AREA_SIZE, BL_NPC, text, textlen, &sd->bl);
+	map->foreachinrange(npc_chat->sub, &sd->bl, AREA_SIZE, BL_NPC, text, textlen, &sd->bl); //Chat PCRE NPC
+	map->foreachinrange(npc_chat->mchat_sub, &sd->bl, AREA_SIZE, BL_MOB, text, textlen, &sd->bl); //Chat PCRE MOB (Em teste) [SlexFire]
 #endif
 }
 
@@ -10500,6 +10501,9 @@ void clif_parse_NpcClicked(int fd,struct map_session_data *sd)
 
 	switch (bl->type) {
 		case BL_MOB:
+			if (!((TBL_MOB *)bl)->nd || !mob->script_cb((TBL_MOB *)bl, &sd->bl, CB_NPCCLICK)) //[SlexFire]
+				clif->pActionRequest_sub(sd, 0x07, bl->id, timer->gettick());
+			break;
 		case BL_PC:
 			clif->pActionRequest_sub(sd, 0x07, bl->id, timer->gettick());
 			break;

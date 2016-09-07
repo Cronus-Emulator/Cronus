@@ -39,6 +39,17 @@ struct hplugin_data_store;
 #define MOB_CLONE_START (MAX_MOB_DB-999)
 #define MOB_CLONE_END MAX_MOB_DB
 
+// Scripted Mob AI Constants
+#define CB_NPCCLICK	0x100		// 256
+#define CB_ATTACK		0x80 	// 128
+#define CB_DETECT		0x40 	// 64
+#define CB_DEAD		0x20 		// 32
+#define	CB_AUXILIAR		0x10 	// 16
+#define CB_KILL		0x08 		// 8
+#define CB_DESBLOQUEAR		0x04// 4
+#define CB_WALKACK	0x02 		// 2
+#define CB_WARPACK	0x01 		// 1
+
 //Used to determine default enemy type of mobs (for use in each in range calls)
 #define DEFAULT_ENEMY_TYPE(md) ((md)->special_state.ai != AI_NONE ?BL_CHAR:BL_MOB|BL_PC|BL_HOM|BL_MER)
 
@@ -199,7 +210,7 @@ struct mob_data {
 	
 	// AI MOB [SlexFire]
 	TBL_NPC *nd;
-	unsigned short callback_flag;
+	unsigned short cb_flag; //Flag/Retorno
 
 	int8 skill_idx;// key of array
 	int64 skilldelay[MAX_MOBSKILL];
@@ -392,6 +403,7 @@ struct mob_interface {
 	void (*clear_spawninfo) ();
 	void (*destroy_mob_db) (int index);
 	int	(*convaux) (struct mob_data *md); // Manipulação de Mobs [SlexFire]
+	int (*script_cb) (struct mob_data *md, struct block_list *target, short action_type); // Manipulação de Mobs [SlexFire]
 };
 
 #ifdef CRONUS_CORE

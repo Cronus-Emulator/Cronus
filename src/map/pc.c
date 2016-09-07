@@ -7664,6 +7664,8 @@ int pc_dead(struct map_session_data *sd,struct block_list *src) {
 					}
 				}
 				src = battle->get_master(src); // Maybe Player Summon
+				if ( md->nd )
+					mob->script_cb(md, &sd->bl, CB_KILL);
 			}
 			break;
 			case BL_PET: //Pass on to master...

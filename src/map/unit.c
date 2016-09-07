@@ -496,6 +496,10 @@ int unit_walktoxy_timer(int tid, int64 tick, int id, intptr_t data) {
 			return unit->walktoxy(bl, x, y, 8);
 		}
 	}
+	
+	if (md && md->nd)
+		mob->script_cb( md, NULL, CB_WALKACK ); //Comunica que a caminhada foi concluída [SlexFire]
+	
 	return 0;
 }
 
@@ -978,6 +982,12 @@ int unit_warp(struct block_list *bl,short m,short x,short y,clr_type type)
 	map->addblock(bl);
 	clif->spawn(bl);
 	skill->unit_move(bl,timer->gettick(),1);
+	
+	if (bl->type == BL_MOB) {
+		TBL_MOB *md = (TBL_MOB *)bl;
+		if ( md->nd ) // Comunica que o mob foi teleportado [SlexFire]
+			mob->script_cb( md, NULL, CB_WARPACK );
+	}
 
 	return 0;
 }

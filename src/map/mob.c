@@ -1087,10 +1087,13 @@ int mob_ai_sub_hard_activesearch(struct block_list *bl,va_list ap)
 	if (md->bl.id == bl->id || (*target) == bl || !status->check_skilluse(&md->bl, bl, 0, 0))
 		return 0;
 
-	if ((mode&MD_TARGETWEAK) && status->get_lv(bl) >= md->level-5)
+	if ((mode&MD_TARGETWEAK) && status->get_lv(bl) >= md->level - 5)
 		return 0;
 
 	if(battle->check_target(&md->bl,bl,BCT_ENEMY)<=0)
+		return 0;
+	
+	if ( md->nd && mob->script_cb(md, bl, CB_DETECT) ) //[SlexFire]
 		return 0;
 
 	switch (bl->type) {
@@ -1291,6 +1294,8 @@ int mob_ai_sub_hard_slavemob(struct mob_data *md, int64 tick) {
 					tbl = NULL;
 			}
 			if (tbl && status->check_skilluse(&md->bl, tbl, 0, 0)) {
+				if(md->nd)
+					mob->script_cb(md, bl, CB_AUXILIAR); //[SlexFire]
 				md->target_id=tbl->id;
 				md->min_chase=md->db->range3+distance_bl(&md->bl, tbl);
 				if(md->min_chase>MAX_MINCHASE)
@@ -1310,7 +1315,10 @@ int mob_ai_sub_hard_slavemob(struct mob_data *md, int64 tick) {
  *------------------------------------------*/
 int mob_unlocktarget(struct mob_data *md, int64 tick) {
 	nullpo_ret(md);
-
+	
+	if ( md->nd )
+		mob->script_cb(md, map->id2bl(md->target_id), CB_DESBLOQUEAR); //[SlexFire]
+	
 	switch (md->state.skillstate) {
 	case MSS_WALK:
 		if (md->ud.walktimer != INVALID_TIMER)
@@ -1360,6 +1368,7 @@ int mob_randomwalk(struct mob_data *md, int64 tick) {
 	nullpo_ret(md);
 
 	if(DIFF_TICK(md->next_walktime,tick)>0 ||
+		md->state.no_rand_walk ||
 	   !unit->can_move(&md->bl) ||
 	   !(status_get_mode(&md->bl)&MD_CANMOVE))
 		return 0;
@@ -1745,7 +1754,7 @@ int mob_ai_sub_lazy(struct mob_data *md, va_list args) {
 
 	tick = va_arg(args, int64);
 
-	if (battle_config.mob_ai&0x20 && map->list[md->bl.m].users>0)
+	if (md->nd || battle_config.mob_ai&0x20 && map->list[md->bl.m].users > 0)
 		return (int)mob->ai_sub_hard(md, tick);
 
 	if (md->bl.prev==NULL || md->status.hp == 0)
@@ -1936,7 +1945,7 @@ int mob_convaux_sub(struct block_list *bl, va_list ap) {
 		md->state.killer = md2->state.killer;
 		md->special_state.ai = md2->special_state.ai;
 		md->nd = md2->nd;
-		md->callback_flag = md2->callback_flag;
+		md->cb_flag = md2->cb_flag;
 	}
 
 	return 0;
@@ -2140,6 +2149,10 @@ void mob_damage(struct mob_data *md, struct block_list *src, int damage) {
 		}
 	}
 #endif
+
+if ( md->nd )
+	mob->script_cb( md, src, CB_ATTACK ); //[SlexFire]
+
 }
 
 /*==========================================
@@ -2620,10 +2633,17 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type) {
 		logs->mvpdrop(mvp_sd, md->class_, log_mvp);
 	}
 
-	if (type&2 && !sd && md->class_ == MOBID_EMPERIUM && md->guardian_data) {
-		//Emperium destroyed by script. Discard mvp character. [Skotlex]
-		mvp_sd = NULL;
+	if (type&2 && !sd && md->class_ == MOBID_EMPERIUM && md->guardian_data)
+		mvp_sd = NULL; //Emperium destroyed by script. Discard mvp character. [Skotlex]
+	
+	if ( src && src->type == BL_MOB ){
+		struct mob_data *smd = (struct mob_data *)src;
+		if (smd->nd)
+			mob->script_cb(smd, &md->bl, CB_KILL); // [SlexFire]
 	}
+	
+	if(&md->bl)
+		mob->script_cb(md, &md->bl, CB_DEAD); // [SlexFire]
 
 	rebirth =  ( md->sc.data[SC_KAIZEL] || (md->sc.data[SC_REBIRTH] && !md->state.rebirth) );
 	if( !rebirth ) { // Only trigger event on final kill
@@ -2728,7 +2748,10 @@ void mob_revive(struct mob_data *md, unsigned int hp)
 	md->tdmg = 0;
 	if (!md->bl.prev)
 		map->addblock(&md->bl);
-	clif->spawn(&md->bl);
+	if ( pc->db_checkid(md->vd->class_) && md->nd )
+		md->vd->dead_sit = 0;
+	else
+		clif->spawn(&md->bl);
 	skill->unit_move(&md->bl,tick,1);
 	mob->skill_use(md, tick, MSC_SPAWN);
 	if (battle_config.show_mob_info&3)
@@ -2998,7 +3021,10 @@ int mob_summonslave(struct mob_data *md2,int *value,int amount,uint16 skill_id)
 		md= mob->spawn_dataset(&data);
 		if(skill_id == NPC_SUMMONSLAVE){
 			md->master_id=md2->bl.id;
+			md->state.killer = md2->state.killer;
 			md->special_state.ai = md2->special_state.ai;
+			md->nd = md2->nd;
+			md->cb_flag = md2->cb_flag;
 		}
 		mob->spawn(md);
 
@@ -3368,6 +3394,9 @@ int mobskill_event(struct mob_data *md, struct block_list *src, int64 tick, int 
 
 	if(md->bl.prev == NULL || md->status.hp <= 0)
 		return 0;
+	
+	if ( md->nd )
+		mob->script_cb( md, src, CB_ATTACK ); //[SlexFire]
 
 	if (md->special_state.ai == AI_SPHERE) {//LOne WOlf explained that ANYONE can trigger the marine countdown skill. [Skotlex]
 		md->state.alchemist = 1;
@@ -3626,6 +3655,32 @@ int mob_clone_delete(struct mob_data *md)
 		return 1;
 	}
 	return 0;
+}
+
+/*==========================================================\
+- Função de retorno para utilização de recursos adicionais  |
+- [SlexFire]                                                |
+===========================================================*/
+int mob_script_cb(struct mob_data *md, struct block_list *target, short action_type){
+	
+	//nullpo_retr(0, md); nullpo_retr(0, md->nd);
+	
+	if ( md->cb_flag&action_type ){
+		int regkey = script->add_str(".ai_addon");
+		
+		 idb_iput(md->nd->u.scr.script->local.vars, regkey, (int)action_type);
+
+		if(target){
+			idb_iput(md->nd->u.scr.script->local.vars, regkey+(1<<24), target->type);
+			idb_iput(md->nd->u.scr.script->local.vars, regkey+(2<<24), target->id);
+		}
+		
+		idb_iput(md->nd->u.scr.script->local.vars, regkey+(3<<24), md->bl.id);
+		script->run(md->nd->u.scr.script, 0, 0, md->nd->bl.id);
+		return false;
+	}
+	
+	return true;
 }
 
 //
@@ -5168,4 +5223,5 @@ void mob_defaults(void) {
 	mob->clear_spawninfo = mob_clear_spawninfo;
 	mob->destroy_mob_db = mob_destroy_mob_db;
 	mob->convaux = mob_convaux;
+	mob->script_cb = mob_script_cb;
 }

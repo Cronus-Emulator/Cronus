@@ -408,6 +408,19 @@ int npc_chat_sub(struct block_list* bl, va_list ap)
 	return 0;
 }
 
+/*=========================================================\
+- Função adicional para que os monstros exibam mensagens   |
+  igual a NPCs (Referência -> message)                     |
+- [SlexFire]                                               |
+==========================================================*/
+int mob_chat_sub(struct block_list* bl, va_list ap)
+{
+	struct mob_data *md = (struct mob_data *)bl;
+	if(md->nd)
+		npc_chat->sub(&md->nd->bl, ap);
+	return 0;
+}
+
 // Various script built-ins used to support these functions
 BUILDIN(defpattern) {
 	int setid = script_getnum(st,2);
@@ -459,6 +472,7 @@ void npc_chat_defaults(void) {
 	npc_chat->activate_pcreset = activate_pcreset;
 	npc_chat->lookup_pcreset = lookup_pcreset;
 	npc_chat->finalize_pcrematch_entry = finalize_pcrematch_entry;
+	npc_chat->mchat_sub = mob_chat_sub;
 
 	libpcre = &libpcre_s;
 

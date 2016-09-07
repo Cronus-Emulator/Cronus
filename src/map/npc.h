@@ -325,6 +325,7 @@ struct npc_chat_interface {
 	void (*activate_pcreset) (struct npc_data* nd, int setid);
 	struct pcrematch_set* (*lookup_pcreset) (struct npc_data* nd, int setid);
 	void (*finalize_pcrematch_entry) (struct pcrematch_entry* e);
+	int (*mchat_sub) (struct block_list* bl, va_list ap); // mob_chat_sub [SlexFire]
 };
 
 /**

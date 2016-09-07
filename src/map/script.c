@@ -16624,13 +16624,14 @@ BUILDIN(unitattack) {
 			script_pushint(st, 1);
 			return true;
 		case BL_MOB:
+			((TBL_MOB *)unit_bl)->state.killer = 1;
 			((TBL_MOB *)unit_bl)->target_id = target_bl->id;
 			break;
 		case BL_PET:
 			((TBL_PET *)unit_bl)->target_id = target_bl->id;
 			break;
 		default:
-			ShowError("script:unitattack: tipo de unidade da source insuportada %d\n", unit_bl->type);
+			ShowError("script:unitattack: tipo de unidade da source nao suportada %d\n", unit_bl->type);
 			script_pushint(st, 0);
 			return false;
 	}
@@ -16858,7 +16859,7 @@ BUILDIN(unitgetdatamob) {
 	setd_sub(st,sd,name,11,(void *)(int)md->sc.option,script_getref(st,3));
 	setd_sub(st,sd,name,12,(void *)(int)md->ud.dir,script_getref(st,3));
 	setd_sub(st,sd,name,13,(void *)(int)md->state.killer,script_getref(st,3));
-	setd_sub(st,sd,name,14,(void *)(int)md->callback_flag,script_getref(st,3));
+	setd_sub(st,sd,name,14,(void *)(int)md->cb_flag,script_getref(st,3));
 	setd_sub(st,sd,name,15,(void *)(int)md->state.no_rand_walk,script_getref(st,3));
 	
 	return true;
@@ -16902,7 +16903,7 @@ BUILDIN(unitsetdatamob) {
 		case 11: md->sc.option = (unsigned short)value; break;
 		case 12: md->ud.dir = (unsigned char)value; break;
 		case 13: md->state.killer = value > 0 ? 1 : 0; break;
-		case 14: md->callback_flag = (short)value; break;
+		case 14: md->cb_flag = (short)value; break;
 		case 15: md->state.no_rand_walk = value > 0 ? 1 : 0; break;
 		default:
 			ShowError("buildin_unitsetdatamob: Identificador de dados desconhecido %d\n", type);

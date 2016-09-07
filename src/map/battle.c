@@ -6626,6 +6626,9 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 				&& md->guardian_data && (md->guardian_data->g || md->guardian_data->castle->guild_id) )
 				return 0; // Disable guardians/emperium owned by Guilds on non-woe times.
 
+			if(md->state.killer)
+				state |= BCT_ENEMY; //[SlexFire]
+			else
 			if (md->special_state.ai == AI_NONE) {
 				//Normal mobs
 				struct mob_data *target_md = BL_CAST(BL_MOB, target);
