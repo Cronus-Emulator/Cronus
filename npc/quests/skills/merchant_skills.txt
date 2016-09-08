@@ -1,39 +1,46 @@
-//===== Hercules Script ======================================
-//= Merchant Skills Quests
-//===== By: ==================================================
-//= kobra_k88
-//===== Current Version: =====================================
-//= 1.8
-//===== Description: =========================================
-//= Quests for skills: Crazy Uproar, Change Cart, Cart Revolution
-//===== Additional Comments: =================================
-//= 1.5 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//= 1.6 Updated to latest available official file. [Masao]
-//= 1.7 Fixed JobLevel requirements. [Euphy]
-//= 1.8 Moved Alberta NPC to pre-re/re paths. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.8                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Hail]                                             ||
+// - Correção e adaptação da tradução [Spell Master]             ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quest de habilidade para Mercador                           ||
+// - MC_LOUD: Grito de Guerra                                    ||
+// - MC_CHANGECART: Personalizar Carrinho                        ||
+//===============================================================//
 
 alberta,83,96,5	script	Necko	4W_M_02,7,7,{
 	if (BaseClass == Job_Merchant) {
 		if (getskilllv("MC_LOUD") == 1) {
 			mes "[Necko]";
-			mes "I'm sorry. Necko's store is...";
-			mes "Oh? Who's this?";
+			mes "Sinto muito. A Loja do Necko ...";
+			mes "Oh? Quem é este?";
 			mes "Pukakakakakakakakakaka!!!";
-			mes "Long time no see!";
-			mes "How are you?";
-			mes "Nice to see you again!!";
-			mes "Anything new?";
-			mes "Wow~ I'm so glad to see you!";
-			mes "You! Stop by once in a while!";
-			mes "I might forget what you look like!";
+			mes "Há quanto tempo!";
+			mes "Como você está?";
+			mes "Prazer em vê-lo novamente!";
+			mes "Nada de novo?";
+			mes "Eu estou tão contente de vê-lo!!";
+			mes "Você! Apareça de vez em quando!!";
+			mes "Eu poderia esquecer sua aparência!!";
 			mes "Pukakakakakakakakaka!!!";
-			mes "Very very nice to see you!!";
-			mes "It's so nice to see you like this!";
-			mes "Come to Alberta often!";
-			mes "Killing two birds with one stone!!";
-			mes "I get to see you, and shout also!!";
-			mes "How much better can it get!!!";
+			mes "Muito, muito bom ver você!!";
+			mes "É tão bom te ver assim!!";
+			mes "Venha para Alberta frequentemente!!";
+			mes "Matar dois coelhos com uma cajadada só!!";
+			mes "Eu consigo ver você, e grito também!!";
+			mes "Quanto melhor ele pode chegar!!";
 			mes "Keuhahahahahahahaha!!";
 			mes "Pukakakakakakakakakaka!!!";
 			mes "Ppyakikakikakakakakakakaka!!";
@@ -41,19 +48,16 @@ alberta,83,96,5	script	Necko	4W_M_02,7,7,{
 		}
 		else if (JobLevel < 15) {
 			mes "[Necko]";
-			mes "Oh, did you come because";
-			mes "you are infatuated with my voice?";
-			mes "My voice is loud, isn't it!";
-			mes "considering you can hear it from a distance.";
-			mes "And also.";
-			mes "(looks around)";
+			mes "Ah, você veio porque você está encantado com a minha voz?";
+			mes "Minha voz é alta, não é considerando que você pode ouvi-la à distância.";
+			mes "E também...";
+			mes "*Olhando em volta*";
 			next;
 			mes "[Necko]";
-			mes "My voice isn't just loud!";
-			mes "!";
-			mes "Once you are about a level 15 merchant";
-			mes "I will tell you the secret!";
-			mes "Then, come again!!!";
+			mes "Minha voz não é apenas uma voz alta!";
+			mes "Uma vez que você é um Mercador nível 15.";
+			mes "Vou lhe contar o segredo!";
+			mes "Então, virei outra vez!!!";
 			next;
 			mes "[Necko]";
 			mes "Uahahahahahahahahahahahaha!";
@@ -62,25 +66,25 @@ alberta,83,96,5	script	Necko	4W_M_02,7,7,{
 		}
 		else if ((countitem(722) > 6) && (countitem(532) > 0) && (countitem(921) > 49) && (JobLevel >= 15 || (BaseJob == Job_Blacksmith || BaseJob == Job_Alchemist))) {
 			mes "[Necko]";
-			mes "Oh! You!";
-			mes "You are qualified to learn how to shout!";
-			mes "Learn how to shout with my help.";
-			mes "Would you like to learn Crazy Uproar?";
+			mes "Oh! Você!";
+			mes "Você está qualificado para aprender a gritar!";
+			mes "Aprenda a gritar com a minha ajuda!";
+			mes "Gostaria de aprender o Grito de Guerra?";
 			next;
-			switch (select("Yes!!!!:No.:What is that?")) {
+			switch (select("Sim!!!!:Não.:O que é isso?")) {
 			case 1:
 				mes "[Necko]";
-				mes "Ahahahahaha!! Good!!!";
-				mes "That's the spirit!";
-				mes "Here we go!";
+				mes "Ahahahahaha!! Bom!!!";
+				mes "Esse é o espírito!";
+				mes "Aqui vamos nós!";
 				next;
 				delitem 722,7; //Scarlet_Jewel
 				delitem 532,1; //Banana_Juice
 				delitem 921,50; //Mushroom_Spore
 				skill "MC_LOUD",1,0;
 				mes "[Necko]";
-				mes "You have learned Crazy Uproar!!";
-				mes "Shout as much as you wish!";
+				mes "Você aprendeu o Grito de Guerra!!";
+				mes "Grite o quanto quiser!!";
 				mes "Hahahahahahaha!";
 				close;
 			case 2:
@@ -90,84 +94,68 @@ alberta,83,96,5	script	Necko	4W_M_02,7,7,{
 				close;
 			case 3:
 				mes "[Necko]";
-				mes "Crazy Uproar uses your loud voice";
-				mes "to boost battle spirit";
-				mes "With 8 SP, you get an additional";
-				mes "4 STR for 5 minutes!!!!!";
-				mes "If you use it repeatedly";
-				mes "it is 5 minutes from that point on.";
+				mes "Grito de Guerra usa sua voz para impulsionar o espírito de batalha com 8 de SP."
+				mes "Você recebe um adicional de 4 FOR durante 5 minutos!";
+				mes "Se você usá-la repetidamente bastam 5 minutos daquele ponto em diante.";
 				next;
 				mes "[Necko]";
-				mes "Stay casual in everyday life,";
-				mes "and when you need to fight";
-				mes "it will gather your spirit.";
-				mes "Very useful, I must say!!!!";
+				mes "Fique descontraído na vida cotidiana, e quando precisar lutar ele reunirá o seu espírito.";
+				mes "Muito útil, devo dizer!!!!";
 				close;
 			}
 		}
 		mes "[Necko]";
-		mes "Oh, were you charmed ";
-		mes "by my voice?";
-		mes "Indeed, my voice is loud!";
-		mes "You can hear it from so far away.";
-		mes "And also.";
-		mes "(looks around)";
+		mes "Oh, você estava encantado com a minha voz?";
+		mes "Na verdade, minha voz é alta!";
+		mes "Você pode ouvi-la de tão longe.";
+		mes "E também...";
+		mes "*olha em volta*";
 		next;
 		mes "[Necko]";
-		mes "My voice isn't JUST loud!";
-		mes "I have learned the skill";
-		mes "that lets me shout..";
-		mes "The Crazy Uproar skill!";
+		mes "Minha voz não é apenas alta!";
+		mes "Eu aprendi a habilidade que me deixa gritar..";
+		mes "A habilidade Grito de Guerra!!";
 		next;
 		mes "[Necko]";
-		mes "Crazy Uproar uses your loud voice";
-		mes "to boost battle spirit";
-		mes "With 8 sp, you get an additional";
-		mes "4 STR for 5 minutes!!!!!";
-		mes "If you use it repeatedly";
-		mes "it is 5 minutes from that point.";
+		mes "O Grito de Guerra usa sua voz para aumentar o espírito de batalha com 8 sp.";
+		mes "Você recebe um adicional 4 FOR por 5 minutos!";
+		mes "Se você usá-la repetidamente bastam 5 minutos daquele ponto em diante.";
 		next;
 		mes "[Necko]";
-		mes "Stay casual in everyday life,";
-		mes "but shout to gather more";
-		mes "strength when you fight.";
-		mes "It is very useful!!!!";
-		mes "To learn this skill, you first need";
-		mes "to learn the essentials of sound!!!";
+		mes "Permaneça descontraído na vida cotidiana, mas grite para conseguir mais força quando você lutar.";
+		mes "É muito útil!!!!";
+		mes "Para aprender essa habilidade, você precisa primeiro aprender os fundamentos do som!!!";
 		next;
 		mes "[Necko]";
-		mes "You can learn this in Payon";
-		mes "from a singer with just a loud voice";
-		mes "You can take lessons from him!";
+		mes "Você poderia aprender isso em Payon a partir de um cantor com apenas uma voz alta...";
+		mes "Você poderia ter aulas com ele!";
 		next;
 		mes "[Necko]";
-		mes "But that person died!";
-		mes "So you can't learn it anymore!";
+		mes "Porém essa pessoa morreu!";
+		mes "Então você não pode aprender mais!";
 		mes "Hahahahahahahaha!!!!";
 		mes "..............................";
-		mes "...Aww you look disappointed?";
-		mes "Do you want to learn Crazy Uproar?";
+		mes "...Aww você me observa decepcionado.";
+		mes "Você quer aprender o Grito de Guerra?";
 		next;
 		mes "[Necko]";
-		mes "Hmm... Shall I teach you?";
-		mes "If you really want it, that is.";
-		mes "First, I must scorch the vocal cords.";
-		mes "There are some things needed to do so.";
+		mes "Hmm ... Devo ensinar-lhe?";
+		mes "Se você realmente quer aprender, primeiro deve treinar as cordas vocais.";
+		mes "Existem algumas coisas necessárias para o fazer.";
 		next;
 		mes "[Necko]";
-		mes "7 Pearls, 1 bottle of Banana Juice,";
-		mes "and 50 mushroom spores!";
-		mes "Then I'll scorch your vocal chord!";
+		mes "7 Pérolas, 1 garrafa de suco de banana, e 50 esporos de cogumelos!";
+		mes "Então eu vou treinar suas cordas vocais!";
 		next;
 		mes "[Necko]";
-		mes "See you when you are ready!";
-		mes "I shall prepare my throat for then as well!!";
-		mes "Bboowuuuuuuuuuuuuuuuuh~~~!!";
+		mes "Vejo você quando estiver pronto!";
+		mes "Eu irei preparar a minha garganta para em seguida eu lhe ensinar!!";
+		mes "Bboowuuuuuuuuuuuuuuuuh...!!";
 		close;
 	}
 	mes "[Necko]";
-	mes "Necko's store is closed right now.";
-	mes "come again later. Hehe~";
+	mes "A loja do Necko está fechada nesse momento.";
+	mes "Volte mais tarde....";
 	close;
 
 OnTouch:
@@ -181,152 +169,125 @@ alberta,119,221,6	script	Charlron	1_M_PAY_ELDER,{
 	if (BaseClass == Job_Merchant) {
 		if (getskilllv("MC_CHANGECART") == 1) {
 			mes "[Charlron]";
-			mes "Mmm? I was wondering who was making all";
-			mes "the raucus carrying around a cart.";
-			mes "It was you.";
-			mes "Yes, I remember you.";
-			mes "what do you think? The new cart..good, yeah?";
+			mes "Mmm? Fiquei me perguntando quem estava fazendo todo";
+			mes "esse barulho transportando um carrinho.";
+			mes "Foi você.";
+			mes "Sim, eu lembro de você.";
+			mes "O que você acha do carrinho novo .. bom, não é?";
 			next;
 			mes "[Charlron]";
-			mes "Enjoy life.";
-			mes "Life isn't just simply moving";
-			mes "forward..Slowly, looking around,";
-			mes "dragging a heavy cart is";
-			mes "the way us merchants live.";
-			mes "Then see you next time.";
+			mes "Aproveite a vida.";
+			mes "A vida não é simplesmente passar a frente...";
+			mes "Devagar, olhando em volta, arrastando um carrinho pesado, é a forma como nós, comerciantes vivemos.";
+			mes "Até a próxima vez.";
 			next;
 			mes "[Charlron]";
-			mes "Be healthy~";
+			mes "Esteja saudável.";
 			close;
 		}
 		else if (JobLevel >= 30|| (BaseJob == Job_Blacksmith || BaseJob == Job_Alchemist)) {
 			mes "[Charlron]";
-			mes "Nice to see you fellow merchant";
-			mes "If I remember correctly,";
-			mes "you're that famous merchant";
-			mes "these days.";
+			mes "É bom ver um colega Mercador.";
+			mes "Se me lembro bem, você é aquele famoso Mercador que vi esses dias.";
 			next;
-			mes "But your cart doesn't";
-			mes "seem to fit your fame.";
-			mes "How pitiful.";
+			mes "Mas seu carrinho não parece se encaixar a sua fama.";
+			mes "Que pena.";
 			next;
-			switch (select("That's why I came here.:What about my cart?:Two pairs is pitiful?")) {
+			switch (select("É por isso que eu vim.:O que acontece com o meu carrinho? Dois pares é lamentável?")) {
 			case 1:
 				if ((countitem(1019) > 49) && (countitem(998) > 9) && (countitem(919) > 19)) {
 					mes "[Charlron]";
 					mes "Haha! Ok, ok!";
-					mes "With the things you brought";
-					mes "I will change your cart.";
+					mes "Com as coisas que você trouxe";
+					mes "Eu posso mudar seu carrinho.";
 					next;
 					delitem 1019,50; //Wooden_Block
 					delitem 998,10; //Iron
 					delitem 919,20; //Animal's_Skin
 					skill "MC_CHANGECART",1,0;
 					mes "[Charlron]";
-					mes "Congratulations.";
-					mes "You can choose a cart";
-					mes "according to your taste.";
-					mes "And now you don't even need";
-					mes "me to help you. All you";
-					mes "need is some SP.";
+					mes "Parabéns.";
+					mes "Agora é possível escolher um carrinho de acordo com seu gosto.";
+					mes "E agora você não precisa mesmo de mim para ajudá-lo.";
+					mes "Tudo o que é necessário é um pouco de SP.";
 					next;
 					mes "[Charlron]";
-					mes "Convenient, don't you think?";
-					mes "Oh and one more thing!";
-					mes "Each time you level, you can";
-					mes "have a new different cart";
-					mes "So work hard.";
+					mes "Conveniente, não acha?";
+					mes "Ah, e mais uma coisa!";
+					mes "Conforme você aumenta de nível, você poderá ter um novo carrinho, então trabalhe duro.";
 					next;
 					mes "[Charlron]";
-					mes "But anyways, it looks very nice on you!";
-					mes "Hahaha! Have a nice day!";
+					mes "Mas de qualquer maneira, ficará muito bem em você!";
+					mes "Hahaha! Tenha um bom dia!";
 					close;
 				}
 				mes "[Charlron]";
-				mes "Mmm... It's true that I";
-				mes "change carts but...";
-				mes "In order to do so, I need";
-				mes "some materials to use.";
+				mes "Hum... É verdade que eu modifico carrinhos, mas...";
+				mes "Para fazer isso, eu preciso de alguns materiais.";
 				next;
 				mes "[Charlron]";
-				mes "50 Trunks.";
-				mes "10 Iron.";
-				mes "20 Animal Skins.";
-				mes "I need at least these things";
-				mes "to change your cart.";
+				mes "50 Troncos.";
+				mes "10 Ferros.";
+				mes "20 Couro de animais.";
+				mes "Eu preciso, pelo menos, dessas coisas para modificar seu carrinho.";
 				next;
 				mes "[Charlron]";
-				mes "So come see me when you";
-				mes "have prepared everything.";
+				mes "Então venha me ver quando tiver tudo preparado.";
 				close;
 			case 2:
 				mes "[Charlron]";
-				mes "Oh no, you don't know at all?(changes tone)";
-				mes "A new way to show off a merchant's ego!";
-				mes "An expression of an excellent brain!";
-				mes "Change Cart is a skill that";
-				mes "makes a merchant stand out!";
+				mes "Ah, não, você não sabe de nada?";
+				mes "*Aumenta o tom de voz*";
+				mes "Uma nova maneira de mostrar o ego de um Mercador!";
+				mes "Uma expressão de um cérebro excelente!";
+				mes "Personalizar Carrinho é uma habilidade que faz com que um Mercador se destaque!";
 				next;
 				mes "[Charlron]";
-				mes "A fun skill that allows you to";
-				mes "use a cart according to your";
-				mes "level with only 40 SP!";
+				mes "Uma habilidade divertida que lhe permite usar um carrinho diferente de acordo com o seu nível e com apenas 40 de SP!";
 				next;
 				mes "[Charlron]";
-				mes "That is Change Cart!";
-				mes "A basic skill for any merchant.";
-				mes "I'll teach you how to make";
-				mes "one so watch carefully, and";
-				mes "do exactly what I do to make";
-				mes "your own in the future!";
+				mes "Isso é Personalizar Carrinho uma habilidade fundamental para qualquer Mercador.";
+				mes "Eu vou te ensinar como fazer, observe com bastante atenção.";
+				mes "Faça exatamente o que eu digo para fazer e fará o seu próprio no futuro";
 				next;
 				mes "[Charlron]";
-				mes "But, since it's the first time";
-				mes "you need to prepare some materials.";
-				mes "50 Trunks!";
-				mes "10 Iron!";
-				mes "20 Animal skins!";
-				mes "-bring these please!";
+				mes "Uma vez que fará a primeira vez, precisarei de alguns materiais.";
+				mes "50 Troncos!";
+				mes "10 Ferros!";
+				mes "20 Couro Animais!";
+				mes "Traga esses itens por favor!";
 				next;
 				mes "[Charlron]";
-				mes "All we have to do is";
-				mes "make one using those materials,";
-				mes "so come back when you are ready.";
+				mes "Tudo o que temos que fazer é usar esses materiais, então volte quando estiver com tudo pronto.";
 				mes "Ok?";
 				close;
 			case 3:
 				mes "[Charlron]";
-				mes "...it's not 'CARD'!";
+				mes "...Isso não é 'CARTA'!";
 				close;
 			}
 		}
 		mes "[Charlron]";
-		mes "Welcome young one.";
-		mes "Is selling fun? I am the";
-		mes "merchant Charlron. I have been";
-		mes "doing some research about.";
-		mes "carts recently.";
+		mes "Bem-vindo jovem.";
+		mes "Está vendendo diversão?";
+		mes "Eu sou o Mercador Charlron.";
+		mes "Eu fui fazendo uma pesquisa sobre carrinhos.";
 		next;
 		mes "[Charlron]";
-		mes "Aren't you tired of that cart?";
-		mes "Come to me if you want to";
-		mes "change your cart. I'll do a good job.";
-		mes "But, there are some conditions.";
+		mes "Você não está cansado desse carrinho?";
+		mes "Venha até mim se você quiser modificar seu carrinho.";
+		mes "Farei um bom trabalho.";
+		mes "Mas, existem algumas condições.";
 		next;
 		mes "[Charlron]";
-		mes "I'm a pretty famous merchant,";
-		mes "so I don't really deal with beginners.";
-		mes "Once you are level 30";
-		mes "I may consider establishing";
-		mes "a deal with you.";
+		mes "Eu sou um Mercador muito famoso, então eu realmente não sei lidar com iniciantes.";
+		mes "Uma vez que você é nível 30 de Classe.";
+		mes "Eu posso considerar a criação de um acordo com você.";
 		close;
 	}
 	mes "[Charlron]";
-	mes "I am a merchant that";
-	mes "deals with many things, Charlron.";
-	mes "If you ever find anything interesting";
-	mes "come back and try to ";
-	mes "negotiate a deal with me.";
+	mes "Eu sou um Mercador que lida com muitas coisas.";
+	mes "Se você alguma vez encontrar alguma coisa interessante volte e tente fazer um acordo comigo.";
 	close;
 }
 
@@ -334,40 +295,40 @@ alberta,119,221,6	script	Charlron	1_M_PAY_ELDER,{
 	if (BaseClass == Job_Merchant) {
 		if (getskilllv("MC_CARTREVOLUTION") == 1) {
 			mes "[Gershaun]";
-			mes "Ah, long time no see!";
-			mes "Ohh, the red marks on your cart.";
-			mes "They must be the marks of 'it'...";
-			mes "Seems like I have taught you the skill correctly!";
+			mes "Ah, quanto tempo sem te ver!";
+			mes "Ohh, as marcas vermelhas em seu carrinho.";
+			mes "Elas devem ser as marcas dele...";
+			mes "Parece que eu te ensinei a habilidade corretamente!";
 			next;
 			mes "[Gershaun]";
-			mes "You have blood like mine in you!";
-			mes "Mmm! After all!!";
-			mes "I'm happy! Scratch my back!";
-			mes "Here! Hurry!";
+			mes "Você tem sangue como o meu!";
+			mes "Mmm! afinal...";
+			mes "Eu sou feliz!";
+			mes "Coçe minhas costas!";
+			mes "Aqui! Depressa!";
 			close;
 		}
 		else if (JobLevel >= 35 || (BaseJob == Job_Blacksmith || BaseJob == Job_Alchemist)) {
 			mes "[Gershaun]";
-			mes "Ooh. You have a firm body";
-			mes "for a merchant. You must be";
-			mes "very good a carrying things!?";
-			mes "Mmm you should be able to learn";
-			mes "Cart Revolution!";
+			mes "Ooh. Você tem um corpo firme para um mercador.";
+			mes "Você deve ser muito bom com algumas coisas que transporta!?";
+			mes "Mmm, você deve ser capaz de aprender";
+			mes "Cavalo de Pau!";
 			next;
-			switch (select("Hey~ that's why I came.:What's that?")) {
+			switch (select("Ei . é por isso que eu vim.:O que é isso?")) {
 			case 1:
 				.@care_random = rand(1,3);
 				if (.@care_random == 1) {
 					if ((countitem(533) > 1) && (countitem(998) > 19) && (countitem(938) > 29) && (countitem(601) > 19) && (countitem(962) > 4)) {
 						mes "[Gershaun]";
 						mes "Hoho!";
-						mes "Got it! I shall teach you";
-						mes "Cart Revolution!";
+						mes "Vejo que está pronto! agora vou te ensinar";
+						mes "Cavalo de Pau!";
 						next;
 						mes "[Gershaun]";
-						mes "Ah, such a nice day!";
-						mes "I shall reward those who";
-						mes "eagerly swing their carts!";
+						mes "Ah, é um dia tão agradável!";
+						mes "Vou premiar aqueles que";
+						mes "estão ansiosos para balançar seus carrinhos!";
 						next;
 						delitem 533,2; //Grape_Juice
 						delitem 998,20; //Iron
@@ -375,71 +336,65 @@ alberta,119,221,6	script	Charlron	1_M_PAY_ELDER,{
 						delitem 601,20; //Wing_Of_Fly
 						delitem 962,5; //Tentacle
 						skill "MC_CARTREVOLUTION",1,0;
-						mes "Now you can use Cart Revolution";
-						mes "I expect you to make merchants";
-						mes "famous by using this amazing";
-						mes "destruction power. Muahahahahaha!!!";
+						mes "Agora você pode usar o Cavalo de Pau.";
+						mes "Espero que você faça Mercadores famosos por usar este incrível poder destrutivo.";
+						mes "Muahahahahaha!!!";
 						next;
 						mes "[Gershaun]";
-						mes "Have a great day!!";
+						mes "Tenha um ótimo dia!!";
 						close;
 					}
 					else if (countitem(532) > 0) {
 						mes "[Gershaun]";
 						mes "Ooh!";
-						mes "It's banana juice!";
-						mes "Thank you very much!";
+						mes "É suco de banana!";
+						mes "Muito obrigado!";
 						mes "...............Kaah!";
 						delitem 532,1; //Banana_Juice
-						mes "Very refreshing! Thank you! Goodbye!";
+						mes "Muito refrescante! Obrigado! Até logo!";
 						next;
 						mes "[Gershaun]";
 						mes "Hmm?";
-						mes "You didn't leave yet?";
-						mes "Ah! You are still attached";
-						mes "to Cart Revolution!";
-						mes "Ok then. Considering you brought";
-						mes "the Banana Juice, I'll teach you.";
+						mes "Você não se foi ainda?";
+						mes "Ah! Você ainda está ligado no Cavalo de Pau!";
+						mes "Ok então.";
+						mes "Considerando que você trouxe o suco de banana, eu vou te ensinar.";
 						next;
 						mes "[Gershaun]";
-						mes "It's not hard to teach you";
-						mes "Cart Revolution, but I need you to prepare";
-						mes "the materials to modify your cart.";
-						mes "The items I need are..";
+						mes "Não é difícil ensiná-lo a fazer o Cavalo de Pau.";
+						mes "Mas eu preciso de você para preparar os materiais para eu modificar o seu carrinho.";
+						mes "Os itens que eu preciso são...";
 						next;
 						mes "[Gershaun]";
-						mes "First I need 20 Irons to make the cart";
-						mes "durable. Then 30 Sticky Mucus to absorb";
-						mes "the shock.";
-						mes "And about 20 Fly Wings and 5 Tentacles?";
-						mes "And 2 bottles of Grape Juice for me!";
+						mes "Primeiro eu preciso de 20 Ferros para fazer o carrinho durável.";
+						mes "Em seguida, 30 Muco Pegajosos para absorver o choque.";
+						mes "E cerca de 20 Asas de Mosca e 5 tentáculos.";
+						mes "E 2 garrafas de suco de uva para mim!";
 						next;
 						mes "[Gershaun]";
-						mes "Just bring those.";
-						mes "I'm not saying ONLY 30 or 20.";
-						mes "It depends on my condition!";
+						mes "Basta trazer os itens.";
+						mes "Não estou dizendo que são apenas 20 ou 30.";
+						mes "Depende do meu estado!";
 						mes "Hahahaha!";
-						mes "I'll be waiting. Then byebye~";
+						mes "Eu estarei esperando. Até logo!";
 						close;
 					}
 					mes "[Gershaun]";
 					mes "Mmm!";
-					mes "Nothing can be done without a refreshing drink!";
-					mes "How about starting a conversation";
-					mes "with at least a bottle of Banana Juice?";
+					mes "Nada pode ser feito sem uma bebida refrescante!";
+					mes "Que tal começar uma conversa com pelo menos uma garrafa de suco de banana?";
 					close;
 				}
 				if (.@care_random == 2) {
 					if ((countitem(533) > 1) && (countitem(998) > 14) && (countitem(938) > 24) && (countitem(601) > 14) && (countitem(962) > 4)) {
 						mes "[Gershaun]";
-						mes "Mmm that's good!";
-						mes "Great! I shall teach you";
-						mes "...Cart Revolution!";
+						mes "Hoho!";
+						mes "Vejo que está pronto! agora vou te ensinar";
+						mes "...Cavalo de Pau!";
 						next;
 						mes "[Gershaun]";
-						mes "Ah, such a nice day!";
-						mes "I shall reward those who";
-						mes "eagerly swing their carts!";
+						mes "Ah, é um dia tão agradável!";
+						mes "Vou premiar aqueles que estão ansiosos para balançar seus carrinhos!";
 						next;
 						delitem 533,2; //Grape_Juice
 						delitem 998,15; //Iron
@@ -447,72 +402,68 @@ alberta,119,221,6	script	Charlron	1_M_PAY_ELDER,{
 						delitem 601,15; //Wing_Of_Fly
 						delitem 962,5; //Tentacle
 						skill "MC_CARTREVOLUTION",1,0;
-						mes "Now you can use Cart Revolution";
-						mes "I expect you to make merchants";
-						mes "famous by using its amazing";
-						mes "destruction power. Muahahahahaha!!!";
+						mes "Agora você pode usar o Cavalo de Pau.";
+						mes "Espero que você faça Mercadores famosos por usar este incrível poder destrutivo.";
+						mes "Muahahahahaha!!!";
 						next;
 						mes "[Gershaun]";
-						mes "Have a good day!!";
+						mes "Tenha um ótimo dia!!";
 						close;
 					}
 					else if (countitem(532) > 0) {
 						mes "[Gershaun]";
 						mes "Ooh!";
-						mes "It's banana juice!";
-						mes "Thanks a lot!";
+						mes "É suco de banana!";
+						mes "Muito obrigado!";
 						mes "...............Kaaah!";
 						delitem 532,1; //Banana_Juice
-						mes "Very good! Thank you! Good-bye!";
+						mes "Muito refrescante!";
+						mes "Obrigado!";
+						mes "Até logo!";
 						next;
 						mes "[Gershaun]";
-						mes "Mmm?";
-						mes "You didn't leave yet?";
-						mes "Ah! You're still attached";
-						mes "to Cart Revolution!";
-						mes "Ok then. Considering you brought";
-						mes "the banana juice, I'll teach you.";
+						mes "Hmm?";
+						mes "Você não se foi ainda?";
+						mes "Ah! Você ainda está ligado";
+						mes "no Cavalo de Pau!";
+						mes "Ok então.";
+						mes "Considerando que você trouxe o suco de banana, eu vou te ensinar.";
 						next;
 						mes "[Gershaun]";
-						mes "It's not hard to teach you";
-						mes "Cart Revolution, but I need you to prepare";
-						mes "the materials to modify your cart.";
-						mes "The items I need are..";
+						mes "Não é difícil ensiná-lo a fazer o Cavalo de Pau.";
+						mes "Mas eu preciso de você para preparar os materiais para eu modificar o seu carrinho.";
+						mes "Os itens que eu preciso são...";
 						next;
 						mes "[Gershaun]";
-						mes "First I need 20 Irons to make the cart";
-						mes "durable. Then 30 Sticky Mucus to absorb";
-						mes "the shock.";
-						mes "And about 20 Fly Wings and 5 Tentacles?";
-						mes "And 2 bottles of Grape Juice for me!";
+						mes "Primeiro eu preciso de 20 Ferros para fazer o carrinho durável.";
+						mes "Em seguida, 30 Muco Pegajosos para absorver o choque.";
+						mes "E cerca de 20 Asas de Mosca e 5 tentáculos.";
+						mes "E 2 garrafas de suco de uva para mim!";
 						next;
 						mes "[Gershaun]";
-						mes "Bring these to me.";
-						mes "But that doesn't mean I want only 30 and 20.";
-						mes "It all depends on my condition!";
-						mes "Just bring me these for now.";
+						mes "Basta trazer os itens.";
+						mes "Não estou dizendo que são apenas 20 ou 30.";
+						mes "Depende do meu estado!";
 						mes "Hahahaha!";
-						mes "I'm looking forward to it. Good bye then~";
+						mes "Eu estarei esperando. Até logo!";
 						close;
 					}
 					mes "[Gershaun]";
 					mes "Mmm!";
-					mes "Nothing's free nowadays!";
-					mes "How about trying to start a conversation";
-					mes "by offering a bottle of Banana Juice or something?";
+					mes "Nada pode ser feito sem uma bebida refrescante!";
+					mes "Que tal começar uma conversa com pelo menos uma garrafa de suco de banana?";
 					close;
 				}
 				if (.@care_random == 3) {
 					if ((countitem(533) > 1) && (countitem(998) > 22) && (countitem(938) > 31) && (countitem(601) > 22) && (countitem(962) > 5)) {
 						mes "[Gershaun]";
-						mes "Mmm that's good!";
-						mes "Great! I shall teach you";
-						mes "...Cart Revolution!";
+						mes "Hoho!";
+						mes "Vejo que está pronto!";
+						mes "Agora vou te ensinar o Cavalo de Pau!";
 						next;
 						mes "[Gershaun]";
-						mes "Ah, such a nice day!";
-						mes "I shall reward those who";
-						mes "eagerly swing their carts!";
+						mes "Ah, é um dia tão agradável!";
+						mes "Vou premiar aqueles que estão ansiosos para balançar seus carrinhos!";
 						next;
 						delitem 533,2; //Grape_Juice
 						delitem 998,23; //Iron
@@ -520,215 +471,172 @@ alberta,119,221,6	script	Charlron	1_M_PAY_ELDER,{
 						delitem 601,23; //Wing_Of_Fly
 						delitem 962,6; //Tentacle
 						skill "MC_CARTREVOLUTION",1,0;
-						mes "Now you can use Cart Revolution";
-						mes "I expect you to make merchants";
-						mes "famous by using its amazing";
-						mes "destruction power. Muahahahahaha!!!";
+						mes "Agora você pode usar o Cavalo de Pau.";
+						mes "Espero que você faça Mercadores famosos por usar este incrível poder destrutivo.";
+						mes "Muahahahahaha!!!";
 						next;
 						mes "[Gershaun]";
-						mes "Have a good day!!";
+						mes "Tenha um ótimo dia!!";
 						close;
 					}
 					else if (countitem(532) > 0) {
 						mes "[Gershaun]";
 						mes "Ooh!";
-						mes "It's Banana Juice!";
-						mes "Thanks a lot!";
+						mes "É suco de banana!";
+						mes "Muito obrigado!";
 						mes "...............Kaaah!";
 						delitem 532,1; //Banana_Juice
-						mes "Very good! Thank you! Good-bye!";
+						mes "Muito refrescante!";
+						mes "Obrigado! Até logo!";
 						next;
 						mes "[Gershaun]";
-						mes "Mmm?";
-						mes "You didn't leave yet?";
-						mes "Ah! You're still attached";
-						mes "to Cart Revolution!";
-						mes "Ok then. Considering you brought";
-						mes "the banana juice, I'll teach you.";
+						mes "Hmm?";
+						mes "Você não se foi ainda?";
+						mes "Ah! Você ainda está ligado no Cavalo de Pau!";
+						mes "Ok então. Considerando que você trouxe o suco de banana, eu vou te ensinar.";
 						next;
 						mes "[Gershaun]";
-						mes "It's not hard to teach you";
-						mes "Cart Revolution, but I need you to prepare";
-						mes "the materials to modify your cart.";
-						mes "The items I need are..";
+						mes "Não é difícil ensiná-lo a fazer o Cavalo de Pau.";
+						mes "Eu preciso de você para preparar os materiais para eu modificar o seu carrinho.";
+						mes "Os itens que eu preciso são...";
 						next;
 						mes "[Gershaun]";
-						mes "First I need 20 Irons to make the cart";
-						mes "durable. Then 30 Sticky Mucus to absorb";
-						mes "the shock.";
-						mes "And about 20 Fly Wings and 5 Tentacles?";
-						mes "And 2 bottles of Grape Juice for me!";
+						mes "Primeiro eu preciso de 20 Ferros para fazer o carrinho durável.";
+						mes "Em seguida, 30 Muco Pegajosos para absorver o choque.";
+						mes "E cerca de 20 Asas de Mosca e 5 tentáculos.";
+						mes "E 2 garrafas de suco de uva para mim!";
 						next;
 						mes "[Gershaun]";
-						mes "Just bring those.";
-						mes "I'm not saying ONLY 30 or 20.";
-						mes "It depends on my condition!";
+						mes "Basta trazer os itens.";
+						mes "Não estou dizendo que são apenas 20 ou 30.";
+						mes "Depende do meu estado!";
 						mes "Hahahaha!";
-						mes "I'll be waiting. Then byebye~";
+						mes "Eu estarei esperando. Até logo!";
 						close;
 					}
 					mes "[Gershaun]";
 					mes "Mmm!";
-					mes "Nothing can be done without a refreshing drink!";
-					mes "How about starting a conversation";
-					mes "with at least a bottle of Banana Juice?";
+					mes "Nada pode ser feito sem uma bebida refrescante!";
+					mes "Que tal começar uma conversa com pelo menos uma garrafa de suco de banana?";
 					close;
 				}
 			case 2:
 				mes "[Gershaun]";
-				mes "... you don't seem to know";
-				mes "about Cart Revolution.";
-				mes "Ok, I'll tell you a story";
-				mes "I've never told anyone before.";
-				mes "Listen carefully.";
+				mes "Você não parece saber sobre a habilidade Cavalo de Pau.";
+				mes "Ok, eu vou lhe contar uma história";
+				mes "Eu nunca disse a ninguém antes.";
+				mes "Ouça com atenção.";
 				next;
 				mes "[Gershaun]";
-				mes "I did research about a different";
-				mes "way to use the cart.";
-				mes "I tried cooking ramen";
-				mes "and even tried jump-roping.";
-				mes "But none of them were able";
-				mes "to satisfy me.";
+				mes "Fiz uma pesquisa sobre uma diferente forma de usar o carrinho.";
+				mes "Tentei cozinhar ramen e ainda tentei pular corda.";
+				mes "Mas nenhum deles era capaz de me satisfazer.";
 				next;
 				mes "[Gershaun]";
-				mes "In despair, I wandered";
-				mes "through the fields with my cart.";
-				mes "After wandering dazed day after day..";
-				mes "I met a very strong monster.";
-				mes "Life was in danger!";
-				mes "Why me - a weaponless, armor-less merchant!";
+				mes "Em desespero, eu vagava através dos campos com o meu carrinho.";
+				mes "Depois de perambular dia após dia confuso..";
+				mes "Eu conheci um monstro muito forte.";
+				mes "Minha vida estava em perigo!";
+				mes "Por que eu - um desarmado, Mercador sem armadura!";
 				next;
 				mes "[Gershaun]";
-				mes "I was scared to death.. thinking";
-				mes "and hoping that this wasn't the";
-				mes "last of me. With little hope left";
-				mes "I tried the last thing possible.";
-				mes "I used my cart to hit the monster!";
+				mes "Eu estava morrendo de medo...";
+				mes "Pensando e esperando que este não era o meu último suspiro.";
+				mes "Com pouca esperança a esquerda eu tentei a última coisa possível.";
+				mes "Eu usei o meu carrinho para acertar o monstro!";
 				next;
 				mes "[Gershaun]";
-				mes "The monster died in one hit.";
-				mes "It was then that I realized something.";
-				mes "Carts can become weapons, too!";
-				mes "I finally realized that we can";
-				mes "attack with carts!";
+				mes "O monstro morreu em uma única batida.";
+				mes "Foi então que eu percebi uma coisa.";
+				mes "Os carrinhos também podem se tornar armas!";
+				mes "Eu finalmente percebi que nós podemos atacar com nossos carrinhos!";
 				next;
 				mes "[Gershaun]";
-				mes "Cart Revolution!";
-				mes "That's the new attack skill I developed.";
-				mes "Using 12 SP you lift your cart";
-				mes "to hit your opponent..";
-				mes "right in the head!";
+				mes "Cavalo de Pau!";
+				mes "Essa é a habilidade nova de ataque que eu desenvolvi.";
+				mes "Usando 12 SP você poderá levantar seu carrinho para bater no seu adversário com um golpe certeiro na cabeça!";
 				next;
 				mes "[Gershaun]";
-				mes "The heavier your cart is, the";
-				mes "stronger you can attack! With one hit,";
-				mes "your opponent will be hurt and";
-				mes "forced to back off!";
-				mes "This is Cart Revolution!";
+				mes "Quanto mais pesado o seu carrinho é, mais forte é o dano de ataque com um golpe.";
+				mes "O adversário vai se machucar e será forçado a recuar!";
+				mes "Isso é o Cavalo de Pau!";
 				close;
 			}
 		}
 		mes "[Gershaun]";
-		mes "Mmm, a young merchant.";
-		mes "You must use carts, too.";
-		mes "Since you need to do business.";
-		mes "But is that all?";
+		mes "Mmm, um jovem Mercador.";
+		mes "Mmm, Você também deve usar carrinhos.";
+		mes "Já que você vai precisar para fazer negócios.";
+		mes "Mas isso é tudo?";
 		next;
 		mes "[Gershaun]";
-		mes "I did research about a different";
-		mes "way to use the cart.";
-		mes "I tried cooking ramen";
-		mes "and even tried jump-roping.";
-		mes "But none of them were able";
-		mes "to satisfy me.";
+		mes "Fiz uma pesquisa sobre uma diferente forma de usar o carrinho.";
+		mes "Tentei cozinhar ramen e ainda tentei pular corda.";
+		mes "Mas nenhum deles era capaz de me satisfazer.";
 		next;
-		switch (select("I know, I know.:...?")) {
+		switch (select("Eu sei, Eu sei.:...?")) {
 		case 1:
 			mes "[Gershaun]";
-			mes "...no, what I'm saying is.";
+			mes "Não, o que eu estou dizendo é...";
 			close;
 		case 2:
 			mes "[Gershaun]";
-			mes "In despair, I wandered";
-			mes "through the fields with my cart.";
-			mes "After wandering dazed day after day..";
-			mes "I met a very strong monster.";
-			mes "Life was in danger!";
-			mes "Why me - a weaponless, armor-less merchant!";
+			mes "Em desespero, eu vagava através dos campos com o meu carrinho.";
+			mes "Depois de perambular dia após dia confuso..";
+			mes "Eu conheci um monstro muito forte.";
+			mes "Minha vida estava em perigo!";
+			mes "Por que eu, um desarmado, Mercador sem armadura!";
 			next;
 			mes "[Gershaun]";
-			mes "I was scared to death.. thinking";
-			mes "and hoping that this wasn't the";
-			mes "last of me. With little hope left";
-			mes "I tried the last thing possible.";
-			mes "I used my cart to hit the monster!";
-			mes "And then! And then!";
+			mes "Eu estava morrendo de medo.";
+			mes "Pensando e esperando que este não era o meu último suspiro.";
+			mes "Com pouca esperança a esquerda eu tentei a última coisa possível.";
+			mes "Eu usei o meu carrinho para acertar o monstro!";
+			mes "E então... E então!";
 			next;
 			mes "[Gershaun]";
-			mes "The monster died in one hit.";
-			mes "It was then that I realized something.";
-			mes "Carts can become weapons, too!";
-			mes "I finally realized that we can";
-			mes "attack with carts!";
+			mes "O monstro morreu em uma única batida.";
+			mes "Foi então que eu percebi uma coisa.";
+			mes "Os carrinhos também podem se tornar armas!";
+			mes "Eu finalmente percebi que nós podemos atacar com nossos carrinhos!";
 			next;
 			mes "[Gershaun]";
-			mes "Cart Revolution!";
-			mes "That's the new attack skill I developed.";
-			mes "Using 12 SP you lift your cart";
-			mes "to hit your opponent..";
-			mes "right in the head!";
+			mes "Cavalo de Pau!";
+			mes "Essa é a habilidade nova de ataque que eu desenvolvi.";
+			mes "Usando 12 SP você poderá levantar seu carrinho para bater no seu adversário com um golpe certeiro na cabeça!";
 			next;
 			mes "[Gershaun]";
-			mes "The heavier your cart is, the";
-			mes "stronger you can attack! With one hit,";
-			mes "your opponent will be hurt and";
-			mes "forced to back off!";
+			mes "Quanto mais pesado o seu carrinho é mais forte é o dano de ataque com um golpe, o adversário vai se machucar e será forçado a recuar!";
 			next;
 			mes "[Gershaun]";
-			mes "Would you like to learn this skill?";
+			mes "Você gostaria de aprender esta habilidade?";
 			next;
-			switch (select("Yes!!:I want to learn sushi skills...")) {
+			switch (select("Sim!!:Eu quero aprender habilidades dos sushis...")) {
 			case 1:
 				mes "[Gershaun]";
 				mes "Ok!";
-				mes "I'll give you special training!";
-				mes "First you need health!";
-				mes "Get yourself to merchant";
-				mes "level 35!";
-				mes "We'll talk after that!";
+				mes "Vou te dar um treinamento especial!";
+				mes "Primeiro você precisa de saúde!";
+				mes "Torne-se um Mercador de nível 35 de classe!";
+				mes "Nos falamos depois!";
 				close;
 			case 2:
-				mes "[Sushi King Gershaun]";
+				mes "[Rei do Sushi Gershaun]";
 				if (Sex > 1) {
-					mes "Stupid girl!";
+					mes "Garota estúpida!";
 				}
 				else {
-					mes "Stupid boy!";
+					mes "Garoto estúpida!";
 				}
-				mes "It's way to early for you to";
-				mes "even put your hands on sushi!";
+				mes "É muito cedo para você, até mesmo para colocar suas mãos em sushis!";
 				close;
 			}
 		}
 	}
 	mes "[Gershaun]";
-	mes "If it doesn't work, make it work.";
-	mes "If it doesn't work, make it work.";
-	mes "If it doesn't work, make it work.";
+	mes "Se não funcionar, faça com que funcione.";
+	mes "Se não funcionar, faça com que funcione.";
+	mes "Se não funcionar, faça com que funcione.";
 	close;
 }
 
-//============================================================
-// Old changelog
-//============================================================
-//= Fully working
-//= 1.1 Bug fixes
-//= 1.a Now using functions found in "Global_Functions.txt"
-//=     for class checks.[kobra_k88]
-//= 1.2 Added Baby Class Support [Lupus]
-//= 1.3 Removed callfunc Is_####_Class in favor of baseClass [Silentdragon]
-//= 1.4 Fixed exploits [Lupus]
-//= 1.4a Fixed some typos [IVBela] 1.4b  Gershaun -> Gershuan
-//=     changed perm. variables to temp ones [Lupus]
-//= 1.4b Added missing 1 Banana Juice requirement to Cart Revolution [DracoRPG]
-//============================================================
