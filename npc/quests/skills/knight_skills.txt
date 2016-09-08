@@ -1,308 +1,210 @@
-//===== Hercules Script ======================================
-//= Knight Skills Quests
-//===== By: ==================================================
-//= Lupus, Reddozen, Samuray22
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= [Official Conversion]
-//= Quests for skills: Charge Attack
-//===== Additional Comments: =================================
-//= 1.5 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.8                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quest de habilidade para Cavaleiro.                         ||
+// - KN_CHARGEATK: Avanço Ofensivo                               ||
+//===============================================================//
 
-prt_in,85,99,3	script	Knight#kabuto	4_M_JOB_KNIGHT2,{
+prt_in,85,99,3	script	Cavaleiro#kabuto	4_M_JOB_KNIGHT2,{
 	if (BaseJob == Job_Knight) {
 		if (KNGT_SK == 10) {
 			mes "[Essofeit]";
-			mes "Ah, it must be grand to";
-			mes "be an adventuring Knight";
-			mes "in this world. You must have";
-			mes "encountered all sorts of";
-			mes "dangerous monsters and";
-			mes "fearsome enemies, right?";
+			mes "Ah, deve ser ótimo ser um Cavaleiro aventureiro neste mundo.";
+			mes "Você deve ter encontrado todo tipo de monstros perigosos e inimigos terríveis, certo?";
 			next;
 			mes "[Essofeit]";
-			mes "I'm almost jealous of";
-			mes "all the great experiences";
-			mes "that you must be having.";
-			mes "Someday, you'll have to tell";
-			mes "me your own stories of bravery.";
+			mes "Eu quase chego a invejar todas as grandes experiências que você deve ter.";
+			mes "Qualquer dia, você terá que me contar suas histórias de bravura.";
 			close;
 		}
 		if (KNGT_SK == 9 && getskilllv("KN_CHARGEATK") == 0) {
 			mes "[Essofeit]";
-			mes "Ah, I see that you've";
-			mes "made tremendous progress";
-			mes "in your pursuit of strength.";
-			mes "Transcendance is no small";
-			mes "feat, and it is a great honor";
-			mes "to achieve Lord Knight rank.";
+			mes "Ah, eu percebi que você fez um tremendo progresso em sua busca pela força.";
+			mes "Transcendência não é um feito qualquer, e é uma grande honra atingir a posição de Lorde.";
 			next;
 			mes "[Essofeit]";
-			mes "However, I'm aware of the";
-			mes "drawback of memory erasure.";
-			mes "Therefore, I assume you're";
-			mes "here to learn the Charge Attack";
-			mes "skill once more. It will be my";
-			mes "pleasure to instruct you again.";
+			mes "No entanto, estou ciente da desvantagem de ter a memória apagada.";
+			mes "Portanto, creio que você esteja aqui para aprender a habilidade Avanço Ofensivo mais uma vez.";
+			mes "Será um prazer te ensinar novamente.";
 			next;
 			mes "[Essofeit]";
-			mes "Charge Attack is an active skill that consumes 40 SP to damage";
-			mes "one target. If you're further from the target, you'll increase the";
-			mes "skill's damage and the delay";
-			mes "before damage is inflicted.";
+			mes "Avanço Ofensivo é uma habilidade ativa que consome 40 SP para atingir um alvo.";
+			mes "Quanto mais longe do alvo você estiver, maior será o dano causado e o tempo que levará para causar o dano.";
 			next;
 			mes "[Essofeit]";
-			mes "During this delay, you will";
-			mes "be immobilized. Therefore,";
-			mes "the cost of increased damage";
-			mes "is greater risk to yourself.";
-			mes "For now, it would be best to practice this skill on your own.";
+			mes "Durante esse tempo, você ficará imobilizado.";
+			mes "Portanto, o custo de um dano maior será sofrer um risco maior.";
+			mes "Por enquanto, é melhor você praticar essa habilidade por sua conta.";
 			KNGT_SK = 10;
 			skill "KN_CHARGEATK",1,0;
 			next;
 			mes "[Essofeit]";
-			mes "Good luck on your";
-			mes "adventures, Lord Knight.";
-			mes "I'm sure you'll make good";
-			mes "use of the Charge Attack";
-			mes "and bring pride to the";
-			mes "Prontera Chivalry.";
+			mes "Boa sorte em suas aventuras, Lorde.";
+			mes "Estou certo de que você fará bom uso do Avanço Ofensivo e trará orgulho para a Cavalaria de Prontera.";
 			close;
 		}
 		if (KNGT_SK == 9) {
 			mes "[Essofeit]";
-			mes "Ah, it must be grand to";
-			mes "be an adventuring Knight";
-			mes "in this world. You must have";
-			mes "encountered all sorts of";
-			mes "dangerous monsters and";
-			mes "fearsome enemies, right?";
+			mes "Ah, deve ser ótimo ser um Cavaleiro aventureiro neste mundo.";
+			mes "Você deve ter encontrado todo tipo de monstros perigosos e inimigos terríveis, certo?";
 			next;
 			mes "[Essofeit]";
-			mes "I'm almost jealous of";
-			mes "all the great experiences";
-			mes "that you must be having.";
-			mes "Someday, you'll have to tell";
-			mes "me your own stories of bravery.";
+			mes "Eu quase chego a invejar todas as grandes experiências que você deve ter.";
+			mes "Qualquer dia, você terá que me contar suas histórias de bravura.";
 			close;
 		}
 		if (KNGT_SK == 8) {
 			mes "[Essofeit]";
-			mes "I've named this skill,";
-			mes "''Charge Attack.'' It's not";
-			mes "a fancy name, but it's simple";
-			mes "and direct enough for you to";
-			mes "understand how it works.";
-			mes "Now let me teach it to you...";
+			mes "Eu nomeei esta habilidade de, Avanço Ofensivo.";
+			mes "Não é um nome elegante, mas é simples e direto o suficiente para que você entenda como funciona.";
+			mes "Agora, irei ensiná-la à você...";
 			next;
 			mes "[Essofeit]";
-			mes "Charge Attack is an active skill that consumes 40 SP to damage";
-			mes "one target. If you're further from the target, you'll increase the";
-			mes "skill's damage and the delay";
-			mes "before damage is inflicted.";
+			mes "Avanço Ofensivo é uma habilidade ativa que consome 40 SP para atingir um alvo.";
+			mes "Quanto mais longe do alvo você estiver, maior será o dano causado e o tempo que levará para causar o dano.";
 			next;
 			mes "[Essofeit]";
-			mes "During this delay, you will";
-			mes "be immobilized. Therefore,";
-			mes "the cost of increased damage";
-			mes "is greater risk to yourself.";
-			mes "For now, it would be best to practice this skill on your own.";
+			mes "Durante esse tempo, você ficará imobilizado.";
+			mes "Portanto, o custo de um dano maior será sofrer um risco maior.";
+			mes "Por enquanto, é melhor você praticar essa habilidade por sua conta.";
 			KNGT_SK = 9;
 			skill "KN_CHARGEATK",1,0;
 			next;
 			mes "[Essofeit]";
-			mes "I hope you make good";
-			mes "use of the Charge Attack";
-			mes "skill. Just like you, I will be";
-			mes "doing my best to bring honor";
-			mes "to the Knighthood with my";
-			mes "strength and courage!";
+			mes "Eu espero que você faça um bom uso da habilidade Avanço Ofensivo.";
+			mes "Assim como você, eu farei meu melhor para trazer honra para a Cavalaria, com minha força e coragem!";
 			close;
 		}
 		if (KNGT_SK == 7 && countitem(530) > 4 && countitem(748) > 2) {
 			mes "[Essofeit]";
-			mes "The concept of honor";
-			mes "seems to be lost on today's";
-			mes "Knights. No longer do they";
-			mes "appreciate the meaning of";
-			mes "the word ''chivalry'' or the";
-			mes "noble pursuit for strength...";
+			mes "A idéia de honra parece estar perdida entre os Cavaleiros de hoje.";
+			mes "Eles não apreciam mais o significado da palavra \"bravura\", nem a nobre busca pela força...";
 			next;
 			mes "[Essofeit]";
-			mes "Back in my day, Knights";
-			mes "were strong enough to get";
-			mes "at least 5 Candy Canes and";
-			mes "3 Witherless Roses through";
-			mes "hunting alone! But Knights";
-			mes "these days have grown soft...";
+			mes "No meu tempo, os Cavaleiros eram fortes o bastante para conseguir pelo menos 5 Bengalas Doces e 3 Rosas Eternas.";
+			mes "Apenas caçando sozinhos!";
+			mes "Mas os Cavaleiros hoje em dia ficaram moles...";
 			next;
-			if (select("Give him Candy Canes and Witherless Roses:Cancel") == 1) {
-				mes "["+ strcharinfo(0) +"]";
-				mes "There are still Knights";
-				mes "out there who believe in";
-				mes "honorably risking our lives";
-				mes "to achieve true strength...";
+			if (select("Dar a ele os itens:Cancelar") == 1) {
+				mes "["+strcharinfo(0)+"]";
+				mes "Ainda há Cavaleiros por aí que acreditam em arriscar suas vidas com honra para atingir a verdadeira força...";
 				next;
 				mes "[Essofeit]";
-				mes "You...";
-				mes "You really understand.";
-				mes "You truly know the value";
-				mes "of hardship. It makes me";
-				mes "glad to see that a true";
-				mes "Knight like you still exists.";
+				mes "Você...";
+				mes "Você realmente entende.";
+				mes "Sabe o verdadeiro valor do esforço.";
+				mes "Me deixa feliz ver que ainda existe um verdadeiro Cavaleiro como você.";
 				next;
 				mes "[Essofeit]";
-				mes "Hahaha, finally, I've";
-				mes "found someone I can call";
-				mes "a true comrade. We're the";
-				mes "last of a dying breed if you";
-				mes "hadn't noticed, my friend. But";
-				mes "there is hope for Knights...";
+				mes "Hahaha, finalmente eu encontrei alguém que posso chamar de companheiro.";
+				mes "Se você ainda não notou somos os últimos de uma raça em extinção, amigo.";
+				mes "Mas ainda há esperança para os Cavaleiros...";
 				next;
 				mes "[Essofeit]";
-				mes "It's decided, then.";
-				mes "As long as we live,";
-				mes "chivalry will never die!";
-				mes "Thanks to you, my faith";
-				mes "in the Knighthood has";
-				mes "been rekindled.";
+				mes "Está decidido, então.";
+				mes "Enquanto vivermos, a Cavalaria não irá morrer!";
+				mes "Graças a você, voltei a ter fé na Cavalaria.";
 				next;
 				mes "[Essofeit]";
-				mes "In my recognition of you";
-				mes "as a true Knight, I will teach";
-				mes "you a special skill that I've";
-				mes "been researching recently. Why";
-				mes "don't you come back after I've";
-				mes "completed the preparations?";
+				mes "Como reconhecimento a um verdadeiro Cavaleiro como você.";
+				mes "Vou lhe ensinar uma habilidade especial que tenho pesquisado recentemente.";
+				mes "Por que não volta depois que eu tiver terminado os preparativos?";
 				delitem 530,5; //Candy_Striper
 				delitem 748,3; //Witherless_Rose
 				KNGT_SK = 8;
 				close;
 			}
 			mes "[Essofeit]";
-			mes "It's shameful...";
-			mes "Most new recruits into";
-			mes "the Prontera Chivalry are";
-			mes "more concerned about their";
-			mes "pensions than their honor!";
+			mes "É uma vergonha...";
+			mes "A maioria dos recrutas da Cavalaria de Prontera está mais interessada em suas pensões do que em sua honra!";
 			close;
 		}
 		if (KNGT_SK == 7) {
 			mes "[Essofeit]";
-			mes "Maybe I'm romanticizing";
-			mes "the past, but I don't agree";
-			mes "with all the bureaucracy";
-			mes "that is present today in";
-			mes "the Prontera Chivalry.";
+			mes "Talvez eu esteja romanceando o passado, mas não concordo com toda essa burocracia que ando vendo na Cavalaria de Prontera.";
 			next;
 			mes "[Essofeit]";
-			mes "Although, I admit";
-			mes "that I was a lot happier";
-			mes "back when honor was all";
-			mes "you needed. Nowadays, it ";
-			mes "seems like anyone can be";
-			mes "a Knight. Er, no offense~";
+			mes "Embora eu deva admitir que era bem mais feliz quando precisávamos da honra.";
+			mes "Hoje em dia parece que qualquer um pode ser um cavaleiro.";
+			mes "Err, sem ofensa...";
 			close;
 		}
 		if (KNGT_SK == 6) {
 			mes "[Essofeit]";
-			mes "So you've seen the Knights";
-			mes "of the 7th Division for what";
-			mes "they really are, eh? As a fellow Knight, you may understand my";
-			mes "feelings of disappointment.";
+			mes "Então, você viu os Cavaleiros da 7a. Divisão como eles realmente são, não é?";
+			mes "Como um colega Cavaleiro, você deve entender meu desapontamento.";
 			next;
 			mes "[Essofeit]";
-			mes "It's so disheartening...";
-			mes "I don't why we're Knights";
-			mes "or what we're training for.";
-			mes "When I was your age, well,";
-			mes "I wanted to risk my life and";
-			mes "achieve true strength.";
+			mes "É tão desanimador...";
+			mes "Não sei mais por que somos Cavaleiros nem para que estamos treinando.";
+			mes "Quando eu tinha a sua idade, eu queria arriscar minha vida e atingir a verdadeira força.";
 			next;
 			mes "[Essofeit]";
-			mes "But... I'm sure that you";
-			mes "don't want to hear an old";
-			mes "man's tall tales. All those";
-			mes "wonderful battles, that glorious camaraderie forged between";
-			mes "rivals... It's all in the past.";
+			mes "Mas... Acho que você não quer ouvir um velho contar histórias.";
+			mes "Todas as grandes batalhas, o glorioso respeito forjado entre rivais...";
+			mes "Tudo isso é coisa do passado.";
 			next;
 			KNGT_SK = 7;
 			mes "[Essofeit]";
-			mes "Maybe it's better that";
-			mes "I forget all about my old";
-			mes "fashioned ideals. I guess";
-			mes "times have changed, and that";
-			mes "my idea of chivalry may be dead. ";
+			mes "Talvez seja melhor eu esquecer esses meus ideais antiquados.";
+			mes "Acho que os tempos mudaram, e a cavalaria como eu conhecia pode estar morta.";
 			close;
 		}
 		if (KNGT_SK == 1) {
 			mes "[Essofeit]";
-			mes "Hm, why don't take a";
-			mes "tour of the 7th Division";
-			mes "and see the attitude of my";
-			mes "comrades for yourself? You'll";
-			mes "see Grand Master Maroujje";
-			mes "training the recruits outside.";
+			mes "Hmm, por que não dá uma olhada na 7a. Divisão e vê, você mesmo, a atitude de meus colegas?";
+			mes "Você verá o Grande Mestre Maroujje treinando os recrutas lá fora.";
 			close;
 		}
 		if (KNGT_SK == 0) {
 			mes "[Essofeit]";
-			mes "Greetings. I am Essofeit";
-			mes "Lageiya of the 7th Division";
-			mes "of the Prontera Chivalry.";
-			mes "As a proud Knight upholding";
-			mes "the principles of honor and";
-			mes "chivalry, I am at your service.";
+			mes "Saudações.";
+			mes "Sou Essofeit Lageiya da 7a. Divisão da Cavalaria de Prontera.";
+			mes "Como honrado cavaleiro que guarda os princípios da honra e da bravura, estou ao seu dispor.";
 			next;
 			mes "[Essofeit]";
-			mes "May I ask which division";
-			mes "you are from? Ah, you're";
-			mes "a Knight that's been granted";
-			mes "royal permisson to journey";
-			mes "as you please. That must be";
-			mes "great, the freedom you have.";
+			mes "Posso perguntar de qual divisão você veio?";
+			mes "Ah, você é um Cavaleiro que recebeu permissão real para viajar como quiser.";
+			mes "Deve ser ótimo, ter essa liberdade.";
 			next;
 			mes "[Essofeit]";
-			mes "Sadly, the Division of";
-			mes "which I am member is too";
-			mes "bureaucratic. I believe that my";
-			mes "comrades are more concerned";
-			mes "with their pensions than with chivalry, or defending the weak.";
+			mes "Infelizmente, a Divisão da qual faço parte é burocrática demais.";
+			mes "Acho que meus colegas estão mais preocupados com suas pensões do que com sua bravura, ou em defender os fracos.";
 			next;
 			mes "[Essofeit]";
-			mes "Even if we wanted to be";
-			mes "more active, there are too";
-			mes "many regulations that hamper";
-			mes "the good we can do. Over time,";
-			mes "the situation has grown much worse. But don't take my word...";
+			mes "Mesmo que quiséssemos ser mais ativos, há um excesso de regras que dificultam o bem que poderíamos fazer.";
+			mes "Com o tempo a situação foi ficando cada vez pior.";
+			mes "Mas não confie apenas no que digo...";
 			next;
 			mes "[Essofeit]";
-			mes "Perhaps it will be better";
-			mes "if you visited the 7th Division";
-			mes "for yourself and speak to the";
-			mes "other Knights that are training. Hopefully, you will see what";
-			mes "I have seen for a long time...";
+			mes "Talvez seja melhor visitar a 7a. Divisão você mesmo e falar com os outros Cavaleiros em treinamento.";
+			mes "Espero que você possa ver o que eu já vejo há muito tempo...";
 			KNGT_SK = 1;
 			close;
 		}
 	}
 	mes "[Essofeit]";
-	mes "Greetings. I am Essofeit";
-	mes "Lageiya of the 7th Division";
-	mes "of the Prontera Chivalry.";
-	mes "As a proud Knight upholding";
-	mes "the principles of honor and";
-	mes "chivalry, I am at your service.";
+	mes "Saudações.";
+	mes "Eu sou Essofeit Lageiya, da 7a. Divisão da Cavalaria de Prontera.";
+	mes "Como honrado Cavaleiro que guarda os princípios da honra e da bravura, estou ao seu dispor.";
 	next;
 	mes "[Essofeit]";
-	mes "I only wish the others in";
-	mes "my division would appreciate";
-	mes "my values, and the true value";
-	mes "of spilled blood. They may be";
-	mes "my comrades, but I find it";
-	mes "difficult to trust them.";
+	mes "Eu só queria que os outros da minha divisão apreciassem meus ideais.";
+	mes "O verdadeiro valor do esforço convertido em sangue, suor e lágrimas.";
+	mes "Eles podem ser meus colegas, mas acho difícil confiar neles.";
 	close;
 }
 
@@ -313,7 +215,7 @@ OnTouch:
 		end;
 	if (KNGT_SK <= 2) {
 		mes "[?]";
-		mes "Kiiiiiiai~!";
+		mes "Kiiiiiiai.!";
 		mes "Yaaaaaaaaap!";
 		mes "Hoo! Haa! Haiyah!";
 		next;
@@ -322,207 +224,136 @@ OnTouch:
 		mes "Rowr rowr rowr";
 		mes "GrrrrrrrraaAAHH!";
 		next;
-		mes "^3355FFThese Knights appear to be";
-		mes "putting themselves through";
-		mes "some gruelingly difficult";
-		mes "training. But as you listen";
-		mes "a little more closely, their";
-		mes "screams seem a bit dramatized.^000000";
+		mes "^3355FFEsses cavaleiros parecem estar passando por um treinamento muito cansativo e difícil.";
+		mes "Mas quando você escuta com um pouco mais de atenção, seus gritos parecem um pouco dramatizados.^000000";
 		if (KNGT_SK == 1) KNGT_SK = 2;
 		close;
 	}
-	mes "^3355FFThis group of Knights";
-	mes "appear to be undergoing";
-	mes "so pretty grueling training,";
-	mes "judging from the wailing pitch";
-	mes "of their battle screams.^000000";
+	mes "^3355FFEsse grupo de Cavaleiros parece estar passando por um treinamento muito difícil.";
+	mes "A julgar pelo tom de lamento de seus gritos de batalha.^000000";
 	close;
 }
 
-prontera,72,352,7	script	Grand Master	4_M_JOB_KNIGHT1,{
-	mes "[Grand Master]";
+prontera,72,352,7	script	Grande Mestre	4_M_JOB_KNIGHT1,{
+	mes "[Grande Mestre]";
 	if (KNGT_SK == 2 || KNGT_SK == 3) {
-		mes "Alright men, you don't";
-		mes "need to put ^333333that^000000 much effort";
-		mes "into your training. You have";
-		mes "to do this everyday, so make";
-		mes "sure that you don't exhaust";
-		mes "yourselves unnecessarily.";
+		mes "Certo homens, vocês não têm que se esforçar tanto em seu treinamento.";
+		mes "Vocês têm que fazer isso todos os dias, então tratem de não se cansarem desnecessariamente.";
 		next;
-		mes "[Grand Master]";
-		mes "The most important thing";
-		mes "is that you don't injure";
-		mes "yourselves. Take it easy";
-		mes "and make sure that you";
-		mes "don't pull a muscle.";
-		mes "Um, that's an order!";
+		mes "[Grande Mestre]";
+		mes "O mais importante é que vocês não acabem se machucando.";
+		mes "Vão com calma e tomem cuidado para não distenderem nenhum músculo.";
+		mes "Err, isso é uma ordem!";
 		if (KNGT_SK == 2) KNGT_SK = 3;
 		close;
 	}
-	mes "Put your backs into it,";
-	mes "men! I know training can";
-	mes "be tough, but it'll make";
-	mes "you harder, better, faster and";
-	mes "stronger! Prontera's safety is your responsibility, Knights!";
+	mes "Ponham mais força nisso, homens!";
+	mes "Eu sei que o treinamento é difícil, mas tornará vocês melhores, mais rápidos e mais fortes!";
+	mes "A segurança de Prontera é responsabilidade de vocês, Cavaleiros!";
 	next;
-	mes "[Grand Master]";
+	mes "[Grande Mestre]";
 	mes "...";
-	mes "Oh, I'm just kidding around.";
-	mes "Let's go take a break, guys.";
+	mes "Ah, estou só brincando.";
+	mes "Vamos dar uma pausa, pessoal.";
 	close;
 }
 
-prontera,78,354,3	script	Knight#zabii	4_M_JOB_KNIGHT2,{
+prontera,78,354,3	script	Cavaleiro#zabii	4_M_JOB_KNIGHT2,{
 	if (KNGT_SK == 3 || KNGT_SK == 4) {
 		mes "[Zabi]";
-		mes "I guess we're more like";
-		mes "government employees";
-		mes "than actual Knights. We're";
-		mes "overpaid, and don't really";
-		mes "have to do anything other";
-		mes "than pretend to train.";
+		mes "Acho que somos mais funcionários públicos do que Cavaleiros de verdade.";
+		mes "Somos bem pagos, e não temos que fazer muita coisa além de fingir que estamos treinando.";
 		next;
 		mes "[Zabi]";
-		mes "Me? I plan on milking";
-		mes "the system for all it's";
-		mes "worth. Work here a few";
-		mes "years, then live the rest";
-		mes "of my life on a fat pension.";
-		mes "Yeah, that's gonna be great.";
+		mes "Eu? Eu quero explorar o sistema o quanto puder.";
+		mes "Trabalhar aqui alguns anos, e depois passar o resto da vida com uma bela pensão.";
+		mes "É, isso vai ser ótimo.";
 		next;
 		mes "[Zabi]";
-		mes "Whoa-whoa-whoa,";
-		mes "the Grand Master's";
-		mes "looking this way! Quit";
-		mes "talkin' to me and let me";
-		mes "grunt like I've got a hernia.";
-		mes "Hooooo-AH! BWAH! HAI-YAH!";
+		mes "Opa, opa, opa, o Grande Mestre está olhando para cá!";
+		mes "Pare";
+		mes "de falar comigo, eu vou gemer como se tivesse uma hérnia";
+		mes "Huuuuu-ÁÁ! HUAH! AI-YAH!";
 		if (KNGT_SK == 3) KNGT_SK = 4;
 		close;
 	}
-	mes "[A Knight]";
-	mes "Hooooo-AH!";
-	mes "BWAH! HAI-YAH!";
-	mes "Oh man, I can barely";
-	mes "breathe from all of this";
-	mes "arduous training. Ugh,";
-	mes "so incredibly enervated...";
+	mes "[Cavaleiro]";
+	mes "Huuuuu-ÁÁ!";
+	mes "HUAH! AI-YAH!";
+	mes "Ai, cara, mal consigo respirar com todo esse treinamento duro.";
+	mes "Ugh, isso tudo me tira as forças...";
 	close;
 }
 
-prontera,73,357,5	script	Knight#drake	4_M_JOB_KNIGHT2,{
+prontera,73,357,5	script	Cavaleiro#drake	4_M_JOB_KNIGHT2,{
 	if (KNGT_SK == 4 || KNGT_SK == 5) {
 		mes "[Gon]";
-		mes "What'll I get with";
-		mes "my next paycheck?";
-		mes "Ah~ I should get a nice";
-		mes "necklace for my wife.";
-		mes "I just know she'll love it!";
+		mes "O que é que vou fazer com meu próximo pagamento?";
+		mes "Ah, eu vou arrumar um belo colar para minha esposa.";
+		mes "Sei que ela vai adorar!";
 		next;
 		if (KNGT_SK == 4) KNGT_SK = 5;
 		mes "[Gon]";
-		mes "Let's see, how many";
-		mes "more days until payday?";
-		mes "One, two... Hmm. For some";
-		mes "reason it never seems to";
-		mes "come soon enough, you know?";
+		mes "Vamos ver, quantos dias faltam para o pagamento?";
+		mes "Um, dois... Hmm.";
+		mes "Por algum motivo, a gente sempre acha que poderia vir mais cedo, sabe?";
 		close;
 	}
-	mes "[A Knight]";
-	mes "Maybe I'm not not so good";
-	mes "at fighting or defending the";
-	mes "weak, but this Knight position";
-	mes "is a pretty good job. Working";
-	mes "here really lets me save up";
-	mes "cash to invest in my future.";
+	mes "[Cavaleiro]";
+	mes "Talvez eu não seja tão bom para lutar ou para defender os fracos.";
+	mes "Mas esta posição de Cavaleiro é um trabalho muito bonito.";
+	mes "Trabalhar aqui me permite economizar dinheiro para investir no futuro";
 	next;
-	mes "[A Knight]";
-	mes "We may never get to see";
-	mes "any action, but at least";
-	mes "I can take some pride";
-	mes "in being a Knight.";
+	mes "[Cavaleiro]";
+	mes "Talvez a gente nunca lute de verdade, mas pelo menos eu posso ter algum orgulho em ser um Cavaleiro.";
 	close;
 }
 
-prontera,78,357,3	script	Knight#sasword	4_M_JOB_KNIGHT2,{
+prontera,78,357,3	script	Cavaleiro#sasword	4_M_JOB_KNIGHT2,{
 	mes "[Jiya]";
 	if (KNGT_SK == 5 || KNGT_SK == 6) {
-		mes "Man, this division of";
-		mes "the chivalry doesn't seem";
-		mes "to have too much potential.";
-		mes "Most of us here are pretty";
-		mes "second rate, except maybe";
-		mes "for that one guy, Essofeit.";
+		mes "Cara, esta divisão da cavalaria não parece ter lá muito potencial.";
+		mes "A maioria de nós é de segunda categoria, exceto, talvez aquele cara, o Essofeit.";
 		next;
 		KNGT_SK = 6;
 		mes "[Jiya]";
-		mes "As for me, I don't have too";
-		mes "much in the way of ambition.";
-		mes "As long as I do what I'm told,";
-		mes "they'll pay me. And as long";
-		mes "as I get paid, I'm happy.";
+		mes "Quanto a mim, também não tenho muita ambição.";
+		mes "Enquanto eu fizer o que me mandam serei pago.";
+		mes "E enquanto eu for pago, estarei feliz.";
 		close;
 	}
-	mes "D-don't talk to me!";
-	mes "Gotta... muster up the...";
-	mes "Strength to... f-finish all";
-	mes "these... training exercises!";
-	mes "Alright man, c-concentrate...";
+	mes "N-não fale comigo!";
+	mes "Tenho que... Conseguir...";
+	mes "Força para... T-terminar";
+	mes "Todo... Esse treinamento!";
+	mes "Certo, certo, c-concentrar...";
 	close;
 }
 
-prontera,66,358,5	script	Knight#gattack	4_M_JOB_KNIGHT1,{
+prontera,66,358,5	script	Cavaleiro#gattack	4_M_JOB_KNIGHT1,{
 	mes "[Gatack]";
 	if (KNGT_SK == 7) {
-		mes "Wait, where's";
-		mes "Essofeit? He can't";
-		mes "just skip daily training,";
-		mes "even if he has the distinction";
-		mes "of killing countless ^FF0000Mystcases^000000";
-		mes "and ^FF0000Obeaunes^000000 in his time.";
+		mes "Espera, onde está Essofeit?";
+		mes "Ele não pode faltar no treinamento.";
+		mes "Mesmo tendo a distinção de ter matado vários ^FF0000Névoas^000000 e ^FF0000Obeaunes^000000 no tempo dele.";
 		next;
 		mes "[Gatack]";
-		mes "Gosh, I'm sick and tired of";
-		mes "him talking about Knighthood.";
-		mes "Essofeit insists that all Knights, even complete rookies, should be";
-		mes "able to obtain 5 Candy Canes and 3 Witherless Roses from hunting.";
+		mes "Putz, já cansei de ouvir ele falar da honra da cavalaria.";
+		mes "Essofeit insiste que todo Cavaleiro.";
+		mes "Até mesmo um novato, deveria conseguir 5 Bengalas Doces e 3 Rosas Eternas em uma caçada.";
 		next;
 		mes "[Gatack]";
-		mes "Hell, I just hate to hear";
-		mes "his preaching about his great";
-		mes "experiences fighting monsters.";
-		mes "But now Essofeit just researches stuff inside the building and";
-		mes "doesn't do much else...";
+		mes "Diabos, eu odeio ficar ouvindo ele falar sobre suas grandes experiências combatendo monstros.";
+		mes "Mas agora, Essofeit só trabalha em pesquisas dentro do prédio, e quase não faz outra coisa...";
 		close;
 	}
-	mes "Man, Knight training";
-	mes "is pretty rough. Don't";
-	mes "they know that I'm far";
-	mes "too delicate for all this";
-	mes "strenuous activity?";
+	mes "Cara, o treinamento de um Cavaleiro é muito difícil.";
+	mes "Eles não entendem que sou sensível demais para tanto esforço e exercício?";
 	next;
 	mes "[Gatack]";
-	mes "Ah well, if I ever go";
-	mes "down in battle, I won't";
-	mes "be too surprised, seeing";
-	mes "as I'm one of the weakest";
-	mes "guys here. But when it happens,";
-	mes "I'll be too busy looking good.";
+	mes "Ah, bem, se eu fosse derrotado em batalha.";
+	mes "Não ficaria muito surpreso, já que sou um dos caras mais fracos aqui.";
+	mes "Mas, quando isso acontecer, estarei muito ocupado, cuidando da boa aparência.";
 	close;
 }
 
-//============================================================
-// Old changelog
-//============================================================
-//= 1.0 for fully working skills only [Lupus]
-//= 1.1 Added more new skill quests for more classes [Lupus]
-//= Somehow eA engine doesn't let you keep learn't skill V_V'
-//= 1.2 Added to correct locations, correct NPC's, fixed
-//= some of the items required and made them into real
-//= quests. [Reddozen]
-//= 1.3 Fixed bugs and minor typos. Optimized [Lupus]
-//= 1.3a fixed an item ID typo, thx 2Spiritual Kid
-//= 1.3b Splitted into different files [DracoRPG]
-//= 1.4 Updated to the Official One. [Samuray22]
-//= 1.4a replaced item "names" with item id [Lupus]
-//============================================================

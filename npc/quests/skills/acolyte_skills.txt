@@ -1,119 +1,92 @@
-//===== Hercules Script ======================================
-//= Acolyte Skill Quest
-//===== By: ==================================================
-//= kobra_k88
-//===== Current Version: =====================================
-//= 1.8
-//===== Description: =========================================
-//= Quest for skills: Holy Light
-//===== Additional Comments: =================================
-//= 1.5 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//= 1.6 Fixed a typo in job check. (Bugreport:1531) [L0ne_W0lf]
-//= 1.7 Updated to latest available official file. [Masao]
-//= 1.8 Fixed JobLevel requirements. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.8                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Cabeçalho [SlexFire]                                        ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quest de habilidade para Noviço.                            ||
+// - AL_HOLYLIGHT: Luz Divina.                                   ||
+//===============================================================//
 
-prt_church,173,23,4	script	Cleric	1_F_PRIEST,{
-	mes "[Acolyte Klift]";
-	mes "Ahh . Brothers ! Does the task of";
-	mes "caring for out lost sheep burden";
-	mes "and tire you ?";
-	mes "I am here to assist you.";
+prt_church,173,23,4	script	Noviço Klift	1_F_PRIEST,{
+	mes "[Noviço Klift]";
+	mes "Ahh. Irmãos!";
+	mes "Será que a tarefa de cuidar das ovelhas perdidas é muito fardo para você?";
+	mes "Estou aqui para ajudá-lo.";
 	next;
-	switch (select("^3355FF' About acolyte's hidden ability '^000000 ..:^3355FF' Holy light '^000000 training:End conversation")) {
+	switch(select("^3355FF\"Sobre habilidades ocultas de Noviço\"^000000:Treinar ^3355FF\"Luz Divina\"^000000:Terminar conversa")) {
 	case 1:
-		mes "[Acolyte Klift]";
-		mes "Our members of the clergy";
-		mes "naturally learn a skill as";
-		mes "as they mature. As they approach ";
-		mes "their senior years as an acolyte";
-		mes "this special skill.";
+		mes "[Noviço Klift]";
+		mes "Nossos membros do clero normalmente vencem com suas habilidades naturais.";
+		mes "Com o tempo os noviços desenvolvem uma habilidade especial.";
 		next;
-		mes "[Acolyte Klift]";
-		mes "Faced with great danger and";
-		mes "an endless struggle with evil,";
-		mes "our brethren are much in need of assistance.";
-		mes "^3355FF' Holy Light '^000000 is that skill.";
-		mes "To gain this ability for yourself,";
-		mes "takes some work.";
+		mes "[Noviço Klift]";
+		mes "Confrontando com perigos intermináveis contra o mal, nossos irmãos necessitam muito de ajuda.";
+		mes "^3355FF\"Luz Divina\"^000000 é a habilidade.";
+		mes "Para obter esta habilidade, é preciso algum trabalho.";
 		next;
-		mes "[Acolyte Klift]";
-		mes "To gain the skill, you must find these items.";
-		mes "^FF33551 Opal^000000";
-		mes "^FF33551 Crystal Blue^000000";
-		mes "^FF33551 Rosary^000000 ";
+		mes "[Noviço Klift]";
+		mes "Para obter esta habilidade, você precisa encontrar estes itens:";
+		mes "^FF33551 Opala^000000";
+		mes "^FF33551 Cristal Azul^000000";
+		mes "^FF33551 Rosário^000000 ";
 		next;
-		mes "[Acolyte Klift]";
-		mes "In order to be able to even use this skill,";
-		mes "one must be have sufficient experience.";
-		mes "^FF3355 Job Level 30^000000";
-		mes "is required to learn this skill.";
+		mes "[Noviço Klift]";
+		mes "Quando você obtiver a experiência necessária, você poderá usar esta habilidade..";
+		mes "^FF3355 Nível 30 de classe^000000 é necessário para você aprender esta habilidade.";
 		next;
-		mes "[Acolyte Klift]";
-		mes "As for a priest, because of their";
-		mes "already vast amount of experience,";
-		mes "they are able to gain this skill at any";
-		mes "job level.";
+		mes "[Noviço Klift]";
+		mes "Sacerdotes, por terem uma vasta experiência, podem aprender esta habilidade em qualquer nível de classe.";
 		close;
 	case 2:
 		if (getskilllv("AL_HOLYLIGHT") == 1) {
-			mes "[Acolyte Klift]";
-			mes "Brother, you already possess";
-			mes "the skill of ` Holy Light '.";
-			mes "You cannot gain a skill you";
-			mes "already possess ..";
-			mes "I pray that you are using";
-			mes "this skill for the work of good . .";
+			mes "[Noviço Klift]";
+			mes "Irmão, você já possui a habilidade \"Luz Divina\".";
+			mes "Você não pode ganhar uma habilidade que já possui...";
+			mes "Rezo para que você esteja usando esta habilidade para o bem...";
 			close;
 		}
 		if ((countitem(727) > 0) && (countitem(991) > 0) && (countitem(2608) > 0) && (JobLevel > 29 || (BaseJob == Job_Priest || BaseJob == Job_Monk)) && (BaseClass == Job_Acolyte)) {
-			mes "[Acolyte Klift]";
-			mes "Your faith has proven worthy";
-			mes "for you to gain the ' Holy Light ' skill.";
-			mes "Your skill is adequate";
-			mes "to use this skill.";
-			mes "Use it wisely. . .";
+			mes "[Noviço Klift]";
+			mes "Sua fé provou que você é digno de usar a habilidade \"Luz Divina\".";
+			mes "Sua experiência é suficiente para usar esta habilidade.";
+			mes "Use-a sabiamente...";
 			next;
 			delitem 727,1; //White_Jewel
 			delitem 991,1; //Crystal_Blue
 			delitem 2608,1; //Rosary
 			skill "AL_HOLYLIGHT",1,0;
-			mes "[Acolyte Klift]";
-			mes "You now know ' Holy Light '";
-			mes "May you use this skill only in the";
-			mes "best conduct . . . . .";
+			mes "[Noviço Klift]";
+			mes "Você agora possui a \"Luz Divina\".";
+			mes "Use esta habilidade somente para bons propósitos...";
 			close;
 		}
-		mes "[Acolyte Klift]";
-		mes "Oh, it is clear. . .";
-		mes "You are not yet ready to";
-		mes "receive the ' Holy Light ' skill.";
+		mes "[Noviço Klift]";
+		mes "Ah, é claro.";
+		mes "Você ainda não está pronto para receber a habilidade \"Luz Divina\".";
 		next;
-		mes "[Acolyte Klift]";
-		mes "You should listen carefully to what";
-		mes "is necessary for this skill.";
-		mes "If you listen closely,";
-		mes "you may learn what you lack.";
-		mes "So that you may improve upon yourself.";
+		mes "[Noviço Klift]";
+		mes "Você deve ouvir atentamente o que é necessário para obter esta habilidade.";
+		mes "Se você escutasse, saberia o que falta para poder adquirí-la.";
+		mes "Assim você pode aperfeiçoar-se.";
 		close;
 	case 3:
-		mes "[Acolyte Klift]";
-		mes ". . . . .";
-		mes "I understand your zeal.";
-		mes "You have much time yet to";
-		mes "practice and gain experience.";
-		mes "Blessings upon you . . . . .";
+		mes "[Noviço Klift]";
+		mes ".....";
+		mes "Eu entendo o seu zelo.";
+		mes "Você ainda tem muito tempo para praticar e adquirir experiência.";
+		mes "Bênçãos sobre vós!";
 		close;
 	}
 }
 
-//============================================================
-// Old changelog
-//============================================================
-//= 1.0a Now using functions found in "Global_Functions.txt"
-//=     for class checks.
-//= 1.2 Added Baby Class Support [Lupus]
-//= 1.3 Removed callfunc Is_####_Class in favor of baseClass [Silentdragon]
-//= 1.4 Fixed an exploit [Lupus]
-//= 1.4a changed perm. variables to temp ones [Lupus]
-//============================================================
