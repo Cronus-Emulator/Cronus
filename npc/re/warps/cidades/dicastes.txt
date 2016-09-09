@@ -60,7 +60,7 @@ dic_in01,242,182,0	script	#eldicastes0016	CLEAR_NPC,{
 	warp "dic_in01",.@xy[.@m*2],.@xy[.@m*2+1];
 	end;
 }
-dic_in01,46,288,0	duplicate(Elevator#main)	Elevador#1	CLEAR_NPC
+dic_in01,46,288,0	duplicate(Elevador#main)	Elevador#1	CLEAR_NPC
 dic_in01,122,284,0	duplicate(Elevador#main)	Elevador#2	CLEAR_NPC
 dic_in01,121,203,0	duplicate(Elevador#main)	Elevador#3	CLEAR_NPC
 dic_in01,35,214,0	duplicate(Elevador#main)	Elevador#4	CLEAR_NPC
