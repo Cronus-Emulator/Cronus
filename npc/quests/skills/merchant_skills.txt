@@ -94,7 +94,7 @@ alberta,83,96,5	script	Necko	4W_M_02,7,7,{
 				close;
 			case 3:
 				mes "[Necko]";
-				mes "Grito de Guerra usa sua voz para impulsionar o espírito de batalha com 8 de SP."
+				mes "Grito de Guerra usa sua voz para impulsionar o espírito de batalha com 8 de SP.";
 				mes "Você recebe um adicional de 4 FOR durante 5 minutos!";
 				mes "Se você usá-la repetidamente bastam 5 minutos daquele ponto em diante.";
 				next;
