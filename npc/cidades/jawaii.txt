@@ -274,115 +274,92 @@ jawaii,107,189,5	script	Funcionária#horoom	4_F_04,{
 
 jawaii,112,173,7	script	Funcionária#villroom	4_F_04,{
 	mes "[Larks Rania]";
-	mes "Hello dear,";
-	mes "how are you?";
-	mes "Are you looking for";
-	mes "a room to stay in?";
+	mes "Olá querido como você está? Você está procurando por um quarto para ficar?";
 	next;
 	mes "[Larks Rania]";
-	mes "This is called the Villa Room.";
-	mes "I recommend this room to people";
-	mes "who prefer to stay in a place with";
-	mes "a comfortable atmosphere";
-	mes "much like home.";
+	mes "Esse é chamado de Quarto Villa. Eu recomendo esse quarto para pessoas que preferem ficarm eum um lugar com um ambiente confortável e muito caseiro.";
 	next;
 	mes "[Larks Rania]";
-	mes "Just like all the other rooms,";
-	mes "the lodging charge is 1,000 zeny.";
-	mes "I can guide you to the Villa Room";
-	mes "right now, if you wish. Would you";
-	mes "like to stay?";
+	mes "Assim como todas as outras salas a estadia aqui vai custar 1.000 zeny. Eu posso guiar você até o Quarto Villa nesse momento, se você quiser. Será que você gostaria de ficar?";
 	next;
-	if (select("Use.:Cancel.") == 1) {
+	if (select("Usar.:Cancelar.") == 1) {
 		mes "[Larks Rania]";
 		if (Zeny > 999) {
-			mes "Thank you~";
-			mes "Enjoy your stay.";
+			mes "Muito obrigado~";
+			mes "Aproveite sua estadia.";
 			close2;
 			Zeny -= 1000;
 			warp "jawaii_in",87,75;
 			end;
 		}
-		mes "Oh what a shame!";
-		mes "You don't seem";
-		mes "to have enough money...?";
-		mes "Why don't you ask your";
-		mes "partner to help you";
-		mes "with the charge?";
+		mes "Ah, que vergonha!";
+		mes "Você parece não ter dinheiro suficiente...?";
+		mes "Porque não fala com sua companheira para ajudar você com o pagamento?";
 		close;
 	}
 	mes "[Larks Rania]";
-	mes "No problem~";
-	mes "If you like, you may wish to check the Honey Room. Although the roomkeeper, Sharkie, is a shy girl, the room is really beautiful.";
+	mes "Sem problema~";
+	mes "Se você quiser, vai poder ver o Quarto de Mel. Embora a funcionária Sharkie, é uma garota muito tímida e o quarto realmente é muito bonito.";
 	close;
 }
 
-jawaii,214,168,5	script	Honeymoon Helper#Jawaii	1_F_LIBRARYGIRL,{
-	mes "[Helper]";
-	mes "There is no place";
-	mes "better for having your";
-	mes "honeymoon than Jawaii.";
+jawaii,214,168,5	script	Auxiliar Lua de Mel#Jawaii	1_F_LIBRARYGIRL,{
+	mes "[Auxiliar]";
+	mes "Não existe lugar melhor para você passar a sua Lua de Mel do que em Jawaii.";
 	next;
-	mes "[Helper]";
-	mes "Why don't you make the best of your time here, and make a lot of sweet memories that you will cherish for years to come?";
+	mes "[Auxiliar]";
+	mes "Porque você não passa seu tempo aqui fazendo muitos doces de lembrança das quais você lembrará pelos próximos anos?";
 	next;
-	mes "[Helper]";
-	mes "Mementos that remind you of your happy times can be your most precious possessions. Like your wedding ring, for instance, or the tuxedo and wedding dress worn during your wedding ceremony...";
+	mes "[Auxiliar]";
+	mes "Lembranças que lembra você de momentos felizes são bens preciosos, assim como o seu anel de casamento por exemplo, ou vestir um terno de casamento desgastado durante a cerimônia de casamento...";
 	next;
-	mes "[Helper]";
-	mes "Even if the wedding ceremony";
-	mes "is over, isn't it nice to look back upon the happy memories of your marriage ceremony? With the magical photo album at a cheap price, now you can!";
+	mes "[Auxiliar]";
+	mes "Mesmo que a cerimônia de casamento seja longa, não seria agradável ver lembranças felizes da cerimônia de casamento em um álbum de fotos mágicas a um valor muito baixo?";
 	next;
-	mes "[Helper]";
-	mes "Its name is...";
-	mes "'Sweet Memory of Marriage'!!";
+	mes "[Auxiliar]";
+	mes "Seu nome é...";
+	mes "'Doce lembrança do Casamento'!!";
 	next;
-	mes "[Helper]";
-	mes "It will instantly bring you to the wedding hall with magic power!";
-	mes "And it only costs 50,000 zeny...";
+	mes "[Auxiliar]";
+	mes "Isso irá instantâneamente trazer você ao salão de casamento com poderes mágicos!";
+	mes "E só vai custar ^0000FF50.000^000000 zenys...";
 	next;
-	if (select("I shall buy it.:No, thanks.") == 1) {
-		mes "[Helper]";
+	if (select("Eu vou comprar isso.:Não, obrigado.") == 1) {
+		mes "[Auxiliar]";
 		if (Zeny > 49999) {
 			Zeny -= 50000;
 			getitem 681,1; //Memory_Of_Wedding
-			mes "Thank you very much~!";
-			mes "Please remember, you";
-			mes "should use this with your";
-			mes "partner in a place that is";
-			mes "special to the both of you.";
+			mes "Muito obrigada~!";
+			mes "Por favor, lembre-se, você deve usar isso com a sua pessoa amada em um lugar especial para vocês dois.";
 			close;
 		}
-		mes "'Sweet Memory of Marriage' is 50,000 zeny. But don't seem to have enough money with you right now. Maybe you and your partner could help each other to buy the Sweet Memory of Marriage?";
+		mes "'Doce Memória do Casamento' custa ^0000FF50,000^000000 zenys. Mas parece que você não tem dinheiro suficiente agora. Porque não pede ajuda a sua pessoa amada para comprar o Doce Mémoria de Casamento?";
 		close;
 	}
-	mes "[Helper]";
-	mes "Even if your relationship ends,";
-	mes "the memories the both of you have shared will remain forever...";
+	mes "[Auxiliar]";
+	mes "Mesmo que o seu relacionamento termine, as memórias compartilhadas por vocês permanecerão para sempre...";
 	close;
 }
 
-// Inside Jawaii
+// Interior de Jawaii
 //============================================================
-jawaii_in,25,94,0	script	Employee#jaw1	4_F_07,{
-	mes "[Employee Tryteh]";
-	mes "Welcome to Jawaii Tavern~";
+jawaii_in,25,94,0	script	Funcionaria#jaw1	4_F_07,{
+	mes "[Funcionária Tryteh]";
+	mes "Bem vindo a Taberna de Jawaii~";
 	if (getpartnerid()) {
-		mes "Anyway, I am so glad that you two have gotten married. I hope you both will live happily ever after~";
+		mes "Estou tão feliz com o casamento de vocês. Espero que vivam felizes para sempre~";
 		next;
-		mes "[Employee Tryteh]";
-		mes "Try to be a little careful if you bump into any rude customers.";
-		mes "They might be drunk and do something stupid. You know";
-		mes "how it is...";
+		mes "[Funcionária Tryteh]";
+		mes "Tome cuidado com clientes rudes. Eles podem estar bêbados e comportarem-se mal. Sabe como é...";
 		close;
 	}
 	else if (!getpartnerid()) {
-		mes "I hope you enjoy your stay";
-		mes "over here. But try not";
-		mes "to drink too much~";
+		mes "Espero que aproveite sua";
+		mes "estadia aqui. Mas tente";
+		mes "não beber muito~";
 		close;
 	}
-	mes "I hope you will have a good time.";
+	mes "Espero que você se divirta.";
 	close;
 
 OnWelcome:
@@ -393,26 +370,23 @@ OnSolo:
 	end;
 }
 
-jawaii_in,25,96,0	script	Employee#jaw2	4_F_07,{
-	mes "[Employee Fey]";
-	mes "Welcome to Jawaii Tavern~";
+jawaii_in,25,96,0	script	Funcionaria#jaw2	4_F_07,{
+	mes "[Funcionária Fey]";
+	mes "Bem vindo à taverna de Jawaii~";
 	if (getpartnerid()) {
 		next;
-		mes "[Employee Fey]";
-		mes "We hope that you enjoy your time here with the one that you love. Isn't this place nice and cozy,";
-		mes "a perfect romantic atmosphere?";
+		mes "[Funcionária Fey]";
+		mes "Esperamos que aprecie sua estadia com a sua amada. Esse lugar não é aconchegante e com uma atmosfera romântica?";
 		next;
-		mes "[Employee Fey]";
-		mes "It would be absolutely perfect if it weren't for those 'Invincible Single Army' weirdos. Somehow,";
-		mes "a few of those dorks found their way here. To hell with them!";
+		mes "[Funcionária Fey]";
+		mes "Seria absolutamente perfeito se não fossem esses estranhos da 'Armada dos Solteiros Invencíveis'. Eles apareceram aqui por algum motivo. Que vão para o inferno!";
 		close;
 	}
 	else if (!getpartnerid()) {
-		mes "Have a good time! But please,";
-		mes "try not to interrupt the happily married people here!";
+		mes "Divirta-se! Mas por favor tente não atrapalhar os recém-casados daqui!";
 		close;
 	}
-	mes "I hope you will have a good time~";
+	mes "Espero que você se divirta~";
 	close;
 
 OnWelcome:
@@ -423,40 +397,37 @@ OnSolo:
 	end;
 }
 
-jawaii_in,25,98,0	script	Employee#jaw3	4_F_07,{
-	mes "[Employee Buffy]";
-	mes "Welcome to Jawaii Tavern~";
+jawaii_in,25,98,0	script	Funcionaria#jaw3	4_F_07,{
+	mes "[Funcionária Buffy]";
+	mes "Bem vindo à taverna de Jawaii~";
 	if (getpartnerid()) {
 		next;
-		mes "[Employee Buffy]";
+		mes "[Funcionária Buffy]";
 		mes "Oh~";
-		mes "Look at you...";
-		mes "You look perfect";
+		mes "Olhe só...";
+		mes "Você é o par ideal";
 		if (Sex)
-			mes "for your wife~";
+			mes "para sua esposa~";
 		else
-			mes "with your husband~";
-		mes "Awwww, I want to";
-		mes "get married soon~!";
+			mes "para o seu marido~";
+		mes "Awwww, gostaria de me casar em breve~!";
 		close;
 	}
 	else if (!getpartnerid()) {
 		next;
-		mes "[Employee Buffy]";
+		mes "[Funcionária Buffy]";
 		mes "Hmm...?";
-		mes "You don't look like";
-		mes "you're married, are you?";
+		mes "Vocês não parecem";
+		mes "casados, certo?";
 		if (Sex) {
 			next;
-			mes "[Employee Buffy]";
-			mes "I'm pretty good";
-			mes "at cooking and cleaning";
-			mes "^666666*AHEM*^000000 I've got a ^FF0000nice body^000000.";
-			mes "So what do you think...?";
+			mes "[Funcionária Buffy]";
+			mes "Sou muito competente para cozinhar e limpar.";
+			mes "^666666*AHEM*^000000 Tenho um ^FF0000belo corpo^000000. O que você acha...?";
 		}
 		close;
 	}
-	mes "I hope you will have a good time.";
+	mes "Espero que você se divirta.";
 	close;
 
 OnWelcome:
