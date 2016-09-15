@@ -1,61 +1,64 @@
-//===== Hercules Script ======================================
-//= Brasilis Town
-//===== By: ==================================================
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.3
-//===== Description: =========================================
-//= [Official Conversion]
-//= Brasilis Town Script
-//===== Additional Comments: =================================
-//= 1.0 First version. Transportation and Basic NPCs.
-//= 1.1 Fixed Zeny not being removed for payment. [Kisuka]
-//= 1.2 Updated dialog, added Ice Cream Maker. [L0ne_W0lf]
-//= 1.3 Moved Alberta NPC to pre-re/re paths. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão: 1.3                                                 ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master], [J4ND3RS0N]                        ||
+// - Revisão e correção da Tradução: [Spell Master]              ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Npcs comuns na cidade Brasilis.                             ||
+//===============================================================//
 
 // Brasilis Transportation
 //============================================================
 /* Pre-Renewal coordinates: alberta,247,115,3 */
 alberta,246,82,3	script	Crewman#bra2	4W_SAILOR,{
-	mes "[Crewman]";
-	mes "Hey, have you heard of a place called Brasilis?";
-	mes "It's a tropical city that's hot like the desert but also rainy. It is a very mysterious place.";
+	mes "[Marinheiro]";
+	mes "Hey, você já ouviu falar de um lugar chamado Brasilis?";
+	mes "É uma cidade tropical é quente como o deserto, mas também de chuva É um lugar muito misterioso.";
 	next;
-	mes "[Crewman]";
-	mes "We recently found a new ocean route to get there easily.";
-	mes "It's just 10,000 zeny for a round trip! So do you want to go?";
+	mes "[Marinheiro]";
+	mes "Nós recentemente encontrou uma rota novo oceano para chegar lá facilmente.";
+	mes "É apenas 10.000 zeny para uma viagem de volta Então você quer ir?";
 	next;
-	switch(select("Take me to Brasilis!:I'll stay here.")) {
+	switch(select("Leve-me para Brasilis: Eu vou ficar aqui.")) {
 	case 1:
 		if (Zeny > 9999) {
-			mes "[Crewman]";
-			mes "Cool~!! Let's go~!";
+			mes "[Marinheiro]";
+			mes "Agora está bem fresco então vamos!";
 			Zeny -= 10000;
 			close2;
 			warp "brasilis",314,60;
 			end;
 		}
 		else {
-			mes "[Crewman]";
-			mes "I said 10,000 zeny.";
+			mes "[Marinheiro]";
+			mes "Eu disse 10.000 zeny.";
 			close;
 		}
 	case 2:
-		mes "[Crewman]";
-		mes "Well if you're ever interested, let me know and I can take you there.";
+		mes "[Marinheiro]";
+		mes "Bem, se você está sempre interessado, deixe-me saber e eu posso te levar lá.";
 		close;
 	}
 }
 
 brasilis,316,57,3	script	Crewman#bra1	4W_SAILOR,{
-	mes "[Crewman]";
-	mes "My ship is going to back to Alberta, do you want to join us?";
+	mes "[Marinheiro]";
+	mes "Meu navio vai voltar para Alberta, você quer se juntar a nós? ";
 	next;
-	switch(select("Go back to Alberta.:Not yet~.")) {
+	switch(select("Volte para Alberta:Ainda não")) {
 	case 1:
-		mes "[Crewman]";
-		mes "I sure do miss home.";
+		mes "[Marinheiro]";
+		mes "Com certeza sinto falta de casa.";
 		close2;
 		if (RENEWAL)
 			warp "alberta",243,82;
@@ -63,8 +66,8 @@ brasilis,316,57,3	script	Crewman#bra1	4W_SAILOR,{
 			warp "alberta",244,115;
 		end;
 	case 2:
-		mes "[Crewman]";
-		mes "Ok, suit yourself. We'll see you when we get back then.";
+		mes "[Marinheiro]";
+		mes "Ok, servir a si mesmo Nós vamos vê-lo quando voltar então.";
 		close;
 	}
 }
@@ -72,61 +75,59 @@ brasilis,316,57,3	script	Crewman#bra1	4W_SAILOR,{
 // Generic Brasilis NPCs
 //============================================================
 brasilis,155,165,3	script	Signpost#bra1	4_BULLETIN_BOARD2,{
-	mes ":: Art Museum ::";
+	mes ":: Museu de Arte ::";
 	close;
 }
 
 brasilis,195,231,3	script	Signpost#bra2	4_BULLETIN_BOARD2,{
-	mes ":: Verass Monument ::";
+	mes ":: Monumento Verass";
 	close;
 }
 
 brasilis,240,247,3	script	Signpost#bra3	4_BULLETIN_BOARD2,{
-	mes ":: Market ::";
+	mes ":: Mercado ::";
 	mes " ";
-	mes "- For your Potions and Weaponry -";
+	mes "- Loja de Poções e Armamento -";
 	close;
 }
 
 brasilis,303,309,3	script	Signpost#bra4	4_BULLETIN_BOARD2,{
-	mes ":: Jungle Cable ::";
+	mes ":: Entrada da Selva ::";
 	mes "";
-	mes "- Not for the faint of heart -";
+	mes "- Não é para os fracos de coração -";
 	close;
 }
 
 brasilis,278,137,3	script	Signpost#bra5	4_BULLETIN_BOARD2,{
-	mes ":: Brasilis Hotel ::";
+	mes ":: Hotel de Brasilis ::";
 	close;
 }
 
-brasilis,137,77,5	script	Ice-Cream Maker	4_M_03,{
-	mes "[Ice Cream Maker]";
-	mes "Come~come~";
-	mes "Ice cream is the perfect snack for a hot day~";
-	mes "It's just ^3355FF100 Zeny^000000~";
-	mes "Ice Cream~";
-	mes "Get 'yer Ice Cream!";
+brasilis,137,77,5	script	Vendedor de Sorvete#bra	4_M_03,{
+	mes "[Vendedor de Sorvete]";
+	mes "Venha ~ ~ ver";
+	mes "Sorvete é o lanche perfeito para um dia quente ~";
+	mes "É só ^ ^ 000000 3355FF100 Zeny ~";
 	next;
-	switch(select("Give me one!:Ice Cream?:Cancel.")) {
+	switch(select("Eu quero!:Sorvete?:Não quero agora")) {
 	case 1:
-		mes "[Ice Cream Maker]";
-		mes "Since there are so many people want to get a cool ice cream you can order only 5 at a time.";
-		mes "So how many d'ya want?";
+		mes "[Vendedor de Sorvete]";
+		mes "Uma vez que existem tantas pessoas querem obter um sorvete legal que você pode encomendar apenas 5 de cada vez.";
+		mes "Então, quantos d'você quer?";
 		next;
 		while(1) {
 			input .@input; //,1,5;
 			if (.@input == 0) {
-				mes "[Ice Cream Maker]";
-				mes "None?";
-				mes "Fine get outta the way, I have customers to serve.";
+				mes "[Vendedor de Sorvete]";
+				mes "Nenhuma?";
+				mes "Fora do caminho, eu tenho clientes para atender.";
 				close;
 			}
 			else if ((.@input < 0) || (.@input > 5)) {
-				mes "[Ice Cream Maker]";
+				mes "[Vendedor de Sorvete]";
 				mes "Wow.";
-				mes "You ordered too much.";
-				mes "If you eat over 5 you might need to fight with a monster in your stomach. Calm down buddy.";
+				mes "Você mandou muito.";
+				mes "Se você come mais de 5 você pode precisar lutar com um monstro em seu estômago Calma amigo..";
 				next;
 			}
 			else
@@ -134,35 +135,33 @@ brasilis,137,77,5	script	Ice-Cream Maker	4_M_03,{
 		}
 		.@icecream_hap = .@input*100;
 		if (Zeny < .@icecream_hap) {
-			mes "[Ice Cream Maker]";
-			mes "Dood~! You don't have enough money.";
-			mes "It's only ^3355FF100 Zeny^000000~ Seriously!";
+			mes "[Vendedor de Sorvete]";
+			mes "Você não tem dinheiro suficiente!.";
+			mes "São ^3355FF100 Zeny^000000 Sério!";
 			close;
 		}
 		if (!checkweight(536,.@input)) {
-			mes "[Ice Cream Maker]";
-			mes "You seem to have too much stuff.";
-			mes "Lighten your pack before buying this.";
+			mes "[Vendedor de Sorvete]";
+			mes "Você parece ter muita coisa.";
+			mes "Esvazie seu inventario antes de comprar isso.";
 			close;
 		}
 		Zeny -= .@icecream_hap;
 		getitem 536,.@input; //Ice_Cream
 		close;
 	case 2:
-		mes "[Ice Cream Maker]";
-		mes "'Ice cream is...";
-		mes "Wait, don't you know";
-		mes "what Ice Cream is?";
-		mes "What rock have you";
-		mes "been living under?";
+		mes "[Vendedor de Sorvete]";
+		mes "Sorvete é...";
+		mes "Espere, você não sabe o que é Sorvete?";
+		mes "Debaixo de que pedra tem vivido?";
 		next;
-		mes "[Ice Cream Maker]";
-		mes "I'm not going to even start with how weird that sounds.";
-		mes "Anyway, get 'yer Ice Cream right here while it's nice and cold.";
+		mes "[Vendedor de Sorvete]";
+		mes "Eu não vou falar o quanto isso soa estranho.";
+		mes "De qualquer maneira, adquira um Sorvete aqui mesmo enquanto é agradável e frio.";
 		close;
 	case 3:
 		mes "[Ice Cream Maker]";
-		mes "Don't miss your chance to eat the greatest Ice Cream in all the land~!";
+		mes "Não perca sua chance para comer o maior Sorvete em toda a terra.!";
 		close;
 	}
 }
