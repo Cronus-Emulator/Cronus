@@ -1,67 +1,21 @@
-//===== Hercules Script ======================================
-//= Kafra Functions
-//===== By: ==================================================
-//= rAthena Dev Team
-//= Darlskies, Darkchild, Syrus22, Lupus, kobra_k88 (2.0)
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 6.8
-//===== Description: =========================================
-//= These functions handle save, storage, cart rental, teleport,
-//= and Free Teleport/Warp/Rent Cart options for all Kafra NPCs.
-//=
-//= Kafra's will need a lot of work. The Welcome Message argument
-//= may become obsolete, as most kafras have a slightly differing
-//= Welcome message.
-//===== Additional Comments: =================================
-//= 1.1 Now using functions v2.1 Added Cart Rent for Classes: Whitesmith, Professor.
-//=     Replaced checkoption(x) into checkcart(0) [Lupus] v2.1b Added Fix Kafra Pass Func [Kobra_k88]
-//= 2.2 Final fix of the Kafra Pass Exploit! [Lupus] a -Izlude[4] fix
-//= 2.2a Minor changes to function calls.  Using agruments. Added Guild options. [kobra_k88]
-//= 2.2b This version uses arrays for the teleport option. Rearranged next statements to make menu transitions smoother. [kobra_k88]
-//= 2.3 Removed SAVE from Niflheim. [Lupus]
-//= 2.3 removed "fix" by HawkMoon RTFM and check supernovice.txt . There's a SPECIAL Kafra which gives CARTS to SN for a special proce. [Lupus]
-//= 2.4 Added Baby Class Support (Baby Novice check) Removed annoying storage feature where u had to close dialog window to be able to use your storage [Lupus]
-//= 2.5 Added Louyang official Kafra, fixes some Kafras, not letting you to Save your position [Lupus]
-//= 2.6 Reverted Dungeons Kafras (they should offer only Storage). Added temp Ayothaya Kafra
-//= 2.7 Added correct Ayothaya, Louyang & Amatsu Kafras. [Lupus]
-//= 2.8 Fixed Amatsu Storage problems [Lupus] 2.9 Fixed spelling mistakes. [Nexon]
-//= 3.0 Added special "not working teleport menu" for Einbroch Kafras [Lupus]
-//= 3.1 Removed callfunc Is_####_Class in favor of baseClass [Silentdragon]
-//= 3.2 Fixed an exploit [Lupus]
-//= 4.0 Added Kafra storage password protection. [Lupus]
-//=     to block Kafra Password, read comments at 350 line
-//= 5.0 Fixed the close2;....close; end; lines. Who let them slip away? =/ [erKURITA]
-//=     Also, the kafra upon warp was giving back the zeny. Removed. [erKURITA]
-//= 5.1 Optimized a little, added no tele/save arg's [Evera]
-//= 5.1a Temporary? Added F_ClearGarbage to clear unused/outdated variables [Lupus]
-//= 5.2 By default commented out custom Guilds Kafra's "Guild Storage". [Lupus]
-//= 5.3 uncommented Guild Storage. Confirmed kRO feature. [Lupus]
-//= 5.4 added -Guide option (Kafra shows you nearest Guide) Work in progress.
-//=     Need all coords for all guides.. and somehow pass their coords to kafra.
-//=     Removed universal Kafra Pass, added 3 new Kafra Tickets [Lupus]
-//= 5.4b temporary moved "-Guide" from the 1st menu punct [Lupus]
-//= 5.5 Added proper Niflheim welcome message.	[L0ne_W0lf]
-//=     Cleaned up the menus a bit. Got rid of the proceeding "-" prefix.
-//= 5.5b Missed a preceeding hyphen, which was screwing up teleporting. [L0ne_W0lf]
-//= 5.6 Further dialog updates, added  dynamic costs for cart and storage use. [L0ne_W0lf]
-//=     Updated some functions to handle Guild Kafras the way they should.
-//= 5.6a Corrected a few wrong names in the teleport function. [L0ne_W0lf]
-//= 5.7 Correced end message no longer displaying, and the duplicate names [L0ne_W0lf]
-//=     Thanks to Barron-Monster for pointing out the issues.
-//= 5.8 Fixed another double name being shown when "saving" [L0ne_W0lf]
-//= 5.9 Fixed the Kafra Welcome message for guilds. Thanks Barron-Monster. [L0ne_W0lf]
-//= 6.0 Closed Kafra Password exploit in Cool Event Corp. Storages until we got a client/packet based password support.
-//=     Added 2 args into F_SetKafCode to fit it in Cool Evnt Co. NPC [Lupus]
-//= 6.1 Added menu for Turbo Track Kafra Staff. [L0ne_W0lf]
-//= 6.2 Updated/Fixed warp cords. [Kisuka]
-//= 6.3 #kafra_code is now stored as is. [brianluau]
-//= 6.4 Removed unofficial Guide function. [Daegaladh]
-//= 6.5 Optimized. [Joseph]
-//= 6.6 Added Warp Points / View Points Function. [Joseph]
-//= 6.7 Added Rune Knight Kafra. [Euphy]
-//= 6.8 Improved compatibility with Zonda Staff NPCs. Modernized syntax. [Haru]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 6.8                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [?]                                                ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Funções usadas pelas funcionárias Kafra e Eventos Incríveis ||
+//===============================================================//
 
 //=== Main Function ========================================================
 //=   arg(0): Used to determine which welcome message to show.

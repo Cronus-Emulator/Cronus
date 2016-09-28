@@ -1,32 +1,30 @@
-//===== Hercules Script ======================================
-//= Bullet Dealers
-//===== By ===================================================
-//= Playtester, Paradox924X
-//===== Version ==============================================
-//= 1.5
-//===== Description ==========================================
-//= Bullet trader.
-//===== Comments =============================================
-//= 1.0 First version [Playtester]
-//= 1.1 Converted from Aegis [Paradox924X]
-//= 1.2 More optimized conversion [Legionaire]
-//= 1.2a Removed .GATs [Lupus]
-//= 1.3 Fixed [Playtester] Optimized. Got rid of @vars [Lupus]
-//= 1.4 Updated to match AEGIS script. [Kisuka]
-//= 1.5 Updated to match AEGIS script again. [Masao]
-//= 1.6 Moved Izlude duplicate to pre-re/re paths. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.5                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Negociante de Munições                                      ||
+//===============================================================//
 
-alberta,118,160,3	script	Bullet Dealer Tony#alb::bdt	4_M_04,{
+alberta,118,160,3	script	Negociador de Projéteis#alb::bdt	4_M_04,{
 	if (BaseJob == Job_Gunslinger) {
 		mes "[Tony]";
-		mes "I'm Tony, the Bullet Dealer.";
-		mes "Come to me whenever you're";
-		mes "short on ammo. Just bring me";
-		mes "the materials, and I'll make";
-		mes "you the bullets you need.";
+		mes "Eu sou Tony, o negociador de projéteis.";
+		mes "Venha a mim sempre que precisar de munições.";
+		mes "Apenas me traga os materiais, e eu irei lhe fazer os projéteis que precisar.";
 		next;
-		switch(select("Poison Sphere:Flare Sphere:Lighting Sphere:Blind Sphere:Freezing Sphere:Cancel")) {
+		switch(select("Esfera Venenosa:Esfera de Chamas:Esfera de Relâmpagos:Esfera Cegante:Esfera Congelante:Cancelar")) {
 		case 1: callfunc "Bullet_Trade",937,10,13205; break;
 		case 2: callfunc "Bullet_Trade",7097,2,13203; break;
 		case 3: callfunc "Bullet_Trade",7053,3,13204; break;
@@ -34,76 +32,47 @@ alberta,118,160,3	script	Bullet Dealer Tony#alb::bdt	4_M_04,{
 		case 5: callfunc "Bullet_Trade",7054,2,13207; break;
 		case 6:
 			mes "[Tony]";
-			mes "Changed your mind?";
-			mes "Well, if you ever need";
-			mes "any bullets, I'll be right";
-			mes "here. Come back whenever";
-			mes "you think you'll need more";
-			mes "ammunition, Gunslinger.";
+			mes "Mudou de idéia?";
+			mes "Ok, volte sempre que precisar de projéteis, estarei sempre aqui.";
 			close;
 		}
 	}
-	mes "[Tony]";
-	mes "Hey, I'm Tony. I'm in";
-	mes "charge of distributing";
-	mes "and making bullets for";
-	mes "Gunslingers. It's just";
-	mes "how our guild likes";
-	mes "to do things.";
+	mes "Ei, sou Tony. Eu sou o responsável pela distribuição e fabricação de projéteis para Justiceiros.";
 	next;
 	mes "[Tony]";
-	mes "I'm sorry if you came";
-	mes "here to buy some bullets.";
-	mes "I can only do business with";
-	mes "fully fledged Gunslingers.";
+	mes "Lamento se você veio para comprar munição.";
+	mes "Eu só posso negociar com Justiceiros.";
 	close;
 }
 
 function	script	Bullet_Trade	{
 	mes "[Tony]";
-	mes "For every set of";
-	mes "30 "+getitemname(getarg(2))+"s,";
-	mes "you must give me";
-	mes "1 Emveretarcon,";
-	mes "1 Phracon, and";
-	mes ""+getarg(1)+" "+getitemname(getarg(0))+".";
+	mes "Para cada 30 "+getitemname(getarg(2))+"s, você deve me entregar 1 Emveretarcon, 1 Fracon e "+getarg(1)+" "+getitemname(getarg(0))+".";
 	next;
 	mes "[Tony]";
-	mes "Remember that I can give";
-	mes "a maximum of 500 sets of";
-	mes "30 bullets at a time. Please";
-	mes "enter the number of bullet sets";
-	mes "that you'd like. If you want to";
-	mes "cancel, then just enter ''0.''";
+	mes "Lembre-se que só posso entregar um máximo de 500 caixas de 30 projéteis por negociação.";
+	mes "Por favor entre com o número de caixas de projéteis que você gostaria.";
+	mes "Caso queira parar a negociação, apenas digite '0'.";
 	next;
 	input .@amount;
 	if (.@amount < 1 || .@amount > 500) {
 		mes "[Tony]";
-		mes "Hey, I can't give you";
-		mes "that many bullets. Don't";
-		mes "forget to enter a number";
-		mes "that's no higher than 500";
-		mes "if you want to trade your";
-		mes "items for some bullets.";
+		mes "Ei, não posso lhe dar tantos projéteis.";
+		mes "Não esqueça de digitar um número menor que 500 se você quiser trocar alguns itens por alguns projéteis.";
 		close;
 	}
 	if (countitem(1010) >= .@amount && countitem(1011) >= .@amount && countitem(getarg(0)) >= (.@amount*getarg(1))) {
 		if (checkweight(getarg(2),.@amount * 30) == 0) {
 			mes "[Tony]";
-			mes "Eh? Your Inventory doesn't";
-			mes "have enough space for this";
-			mes "many bullets. Come back later";
-			mes "after you make more space";
-			mes "available. Try putting some of";
-			mes "your things into Kafra Storage.";
+			mes "Ei? Seu inventário não possui espaço o suficiente para esta quantia de projéteis.";
+			mes "Volte quando tiver mais espaço no inventário.";
+			mes "Tente guardar algumas coisas no Armazém da Kafra.";
 			close;
 		} else {
 			mes "[Tony]";
-			mes "Great, everything seems";
-			mes "to be in order. Let me take";
-			mes "these materials, and here are";
-			mes "your bullets. It's a pleasure";
-			mes "to do business with you~";
+			mes "Muito bom, tudo parece estar em ordem.";
+			mes "Deixe-me pegar esses materiais, e aqui estão seus projéteis.";
+			mes "Foi um prazer negociar com você~";
 			delitem 1010,.@amount;
 			delitem 1011,.@amount;
 			delitem getarg(0),.@amount * getarg(1);
@@ -112,12 +81,9 @@ function	script	Bullet_Trade	{
 		}
 	} else {
 		mes "[Tony]";
-		mes "Huh. It looks like you";
-		mes "don't have enough materials";
-		mes "for that many bullets. Well,";
-		mes "it's no problem. Just come";
-		mes "back after gathering everything";
-		mes "that you need, okay?";
+		mes "Hum. Parece que você não possui os materiais que necessito.";
+		mes "Bem, isso não é problema.";
+		mes "Apenas volte aqui quando pegar tudo que preciso, ok?";
 		close;
 	}
 }

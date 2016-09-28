@@ -1,31 +1,29 @@
-//===== Hercules Script ======================================
-//= Magazine Dealers
-//===== By: ==================================================
-//= rAthena Dev Team
-//===== Current Version: =====================================
-//= 1.5
-//===== Description: =========================================
-//= Turns bullets into magazines/packs.
-//===== Additional Comments: =================================
-//= 1.0 First version. [SinSloth]
-//= 1.1 Optimized version - Reduced to only one function [SinSloth]
-//= 1.2 Optimized^2, corrected npc's name [ultramage]
-//= 1.2a Optimized. Please, ommit extra NPC names [Lupus]
-//= 1.3 Updated to match AEGIS script. [Kisuka]
-//= 1.4 Updated to match AEGIS script again. [Masao]
-//= 1.5 Moved Izlude duplicate to pre-re/re paths. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.5                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Troca de Munições por Carregadores                          ||
+//===============================================================//
 
-alberta,118,157,3	script	Magazine Dealer Kenny::mdk	4_M_01,{
+alberta,118,157,3	script	Caixas de Munição::mdk	4_M_01,{
 	if (BaseJob == Job_Gunslinger) {
-		mes "[Kenny]";
-		mes "Welcome to my Magazine Shop.";
-		mes "As you may know, large numbers";
-		mes "of bullets can be carried more";
-		mes "easily when they're in Magazines. Now, can I interest you in";
-		mes "anything in particular?";
+		mes "Bem-vindo à minha loja de carregadores.";
+		mes "Como você sabe, um número maior de projéteis podem ser carregados mais facilmente quando estão em carregadores.";
+		mes "Agora, posso ajudá-lo em algo em particular?";
 		next;
-		switch(select("Wind Sphere Pack:Shadow Sphere Pack:Poison Sphere Pack:Water Sphere Pack:Fire Sphere Pack:Cartridge:Blood Cartridge:Silver Cartridge:Cancel")) {
+		switch(select("Pacote de Esferas de Relâmpago:Pacote de Esferas Cegantes:Pacote de Esferas Venenosas:Pacote de Esferas Congelantes:Pacote de Esferas de Chamas:Carregador:Carregador Sanguinário:Carregador de Prata:Cancelar")) {
 		case 1: callfunc "Func_Casing",13204,12144; break;
 		case 2: callfunc "Func_Casing",13206,12145; break;
 		case 3: callfunc "Func_Casing",13205,12146; break;
@@ -36,77 +34,54 @@ alberta,118,157,3	script	Magazine Dealer Kenny::mdk	4_M_01,{
 		case 8: callfunc "Func_Casing",13201,12151; break;
 		case 9:
 			mes "[Kenny]";
-			mes "Well, if you ever find";
-			mes "that you have too many";
-			mes "bullets, come and see me.";
-			mes "It's a smart idea to store";
-			mes "bullets with my Magazines.";
+			mes "Bem, se você achar que tem muitos projéteis, venha me encontrar.";
+			mes "É uma boa idéia armazenar projéteis em Carregadores.";
 			close;
 		}
 	}
 	mes "[Kenny]";
-	mes "Welcome to my shop.";
-	mes "Here, I provide Magazines";
-	mes "and Cartridges for Gunslingers.";
-	mes "Sorry, but it doesn't look like";
-	mes "my services would be of any";
-	mes "use to you, adventurer.";
+	mes "Bem-vindo à minha loja.";
+	mes "Aqui, eu forneço Pacotes e Carregadores para Justiceiros.";
+	mes "Desculpe, mas não parece que meus serviços serão úteis para você, aventureiro.";
 	next;
 	mes "[Kenny]";
-	mes "Eh, but if you happen to";
-	mes "know any Gunslingers, send";
-	mes "them my way. You can never";
-	mes "have too many bullets.";
+	mes "Hehe, mas se você conhecer algum Justiceiro, mande-o para mim.";
+	mes "Ninguém pode carregar tantos projéteis.";
 	close;
 }
 
 function	script	Func_Casing	{
 	mes "[Kenny]";
-	mes "Now, you can trade";
-	mes "500 "+getitemname(getarg(0))+"s";
-	mes "and 500 zeny for 1 "+getitemname(getarg(1))+", so make sure";
-	mes "you have sufficient bullets";
-	mes "and zeny for this exchange.";
+	mes "Agora, você pode trocar 500 "+getitemname(getarg(0))+"s e 500 zeny por 1 "+getitemname(getarg(1))+".";
+	mes "Tenha certeza que você tem projéteis o suficiente e zeny para esta troca.";
 	next;
 	mes "[Kenny]";
-	mes "You can exchange 500 "+getitemname(getarg(0))+"s and 500 zeny";
-	mes "with 1 "+getitemname(getarg(1))+".";
+	mes "Você pode trocar 500 "+getitemname(getarg(0))+"s e 500 zeny por 1 "+getitemname(getarg(1))+".";
 	next;
 	mes "[Kenny]";
-	mes "Remember that I can't give";
-	mes "you more than 50 Magazines";
-	mes "at a time. Now please enter";
-	mes "the number of Magazines you";
-	mes "want to receive. If you want to cancel, then just enter ''0.''";
+	mes "Lembre-se que não posso lhe dar mais que 50 Carregadores por vez.";
+	mes "Agora digite o número de Carregadores que você quer receber.";
+	mes "Se você deseja cancelar, digite '0'.";
 	next;
 	input .@amount;
 	if (.@amount > 50 || .@amount == 0) {
 		mes "[Kenny]";
-		mes "Hey, I can't give you";
-		mes "that many Magazines.";
-		mes "Please try again, and";
-		mes "enter a number no";
-		mes "greater than 50.";
+		mes "Ei, não posso lhe dar esse número de Carregadores.";
+		mes "Por favor tente novamente, e digite um número menor que 50.";
 		close;
 	}
 	if (countitem(getarg(0)) >= (500*.@amount)) {
 		if (Zeny >= (500*.@amount)) {
 			if (checkweight(getarg(1),.@amount) == 0) {
 				mes "[Kenny]";
-				mes "Hey, you've got a lot";
-				mes "of junk crammed in your";
-				mes "Inventory. Free up some";
-				mes "space, and then come back";
-				mes "and trade your bullets for";
-				mes "some Magazines later, okay?";
+				mes "Ei, você tem muito lixo no seu inventário.";
+				mes "Libere algum espaço e volte para trocar seus projéteis por alguns Carregadores depois, ok?";
 				close;
-			}else{
+			}
+			else{
 				mes "[Kenny]";
-				mes "Alright, here are";
-				mes "your Magazines. Thanks";
-				mes "for visiting my shop, and";
-				mes "I hope that you use all";
-				mes "of your ammo wisely.";
+				mes "Certo, aqui estão seus Carregadores.";
+				mes "Obrigado por visitar minha loja, e espero que use sua munição com sabedoria.";
 				Zeny -= 500*.@amount;
 				delitem getarg(0),500*.@amount;
 				getitem getarg(1),.@amount;
@@ -114,22 +89,14 @@ function	script	Func_Casing	{
 			}
 		} else {
 			mes "[Kenny]";
-			mes "Sorry, but you don't";
-			mes "have enough zeny for";
-			mes "this Magazine exchange.";
-			mes "Come back to my shop";
-			mes "after you've saved up";
-			mes "some more money.";
+			mes "Desculpe, mas você não tem bastante zeny para esta troca.";
+			mes "Volte a minha loja depois que você tiver um pouco mais de dinheiro.";
 			close;
 		}
 	} else {
 		mes "[Kenny]";
-		mes "Sorry, but you don't";
-		mes "have enough bullets for";
-		mes "this Magazine exchange.";
-		mes "Maybe you should double";
-		mes "check your Inventory, and";
-		mes "then come back to me later.";
+		mes "Desculpe, mas você não tem bastante projetéis para esta troca.";
+		mes "Talvez você devesse conferir novamente seu Inventário.";
 		close;
 	}
 }

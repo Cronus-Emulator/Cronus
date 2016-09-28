@@ -1,19 +1,25 @@
-//===== Hercules Script ======================================
-//= Bullet Dealers
-//===== By ===================================================
-//= Euphy
-//===== Version ==============================================
-//= 1.1
-//===== Description ==========================================
-//= Bullet trader.
-//===== Comments =============================================
-//= 1.0 First version, Renewal duplicates.
-//= 1.1 Added Izlude duplicates. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.5                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Negociante de Munições                                      ||
+//===============================================================//
 
-que_ng,187,156,3	duplicate(bdt)	Bullet Dealer Tony#ng	4_M_04
-izlude,77,104,3	duplicate(bdt)	Bullet Dealer Tony#iz	4_M_04	//Official: (74,106) -> in the water
-izlude_a,77,104,3	duplicate(bdt)	Bullet Dealer Tony#a	4_M_04
-izlude_b,77,104,3	duplicate(bdt)	Bullet Dealer Tony#b	4_M_04
-izlude_c,77,104,3	duplicate(bdt)	Bullet Dealer Tony#c	4_M_04
-izlude_d,77,104,3	duplicate(bdt)	Bullet Dealer Tony#d	4_M_04
+que_ng,187,156,3	duplicate(bdt)	Negociador de Projéteis#ng	4_M_04
+izlude,77,104,3	duplicate(bdt)	Negociador de Projéteis#iz	4_M_04	//Official: (74,106) -> in the water
+izlude_a,77,104,3	duplicate(bdt)	Negociador de Projéteis#a	4_M_04
+izlude_b,77,104,3	duplicate(bdt)	Negociador de Projéteis#b	4_M_04
+izlude_c,77,104,3	duplicate(bdt)	Negociador de Projéteis#c	4_M_04
+izlude_d,77,104,3	duplicate(bdt)	Negociador de Projéteis#d	4_M_04
