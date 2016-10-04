@@ -1,122 +1,102 @@
-//===== Hercules Script ======================================
-//= Quest NPCs related to Prontera
-//===== By: ==================================================
-//= kobra_k88; L0ne_W0lf
-//===== Current Version: =====================================
-//= 2.9
-//===== Description: =========================================
-//= Collection of Prontera-based quests.
-//= * Culvert Access
-//= * Ph.D Hat Quest
-//= * Gaebolg Family Curse
-//===== Comments: ============================================
-//= Culvert Access:
-//= - [Official Conversion]
-//= - Variable in use: MISC_QUEST (bit 8)
-//= Ph.D Hat Quest:
-//= - [Official Conversion]
-//= - n/a
-//= Gaebolg Family Curse:
-//= - [Official Conversion]
-//= - Variable in use: prt_curse (max 61)
-//===== Additional Comments: =================================
-//= Fixed flower name Dreamy -> Illusion
-//= 1.2 Fixed exploit [Lupus]
-//= 1.3 Removed Duplicates [Silent]
-//= 1.4 Moved Culvert from cities/prontera.txt [Evera]
-//= 1.5 Culvert has been rescripted from the ground up. [L0ne_W0lf]
-//= 1.6 Added Gaebolg Family Curse quest. [L0ne_W0lf]
-//= 1.6a Fixed a couple spelling mistakes. [L0ne_W0lf]
-//= 1.7 Updated "Ph.D Quest" Dialogs. [Samuray22]
-//= 1.7b Fixed some minor typos. [SinSloth]
-//= 1.7c replaced item "names" with item id. [Lupus]
-//= 1.8 Fixed experience gains to match upcoming rate adjustments. [SinSloth]
-//= 1.9 Fixed "him" -> "her" in Ph.D hat quest. THansk to yyCC. [L0ne_W0lf]
-//= 2.0 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
-//= 2.0a Corrected a Typo error ";;". [Samuray22]
-//= 2.0b Corrected a Typo error. (bugreport:950) [Samuray22]
-//= 2.1 Added missing checkweights. [L0ne_W0lf]
-//= 2.2 Added Nameless Island quest addition. [L0ne_W0lf]
-//= 2.3 Bamph will now talk to those who failed the Gaebolg quest. [L0ne_W0lf]
-//= 2.3a Touch up to Bamph fo other fail-points. [L0ne_W0lf]
-//= 2.3b Hopefully the last change needed for Nameless quest. [L0ne_W0lf]
-//= 2.4 Updated Headgear Quest. [L0ne_W0lf]
-//= 2.5 Fixed requirements for PH D. Hat. [L0ne_W0lf]
-//= 2.5a Fixed requirements for PH D. Hat agian lol. [L0ne_W0lf]
-//= 2.6 Replaced effect numerics with constants. [L0ne_W0lf]
-//= 2.7 Corrected 'IProntera' typo. (bugreport:4522) [L0ne_W0lf]
-//= 2.8 Updated RE/Pre-RE EXP. [Euphy]
-//= 2.9 Updated Nameless Island addition and added questlog support. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.9                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master] , [Revisões Cronus]                 ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quests relacionadas a Cidade Prontera                       ||
+//===============================================================||
+// - Acesso aos Esgotos.                                         ||
+// - Chapéu de Magistrado.                                       ||
+// - Maldição de Jormungand (Requisito para quest de Nameless).  ||
+//===============================================================//
 
 // Prontera Culvert :: prt_npc
 //============================================================
-prt_in,88,105,2	script	Recruiter	8W_SOLDIER,{
+prt_in,88,105,2	script	Recrutador	8W_SOLDIER,{
 	if (MISC_QUEST & 8) {
-		mes "[Recruiter]";
+		mes "[Recrutador]";
 		mes "Ah...";
-		mes "I know those eyes.";
-		mes "Full of compassion";
-		mes "...and courage.";
+		mes "Eu vejo em seus olhos.";
+		mes "Cheio de compaixão e coragem.";
 		next;
-		mes "[Recruiter]";
-		mes "Of course you're a volunteer for campaign to reclaim the Prontera Culvert. Would you let me warp you there?";
+		mes "[Recrutador]";
+		mes "Claro que você é um voluntário para campanha de limpar os Esgotos de Prontera.";
+		mes "Você me deixaria o deformar lá?";
 		next;
-		if (select("Warp to Culvert Entrance.:Quit.") == 1) {
+		if (select("Leve-me para entrada dos esgotos.:Sair.") == 1) {
 			warp "prt_fild05",274,208;
 			end;
 		}
 		close;
 	}
-	mes "[Recruiter]";
-	mes "Ah, let me inform you that the Capital Defense Headquarter of the Rune-Midgarts Kingdom has now decided to recruit a punitive force due to the Prontera Culvert's situation.";
+	mes "[Recrutador]";
+	mes "Ah, me deixe informar algo importante.";
+	mes "A força de defesa da capital de Rune-Midgard.";
+	mes "Decidiu recrutar ajudantes devido a infestação nos Esgotos de Prontera.";
 	next;
-	switch(select("Volunteer.:Situation...?:Quit.")) {
+	switch(select("Voluntariar.:Qual a situação?:Sair.")) {
 	case 1:
 		callsub S_Volunteer;
-		mes "[Recruiter]";
-		mes "Are you ready, hero?";
-		mes "I will now warp you";
-		mes "to the Culvert.";
+		mes "[Recrutador]";
+		mes "Você está pronto, herói?";
+		mes "Eu vou lhe enviar agora para entrada dos esgotos.";
 		next;
 		warp "prt_fild05",274,208;
 		end;
 	case 2:
-		mes "[Recruiter]";
-		mes "Haven't you heard...?";
-		mes "The Prontera Culvert is infested with all kinds of filthy vermin!";
+		mes "[Recrutador]";
+		mes "Você não ouviu...?";
+		mes "Os Esgotos de Prontera é infestado vários tipos de monstros imundos!";
 		next;
-		mes "[Recruiter]";
-		mes "Due to the serious risk of water contamination, and the safety of Rune-Midgardians, the Culvert has been quarantined by royal decree.";
+		mes "[Recrutador]";
+		mes "Devido ao risco sério de contaminação de água, e a segurança de Prontera.";
+		mes "Foi dado um decreto real para limpar os esgotos.";
 		next;
-		mes "[Recruiter]";
-		mes "Needless to say, this has caused shortages in the water supply in our kingdom. Indeed, such a crisis in these dark times...";
+		mes "[Recrutador]";
+		mes "Desnecessário dizer, isto causou escassezes na provisão de água em nosso reino.";
+		mes "Realmente, é uma crise nestes tempos escuros...";
 		next;
-		mes "[Recruiter]";
-		mes "Our people";
-		mes "thirst for water...";
-		mes "But they thirst";
-		mes "even more...";
-		mes "For a hero!";
+		mes "[Recrutador]";
+		mes "Nossa população têm sede para água...";
+		mes "Mas eles têm sede mais até mesmo...";
+		mes "De um herói!";
 		next;
-		mes "[Recruiter]";
-		mes "Will you stand idly as the children of Rune-Midgarts suffer from parched throats and shed tears of dryness?! Would you bury our children?!";
+		mes "[Recrutador]";
+		mes "Você se alegrará à todas crianças de Rune-Midgarts, livrando-os dessa seca?!"; 
+		mes "Você faria isso por nossas crianças?!";
 		next;
-		mes "[Recruiter]";
-		mes "Warriors! Rune-Midgarts is calling you! Cleanse this land's pestilence and cast out the vermin in the Culvert! Only you... Can make a difference.";
+		mes "[Recrutador]";
+		mes "Guerreiros! de Rune-Midgard está o chamando!";
+		mes "Limpe a pestilência desta terra e expulse os monstros dos esgotos!";
+		mes "Só você... pode fazer a diferença.";
 		next;
-		if (select("Volunteer.:Quit.") == 1) {
+		if (select("Ser voluntário.:Sair.") == 1) {
 			callsub S_Volunteer;
-			mes "[Recruiter]";
-			mes "Adventurer...";
-			mes "I will now warp you";
-			mes "to the Prontera Culvert.";
+			mes "[Recrutador]";
+			mes "Aventureiro...";
+			mes "Eu o enviarei agora para os Esgotos de Prontera.";
 			next;
 			warp "prt_fild05",274,208;
 			end;
 		}
-		mes "[Recruiter]";
-		mes "Hmpf. Well. The next time you take a drink of water, just remember that an average of nine and a half children just died... ^990000Of thirst^000000.";
+		mes "[Recrutador]";
+		mes "Hmpf. Bem.";
+		mes "O da próxima vez você tomar água, lembra-se de nossas crianças que estão morrendo de sede...";
+		mes "^990000fSede^000000.";
 		close;
 
 	case 3:
@@ -125,17 +105,17 @@ prt_in,88,105,2	script	Recruiter	8W_SOLDIER,{
 
 S_Volunteer:
 	MISC_QUEST |= 8;
-	mes "[Recruiter]";
-	mes "Your registration...";
-	mes "is now complete.";
+	mes "[Recrutador]";
+	mes "Seu regitro...";
+	mes "Agora está completo.";
 	next;
-	mes "[Recruiter]";
-	mes "I would like to thank you for volunteering to do your part for our great kingdom. Here, take these provisions for your battles against the forces of darkness.";
+	mes "[Recrutador]";
+	mes "Eu gostaria de lhe agradecer por oferecer uma parte de seu tempo para nosso grande reino.";
+	mes "Aqui, leve estes suprimentos para sua batalhas contra as forças de escuridão.";
 	next;
-	mes "[Recruiter]";
-	mes "3 Red Potions, 1 Milk,";
-	mes "and 1 Orange Potion";
-	mes "...to give you hope.";
+	mes "[Recrutador]";
+	mes "3 Poções Vermelhas, 1 Leite e 1 Poção Laranja...";
+	mes "Que você possa ser nossa esperança.";
 	getitem 501,3; //Red_Potion
 	getitem 519,1; //Milk
 	getitem 502,1; //Orange_Potion
@@ -143,44 +123,42 @@ S_Volunteer:
 	return;
 }
 
-prt_fild05,270,212,5	script	Culvert Guardian	8W_SOLDIER,{
+prt_fild05,270,212,5	script	Guardião dos Esgotos	8W_SOLDIER,{
 	if (MISC_QUEST & 8) {
-		mes "[Culvert Guardian]";
-		mes "Ah, you're one of our volunteers. This is the entrance of the Prontera Culvert.";
-		mes "Do you wish to";
-		mes "go inside?";
+		mes "[Guardião dos Esgotos]";
+		mes "Ah, você é um de nossos voluntários.";
+		mes "Essa é a entrada para os Esgotos de Prontera.";
+		mes "Você quer entrar agora?";
 		next;
-		if (select("Sure.:Quit.") == 1) {
+		if (select("Quero.:Sair.") == 1) {
 			warp "prt_sewb1",131,247;
 			end;
 		}
 		close;
 	}
-	mes "[Culvert Guardian]";
-	mes "I'm sorry, but we can only allow volunteers for the Culvert Campaign to enter.";
+	mes "[Guardião dos Esgotos]";
+	mes "Me desculpe mas somente voluntários podem entrar nos esgotos.";
 	next;
-	mes "[Culvert Guardian]";
-	mes "If you'd like to volunteer, please visit the ^000077Culvert Registrar^000000 located in the 11 O'clock direction of Prontera.";
+	mes "[Guardião dos Esgotos]";
+	mes "Para se tornar um dos voluntários vá até prontera na direção 11 Horas e fale com o ^000077Recrutador^000000.";
 	close;
 }
 
 // Ph.D Hat Quest :: npc_6cript
 //============================================================
-prt_in,38,108,4	script	Teacher	1_M_INNKEEPER,{
+prt_in,38,108,4	script	Professora#phhat	1_M_INNKEEPER,{
 	if ((countitem(710) > 0) && (countitem(703) > 0) && (countitem(704) > 0) && (countitem(708) > 0)) {
-		mes "[Teacher]";
-		mes "Oh...";
-		mes "Those Flowers in your hand are...";
+		mes "[Professora]";
+		mes "Oh... Essas Flores em sua mão são....";
 		next;
-		switch(select("Show Flowers:Present Flowers:Cancel")) {
+		switch(select("Flores de espetáculo:Dê Flores:Cancelar")) {
 		case 1:
-			mes "[Teacher]";
-			mes "Ah...";
-			mes "Those are definitely the 4 kinds of Flowers I was looking for! Would you give them to me?";
+			mes "Ah... Como maravilhoso!!";
+			mes "Estes são definitivamente os 4 tipos de Flores eu estava procurando..";
+			mes "A Flor de ^3355FFIlusão, Hinalle, Babosa, e Menta^000000. você os daria a mim?...";
 			next;
-			mes "[Teacher]";
-			mes "If you would...";
-			mes "I'll give you my precious item.";
+			mes "[Professora]";
+			mes "Se você as me trouxer eu lhe darei um item especial.....";
 			close;
 		case 2:
 			if ((countitem(710) > 0) && (countitem(703) > 0) && (countitem(704) > 0) && (countitem(708) > 0)) {
@@ -189,60 +167,74 @@ prt_in,38,108,4	script	Teacher	1_M_INNKEEPER,{
 				delitem 704,1;  //Aloe
 				delitem 708,1;  //Ment
 				getitem 5012,1;	//Ph.D_Hat
-				mes "[Teacher]";
-				mes "I really really appreciate you what you've done for me. I'm truly grateful. I will give my precious item to you as promised.";
+				mes "[Professora]";
+				mes "Eu realmente realmente o aprecio o que você fez para mim.";
+				mes "Sou muito grata";
+				mes "Eu darei meu artigo precioso a você como prometido.";
 				next;
-				mes "[Teacher]";
-				mes "This is the Hat I've worn on my Graduation from my University. It reminds me of my happy school days. Please take this...";
+				mes "[Professora]";
+				mes "Este é o Chapéu que eu usei em minha Graduação de minha Universidade.";
+				mes "Me faz lembrar de meus dias escolares felizes.";
+				mes "Por favor leve isto...";
 				close;
 			}
 			else {
-				mes "[Teacher]";
-				mes "... Oh, I'm Sorry.";
-				mes "But that's not what I'm looking for. Maybe you need to study flowers a little bit?";
+				mes "[Professora]";
+				mes "...Oh, me desculpe.";
+				mes "Mas isso não é o para o qual eu estou olhando.";
+				mes "Talvez você precise estudar um pouco?";
 				close;
 			}
 		}
 	}
 	else {
-		mes "[Teacher]";
-		mes "Don't you think...";
-		mes "Flowers are pretty?";
+		mes "[Professora]";
+		mes "Você pensa que flores são belas?...";
 		next;
 		switch(select("Talk:Quit")) {
 		case 1:
-			mes "[Teacher]";
-			mes "When I was young,";
-			mes "I had no friends and";
-			mes "studied all the time.";
+			mes "[Professora]";
+			mes "Quando eu era jovem, eu não tive nenhum amigo e estudei todo o tempo.";
 			next;
-			mes "[Teacher]";
-			mes "Sometimes I regret what I did when I was younger, but it's not a big deal now. Through hard study, I finished entire educational courses earlier than all the other students.";
+			mes "[Professora]";
+			mes "Às vezes eu lamento aquela decisão....";
+			mes "Mas realmente não importa agora.";
+			mes "Por trabalhar duro, eu sempre era a primeira a terminar as tarefas.";
 			next;
-			mes "[Teacher]";
-			mes "However...";
-			mes "I was sad and sometimes lonely. Whenever the studying got too hard, I needed someone who would listen to me. Finally, one day, I met my best friend.";
+			mes "[Professora]";
+			mes "Eu estava porém muito só.....";
+			mes "Derrepente as coisas ficaram difíceis e eu não tive ninguém para conversar sobre meus sentimentos.";
 			next;
-			mes "[Teacher]";
-			mes "When I saw a Pretty Flower blooming in the abandoned Garden, I realized It was my friend which shared my fate.";
+			mes "[Professora]";
+			mes "Então um dia, eu achei minha melhor amiga.";
 			next;
-			mes "[Teacher]";
-			mes "Although it is a Common and Normal Flower to others, she gave me the reason to study again. I could achieve my goals because of her.";
+			mes "[Professora]";
+			mes "Quando eu vi esta bonita flor desabrochar em um jardim abandonado....";
+			mes "Eu percebi que nós eramos parecidas, eu achei minha melhor amiga.";
 			next;
-			mes "[Teacher]";
-			mes "So recently...";
-			mes "I am trying to pay her back. Now I am studying Flowers, and plan to over the whole world with them.";
+			mes "[Professora]";
+			mes "Embora, a outros era há pouco uma flor comum....";
+			mes "Para mim esta flor significou muito mais.";
+			mes "Esta flor me deu a força para continuar meus estudos.";
+			mes "Eu poderia alcançar minhas metas por causa dela.";
 			next;
-			mes "[Teacher]";
-			mes "To accomplish my work...";
-			mes "I need bunches of flowers. But for someone who rarely goes outside, it is really hard to find all the flowers I need.";
+			mes "[Professora]";
+			mes "Assim.. agora... eu estou tentando para reembolsar a ela.";
+			mes "Eu comecei estudando Flores, e é minha meta para cobrir o mundo inteiro em Flores!";
 			next;
-			mes "[Teacher]";
-			mes "I need 1 ^3355FFIllusion Flower^000000 ,1 ^3355FFHinalle^000000,1 ^3355FFAloe^000000 and 1 ^3355FFMent^000000. If you can bring them to me, I'd give you my treasure...";
+			mes "[Professora]";
+			mes "Realizar meu trabalho..";
+			mes "Eu preciso de muito flores.";
+			mes "Infelizmente por causa de meus estudos, eu raramente posso ir fora.";
+			mes "É realmente duro achar tantas flores quanto preciso.";
+			next;
+			mes "[Professora]";
+			mes "Eu preciso de 1 ^3355FFFlor das Ilusões^000000 ,1 ^3355FFHinalle^000000,1 ^3355FFAloe^000000 e 1 ^3355FFMenta^000000..";
+			mes "Se você puder trazer estas flores a mim, eu estaria disposto lhe dar um artigo especial..";
 			close;
 		case 2:
-			mes "[Teacher]";
-			mes "One of these days I will cover this whole world with Flowers.";
+			mes "[Professora]";
+			mes "Um destes dias eu cobrirei este mundo inteiro com Flores.";
 			close;
 		}
 	}
@@ -250,199 +242,158 @@ prt_in,38,108,4	script	Teacher	1_M_INNKEEPER,{
 
 // Gaebolg Family Curse :: prt_curse
 //============================================================
-prontera,248,212,3	script	Busy Boy#prt	4_M_KID1,3,3,{
+prontera,248,212,3	script	Garoto Ocupado#prt	4_M_KID1,3,3,{
 	callsub S_CheckWeight; //Check Player's weight
 	if (BaseLevel > 59) {
 		if (prt_curse == 0) {
-			mes "[Busy-Looking Boy]";
-			mes "Aw nuts...";
-			mes "What am I gonna do?";
-			mes "I have to deliver these";
-			mes "books, but... I... Oh man,";
-			mes "I can't get scared now!";
+			mes "[Garoto Ocupado]";
+			mes "Ah, droga...";
+			mes "O eu irei fazer?";
+			mes "Eu tenho que entregar estes livros, mas... eu...";
+			mes "Ah cara, eu não posso me apavorar agora!";
 			close;
 		}
 		else if (prt_curse == 1) {
-			mes "[Busy-Looking Boy]";
-			mes "Aw nuts...";
-			mes "What am I gonna do?";
-			mes "I have to deliver these";
-			mes "books, but... I... Oh man,";
-			mes "I can't get scared now!";
+			mes "[Garoto Ocupado]";
+			mes "Ah, droga...";
+			mes "O eu irei fazer?";
+			mes "Eu tenho que entregar estes livros, mas... eu...";
+			mes "Ah cara, eu não posso me apavorar agora!";
 			next;
-			if (select("Speak with him:Ignore him") == 1) {
+			if (select("Falar com ele:Ignorá-lo") == 1) {
 				mes "["+strcharinfo(0)+"]";
-				mes "Say, what seems";
-				mes "to be the problem?";
+				mes "Diga, o que parece ser o problema?";
 				next;
-				mes "[Busy-Looking Boy]";
+				mes "[Garoto Ocupado]";
 				mes ".........?";
 				next;
-				mes "[Busy-Looking Boy]";
+				mes "[Garoto Ocupado]";
 				if (Sex) {
-					mes "Ack! You're that clumsy";
-					mes "dude who made me drop";
+					mes "Argh! Você é o cara desajeitado que me fez deixar";
 				}
 				else {
-					mes "Ack! You're that ditzy";
-					mes "chick who made me drop";
+					mes "Argh! Você é aquela mulher sem postura que me fez deixar";
 				}
-				mes "all of those books earlier!";
-				mes "Wait, you ditched me before,";
-				mes "so why act all concerned now?";
+				mes "todos os livros caírem!";
+				mes "Espere, você me ignorou antes, então porque esse interesse em agir agora?";
 				emotion e_gasp;
 			}
 			else {
-				mes "[Busy-Looking Boy]";
-				mes "Okay, okay...";
-				mes "Don't even think";
-				mes "about floating in";
-				mes "the sky. You're like,";
-				mes "so stable. Don't think...";
-				mes "Just... Just board that ship...";
+				mes "[Garoto Ocupado]";
+				mes "Ok, ok...";
+				mes "Eu nunca havia pensado sobre flutuar pelo céu.";
+				mes "Você parece, tão estável.";
+				mes "Não pense...";
+				mes "Apenas...";
+				mes "Apenas deixe a vida te levar...";
 				close;
 			}
 			next;
-			select("Well, I, um...");
-			mes "[Busy-Looking Boy]";
+			select("Bem, eu, um...");
+			mes "[Garoto Ocupado]";
 			if (Sex) {
-				mes "Yeah... A real";
-				mes "man wouldn't have";
-				mes "ditched back then";
-				mes "without helping me.";
-				mes "You're a real creepo,";
-				mes "you know that?";
+				mes "Yeah... Um homem de verdade não teria voltado aqui sem ter me ajudado.";
+				mes "Você é um cavalheiro, não sabia disso?";
 			}
 			else {
-				mes "Yeah... If you were";
-				mes "a graceful and considerate";
-				mes "lady, you woulda helped me";
-				mes "out before. I'm right, huh?";
+				mes "Yeah... Se você fosse uma graciosa e compreensiva dama, você já teria me ajudado anteriormente.";
+				mes "Estou certo, huh?";
 			}
 			next;
-			mes "^3355FFYou instinctively";
-			mes "kick over one of the";
-			mes "piles of books next";
-			mes "to the young boy.";
-			mes "You couldn't help it:";
-			mes "it was a natural reflex!^000000";
+			mes "^3355FFVocê instintivamente chuta uma das pilhas de livros próximos ao garoto.";
+			mes "Você não poderia ajudá-lo, foi um reflexo natural!^000000";
 			next;
 			specialeffect EF_HITDARK;
 			emotion e_omg;
 			mes "^3355FF*BAM!*^000000";
 			next;
 			emotion e_omg;
-			mes "[Busy-Looking Boy]";
-			mes "Ack! Those books...!";
-			mes "It took me so long to";
-			mes "stack all of those!";
+			mes "[Garoto Ocupado]";
+			mes "Ack! Estes livros...!";
+			mes "Eu demorei um tempão para empilhar todos eles!";
 			next;
 			mes "["+strcharinfo(0)+"]";
-			mes "Oh no, what a mess!";
-			mes "Here, let me help you";
-			mes "arrange these nicely";
-			mes "out of the bottom of";
-			mes "my freakin' heart.";
+			mes "Ah não, que bagunça!";
+			mes "Aqui, deixe-me ajudá-lo a organizá-los gentilmente do fundo do meu fraterno coração.";
 			emotion e_lv,1;
 			next;
-			mes "[Busy-Looking Boy]";
+			mes "[Garoto Ocupado]";
 			mes "...";
 			mes "......";
 			mes ".........";
 			emotion e_dots;
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Huh...?";
-			mes "Oh, thanks for";
-			mes "helping me out here.";
-			mes "I really appreciate it.";
+			mes "[Garoto Ocupado]";
+			mes "Ahn...?";
+			mes "Ah, obrigado por me ajudar com isso aqui.";
+			mes "Eu aprecio isto.";
 			next;
-			select("Are these all yours?");
-			mes "[Busy-Looking Boy]";
-			mes "These? Oh, I'm supposed";
-			mes "to deliver these for my job.";
-			mes "I need to take these to Juno";
-			mes "from the Prontera Library";
-			mes "for a client. However, um...";
+			select("Todos esses livros são seus?");
+			mes "[Garoto Ocupado]";
+			mes "Esses?";
+			mes "Ah, eu fui enviado para entregar esses pelo meu trabalho.";
+			mes "Eu preciso levar esses para Juno, para um cliente da Biblioteca de Prontera.";
+			mes "No entanto, um...";
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Well...";
-			mes "I get motion sick really";
-			mes "easily, so it scares me to";
-			mes "death to ride the Airship";
-			mes "all the way to Juno.";
+			mes "[Garoto Ocupado]";
+			mes "Bem...";
+			mes "Eu devia entregá-los com facilidade, mas eu fico com medo de morrer, quando viajo pelo Aeroplano todo o caminho de Juno.";
 			emotion e_dots;
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Now I'm in trouble!";
-			mes "I'm never late, but this";
-			mes "time I just can't help it.";
-			mes "There's nothing I can do!";
-			mes "Oh, I'm gonna lose this job!";
+			mes "[Garoto Ocupado]";
+			mes "Agora eu estou com problemas!";
+			mes "Eu nunca me atrasei, mas desta vez eu não poderei ajudar.";
+			mes "Não há nada que eu possa fazer!";
+			mes "Ah, eu vou perder este emprego!";
 			emotion e_sob;
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Wait... You adventurers";
-			mes "do a lot of traveling, right?";
-			mes "If you're traveling to Juno,";
-			mes "would you please deliver this";
-			mes "for me? I'll be in real trouble";
-			mes "if I don't send these books...";
+			mes "[Garoto Ocupado]";
+			mes "Espera... Vocês aventureiros viajam muito, certo?";
+			mes "Se você viajar para Juno, você poderia fazer o favor de entregar estes livros para mim?";
+			mes "Eu estarei em apuros se eu não entregar estes livros...";
 			next;
 			callsub S_GetBooks;
-			mes "[Busy-Looking Boy]";
-			mes "I-I understand.";
-			mes "It's none of your ";
-			mes "business, I know, but";
-			mes "I'm just so desperate...";
+			mes "[Garoto Ocupado]";
+			mes "E-eu entendo.";
+			mes "Não é problema seu, eu sei, mas eu estou muito desesperado...";
 			emotion e_sob;
 			prt_curse = 2;
 			close;
 		}
 		else if (prt_curse == 2) {
-			mes "[Busy-Looking Boy]";
-			mes "Oh, hello again.";
-			mes "Sorry, but I'm trying to";
-			mes "concentrate here. Gonna...";
-			mes "Summon all my courage...";
-			mes "and b-board that Airship!";
-			mes "Argh! No, I can't do it!";
+			mes "[Garoto Ocupado]";
+			mes "Ah, Olá novamente.";
+			mes "Desculpe, mas eu estou tentando me concentrar aqui.";
+			mes "Tentando invocar toda a minha coragem e em-embarcar no Aeroplano!";
+			mes "Argh! Não, não posso fazer isto!";
 			emotion e_dots;
 			next;
 			callsub S_GetBooks;
-			mes "[Busy-Looking Boy]";
-			mes "^333333*Sob...*^000000";
-			mes "What am I gonna do?";
-			mes "That guy's been waiting";
-			mes "for me to deliver his books";
-			mes "for quite a while now...";
+			mes "[Garoto Ocupado]";
+			mes "^333333*Soluço...*^000000";
+			mes "O que eu farei?";
+			mes "Este cara está esperando por mim para entregar seus livros por um bom tempo agora...";
 			emotion e_sob;
 			close;
 		}
 		else if (prt_curse == 3) {
-			mes "[Busy-Looking Boy]";
-			mes "Oh, please deliver";
-			mes "those books I gave";
-			mes "you to ^FF0000Mr. Karlomoff^000000, who";
-			mes "should be waiting around";
-			mes "the Juno Library. Thanks";
-			mes "again for your help~";
+			mes "[Garoto Ocupado]";
+			mes "Oh, por favor entregue estes livros que eu lhe dei para o ^FF0000Sr. Karlomoff^000000.";
+			mes "Que deve estar esperando próximo da Biblioteca de Juno.";
+			mes "Obrigado novamente por sua ajuda!";
 			close;
 		}
-		mes "[Busy-Looking Boy]";
-		mes "Ack! Would you leave";
-		mes "me alone and let me work?";
-		mes "I've got something important";
-		mes "to do! When I finish arranging";
-		mes "these books,  need to... I need to make some preparations!";
+		mes "[Garoto Ocupado]";
+		mes "Argh! Será que dá pra me deixar sozinho para que eu possa trabalhar?";
+		mes "Eu tenho um trabalho importante para fazer!";
+		mes "Quando eu terminar de arrumar esses livros, eu preciso...";
+		mes "Preciso fazer alguns preparativos!";
 		close;
 	}
-	mes "[Busy-Looking Boy]";
-	mes "Ack! Would you leave";
-	mes "me alone and let me work?";
-	mes "I've got something important";
-	mes "to do! When I finish arranging";
-	mes "these books, I need to... I need to make some preparations!";
+	mes "[Garoto Ocupado]";
+	mes "Argh! Será que dá pra me deixar sozinho para que eu possa trabalhar?";
+	mes "Eu tenho um trabalho importante para fazer! Quando eu terminar de arrumar esses livros, eu preciso...";
+	mes "Preciso fazer alguns preparativos!";
 	close;
 
 OnTouch:
@@ -452,116 +403,88 @@ OnTouch:
 			specialeffect EF_HITDARK;
 			mes "^3355FF*BAM!*^000000";
 			next;
-			mes "[Busy Looking Boy]";
-			mes "Hey, look out!";
-			mes "Can't you be more";
-			mes "careful?! Geeeeez!";
+			mes "[Garoto Ocupado]";
+			mes "Ei, olhe por onde anda!";
+			mes "Você não pode ser mais cuidadoso?!";
 			emotion e_ag;
 			next;
 			mes "["+strcharinfo(0)+"]";
-			mes "Oops, I'm so sorry.";
-			mes "Are you alright?";
+			mes "Oops, eu lamento muito.";
+			mes "Você está bem?";
 			next;
-			mes "[Busy Looking Boy]";
-			mes "Yeah, no thanks to you!";
-			mes "Oh... Don't worry, I'm fine.";
+			mes "[Garoto Ocupado]";
+			mes "Sim, mas não graças a você!";
+			mes "Oh... Não se preocupe, eu estou bem.";
 			next;
-			mes "^3355FFYou notice that the boy";
-			mes "dropped many hardcover";
-			mes "books that are probably about";
-			mes "ruins and their legends, based";
-			mes "on their titles. The boy dusted";
-			mes "himself off and began to";
-			mes "carefully pile the books.^000000";
+			mes "^3355FFVocê percebe que o garoto deixou cair muitos livros de capa dura que provavelmente são sobre ruínas e suas lendas, baseado no seus títulos.";
+			mes "O garoto esquece de si próprio e começa a empilhar cuidadosamente os livros.^000000";
 			next;
-			if (select("Leave:Help him pile the books") == 1) {
-				mes "[Busy-Looking Boy]";
-				mes "Next time, look";
-				mes "where you're going,";
-				mes "alright? I mean, you";
-				mes "might really break";
-				mes "something if you're";
-				mes "always that careless!";
+			if (select("Deixá-lo:Ajudá-lo a empilhar os livros") == 1) {
+				mes "[Garoto Ocupado]";
+				mes "Da próxima vez, olhe por onde anda, certo?";
+				mes "Digo, você pode quebrar algo se continuar sem cuidado!";
 				prt_curse = 1;
 				close;
 			}
-			mes "[Busy-Looking Boy]";
-			mes "Huh...?";
-			mes "Oh, thanks for";
-			mes "helping me out here.";
-			mes "I really appreciate it.";
+			mes "[Garoto Ocupado]";
+			mes "Ahn...?";
+			mes "Ah, obrigado por me ajudar com isso aqui.";
+			mes "Eu aprecio isto.";
 			next;
-			select("Are these all yours?");
-			mes "[Busy-Looking Boy]";
-			mes "These? Oh, I'm supposed";
-			mes "to deliver these for my job.";
-			mes "I need to take these to Juno";
-			mes "from the Prontera Library";
-			mes "for a client. However, um...";
+			select("Todos esses livros são seus?");
+			mes "[Garoto Ocupado]";
+			mes "Esses? Ah, eu fui enviado para entregar esses pelo meu trabalho.";
+			mes "Eu preciso levar esses para Juno, para um cliente da Biblioteca de Prontera.";
+			mes "No entanto, um...";
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Well...";
-			mes "I get motion sick really";
-			mes "easily, so it scares me to";
-			mes "death to ride the Airship";
-			mes "all the way to Juno.";
+			mes "[Garoto Ocupado]";
+			mes "Bem...";
+			mes "Eu devia entregá-los com facilidade, mas eu fico com medo de morrer, quando viajo pelo Aeroplano todo o caminho de Juno.";
 			emotion e_dots;
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Now I'm in trouble!";
-			mes "I'm never late, but this";
-			mes "time I just can't help it.";
-			mes "There's nothing I can do!";
-			mes "Oh, I'm gonna lose this job!";
+			mes "[Garoto Ocupado]";
+			mes "Agora eu estou com problemas!";
+			mes "Eu nunca me atrasei, mas desta vez eu não poderei ajudar.";
+			mes "Não há nada que eu possa fazer!";
+			mes "Ah, eu vou perder este emprego!";
 			emotion e_sob;
 			next;
-			mes "[Busy-Looking Boy]";
-			mes "Wait... You adventurers";
-			mes "do a lot of traveling, right?";
-			mes "If you're traveling to Juno,";
-			mes "would you please deliver this";
-			mes "for me? I'll be in real trouble";
-			mes "if I don't send these books...";
+			mes "[Garoto Ocupado]";
+			mes "Espera... Vocês aventureiros viajam muito, certo?";
+			mes "Se você viajar para Juno, você poderia fazer o favor de entregar estes livros para mim?";
+			mes "Eu estarei em apuros se eu não entregar estes livros...";
 			next;
 			callsub S_GetBooks;
-			mes "[Busy-Looking Boy]";
-			mes "I-I understand.";
-			mes "It's none of your ";
-			mes "business, I know, but";
-			mes "I'm just so desperate...";
+			mes "[Garoto Ocupado]";
+			mes "E-eu entendo.";
+			mes "Não é problema seu,";
+			mes "Eu sei, mas eu estou muito desesperado...";
 			emotion e_sob;
 			prt_curse = 2;
 			close;
 		}
 		else if (prt_curse == 3) {
-			mes "[Busy-Looking Boy]";
-			mes "Oh, please deliver";
-			mes "those books I gave";
-			mes "you to ^FF0000Mr. Karlomoff^000000, who";
-			mes "should be waiting around";
-			mes "the Juno Library. Thanks";
-			mes "again for your help~";
+			mes "[Garoto Ocupado]";
+			mes "Oh, por favor entregue estes livros que eu lhe dei para o ^FF0000Sr. Karlomoff^000000.";
+			mes "Que deve estar esperando próximo da Biblioteca de Juno.";
+			mes "Obrigado novamente por sua ajuda!";
 			close;
 		}
 	}
 	end;
 
 S_GetBooks:
-	if (select("Help him:Don't help him") == 1) {
-		mes "[Busy-Looking Boy]";
-		mes "Oh, thank you so much!";
-		mes "You don't understand how";
-		mes "much I dread those Airships.";
-		mes "Now, would you please deliver";
-		mes "these books to ^FF0000Mr. Karlomoff^000000";
-		mes "near the Juno Library?";
+	if (select("Ajudá-lo:Não ajudá-lo") == 1) {
+		mes "[Garoto Ocupado]";
+		mes "Ah, muito obrigado!";
+		mes "Você não entende o quanto eu tenho pavor daqueles Aeroplanos.";
+		mes "Agora, você poderia entregar estes livros para o ^FF0000Sr. Karlomoff^000000 perto da Biblioteca de Juno?";
 		next;
-		mes "[Busy-Looking Boy]";
-		mes "I know these books are";
-		mes "pretty heavy, but be really";
-		mes "careful with them! Anyway,";
-		mes "thanks for doing this for me.";
-		mes "I was really at my wit's end...";
+		mes "[Garoto Ocupado]";
+		mes "Eu sei que estes livros são muito pesados, mas tenha muito cuidado com eles!";
+		mes "Sendo assim,";
+		mes "Obrigado por fazer isto por mim.";
+		mes "Eu quase fiquei maluco com isso...";
 		prt_curse = 3;
 		getitem 7431,1; //Books
 		close;
@@ -570,686 +493,504 @@ S_GetBooks:
 
 S_CheckWeight:
 	if ((MaxWeight-Weight) < 2000 || checkweight(1201,1) == 0) {
-		mes "^3355FFWait a second!";
-		mes "Right now, you're carrying";
-		mes "too many things with you.";
-		mes "Please come back after";
-		mes "using the Kafra Service";
-		mes "to store some of your items.^000000";
+		mes "^3355FFEspere um segundo!";
+		mes "Agora, você está carregando muitas coisas com você.";
+		mes "Por favor volte depois de usar o Serviço Kafra para armazenar alguns de seus itens.^000000";
 		close;
 	}
 	return;
 }
 
-yuno,311,195,3	script	Historian#prt01	4_M_SAGE_A,{
+yuno,311,195,3	script	Historiador#prt01	4_M_SAGE_A,{
 	if ((MaxWeight-Weight) < 2000 || checkweight(1201,1) == 0) {
-		mes "^3355FFWait a second!";
-		mes "Right now, you're carrying";
-		mes "too many things with you.";
-		mes "Please come back after";
-		mes "using the Kafra Service";
-		mes "to store some of your items.^000000";
+		mes "^3355FFEspere um segundo!";
+		mes "Agora, você está carregando muitas coisas com você.";
+		mes "Por favor volte depois de usar o Serviço Kafra para armazenar alguns de seus itens.^000000";
 		close;
 	}
 	if (prt_curse < 3) {
-		mes "[Historian]";
-		mes "Juno's mysterious past";
-		mes "holds some great secret.";
-		mes "I'm sure of it! It excites me";
-		mes "to know that my research";
-		mes "brings me that much closer";
-		mes "to finally unveiling it!";
+		mes "[Historiador]";
+		mes "O Passado misterioso de Juno esconde grandes segredos.";
+		mes "Tenho certeza disso!";
+		mes "Me anima saber que minha pesquisa me deixará muito perto de finalmente desvendá-lo!";
 		next;
-		mes "[Historian]";
-		mes "But I'll admit that even I don't know how much digging I'll";
-		mes "have to do to learn what I want. It's our duty as historians to";
-		mes "find out the truth of the past, but it definitely won't be easy.";
+		mes "[Historiador]";
+		mes "Mas eu tenho que admitir que eu ainda não sei o quanto eu terei de cavar para descobrir o que eu quero.";
+		mes "É nosso dever, como historiadores descobrir a verdade sobre o passado, mas isto não será fácil.";
 		next;
-		mes "[Historian]";
-		mes "To understand, to see the";
-		mes "truth of the past with my";
-		mes "own eyes... I'd even sell";
-		mes "my soul for the opportunity.";
+		mes "[Historiador]";
+		mes "Para entender, para ver a verdade do passado com meus próprios olhos...";
+		mes "Eu até venderia minha alma pela oportunidade.";
 		close;
 	}
 	else if (prt_curse == 3) {
-		mes "^3355FFAs you approached, this";
-		mes "historian suddenly closed";
-		mes "the book that he was reading,";
-		mes "looked to the heavens and";
-		mes "let out a deep breath in a vain";
-		mes "attempt to relieve his tension.^000000";
+		mes "^3355FFEnquanto você se aproximava, este historiador de repente fechou o livro que estava lendo.";
+		mes "Olhou para cima, e suspirou profundamente em uma vã tentativa de aliviar sua tensão.^000000";
 		next;
-		mes "[Historian]";
+		mes "[Historiador]";
 		mes "GRRRRRRRRR!";
-		mes "Where are my books?!";
+		mes "Onde estão meus livros?!";
 		emotion e_ag;
 		next;
-		select("Are you alright?");
-		mes "[Historian]";
-		mes "Er? Oh. I'm sorry you";
-		mes "had to see that. I'm just";
-		mes "extremely upset. You see,";
-		mes "I'm expecting a delivery of";
-		mes "research books from Prontera,";
-		mes "but they haven't arrived yet.";
+		select("Você está bem?");
+		mes "[Historiador]";
+		mes "Er? Oh. Desculpe por você ter visto isso.";
+		mes "Só estou extremamente chateado.";
+		mes "É o seguinte:";
+		mes "Eu estou esperando uma entrega de uns livros de pesquisa de Prontera, mas eles ainda não chegaram.";
 		next;
-		mes "[Historian]";
-		mes "In fact, the delivery boy is";
-		mes "very late. This will delay my";
-		mes "research considerably since";
-		mes "I cannot proceed without more";
-		mes "new material to study.";
+		mes "[Historiador]";
+		mes "Na verdade, o garoto da entrega está muito atrasado.";
+		mes "Isso irá atrasar minha pesquisa consideravelmente, já que eu não posso prosseguir sem material novo para estudar.";
 		next;
 		if (countitem(7431) > 0) {
-			select("Excuse me, but what's your name?");
-			mes "[Historian]";
-			mes "Hm? I'm Karlomoff, the";
-			mes "1st scholar of the Rekenber";
-			mes "Historical Research Group.";
-			mes "Did you need something, or";
-			mes "were you looking around here";
-			mes "for somebody in particular?";
+			select("Com licença, mas qual é o seu nome?");
+			mes "[Historiador]";
+			mes "Hm? Eu sou Karlomoff, o principal estudioso do Grupo de Pesquisa Histórica Rekenber.";
+			mes "Você precisa de algo, ou está procurando por alguém em especial?";
 			next;
 		}
 		else {
-			select("Oh, I'm delivering the books for him.");
+			select("Oh, eu estou fazendo a entrega dos livros para ele.");
 			emotion e_what;
-			mes "[Historian]";
-			mes "Ah, really?";
-			mes "Great, you're here!";
-			mes "So, where are the books?";
+			mes "[Historiador]";
+			mes "Ah, é?";
+			mes "Ótimo, você está aqui!";
+			mes "Então, onde estão os livros?";
 			next;
 			mes "["+strcharinfo(0)+"]";
-			mes "I...";
-			mes "I don't have";
-			mes "them right now.";
+			mes "Eu...";
+			mes "Eles não estão comigo no momento.";
 			next;
-			mes "[Historian]";
-			mes "What...?";
-			mes "Don't tell me that";
-			mes "you lost them! Those";
-			mes "books were priceless!";
-			mes "Did you come all this";
-			mes "way just to tell me that?";
+			mes "[Historiador]";
+			mes "Quê...?";
+			mes "Não vai me dizer que você os perdeu!";
+			mes "Aqueles livros não tinham preço!";
+			mes "Você veio até aqui só para me dizer isso?";
 			next;
-			mes "[Historian]";
-			mes "Well, I suppose you'll";
-			mes "have to report the loss of";
-			mes "the books and get some new";
-			mes "copies of those books that";
-			mes "you were supposed to deliver.";
-			mes "Now hurry, I need to research!";
+			mes "[Historiador]";
+			mes "Bem, eu acho que você terpa que relatar a perda dos livros e ir pegar algumas cópias novas dos livros que você deveria ter entregue.";
+			mes "Agora vá logo, eu tenho que trabalhar!";
 			close;
 		}
-		select("Right, I brought your books.");
-		mes "[Historian]";
-		mes "What? But you're not the";
-		mes "delivery boy. Well, let me see";
-		mes "the books you've brought. Hm...";
-		mes "Just as I thought: the Rune-";
-		mes "Midgarts Kingdom has a great";
-		mes "wealth of ancient information.";
+		select("Certo, eu trouxe os seus livros.");
+		mes "[Historiador]";
+		mes "O que? Mas você não é o garoto da entrega.";
+		mes "Bem, deixe-me ver os livros que você trouxe. Hm...";
+		mes "Assim como eu pensei: o Reino de Rune-Midgard tem uma grande quantidade de informações antigas.";
 		next;
-		mes "[Historian]";
-		mes "Ah, thank you so much for";
-		mes "bringing these. However, by";
-		mes "your mode of dress, I can tell";
-		mes "that you are an adventurer.";
-		mes "What happened to the delivery boy that was supposed to bring these?";
+		mes "[Historiador]";
+		mes "Ah, muito obrigador por trazer estes livros.";
+		mes "No entanto, pelo seu modo de vestir, posso dizer que você é um aventureiro.";
+		mes "O que aconteceu com o garoto da entrega que deveria trazer estes livros para mim.";
 		next;
-		mes "[Historian]";
+		mes "[Historiador]";
 		mes "..........?";
-		mes "Afraid to ride the Airship?";
-		mes "Motion sickness? Well, that's";
-		mes "quite understandable. The poor";
-		mes "boy should have contacted me";
-		mes "about that beforehand.";
+		mes "Medo de andar de Aeroplano?";
+		mes "Medo de altura?";
+		mes "Bem, isso é perfeitamente compreensivo.";
+		mes "O pobre garoto deveria ter me falado sobre isso antes.";
 		next;
-		mes "[Historian]";
-		mes "Goodness, it's been ";
-		mes "a while since I've had";
-		mes "a visitor. Would you like";
-		mes "to stay and chat for a bit?";
-		mes "Just give me a minute to get";
-		mes "a cool drink of water first~";
+		mes "[Historiador]";
+		mes "Bem, já se passou um tempo desde que eu tive uma visita.";
+		mes "Você gostaria de ficar para conversar um pouco?";
+		mes "Me dê um minuto para pegar um copo de água gelada.";
 		prt_curse = 4;
 		delitem 7431,1; //Books
 		close;
 	}
 	else if (prt_curse == 4) {
-		mes "[Historian]";
-		mes "Ah, that glass of";
-		mes "water was just what";
-		mes "I needed to refresh";
-		mes "myself. Let me tell you";
-		mes "a little bit about my work.";
+		mes "[Historiador]";
+		mes "Ah, esse copo de água era tudo que eu precisava para me refrescar.";
+		mes "Deixe lhe contar um pouco sobre o meu trabalho.";
 		next;
-		mes "[Historian]";
-		mes "I might have it mentioned before, but my name is Karlomoff and";
-		mes "I work in the Rekenber Historical Research as its 1st scholar. We";
-		mes "recently finished our project on the Schwaltzvalt Republic.";
+		mes "[Historiador]";
+		mes "Eu devia ter mencionado antes.";
+		mes "Mas meu nome é Karlomoff e eu trabalho no Grupo de Pesquisa Histórica Rekenber como seu estudioso principal.";
+		mes "Recentemente nóes terminamos nosso projeto na República de Schwaltzvalt.";
 		next;
-		mes "[Historian]";
-		mes "Now, we're trying to learn";
-		mes "more about the Rune-Midgarts";
-		mes "Kingdom's history. We believe";
-		mes "it's linked to our Schwaltzvalt";
-		mes "Republic because they share the";
-		mes "continent. Makes sense, right?";
+		mes "[Historiador]";
+		mes "Agora, nós estamos tentando aprender";
+		mes "mais sobre a história do Reino de";
+		mes "Rune-Midgard.";
+		mes "Nós acreditamos que esteja ligada a República de Schwaltzvalt por que partilham do mesmo continente.";
+		mes "Faz sentido, certo?";
 		next;
-		mes "[Historian]";
-		mes "Ultimately, we hope that";
-		mes "new information from our";
-		mes "research of Rune-Midgarts will";
-		mes "shed some new light on our";
-		mes "current understanding of the";
-		mes "Schwaltzvalt Republic's past.";
+		mes "[Historiador]";
+		mes "Por fim, esperamos que novas informações da nossa pesquisa de Rune-Midgard trarão uma nova luz sobre a atual compreensão do passado República Schwaltzvalt.";
 		next;
-		mes "[Historian]";
-		mes "Including myself, there are";
-		mes "^3131FF3 members of the Rekenber";
-		mes "Historical Research Group^000000";
-		mes "that are studying the Rune-";
-		mes "Midgarts Kingdom's history.";
+		mes "[Historiador]";
+		mes "Incluindo eu mesmo, há mais ^3131FF3 membros do Grupo de Pesquisa Histórica Rekenber^000000.";
+		mes "Que estão estudando a história do Reino de Rune-Midgard.";
 		next;
-		select("Rekenber Historical Research Group?");
-		mes "[Historian]";
-		mes "You adventurers from Rune-";
-		mes "Midgarts may not know it, but";
-		mes "the Rekenber Corporation has";
-		mes "unofficial control over our";
-		mes "Schwaltzvalt Republic. Some";
-		mes "hate it, others don't care.";
+		select("Grupo de Pesquisa Histórica Rekenber?");
+		mes "[Historiador]";
+		mes "Vocês aventureiros de Rune-";
+		mes "Midgarts podem não saber, mas";
+		mes "a Corporação Rekenber tem";
+		mes "controle não oficial sobre";
+		mes "a República de Schwaltzvalt.";
+		mes "Alguns não gostam disso, outros não ligam.";
 		next;
-		mes "[Historian]";
-		mes "Anyway, Rekenber has its own";
-		mes "Historical Research Group since";
-		mes "rediscovering ancient technologies has been key to its success, well,";
-		mes "so far as I can tell. Personally, I enjoy the pursuit of knowledge.";
+		mes "[Historiador]";
+		mes "De qualquer modo, Rekenber tem seu próprio Grupo de Pesquisa Histórica desde a redescoberta de tecnologias antigas";
+		mes "Tem sido fundamental para seu sucesso.";
+		mes "Assim tão longe quanto posso dizer.";
+		mes "Pessoalmente, eu gosto de buscar pelo conhecimento.";
 		next;
-		mes "[Historian]";
-		mes "Oh, here's an interesting";
-		mes "fact! Did you know that the";
-		mes "title of ruler of Rune-Midgarts";
-		mes "isn't always passed down";
-		mes "through the same family?";
+		mes "[Historiador]";
+		mes "Ah, aqui está um fato interessante!";
+		mes "Você sabia que o título de nobreza de Rune-Midgarts nem sempre é passado através de uma mesma família?";
 		next;
-		mes "[Historian]";
-		mes "Actually, there are several";
-		mes "royal families that hold a";
-		mes "special competition to decide";
-		mes "which prince becomes the";
-		mes "next king. Fascinating...";
+		mes "[Historiador]";
+		mes "Na verdade, existem várias famílias reais que realizam uma competição especial para decidir qual príncipe será o próximo rei.";
+		mes "Fascinante...";
 		next;
-		select("Several royal families?");
-		mes "[Historian]";
-		mes "Yes, I'll try to explain it";
-		mes "briefly. There are a total";
-		mes "of 7 royal families. Each";
-		mes "family is descended from one";
-		mes "of the 7 warriors that founded";
-		mes "the Rune-Midgarts Kingdom.";
+		select("Várias famílias reais?");
+		mes "[Historiador]";
+		mes "Sim, vou tentar explicar isto rapidamente.";
+		mes "Há um total de 7 famílias reais.";
+		mes "Cada família é descendente de um dos 7 guerreiros que fundaram o Reino de Rune-Midgard.";
 		next;
-		mes "[Historian]";
-		mes "According to the records,";
-		mes "Jormungand, the snake of the";
-		mes "earth, appeared and brought";
-		mes "chaos to the entire continent.";
-		mes "7 warriors appeared and drove the serpent away, saving the world.";
+		mes "[Historiador]";
+		mes "De acordo com os registros Jormungand, a serpente da terra, apareceu e trouxe o caos para todo o continente.";
+		mes "7 guerreiros apareceram e levaram esta serpente para longe, salvando o mundo.";
 		next;
-		mes "[Historian]";
-		mes "With the return of peace,";
-		mes "the 7 warriors established";
-		mes "the Rune-Midgarts Kingdom,";
-		mes "choosing Tristram Gaebolg III";
-		mes "as the kingdom's first ruler. ";
+		mes "[Historiador]";
+		mes "Com o retorno da paz, os 7 guerreiros estabeleceram o Reino de Rune-Midgard.";
+		mes "Escolherão Tristram Gaebolg 3º como o primeiro governante do reino.";
 		next;
-		mes "[Historian]";
-		mes "Knowing that their descendents";
-		mes "may not always be deserving of";
-		mes "ruling the kingdom, the 7 warriors agreed to hold a contest amongst";
-		mes "their families each generation to prevent royal corruption.";
+		mes "[Historiador]";
+		mes "Sabendo que seus descendentes podem não serem sempre merecedores de mandar no Reino.";
+		mes "Os 7 guerreiros concordaram em realizar uma competição entre cada geração de suas famílias para prevenir a corrupção.";
 		next;
 		emotion e_swt2;
-		mes "[Historian]";
-		mes "Oh... Not too excited";
-		mes "about history, huh? Well,";
-		mes "maybe if I sing the ancient";
-		mes "song of this myth, you'd be";
-		mes "better able to understand...";
+		mes "[Historiador]";
+		mes "Oh... Não está muito animado com esta história, huh?";
+		mes "Bem, talvez se eu cantar o antigo poema sobre este mito, você deverá entender melhor...";
 		next;
-		mes "[Historian]";
-		mes "^FF0000*The great serpent*^000000";
-		mes "^FF0000*swallowed the sea.*^000000";
-		mes "^FF0000*The eagle of the rainbow*^000000";
-		mes "^FF0000*swallowed the serpent.*^000000";
-		mes "^FF0000*Then the eagle built its nest.*^000000";
-		mes "^FF0000*A nest upon the swallowed sea.*^000000";
+		mes "[Historiador]";
+		mes "^FF0000*A grande serpente engoliu o mar.*^000000";
+		mes "^FF0000*A águia do arco-íris engoliu a serpente.*^000000";
+		mes "^FF0000*A águia então construiu seu ninho.*^000000";
+		mes "^FF0000*Um ninho sob o mar encoberto.*^000000";
 		next;
-		mes "[Historian]";
-		mes "^333333*Ahem*^000000 As you see, I'm";
-		mes "quite tone deaf. But the";
-		mes "point is that people still";
-		mes "praise the 7 warriors' exploits";
-		mes "through this song. Isn't that";
-		mes "interesting to know about?";
+		mes "[Historiador]";
+		mes "^333333*Ahem*^000000 Como vê, estou um pouco surdo.";
+		mes "Mas o ponto é que as pessoas continuam a elogiar os 7 guerreiros graças a essa canção.";
+		mes "Não é interessante saber sobre isso?";
 		prt_curse = 5;
 		close;
 	}
 	else if (prt_curse == 5) {
-		mes "[Historian]";
-		mes "I'm sorry that I let my";
-		mes "mouth run while talking at";
-		mes "great length about Rune-";
-		mes "Midgart's history. Still,";
-		mes "I hope you found that tale";
-		mes "at least a little enjoyable.";
+		mes "[Historiador]";
+		mes "Me desculpe se eu fiquei falando demais sobre o histórico de Rune-Midgard.";
+		mes "Contudo, eu espero que você tenha achado este conto pelo menos um pouco agradável.";
 		next;
-		mes "[Historian]";
-		mes "Oh! Will you be returning to";
-		mes "the Rune-Midgarts Kingdom?";
-		mes "If so, then I have a favor to";
-		mes "ask you. Would you please";
-		mes "deliver this report I've written to my colleague in Morroc?";
+		mes "[Historiador]";
+		mes "Oh! Você está retornando ao Reindo de Rune-Midgard?";
+		mes "Se estiver, então eu tenho um favor para lhe pedir.";
+		mes "Você poderia entregar este relatório que eu escrevi para minha colega, em Morroc?";
 		next;
-		mes "[Historian]";
-		mes "It would be a great help";
-		mes "to me if you could get this";
-		mes "report to her right away.";
-		mes "Ah, her name is Rodafrian.";
-		mes "I'm certain you can find her";
-		mes "somewhere in that desert town.";
+		mes "[Historiador]";
+		mes "Seria um grande ajuda para mim, se você pudesse levar este relatório para ela.";
+		mes "Ah, o nome dela é Rodafrian.";
+		mes "Estou certo de que você pode encontrá-la em algum lugar na cidade do deserto.";
 		prt_curse = 6;
 		getitem 7342,1; //File01
 		close;
 	}
 	else if (prt_curse == 6) {
-		mes "[Historian]";
-		mes "Please find my colleague,";
-		mes "Rodafrian, in Morroc and";
-		mes "deliver my report to her.";
-		mes "You should be able to find";
-		mes "her there doing research.";
+		mes "[Historiador]";
+		mes "Por favor encontre minha colega, Rodafrian, em Morroc e entregue meu relatório para ela.";
+		mes "Você deve ser capaz de encontrá-la buscando pelos edifícios da cidade.";
 		next;
-		if (select("I will:Can I listen to that song again?") == 1) {
-			mes "[Historian]";
-			mes "Once again, thank";
-			mes "you for your help.";
-			mes "It will really speed the";
-			mes "progress of my research,";
-			mes "especially since those books";
-			mes "were delivered fairly late...";
+		if (select("Eu irei:Posso escutar o poema novamente?") == 1) {
+			mes "[Historiador]";
+			mes "Mais uma vez, obrigado pela sua ajuda.";
+			mes "Isso irá agilizar o processo de minha pesquisa, especialmente porque estes livros foram entregues com atraso...";
 		}
 		else {
-			mes "[Historian]";
-			mes "Song? Oh, you mean the";
-			mes "one praising the 7 who";
-			mes "founded the Rune-Midgarts";
-			mes "Kingdom? Sure, let's see now...";
+			mes "[Historiador]";
+			mes "Poema? Ah, você diz o elogio aos 7 que fundaram o Reino de Rune-Midgard?";
+			mes "Claro, vamos ver...";
 			next;
-			mes "[Historian]";
-			mes "^FF0000*The great serpent*^000000";
-			mes "^FF0000*swallowed the sea.*^000000";
-			mes "^FF0000*The eagle of the rainbow*^000000";
-			mes "^FF0000*swallowed the serpent.*^000000";
-			mes "^FF0000*Then the eagle built its nest.*^000000";
-			mes "^FF0000*A nest upon the swallowed sea.*^000000";
+			mes "[Historiador]";
+			mes "^FF0000*A grande serpente engoliu o mar.*^000000";
+			mes "^FF0000*A águia do arco-íris engoliu a serpente.*^000000";
+			mes "^FF0000*A águia então construiu seu ninho.*^000000";
+			mes "^FF0000*Um ninho sob o mar encoberto.*^000000";
 			next;
-			mes "[Historian]";
-			mes "You must be more interested";
-			mes "in history than I suspected.";
-			mes "If you'd like, I'll write you a";
-			mes "letter or recommendation";
-			mes "for the Rekenber Historical";
-			mes "Research Group. Ha ha ha~";
+			mes "[Historiador]";
+			mes "Você deve estar mais interessado na história do que eu pensei.";
+			mes "Se você quiser, eu posso escrever uma carta ou recomendação para Grupo de Pesquisa Histórica Rekenber.";
 		}
 		close;
 	}
 	else if (prt_curse > 55) {
-		mes "[Historian]";
-		mes "Ah, it's been a while";
-		mes "since the last time I saw";
-		mes "you. Rodafrian actually came";
-		mes "to visit me a few days ago.";
-		mes "I believe she came here";
-		mes "to gloat or threaten me...";
+		mes "[Historiador]";
+		mes "Ah, já se passou um tempo desde a ultima vez que vi você.";
+		mes "Rodafrian veio me visitar a alguns dias atrás.";
+		mes "Eu pensei que ela viria aqui para me dar bronca ou ameaçar...";
 		next;
-		mes "[Historian]";
-		mes "It was very surreal.";
-		mes "She kept raving about";
-		mes "some incredible revelation,";
-		mes "and about finally putting me";
-		mes "in my place. I didn't know she";
-		mes "could be so competitive!";
+		mes "[Historiador]";
+		mes "Foi muito surreal.";
+		mes "Ela segurou sua raiva graças a uma incrível revelação e finalmente me colocar no meu lugar.";
+		mes "Eu não sabia que ela poderia ser tão competitiva!";
 		close;
 	}
 	else {
-		mes "[Historian]";
+		mes "[Historiador]";
 		mes "ZzzzZZz....";
 		mes "ZzzzZZz....ZZZzzzz...";
 		close;
 	}
 }
 
-morocc_in,45,126,3	script	Historian#prt02	4_F_GON,{
+morocc_in,45,126,3	script	Historiadora#prt02	4_F_GON,{
 	if ((MaxWeight-Weight) < 2000 || checkweight(1201,1) == 0) {
-		mes "^3355FFWait a second!";
-		mes "Right now, you're carrying";
-		mes "too many things with you.";
-		mes "Please come back after";
-		mes "using the Kafra Service";
-		mes "to store some of your items.^000000";
+		mes "^3355FFEspere um segundo!";
+		mes "Agora, você está carregando muitas coisas com você.";
+		mes "Por favor volte depois de usar o Serviço Kafra para armazenar alguns de seus itens.^000000";
 		close;
 	}
 	if (prt_curse == 6) {
 		if (countitem(7342) < 0) {
-			mes "^3355FFYou seem to have lost";
-			mes "Karlomoff's Report. You";
-			mes "needed to deliver here to";
-			mes "one of his colleagues...";
+			mes "^3355FFVocê parece ter perdido o Relatório de Karlomoff.";
+			mes "Você precisa entregá-lo para um de seus colegas neste local...";
 			close;
 		}
-		mes "[Historian Rodafrian]";
-		mes "Oh, how does this place";
-		mes "have to be so hot? This";
-		mes "can't be good for my skin...";
-		mes "Ooh, I wish I were back home";
-		mes "in the Schwaltzvalt Republic~";
+		mes "[Historiadora Rodafrian]";
+		mes "Ah, porque este local tem que ser tão quente?";
+		mes "Isso não pode ser bom para minha pele...";
+		mes "Aah, eu queria estar de volta em minha casa na República de Schwaltzvalt.";
 		emotion e_sob;
 		next;
-		mes "[Historian Rodafrian]";
-		mes "Hello there.";
-		mes "E-excuse me, but,";
-		mes "um, may I help you?";
+		mes "[Historiadora Rodafrian]";
+		mes "Olá.";
+		mes "Co-Com licença, posso ajudá-lo?";
 		next;
-		select("Mr. Karlomoff has sent me.");
-		mes "[Historian Rodafrian]";
+		select("O Sr. Karlomoff me enviou.");
+		mes "[Historiadora Rodafrian]";
 		mes "Karlomoff...?";
-		mes "Him? Alright...";
-		mes "What did he send";
-		mes "you to me for?";
+		mes "Ele? Tudo bem...";
+		mes "O que ele enviou para mim?";
 		next;
-		mes "^3355FFYou hand Karlomoff's";
-		mes "report to Rodafrian.^000000";
+		mes "^3355FFVocê entrega relatório de Karlomoff para Rodafrian.^000000";
 		next;
-		mes "[Historian Rodafrian]";
-		mes "A report? What does he";
-		mes "want to show off this time?";
-		mes "^333333*Sigh*^000000 Ah well, thanks for";
-		mes "the trouble. I'll look at it,";
-		mes "though I'm not expecting";
-		mes "much if Karlomoff wrote it.";
+		mes "[Historiadora Rodafrian]";
+		mes "Um relatório?";
+		mes "O que é que ele quer me mostrar dessa vez?";
+		mes "^333333*Suspiro*^000000";
+		mes "Oh bem, obrigada pelo problema.";
+		mes "Eu irei olhar o relatório, apesar de não esperar muito já que Karlomoff escreveu este relatório.";
 		next;
-		if (select("Ask her about her research:End conversation") == 1) {
-			mes "[Historian Rodafrian]";
-			mes "Oh, you know about the";
-			mes "Rekenber Historical Research";
-			mes "Group? Ah, right. Karlomoff";
-			mes "must have told you already.";
-			mes "Currently we're researching";
-			mes "the Rune-Midgarts Kingdom.";
+		if (select("Perguntar a ela sobre a pesquisa:Parar Conversa") == 1) {
+			mes "[Historiadora Rodafrian]";
+			mes "Ah, você sabe sobre o Grupo Histórico de Pesquisa Rekenber?";
+			mes "Karlomoff já deve ter falado com você.";
+			mes "Atualmente estamos pesquisando sobre o Reino de Rune-Midgard.";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "Now, while I understand the";
-			mes "value of ancient books and";
-			mes "records, I think Karlomoff";
-			mes "relies on them too much.";
-			mes "I prefer more active research";
-			mes "in the vein of archaelogy.";
+			mes "[Historiadora Rodafrian]";
+			mes "Agora, embora eu entenda o valor de livros antigos e registros.";
+			mes "Eu acho que Karlomoff se baseia neles demais.";
+			mes "Eu prefiro a investigação ativa que está na veia de um arqueólogo.";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "Right now, I'm spending";
-			mes "time in Morroc to visit the";
-			mes "Sphinx and Pyramids and see";
-			mes "if I can excavage some relics.";
-			mes "Hopefully I can uncover some new historical evidence that way.";
+			mes "[Historiadora Rodafrian]";
+			mes "No momento, eu estou gastando tempo em Morroc para visitar a";
+			mes "Esfinge e as Pirâmides e ver se eu posso escavar algumas relíquias.";
+			mes "Felizmente eu posso descobrir alguma nova evidência histórica por lá.";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "If you're interested in";
-			mes "learning more about Morroc's";
-			mes "history, please go ahead and";
-			mes "talk to my assistance. He's very passionate about studying this";
-			mes "town's culture and background.";
+			mes "[Historiadora Rodafrian]";
+			mes "Se você está interessado em aprender mais sobre a história de Morroc, então vá adiante e fale com meu assistente.";
+			mes "Ele é apaixonado por estudar a cultura e conhecimento desta cidade.";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "Actually, the people of";
-			mes "Morroc also appreciate their";
-			mes "town's history, and pass down";
-			mes "songs about ancient times";
-			mes "through the generations. Let's";
-			mes "see, how did that one go?";
+			mes "[Historiadora Rodafrian]";
+			mes "Realmente, o povo de Morroc sabe apreciar a história da cidade, e passa o poema sobre os tempos antigos através das gerações.";
+			mes "Vamos ver, como era mesmo?";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "^FF0000*The great serpent*^000000";
-			mes "^FF0000*swallowed the sea.*^000000";
-			mes "^FF0000*The eagle of the rainbow*^000000";
-			mes "^FF0000*swallowed the serpent, and*^000000";
-			mes "and... and... Um. Oh dear.";
+			mes "[Historiadora Rodafrian]";
+			mes "^FF0000*A grande serpente*^000000";
+			mes "^FF0000*engoliu o mar.*^000000";
+			mes "^FF0000*A águia do arco-íris*^000000";
+			mes "^FF0000*engoliu a serpente, e*^000000";
+			mes "e... e... Hm. Ah cara.";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "I can't remember the next";
-			mes "line! Actually, have you";
-			mes "heard this song before?";
+			mes "[Historiadora Rodafrian]";
+			mes "Eu não consigo lembrar a próxima linha!";
+			mes "Por acaso você já escutou este poema antes?";
 			next;
-			switch(select("Yes, I have.:Yes, but it is different.:No, sorry.")) {
+			switch(select("Sim, ja ouvi.:Sim, mas é diferente.:Não.")) {
 			case 1:
-				mes "[Historian Rodafrian]";
-				mes "Oh, that's great!";
-				mes "Would you provide";
-				mes "me with the line that";
-				mes "follows these lyrics?";
+				mes "[Historiadora Rodafrian]";
+				mes "Ah, isso é ótimo!";
+				mes "Poderia me dizer qual a linha que segue essa letra?";
 				next;
-				mes "^FF0000*The great serpent*^000000";
-				mes "^FF0000*swallowed the sea.*^000000";
-				mes "^FF0000*The eagle of the rainbow*^000000";
-				mes "^FF0000*swallowed the serpent.*^000000";
+				mes "^FF0000*A grande serpente*^000000";
+				mes "^FF0000*engoliu o mar.*^000000";
+				mes "^FF0000*A águia do arco-íris*^000000";
+				mes "^FF0000*engoliu a serpente.*^000000";
 				mes "......................";
 				next;
 				input .@answer$;
-				if (.@answer$ == "Then the eagle built its nest.") {
-					mes "[Historian Rodafrian]";
-					mes "Really? That makes";
-					mes "sense, but those lyrics";
-					mes "sound different than the";
-					mes "ones I had heard. Hmmmm...";
-					mes "If you don't mind, would you";
-					mes "please tell me your name?";
+				if (.@answer$ == "Então a águia construiu seu ninho.") {
+					mes "[Historiadora Rodafrian]";
+					mes "Sério? Faz sentido, mas estas letras são diferentes das que eu escutei.";
+					mes "Hmmmm...";
+					mes "Se você não se importa, poderia me dizer o seu nome?";
 					callsub S_GiveName,1;
 				}
 				else {
-					mes "[Historian Rodafrian]";
+					mes "[Historiadora Rodafrian]";
 					mes "Huh...?";
-					mes "That doesn't sound";
-					mes "right at all. Are you sure";
-					mes "that's the lyric you heard?";
+					mes "Isso não parece nada com o que eu escutei.";
+					mes "Você tem certeza de que essa é a letra que escutou?";
 					delitem 7342,1; //File01
 					prt_curse = 7;
 					close;
 				}
-
 			case 2:
-				mes "[Historian Rodafrian]";
-				mes "What was that?";
-				mes "The song is different?";
-				mes "Hmm. Then, would you";
-				mes "please sing the version";
-				mes "that you know to me?";
+				mes "[Historiadora Rodafrian]";
+				mes "Como é?";
+				mes "O poema é diferente?";
+				mes "Hmm....";
+				mes "Então, poderia cantar a versão que você sabe para mim?";
 				next;
-				mes "^3355FFYou clear your throat";
-				mes "and begin to sing the song";
-				mes "that you heard from Karlomoff.^000000";
+				mes "^3355FFVocê limpa a sua garganta e começa a cantar o poema que você escutou de Karlomoff.^000000";
 				next;
 				mes "["+strcharinfo(0)+"]";
 				input .@line$;
-				if (.@line$ == "The great serpent swallowed the sea.") {
+				if (.@line$ == "A grande serpente engoliu o mar.") {
 					.@total += 1;
-					mes "*The great serpent*";
-					mes "*swallowed the sea.*";
+					mes "*A grande serpente*";
+					mes "*engoliu o mar.*";
 				}
 				else mes "* "+.@line$+"*";
 
 				input .@line$;
-				if (.@line$ == "The eagle of the rainbow swallowed the serpent.") {
+				if (.@line$ == "A águia do arco-íris engoliu a serpente.") {
 					.@total += 1;
-					mes "*The eagle of the rainbow*";
-					mes "*swallowed the serpent.*";
+					mes "*A águia do arco-íris*";
+					mes "*engoliu a serpente.*";
 				}
 				else mes "*"+.@line$+"*";
 
 				input .@line$;
-				if (.@line$ == "Then the eagle built its nest.") {
+				if (.@line$ == "A águia então construiu seu ninho.") {
 					.@total += 1;
-					mes "*Then the eagle built its nest.*";
+					mes "*A águia então construiu seu ninho.*";
 				}
 				else mes "*"+.@line$+"*";
 
 				input .@line$;
-				if (.@line$ == "A nest upon the swallowed sea.") {
+				if (.@line$ == "Um ninho sob o mar encoberto.") {
 					.@total += 1;
-					mes "*A nest upon the swallowed sea.*";
+					mes "*Um ninho sob o mar encoberto.*";
 				}
 				else mes "*"+.@line$+"*";
 				next;
 				if (.@total == 4) {
-					mes "[Historian Rodafrian]";
-					mes "Really? That makes";
-					mes "sense, but those lyrics";
-					mes "sound different than the";
-					mes "ones I had heard. Hmmmm...";
-					mes "If you don't mind, would you";
-					mes "please tell me your name?";
+					mes "[Historiadora Rodafrian]";
+					mes "Sério? Faz sentido, mas estas letras são diferentes das que eu escutei.";
+					mes "Hmmmm...";
+					mes "Se você não se importa, poderia me dizer o seu nome?";
 					callsub S_GiveName,1;
 				}
 				else {
-					mes "[Historian Rodafrian]";
+					mes "[Historiadora Rodafrian]";
 					mes "Huh...?";
-					mes "That doesn't sound right";
-					mes "at all. Are you sure those";
-					mes "are the lyrics you heard?";
+					mes "Isso não parece nada com o que eu escutei.";
+					mes "Você tem certeza de que essa é a letra que escutou?";
 					delitem 7342,1; //File01
 					prt_curse = 7;
 					close;
 				}
-
 			case 3:
-				mes "[Historian Rodafrian]";
+				mes "[Historiadora Rodafrian]";
 				mes "............";
 				mes "........................";
-				mes "Well then. Would you";
-				mes "mind if I ask you for";
-				mes "your name, adventurer?";
+				mes "Pois bem.";
+				mes "Você poderia me dizer o seu verdadeiro nome, aventureiro?";
 				callsub S_GiveName,1;
 			}
 		}
-		mes "[Historian]";
-		mes "Although I love doing my";
-		mes "research and uncovering";
-		mes "new information regarding";
-		mes "history, I feel a little lonely";
-		mes "sometimes. Not many people";
-		mes "share my interests, you know...";
+		mes "[Historiador]";
+		mes "Embora eu ame fazer pesquisas e descobrir novas informações históricas.";
+		mes "Me sinto solitária algumas vezes.";
+		mes "Não são muitas as pessoas que compartilham o meu interesse, você sabe...";
 		close;
 	}
 	else if (prt_curse == 7) {
-		mes "^3355FFArms folded, Rodafrian";
-		mes "seems to be deep in thought.";
-		mes "Then, as if making making";
-		mes "an important decision, she";
-		mes "looks directly into your eyes";
-		mes "and begins to speak.^000000";
+		mes "^3355FFCom os braços cruzados, Rodafrian parece pensar profundamente.";
+		mes "Então, como se ela estivesse tomando uma decisão importante.";
+		mes "Ela olha diretamente em seus olhos e começa a falar.^000000";
 		next;
-		mes "[Historian Rodafrian]";
-		mes "Adventurer...";
-		mes "I want to know your name.";
+		mes "[Historiadora Rodafrian]";
+		mes "Aventureiro...";
+		mes "Quero saber o seu nome.";
 		callsub S_GiveName,0;
 	}
 	else if (prt_curse > 7 && prt_curse < 30) {
-		mes "[Historian Rodafrian]";
-		mes "As I recall, Mondo should";
-		mes "be at Mount Mjolnir, located";
-		mes "in the northern region of the";
-		mes "Rune-Midgarts Kingdom. Ask";
-		mes "him for the lyrics of the song that I can't seem to remember...";
+		mes "[Historiadora Rodafrian]";
+		mes "Pelo que me lembro, Mondo deve estar no Monte Mjolnir, localizado na região norte do Reino de Rune-Midgard.";
+		mes "Pergunte a ele pelas letras do poema que eu não consigo me lembrar...";
 		close;
 	}
 	else if (prt_curse == 30 || prt_curse == 55) {
-		mes "[Historian Rodafrian]";
-		mes "Oh, you've returned.";
-		mes "Have you met with Mondo";
-		mes "and figured out the lyrics of";
-		mes "that song I was looking for?";
+		mes "[Historiadora Rodafrian]";
+		mes "Oh, você retornou.";
+		mes "Você se encontrou com Mondo e conseguiu as letras do poema que eu estava procurando?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "^FF0000*The great serpent*^000000";
-		mes "^FF0000*swallowed the sea.*^000000";
-		mes "^FF0000*The eagle of the rainbow*^000000";
-		mes "^FF0000*swallowed the serpent.*^000000";
-		mes "^FF0000*Then snake scales grew on*^000000";
-		mes "^FF0000*the eagle, and it slowly died.*^000000";
+		mes "^FF0000*A grande serpente*^000000";
+		mes "^FF0000*engoliu o mar.*^000000";
+		mes "^FF0000*A águia do arco-íris*^000000";
+		mes "^FF0000*engoliu a serpente.*^000000";
+		mes "^FF0000*Então escamas de cobra cresceram*^000000";
+		mes "^FF0000*na águia, e ela morreu lentamente.*^000000";
 		next;
-		mes "[Historian Rodafrian]";
-		mes "Oh, yes!";
-		mes "Yes, that was it! Now";
-		mes "I remember, thank you";
-		mes "so much! Ah, back to work...";
+		mes "[Historiadora Rodafrian]";
+		mes "Ah, sim!";
+		mes "Sim, era isso!";
+		mes "Agora eu lembrei, muito obrigada!";
+		mes "Ah, de volta ao trabalho...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "^333333(As a historian, Rodafrian";
-		mes "might be able to help me in";
-		mes "investigating the curse of the";
-		mes "Gaebolgs. The priests told me";
-		mes "not to tell anybody, though.";
-		mes "Should I take this risk?)^000000";
+		mes "^333333(Como historiadora, Rodafrian talvez possa me ajudar na investigação sobre a maldição dos Gaebolgs.";
+		mes "Os sacerdotes me disseram para não contar a ninguém, sem exceção.";
+		mes "Eu devo correr este risco?)^000000";
 		next;
-		if (select("Tell her about Jormungand's curse:Don't tell her") == 1) {
-			mes "^3355FFYou explain everything";
-			mes "that you have learned to";
-			mes "Rodafrian, choosing not";
-			mes "to withhold any secrets.^000000";
+		if (select("Dizer a ela sobre a Maldição de Jormungand:Não dizer a ela") == 1) {
+			mes "^3355FFVocê explica tudo que você aprendeu para Rodafrian, escolhendo não esconder nenhum segredo.^000000";
 			emotion e_ic;
 			next;
-			mes "[Historian Rodafrian]";
+			mes "[Historiadora Rodafrian]";
 			mes ".....................!";
 			emotion e_gasp;
 			next;
-			mes "[Historian Rodafrian]";
-			mes "Thank you for sharing that";
-			mes "with me. I hope you realize";
-			mes "how precious that information";
-			mes "is. I had no idea the royal";
-			mes "family was keeping that kind";
-			mes "of secret. Goodness, me...";
+			mes "[Historiadora Rodafrian]";
+			mes "Obrigada por compartilhar isso comigo.";
+			mes "Espero que você perceba como essa informação é preciosa.";
+			mes "EU não tinha idéia de que a família real mantinha essa espécie de segredo.";
+			mes "Ótimo para mim...";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "You know, I don't really";
-			mes "know much about poison, but";
-			mes "I do know that, aside from our";
-			mes "own Assassins, there are poison";
-			mes "experts living in some strange";
-			mes "land located to the west.";
+			mes "[Historiadora Rodafrian]";
+			mes "Você sabe, eu não sei muito sobre veneno, mas eu sei que, pelos nossos próprios Mercenários.";
+			mes "São especialistas em veneno vivendo em alguma terra estranha localizada a oeste.";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "Anyway, your report about";
-			mes "the Gaebolg family will be";
-			mes "greatly appreciated by the";
-			mes "Rekenber Historical Research";
-			mes "Group. But first, I need to";
-			mes "finish this Morroc project...";
+			mes "[Historiadora Rodafrian]";
+			mes "Sendo assim, seu relatório sobre a família Gaebolg será muito apreciado pelo Grupo de Pesquisa Histórica Rekenber.";
+			mes "Mas primeiro, eu preciso terminar este projeto de Morroc...";
 			next;
-			mes "[Historian Rodafrian]";
-			mes "Anyway, keep this information";
-			mes "a secret between me and you";
-			mes "for now. Then, when I reveal the secret curse of the Gaebolg royal";
-			mes "family, I'll finally outshine that Karlomoff! Bwahahahahaha!";
+			mes "[Historiadora Rodafrian]";
+			mes "De qualquer forma, mantenha esta informação como segredo entre eu e você por enquanto.";
+			mes "Então, quando eu revelar o segredo da Maldição de Gaebolg sobre a família real.";
+			mes "Eeu finalmente deixarei Karmoloff para trás! Muahahahahaha!";
 			next;
 			mes "["+strcharinfo(0)+"]";
-			mes "^333333(Drat, she didn't give me";
-			mes "any help... All I did was";
-			mes "reveal a huge secret to her";
-			mes "that she might spread around!";
-			mes "Oh well, I guess I better head";
-			mes "back to the priests...)^000000";
+			mes "^333333(Droga, ela não me ajudou em nada...";
+			mes "Tudo que eu fiz foi revelar um grande segredo a ela com o risco dela sair espalhando!";
+			mes "Ah bem, acho melhor voltar para os sacerdotes...)^000000";
 			if (prt_curse == 30)  {
 				prt_curse = 31;
 				changequest 18042,18044;
@@ -1259,28 +1000,16 @@ morocc_in,45,126,3	script	Historian#prt02	4_F_GON,{
 			}
 			close;
 		}
-
-		mes "[Historian Rodafrian]";
-		mes "Oh, let me thank you";
-		mes "once again for going";
-		mes "through the trouble of";
-		mes "getting that lyric for me~";
-		mes "I put my assistant through";
-		mes "enough trouble already...";
+		mes "[Historiadora Rodafrian]";
+		mes "Ah, deixe-me lhe agradeçer mais uma vez por resolver o problema conseguindo as letras do poema para mim.";
+		mes "Eu já coloquei meu assistente em problemas o suficiente...";
 		next;
-		mes "[Historian Rodafrian]";
-		mes "I also better not forget";
-		mes "to go through Karlomoff's";
-		mes "report. I'll have to have a";
-		mes "debate with him sooner or";
-		mes "later, and I really want to";
-		mes "put that guy in his place!";
+		mes "[Historiadora Rodafrian]";
+		mes "Eu também não posso me esquecer de enviar o relatório de Karlomoff.";
+		mes "Eu terei que ter um debate com ele mais cedo ou mais tarde, e eu quero de verdade colocar este cara em seu lugar!";
 		next;
-		mes "^3355FFRodafrian seemed very";
-		mes "happy and began to read";
-		mes "through Karlomoff's report.";
-		mes "For now, it would be best";
-		mes "to return to Father Bamph.^000000";
+		mes "^3355FFRodafrian parece muito feliz e começa a ler o relatório de Karlomoff.";
+		mes "Por enquanto, é melhor voltar ao Padre Bamph.^000000";
 		if (prt_curse == 30) {
 			prt_curse = 40;
 			changequest 18042,18045;
@@ -1291,226 +1020,161 @@ morocc_in,45,126,3	script	Historian#prt02	4_F_GON,{
 		close;
 	}
 	else if (prt_curse == 31 || prt_curse == 40) {
-		mes "^3355FFRodafrian seemed very";
-		mes "happy and began to read";
-		mes "through Karlomoff's report.";
-		mes "For now, it would be best";
-		mes "to return to Father Bamph.^000000";
+		mes "^3355FFRodafrian parece muito feliz e começa a ler o relatório de Karlomoff.";
+		mes "Por enquanto, é melhor voltar ao Padre Bamph.^000000";
 		close;
 	}
 	else if (prt_curse == 56) {
 		emotion e_an;
-		mes "[Historian Rodafrian]";
-		mes "I just paid a visit to";
-		mes "Karlomoff and gave him";
-		mes "a piece of my mind! I think...";
-		mes "I think I put him in his place.";
-		mes "But I can never really tell";
-		mes "with that sneaky guy...";
+		mes "[Historiadora Rodafrian]";
+		mes "Eu pago para ter uma visita a do que eu tenho na mente!";
+		mes "Eu acho que colocarei ele em seu lugar.";
+		mes "Mas eu nunca poderia falar calmamente com este cara...";
 		close;
 	}
 	else if (prt_curse == 60) {
 		emotion e_an;
-		mes "[Historian Rodafrian]";
-		mes "I just aid a visit to";
-		mes "Karlomoff and gave him";
-		mes "a piece of my mind! I think...";
-		mes "I think I put him in his place.";
-		mes "But I can never really tell";
-		mes "with that sneaky guy...";
+		mes "[Historiadora Rodafrian]";
+		mes "Eu pago para ter uma visita a do que eu tenho na mente! Eu acho...";
+		mes "Eu acho que colocarei ele em seu lugar.";
+		mes "Mas eu nunca poderia falar calmamente com este cara...";
 		next;
-		mes "It doesn't look like";
-		mes "Rodafrian can offer you";
-		mes "any more information. For";
-		mes "now, it would be best to";
-		mes "go to ^3355FFProntera Church.^000000";
+		mes "Não parece que";
+		mes "Rodafrian possa lhe oferecer mais nenhuma informação.";
+		mes "Mas agora, seria melhor ir para a ^3355FFCatedral de Prontera.^000000";
 		close;
 	}
 	else {
-		mes "[Historian Rodafrian]";
-		mes "I'm sorry, but I'm";
-		mes "really very busy with my";
-		mes "research at the moment.";
-		mes "Perhaps we can talk later";
-		mes "once I've completed this?";
+		mes "[Historiadora Rodafrian]";
+		mes "Lamento, mas eu estou muito ocupada com a pesquisa no momento.";
+		mes "Talvez possamos conversar depois que eu terminar aqui?";
 		close;
 	}
 
 S_GiveName:
 	next;
-	select("My name is "+strcharinfo(0)+".");
-	mes "[Historian Rodafrian]";
-	mes "Ah "+strcharinfo(0)+", eh?";
-	mes "Do you mind if I ask you a favor? I really need to verify the true";
-	mes "lyrics for this song. However,";
-	mes "I need to stay here in Morroc";
-	mes "to complete my research.";
+	select("Meu nome é "+strcharinfo(0)+".");
+	mes "[Historiadora Rodafrian]";
+	mes "Ah "+strcharinfo(0)+", é?";
+	mes "Será que eu posso lhe pedir um favor?";
+	mes "Eu realmente preciso verificar se são verdadeiras as letras deste poema.";
+	mes "No entanto, eu preciso ficar aqui em Morroc para completar minha pesquisa.";
 	next;
-	mes "[Historian Rodafrian]";
-	mes "Would you please find my";
-	mes "colleague Mondo and ask him";
-	mes "for this song's lyrics? You can";
-	mes "find him in the ancient ruins";
-	mes "in Mount Mjolnir, north in the";
-	mes "Rune-Midgarts Kingdom.";
+	mes "[Historiadora Rodafrian]";
+	mes "Você poderia encontrar meu colega Mondo e perguntar a ele sobre as letras do poema?";
+	mes "Você pode encontrá-lo nas ruínas antigas no Monte Mjolnir, a norte do Reino de Rune-Midgard.";
 	next;
-	mes "[Historian Rodafrian]";
-	mes "I apologize for asking";
-	mes "you to do what sounds like";
-	mes "a silly errand, but I actually";
-	mes "need to know this song's lyrics";
-	mes "for the sake of my research...";
+	mes "[Historiadora Rodafrian]";
+	mes "Peço desculpas para pedir a para fazer uma coisa que parece ser coletiva.";
+	mes "Mas eu preciso muito de saber as letras do poema pelo bem de minha conversa...";
 	if (getarg(0) == 1) delitem 7342,1; //File01
 	prt_curse = 8;
 	changequest 18031,18032;
 	close;
 }
 
-mjolnir_01,135,168,3	script	Historian#prt03	4_M_SAGE_A,{
+mjolnir_01,135,168,3	script	Historiador#prt03	4_M_SAGE_A,{
 	if ((MaxWeight-Weight) < 2000 || checkweight(1201,1) == 0) {
-		mes "^3355FFWait a second!";
-		mes "Right now, you're carrying";
-		mes "too many things with you.";
-		mes "Please come back after";
-		mes "using the Kafra Service";
-		mes "to store some of your items.^000000";
+		mes "^3355FFEspere um segundo!";
+		mes "Agora, você está carregando muitas coisas com você.";
+		mes "Por favor volte depois de usar o Serviço Kafra para armazenar alguns de seus itens.^000000";
 		close;
 	}
 	if (prt_curse == 8) {
-		mes "[Historian Mondo]";
-		mes "Excuse me...";
-		mes "But if you don't have";
-		mes "anything important for";
-		mes "me, then would you";
-		mes "please leave? I have";
-		mes "research to attend to...";
+		mes "[Historiador Mondo]";
+		mes "Com licença...";
+		mes "Mas se você não tem nada importante para mim, então poderia me deixar em paz?";
+		mes "Eu preciso pesquisar para atender a...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "I'm sorry, but Ms. Rodafrian";
-		mes "wanted me to ask you for the";
-		mes "lyrics of some song describing";
-		mes "the Rune-Midgarts Kingdom's";
-		mes "founding. Would you tell";
-		mes "them to me for her?";
+		mes "Me desculpe, mas a Sra. Rodafrian me pediu para lhe perguntar pelas letras de um poema que explica a criação do Reino de Rune-Midgard.";
+		mes "Poderia me dizer para passar para ela?";
 		next;
-		mes "[Historian Mondo]";
-		mes "Rodafrian? Oh, she must";
-		mes "mean that old children's";
-		mes "song. How did it go now?";
-		mes "Ah, now I remember...";
+		mes "[Historiador Mondo]";
+		mes "Rodafrian? Ah, ela deve estar falando do poema de quando éramos crianças.";
+		mes "Como era mesmo?";
+		mes "Ah, agora eu me lembrei...";
 		next;
-		mes "[Historian Mondo]";
-		mes "^FF0000*The great serpent*^000000";
-		mes "^FF0000*swallowed the sea.*^000000";
-		mes "^FF0000*The eagle of the rainbow*^000000";
-		mes "^FF0000*swallowed the serpent.*^000000";
-		mes "^FF0000*Then snake scales grew on*^000000";
-		mes "^FF0000*the eagle, and it slowly died.*^000000";
+		mes "[Historiador Mondo]";
+		mes "^FF0000*A grande serpente*^000000";
+		mes "^FF0000*engoliu o mar.*^000000";
+		mes "^FF0000*A águia do arco-íris*^000000";
+		mes "^FF0000*engoliu a serpente.*^000000";
+		mes "^FF0000*Então escamas de cobra cresceram*^000000";
+		mes "^FF0000*na águia, e ela morreu lentamente.*^000000";
 		next;
 		select("...........?");
-		mes "[Historian Mondo]";
-		mes "Yes, I know: the song";
-		mes "is rather morbid, despite";
-		mes "the fact that it's sung like";
-		mes "such a happy song. Sometimes";
-		mes "these little songs are supposed";
-		mes "to scare kids into doing good.";
+		mes "[Historiador Mondo]";
+		mes "Sim, eu sei: o poema é bastante mórbido, apesar do fato de que ele é cantado como um poema feliz.";
+		mes "Algumas vezes estes pequenos poemas são feitos para assustarem crianças para que elas façam o bem.";
 		next;
-		select("Excuse me...");
-		mes "[Historian Mondo]";
-		mes "Hm? You look confused.";
-		mes "Did you have a question";
-		mes "to ask me about the song?";
+		select("Com licença...");
+		mes "[Historiador Mondo]";
+		mes "Hm? Você parece confuso.";
+		mes "Você tem alguma pergunta para fazer sobre este poema?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Actually, I heard";
-		mes "a different version";
-		mes "of this song, so I was";
-		mes "wondering why the lyrics";
-		mes "would be different...";
+		mes "Na verdade, eu ouvi uma versão diferente deste poema, então eu estava me perguntando porque as letras são diferentes...";
 		next;
-		mes "[Historian Mondo]";
-		mes "Really now?";
-		mes "Well then, let me";
-		mes "hear the version that";
-		mes "you've heard, starting";
-		mes "from the beginning.";
+		mes "[Historiador Mondo]";
+		mes "Sério?";
+		mes "Bem então, deixe-me escutar a versão que você escutou, começando do início.";
 		next;
 		callsub S_Song;
 	}
 	else if (prt_curse == 9) {
-		mes "[Historian Mondo]" ;
-		mes "Ah, would you tell me";
-		mes "the lyrics of the version of";
-		mes "the Rune-Midgarts Kingdom";
-		mes "founding myth song that";
-		mes "you happened to hear?";
+		mes "[Historiador Mondo]" ;
+		mes "Ah, você poderia me dizer as letras da versão do poema sobre o mito da criação do Reino de Rune-Midgard que você ouviu?";
 		next;
 		callsub S_Song;
 	}
 	else if (prt_curse == 10) {
-		mes "[Historian Mondo]";
-		mes "Interesting...";
-		mes "The version you heard";
-		mes "from Karlomoff is different";
-		mes "than the one I know. It's";
-		mes "possible that his version";
-		mes "is the most authentic.";
+		mes "[Historiador Mondo]";
+		mes "Interessante...";
+		mes "A versão que você ouviu de";
+		mes "Karlomoff é diferente da";
+		mes "que eu sei. É possível";
+		mes "que essa versão seja a mais";
+		mes "autêntica.";
 		next;
-		mes "[Historian Mondo]";
-		mes "After all, I learned";
-		mes "the version I know";
-		mes "by listening to a";
-		mes "little kid sing it.";
+		mes "[Historiador Mondo]";
+		mes "Afinal, eu aprendi";
+		mes "esta versão que eu sei";
+		mes "escutando um garoto";
+		mes "cantá-la.";
 		next;
-		select("A kid?");
-		mes "[Historian Mondo]";
-		mes "Yeah. My guess? The version";
-		mes "that the kid sang might have";
-		mes "changed as it was transmitted";
-		mes "by mouth through the generations. If you want to learn more, you";
-		mes "should probably find that kid.";
+		select("Um garoto?");
+		mes "[Historiador Mondo]";
+		mes "Eh. Eu acho que esta versão";
+		mes "que o garoto cantou possa ter";
+		mes "se modificado quando foi passada";
+		mes "de boca a boca pelas gerações. Se você quiser saber mais, você";
+		mes "provavelmente deve encontrar este garoto.";
 		next;
-		mes "[Historian Mondo]";
-		mes "Anyway, Karlomoff may have";
-		mes "the most accurate version of";
-		mes "the song since he's very good";
-		mes "at procuring and authenticating";
-		mes "historical written records and";
-		mes "documents. It's his specialty.";
+		mes "[Historiador Mondo]";
+		mes "De qualquer forma, Karlomoff deve ter a versão mais fiel do poema já que ele é bom em aquisições e autenticações de registros históricos escritos.";
+		mes "Essa é a sua especialidade.";
 		next;
-		mes "[Historian Mondo]";
-		mes "Ah, if you want to learn more,";
-		mes "then you should try to find the";
-		mes "kid that was singing the song.";
-		mes "Hmm, he might be around ^3131DDthe";
-		mes "river near here^000000. Hopefully it";
-		mes "won't be too hard to find him.";
+		mes "[Historiador Mondo]";
+		mes "Ah, Se você quiser saber mais, então você deve tentar encontrar o garoto que estava cantando o poema.";
+		mes "Hmm, ele deve estar ^3131DDperto do rio que fica aqui^000000.";
+		mes "Felizmente não será difícil de encontrá-lo.";
 		next;
-		mes "[Historian Mondo]";
-		mes "Once you're able to talk";
-		mes "to that kid, go ahead and";
-		mes "report back to Rodafrian.";
-		mes "She probably needs to know";
-		mes "soon, and I can talk to that";
-		mes "little kid at my leisure, so...";
+		mes "[Historiador Mondo]";
+		mes "Assim que você puder falar com o garoto, vá e fale sobre isso para Rodafrian.";
+		mes "Ela provavelmente precisa saber logo, e eu posso falar com este pequeno garoto por minha vontade, mas...";
 		next;
-		mes "[Historian Mondo]";
-		mes "Well then, I hope you";
-		mes "find what you're looking";
-		mes "for. Good luck in your";
-		mes "travels, adventurer.";
+		mes "[Historiador Mondo]";
+		mes "Pois bem, eu espero que você encontre o que está procurando.";
+		mes "Boa sorte em suas viagens, aventureiro.";
 		prt_curse = 11;
 		changequest 18032,18033;
 		close;
 	}
 	else {
-		mes "[Historian Mondo]";
-		mes "Isn't this such";
-		mes "a beautiful place?";
-		mes "It's no wonder that";
-		mes "ancient peoples chose";
-		mes "to live around here...";
+		mes "[Historiador Mondo]";
+		mes "Este não é um lindo lugar?";
+		mes "Não me admira que povos antigos escolheram viver por aqui...";
 		close;
 	}
 
@@ -1518,37 +1182,36 @@ mjolnir_01,135,168,3	script	Historian#prt03	4_M_SAGE_A,{
 S_Song:
 	mes "["+strcharinfo(0)+"]";
 	input .@line$;
-	if (.@line$ == "The great serpent swallowed the sea.") {
+	if (.@line$ == "A grande serpente engoliu o mar.") {
 		.@total += 1;
-		mes "*The great serpent*";
-		mes "*swallowed the sea.*";
+		mes "*A grande serpente*";
+		mes "*engoliu o mar.*";
 	}
 	else mes "*"+.@line$+"*";
 
 	input .@line$;
-	if (.@line$ == "The eagle of the rainbow swallowed the serpent.") {
+	if (.@line$ == "A águia do arco-íris engoliu a serpente.") {
 		.@total += 1;
-		mes "*The eagle of the rainbow*";
-		mes "*swallowed the serpent.*";
+		mes "*A águia do arco-íris*";
+		mes "*engoliu a serpente.*";
 	}
 	else mes "*"+.@line$+"*";
 
 	input .@line$;
-	if (.@line$ == "Then the eagle built its nest.") .@total += 1;
+	if (.@line$ == "A águia então construiu seu ninho.") .@total += 1;
 	mes "*"+.@line$+"*";
 
 	input .@line$;
-	if (.@line$ == "A nest upon the swallowed sea.") .@total += 1;
+	if (.@line$ == "Um ninho sob o mar encoberto.") .@total += 1;
 	mes "*"+.@line$+"*";
 
 	if (.@total == 4) prt_curse = 10;
 	else {
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Wait, wait...";
-		mes "I think I messed up!";
-		mes "(Those weren't the";
-		mes "correct lyrics...)";
+		mes "Espera, espera...";
+		mes "Eu acho que misturei tudo!";
+		mes "(Estas não são as letras corretas...)";
 		prt_curse = 9;
 	}
 	close;
@@ -1557,8 +1220,8 @@ S_Song:
 mjolnir_01,298,302,0	script	#prt_poem01	-1,2,2,{
 OnTouch:
 	if (prt_curse == 11) {
-		mes "^FF0000*The great serpent*^000000";
-		mes "^FF0000*swallowed the sea.*^000000";
+		mes "^FF0000*A grande serpente*^000000";
+		mes "^FF0000*engoliu o mar.*^000000";
 		close;
 	}
 	end;
@@ -1567,8 +1230,8 @@ OnTouch:
 mjolnir_01,300,297,0	script	#prt_poem02	-1,2,2,{
 OnTouch:
 	if (prt_curse == 11) {
-		mes "^FF0000*The great serpent*^000000";
-		mes "^FF0000*swallowed the sea.*^000000";
+		mes "^FF0000*A grande serpente*^000000";
+		mes "^FF0000*engoliu o mar.*^000000";
 		close;
 	}
 	end;
@@ -1577,8 +1240,8 @@ OnTouch:
 mjolnir_01,292,288,0	script	#prt_poem03	-1,2,2,{
 OnTouch:
 	if (prt_curse == 11) {
-		mes "^FF0000*The eagle of the rainbow*^000000";
-		mes "^FF0000*swallowed the serpent.*^000000";
+		mes "^FF0000*A águia do arco-íris*^000000";
+		mes "^FF0000*engoliu a serpente.*^000000";
 		close;
 	}
 	end;
@@ -1587,8 +1250,8 @@ OnTouch:
 mjolnir_01,302,286,0	script	#prt_poem04	-1,2,2,{
 OnTouch:
 	if (prt_curse == 11) {
-		mes "^FF0000*Then snake scales*^000000";
-		mes "^FF0000*grew on the eagle...*^000000";
+		mes "^FF0000*Depois, escamas da serpente*^000000";
+		mes "^FF0000*cresceram na águia...*^000000";
 		close;
 	}
 	end;
@@ -1597,87 +1260,70 @@ OnTouch:
 mjolnir_01,313,279,0	script	#prt_poem05	-1,2,2,{
 OnTouch:
 	if (prt_curse == 11) {
-		mes "^FF0000*And it slowly died...*^000000";
+		mes "^FF0000*E ela morreu lentamente...*^000000";
 		close;
 	}
 	end;
 }
 
 mjolnir_01,312,269,5	script	Dog#prt	4_DOG01,{
-	mes "[Dog]";
-	mes "Bow Wow!";
+	mes "[Cão]";
+	mes "Au, Au!";
 	close;
 }
 
-mjolnir_01,313,269,5	script	Dazed Boy#prt	4_M_KID1,{
+mjolnir_01,313,269,5	script	Garoto Distraído#prt	4_M_KID1,{
 	if (prt_curse == 11) {
-		mes "[Absent-Minded Boy]";
-		mes "The great serpent";
-		mes "swallowed the sea.";
-		mes "The eagle of the rainbow";
-		mes "swallowed the serpent.";
-		mes "Then snake scales grew on";
-		mes "the eagle, and it slowly died.";
+		mes "[Garoto Distraído]";
+		mes "A grande serpente engoliu o mar.";
+		mes "A águia do arco-íris engoliu a serpente.";
+		mes "Então escamas de cobra cresceram na águia, e ela morreu lentamente.";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "Goodness...!";
-		mes "Will you please stop";
-		mes "singing that song?";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Pelo amor de Deus...!";
+		mes "Poderia por favor parar de cantar este poema?";
 		next;
-		mes "[Absent-Minded Boy]";
+		mes "[Garoto Distraído]";
 		mes "..................";
 		next;
-		mes "^3355FFThe little boy quietly";
-		mes "stared at the woman for a";
-		mes "little bit, and then crouched";
-		mes "down and began petting a";
-		mes "dog sitting next to him.^000000";
+		mes "^3355FFO pequeno garoto calmamente olha para a mulher por um momento.";
+		mes "Em seguida se agacha e começa a brincar com o cachorro perto dele.^000000";
 		next;
-		if (select("What did you just sing?:Ignore them") == 1) {
-			mes "[Absent-Minded Boy]";
+		if (select("O que você acabou de cantar?:Ignorá-lo") == 1) {
+			mes "[Garoto Distraído]";
 			mes "...";
 			mes "......";
 			mes ".........";
 			next;
-			mes "[Absent-Minded Boy]";
-			mes "Woof-woof, have you";
-			mes "heard this song? Mommy";
-			mes "taught me to sing it, you";
-			mes "know. She says it was sung";
-			mes "by people for a long time~";
+			mes "[Garoto Distraído]";
+			mes "Au-au, você escutou este poema?";
+			mes "Mamãe me ensinou a cantar, você sabe.";
+			mes "Ela diz que foi cantado por pessoas por muito tempo.";
 			next;
-			mes "^3355FFThe boy continued speaking";
-			mes "to the dog like an old friend,";
-			mes "ignoring your presence and";
-			mes "acting as if you didn't exist.^000000";
+			mes "^3355FFO garoto continuou falando com o cachorro como se fosse um velho amigo.";
+			mes "Ignorando a sua presença e agindo como se você não existisse.^000000";
 			next;
-			mes "[Exhausted-Looking Woman]";
+			mes "[Mulher Parecendo Exausta]";
 			mes "Kaanu...";
-			mes "What did I tell";
-			mes "you about ignoring";
-			mes "people's questions!";
+			mes "O que eu lhe disse sobre ignorar as perguntas de pessoas!";
 			next;
 			mes "[Kaanu]";
 			mes ".........";
 			mes "..................";
-			mes "Uh oh, Woof-woof.";
-			mes "Mommy seems upset";
-			mes "for some reason.";
+			mes "Uh oh, Au-au.";
+			mes "Mamãe parece perturbada por algum motivo.";
 			next;
-			mes "[Exhausted-Looking Woman]";
-			mes "I'm sorry, my kid is...";
-			mes "Look, did you want to know";
-			mes "more about that song? Try";
-			mes "not to worry about it: it's just an old children's tune.";
+			mes "[Mulher Parecendo Exausta]";
+			mes "Me desculpe, meu garoto é...";
+			mes "Olha, você quer saber mais sobre este poema?";
+			mes "Tente não se preocupar com isso: é apenas uma música infantil.";
 			next;
-			if (select("Why are you here?:May I hear the song again?") == 1) {
-				mes "[Exhausted-Looking Woman]";
+			if (select("O que você faz aqui?:Posso ouvir o poema novamente?") == 1) {
+				mes "[Mulher Parecendo Exausta]";
 				mes ".................";
 				next;
-				mes "^3355FFThe woman's lip tightens";
-				mes "with shame. It's obvious";
-				mes "that this topic makes her";
-				mes "feel very uncomfortable.^000000";
+				mes "^3355FFA mulher parece estar envergonhada.";
+				mes "É óbvio que este assunto deixa ela desconfortável.^000000";
 				next;
 				mes "[Kaanu]";
 				mes "...";
@@ -1685,156 +1331,117 @@ mjolnir_01,313,269,5	script	Dazed Boy#prt	4_M_KID1,{
 				mes ".........";
 				next;
 				mes "[Kaanu]";
-				mes "Woof-woof, do you know";
-				mes "why Mommy is always";
-				mes "so sad? I wish I knew";
-				mes "why Mommy never smiles...";
+				mes "Au-au, você sabe porque mamãe está sempre triste?";
+				mes "Gostaria de saber porquê minha mãe nunca sorri...";
 				next;
-				mes "[Exhausted-Looking Woman]";
+				mes "[Mulher Parecendo Exausta]";
 				mes "........";
 				prt_curse = 12;
 				close;
 			}
-			mes "[Exhausted-Looking Woman]";
+			mes "[Mulher Parecendo Exausta]";
 			mes "..................";
 			next;
-			mes "[Exhausted-Looking Woman]";
-			mes "Okay. I can do this";
-			mes "simple thing for you.";
-			mes "Let me recite this song...";
+			mes "[Mulher Parecendo Exausta]";
+			mes "Ok. Eu posso fazer essa coisa para você.";
+			mes "Deixe-me recitar este poema...";
 			next;
-			mes "[Exhausted-Looking Woman]";
-			mes "The great serpent";
-			mes "swallowed the sea.";
-			mes "The eagle of the rainbow";
-			mes "swallowed the serpent.";
-			mes "Then snake scales grew on";
-			mes "the eagle, and it slowly died.";
+			mes "[Mulher Parecendo Exausta]";
+			mes "A grande serpente engoliu o mar.";
+			mes "A águia do arco-íris engoliu a serpente.";
+			mes "Então escamas de cobra cresceram na águia, e ela morreu lentamente.";
 			prt_curse = 12;
 			close;
 		}
-		mes "[Absent-Minded Boy]";
+		mes "[Garoto Distraído]";
 		mes "...";
 		mes "......";
 		mes ".........";
 		close;
 	}
 	else if (prt_curse == 36) {
-		mes "^3355FFThe little boy looked";
-		mes "very worn and weary of";
-		mes "life, a look that is very";
-		mes "unsettling on the face";
-		mes "of a young child.^000000";
+		mes "^3355FFEste pequeno garoto parece muito desgastado e cansado da vida.";
+		mes "Um olhar muito inquietante no rosto desta criança jovem.^000000";
 		close;
 	}
 	else if (prt_curse == 45) {
-		mes "^3355FFThe little boy still";
-		mes "won't talk to you, but";
-		mes "he acknowledges your";
-		mes "presense by making eye";
-		mes "contact and smiling.^000000";
+		mes "^3355FFEste garoto ainda não vai falar com você,";
+		mes "Mas ele reconhece a sua presença, fazendo contato com o olho e sorrindo.^000000";
 		close;
 	}
 	else if (prt_curse > 54) {
-		mes "^3355FFThe little boy still";
-		mes "won't talk to you, but he";
-		mes "make you feel welcome";
-		mes "by giving you a warm smile.^000000";
+		mes "^3355FFEste garoto ainda não vai falar com você, mas ele te faz sentir bem-vindo lhe dando um caloroso sorriso.^000000";
 		close;
 	}
 	else {
-		mes "[Absent-Minded Boy]";
+		mes "[Garoto Distraído]";
 		mes "...";
 		mes "......";
 		mes ".........";
 		next;
-		mes "^3355FFYou find it difficult";
-		mes "to ignore the little boy's";
-		mes "probing, wary eyes directed";
-		mes "at you. It's very clear that";
-		mes "he doesn't trust you.^000000";
+		mes "^3355FFVocê acha difícil ignorar o olhar investigativo do garoto, olhos espertos direcionados a você.";
+		mes "Está muito claro que ele não confia em você.^000000";
 		close;
 	}
 }
 
-mjolnir_01,316,268,3	script	Exhausted-Looking Woman	4_F_CAPEGIRL,{
+mjolnir_01,316,268,3	script	Mulher Exausta	4_F_CAPEGIRL,{
 	if ((MaxWeight-Weight) < 2000 || checkweight(1201,1) == 0) {
-		mes "^3355FFWait a second!";
-		mes "Right now, you're carrying";
-		mes "too many things with you.";
-		mes "Please come back after";
-		mes "using the Kafra Service";
-		mes "to store some of your items.^000000";
+		mes "^3355FFEspere um segundo!";
+		mes "Agora, você está carregando muitas coisas com você.";
+		mes "Por favor volte depois de usar o Serviço Kafra para armazenar alguns de seus itens.^000000";
 		close;
 	}
 	if (prt_curse == 11) {
-		mes "[Absent-Minded Boy]";
-		mes "The great serpent";
-		mes "swallowed the sea.";
-		mes "The eagle of the rainbow";
-		mes "swallowed the serpent.";
-		mes "Then snake scales grew on";
-		mes "the eagle, and it slowly died.";
+		mes "[Garoto Distraído]";
+		mes "A grande serpente engoliu o mar.";
+		mes "A águia do arco-íris engoliu a serpente.";
+		mes "Então escamas de cobra cresceram na águia, e ela morreu lentamente.";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "Goodness...!";
-		mes "Will you please stop";
-		mes "singing that song?";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Pelo amor de Deus...!";
+		mes "Poderia por favor parar de cantar este poema?";
 		next;
-		mes "[Absent-Minded Boy]";
+		mes "[Garoto Distraído]";
 		mes "..................";
 		next;
-		mes "^3355FFThe little boy quietly";
-		mes "stared at the woman for a";
-		mes "little bit, and then crouched";
-		mes "down and began petting a";
-		mes "dog sitting next to him.^000000";
+		mes "^3355FFO pequeno garoto calmamente olha para a mulher por um momento.";
+		mes "Em seguida se agacha e começa a brincar com o cachorro perto dele.^000000";
 		next;
-		if (select("What did you just sing?:Ignore them") == 1) {
-			mes "[Absent-Minded Boy]";
+		if (select("O que você acabou de cantar?:Ignorá-lo") == 1) {
+			mes "[Garoto Distraído]";
 			mes "...";
 			mes "......";
 			mes ".........";
 			next;
-			mes "[Absent-Minded Boy]";
-			mes "Woof-woof, have you";
-			mes "heard this song? Mommy";
-			mes "taught me to sing it, you";
-			mes "know. She says it was sung";
-			mes "by people for a long time~";
+			mes "[Garoto Distraído]";
+			mes "Au-au, você escutou este poema?";
+			mes "Mamãe me ensinou a cantar, você sabe.";
+			mes "Ela diz que foi cantado por pessoas por muito tempo.";
 			next;
-			mes "^3355FFThe boy continued speaking";
-			mes "to the dog like an old friend,";
-			mes "ignoring your presence and";
-			mes "acting as if you didn't exist.^000000";
+			mes "^3355FFO garoto continuou falando com o cachorro como se fosse um velho amigo, ignorando a sua presença e agindo como se você não existisse.^000000";
 			next;
-			mes "[Exhausted-Looking Woman]";
+			mes "[Mulher Parecendo Exausta]";
 			mes "Kaanu...";
-			mes "What did I tell";
-			mes "you about ignoring";
-			mes "people's questions!";
+			mes "O que eu lhe disse sobre ignorar as perguntas de pessoas!";
 			next;
 			mes "[Kaanu]";
 			mes ".........";
 			mes "..................";
-			mes "Uh oh, Woof-woof.";
-			mes "Mommy seems upset";
-			mes "for some reason.";
+			mes "Uh oh, Au-au.";
+			mes "Mamãe parece perturbada por algum motivo.";
 			next;
-			mes "[Exhausted-Looking Woman]";
-			mes "I'm sorry, my kid is...";
-			mes "Look, did you want to know";
-			mes "more about that song? Try";
-			mes "not to worry about it: it's just an old children's tune.";
+			mes "[Mulher Parecendo Exausta]";
+			mes "Me desculpe, meu garoto é...";
+			mes "Olha, você quer saber mais sobre este poema?";
+			mes "Tente não se preocupar com isso, é apenas uma música infantil.";
 			next;
-			if (select("Why are you here?:May I hear the song again?") == 1) {
-				mes "[Exhausted-Looking Woman]";
+			if (select("O que você faz aqui?:Posso ouvir o poema novamente?") == 1) {
+				mes "[Mulher Parecendo Exausta]";
 				mes ".................";
 				next;
-				mes "^3355FFThe woman's lip tightens";
-				mes "with shame. It's obvious";
-				mes "that this topic makes her";
-				mes "feel very uncomfortable.^000000";
+				mes "^3355FFA mulher parece estar envergonhada.";
+				mes "É óbvio que este assunto deixa ela desconfortável.^000000";
 				next;
 				mes "[Kaanu]";
 				mes "...";
@@ -1842,31 +1449,25 @@ mjolnir_01,316,268,3	script	Exhausted-Looking Woman	4_F_CAPEGIRL,{
 				mes ".........";
 				next;
 				mes "[Kaanu]";
-				mes "Woof-woof, do you know";
-				mes "why Mommy is always";
-				mes "so sad? I wish I knew";
-				mes "why Mommy never smiles...";
+				mes "Au-au, você sabe porque mamãe está sempre triste?";
+				mes "Gostaria de saber porquê minha mãe nunca sorri...";
 				next;
-				mes "[Exhausted-Looking Woman]";
+				mes "[Mulher Parecendo Exausta]";
 				mes "........";
 				prt_curse = 12;
 				close;
 			}
-			mes "[Exhausted-Looking Woman]";
+			mes "[Mulher Parecendo Exausta]";
 			mes "..................";
 			next;
-			mes "[Exhausted-Looking Woman]";
-			mes "Okay. I can do this";
-			mes "simple thing for you.";
-			mes "Let me recite this song...";
+			mes "[Mulher Parecendo Exausta]";
+			mes "Ok. Eu posso fazer essa coisa para você.";
+			mes "Deixe-me recitar este poema...";
 			next;
-			mes "[Exhausted-Looking Woman]";
-			mes "The great serpent";
-			mes "swallowed the sea.";
-			mes "The eagle of the rainbow";
-			mes "swallowed the serpent.";
-			mes "Then snake scales grew on";
-			mes "the eagle, and it slowly died.";
+			mes "[Mulher Parecendo Exausta]";
+			mes "A grande serpente engoliu o mar.";
+			mes "A águia do arco-íris engoliu a serpente.";
+			mes "Então escamas de cobra cresceram na águia, e ela morreu lentamente.";
 			prt_curse = 12;
 			close;
 		}
@@ -1875,115 +1476,77 @@ mjolnir_01,316,268,3	script	Exhausted-Looking Woman	4_F_CAPEGIRL,{
 		close;
 	}
 	else if (prt_curse == 12) {
-		mes "[Exhausted-Looking Woman]";
-		mes "Not too many people";
-		mes "come to this remote area.";
-		mes "What brings you all the";
-		mes "way over here, I wonder?";
+		mes "[Mulher Parecendo Exausta]";
+		mes "A grande maioria das pessoas não gostam de vir a esta área remota.";
+		mes "O que você procura aqui para ter passado por todo esse caminho, eu me pergunto?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Actually, I'm just";
-		mes "trying to learn the";
-		mes "real lyrics of that";
-		mes "song that little boy";
-		mes "has been singing.";
+		mes "Na verdade, eu estou apenas tentando aprender a verdadeira letra do poema que este garoto estava cantando.";
 		next;
-		mes "[Exhausted-Looking Woman]";
+		mes "[Mulher Parecendo Exausta]";
 		mes ".........";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "That song's lyrics, and";
-		mes "its meaning, can change";
-		mes "from person to person as";
-		mes "time goes on. I suppose part";
-		mes "of the reason is because it's";
-		mes "been handed down orally...";
+		mes "[Mulher Parecendo Exausta]";
+		mes "As letras deste poema, e o seu significado, pode mudar de pessoa para pessoa com o passar do tempo.";
+		mes "Eu acho que isto ocorre porque este poema passa para cada pessoa oralmente...";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "It sounds like such a happy";
-		mes "song, but it's meaning had";
-		mes "changed for me ever since";
-		mes "the accident had happened...";
-		mes "It's been so long, but I don't";
-		mes "think the pain will ever heal.";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Este poema parece tem parece feliz, mas seu significado mudou para mim desde que o acidente aconteceu...";
+		mes "Aconteceu a muito tempo atrás, mas eu não acho que a dor irá se curar.";
 		next;
-		select("Accident?");
-		mes "[Exhausted-Looking Woman]";
-		mes "I'm... I'm sorry.";
-		mes "I don't think I can talk";
-		mes "about it. If I try, I know I'll";
-		mes "relive the horror. Every day";
-		mes "is already a struggle to cope";
-		mes "with the sins I've committed.";
+		select("Acidente?");
+		mes "[Mulher Parecendo Exausta]";
+		mes "Eu... Eu lamento.";
+		mes "Não acho que eu possa falar sobre isso.";
+		mes "Se eu tentar, eu irei reviver o horror.";
+		mes "Todo dia já é uma luta para pagar os pecados que eu cometi.";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "I know it's selfish, but";
-		mes "I have a favor to ask of you.";
-		mes "I can't really leave this area,";
-		mes "and seldom do I receive visitors. Would you be so kind to deliver";
-		mes "something to Prontera for me?";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Eu sei que isto é egoísta, mas eu tenho um favor para pedir a você.";
+		mes "Eu não posso deixar esta área, e raramente eu recebo visitantes.";
+		mes "Poderia fazer a gentileza de entregar algo em Prontera para mim?";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "I used to live in Prontera,";
-		mes "and ever since the accident,";
-		mes "Father Bamph has been so very";
-		mes "supportive of me. It's not enough to repay his kindness, but please";
-		mes "give these herbs to him for me.";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Eu costumava viver em Prontera, e desde o acidente, o Padre Bamph tem me apoiado tanto.";
+		mes "Não é o suficiente para retribuir sua bondade, mas por favor entregue estas ervas para ele por mim.";
 		next;
-		mes "[Exhausted-Looking Woman]";
-		mes "You can find ^3131FFFather Bamph^000000";
-		mes "in ^3131FFProntera Church^000000. When you ";
-		mes "see him, please give him my";
-		mes "warmest regards. I would do it";
-		mes "myself, but because of what I did, I can't return to Prontera...";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Você pode encontrar o ^3131FFPadre Bamph^000000 na ^3131FFCatedral de Prontera^000000.";
+		mes "Quando você ver ele, por favor dê a ele meus cumprimentos.";
+		mes "Eu gostaria de fazer eu mesma, mas por causa do que eu fiz, eu não posso retornar a Prontera...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "^333333(Alright then. I guess";
-		mes "I should deliver these";
-		mes "herbs to Prontera Church";
-		mes "before I talk to Rodafrian.)^000000";
+		mes "^333333Está certo então.";
+		mes "Eu acho que devo entregar estas ervas na Catedral de Prontera depois de falar com Rodafrian.^000000";
 		getitem 7432,1; //Leather_Pouch
 		prt_curse = 13;
 		changequest 18033,18034;
 		close;
 	}
 	else if (prt_curse > 12 && prt_curse < 16) {
-		mes "[Exhausted-Looking Woman]";
-		mes "Father Bamph has helped";
-		mes "me so much. Please bring";
-		mes "that herb pouch to him in";
-		mes "Prontera Church, and give";
-		mes "him my warmest regards.";
+		mes "[Mulher Parecendo Exausta]";
+		mes "Padre Bamph me ajudou muito.";
+		mes "Por favor leve esta bolsa de ervas para ele na Catedral de Prontera, e dê a ele meus cumprimentos.";
 		close;
 	}
 	else if (prt_curse == 16) {
 		mes "[Bonnie Imbullea]";
-		mes "Oh, you've come back?";
-		mes "Were you able to deliver";
-		mes "that pouch of herbs that";
-		mes "I gave you to Father Bamph?";
+		mes "Oh, você voltou?";
+		mes "Você conseguiu entregar a bolsa de ervas que eu lhe dei para o Padre Bamph?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Yes, I did. Actually,";
-		mes "Father Bamph sent me";
-		mes "here to ask you a few";
-		mes "things. You see, he told";
-		mes "me all about the royal secret";
-		mes "and, well, your exorcism.";
+		mes "Sim, eu entreguei.";
+		mes "Na verdade, o Padre Bamph me enviou aqui para lhe perguntar algumas coisas.";
+		mes "Ele me disse tudo sobre o seu segredo real e, bem, seu exorcismo.";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "Oh. I see.";
-		mes "You must think";
-		mes "me a monster...";
-		mes "Those poor children";
-		mes "are dead because of me...";
+		mes "Ah. Entendo.";
+		mes "Você deve estar pensando que sou um monstro...";
+		mes "Aquelas pobres crianças estão mortas por minha culpa...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "N-no! Not at all!";
-		mes "I just wanted to ask if there";
-		mes "was a connection between";
-		mes "the song that Kaanu has been";
-		mes "singing and Jormungand's curse.";
+		mes "N-Não! Nada disso!";
+		mes "Eu só queria perguntar se há alguma conexão entre o poema que Kaanu estava cantando e a Maldição de Jormungand.";
 		next;
 		mes "[Bonnie Imbullea]";
 		mes "...";
@@ -1991,133 +1554,84 @@ mjolnir_01,316,268,3	script	Exhausted-Looking Woman	4_F_CAPEGIRL,{
 		mes ".........";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "After the exorcism failed,";
-		mes "I should have been punished";
-		mes "with death. But the royal family and the Prontera Church took";
-		mes "mercy on me, and allowed";
-		mes "me to live here in exile.";
+		mes "Após o exorcismo não ter funcionado, eu deveria ter sido punida com a morte.";
+		mes "Porém, a família real e a Catedral de Prontera tiveram pena de mim, e permitiram que eu vivesse neste exílio.";
 		emotion e_dots;
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "I began to sing this song";
-		mes "to keep myself distracted,";
-		mes "even if it was related to";
-		mes "the Jormungand curse.";
+		mes "Eu comecei a cantar este poema para me manter distraída, mesmo que relacionada com a Maldição de Jormungand.";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "You know, now that I think";
-		mes "about it, I do remember hearing";
-		mes "that after the exorcism failed,";
-		mes "a maid found a fragment of a";
-		mes "Red Gemstone while cleaning";
-		mes "the secret ceremonial grounds.";
+		mes "Você sabe, agora o que eu penso disso, eu lembro que após eu ouvir que o exorcismo fracassou.";
+		mes "Uma empregada encontrou um fragmento de Gema Vermelha enquanto limpava o área cerimonial secreta.";
 		emotion e_gasp,1;
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "I always thought it";
-		mes "was a little strange.";
-		mes "I wanted to investigate";
-		mes "it, but then I was discharged";
-		mes "from the Prontera Church";
-		mes "after my failure...";
+		mes "Eu sempre achei que isso foi um pouco estranho.";
+		mes "Eu queria investigar isto, mas então eu fui expulsa da Catedral de Prontera depois de minha falha...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "A fragment from";
-		mes "a Red Gemstone?";
-		mes "Maybe... maybe it's";
-		mes "evidence that someone";
-		mes "sabotaged the exorcism!";
+		mes "Um fragmento de uma Gema Vermelha?";
+		mes "Talvez... talvez seja uma evidência de sabotagem do exorcismo!";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "What happened was tragic,";
-		mes "but it would make me feel";
-		mes "so much better if that were";
-		mes "really the truth. Even if the";
-		mes "exorcism was sabotaged,";
-		mes "we can't turn back time...";
+		mes "O que aconteceu foi trágico, mas isso faria me sentir bem melhor se esta fosse a real verdade.";
+		mes "Mesmo que o exorcismo tenha sido sabotado, não podemos voltar no tempo...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "^333333(Hmm...";
-		mes "I better head back";
-		mes "to Prontera Church";
-		mes "and let Father Bamph";
-		mes "know about this information.)^000000";
+		mes "^333333Hmm...";
+		mes "Seria melhor voltar para a Catedral de Prontera e fazer com que o Padre Bamph saiba desta informação.^000000";
 		prt_curse = 17;
 		changequest 18035,18036;
 		close;
 	}
 	else if (prt_curse == 17) {
 		mes "[Bonnie Imbullea]";
-		mes "It's really very";
-		mes "difficult to live";
-		mes "with this guilt.";
-		mes "I was trained to help";
-		mes "people, not kill them!";
+		mes "É muito difícil viver com esta culpa.";
+		mes "Eu estive treinando a ajudar pessoas, e não matá-las!";
 		next;
-		mes "^3355FFYou tried to comfort";
-		mes "Bonnie Imbullea for a";
-		mes "little while before you";
-		mes "return to Prontera Church.";
+		mes "^3355FFVocê tenta confortar Bonnie Imbullea por um pequeno momento enquanto você não retorna a Catedral de Prontera.";
 		close;
 	}
 	else if (prt_curse == 35 || prt_curse == 44 || prt_curse == 54) {
-		mes "^3355FFYou tell Bonnie Imbullea";
-		mes "that the deaths of the princes";
-		mes "were not her fault and that the exorcism was probably sabotaged.";
-		mes "However, you keep specifics, like the use of poison, to yourself.^000000";
+		mes "^3355FFVocê diz a Bonnie Imbullea que as mortes dos príncipes não foram por sua culpa.";
+		mes "Esse exorcismo provavelmente foi sabotado.";
+		mes "No entanto,você se mantém triste, como se usasse veneno, em si mesma.^000000";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "Is that really true...?";
-		mes "Oh, I'm so happy! I really";
-		mes "thought I'd have to live the";
-		mes "rest of my in seclusion with";
-		mes "this horrible shame. Oh, thank";
-		mes "you so much for your help!";
+		mes "Isso é verdade...?";
+		mes "Ah, eu estou tão feliz!";
+		mes "Eu pensei que eu teria de viver o resto da minha vida afastada com esta horrível vergonha.";
+		mes "Ah, muito obrigada pela sua ajuda!";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "Kaanu will be able to";
-		mes "meet other kids his own";
-		mes "age... We can finally live";
-		mes "a normal life. How wonderful...";
+		mes "Kaanu poderá conhecer outras crianças com a sua idade...";
+		mes "Finalmente poderemos viver normalmente.";
+		mes "Que maravilhoso...";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "But wait...";
-		mes "How exactly did the";
-		mes "princes die, then?";
-		mes "There weren't any";
-		mes "wounds on the bodies";
-		mes "from what I remember...";
+		mes "Mas espere...";
+		mes "Como é que os príncipes morreram, então?";
+		mes "Não havia nenhuma ferida nos corpos pelo que eu me lembre...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Well, um, I wouldn't know";
-		mes "anything about that, but";
-		mes "Father Bamph and Father";
-		mes "Biscuss are handling the";
-		mes "investigation, and they're";
-		mes "doing their best to find out.";
+		mes "Bem, hm, eu não sei de nada disso, mas o Padre Bamph e o Padre Biscuss estão fazendo a investigação.";
+		mes "Eles estão dando o seu melhor para descobrir.";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "I see. Well, I believe in";
-		mes "them: they're great priests,";
-		mes "after all. Although I may be";
-		mes "forgiven for my failure, I still fear for the royal family...";
-		mes "All I can do for now is pray.";
+		mes "Entendo.";
+		mes "Bem, eu acredito neles, eles são grandes sacerdotes apesar de tudo.";
+		mes "Embora eu tenha sido perdoada pela minha falha, eu ainda tenho medo da família real...";
+		mes "Tudo que eu posso fazer por enquanto é rezar.";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "Anyway, I promise that";
-		mes "I won't reveal what I know";
-		mes "about this incident to the";
-		mes "public. And if you ever come";
-		mes "by the mountain again, I hope";
-		mes "you stop by to visit us.";
+		mes "De qualquer forma, eu prometo não revelar o que eu sei sobre este incidente para o público.";
+		mes "E se você vier a montanha novamente, espero que você pare para nos visitar.";
 		next;
 		mes "[Bonnie Imbullea]";
-		mes "You don't understand";
-		mes "how much the news you've";
-		mes "brought really means to me.";
-		mes "I can finally free myself from";
-		mes "this burdensome guilt...";
-		mes "Thank you, kind adventurer~";
+		mes "Você não tem idéia do quanto essas notícias que você me trouxe significam para mim.";
+		mes "Eu posso finalmente me livrar desta grande culpa...";
+		mes "Obrigada, aventureiro.";
 		if (prt_curse == 35) {
 			prt_curse = 36;
 			completequest 18050;
@@ -2126,9 +1640,7 @@ mjolnir_01,316,268,3	script	Exhausted-Looking Woman	4_F_CAPEGIRL,{
 			completequest 18049;
 		} else {
 			next;
-			mes "^3355FFNow, you can return to";
-			mes "Rodafrian, the historian";
-			mes "stationed in Morroc.^000000";
+			mes "^3355FFAgpra, você pode voltar a Rodafrian, a historiadora que fica em Morroc.^000000";
 			prt_curse = 55;
 			changequest 18049,18051;
 		}
@@ -2137,550 +1649,391 @@ mjolnir_01,316,268,3	script	Exhausted-Looking Woman	4_F_CAPEGIRL,{
 	}
 	else if (prt_curse == 36) {
 		mes "[Bonnie Imbullea]";
-		mes "By your grace and mercy,";
-		mes "please pity the poor souls";
-		mes "and protect the royal family...";
-		mes "Bless us with your light and";
-		mes "may your wisdom guide us...";
+		mes "Pela sua graça e misericórdia, por favor lamente as pobres almas e proteja a família real...";
+		mes "Abençoe eles com a sua luz e com sua sabedoria os guie...";
 		close;
 	}
 	else if (prt_curse == 45) {
 		mes "[Bonnie Imbullea]";
-		mes "I guess we've gotten";
-		mes "too used to the peace";
-		mes "and serenity of Mount";
-		mes "Mjolnir. It won't be easy";
-		mes "to leave, even if we're welcome to return to Prontera...";
+		mes "Eu acho que nós ficamos muito acostumados com a paz e serenidade do Monte Mjolnir.";
+		mes "Não será fácil ir embora mesmo que possamos voltar a Prontera sempre que quisermos...";
 		close;
 	}
 	else if (prt_curse > 54) {
 		mes "[Bonnie Imbullea]";
-		mes "Thank you so much";
-		mes "for helping out in the";
-		mes "investigation of the";
-		mes "princes. I'd never know";
-		mes "happiness again if it";
-		mes "weren't for your efforts.";
+		mes "Muito obrigada por você ter ajudado na investigação dos príncipes.";
+		mes "Eu não pensava que poderia alcançar a felicidade novamente se não fosse pelos seus esforços.";
 		close;
 	}
 	else {
 		mes "[Bonnie Imbullea]";
-		mes "^333333*Sigh...*^000000";
+		mes "^333333*Suspiro...*^000000";
 		close;
 	}
 }
 
-
 prt_church,115,122,0	warp	#sazekan	1,1,prt_church,168,106
 prt_church,166,106,0	warp	#prtchhall	1,1,prt_church,112,122
 
-prt_church,185,106,3	script	Father Bamph	1_M_PASTOR,{
+prt_church,185,106,3	script	Padre Bamph	1_M_PASTOR,{
 	if (prt_curse == 13) {
-		mes "[Father Bamph]";
-		mes "Welcome to";
-		mes "Prontera Church.";
-		mes "Please relax, and";
-		mes "let your mind and";
-		mes "spirit find rest in";
-		mes "these hallowed halls.";
+		mes "[Padre Bamph]";
+		mes "Seja Bem vindo a Catedral de Prontera.";
+		mes "Por favor relaxe, e deixe sua mente e espírito encontrarem a paz dentro destas paredes sagradas.";
 		next;
-		select("Give him the herb pouch.");
+		select("Entregar a ele a bolsa de ervas.");
 		if (countitem(7432) < 1) {
 			mes "["+strcharinfo(0)+"]";
-			mes "Ack!";
-			mes "Now, where did I put";
-			mes "that pouch with the herbs?";
+			mes "Argh!";
+			mes "Agora, aonde eu coloquei esta bolsa de ervas?";
 			close;
 		}
-		mes "[Father Bamph]";
-		mes "May I ask...";
-		mes "Why are you giving";
-		mes "me this pouch of herbs?";
+		mes "[Padre Bamph]";
+		mes "Deixe-me perguntar...";
+		mes "Por que você está me dando esta bolsa de ervas?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Well, there was this";
-		mes "lady living on Mount";
-		mes "Mjolnir who wanted me";
-		mes "to give this to you. Um, she";
-		mes "has a son named Kaanu?";
+		mes "Bem, foi aquela moça que vive no Monte Mjolnir que me mandou te entregar estas ervas.";
+		mes "Hm, ela tem um filho chamado Kaanu?";
 		next;
-		mes "[Father Bamph]";
-		mes "Oh, you must have met";
-		mes "Bonnie Imbullea. It's";
-		mes "been a long time since";
-		mes "I've seen her. How is";
-		mes "she doing, may I ask?";
+		mes "[Padre Bamph]";
+		mes "Ah, você deve ter conhecido Bonnie Imbullea.";
+		mes "Já se passou um bom tempo desde que eu a vi pela última vez.";
+		mes "O que ela tem feito, posso perguntar?";
 		next;
 		mes "["+strcharinfo(0)+"]";
 		mes "Oh...";
-		mes "I guess she's fine.";
-		mes "But she seems really...";
-		mes "I dunno, tormented...";
+		mes "Eu acho que ela está bem.";
+		mes "Mas ela parece muito...";
+		mes "Como posso dizer, atormentada...";
 		next;
-		mes "[Father Biscuss]";
-		mes "Good! If she were happy";
-		mes "and relaxed after what she";
-		mes "did, not even God would forgive";
-		mes "her! She deserves to live the";
-		mes "rest of her life in agony!";
+		mes "[Padre Biscuss]";
+		mes "Ótimo! Se ela está feliz e relaxada após o que ela fez, nem mesmo Deus poderia perdoá-la!";
+		mes "Ela merece viver o resto de sua vida em agonia!";
 		next;
-		mes "[Father Bamph]";
-		mes "Father Biscuss, how can";
-		mes "you say something like that?";
-		mes "She did her best to stop what";
-		mes "had happened! We should pity";
-		mes "her for the suffering she must be feeling. Where is your compassion?";
+		mes "[Padre Bamph]";
+		mes "Padre Biscuss, como você pode dizer algo como isto?";
+		mes "Ela fez o melhor para impedir que aquilo acontecesse!";
+		mes "Devemos lamentar o sofrimento que ela deve estar sentindo.";
+		mes "Aonde está a sua compaixão?";
 		next;
-		mes "[Father Biscuss]";
-		mes "Bah! Don't speak to me";
-		mes "about compassion! Weren't";
-		mes "you the one who recommended";
-		mes "her to perform the exorcism in";
-		mes "the first place? You didn't";
-		mes "forget that, did you?";
+		mes "[Padre Biscuss]";
+		mes "Bah! Não fale comigo sobre compaixão!";
+		mes "Em primeiro lugar, não foi você quem recomendou ela para ela para executar o exorcismo?";
+		mes "Você não se esqueceu disto, esqueceu?";
 		next;
-		mes "[Father Bampf]";
+		mes "[Padre Bamph]";
 		mes "......";
 		mes ".........";
 		mes "............";
 		next;
-		mes "[Father Biscuss]";
+		mes "[Padre Biscuss]";
 		mes "Hah!";
 		next;
-		select("About Bonnie Imbullea");
-		mes "[Father Bamph]";
-		mes "Well...";
-		mes "I don't...";
-		mes "I don't know if";
-		mes "I should be telling ";
-		mes "you about that incident...";
+		select("Perguntar sobre Bonnie Imbullea");
+		mes "[Padre Bamph]";
+		mes "Bem...";
+		mes "Eu não...";
+		mes "Eu não sei se eu deveria estar falando a você sobre este incidente...";
 		next;
-		mes "[Father Biscuss]";
-		mes "You know what? If Bonnie";
-		mes "sent this adventurer here";
-		mes "for a favor, it probably means";
-		mes "she trusts this person. Besides, we need somebody to carry out";
-		if (Sex)
-			mes "this task for us. Why not him?";
-		else
-			mes "this task for us. Why not her?";
+		mes "[Padre Biscuss]";
+		mes "O que você sabe?";
+		mes "Se Bonnie enviou este aventureiro aqui por um favor, provavelmente isso significa que ela acredita nesta pessoa.";
+		if (Sex) {
+			mes "Além disso, nós precisamos de alguém que faça esta tarefa por nós.";
+			mes "Por que não ele?";
+		}
+		else {
+			mes "Além disso, nós precisamos de alguém que faça esta tarefa por nós.";
+			mes "Por que não ela?";
+		}
 		next;
-		mes "[Father Bamph]";
-		mes "Your words have the ring";
-		mes "of truth, Father Biscuss.";
-		mes "Well then, adventurer, give";
-		mes "me the opportunity to tell you";
-		mes "something very important. But, you must not tell anyone else...";
+		mes "[Padre Bamph]";
+		mes "Suas palavras têm o anel da verdade, Padre Biscuss.";
+		mes "Bem então, aventureiro, me dê a oportunidade de lhe dizer algo muito importante.";
+		mes "Mas, você não deve dizer ninguém...";
 		prt_curse = 14;
 		delitem 7432,1; //Leather_Pouch
 		close;
 	}
 	else if (prt_curse == 14) {
-		mes "[Father Bamph]";
-		mes "What I am about to tell";
-		mes "you must be kept secret.";
-		mes "Now, do you know about";
-		mes "Jormungand, the great serpent";
-		mes "born from the god Loki and";
-		mes "the giantess, Angrboda?";
+		mes "[Padre Bamph]";
+		mes "O que estou prestes a dizer para você deve ser mantido em segredo.";
+		mes "Agora, você sabe sobre Jormungand, a grande serpente que nasceu do Deus Loki e da giganta, Angrboda?";
 		next;
-		mes "[Father Bamph]";
-		mes "Jormungand was an evil";
-		mes "beast that, after the thousand";
-		mes "year war between the gods and";
-		mes "demons, began to attack humans.";
-		mes "It brought great chaos and much";
-		mes "suffering around the world...";
+		mes "[Padre Bamph]";
+		mes "Jormungand foi uma besta do mal, que após milhares de anos de guerra entre os deuses e os demônios, começou a atacar humanos.";
+		mes "Isso trouxe um grande caos e muito sofrimento pelo mundo todo...";
 		next;
-		mes "[Father Bamph]";
-		mes "Finally, the first Tristram of";
-		mes "the Gaebolg family defeated";
-		mes "Jormungand together with 6";
-		mes "other warriors, but only after";
-		mes "it killed his beloved father.";
+		mes "[Padre Bamph]";
+		mes "Finalmente, o Primeiro Tristram da família Gaebolg derrotou Jormungand juntamente com 6 outros guerreiros.";
+		mes "Mas somente após Jormungand ter matado o seu amado pai.";
 		next;
-		mes "[Father Bamph]";
-		mes "Tristram would become the";
-		mes "first king of the Rune-Midgarts";
-		mes "Kingdom, but his family would";
-		mes "suffer from the curse placed";
-		mes "by Jormungand before its defeat. ";
+		mes "[Padre Bamph]";
+		mes "Tristram se tornou o primeiro rei do Reino de Rune-Midgard.";
+		mes "Mas sua família deveria sofrer com a maldição que foi colocada por Jormungand após sua derrota.";
 		next;
-		mes "[Father Bamph]";
-		mes "To this day...";
-		mes "^FF0000Every first prince of";
-		mes "the Gaebolg family dies";
-		mes "at a young age^000000. That is";
-		mes "Jormungand's curse and";
-		mes "the royal family's secret.";
+		mes "[Padre Bamph]";
+		mes "Depois deste dia...";
+		mes "^FF0000Todo primeiro príncipe da família Gaebolg morrerá quando estiver na infância^000000.";
+		mes "Esta é a Maldição de Jormungand e o segredo da família real.";
 		emotion e_omg,1;
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "What...?!";
-		mes "Is this really true?!";
-		mes "Isn't there any way to";
-		mes "counter this horrible curse?!";
+		mes "O que...?!";
+		mes "Isto é verdade?!";
+		mes "Não ha nenhuma maneira de acabar com esta horrível maldição?!";
 		next;
-		mes "[Father Bamph]";
-		mes "Please lower your voice.";
-		mes "Yes, it's a shame that the";
-		mes "royal family must suffer like";
-		mes "this. But all the exorcisms";
-		mes "that have been attempted";
-		mes "over the years have failed...";
+		mes "[Padre Bamph]";
+		mes "Por favor abaixe o tom de sua voz.";
+		mes "Sim, é uma pena que a família real tenha que sofrer com isso.";
+		mes "Mas todos os exorcismos que tentaram por todos estes anos falharam...";
 		next;
-		mes "[Father Bamph]";
-		mes "Although the situation";
-		mes "appeared hopeless, King";
-		mes "Tristram III tried once again to exorcise the curse. Following";
-		mes "his orders, the greatest priests and exorcists were all summoned.";
+		mes "[Padre Bamph]";
+		mes "Embora a situação parece ser de desespero, o Rei Tristram III tentou mais uma vez exorcizar a maldição.";
+		mes "Seguindo as suas ordens, os maiores sacerdotes exorcistas foram todos convocados.";
 		next;
-		mes "[Father Bamph]";
-		mes "A series of tests was";
-		mes "performed to select the";
-		mes "best priests and exorcists";
-		mes "to remove this curse. In the end, ^3131FFBonnie Imbullea^000000 was chosen to";
-		mes "lead the exorcism ceremony.";
+		mes "[Padre Bamph]";
+		mes "Uma série de testes foi realizada para selecionar o melhor sacerdote e exorcista para remover esta maldição.";
+		mes "No fim disto, ^3131FFBonnie Imbullea^000000 foi escolhida para liderar a cerimônia de exorcismo.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Wait, but you mentioned";
-		mes "samething about an accident.";
-		mes "Does that mean that she failed";
-		mes "in performing the exorcism?";
+		mes "Espere, mas você mencionou algo sobre um acidente.";
+		mes "Quer dizer que ela falhou no desempenho do exorcismo?";
 		next;
-		mes "[Father Bamph]";
-		mes "Yes, unfortunately.";
-		mes "After the priests and";
-		mes "exorcists gathered in the";
-		mes "secret ceremonial grounds,";
-		mes "three princes were killed";
-		mes "instead of just the first.";
+		mes "[Padre Bamph]";
+		mes "Sim, infelizmente.";
+		mes "Após os sacerdotes e exorcistas terem sido levados a área cerimonial secreta três príncipes foram mortos ao invés de apenas o primeiro.";
 		next;
-		mes "[Father Biscuss]";
-		mes "Although we all swore to";
-		mes "keep that incident a secret,";
-		mes "Bonnie Imbullea took full";
-		mes "responsibility for the deaths.";
-		mes "That is why she is in self";
-		mes "imposed exile from the kingdom.";
+		mes "[Padre Biscuss]";
+		mes "Embora todos nós termos jurado manter o incidente em segredo, Bonnie Imbullea levou toda a responsabilidade pelas mortes.";
+		mes "É por isso que ela está em exílio imposto pelo reino.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "What...?";
-		mes "That's...";
-		mes "That's crazy!";
+		mes "O Que...?";
+		mes "Isso é...";
+		mes "Isso é loucura!";
 		next;
-		mes "[Father Biscuss]";
-		mes "I know that this";
-		mes "is a very long story,";
-		mes "and that it's a little";
-		mes "complicated. Please";
-		mes "listen to what we have";
-		mes "to ask from here on...";
+		mes "[Padre Biscuss]";
+		mes "Eu sei que esta é uma longa história, e é um pouco complicada.";
+		mes "Por favor ouça o que nós temos de falar...";
 		emotion e_dots;
 		prt_curse = 15;
 		close;
 	}
 	else if (prt_curse == 15) {
-		mes "[Father Bamph]";
-		mes "Now, you should know that";
-		mes "all of the princes that were";
-		mes "killed that day bore strange";
-		mes "looking marks on their bodies.";
-		mes "It almost looked as if they";
-		mes "were growing snake scales.";
+		mes "[Padre Bamph]";
+		mes "Agora, você deve saber que todos os príncipes que foram mortos neste dia tinham marcas estranhas em seus corpos.";
+		mes "É como se estivessem crescendo escamas de serpente.";
 		emotion e_gasp,1;
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Wait, they grew snake";
-		mes "scales? That sounds just";
-		mes "like one of the versions of";
-		mes "this song I'm investigating.";
-		mes "I think it was the song about the Rune-Midgarts Kingdom's origin.";
+		mes "Espere, cresceram escamas de serpente?";
+		mes "Isso parece igual a uma das versões do poema que estou investigando.";
+		mes "Eu acho que foi o poema sobre a origem do Reino de Rune-Midgard.";
 		next;
-		mes "[Father Bamph]";
-		mes "Wait, that song?";
-		mes "Hm, I don't see how";
-		mes "it's related. Let's see";
-		mes "now, how did it go?";
-		mes "Rainbows... Eagles...";
-		mes "Ah! Now I remember!";
+		mes "[Padre Bamph]";
+		mes "Espere, que poema?";
+		mes "Hm, eu não se está relacionado.";
+		mes "Vamos ver agora, como era?";
+		mes "Arco-íris... Águias...";
+		mes "Ah! Agora eu me lembro!";
 		next;
-		mes "[Father Bamph]";
-		mes "The great serpent";
-		mes "swallowed the sea.";
-		mes "The eagle of the rainbow";
-		mes "swallowed the serpent.";
-		mes "Then the eagle built its nest.";
-		mes "A nest upon the swallowed sea.";
+		mes "[Padre Bamph]";
+		mes "A grande serpente engoliu o mar.";
+		mes "A águia do arco-íris engoliu a serpente.";
+		mes "A águia então construiu seu ninho.";
+		mes "Um ninho sob o mar encoberto.";
 		next;
 		mes "["+strcharinfo(0)+"]";
 		mes "Hmm...";
-		mes "Well, I heard a";
-		mes "different version";
-		mes "of the same song.";
-		mes "It goes like...";
+		mes "Bem, eu escutei uma diferente versão do mesmo poema.";
+		mes "Ela é assim...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "The great serpent";
-		mes "swallowed the sea.";
-		mes "The eagle of the rainbow";
-		mes "swallowed the serpent.";
-		mes "Then snake scales grew on";
-		mes "the eagle, and it slowly died.";
+		mes "A grande serpente engoliu o mar.";
+		mes "A águia do arco-íris engoliu a serpente.";
+		mes "Então escamas de cobra cresceram na águia, e ela morreu lentamente.";
 		next;
-		mes "[Father Bamph]";
-		mes "Oh, my. I learned the song";
-		mes "when I was a young boy from";
-		mes "my father. However, your version seems to reveal the secret curse";
-		mes "of the Gaebolgs. Please tell me, where did you hear that song?";
+		mes "[Padre Bamph]";
+		mes "Ah, meu... Eu aprendi este poema quando eu era um garoto pelo meu pai.";
+		mes "No entanto, sua versão parece revelar o segredo da Família dos Gaebolgs.";
+		mes "Por favor, me diga onde você escutou este poema?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Well, I first heard this";
-		mes "version from a historian,";
-		mes "and then I found out that";
-		mes "Bonnie Imbullea knows it as";
-		mes "well. Um, is there a problem?";
+		mes "Bem, primeiro eu escutei esta versão de um historiador, e depois eu descobri que Bonnie Imbullea sabe ele muito bem.";
+		mes "Hm, há algum problema?";
 		next;
-		mes "[Father Bamph]";
-		mes "If those song lyrics are";
-		mes "spread, the secret of the";
-		mes "royal family curse could be";
-		mes "revealed to the public. Would";
-		mes "you please help us by speaking";
-		mes "to Bonnie Imbullea once again?";
+		mes "[Padre Bamph]";
+		mes "Se essas letras do poema forem passadas, o segredo da maldição da família real poderá ser revelado para o público.";
+		mes "Você poderia por favor nos ajudar a falar com Bonnie Imbullea mas uma vez?";
 		next;
-		mes "[Father Bamph]";
-		mes "If you can, please try to";
-		mes "see if you can learn of any";
-		mes "connection between the curse";
-		mes "and the song, or if she can";
-		mes "remember anything that happened";
-		mes "after the exorcism failed...";
+		mes "[Padre Bamph]";
+		mes "Se você puder, tente ver se você descobre alguma conexão entre a maldição e o poema.";
+		mes "Ou se ela se lembra de algo que aconteceu após a falha do exorcismo...";
 		prt_curse = 16;
 		changequest 18034,18035;
 		close;
 	}
 	else if (prt_curse == 16) {
-		mes "[Father Bamph]";
-		mes "Please visit Bonnie";
-		mes "Imbullea in Mount Mjolnir";
-		mes "to see if you can learn more";
-		mes "about that song, or about what";
-		mes "happened after the attempted exorcism of the Jormungand curse.";
+		mes "[Padre Bamph]";
+		mes "Por favor visite Bonnie Imbullea no Monte Mjolnir para ver se você descobre mais sobre o poema.";
+		mes "Ou sobre o que aconteceu após a tentativa de exorcismo da maldição de Jormungand.";
 		close;
 	}
 	else if (prt_curse == 17) {
-		mes "[Father Bamph]";
-		mes "Ah, have you spoken";
-		mes "to Bonnie Imbullea?";
-		mes "Please tell me if you";
-		mes "have learned anything new.";
+		mes "[Padre Bamph]";
+		mes "Ah, você falou com Bonnie Imbullea?";
+		mes "Por favor me diga se você aprendeu algo novo.";
 		next;
-		mes "^3355FFYou related everything";
-		mes "that Bonnie Imbullea spoke";
-		mes "about, including the discovery";
-		mes "of a fragment of Red Gemstone";
-		mes "in the secret ceremonial grounds. ";
+		mes "^3355FFVocê relata tudo que Bonnie Imbullea disse sobre a descoberta de um fragmento de Gema Vermelha na área cerimonial secreta.";
 		next;
-		mes "[Father Bamph]";
-		mes "Red Gemstone? There's";
-		mes "no reason for that to be in";
-		mes "a holy place. Hmm. There's";
-		mes "more to this case than meets";
-		mes "the eye. We better investigate";
-		mes "the truth, starting now.";
+		mes "[Padre Bamph]";
+		mes "Gema Vermelha?";
+		mes "Não há nenhuma razão para isto estar em um lugar sagrado. Hmm.";
+		mes "É melhor investigarmos a verdade, começando a partir de agora.";
 		next;
-		mes "[Father Bamph]";
-		mes "Come with me, adventurer,";
-		mes "to the secret ceremonial";
-		mes "grounds for the royal family.";
-		mes "Just use the switch hidden";
-		mes "within the bookshelf and";
-		mes "I will meet you there.";
+		mes "[Padre Bamph]";
+		mes "Venha comigo, aventureiro, para a área cerimonial secreta para a família real.";
+		mes "Apenas use o interruptor na estante perto de mim";
+		mes "Eu lhe encontro lá.";
 		prt_curse = 18;
 		changequest 18036,18037;
 		close;
 	}
 	else if (prt_curse > 17 && prt_curse < 22) {
-		mes "[Father Bamph]";
-		mes "Come with me to the";
-		mes "secret ceremonial grounds";
-		mes "so that we can investigate";
-		mes "the possibility of sabotage";
-		mes "with the exorcism that";
-		mes "Bonnie Imbullea performed.";
+		mes "[Padre Bamph]";
+		mes "Venha comigo para a área cerimonial secreta então poderemos investigar a possibilidade de uma sabotagem no exorcismo que";
+		mes "Bonnie Imbullea realizou.";
 		next;
-		mes "[Father Bamph]";
-		mes "There is a hidden switch";
-		mes "in the bookshelf that you";
-		mes "can use to transport yourself";
-		mes "there. Go, and I will meet";
-		mes "you in the ceremonial grounds.";
+		mes "[Padre Bamph]";
+		mes "Há um interruptor escondido na estante de livros que você pode para se teleportar para lá.";
+		mes "Vá, e eu te encontrarei no área cerimonial secreta.";
 		close;
 	}
 	else if (prt_curse == 22) {
-		mes "[Father Bamph]";
-		mes "This is a matter of grave";
-		mes "importance, but we can't";
-		mes "alert the royal family yet and";
-		mes "cause a panic. It would be";
-		mes "best to fully investigate this";
-		mes "first and collect proof.";
+		mes "[Padre Bamph]";
+		mes "Esta é uma questão de grave importância, mas não podemos alertar a família real ainda e causar um pânico.";
+		mes "É melhor investigar tudo primeiro e coletar provas.";
 		next;
-		mes "[Father Bamph]";
-		mes "Brave adventurer, would";
-		mes "you please visit the Assassin";
-		mes "Guild in Morroc and see if you";
-		mes "can learn anything about how";
-		mes "we can verify whether poison";
-		mes "was used to kill the princes?";
+		mes "[Padre Bamph]";
+		mes "Bravo aventureiro, você poderia visitar a Guilda dos Mercenários em Morroc.";
+		mes "E ver se você pode aprender alguma coisa sobre como nós podemos verificar se foi usado veneno para matar os príncipes?";
 		prt_curse = 23;
 		changequest 18039,18040;
 		close;
 	}
 	else if (prt_curse == 23) {
-		mes "[Father Bamph]";
-		mes "Please see if you can";
-		mes "learn anything about testing";
-		mes "for the use of poison from";
-		mes "a member of the Assassin";
-		mes "Guild in Morroc.";
+		mes "[Padre Bamph]";
+		mes "Por favor veja se você pode aprender algo sobre testes para o uso de veneno de um membro da Guilda de Mercenários em Morroc.";
 		close;
 	}
 	else if (prt_curse == 31) {
-		mes "[Father Bamph]";
-		mes "Ah, you've returned~";
-		mes "Have you managed to learn";
-		mes "anything about poison from";
-		mes "the Assassin Guild? I know";
-		mes "their members must be";
-		mes "very difficult to find...";
+		mes "[Padre Bamph]";
+		mes "Ah, você retornou.";
+		mes "Você conseguiu aprender algo sobre veneno na Guilda dos Mercenários?";
+		mes "Eu sei que seus membros são muito difíceis de se encontrar...";
 		next;
-		mes "^3355FFYou relate all of the";
-		mes "information you learned";
-		mes "about poison to Father Bamph,";
-		mes "including the method to test";
-		mes "for the use of poison in murder. ";
+		mes "^3355FFVocê relata todas as informações que você conseguiu aprender sobre veneno para o Padre Bamph.";
+		mes "Incluindo o método de teste para o uso de veneno em assassinatos. ";
 		next;
-		mes "[Father Bamph]";
-		mes "Ah, I see. Then, would";
-		mes "you please bring 1 Yellow";
-		mes "Gemstone and 1 Green Potion";
-		mes "to the secret ceremonial grounds as soon as you can? I will wait";
-		mes "over there for you once again.";
+		mes "[Padre Bamph]";
+		mes "Ah, entendo.";
+		mes "Então, você poderia trazer 1 Gema Amarela e 1 Poção Verde para a área cerimonial secreta o mais rápido possível?";
+		mes "Eu irei te esperar lá novamente.";
 		prt_curse = 32;
 		changequest 18044,18046;
 		close;
 	}
 	else if (prt_curse == 32 || prt_curse == 33 || prt_curse == 41 || prt_curse == 42 || prt_curse == 51 || prt_curse == 52) {
-		mes "[Father Bamph]";
-		mes "You can use the hidden";
-		mes "switch in the bookshelf to";
-		mes "enter the secret ceremonial";
-		mes "grounds. Don't forget that we";
-		mes "need^3131FF 1 Yellow Gemstone^000000 and ^3131FF1 Green Potion^000000 to test for poison.";
+		mes "[Padre Bamph]";
+		mes "Você pode utilizar o interruptor secreto na estante para entrar na área cerimonial secreta.";
+		mes "Não se esqueça de que nós precisamos de ^3131FF1 Gema Amarela^000000 e ^3131FF1 Poção Verde^000000 para testar o veneno.";
 		close;
 	}
 	else if (prt_curse == 34) {
-		mes "[Father Bamph]";
-		mes "I can't believe it!";
-		mes "If poison was used, then";
-		mes "the second and third princes";
-		mes "were murdered! Unbelievable...";
-		mes "How can anyone kill children?";
+		mes "[Padre Bamph]";
+		mes "Eu não posso acreditar!";
+		mes "Se veneno foi usado, então o";
+		mes "segundo e o terceiro príncipes";
+		mes "foram assassinados! Inacreditável...";
+		mes "Como alguém pode matar crianças?";
 		next;
-		mes "[Father Bamph]";
-		mes "At the very least, we now";
-		mes "know that their deaths were";
-		mes "not Bonnie Imbullea's fault.";
-		mes "Now I must discuss with Father";
-		mes "Biscuss and decide how to tell";
-		mes "the royal family about this...";
+		mes "[Padre Bamph]";
+		mes "Pelo menos, agora nós sabemos";
+		mes "que a morte deles não foi culpa";
+		mes "da Bonnie Imbullea.";
+		mes "Agora eu tenho que discutir com o Padre";
+		mes "Biscuss e decidir como contar a";
+		mes "família real sobre isto...";
 		next;
-		mes "[Father Bamph]";
-		mes "Once again, let me remind";
-		mes "you that everything that has";
-		mes "transpired here must be kept";
-		mes "secret. The public cannot know";
-		mes "of Jormungand's curse! It would cause political turmoil and chaos!";
+		mes "[Padre Bamph]";
+		mes "Mais uma vez, deixe-me lembrar";
+		mes "a você que tudo que ocorreu";
+		mes "aqui deve ser mantido em";
+		mes "secredo. O Público não pode saber da";
+		mes "Maldição de Jormungand! Isto poderia trazer turbulência política e caos!";
 		next;
-		mes "[Father Bamph]";
-		mes "Still, that does not mean";
-		mes "that I cannot personally thank";
-		mes "you for all of your help. I'm very grateful for what you have done,";
-		mes "adventurer. May safety accompany you on all of your journeys.";
+		mes "[Padre Bamph]";
+		mes "Ainda assim, isto não quer dizer que eu não possa agradecer pessoalmente por toda a sua ajuda.";
+		mes "Eu sou muito grato pelo o que você fez, aventureiro.";
+		mes "A segurança o acompanhará em todas as suas jornadas.";
 		prt_curse = 35;
 		changequest 18047,18050;
 		close;
 	}
 	else if (prt_curse > 34 && prt_curse < 40 && !aru_monas) {
-		mes "[Father Bamph]";
-		mes "I'm at a loss at what";
-		mes "to do. Sometimes, even";
-		mes "I have doubts and believe";
-		mes "that Odin has abandoned us...";
+		mes "[Padre Bamph]";
+		mes "Eu esqueci o que eu tinha para fazer.";
+		mes "Algumas vezes, até mesmo eu tenho dúvidas e acreditar que Odin nos abandonou...";
 		close;
 	}
 	else if (prt_curse == 40) {
-		mes "[Father Bamph]";
-		mes "Ah, you've returned~";
-		mes "Have you managed to learn";
-		mes "anything about poison from";
-		mes "the Assassin Guild? I know";
-		mes "their members must be";
-		mes "very difficult to find...";
+		mes "[Padre Bamph]";
+		mes "Ah, você retornou.";
+		mes "Você conseguiu aprender algo";
+		mes "sobre veneno na Guilda dos";
+		mes "Mercenários? Eu sei que seus";
+		mes "membros são muito difíceis";
+		mes "de se encontrar...";
 		next;
-		mes "^3355FFYou relate all of the";
-		mes "information you learned";
-		mes "about poison to Father Bamph,";
-		mes "including the method to test";
-		mes "for the use of poison in murder. ";
+		mes "^3355FFVocê relata todas as informações";
+		mes "que você conseguiu aprender";
+		mes "sobre veneno para o Padre Bamph,";
+		mes "incluindo o método de teste";
+		mes "para o uso de veneno em assassinatos. ";
 		next;
-		mes "[Father Bamph]";
-		mes "Ah, I see. Then, would";
-		mes "you please bring^3131FF 1 Yellow";
-		mes "Gemstone^000000 and ^3131FF1 Green Potion^000000";
-		mes "to the secret ceremonial grounds as soon as you can? I will wait";
-		mes "over there for you once again.";
+		mes "[Padre Bamph]";
+		mes "Ah, entendo...";
+		mes "Então, você poderia trazer 1 Gema Amarela e 1 Poção Verde para a área cerimonial secreta o mais rápido possível?";
+		mes "Eu irei te esperar lá novamente.";
 		prt_curse = 41;
 		changequest 18045,18046;
 		close;
 	}
 	else if (prt_curse == 43 || prt_curse == 53) {
-		mes "[Father Bamph]";
-		mes "I can't believe it!";
-		mes "If poison was used, then";
-		mes "the second and third princes";
-		mes "were murdered! Unbelievable...";
-		mes "How can anyone kill children?";
+		mes "[Padre Bamph]";
+		mes "Eu não posso acreditar!";
+		mes "Se veneno foi usado, então o segundo e o terceiro príncipes foram assassinados! Inacreditável...";
+		mes "Como alguém pode matar crianças?";
 		next;
-		mes "[Father Bamph]";
-		mes "At the very least, we now";
-		mes "know that their deaths were";
-		mes "not Bonnie Imbullea's fault.";
-		mes "Now I must discuss with Father";
-		mes "Biscuss and decide how to tell";
-		mes "the royal family about this...";
+		mes "[Padre Bamph]";
+		mes "Pelo menos, agora nós sabemos que a morte deles não foi culpa da Bonnie Imbullea.";
+		mes "Agora eu tenho que discutir com o Padre Biscuss e decidir como contar a família real sobre isto...";
 		next;
-		mes "[Father Bamph]";
-		mes "Oh, and would you please";
-		mes "inform ^3131FFBonnie Imbullea^000000 that";
-		mes "the deaths of the princes were";
-		mes "not her fault? I'm sure that news would bring her great relief";
-		mes "from her burden of guilt...";
+		mes "[Padre Bamph]";
+		mes "Ah, e você poderia por favor informar a ^3131FFBonnie Imbullea^000000 que as mortes dos príncipes não foram culpa dela?";
+		mes "Eu tenho certeza que estas novidades trariam a ela um grande alívio de sua culpa...";
 		next;
-		mes "[Father Bamph]";
-		mes "Once again, let me remind";
-		mes "you that everything that has";
-		mes "transpired here must be kept";
-		mes "secret. The public cannot know";
-		mes "of Jormungand's curse! It would cause political turmoil and chaos!";
+		mes "[Padre Bamph]";
+		mes "Mais uma vez, deixe-me lembrar a você que tudo que ocorreu aqui deve ser mantido em secredo.";
+		mes "O Público não pode saber da Maldição de Jormungand!";
+		mes "Isto poderia trazer turbulência política e caos!";
 		next;
-		mes "[Father Bamph]";
-		mes "Still, that does not mean";
-		mes "that I cannot personally thank";
-		mes "you for all of your help. I'm very grateful for what you have done,";
-		mes "adventurer. May safety accompany you on all of your journeys.";
+		mes "[Padre Bamph]";
+		mes "Ainda assim, isto não quer dizer que eu não possa agradecer pessoalmente por toda a sua ajuda.";
+		mes "Sou muito grato pelo o que você fez, aventureiro.";
+		mes "A segurança o acompanhará em todas as suas jornadas.";
 		if (prt_curse == 43)
 			prt_curse = 44;
 		else
@@ -2690,91 +2043,63 @@ prt_church,185,106,3	script	Father Bamph	1_M_PASTOR,{
 		close;
 	}
 	else if (prt_curse > 43 && prt_curse < 50 && !aru_monas) {
-		mes "[Father Bamph]";
-		mes "Have you spoken to";
-		mes "Bonnie Imbullea yet?";
-		mes "Try not to worry about the";
-		mes "news about the princes'";
-		mes "murder. Father Biscuss";
-		mes "and I will handle it.";
+		mes "[Padre Bamph]";
+		mes "Você ainda não falou com Bonnie Imbullea?";
+		mes "Tente não se preocupar com as notícias sobre o assassinato dos príncipes.";
+		mes "Padre Biscuss e eu cuidaremos disto.";
 		close;
 	}
 	else if (prt_curse == 50) {
-		mes "[Father Bamph]";
-		mes "Ah, you've returned~";
-		mes "Have you managed to learn";
-		mes "anything about poison from";
-		mes "the Assassin Guild? I know";
-		mes "their members must be";
-		mes "very difficult to find...";
+		mes "[Padre Bamph]";
+		mes "Ah, você retornou.";
+		mes "Você conseguiu aprender algo sobre veneno na Guilda dos Mercenários?";
+		mes "Eu sei que seus membros são muito difíceis de se encontrar...";
 		next;
-		mes "You relate all of the";
-		mes "information you learned";
-		mes "about poison to Father Bamph,";
-		mes "including the method to test";
-		mes "for the use of poison in murder. ";
+		mes "^3355FFVocê relata todas as informações que você conseguiu aprender sobre veneno para o Padre Bamph.";
+		mes "Incluindo o método de teste para o uso de veneno em assassinatos. ";
 		next;
-		mes "[Father Bamph]";
-		mes "Ah, I see. Then, would";
-		mes "you please bring ^3131FF1 Yellow";
-		mes "Gemstone^000000 and ^3131FF1 Green Potion^000000";
-		mes "to the secret ceremonial grounds as soon as you can? I will wait";
-		mes "over there for you once again.";
+		mes "[Padre Bamph]";
+		mes "Ah, entendo...";
+		mes "Então, você poderia trazer 1 Gema Amarela e 1 Poção Verde para a área cerimonial secreta o mais rápido possível?";
+		mes "Eu irei te esperar lá novamente.";
 		prt_curse = 51;
 		changequest 18043,18046;
 		close;
 	}
 	else if (prt_curse == 60) {
-		mes "[Father Bamph]";
-		mes "Oh, "+strcharinfo(0)+"~";
-		mes "Long time, no see.";
-		mes "Have you spoken to";
-		mes "Bonnie yet? Ah, and";
-		mes "how may I help you today?";
+		mes "[Padre Bamph]";
+		mes "Ah, "+strcharinfo(0)+".";
+		mes "Já se passou um tempo, ein.";
+		mes "Você já falou com";
+		mes "Bonnie? Ah, e";
+		mes "como eu posso ajudá-lo hoje?";
 		next;
-		mes "^3355FFYou tell Father Bamph";
-		mes "that rare herbs grow in";
-		mes "a land to the west, although";
-		mes "you do not mention that you";
-		mes "told Rodafrian about the curse.^000000";
+		mes "^3355FFVocê diz ao Padre Bamph que ervas raras crescem na terra para oeste.";
+		mes "Embora você não ter dito a ele que contou a Rodafrian sobre a maldição.^000000";
 		next;
-		mes "[Father Biscuss]";
-		mes "Land to the west?";
-		mes "That place is rumored to";
-		mes "be populated by fanatics.";
-		mes "Father Bamph, I think they";
-		mes "may be prime suspects for";
-		mes "the murder of the princes...";
+		mes "[Padre Biscuss]";
+		mes "Terra para o oeste?";
+		mes "Há rumores de que este lugar é povoado por fanáticos.";
+		mes "Padre Bamph, eu acho que eles devem ser os principais suspeitos do assassinato dos príncipes...";
 		next;
-		mes "[Father Bamph]";
-		mes "Well, I'll admit that it's";
-		mes "possible, but we haven't had";
-		mes "contact with anyone from the";
-		mes "land to the west for so long...";
-		mes "It's still far too early to make those kinds of assumptions.";
+		mes "[Padre Bamph]";
+		mes "Bem, vou admitir que isto é possível, mas não tivemos contato com ninguém da terra para o oeste por um bom tempo...";
+		mes "E também é muito cedo para fazer este tipo de suposição.";
 		next;
-		select("Land to the west?");
-		mes "[Father Bamph]";
-		mes "Not much is known about";
-		mes "the land to the west. We";
-		mes "did send several priests";
-		mes "there once to spread our";
-		mes "faith. However, they failed...";
+		select("Terra para o Oeste?");
+		mes "[Padre Bamph]";
+		mes "Não se sabe muito sobre a terra para o oeste.";
+		mes "Nós enviamos vários sacerdotes para lá para espalhar a nossa fé";
+		mes "No entanto, eles falharam...";
 		next;
-		mes "[Father Bamph]";
-		mes "From what I can tell,";
-		mes "almost everyone there";
-		mes "is a strong adherent of";
-		mes "that region's native religion.";
-		mes "Anyway, thank you for informing";
-		mes "us. We'll handle it from here.";
+		mes "[Padre Bamph]";
+		mes "Pelo que eu posso dizer, quase todos lá são adeptos da religião nativa do lugar.";
+		mes "De qualquer forma, obrigado por nos informar.";
+		mes "Cuidaremos disso daqui.";
 		next;
-		mes "[Father Bamph]";
-		mes "Ah, to preserve the secrets";
-		mes "of the royal family, I ask that";
-		mes "you refrain from entering the";
-		mes "secret ceremonial grounds";
-		mes "from now on. Thanks again for your help, "+strcharinfo(0)+".";
+		mes "[Padre Bamph]";
+		mes "Ah, para preservar os segredos da família real, peço que você evite entrar no área cerimonial sagrada de agora em diante.";
+		mes "Obrigado novamente pela a sua ajuda, "+strcharinfo(0)+".";
 		prt_curse = 61;
 		completequest 18052;
 		close;
@@ -2783,176 +2108,127 @@ prt_church,185,106,3	script	Father Bamph	1_M_PASTOR,{
 		if (prt_curse == 36 || prt_curse == 45 || prt_curse == 56 || prt_curse == 61) {
 // Begin Nameless Island Access Quest Addition
 			if (aru_monas == 0) {
-				mes "[Father Bamph]";
-				mes "I'm sorry, but would it";
-				mes "be alright if we talked";
-				mes "later? I have to handle";
-				mes "a very important task now...";
+				mes "[Padre Bamph]";
+				mes "Me desculpe, mas poderíamos conversar mais tarde?";
+				mes "Eu tenho que cuidar de uma tarefa muito importante agora...";
 				close;
 			} else if (aru_monas == 1) {
-				mes "[Father Bamph]";
-				mes "Oh, I've been waiting for";
-				mes "you, adventurer. I'm sorry";
-				mes "for giving you such short";
-				mes "notice, but it seems that";
-				mes "you've grown much stronger";
-				mes "since the last time we met.";
+				mes "[Padre Bamph]";
+				mes "Oh, eu estive esperando por você, aventureiro.";
+				mes "Lamento em dar a você este aviso, mas parece que você cresceu e está mais forte do que a última vez que nos vimos.";
 				next;
-				mes "[Father Bamph]";
-				mes "The Church has received";
-				mes "a request from Prontera";
-				mes "Palace, but we don't have";
-				mes "the resources to handle it.";
-				mes "I believe you'd be well suited";
-				mes "to this task if you'll help us.";
+				mes "[Padre Bamph]";
+				mes "A Catedral recebeu um pedido do Castelo de Prontera, mas nós não temos recursos para lidar com ele.";
+				mes "Eu acredito que você deve estar bem adaptado para esta tarefa se você quiser ajudar.";
 				next;
-				mes "[Father Bamph]";
-				mes "A man of high rank suddenly";
-				mes "disappeared a while ago.";
-				mes "Although Prontera Palace";
-				mes "asked us to find him, I can";
-				mes "only tell you who he is later.";
+				mes "[Padre Bamph]";
+				mes "Um homem de alto padrão de repente desapareceu há algum tempo.";
+				mes "Embora o Castelo de Prontera pediu para que encontrássemos ele, eu posso dizer que agora é tarde de mais.";
 				next;
-				mes "[Father Bamph]";
-				mes "All we know is that he was";
-				mes "last seen in Comodo. Please";
-				mes "speak to our informant, ^6B8E23Larjes^000000,";
-				mes "and he will assist you in your";
-				mes "search for the lost official.";
+				mes "[Padre Bamph]";
+				mes "Tudo o que sabemos é que ele foi visto pela última vez Comodo.";
+				mes "Por favor fale com nosso informante, ^6B8E23Larjes^000000, e ele o ajudará na busca pelo oficial perdido.";
 				aru_monas = 2;
 				changequest 17000,17001;
 				close;
 			}
 			else if (aru_monas == 2 || aru_monas == 3) {
-				mes "[Father Bamph]";
-				mes "Please go to Comodo and";
-				mes "find our informant, ^6B8E23Larjes^000000,";
-				mes "in the Casino. He will help";
-				mes "you in your search for the";
-				mes "official who disappeared.";
+				mes "[Padre Bamph]";
+				mes "Por favor vá para Comodo e encontre nosso informante, ^6B8E23Larjes^000000, no Casino.";
+				mes "Ele o ajudará na sua busca pelo oficial que desapareceu.";
 				close;
 			}
 			else if (aru_monas == 4) {
-				mes "[Father Bamph]";
-				mes "Ah, so you found Larjes?";
-				mes "How has your investigation of";
-				mes "that official's disappearance";
-				mes "progressing? I hope that he";
-				mes "is still safe and sound";
-				mes "when you find him.";
+				mes "[Padre Bamph]";
+				mes "Ah, então você encontrou Larjes?";
+				mes "A sua investigação sobre";
+				mes "desaparecimento do oficial tem";
+				mes "progredido? Eu espero que";
+				mes "você encontre ele são e salvo";
 				next;
-				select("Tell him what Larjes said.");
-				mes "[Father Bamph]";
-				mes "I see. We've detected some";
-				mes "disquieting activity from";
-				mes "Arunafeltz lately, but I didn't";
-				mes "think they would make";
-				mes "their move so soon. Hmm...";
-				mes "Give me a moment to think.";
+				select("Dizer a ele o que Larjes disse.");
+				mes "[Padre Bamph]";
+				mes "Entendo.";
+				mes "Nós detectamos algumas atividades inquietantes de Arunafeltz ultimamente.";
+				mes "Mas eu não acho que eles vão se mexer tão cedo...";
+				mes "Me dê um momento para pensar.";
 				aru_monas = 5;
 				close;
 			}
 			else if (aru_monas == 5) {
 				if (rand(1,5) == 4) {
-					mes "[Father Bamph]";
-					mes "Well, I've considered all";
-					mes "possible scenarios. I think";
-					mes "it would work best if you";
-					mes "continue your investigation";
-					mes "on our behalf. That is, if";
-					mes "you're willing to do it.";
+					mes "[Padre Bamph]";
+					mes "Bem, eu tenho que considerar todos os cenários possíveis.";
+					mes "Eu acho eu acho que funciona melhor você continuar sua investigação em nosso nome.";
+					mes "Ou seja, se você está disposto a fazê-lo.";
 					next;
-					mes "[Father Bamph]";
-					mes "We don't want to provoke";
-					mes "an international conflict";
-					mes "with our official involvement,";
-					mes "but I also can't force you to";
-					mes "work for us. Whether you";
-					mes "can help is your choice.";
+					mes "[Padre Bamph]";
+					mes "Nós não queremos provocar um conflito internacional com o envolvimento do oficial, mas também não posso forçar você a trabalhar para nós.";
+					mes "Só você pode ajudar em sua escolha.";
 					next;
-					if (select("Let me think about it.:Of course, I'll help.") == 1) {
-						mes "[Father Bamph]";
-						mes "I hope that you decide";
-						mes "to help us. The safety of";
-						mes "our nation depends on the";
-						mes "success of this investigation.";
-						mes "We could really use your help.";
+					if (select("Deixe me pensar sobre isso.:Certamente vou ajudar.") == 1) {
+						mes "[Padre Bamph]";
+						mes "Eu espero que você decida nos ajudar.";
+						mes "A segurança da nossa nação depende do sucesso desta investigação.";
+						mes "Nós realmente precisaremos da sua ajuda.";
 						close;
 					}
-					mes "[Father Bamph]";
-					mes "Thank you. I'm glad to hear";
-					mes "that you'll help us. You may";
-					mes "take the airship in Izlude to";
-					mes "travel to Arunafeltz, where you";
-					mes "must continue your investigation.";
+					mes "[Padre Bamph]";
+					mes "Muito obrigado.";
+					mes "Fico feliz em ouvir que você nos ajudará.";
+					mes "Você deve pegar o aeroplano em Izlude para viajar a Arunafeltz, onde você poderá continuar a sua investigação.";
 					next;
-					mes "[Father Bamph]";
-					mes "I believe that you should";
-					mes "be able to learn more if you";
-					mes "investigate the city of ^9370DBRachel^000000.";
-					mes "Please accept this money";
-					mes "to cover your Airship fee.";
-					mes "Thank you, and good luck.";
+					mes "[Padre Bamph]";
+					mes "Eu acredito que você poderá conseguir mais informações se você investigar na cidade de ^9370DBRachel^000000.";
+					mes "Por favor aceite este dinheiro para cobri a passagem do Aeroplano.";
+					mes "Obrigado, e boa sorte.";
 					aru_monas = 6;
 					Zeny += (RENEWAL?5000:1500);
 					changequest 17002,17003;
 					close;
 				}
 				else {
-					mes "[Father Bamph]";
-					mes "Hmm... What's the best way";
-					mes "for us to handle this? Let";
-					mes "me think about our options.";
-					mes "We can--no. That wouldn't";
-					mes "work. This will be difficult.";
+					mes "[Padre Bamph]";
+					mes "Hmm... Qual é a melhor maneira para lidarmos com isso?";
+					mes "Me deixe pensar sobre as opções.";
+					mes "Bem, nós podemos--não. Não funcionaria.";
+					mes "Isso será muito difícil.";
 					close;
 				}
 			}
 			else if (aru_monas == 6) {
 				// Anyone else see the irony in this?
-				mes "[Father Bamph]";
-				mes "You might have problems";
-				mes "in Rachel since the culture";
-				mes "there is much different than";
-				mes "our own. Their ways of doing";
-				mes "things, their government...";
-				mes "Everything is tied to religion.";
+				mes "[Padre Bamph]";
+				mes "Você pode ter problemas em Rachel já que a cultura deles é muito diferente da nossa.;";
+				mes "O modo de fazerem as coisas, o governo...";
+				mes "Tudo está vinculado à religião.";
 				close;
 			}
 			else if (aru_monas > 6 && aru_monas < 25) {
-				mes "[Father Bamph]";
-				mes "Thank you so much for all";
-				mes "of your hard work. Our agents";
-				mes "will contact you whenever they";
-				mes "uncover any new information.";
-				mes "Remember that no one can";
-				mes "know what we've been doing.";
+				mes "[Padre Bamph]";
+				mes "Muito obrigado por todo o seu trabalho duro.";
+				mes "Nossos agentes entraram em contato com você sempre que os mesmos descobrirem alguma coisa nova.";
+				mes "Lembre-se que ninguém pode o que nós temos feito.";
 				close;
 			}
 			else if (aru_monas == 25 || aru_monas == 26) {
-				mes "[Father Bamph]";
-				mes "Thank you for bring us such";
-				mes "important information. With";
-				mes "your help, we were able to";
-				mes "clear a few unsolved cases.";
-				mes "We expected something like";
-				mes "this, but not this soon.";
+				mes "[Padre Bamph]";
+				mes "Muito obrigado por nos trazer esta informação importante.";
+				mes "Com a sua ajuda, fomos capazes de resolver alguns casos.";
+				mes "Nós esperávamos algo como isto, mas não tão rápido.";
 				next;
-				mes "[Father Bamph]";
-				mes "I fear that the Royal Court";
-				mes "has been bickering over their";
-				mes "own selfish needs. I pray that";
-				mes "it does not grow worse, devolve";
-				mes "into chaos. ^666666*Sigh*^000000 We'll see...";
+				mes "[Padre Bamph]";
+				mes "Eu temo que a corte real estão dando prioridade para as suas necessidades egoístas.";
+				mes "Eu rezo para que isto não aumente, desconcentração no caos.";
+				mes "^666666*Suspiro*^000000";
+				mes "Vamos ver...";
 				close;
 			}
 			else {
-				mes "[Father Bamph]";
-				mes "It's upsetting to me that";
-				mes "Arunafeltz has been so quiet";
-				mes "lately. You know the expression";
-				mes "about there being a quiet lull";
-				mes "before a raging storm, right?";
+				mes "[Padre Bamph]";
+				mes "Muito obrigado por nos trazer esta informação importante.";
+				mes "Com a sua ajuda, fomos capazes de resolver alguns casos.";
+				mes "Nós esperávamos algo como isto, mas não tão rápido.";
 				close;
 			}
 // End Nameless Island Access Quest Addition
@@ -2960,83 +2236,53 @@ prt_church,185,106,3	script	Father Bamph	1_M_PASTOR,{
 	}
 }
 
-prt_church,184,110,3	script	Father Biscuss	1_M_PASTOR,{
+prt_church,184,110,3	script	Padre Biscuss	1_M_PASTOR,{
 	if (prt_curse == 54) {
-		mes "[Father Biscuss]";
-		mes "Hmm, I still suspect that";
-		mes "someone from the Assassin";
-		mes "Guild may have killed the";
-		mes "princes. Just in case, I'm";
-		mes "going to send a spy. Keep";
-		mes "that information secret.";
+		mes "[Padre Biscuss]";
+		mes "Hmm, eu ainda suspeito de que alguém da Guilda dos Mercenários pode ter assassinado os príncipes.";
+		mes "Neste caso, eu terei de enviar um espião.";
+		mes "Mantenha esta informação em segredo.";
 		next;
-		mes "[Father Biscuss]";
-		mes "So yes. You didn't learn";
-		mes "or hear anything from us,";
-		mes "and you don't know anything";
-		mes "about the royal family's curse.";
-		mes "From here on, Father Bamph";
-		mes "and I will handle this issue.";
+		mes "[Padre Biscuss]";
+		mes "Então está bem.";
+		mes "Você não deve aprender ou escutar algo de nós, e você não sabe nada sobre a maldição da família real.";
+		mes "De agora em diante, Padre Bamph e eu cuidaremos disso.";
 		close;
 	}
 	else if (prt_curse == 35) {
-		mes "[Father Biscuss]";
-		mes "I've never seen Father";
-		mes "Bamph this way before, but";
-		mes "I can understand how he feels.";
-		mes "As one of the leaders of this";
-		mes "church, he feels responsible";
-		mes "for these princes' deaths.";
+		mes "[Padre Biscuss]";
+		mes "Eu nunca vi o Padre Bamph assim antes, mas eu entendo como ele se sente.";
+		mes "Como um dos líderes desta catedral, ele sente grande responsabilidade pela morte dos príncipes.";
 		next;
-		mes "[Father Biscuss]";
-		mes "I'm sure he'll feel";
-		mes "better in a few days,";
-		mes "but right now, he's in no";
-		mes "condition to compile the";
-		mes "valuable info that you've";
-		mes "provided, so I'll do it.";
+		mes "[Padre Biscuss]";
+		mes "Estou certo de que ele vai se sentir melhor dentro de alguns dias.";
+		mes "Mas no momento, ele não esta em condições para usar a informação valiosa que você forneceu, então eu utilizarei.";
 		next;
-		mes "[Father Biscuss]";
-		mes "Personally, I feel that";
-		mes "what happened was tragic,";
-		mes "but it should be avenged.";
-		mes "Perhaps that why I've held";
-		mes "a grudge against Imbullea";
-		mes "for all this time. Anyway...";
+		mes "[Padre Biscuss]";
+		mes "Pessoalmente, eu sinto que o que aconteceu foi trágico, mas deve ser vingado.";
+		mes "Talvez por isso eu tenho uma intolerância com Imbullea a todo tempo, de qualquer forma...";
 		next;
-		mes "[Father Biscuss]";
-		mes "Although we can't";
-		mes "acknowledge it publicly,";
-		mes "on behalf of the Prontera";
-		mes "Church, I want to thank";
-		mes "you for all of your help.";
+		mes "[Padre Biscuss]";
+		mes "Embora não possamos reconhecer isto publicamente, em nome da Catedral Prontera, eu quero te agradecer por toda a ajuda.";
 		prt_curse = 36;
 		completequest 18048;
 		getexp RENEWAL_EXP?90000:1600000,0;
 		close;
 	}
 	else if (prt_curse == 36) {
-		mes "[Father Biscuss]";
-		mes "No one can know light";
-		mes "without experiencing";
-		mes "darkness. Peace has";
-		mes "no meaning until it is";
-		mes "contrasted with chaos.";
+		mes "[Padre Biscuss]";
+		mes "Ninguém conhece a luz sem experimentar as trevas.";
+		mes "Paz não tem sentido enquanto ela tem contrastes com caos.";
 		next;
-		mes "[Father Biscuss]";
-		mes "Religion becomes even";
-		mes "more important during times";
-		mes "of chaos, and times of need.";
-		mes "I must remain calm, especially";
-		mes "when Father Bamph feels so bad about this whole incident...";
+		mes "[Padre Biscuss]";
+		mes "Religião torna-se ainda mais importante durante horas de caos, e horas de necessidade.";
+		mes "Eu tenho que permanecer calmo, especialmente enquanto Padre Bamph se sente mal sobre este incidente...";
 		close;
 	}
 	else {
-		mes "[Father Biscuss]";
-		mes "Please observe";
-		mes "silence within the";
-		mes "Priest Room. Thank";
-		mes "you for cooperating.";
+		mes "[Padre Biscuss]";
+		mes "Por favor, respeite o silêncio dentro da Sala do sacerdote.";
+		mes "Obrigado por sua colaboração.";
 		close;
 	}
 }
@@ -3048,106 +2294,83 @@ prt_church,177,113,3	script	#gototomb	HIDDEN_NPC,{
 	end;
 }
 
-prt_church,23,89,3	script	Father Biscuss#tomb	1_M_PASTOR,{
-	mes "[Father Biscuss]";
-	mes "Hm...?";
-	mes "Are you ready to";
-	mes "head back upstairs?";
+prt_church,23,89,3	script	Padre Biscuss#tomb	1_M_PASTOR,{
+	mes "[Padre Biscuss]";
+	mes "Hmm...?";
+	mes "Você está pronto para subir a escada?";
 	next;
-	if (select("Yes:No") == 1) {
-		mes "[Father Biscuss]";
-		mes "Please follow me.";
+	if (select("Sim:Não") == 1) {
+		mes "[Padre Biscuss]";
+		mes "Por favor me siga.";
 		next;
 		warp "prt_church",178,111;
 		end;
 	}
-	mes "[Father Biscuss]";
-	mes "Please take your time";
-	mes "and investigate this as";
-	mes "thoroughly as you can.";
+	mes "[Padre Biscuss]";
+	mes "Por favor leve o tempo necessário e investigue tudo o que você puder.";
 	close;
 }
 
-prt_church,16,114,4	script	Father Bamph#tomb	1_M_PASTOR,{
+prt_church,16,114,4	script	Padre Bamph#tomb	1_M_PASTOR,{
 	if (prt_curse == 18) {
-		mes "[Father Bamph]";
-		mes "There are the bodies";
-		mes "of the Gaebolg princes";
-		mes "that were killed during";
-		mes "the exorcism. Please take";
-		mes "a look at the body to the left.";
+		mes "[Padre Bamph]";
+		mes "Ali estão os corpos dos príncipes Gaebolg que foram mortos durante o exorcismo.";
+		mes "Por favor, dê uma olhada no corpo a esquerda.";
 		prt_curse = 19;
 		close;
 	}
 	else if (prt_curse == 19) {
-		mes "[Father Bamph]";
-		mes "Please take a look";
-		mes "at the body to the";
-		mes "far left, the first prince.";
+		mes "[Padre Bamph]";
+		mes "Por favor de uma olhada no corpo que está na extrema esquerda, o primeiro Príncipe.";
 		close;
 	}
 	else if (prt_curse == 20) {
 		mes "["+strcharinfo(0)+"]";
-		mes "That weird mark looked";
-		mes "just like snake scales.";
-		mes "Is... Is that the mark left";
-		mes "behind by Jormungand's curse?";
+		mes "Esta marca estranha é muito parecida com escamas de cobra.";
+		mes "É... é esta a marca por trás da maldição de Jormungand?";
 		next;
-		mes "[Father Bamph]";
-		mes "That's right.";
-		mes "Now, let's examine the";
-		mes "body of the second prince,";
-		mes "located in the middle.";
+		mes "[Padre Bamph]";
+		mes "Está certo.";
+		mes "Agora, vamos examinar o corpo do segundo príncipe, localizado no meio.";
 		close;
 	}
 	else if (prt_curse == 21) {
-		mes "[Father Bamph]";
-		mes "Now...";
-		mes "Now we should";
-		mes "examine the third prince.";
+		mes "[Padre Bamph]";
+		mes "Agora...";
+		mes "Agora nós devemos examinar o 3º príncipe.";
 		close;
 	}
 	else if (prt_curse == 22) {
-		mes "[Father Bamph]";
-		mes "Let's go upstairs where we";
-		mes "can continue this conversation.";
-		mes "Ah, you might want to ask";
-		mes "Father Biscuss to lead you.";
+		mes "[Padre Bamph]";
+		mes "Vamos subir a escada, aonde poderemos continuar com nossa conversa.";
+		mes "Ah, você pode querer pedir ao Padre Biscuss para levar você.";
 		close;
 	}
 	else if (prt_curse == 32 || prt_curse == 41 || prt_curse == 51) {
-		mes "[Father Bamph]";
-		mes "Do you have a ^3131FFYellow";
-		mes "Gemstone^000000 and ^3131FFGreen Potion^000000";
-		mes "ready? If so, you should begin";
-		mes "testing on the body of the third prince before the others.";
+		mes "[Padre Bamph]";
+		mes "Você está com uma ^3131FFGema Amarela^000000 e ^3131FF1 Poção Verde^000000 prontas?";
+		mes "Se estiver, você deve começar o teste no corpo do terceiro príncipe, antes dos outros.";
 		close;
 	}
 	else if (prt_curse == 33 || prt_curse == 42 || prt_curse == 52) {
-		mes "[Father Bamph]";
-		mes "The mark disappeared?";
-		mes "Oh, this is just horrible!";
-		mes "That would mean that poison";
-		mes "was used to murder the other";
-		mes "princes! I almost... can't...";
+		mes "[Padre Bamph]";
+		mes "A marca desapareceu?";
+		mes "Oh, isso é horrivel!";
+		mes "Isso significa que foi utilizado veneno para matar os outros 2 príncipes!";
+		mes "Eu quase... não posso...";
 		next;
-		mes "[Father Bamph]";
-		mes "I... I need some time";
-		mes "to recover from the shock";
-		mes "and to think about all of";
-		mes "this carefully. For now,";
-		mes "let's go back upstairs.";
+		mes "[Padre Bamph]";
+		mes "Eu... Eu preciso de um tempo para me recuperar do choque e pensar sobre tudo isso com cuidado.";
+		mes "Por enquanto vamos voltar e subir a escada.";
 		if (prt_curse == 33) prt_curse = 34;
 		else if (prt_curse == 42) prt_curse = 43;
 		else prt_curse = 53;
 		close;
 	}
 	else if (prt_curse == 43 || prt_curse == 53) {
-		mes "[Father Bamph]";
-		mes "We've disturbed the";
-		mes "bodies of these poor";
-		mes "souls enough. We should";
-		mes "go back upstairs now...";
+		mes "[Padre Bamph]";
+		mes "Nós já perturbamos demais os corpos destas pobres almas o bastante.";
+		mes "Nós temos que subir a escada agora...";
 		close;
 	}
 	end;
@@ -3155,81 +2378,53 @@ prt_church,16,114,4	script	Father Bamph#tomb	1_M_PASTOR,{
 
 prt_church,19,111,5	script	#prince1	4_M_LIEMAN,{
 	if (prt_curse == 19) {
-		mes "[Father Bamph]";
-		mes "This is the body of";
-		mes "the king's first son, the";
-		mes "crown prince. Just as it has";
-		mes "happened for generations,";
-		mes "the curse took the life of";
-		mes "the first born prince...";
+		mes "[Padre Bamph]";
+		mes "Este é o corpo do primeiro filho do rei, o príncipe herdeiro.";
+		mes "Assim como tem acontecido há gerações, a maldição roubou a vida do filho primogênito...";
 		next;
-		mes "^3355FFBeneath one of the";
-		mes "prince's sleeves, you";
-		mes "notice a dark mark. Upon";
-		mes "pulling up the sleeve, you";
-		mes "note that the mark resembles";
-		mes "the scales of a serpent.^000000";
+		mes "^3355FFSob uma das mangas do príncipe, você observa uma marca escura.";
+		mes "Ao puxar a manga para cima, você nota que a marca se assemelha às escamas de uma serpente.^000000";
 		prt_curse = 20;
 		changequest 18037,18038;
 		close;
 	}
 	else if (prt_curse == 33 || prt_curse > 41 && prt_curse < 51 || prt_curse == 52) {
-		mes "^3355FFYou poured a little bit";
-		mes "of the solution made from";
-		mes "Yellow Gemstone and Green";
-		mes "Potion on the mark on the skin.";
-		mes "You waited a while, but there was no reaction from the solution.^000000";
+		mes "^3355FFVocê despejou um pouco da solução feita da Gema Amarela e da Poção Verde em cima da marca na pele.";
+		mes "Você esperou um pouco, mas não houve uma reação da solução^000000";
 		close;
 	}
 	else {
-		mes "^3355FFIt's the body of a male";
-		mes "dressed in luxurious robes.";
-		mes "Although deceased, the color";
-		mes "of life has not yet left the body. ";
+		mes "^3355FFÉ o corpo de um homem vestido com mantos luxuosos.";
+		mes "Apesar de morto, a cor da vida ainda não deixou seu corpo. ";
 		close;
 	}
 }
 
 prt_church,21,111,5	script	#prince2	4_M_LIEMAN,{
 	if (prt_curse == 20) {
-		mes "[Father Bamph]";
-		mes "This is the body of the";
-		mes "second prince. The curse";
-		mes "is only supposed to kill";
-		mes "the firstborn prince, but";
-		mes "all three princes of this";
-		mes "generation were killed...";
+		mes "[Padre Bamph]";
+		mes "Este é o corpo do segundo príncipe.";
+		mes "A maldição só deveria matar o princípe primogênito, mas todos os três príncipes dessa geração foram mortos...";
 		next;
-		mes "[Father Bamph]";
-		mes "Despite our great efforts";
-		mes "to exorcise this powerful";
-		mes "curse, we all failed. Those";
-		mes "involved have begun to believe";
-		mes "that Odin may have abandoned us... ";
+		mes "[Padre Bamph]";
+		mes "Apesar de nossos grandes esforços para exorcizar essa poderosa maldição, todos nós fracassamos.";
+		mes "Aqueles envolvidos começaram a acreditar que Odin pode ter nos abandonado... ";
 		emotion e_omg,1;
 		next;
-		mes "^3355FFYou examine the body of";
-		mes "the second prince and notice";
-		mes "that the scale marks on his";
-		mes "skin are fainter, and slightly";
-		mes "different in color, than the";
-		mes "marks on the first prince.^000000";
+		mes "^3355FFVocê examina o corpo do segundo príncipe e nota que as marcas de escama em sua pele estão mais esmaecidas.";
+		mes "Levemente diferentes quanto à tonalidade, do que as marcas do primeiro príncipe.^000000";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Father Bamph...!";
-		mes "Look, these marks are";
-		mes "different on the second";
-		mes "prince than on the first";
-		mes "prince! See? They're different";
-		mes "in darkness and coloration.";
+		mes "Padre Bamph...!";
+		mes "Olhe, essas marcas do segundo príncipe são diferentes das marcas do primeiro";
+		mes "príncipe! Viu?";
+		mes "Elas são diferentes tanto na tonalidade quanto na coloração.";
 		next;
-		mes "[Father Bamph]";
-		mes "Goodness, you're right!";
-		mes "How did we overlook this?";
-		mes "Hm, this supports the idea";
-		mes "that a conspiracy may be";
-		mes "involved. Let's go check";
-		mes "the body of the third prince.";
+		mes "[Padre Bamph]";
+		mes "Meu Deus, Você está certo!";
+		mes "Como pudemos não prestar atenção nisso?!?!";
+		mes "Hmmm, isso sustenta a idéia de que uma conspiração pode estar envolvida.";
+		mes "Vamos verificar o corpo do terceiro príncipe.";
 		prt_curse = 21;
 		changequest 18038,18039;
 		close;
@@ -3238,105 +2433,81 @@ prt_church,21,111,5	script	#prince2	4_M_LIEMAN,{
 		specialeffect EF_POISONATTACK;
 		specialeffect EF_POISONHIT;
 		specialeffect EF_BUBBLE;
-		mes "^3355FFYou poured a little of the";
-		mes "solution made from Green";
-		mes "Potion and Yellow Gemstone";
-		mes "on the body's scale marks. The";
-		mes "scale marks grow fainter and";
-		mes "the solution bubbles on contact. ";
+		mes "^3355FFVocê despejou um pouco da solução feita da Poção Verde e da Gema Amarela sobre as marcas de escama do corpo.";
+		mes "As marcas de escama ficam mais fracas a solução borbulha ao contato. ";
 		close;
 	}
 	else {
-		mes "^3355FFIt's the body of a male";
-		mes "dressed in luxurious robes.";
-		mes "Although deceased, the color";
-		mes "of life has not yet left the body. ";
+		mes "^3355FFÉ o corpo de um homem vestido com mantos luxuosos.";
+		mes "Apesar de morto, a cor da vida ainda não deixou seu corpo. ";
 		close;
 	}
 }
 
 prt_church,24,111,5	script	#prince3	4_M_LIEMAN,{
 	if (prt_curse == 21) {
-		mes "^3355FFYou and Father Bamph";
-		mes "hurriedly inspect the third";
-		mes "prince's body and find that the";
-		mes "scale marks on his skin are";
-		mes "a little darker than the marks";
-		mes "on the second prince's skin.^000000";
+		mes "^3355FFVocê e o Padre Bamph";
+		mes "verificam apressadamente o corpo";
+		mes "do terceiro príncipe, e descobrem que";
+		mes "as marcas de escama em sua pele são";
+		mes "um pouco mais escuras que as marcas";
+		mes "que estão na pele do segundo príncipe.^000000";
 		next;
-		mes "[Father Bamph]";
-		mes "This is very suspicious...";
-		mes "The deaths of the second and";
-		mes "third princes might have been";
-		mes "caused by murder, rather than";
-		mes "the curse. However, what could";
-		mes "possibly be used to kill them?";
+		mes "[Padre Bamph]";
+		mes "Isso é muito suspeito...";
+		mes "As mortes do segundo e do";
+		mes "terceiro príncipe foram";
+		mes "causadas por assassinato, e não pela";
+		mes "maldição. Entretanto, o que poderia";
+		mes "ter sido utilizado para matá-los?";
 		next;
 		while(1) {
-			if (select("A weapon!:Poison!") == 1) {
-				mes "[Father Bamph]";
-				mes "Hmm... But none of the";
-				mes "bodies had any wounds";
-				mes "or scarring. If that were the";
-				mes "case, I'm sure the king would";
-				mes "have declared war on someone.";
-				mes "It couldn't have been a weapon.";
+			if (select("Uma arma!:Veneno!") == 1) {
+				mes "[Padre Bamph]";
+				mes "Hmm... Mas nenhum destes corpos tem hematomas ou cicatrizes.";
+				mes "E se fosse este o caso, tenho certeza de que o rei declararia guerra a alguém.";
+				mes "Não pode ter sido uma arma.";
 				next;
 			}
 			else  break;
 		}
-		mes "[Father Bamph]";
-		mes "Poison...?";
-		mes "Oh dear! No one in the";
-		mes "Prontera Church would know";
-		mes "the first thing about that. But";
-		mes "maybe poison was used.";
-		mes "How can we find out for sure?";
+		mes "[Padre Bamph]";
+		mes "Veneno...?";
+		mes "Oh, minha nossa!";
+		mes "Ninguém na Igreja de Prontera saberia nada sobre isso.";
+		mes "Mas talvez veneno tenha sido usado.";
+		mes "Como podemos ter certeza?";
 		next;
-		mes "[Father Biscuss]";
-		mes "I say, you go straight to";
-		mes "the experts. Someone in the";
-		mes "^FF0000Assassin Guild in Morroc^000000";
-		mes "ought to know. I hear they";
-		mes "can make poison that can kill";
-		mes "a man with just one drop!";
+		mes "[Padre Biscuss]";
+		mes "Vou dizer como, você vai direto aos especialistas.";
+		mes "Alguém da ^FF0000Guilda dos Mercenários em Morroc^000000 deve saber.";
+		mes "Eu ouvi falar que eles podem fazer venenos que matam um homem com apenas uma gota!";
 		next;
-		mes "[Father Bamph]";
-		mes "Ah, that's a good idea!";
-		mes "Hmm, but first, let's go";
-		mes "continue this conversation";
-		mes "outside, shall we? I'd prefer";
-		mes "not to disturb these bodies...";
+		mes "[Padre Bamph]";
+		mes "Ah, essa é uma boa idéia!";
+		mes "Hmmm, mas primeiro, vamos continuar com nossa conversa lá fora, certo?";
+		mes "Eu prefiro não pertubar esses corpos...";
 		prt_curse = 22;
 		close;
 	}
 	else if (prt_curse == 22) {
-		mes "[Father Bamph]";
-		mes "Let's go upstairs where we";
-		mes "can continue this conversation.";
-		mes "Ah, you might want to ask";
-		mes "Father Biscuss to lead you.";
+		mes "[Padre Bamph]";
+		mes "Vamos subir a escada, aonde poderemos continuar com nossa conversa.";
+		mes "Ah, você pode querer pedir ao Padre Biscuss para levar você.";
 		close;
 	}
 	else if (prt_curse == 32 || prt_curse == 41 || prt_curse == 51) {
 		if (countitem(506) > 0 && countitem(715) > 0) {
-			mes "^3355FFYou open a bottle of";
-			mes "Green Potion and insert a";
-			mes "Yellow Gemstone. The gem";
-			mes "quickly dissolves, conveniently";
-			mes "forming a solution to test for the presense of poison. You pour";
-			mes "it on the prince's scale marks.^000000";
+			mes "^3355FFVocê abre uma garrafa de Poção Verde e insere uma Gema Amarela.";
+			mes "A gema se dissolve rapidamente, formando convenientemente, uma solução para testar a presença de veneno.";
+			mes "Você a despeja sobre as marcas de escamas do príncipe.^000000";
 			next;
 			specialeffect EF_POISONATTACK;
 			specialeffect EF_POISONHIT;
 			specialeffect EF_BUBBLE;
 			mes "^3355FF*Pssssssssh*^000000";
 			next;
-			mes "^3355FFThe solution bubbles";
-			mes "once it touches the skin,";
-			mes "and the serpent scale marks";
-			mes "on the prince's body slowly";
-			mes "fade until they disappear.^000000";
+			mes "^3355FFA solução borbulho ao tocar a pele, e as marcas e escama de serpente começam a desaparecer lentamente do corpo do Jovem Príncipe.^000000";
 			delitem 506,1; //Green_Potion
 			delitem 715,1; //Yellow_Gemstone
 			if (prt_curse == 32) prt_curse = 33;
@@ -3345,81 +2516,56 @@ prt_church,24,111,5	script	#prince3	4_M_LIEMAN,{
 			changequest 18046,18047;
 			close;
 		}
-		mes "^3355FFYou'll need to have";
-		mes "a Green Potion and";
-		mes "a Yellow Gemstone in";
-		mes "order to test and confirm";
-		mes "whether poison killed the";
-		mes "second and third princes.^000000";
+		mes "^3355FFVocê precisará ter uma Poção Verde e uma Gema Amarela para testar e confirmar ser foi veneno que matou o segundo e o terceiro príncipe.^000000";
 		close;
 	}
 	else if (prt_curse == 33 || prt_curse == 42 || prt_curse == 52) {
-		mes "^3355FFThe serpent scale marks";
-		mes "on this prince's body have";
-		mes "vanished after you applied";
-		mes "the Green Potion and Yellow";
-		mes "Gemstone solution to the skin.^000000";
+		mes "^3355FFAs marcas de escama de serpente no corpo desse príncipe desapareceram após você ter aplicado a Poção Verde e a Gema Amarela na pele.^000000";
 		close;
 	}
 	else {
-		mes "^3355FFIt's the body of a male";
-		mes "dressed in luxurious robes.";
-		mes "Although deceased, the color";
-		mes "of life has not yet left the body. ";
+		mes "^3355FFÉ o corpo de um homem vestido com mantos luxuosos.";
+		mes "Apesar de morto, a cor da vida ainda não deixou seu corpo. ";
 		close;
 	}
 }
 
-moc_fild16,201,295,5	script	Assassin Guildsman#poiso	4_M_ACROSS,{
+moc_fild16,201,295,5	script	Mercenário#poiso	4_M_ACROSS,{
 	if (prt_curse == 23) {
-		mes "[Assassin Guildsman]";
-		mes "What business";
-		mes "brings you here?";
+		mes "[Mercenário]";
+		mes "Quais os negócios que o trazem aqui?";
 		next;
-		if (select("Poison:Nothing") == 1) {
+		if (select("Veneno:Nada") == 1) {
 			mes "["+strcharinfo(0)+"]";
-			mes "I need to talk to";
-			mes "a poison specialist.";
-			mes "I'm investigating";
-			mes "something for the";
-			mes "Prontera Church,";
-			mes "possibly a murder.";
+			mes "Eu preciso falar com um especialista em venenos.";
+			mes "Estou investigando uma coisa para a Igreja de Prontera, provavelmente um assassinato.";
 			next;
-			mes "[Assassin Guildsman]";
+			mes "[Mercenário]";
 			mes "...";
 			mes "......";
 			mes ".........";
 			next;
-			mes "[Assassin Guildsman]";
-			mes "Listen carefully.";
-			mes "I will only tell this";
-			mes "to you one time.";
+			mes "[Mercenário da Guilda";
+			mes "Ouça cuidadosamente.";
+			mes "Eu só irei lhe dizer isso uma vez.";
 			next;
-			mes "[Assassin Guildsman]";
-			mes "There is an";
-			mes "Assassin's Private Pub";
-			mes "in the 7 o'clock direction";
-			mes "in Morroc. Go find someone";
-			mes "named ^3131FFMarjana^000000 inside.";
+			mes "[Mercenário]";
+			mes "Há um Bar Particular de Mercenários a sudoeste de Morroc.";
+			mes "Vá encontrar alguém chamado ^3131FFMarjana^000000 lá dentro.";
 			prt_curse = 24;
 			changequest 18040,18041;
 			close;
 		}
-		mes "[Assassin Guildsman]";
-		mes "No. That look in";
-		mes "your eyes. I'm sure";
-		mes "there is a reason that";
-		mes "you have come here...";
+		mes "[Mercenário]";
+		mes "Não. Esse olhar em seus olhos.";
+		mes "Tenho certeza que há uma razão para você ter vindo aqui...";
 		close;
 	}
 	else {
-		mes "[Assassin Guildsman]";
-		mes "It's very dry and";
-		mes "windy today. I like this";
-		mes "weather. It feels like it";
-		mes "perfectly matches the soul";
-		mes "of a true Assassin, the loner";
-		mes "that hides in the shadows.";
+		mes "[Mercenário]";
+		mes "Está muito seco e ventando muito hoje.";
+		mes "Eu gosto desse clima.";
+		mes "Parece se adequar perfeitamente à alma de um verdadeiro Mercenário, o solitário que se esconde nas sombras.";
 		close;
 	}
 }
@@ -3427,104 +2573,65 @@ moc_fild16,201,295,5	script	Assassin Guildsman#poiso	4_M_ACROSS,{
 que_job01,10,16,5	script	Marjana#poison	4_F_ACROSS,{
 	if (prt_curse == 24) {
 		mes "[Marjana]";
-		mes "What business brings";
-		mes "you here? I'm giving";
-		mes "you 4 minutes to speak";
-		mes "with me, so be direct.";
+		mes "O que traz você aqui?";
+		mes "Eu vou lhe dar 4  minutos para me dizer, então vá direto ao ponto.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "I want to learn";
-		mes "more about poison";
-		mes "and confirm if it was";
-		mes "used to kill someone.";
+		mes "Eu quero saber mais sobre venenos e confirmar se foi usado para matar alguém.";
 		next;
 		mes "[Marjana]";
-		mes "Poison? You've come";
-		mes "to just the right person.";
-		mes "If I don't know the answer,";
-		mes "I doubt you'll find anyone";
-		mes "else that would. Ask away.";
+		mes "Veneno?";
+		mes "Você veio à pessoa certa.";
+		mes "Se eu não souber a resposta, eu duvido que você encontre alguém que possa lhe dar.";
+		mes "Pergunte.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Is it true that an";
-		mes "Assassin's poison";
-		mes "can be so powerful,";
-		mes "that just one drop";
-		mes "can kill a person?";
+		mes "É verdade que o veneno de um Mercenário pode ser tão poderoso que, apenas uma gota pode matar uma pessoa?";
 		next;
 		mes "[Marjana]";
-		mes "It's true that such powerful";
-		mes "poison exists, but such deadly";
-		mes "poison is usually only used by";
-		mes "Assassin Crosses. Generally,";
-		mes "normal Assassins use poisons";
-		mes "that are much less potent.";
+		mes "É verdade que veneno tão poderoso assim existe, mas tal veneno mortal só é usado por Algozes.";
+		mes "Geralmente, Mercenários normais utilizam venenos que são muito menos potentes.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Alright. Can you make";
-		mes "a poison that leaves a";
-		mes "specific mark on the body?";
+		mes "Certo.";
+		mes "Você pode criar um veneno que deixe uma marca específica no corpo?";
 		next;
 		mes "[Marjana]";
-		mes "Sure. There's all kinds of";
-		mes "poisons that exist that I'm";
-		mes "sure you can't even imagine.";
-		mes "However, poisons that leave";
-		mes "specific marks are difficult to";
-		mes "use, and few can handle them.";
+		mes "Claro.";
+		mes "Há tantos tipos de venenos, que eu tenho certeza que você nem pode imaginar.";
+		mes "Entretanto, os venenos que deixam marcas específicas são difíceis de usar, e somente alguns poucos sabem usá-los.";
 		next;
 		mes "[Marjana]";
-		mes "The types of marks";
-		mes "that are left behind all";
-		mes "depend on the materials";
-		mes "used to create the poison.";
-		mes "Since some materials are";
-		mes "exclusive to certain areas...";
+		mes "Os tipos de marcas que são deixadas dependem dos materiais usados para criar a poção.";
+		mes "Já que alguns materiais são exclusivos de determinadas regiões...";
 		next;
 		mes "[Marjana]";
-		mes "Well, the type of mark";
-		mes "that was left behind could";
-		mes "actually serve as some kind";
-		mes "of clue. What was the mark";
-		mes "on the victim's body?";
+		mes "Bem, o tipo de marca";
+		mes "que foi deixada poderia na verdade servir como algum tipo de pista.";
+		mes "Qual era a marca no corpo da vítima?";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "We're not sure if";
-		mes "poison was used yet,";
-		mes "but there are marks that";
-		mes "look like snake scales";
-		mes "left on the bodies.";
+		mes "Nós ainda não temos certeza se foi usado veneno, mas há marcas que parecem com escamas de cobra deixadas nos corpos.";
 		next;
 		mes "[Marjana]";
-		mes "Hmm. You know, if I had";
-		mes "to guess, I would say that";
-		mes "poison was probably used.";
-		mes "But the poison would have";
-		mes "to originate from outside of";
-		mes "the Rune-Midgarts Kingdom...";
+		mes "Hmm...";
+		mes "Sabe, se eu tivesse que supor, eu diria que isso foi causado por veneno, sim.";
+		mes "Mas o veneno teria que ter sido criado fora do Reino de Rune-Midgard...";
 		next;
 		mes "[Marjana]";
-		mes "Yeah...";
-		mes "The materials used to";
-		mes "make those snake scale";
-		mes "marks... Some of them can't";
-		mes "even be found here on the";
-		mes "Rune-Midgard continent.";
+		mes "Sim...";
+		mes "Os materiais usados para fazer essas marcas de escama de cobra...";
+		mes "Alguns deles não podem podem nem ao menos serem encontrados no continente de Rune-Midgard.";
 		next;
 		mes "[Marjana]";
-		mes "We're running out of time.";
-		mes "Listen, you can confirm whether";
-		mes "poison was used to kill someone";
-		mes "by mixing a Yellow Gemstone with a Green Potion, and sprinkling";
-		mes "the solution on the body.";
+		mes "Nosso tempo está se esgotando.";
+		mes "Escute, você pode confirmar se foi utilizado veneno ou não para matar alguém misturando uma Gema Amarela com uma Poção Verde.";
+		mes "E salpicando a solução pelo corpo.";
 		next;
 		mes "[Marjana]";
-		mes "If poison was used, the";
-		mes "solution with react with";
-		mes "the body. But this method";
-		mes "won't work if too much time";
-		mes "has passed after the murder.";
-		mes "You better try this soon...";
+		mes "Se foi utilizado algum veneno, a solução irá reagir em contato com o corpo.";
+		mes "Mas, esse método não irá funcionar se tiver passado muito tempo do assassinato.";
+		mes "É melhor você experimentar isso logo...";
 		prt_curse = 25;
 		close;
 	}
@@ -3542,154 +2649,110 @@ morocc,45,103,0	script	#prtcurse	-1,2,2,{
 OnTouch:
 	if (prt_curse == 25) {
 		mes "["+strcharinfo(0)+"]";
-		mes "Hm. I'd better review";
-		mes "the facts I've learned so";
-		mes "that I can better focus on";
-		mes "this investigation. Let's see~";
+		mes "Hm....";
+		mes "É melhor eu rever os fatos que descobri, para que possa me concentrar melhor na investigação.";
+		mes "Vamos ver...";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Long ago, the giant serpent";
-		mes "Jormungand threatened mankind.";
-		mes "7 warriors defeated Jormungand, led by Tristram III of the Gaebolg";
-		mes "family, but Jormungand cursed the Gaebolg bloodline in its defeat.";
+		mes "Há muito tempo, a serpente gigante Jormungand ameaçava a raça humana.";
+		mes "7 guerreiros derrotaram Jormungand, liderados por Tristram III da família Gaebolg.";
+		mes "Mas Jormungand quado foi derrotado, jogou uma maldição na linhagem dos Gaebolg.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Ever since, the curse kills";
-		mes "the first born prince of the";
-		mes "Gaebolg family at an early age.";
-		mes "However, all of the princes of";
-		mes "this generation were killed.";
+		mes "Desde então, a maldição mata o príncipe primogênito da família Gaebolg, quando eles ainda são muito jovens.";
+		mes "Entretanto, todos os prícipes dessa geração foram mortos.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "According to what I've";
-		mes "learned from that assassin,";
-		mes "the first prince died from the";
-		mes "curse, and the other two may";
-		mes "have died from poisoning.";
+		mes "De acordo com o que eu aprendi com aquele mercenário.";
+		mes "O primeiro príncipe morreu da maldição, e os outros dois morreram por envenenamento.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "It's most likely that if";
-		mes "poison was used, then the";
-		mes "person who used it was an";
-		mes "assassin from outside of the";
-		mes "Rune-Midgarts Kingdom. Yes,";
-		mes "that's about everything I know.";
+		mes "É mais provável que caso tenha sido usado veneno.";
+		mes "Então a pessoa que o usou, era um assassino de fora do Reino de Rune-Midgard.";
+		mes "Sim, isso é quase tudo que sei.";
 		next;
 		mes "["+strcharinfo(0)+"]";
-		mes "Now, that historian Rodafrian";
-		mes "has been waiting for me to tell";
-		mes "her the lyrics of that song, but Father Bamph is also waiting";
-		mes "for the info I've learned from the Assassin Guild. What should I do?";
+		mes "Agora, aquela historiadora Rodafrian está me esperando para lhe informar sobre a letra certa daquela canção.";
+		mes "Mas o Padre Bamph também está esperando pelas informações que eu descobri com a Guilda dos Mercenários.";
+		mes "O que devo fazer?";
 		next;
-		if (select("Go to Rodafrian:Go to Father Bamph") == 1) {
+		if (select("Ir encontrar com Rodafrian:Ir encontrar com o Padre Bamph") == 1) {
 			mes "["+strcharinfo(0)+"]";
-			mes "Well, it's easier for me";
-			mes "to visit Rodafrian now.";
-			mes "She's much closer than";
-			mes "Father Bamph, so I guess";
-			mes "that I'll go talk to her first.";
+			mes "Bem, é mais fácil para mim visitar Rodafrian agora.";
+			mes "Ela está muito mais perto do que o Padre Bamph, então eu acho que eu deveria ir falar com ela primeiro.";
 			prt_curse = 30;
 			changequest 18041,18042;
 			close;
 		}
 		mes "["+strcharinfo(0)+"]";
-		mes "Well, it's more important";
-		mes "that I go see Father Bamph";
-		mes "and investigate the princes'";
-		mes "bodies. I better head over";
-		mes "to Prontera right away.";
+		mes "Bem, é mais importante que eu vá ver o Padre Bamph e investigue os corpos dos príncipes.";
+		mes "É melhor eu ir para Prontera logo de uma vez.";
 		prt_curse = 50;
 		changequest 18041,18043;
 		close;
 	}
 }
 
-prt_in,162,99,4	script	Librarian#curse	1_F_02,{
+prt_in,162,99,4	script	Bibliotecário#curse	1_F_02,{
 	if (checkweight(1201,1) == 0) {
-		mes "^3355FFWait a second!";
-		mes "Right now, you're carrying";
-		mes "too many things with you.";
-		mes "Please come back after";
-		mes "using the Kafra Service";
-		mes "to store some of your items.";
+		mes "^3355FFEspere um segundo!";
+		mes "Agora, você está carregando muitas coisas com você.";
+		mes "Por favor volte depois de usar o Serviço Kafra para armazenar alguns de seus itens.^000000";
 		close;
 	}
 	if (prt_curse == 3) {
 		if (countitem(7431) < 1) {
-			mes "[Librarian]";
-			mes "Please make sure to return";
-			mes "library books to the correct";
-			mes "place after you use them.";
-			mes "We don't have enough staff";
-			mes "to organize all these books...";
+			mes "[Bibliotecário]";
+			mes "Por favor, certifique-se de colocar os livros da biblioteca no local correto após tê-los usado.";
+			mes "Não temos pessoal suficiente para organizar todos esses livros...";
 			next;
-			if (select("Report the loss of the books:End Conversation") == 1) {
-				mes "[Librarian]";
-				mes "Oh, you lost some books?";
-				mes "Please write down the book";
-				mes "titles and pay the 700 zeny";
-				mes "penalty charge. Aftewards,";
-				mes "we will provide you with";
-				mes "replacement copies.";
+			if (select("Relatar a perda dos livros:Terminar Conversa") == 1) {
+				mes "[Bibliotecário]";
+				mes "Oh, você perdeu alguns livros?";
+				mes "Por favor, escreva o nome dos livros e pague a muita de 700 zenys.";
+				mes "Afinal, nós iremos lhe fornecer cópias de substituição.";
 				next;
 				if (Zeny > 699) {
-					mes "[Librarian]";
-					mes "Ah, here you are.";
-					mes "Please take these";
-					mes "replacement copies,";
-					mes "and try not to lose";
-					mes "them again. Thank you.";
+					mes "[Bibliotecário]";
+					mes "Ah, aqui está você.";
+					mes "Por favor pegue essas cópias de substituição, e tente não perdê-los de novo.";
+					mes "Obrigado.";
 					Zeny -= 700;
 					getitem 7431,1; //Books
 					close;
 				}
-				mes "[Librarian]";
+				mes "[Bibliotecário]";
 				mes "Hmm...";
-				mes "Come back as soon";
-				mes "as you can with the";
-				mes "700 zeny to pay the";
-				mes "lost book penalty charge.";
+				mes "Volte o mais rápido que puder com 700 zenys para pagar a multa de perda de livros.";
 				close;
 			}
-			mes "[Librarian]";
-			mes "Please keep silent";
-			mes "while inside the library.";
-			mes "Thank you for cooperating.";
+			mes "[Bibliotecário]";
+			mes "Por favor faça silêncio, enquanto está dentro da biblioteca.";
+			mes "Obrigado pela compreensão.";
 			close;
 		}
 		else {
-			mes "[Librarian]";
-			mes "Being a librarian can";
-			mes "be pretty rough. People";
-			mes "just leave the books all";
-			mes "scattered, but expect them";
-			mes "to be organized. Ooh, books";
-			mes "are always getting lost too...";
+			mes "[Bibliotecário]";
+			mes "Ser um bibliotecário pode";
+			mes "ser bem chato. Pessoas";
+			mes "levam os livros todos";
+			mes "desorganizados, e esperam";
+			mes "que sejam organizados. Ooh, livross";
+			mes "eles estão sempre perdidos...";
 			next;
-			mes "[Librarian]";
-			mes "When you have";
-			mes "to clean up their";
-			mes "messes, you get to";
-			mes "realize how sloppy";
-			mes "people can really be.";
+			mes "[Bibliotecário]";
+			mes "Quando você tem que arrumar a bagunça deles, você percebe como as pessoas são desleixadas.";
 			close;
 		}
 	}
 	else {
-		mes "[Librarian]";
-		mes "Being a librarian can";
-		mes "be pretty rough. People";
-		mes "just leave the books all";
-		mes "scattered, but expect them";
-		mes "to be organized. Ooh, books";
-		mes "are always getting lost too...";
+		mes "[Bibliotecário]";
+		mes "Ser um bibliotecário pode ser bem chato.";
+		mes "Pessoas levam os livros todos desorganizados, e esperam que sejam organizados.";
+		mes "Ooh, livros eles estão sempre perdidos...";
 		next;
-		mes "[Librarian]";
-		mes "When you have";
-		mes "to clean up their";
-		mes "messes, you get to";
-		mes "realize how sloppy";
-		mes "people can really be.";
+		mes "[Bibliotecário]";
+		mes "Quando você tem que arrumar a bagunça deles, você percebe como as pessoas são desleixadas.";
 		close;
 	}
 }
