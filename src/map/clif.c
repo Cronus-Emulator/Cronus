@@ -110,12 +110,6 @@ static inline void WBUFPOS2(uint8* p, unsigned short pos, short x0, short y0, sh
 	p[5] = (uint8)((sx0<<4) | (sy0&0x0f));
 }
 
-#if 0 // Currently unused
-static inline void WFIFOPOS(int fd, unsigned short pos, short x, short y, unsigned char dir) {
-	WBUFPOS(WFIFOP(fd,pos), 0, x, y, dir);
-}
-#endif // 0
-
 static inline void WFIFOPOS2(int fd, unsigned short pos, short x0, short y0, short x1, short y1, unsigned char sx0, unsigned char sy0) {
 	WBUFPOS2(WFIFOP(fd,pos), 0, x0, y0, x1, y1, sx0, sy0);
 }
@@ -139,39 +133,6 @@ static inline void RBUFPOS(const uint8* p, unsigned short pos, short* x, short* 
 static inline void RFIFOPOS(int fd, unsigned short pos, short* x, short* y, unsigned char* dir) {
 	RBUFPOS(RFIFOP(fd,pos), 0, x, y, dir);
 }
-
-#if 0 // currently unused
-static inline void RBUFPOS2(const uint8* p, unsigned short pos, short* x0, short* y0, short* x1, short* y1, unsigned char* sx0, unsigned char* sy0) {
-	p += pos;
-
-	if( x0 ) {
-		x0[0] = ( ( p[0] & 0xff ) << 2 ) | ( p[1] >> 6 );
-	}
-
-	if( y0 ) {
-		y0[0] = ( ( p[1] & 0x3f ) << 4 ) | ( p[2] >> 4 );
-	}
-
-	if( x1 ) {
-		x1[0] = ( ( p[2] & 0x0f ) << 6 ) | ( p[3] >> 2 );
-	}
-
-	if( y1 ) {
-		y1[0] = ( ( p[3] & 0x03 ) << 8 ) | ( p[4] >> 0 );
-	}
-
-	if( sx0 ) {
-		sx0[0] = ( p[5] & 0xf0 ) >> 4;
-	}
-
-	if( sy0 ) {
-		sy0[0] = ( p[5] & 0x0f ) >> 0;
-	}
-}
-static inline void RFIFOPOS2(int fd, unsigned short pos, short* x0, short* y0, short* x1, short* y1, unsigned char* sx0, unsigned char* sy0) {
-	RBUFPOS2(WFIFOP(fd,pos), 0, x0, y0, x1, y1, sx0, sy0);
-}
-#endif // 0
 
 //To identify disguised characters.
 static inline bool disguised(struct block_list* bl) {
