@@ -10648,9 +10648,9 @@ void pc_read_skill_tree(void) {
 	config_t skill_tree_conf;
 	config_setting_t *skt = NULL, *inherit = NULL, *skills = NULL, *sk = NULL;
 #ifdef RENEWAL
-	const char *config_filename = "db/re/skill_tree.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Job_DB/Job_Skill_Tree_RE.conf"; // [ New DB ]
 #else
-	const char *config_filename = "db/pre-re/skill_tree.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Job_DB/Job_Skill_Tree_PRE.conf"; // [ New DB ]
 #endif
 	int i = 0;
 	struct s_mapiterator *iter;
@@ -10821,7 +10821,15 @@ int pc_readdb(void) {
 	memset(pc->exp_table,0,sizeof(pc->exp_table));
 	memset(pc->max_level,0,sizeof(pc->max_level));
 
-	sprintf(line, "%s/"DBPATH"exp.txt", map->db_path);
+	// [ New DB ]
+	#ifdef RENEWAL
+		sprintf(line, "%s/Job_DB/Job_Exp_RE.txt", map->db_path);
+		sprintf(line, "%s/Job_DB/Job_Exp_RE.txt", map->db_path);
+	#else
+		sprintf(line, "%s/Job_DB/Job_Exp_PRE.txt", map->db_path);
+		sprintf(line, "%s/Job_DB/Job_Exp_PRE.txt", map->db_path);
+	#endif
+
 
 	fp=fopen(line, "r");
 	if(fp==NULL){
@@ -10890,13 +10898,13 @@ int pc_readdb(void) {
 	}
 	fclose(fp);
 	pc->validate_levels();
-	ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' entradas em '"CL_WHITE"%s/"DBPATH"%s"CL_RESET"'.\n",count,map->db_path,"exp.txt");
+	ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' entradas em '"CL_WHITE"%s/"CL_RESET"'.\n",count,map->db_path,"exp.txt");
 	count = 0;
 	// Reset and read skilltree
 	memset(pc->skill_tree,0,sizeof(pc->skill_tree));
 	pc->read_skill_tree();
 #if defined(RENEWAL_DROP) || defined(RENEWAL_EXP)
-	sv->readdb(map->db_path, "re/level_penalty.txt", ',', 4, 4, -1, pc->readdb_levelpenalty);
+	sv->readdb(map->db_path, "Status_DB/Level_Penalty.txt", ',', 4, 4, -1, pc->readdb_levelpenalty);
 	for( k=1; k < 3; k++ ){ // fill in the blanks
 		for( j = 0; j < RC_MAX; j++ ){
 			int tmp = 0;
@@ -10917,8 +10925,12 @@ int pc_readdb(void) {
 		for ( j = ELE_NEUTRAL; j<ELE_MAX; j++ )
 			for ( k = ELE_NEUTRAL; k<ELE_MAX; k++ )
 				battle->attr_fix_table[i][j][k]=100;
-
-	sprintf(line, "%s/"DBPATH"attr_fix.txt", map->db_path);
+		// [ New DB ]
+		#ifdef RENEWAL
+			sprintf(line, "%s/Status_DB/Attr_Fix_RE.txt", map->db_path);
+		#else
+			sprintf(line, "%s/Status_DB/Attr_Fix_PRE.txt", map->db_path);
+		#endif
 
 	fp=fopen(line,"r");
 	if(fp==NULL){
@@ -10964,13 +10976,17 @@ int pc_readdb(void) {
 		}
 	}
 	fclose(fp);
-	ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' entradas em '"CL_WHITE"%s/"DBPATH"%s"CL_RESET"'.\n",count,map->db_path,"attr_fix.txt");
+	ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' entradas em '"CL_WHITE"%s/"CL_RESET"'.\n",count,map->db_path,"Status_DB/Attr_Fix.txt"); // [ New DB ]
 	count = 0;
 	// reset then read statspoint
 	memset(pc->statp,0,sizeof(pc->statp));
 	i=1;
+	#ifdef RENEWAL // [ New DB ]
+		sprintf(line, "%s/Status_DB/StatPoint_RE.txt", map->db_path);
+	#else
+		sprintf(line, "%s/Status_DB/StatPoint_PRE.txt", map->db_path);
+	#endif
 
-	sprintf(line, "%s/"DBPATH"statpoint.txt", map->db_path);
 	fp=fopen(line,"r");
 	if(fp == NULL){
 		ShowWarning("Nao pode ler '"CL_WHITE"%s"CL_RESET"'... Gerando DB.\n",line);
@@ -10991,7 +11007,7 @@ int pc_readdb(void) {
 		}
 		fclose(fp);
 
-		ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' entradas em '"CL_WHITE"%s/"DBPATH"%s"CL_RESET"'.\n",count,map->db_path,"statpoint.txt");
+		ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' entradas em '"CL_WHITE"%s/"CL_RESET"'.\n",count,map->db_path,"statpoint.txt");
 	}
 	// generate the remaining parts of the db if necessary
 	k = battle_config.use_statpoint_table; //save setting

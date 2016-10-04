@@ -51,11 +51,14 @@
 /**
  * Caminho de leitura de acordo com as configurações da renovação
  **/
+ // [ New DB ]
+ /*
 #ifdef RENEWAL
 	#define DBPATH "re/"
 #else
 	#define DBPATH "pre-re/"
 #endif
+*/
 
 
 #ifdef RENEWAL

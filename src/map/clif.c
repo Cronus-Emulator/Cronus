@@ -17299,7 +17299,7 @@ void clif_parse_MoveItem(int fd, struct map_session_data *sd) {
 void clif_cashshop_db(void) {
 	config_t cashshop_conf;
 	config_setting_t *cashshop = NULL, *cats = NULL;
-	const char *config_filename = "db/cashshop_db.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Item_DB/Cash_Shop.conf"; // [ New DB ]
 	int i, item_count_t = 0;
 	for( i = 0; i < CASHSHOP_TAB_MAX; i++ ) {
 		CREATE(clif->cs.data[i], struct hCSData *, 1);
@@ -18359,7 +18359,7 @@ void clif_parse_RouletteRecvItem(int fd, struct map_session_data* sd) {
 bool clif_parse_roulette_db(void) {
 	config_t roulette_conf;
 	config_setting_t *roulette = NULL, *levels = NULL;
-	const char *config_filename = "db/roulette_db.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Item_DB/Roulette.conf"; // [ New DB ]
 	int i, j, item_count_t = 0;
 
 	for( i = 0; i < MAX_ROULETTE_LEVEL; i++ ) {

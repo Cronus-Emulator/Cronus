@@ -484,7 +484,7 @@ bool read_mercenarydb_sub(char* str[], int columns, int current) {
 
 int read_mercenarydb(void) {
 	memset(mercenary->db, 0, sizeof(struct s_mercenary_db) * MAX_MERCENARY_CLASS);
-	sv->readdb(map->db_path, "mercenary_db.txt", ',', 26, 26, MAX_MERCENARY_CLASS, mercenary->read_db_sub);
+	sv->readdb(map->db_path, "Summon_DB/Mercenary.txt", ',', 26, 26, MAX_MERCENARY_CLASS, mercenary->read_db_sub); // [ New DB ]
 
 	return 0;
 }
@@ -521,7 +521,7 @@ bool read_mercenary_skilldb_sub(char* str[], int columns, int current)
 }
 
 int read_mercenary_skilldb(void) {
-	sv->readdb(map->db_path, "mercenary_skill_db.txt", ',', 3, 3, -1, mercenary->read_skill_db_sub);
+	sv->readdb(map->db_path, "Summon_DB/Mercenary_Skill.txt", ',', 3, 3, -1, mercenary->read_skill_db_sub); // [ New DB ]
 
 	return 0;
 }

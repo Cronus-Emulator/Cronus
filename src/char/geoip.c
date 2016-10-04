@@ -151,15 +151,15 @@ void geoip_init(void)
 
 	geoip->data->active = true;
 
-	db = fopen("./db/GeoIP.dat","rb");
+	db = fopen("./db/Etc_DB/GeoIP.dat","rb"); // ** New DB **
 	if (db == NULL) {
-		ShowError("geoip_readdb: Erro na leitura do GeoIP.dat!\n");
+		ShowError("geoip_readdb: Erro na leitura do Etc_DB/GeoIP.dat!\n"); // ** New DB **
 		geoip->final(false);
 		return;
 	}
 	fno = fileno(db);
 	if (fstat(fno, &bufa) < 0) {
-		ShowError("geoip_readdb: Erro ao iniciar o GeoIP.dat! Erro %d\n", errno);
+		ShowError("geoip_readdb: Erro ao iniciar o Etc_DB/GeoIP.dat! Erro %d\n", errno); // ** New DB **
 		fclose(db);
 		geoip->final(false);
 		return;

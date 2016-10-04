@@ -638,11 +638,12 @@ int itemdb_isidentified2(struct item_data *data) {
 void itemdb_read_groups(void) {
 	config_t item_group_conf;
 	config_setting_t *itg = NULL, *it = NULL;
-#ifdef RENEWAL
-	const char *config_filename = "db/re/item_group.conf"; // FIXME hardcoded name
-#else
-	const char *config_filename = "db/pre-re/item_group.conf"; // FIXME hardcoded name
-#endif
+	// [ New DB ]
+	#ifdef RENEWAL
+		const char *config_filename = "db/Item_DB/Item_Group_RE.conf";
+	#else
+		const char *config_filename = "db/Item_DB/Item_Group_PRE.conf";
+	#endif
 	const char *itname;
 	int i = 0, count = 0, c;
 	unsigned int *gsize = NULL;
@@ -928,11 +929,11 @@ bool itemdb_read_cached_packages(const char *config_filename) {
 void itemdb_read_packages(void) {
 	config_t item_packages_conf;
 	config_setting_t *itg = NULL, *it = NULL, *t = NULL;
-#ifdef RENEWAL
-	const char *config_filename = "db/re/item_packages.conf"; // FIXME hardcoded name
-#else
-	const char *config_filename = "db/pre-re/item_packages.conf"; // FIXME hardcoded name
-#endif
+	#ifdef RENEWAL // [ New DB ]
+		const char *config_filename = "db/Item_DB/Item_PackAges_RE.conf";
+	#else
+		const char *config_filename = "db/Item_DB/Item_PackAges_PRE.conf";
+	#endif
 	const char *itname;
 	int i = 0, count = 0, c = 0, highest_gcount = 0;
 	unsigned int *must = NULL, *random = NULL, *rgroup = NULL, **rgroups = NULL;
@@ -1161,9 +1162,9 @@ void itemdb_read_chains(void) {
 	config_t item_chain_conf;
 	config_setting_t *itc = NULL;
 #ifdef RENEWAL
-	const char *config_filename = "db/re/item_chain.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Item_DB/Item_Chain_RE.conf"; // [ New DB ]
 #else
-	const char *config_filename = "db/pre-re/item_chain.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Item_DB/Item_Chain_PRE.conf"; // [ New DB ]
 #endif
 	int i = 0, count = 0;
 
@@ -1254,8 +1255,12 @@ void itemdb_read_combos() {
 	char line[1024];
 	char filepath[256];
 	FILE* fp;
-
-	sprintf(filepath, "%s/%s", map->db_path, DBPATH"item_combo_db.txt");
+	
+	#ifdef RENEWAL // [ New DB ]
+		sprintf(filepath, "%s/%s", map->db_path,"Item_DB/Item_Combo_RE.txt");
+	#else
+		sprintf(filepath, "%s/%s", map->db_path,"Item_DB/Item_Combo_PRE.txt");
+	#endif
 
 	if ((fp = fopen(filepath, "r")) == NULL) {
 		ShowError("itemdb_read_combos: Arquivo nao econtrado \"%s\".\n", filepath);
@@ -1915,11 +1920,16 @@ uint64 itemdb_unique_id(struct map_session_data *sd) {
 void itemdb_read(bool minimal) {
 	int i;
 	DBData prev;
-
 	const char *filename[] = {
-		DBPATH"item_db.conf",
-		"item_db2.conf",
+		#ifdef RENEWAL
+			"Item_DB/Item_RE.conf",
+		#else
+			"Item_DB/Item_PRE.conf",
+		#endif
+		"Item_DB/ItemDB2.conf",
 	};
+
+
 	for (i = 0; i < ARRAYLENGTH(filename); i++)
 		itemdb->readdb_libconfig(filename[i]);
 

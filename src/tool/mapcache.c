@@ -283,9 +283,13 @@ int do_init(int argc, char** argv)
 	char name[MAP_NAME_LENGTH_EXT];
 
 	grf_list_file = aStrdup("conf/grf-files.txt");
-	map_list_file = aStrdup("db/map_index.txt");
 	/* setup pre-defined, #define-dependant */
-	map_cache_file = aStrdup("db/"DBPATH"map_cache.dat");
+	map_list_file = aStrdup("db/Map_DB/Map_Index.txt"); // [ New DB ]
+	#ifdef RENEWAL // [ New DB ]
+		map_cache_file = aStrdup("db/Map_DB/Map_Cache_RE.dat");
+	#else
+		map_cache_file = aStrdup("db/Map_DB/Map_Cache_PRE.dat");
+	#endif
 
 	cmdline->exec(argc, argv, CMDLINE_OPT_PREINIT);
 	cmdline->exec(argc, argv, CMDLINE_OPT_NORMAL);

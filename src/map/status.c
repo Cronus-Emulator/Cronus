@@ -12247,11 +12247,11 @@ void status_read_job_db(void) { /* [malufett/Hercules] */
 	int i = 0;
 	config_t job_db_conf;
 	config_setting_t *jdb = NULL;
-#ifdef RENEWAL_ASPD
-	const char *config_filename = "db/re/job_db.conf";
-#else
-	const char *config_filename = "db/pre-re/job_db.conf";
-#endif
+	#ifdef RENEWAL_ASPD
+		const char *config_filename = "db/Job_DB/Job_Table_RE.conf"; // [ New DB ]
+	#else
+		const char *config_filename = "db/Job_DB/Job_Table_PRE.conf"; // [ New DB ]
+	#endif
 
 	if ( libconfig->read_file(&job_db_conf, config_filename) ) {
 		ShowError("nao pode ler %s\n", config_filename);
@@ -12494,10 +12494,15 @@ int status_readdb(void)
 
 	// read databases
 	//
-	sv->readdb(map->db_path, "job_db2.txt",         ',', 1,                 1+MAX_LEVEL,       -1,                       status->readdb_job2);
-	sv->readdb(map->db_path, DBPATH"size_fix.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
-	status->readdb_refine_libconfig(DBPATH"refine_db.conf");
-	sv->readdb(map->db_path, "sc_config.txt",       ',', 2,                 2,                 SC_MAX,                   status->readdb_scconfig);
+	sv->readdb(map->db_path, "Job_DB/Job_Bonus.txt",',',1,1+MAX_LEVEL,-1,status->readdb_job2); // [ New DB ]
+	#ifdef RENEWAL // [ New DB ]
+		sv->readdb(map->db_path, "Status_DB/Size_Fix_RE.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
+		status->readdb_refine_libconfig("Status_DB/Refine_RE.conf");
+	#else
+		sv->readdb(map->db_path, "Status_DB/Size_Fix_PRE.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
+		status->readdb_refine_libconfig("Status_DB/Refine_PRE.conf");
+	#endif
+	sv->readdb(map->db_path, "Status_DB/SC_Config.txt", ',', 2, 2, SC_MAX, status->readdb_scconfig); // [ New DB ]
 	status->read_job_db();
 
 	return 0;

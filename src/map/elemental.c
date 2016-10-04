@@ -814,7 +814,7 @@ int read_elementaldb(void) {
 	struct s_elemental_db *db;
 	struct status_data *estatus;
 
-	sprintf(line, "%s/%s", map->db_path, "elemental_db.txt");
+	sprintf(line, "%s/%s", map->db_path, "Summon_DB/Elemental.txt");
 
 	if( core->runflag == MAPSERVER_ST_RUNNING ) //only necessary after we're up
 		memset(elemental->db,0,sizeof(elemental->db));
@@ -907,10 +907,10 @@ int read_elemental_skilldb(void) {
 	uint16 skill_id, skill_lv;
 	int skillmode;
 
-	sprintf(line, "%s/%s", map->db_path, "elemental_skill_db.txt");
+	sprintf(line, "%s/%s", map->db_path, "Summon_DB/Elemental_Skill.txt"); // [ New DB ]
 	fp = fopen(line, "r");
 	if( !fp ) {
-		ShowError("read_elemental_skilldb : nao foi possivel ler o elemental_skill_db.txt\n");
+		ShowError("read_elemental_skilldb : nao foi possivel ler o Elemental_Skill.txt\n");
 		return -1;
 	}
 
@@ -929,7 +929,7 @@ int read_elemental_skilldb(void) {
 			p = strtok(NULL, ",");
 		}
 		if( i < 4 ) {
-			ShowError("read_elemental_skilldb : Numero incorreto de colunas no elemental_skill_db.txt linha %d.\n", k);
+			ShowError("read_elemental_skilldb : Numero incorreto de colunas no Elemental_Skill.txt linha %d.\n", k);
 			continue;
 		}
 
@@ -966,7 +966,7 @@ int read_elemental_skilldb(void) {
 	}
 
 	fclose(fp);
-	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"db/elemental_skill_db.txt"CL_RESET"'.\n",j);
+	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"db/Elemental_Skill.txt"CL_RESET"'.\n",j); // [ New DB ]
 	return 0;
 }
 

@@ -541,7 +541,7 @@ int quest_read_db(void)
 	config_t quest_db_conf;
 	config_setting_t *qdb = NULL, *q = NULL;
 	int i = 0, count = 0;
-	const char *filename = "quest_db.conf";
+	const char *filename = "Etc_DB/Quests.conf"; // ** New DB **
 
 	sprintf(filepath, "%s/%s", map->db_path, filename);
 	if (libconfig->read_file(&quest_db_conf, filepath) || !(qdb = libconfig->setting_get_member(quest_db_conf.root, "quest_db"))) {

@@ -1161,7 +1161,11 @@ bool homunculus_read_db_sub(char* str[], int columns, int current) {
 
 void homunculus_read_db(void) {
 	int i;
-	const char *filename[]={DBPATH"homunculus_db.txt","homunculus_db2.txt"};
+	#ifdef RENEWAL // [ New DB ]
+		const char *filename[]={"Summon_DB/Homunculus_RE.txt","HomunDB2.txt"};
+	#else
+		const char *filename[]={"Summon_DB/Homunculus_PRE.txt","HomunDB2.txt"};
+	#endif
 	memset(homun->dbs->db, 0, sizeof(homun->dbs->db));
 	for(i = 0; i<ARRAYLENGTH(filename); i++) {
 		if( i > 0 ) {
@@ -1238,15 +1242,18 @@ int8 homunculus_get_intimacy_grade(struct homun_data *hd) {
 
 void homunculus_skill_db_read(void) {
 	memset(homun->dbs->skill_tree, 0, sizeof(homun->dbs->skill_tree));
-	sv->readdb(map->db_path, "homun_skill_tree.txt", ',', 13, 15, -1, homun->read_skill_db_sub);
+	sv->readdb(map->db_path, "Summon_DB/Homun_Skill_Tree.txt", ',', 13, 15, -1, homun->read_skill_db_sub); // [ New DB ]
 }
 
 void homunculus_exp_db_read(void) {
 	char line[1024];
 	int i, j=0;
-	char *filename[]={
-		DBPATH"exp_homun.txt",
-		"exp_homun2.txt"};
+	#ifdef RENEWAL // [ New DB ]
+		char *filename[]={"Summon_DB/Homun_Exp_RE.txt", "HomunEXP2.txt"};
+	#else
+		char *filename[]={"Summon_DB/Homun_Exp_PRE.txt", "HomunEXP2.txt"};
+	#endif
+
 
 	memset(homun->dbs->exptable, 0, sizeof(homun->dbs->exptable));
 	for(i = 0; i < 2; i++) {

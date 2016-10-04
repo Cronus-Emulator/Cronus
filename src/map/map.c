@@ -3443,7 +3443,12 @@ int map_readallmaps (void) {
 		ShowStatus("Carregando mapas (usando arquivos da GRF)...\n");
 	else {
 		char mapcachefilepath[254];
-		sprintf(mapcachefilepath,"%s/%s%s",map->db_path,DBPATH,"map_cache.dat");
+		#ifdef RENEWAL // [ New DB ]
+			sprintf(mapcachefilepath,"%s/%s",map->db_path,"Map_DB/Map_Cache_RE.dat"); 
+		#else
+			sprintf(mapcachefilepath,"%s/%s",map->db_path,"Map_DB/Map_Cache_PRE.dat");
+		#endif
+
 		ShowStatus("Carregando mapas (usando o %s do map cache)...\n", mapcachefilepath);
 		if( (fp = fopen(mapcachefilepath, "rb")) == NULL ) {
 			ShowFatalError("Nao foi possivel abrir o arquivo do map cache "CL_WHITE"%s"CL_RESET"\n", mapcachefilepath);
@@ -4823,11 +4828,11 @@ void read_map_zone_db(void) {
 	config_t map_zone_db;
 	config_setting_t *zones = NULL;
 	/* TODO: #ifndef required for re/pre-re */
-#ifdef RENEWAL
-	const char *config_filename = "db/re/map_zone_db.conf"; // FIXME hardcoded name
-#else
-	const char *config_filename = "db/pre-re/map_zone_db.conf"; // FIXME hardcoded name
-#endif
+	#ifdef RENEWAL // [ New DB ]
+		const char *config_filename = "db/Map_DB/Map_Zone_RE.conf"; 
+	#else
+		const char *config_filename = "db/Map_DB/Map_Zone_PRE.conf";
+	#endif
 	if (libconfig->read_file(&map_zone_db, config_filename))
 		return;
 

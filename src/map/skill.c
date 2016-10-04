@@ -19010,37 +19010,54 @@ void skill_readdb(bool minimal) {
 	safestrncpy(skill->dbs->db[0].name, "UNKNOWN_SKILL", sizeof(skill->dbs->db[0].name));
 	safestrncpy(skill->dbs->db[0].desc, "Unknown Skill", sizeof(skill->dbs->db[0].desc));
 
-#ifdef ENABLE_CASE_CHECK
-	script->parser_current_file = DBPATH"skill_db.txt";
-#endif // ENABLE_CASE_CHECK
-	sv->readdb(map->db_path, DBPATH"skill_db.txt",           ',',  17,                       17,               MAX_SKILL_DB, skill->parse_row_skilldb);
-#ifdef ENABLE_CASE_CHECK
-	script->parser_current_file = NULL;
-#endif // ENABLE_CASE_CHECK
+	#ifdef ENABLE_CASE_CHECK
+	// [ New DB ]
+		#ifdef RENEWAL
+			script->parser_current_file = "Skill_DB/Skill_RE.txt";
+		#else
+			script->parser_current_file = "Skill_DB/Skill_PRE.txt";
+		#endif // RENEWAL
+	#endif // ENABLE_CASE_CHECK
+	// [ New DB ]
+	#ifdef RENEWAL
+		sv->readdb(map->db_path, "Skill_DB/Skill_RE.txt",  ',', 17, 17, MAX_SKILL_DB, skill->parse_row_skilldb);
+	#else
+		sv->readdb(map->db_path, "Skill_DB/Skill_PRE.txt", ',', 17, 17, MAX_SKILL_DB, skill->parse_row_skilldb);
+	#endif // RENEWAL
+	#ifdef ENABLE_CASE_CHECK
+		script->parser_current_file = NULL;
+	#endif // ENABLE_CASE_CHECK
 
 	if (minimal)
 		return;
 
-	sv->readdb(map->db_path, DBPATH"skill_require_db.txt",   ',',  32,                       32,               MAX_SKILL_DB, skill->parse_row_requiredb);
-#ifdef RENEWAL_CAST
-	sv->readdb(map->db_path, "re/skill_cast_db.txt",         ',',   8,                        8,               MAX_SKILL_DB, skill->parse_row_castdb);
-#else
-	sv->readdb(map->db_path, "pre-re/skill_cast_db.txt",     ',',   7,                        7,               MAX_SKILL_DB, skill->parse_row_castdb);
-#endif
-	sv->readdb(map->db_path, DBPATH"skill_castnodex_db.txt", ',',   2,                        3,               MAX_SKILL_DB, skill->parse_row_castnodexdb);
-	sv->readdb(map->db_path, DBPATH"skill_unit_db.txt",      ',',   8,                        8,               MAX_SKILL_DB, skill->parse_row_unitdb);
+	#ifdef RENEWAL_CAST
+	sv->readdb(map->db_path, "Skill_DB/Skill_Cast_RE.txt", ',', 8, 8, MAX_SKILL_DB, skill->parse_row_castdb); // [ New DB ]
+	#else
+	sv->readdb(map->db_path, "Skill_DB/Skill_Cast_PRE.txt", ',', 7, 7, MAX_SKILL_DB, skill->parse_row_castdb); // [ New DB ]
+	#endif
+	// [ New DB ]
+	#ifdef RENEWAL
+		sv->readdb(map->db_path, "Skill_DB/Skill_Require_RE.txt", ',', 32, 32, MAX_SKILL_DB, skill->parse_row_requiredb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_CastNoDex_RE.txt",        ',',  2,  3, MAX_SKILL_DB, skill->parse_row_castnodexdb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_Unit_RE.txt",    ',',   8,                        8,               MAX_SKILL_DB, skill->parse_row_unitdb);
+	#else
+		sv->readdb(map->db_path, "Skill_DB/Skill_Require_PRE.txt", ',', 32, 32, MAX_SKILL_DB, skill->parse_row_requiredb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_CastNoDex_PRE.txt",        ',',  8,  8, MAX_SKILL_DB, skill->parse_row_unitdb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_Unit_PRE.txt",    ',',   8,                        8,               MAX_SKILL_DB, skill->parse_row_unitdb);
+	#endif
 
 	skill->init_unit_layout();
-	sv->readdb(map->db_path, "produce_db.txt",               ',',   4, 4+2*MAX_PRODUCE_RESOURCE,       MAX_SKILL_PRODUCE_DB, skill->parse_row_producedb);
-	sv->readdb(map->db_path, "create_arrow_db.txt",          ',', 1+2,   1+2*MAX_ARROW_RESOURCE,         MAX_SKILL_ARROW_DB, skill->parse_row_createarrowdb);
-	sv->readdb(map->db_path, "abra_db.txt",                  ',',   4,                        4,          MAX_SKILL_ABRA_DB, skill->parse_row_abradb);
+	sv->readdb(map->db_path, "Item_DB/Produce.txt",      ',',   4, 4+2*MAX_PRODUCE_RESOURCE, MAX_SKILL_PRODUCE_DB, skill->parse_row_producedb); // [ New DB ]
+	sv->readdb(map->db_path, "Item_DB/Create_Arrow.txt", ',', 1+2, 1+2*MAX_ARROW_RESOURCE,MAX_SKILL_ARROW_DB, skill->parse_row_createarrowdb); // [ New DB ]
+	sv->readdb(map->db_path, "Skill_DB/Skill_Abra.txt",  ',',   4,   4, MAX_SKILL_ABRA_DB, skill->parse_row_abradb); // [ New DB ]
 	//Warlock
-	sv->readdb(map->db_path, "spellbook_db.txt",             ',',   3,                        3,     MAX_SKILL_SPELLBOOK_DB, skill->parse_row_spellbookdb);
+	sv->readdb(map->db_path, "Skill_DB/Spell_Book.txt", ',', 3, 3, MAX_SKILL_SPELLBOOK_DB, skill->parse_row_spellbookdb); // [ New DB ]
 	//Guillotine Cross
-	sv->readdb(map->db_path, "magicmushroom_db.txt",         ',',   1,                        1, MAX_SKILL_MAGICMUSHROOM_DB, skill->parse_row_magicmushroomdb);
-	sv->readdb(map->db_path, "skill_reproduce_db.txt",       ',',   1,                        1,               MAX_SKILL_DB, skill->parse_row_reproducedb);
-	sv->readdb(map->db_path, "skill_improvise_db.txt",       ',',   2,                        2,     MAX_SKILL_IMPROVISE_DB, skill->parse_row_improvisedb);
-	sv->readdb(map->db_path, "skill_changematerial_db.txt",  ',',   4,                    4+2*5,       MAX_SKILL_PRODUCE_DB, skill->parse_row_changematerialdb);
+	sv->readdb(map->db_path, "Skill_DB/Magic_Mushroom.txt",       ',', 1, 1,     MAX_SKILL_MAGICMUSHROOM_DB, skill->parse_row_magicmushroomdb); // [ New DB ]
+	sv->readdb(map->db_path, "Skill_DB/Skill_Reproduce.txt",      ',', 1, 1,     MAX_SKILL_DB, skill->parse_row_reproducedb); // [ New DB ]
+	sv->readdb(map->db_path, "Skill_DB/Skill_Improvise.txt",      ',', 2, 2,     MAX_SKILL_IMPROVISE_DB, skill->parse_row_improvisedb); // [ New DB ]
+	sv->readdb(map->db_path, "Skill_DB/Skill_ChangeMaterial.txt", ',', 4, 4+2*5, MAX_SKILL_PRODUCE_DB, skill->parse_row_changematerialdb); // [ New DB ]
 }
 
 void skill_reload (void) {

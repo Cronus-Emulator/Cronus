@@ -4370,9 +4370,11 @@ bool mob_get_const(const config_setting_t *it, int *value)
  * mob_db.txt reading
  *------------------------------------------*/
 void mob_readdb(void) {
-	const char* filename[] = {
-		DBPATH"mob_db.conf",
-		"mob_db2.conf" };
+	#ifdef RENEWAL // [ New DB ]
+		const char *filename[] = { "Mob_DB/Mob_RE.conf", "MobDB2.conf", };
+	#else
+		const char *filename[] = { "Mob_DB/Mob_PRE.conf", "MobDB2.conf", };
+	#endif
 	int i;
 
 	for (i = 0; i < ARRAYLENGTH(filename); ++i) {
@@ -4471,12 +4473,12 @@ int mob_read_randommonster(void)
 	char line[1024];
 	char *str[10],*p;
 	int i,j;
-	const char* mobfile[] = {
-		DBPATH"mob_branch.txt",
-		DBPATH"mob_poring.txt",
-		DBPATH"mob_boss.txt",
-		"mob_pouch.txt",
-		"mob_classchange.txt"};
+	
+	#ifdef RENEWAL // [ New DB ]
+	const char* mobfile[] = {"Mob_DB/Mob_Branch_RE.txt","Mob_DB/Mob_Poring_RE.txt","Mob_DB/Mob_Boss_RE.txt","Mob_DB/Mob_Pouch.txt","Mob_DB/Mob_ClassChange.txt"};
+	#else
+	const char* mobfile[] = {"Mob_DB/Mob_Branch_PRE.txt","Mob_DB/Mob_Poring_PRE.txt","Mob_DB/Mob_Boss_PRE.txt","Mob_DB/Mob_Pouch.txt","Mob_DB/Mob_ClassChange.txt"};
+	#endif
 
 	memset(&summon, 0, sizeof(summon));
 
@@ -4592,7 +4594,7 @@ bool mob_parse_row_chatdb(char** str, const char* source, int line, int* last_ms
  * mob_chat_db.txt reading [SnakeDrak]
  *-------------------------------------------------------------------------*/
 void mob_readchatdb(void) {
-	char arc[]="mob_chat_db.txt";
+	char arc[]="Mob_DB/Mob_Chat.txt";
 	uint32 lines=0, count=0;
 	char line[1024], filepath[256];
 	int i, tmp=0;
@@ -4905,10 +4907,12 @@ bool mob_parse_row_mobskilldb(char** str, int columns, int current)
  * mob_skill_db.txt reading
  *------------------------------------------*/
 void mob_readskilldb(void) {
-	const char* filename[] = {
-		DBPATH"mob_skill_db.txt",
-		"mob_skill_db2.txt" };
 	int fi;
+	#ifdef RENEWAL // [ New DB ]
+		const char *filename[] = { "Mob_DB/Mob_Skill_RE.txt", "Mob_SkillDB2.txt", };
+	#else
+		const char *filename[] = { "Mob_DB/Mob_Skill_PRE.txt", "Mob_SkillDB2.txt", };
+	#endif
 
 	if( battle_config.mob_skill_rate == 0 ) {
 		ShowStatus("Uso de habilidades em monstro desativada. Habilidades de monstro nao lidas.\n");
@@ -4988,13 +4992,17 @@ void mob_load(bool minimal) {
 		mob->readdb();
 		return;
 	}
-	sv->readdb(map->db_path, "mob_item_ratio.txt", ',', 2, 2+MAX_ITEMRATIO_MOBS, -1, mob->readdb_itemratio); // must be read before mobdb
+	sv->readdb(map->db_path, "Item_DB/Item_Ratio.txt", ',', 2, 2+MAX_ITEMRATIO_MOBS, -1, mob->readdb_itemratio); // [ New DB ]
 	mob->readchatdb();
 	mob->readdb();
 	mob->readskilldb();
-	sv->readdb(map->db_path, "mob_avail.txt", ',', 2, 12, -1, mob->readdb_mobavail);
+	sv->readdb(map->db_path, "Mob_DB/Mob_Avail.txt", ',', 2, 12, -1, mob->readdb_mobavail); // [ New DB ]
 	mob->read_randommonster();
-	sv->readdb(map->db_path, DBPATH"mob_race2_db.txt", ',', 2, 20, -1, mob->readdb_race2);
+	#ifdef RENEWAL // [ New DB ]
+		sv->readdb(map->db_path, "Mob_DB/Mob_Race_RE.txt", ',', 2, 20, -1, mob->readdb_race2);
+	#else
+		csv->readdb(map->db_path, "Mob_DB/Mob_Race_PRE.txt", ',', 2, 20, -1, mob->readdb_race2);
+	#endif
 }
 
 void mob_reload(void) {

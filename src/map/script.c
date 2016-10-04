@@ -2268,7 +2268,7 @@ void read_constdb(void) {
 	char line[1024],name[1024],val[1024];
 	int type;
 
-	sprintf(line, "%s/const.txt", map->db_path);
+	sprintf(line, "%s/Etc_DB/Const.txt", map->db_path); // ** New DB **
 	fp=fopen(line, "r");
 	if(fp==NULL) {
 		ShowError("nao pode ler %s\n", line);
@@ -4688,7 +4688,7 @@ uint8 script_add_language(const char *name) {
  **/
 void script_load_translations(void) {
 	config_t translations_conf;
-	const char *config_filename = "db/translations.conf"; // FIXME hardcoded name
+	const char *config_filename = "db/Language/translations.conf"; // **** APLICAÇÃO A REMOVER ****
 	config_setting_t *translations = NULL;
 	int i, size;
 	uint32 total = 0;
