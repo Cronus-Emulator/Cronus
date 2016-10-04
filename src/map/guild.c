@@ -1353,9 +1353,9 @@ int guild_skillupack(int guild_id,uint16 skill_id,int account_id) {
 	struct map_session_data *sd=map->id2sd(account_id);
 	struct guild *g=guild->search(guild_id);
 	int i;
-	if(g==NULL)
+	if(!g)
 		return 0;
-	if( sd != NULL ) {
+	if(sd) {
 		clif->skillup(sd,skill_id,g->skill[skill_id-GD_SKILLBASE].lv, 0);
 
 		/* Guild Aura handling */
