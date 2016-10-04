@@ -8,11 +8,12 @@
 //                     Scripts                                   ||
 //===============================================================||
 // = Versão:                                                     ||
-// - 1.2                                                         ||
+// - 1.2a                                                        ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Tradução [Spell Master]                                     ||
-// - Adicionado função "Sex" [Spell Master]                      ||
+// - Tradução   [Spell Master]                                   ||
+// - Revisão(1) [SlexFire]                                       ||
+// - Adicionado função "Sex" [Spell Master - SlexFire]           ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Cidade de Izlude                                            ||
@@ -76,7 +77,7 @@ izlude_d,165,156,2	duplicate(Soldier_izlude)	Soldado#izlude_d	8W_SOLDIER
 
 -	script	::Guard_izlude	-1,{
 	mes "[Guarda de Izlude]";
-	mes "Bem vindo"+(Sex?"o":"a")+" á Izlude";
+	mes "Bem vind"+(Sex?"o":"a")+" a Izlude";
 	close;
 }
 prt_fild08,350,219,4	duplicate(Guard_izlude)	Guarda de Izlude#izlude	8W_SOLDIER
@@ -90,7 +91,7 @@ prt_fild08d,350,219,4	duplicate(Guard_izlude)	Guarda de Izlude#izlude_d	8W_SOLDI
 function	script	F_IzludeChannel	{
 	mes "[Funcionário]";
 	mes "Izlude é um lugar muito vivo não é isto?";
-	mes "Estou aqui para ajudar se sentir mais á vontade em Izlude!";
+	mes "Estou aqui para ajudar a se sentir mais á vontade em Izlude!";
 	mes "Eu posso o enviar a outra cópia de Izlude.";
 	mes "Você quer ir para outra cópia?";
 	next;
@@ -116,7 +117,7 @@ izlude,143,205,7	script	Criança Tagarela#iz	4_F_KID2,{
 	end;
 
 	OnTimer64000:
-		npctalk "Eu usei todas minhas Poções de Aprendiz. O que eu deveria fazer?";
+		npctalk "Usei todas as minhas Poções de Aprendiz. O que eu deveria fazer?";
 		end;
 
 	OnTimer72000:
@@ -128,27 +129,27 @@ izlude,143,205,7	script	Criança Tagarela#iz	4_F_KID2,{
 		end;
 
 	OnTimer144000:
-		npctalk "Podem ser arrastados os itens de seu inventário e podem ser postos na janela de atalho.";
+		npctalk "Os itens em seu inventário podem ser arrastados e colocados na janela de atalho.";
 		end;
 
 	OnTimer212000:
-		npctalk "Eu adquiri tantos itens novos na Academia!";
+		npctalk "Tenho muitos itens para iniciantes na Academia!";
 		end;
 
 	OnTimer276000:
-		npctalk "Eles igualam a armas e escudos!";
+		npctalk "Eles até me deram armas e um escudo!";
 		end;
 
 	OnTimer284000:
-		npctalk "Só precionar <Ctrl+\"\> abrir o mapa mundo.";
+		npctalk "Basta pressionar <Ctrl + '>  para abrir o mapa-múndi.";
 		end;
 
 	OnTimer344000:
-		npctalk "Então você quer ir para Academia de Monstros? Eu estou aprendendo a batalhar de Instrutor Subino!";
+		npctalk "Você quer ir a Academia de Monstros comigo? Estou aprendendo a lutar conforme o instrutor Subino!";
 		end;
 
 	OnTimer348000:
-		npctalk "A Academia está em Norte de Izlude!";
+		npctalk "A Academia está ao Norte de Izlude, vamos lá!";
 		end;
 
 	OnTimer416000:
@@ -160,7 +161,7 @@ izlude,143,205,7	script	Criança Tagarela#iz	4_F_KID2,{
 		end;
 
 	OnTimer492000:
-		npctalk "Por que, não vai usar o seu cérebro? Por favor escreva /where na janela de chat agora!";
+		npctalk "Por que não usa seu cérebro? Por favor escreva /where na janela de chat agora!";
 		end;
 
 	OnTimer552000:
@@ -168,7 +169,7 @@ izlude,143,205,7	script	Criança Tagarela#iz	4_F_KID2,{
 		end;
 
 	OnTimer560000:
-		npctalk "Estamos apenas repetindo a mesma caixa de diálogo. HaHaha.";
+		npctalk "Estamos apenas repetindo o mesmo diálogo. Hahaha.";
 		end;
 
 	OnTimer565000:
@@ -189,19 +190,19 @@ izlude,146,205,7	script	Aventureiro Comunicativo#iz	4_M_KID1,{
 	end;
 
 	OnTimer69000:
-		npctalk "Você pode comprar poção de comerciantes.";
+		npctalk "Você pode comprar poção dos comerciantes.";
 		end;
 
 	OnTimer77000:
-		npctalk "É a imagem Poção no mini-mapa.";
+		npctalk "É a imagem de poção no mini-mapa.";
 		end;
 
 	OnTimer131000:
-		npctalk "Existe alguma maneira de usar itens facilmente?";
+		npctalk "Há alguma maneira de usar itens facilmente?";
 		end;
 
 	OnTimer141000:
-		npctalk "Janela de atalho? Os enciaixes na parte superior da tela? Como posso usá-lo?";
+		npctalk "Janela de atalho? Os slots na parte superior da tela? Como posso usá-lo?";
 		end;
 
 	OnTimer149000:
@@ -209,7 +210,7 @@ izlude,146,205,7	script	Aventureiro Comunicativo#iz	4_M_KID1,{
 		end;
 
 	OnTimer217000:
-		npctalk "Eu tenho um monte de poções?";
+		npctalk "Tenho um monte de poções?";
 		end;
 
 	OnTimer281000:
@@ -217,7 +218,7 @@ izlude,146,205,7	script	Aventureiro Comunicativo#iz	4_M_KID1,{
 		end;
 
 	OnTimer279000:
-		npctalk "Onde está Izlude? No centro?";
+		npctalk "Onde fica Izlude? No centro?";
 		end;
 
 	OnTimer339000:
@@ -249,7 +250,7 @@ izlude,146,205,7	script	Aventureiro Comunicativo#iz	4_M_KID1,{
 		end;
 
 	OnTimer555000:
-		npctalk "Um tempo atrás, um principiante falou comigo como 'Aventureiro'?. Hahaha.";
+		npctalk "Há um tempo atrás, um aprendiz falou comigo como ei 'Aventureiro'?. Hahaha.";
 		end;
 
 	OnTimer565000:
@@ -270,11 +271,11 @@ prt_fild08,338,217,7	script	Aventureiro Descansando#iz	4_F_SITDOWN,{
 	end;
 
 	OnTimer60000:
-		npctalk "Você sabe o que? Se você está sentado, HP e recuperação SP é mais rápido.";
+		npctalk "Sabia que se estiver sentad"+(Sex?"o":"a")+" a recuperação do HP e SP é mais rápida?.";
 		end;
 
 	OnTimer65000:
-		npctalk "Sentar é possível se o seu nível básico habilidade de classe é mais do que 3. o atalho para sentar é precionar a tecla <INSERT>.";
+		npctalk "Sentar é possível se o seu nível básico de habilidade de classe for maior que 3. Para sentar, pressione a tecla <INSERT>.";
 		initnpctimer;
 		end;
 
