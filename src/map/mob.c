@@ -5001,7 +5001,7 @@ void mob_load(bool minimal) {
 	#ifdef RENEWAL // [ New DB ]
 		sv->readdb(map->db_path, "Mob_DB/Mob_Race_RE.txt", ',', 2, 20, -1, mob->readdb_race2);
 	#else
-		csv->readdb(map->db_path, "Mob_DB/Mob_Race_PRE.txt", ',', 2, 20, -1, mob->readdb_race2);
+		sv->readdb(map->db_path, "Mob_DB/Mob_Race_PRE.txt", ',', 2, 20, -1, mob->readdb_race2);
 	#endif
 }
 
