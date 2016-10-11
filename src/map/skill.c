@@ -19038,13 +19038,13 @@ void skill_readdb(bool minimal) {
 	#endif
 	// [ New DB ]
 	#ifdef RENEWAL
-		sv->readdb(map->db_path, "Skill_DB/Skill_Require_RE.txt", ',', 32, 32, MAX_SKILL_DB, skill->parse_row_requiredb);
-		sv->readdb(map->db_path, "Skill_DB/Skill_CastNoDex_RE.txt",        ',',  2,  3, MAX_SKILL_DB, skill->parse_row_castnodexdb);
-		sv->readdb(map->db_path, "Skill_DB/Skill_Unit_RE.txt",    ',',   8,                        8,               MAX_SKILL_DB, skill->parse_row_unitdb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_Require_RE.txt",    ',', 32, 32, MAX_SKILL_DB, skill->parse_row_requiredb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_CastNoDex_RE.txt",  ',',  2, 3, MAX_SKILL_DB, skill->parse_row_castnodexdb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_Unit_RE.txt",       ',',  8, 8, MAX_SKILL_DB, skill->parse_row_unitdb);
 	#else
-		sv->readdb(map->db_path, "Skill_DB/Skill_Require_PRE.txt", ',', 32, 32, MAX_SKILL_DB, skill->parse_row_requiredb);
-		sv->readdb(map->db_path, "Skill_DB/Skill_CastNoDex_PRE.txt",        ',',  8,  8, MAX_SKILL_DB, skill->parse_row_unitdb);
-		sv->readdb(map->db_path, "Skill_DB/Skill_Unit_PRE.txt",    ',',   8,                        8,               MAX_SKILL_DB, skill->parse_row_unitdb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_Require_PRE.txt",   ',', 32, 32, MAX_SKILL_DB, skill->parse_row_requiredb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_CastNoDex_PRE.txt", ',',  2, 3, MAX_SKILL_DB, skill->parse_row_castnodexdb);
+		sv->readdb(map->db_path, "Skill_DB/Skill_Unit_PRE.txt",      ',',  8, 8, MAX_SKILL_DB, skill->parse_row_unitdb);
 	#endif
 
 	skill->init_unit_layout();
