@@ -18888,6 +18888,26 @@ void do_final_clif(void)
 	}
 
 }
+
+/*===================================\
+Função: dipbottom color - [Slexfire] |
+====================================*/
+int clif_dispbcfunc(struct map_session_data *sd, const char* msg, unsigned int cor) {   	 
+
+unsigned int msg_len = strlen(msg) +1;
+int codcor = RGB2BGR(cor);
+
+	WFIFOHEAD( sd->fd, msg_len + 12 );
+	WFIFOW( sd->fd, 0 ) = 0x2C1;
+	WFIFOW( sd->fd, 2 ) = msg_len + 12;
+	WFIFOL( sd->fd, 4 ) = 0;
+	WFIFOL( sd->fd, 8 ) = codcor;
+	safestrncpy( (char*)WFIFOP( sd->fd,12 ), msg, msg_len );
+	WFIFOSET( sd->fd, msg_len + 12 );
+
+   return 0;
+}
+
 void clif_defaults(void) {
 	clif = &clif_s;
 	/* vars */
@@ -19147,6 +19167,7 @@ void clif_defaults(void) {
 	clif->broadcast2 = clif_broadcast2;
 	clif->messagecolor_self = clif_messagecolor_self;
 	clif->messagecolor = clif_messagecolor;
+	clif->dispbcfunc = clif_dispbcfunc; //[SlexFire]
 	clif->disp_overhead = clif_disp_overhead;
 	clif->msgtable_skill = clif_msgtable_skill;
 	clif->msgtable = clif_msgtable;

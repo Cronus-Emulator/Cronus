@@ -13709,29 +13709,17 @@ BUILDIN(dispbottom)
 {
 	TBL_PC *sd = script->rid2sd(st);
 	const char *message;
-	int color = 0;
+	int cor = 0;
 	message = script_getstr(st,2);
 
 	if (script_hasdata(st,3))
-		color = script_getnum(st,3);
+		cor = script_getnum(st,3);
 
 	if(sd) {
-
-		if(script_hasdata(st,3)){
-			unsigned int msg_len = strlen( message ) +1;
-			int colorcode = (color & 0x0000FF) << 16 | (color & 0x00FF00) | (color & 0xFF0000) >> 16;
-			WFIFOHEAD( sd->fd, msg_len + 12 );
-			WFIFOW( sd->fd, 0 ) = 0x2C1;
-			WFIFOW( sd->fd, 2 ) = msg_len + 12;
-			WFIFOL( sd->fd, 4 ) = 0;
-			WFIFOL( sd->fd, 8 ) = colorcode;
-			safestrncpy( (char*)WFIFOP( sd->fd,12 ), message, msg_len );
-			WFIFOSET( sd->fd, msg_len + 12 );
-		}
-
-		else {
+		if(script_hasdata(st,3))
+			clif->dispbcfunc(sd, message, cor);
+		else
 			clif_disp_onlyself(sd,message,(int)strlen(message));
-		}
 	}
 
 	return true;
