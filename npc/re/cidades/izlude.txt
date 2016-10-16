@@ -271,7 +271,7 @@ prt_fild08,338,217,7	script	Aventureiro Descansando#iz	4_F_SITDOWN,{
 	end;
 
 	OnTimer60000:
-		npctalk "Sabia que se estiver sentad"+(Sex?"o":"a")+" a recuperação do HP e SP é mais rápida?.";
+		npctalk "Sabia que se estiver sentado a recuperação do HP e SP é mais rápida?.";
 		end;
 
 	OnTimer65000:
