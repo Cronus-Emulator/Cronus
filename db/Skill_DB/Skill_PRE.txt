@@ -96,55 +96,55 @@
 48,-1,8,0,-1,0,0,10,2,no,0,0,0,weapon,0,		TF_DOUBLE,Ataque Duplo
 49,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		TF_MISS,Perícia em Esquiva
 50,1,6,1,0,1,0,10,1,no,0,0,0,weapon,0,		TF_STEAL,Furto
-51,1,6,4,0,1,0,10,1,no,0,0,0,none,0,		TF_HIDING,Hiding
-52,-2,6,1,5,0,0,10,1,no,0,0,0,weapon,0,		TF_POISON,Envenom
-53,9,6,16,5,0x1,0,1,1,no,0,0,0,weapon,0,		TF_DETOXIFY,Detoxify
-54,9,6,16,6,0x1,0,4,1,yes,0,0,0,magic,0,		ALL_RESURRECTION,Resurrection
-55,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		KN_SPEARMASTERY,Spear Mastery
-56,-2,8,1,-1,0,0,10,3,no,0,0,0,weapon,0,		KN_PIERCE,Pierce
-57,-2,6,1,-1,0x1,0,10,1,no,0,0,0,weapon,3,	KN_BRANDISHSPEAR,Brandish Spear
-58,-4,6,1,-1,0x2,0,10,1,no,0,0,0,weapon,6,	KN_SPEARSTAB,Spear Stab
-59,3:5:7:9:11,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	KN_SPEARBOOMERANG,Spear Boomerang
-60,0,6,4,0,0x1,0,10,1,no,0,0,0,weapon,0,		KN_TWOHANDQUICKEN,Twohand Quicken
-61,0,6,4,-1,0x20,0,5,1,no,0,0,0,weapon,0,	KN_AUTOCOUNTER,Counter Attack
-62,-2,6,1,-1,0x2,1,10,1,no,0,0,0,weapon,1,	KN_BOWLINGBASH,Bowling Bash
-63,0,0,0,0,0,0,1,0,no,0,0,0,weapon,0,		KN_RIDING,Peco Peco Riding
-64,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		KN_CAVALIERMASTERY,Cavalier Mastery
-65,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		PR_MACEMASTERY,Mace Mastery
+51,1,6,4,0,1,0,10,1,no,0,0,0,none,0,		TF_HIDING,Esconderijo
+52,-2,6,1,5,0,0,10,1,no,0,0,0,weapon,0,		TF_POISON,Envenenar
+53,9,6,16,5,0x1,0,1,1,no,0,0,0,weapon,0,		TF_DETOXIFY,Desintoxicar
+54,9,6,16,6,0x1,0,4,1,yes,0,0,0,magic,0,		ALL_RESURRECTION,Ressuscitar
+55,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		KN_SPEARMASTERY,Perícia com Lança
+56,-2,8,1,-1,0,0,10,3,no,0,0,0,weapon,0,		KN_PIERCE,Perfurar
+57,-2,6,1,-1,0x1,0,10,1,no,0,0,0,weapon,3,	KN_BRANDISHSPEAR,Brandir Lança
+58,-4,6,1,-1,0x2,0,10,1,no,0,0,0,weapon,6,	KN_SPEARSTAB,Estocada
+59,3:5:7:9:11,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	KN_SPEARBOOMERANG,Lança Bumerangue
+60,0,6,4,0,0x1,0,10,1,no,0,0,0,weapon,0,		KN_TWOHANDQUICKEN,Rapidez com Duas Mãos
+61,0,6,4,-1,0x20,0,5,1,no,0,0,0,weapon,0,	KN_AUTOCOUNTER,Contra-Ataque
+62,-2,6,1,-1,0x2,1,10,1,no,0,0,0,weapon,1,	KN_BOWLINGBASH,Impacto de Tyr
+63,0,0,0,0,0,0,1,0,no,0,0,0,weapon,0,		KN_RIDING,Montaria
+64,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		KN_CAVALIERMASTERY,Perícia em Montaria
+65,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		PR_MACEMASTERY,Perícia com Maça
 66,9,6,16,0,0x1,0,5,1,yes,0,0,0,magic,0,		PR_IMPOSITIO,Impositio Manus
 67,9,6,16,0,0x1,0,3,1,yes,0,0x200,0,magic,0,	PR_SUFFRAGIUM,Suffragium
 68,9,6,16,6,0x31,0,5,1,yes,0,0,0,magic,0,	PR_ASPERSIO,Aspersio
 69,9,6,2,0,0x23,1,5,1,yes,0,0x40,0,magic,0,	PR_BENEDICTIO,B.S. Sacramenti
-70,9,6,2,6,0x21,0,10,1,yes,0,0,0,magic,1,	PR_SANCTUARY,Sanctuary
-71,9,6,16,0,0x1,0,4,1,yes,0,0,0,magic,0,		PR_SLOWPOISON,Slow Poison
-72,9,6,16,0,0x1,0,1,1,yes,0,0,0,magic,0,		PR_STRECOVERY,Status Recovery
+70,9,6,2,6,0x21,0,10,1,yes,0,0,0,magic,1,	PR_SANCTUARY,Santuário
+71,9,6,16,0,0x1,0,4,1,yes,0,0,0,magic,0,		PR_SLOWPOISON,Retardar Veneno
+72,9,6,16,0,0x1,0,1,1,yes,0,0,0,magic,0,		PR_STRECOVERY,Graça Divina
 73,9,6,16,0,0x1,0,10,1,yes,0,0,0,magic,0,	PR_KYRIE,Kyrie Eleison
 74,0,6,4,0,0x3,-1,5,1,yes,0,0,0,magic,0,		PR_MAGNIFICAT,Magnificat
-75,0,6,4,0,0x3,-1,5,1,yes,0,0,0,magic,0,		PR_GLORIA,Gloria
+75,0,6,4,0,0x3,-1,5,1,yes,0,0,0,magic,0,		PR_GLORIA,Glória
 76,5,6,1,0,0x1,0,10,0,yes,0,0,0,magic,0,	PR_LEXDIVINA,Lex Divina
-77,5,6,1,6,0x28,0,10,1,yes,0,0,0,magic,0,	PR_TURNUNDEAD,Turn Undead
+77,5,6,1,6,0x28,0,10,1,yes,0,0,0,magic,0,	PR_TURNUNDEAD,Esconjurar
 78,9,6,1,0,0x1,0,1,0,yes,0,0,0,magic,0,		PR_LEXAETERNA,Lex Aeterna
 79,9,8,2,6,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	PR_MAGNUS,Magnus Exorcismus
-80,9,8,2,3,0x20,1:1:1:1:1:2:2:2:2:2:2,10,-3:-4:-5:-6:-7:-8:-9:-10:-11:-12:-12,yes,0,0x80,5,magic,0,	WZ_FIREPILLAR,Fire Pillar
-81,0,6,4,3,0,3,10,1,yes,0,0,0,magic,5,		WZ_SIGHTRASHER,Sightrasher
-83,9,8,2,3,0,3:3:3:3:3:3:3:3:3:3:14,10,1:1:2:2:3:3:4:4:5:5:15,yes,0,0,0,magic,0,	WZ_METEOR,Meteor Storm
-84,9,8,1,4,0,0,10,3:4:5:6:7:8:9:10:11:12,yes,0,0,0,magic,2:3:3:4:4:5:5:6:6:7,	WZ_JUPITEL,Jupitel Thunder
-85,9,8,2,4,0,0,10,-10,yes,0,0,0,magic,0,		WZ_VERMILION,Lord of Vermilion
-86,9,8,1,1,0,0,5,1,yes,0,0,0,magic,0,		WZ_WATERBALL,Water Ball
-87,9,6,2,1,0x1,0,10,1,yes,0,0,0,magic,0,		WZ_ICEWALL,Ice Wall
-88,0,6,4,1,0x2,2,10,1,yes,0,0,0,magic,0,		WZ_FROSTNOVA,Frost Nova
-89,9,6,2,1,0,0,10,1,yes,0,0,0,magic,2,		WZ_STORMGUST,Storm Gust
-90,9,8,1,2,0,0,5,1:2:3:4:5,yes,0,0,0,magic,0,	WZ_EARTHSPIKE,Earth Spike
-91,9,8,2,2,0,0,5,1:2:3:4:5,yes,0,0,0,magic,0,	WZ_HEAVENDRIVE,Heaven's Drive
-92,9,6,2,2,0x1,0,5,1,yes,0,0,3,magic,0,		WZ_QUAGMIRE,Quagmire
-93,9,6,1,0,0x1,0,1,1,yes,0,0,0,magic,0,		WZ_ESTIMATION,Sense
-94,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_IRON,Iron Tempering
-95,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_STEEL,Steel Tempering
-96,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_ENCHANTEDSTONE,Enchanted Stone Craft
-97,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_ORIDEOCON,Oridecon Research
-98,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_DAGGER,Smith Dagger
-99,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_SWORD,Smith Sword
-100,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_TWOHANDSWORD,Smith Two-handed Sword
+80,9,8,2,3,0x20,1:1:1:1:1:2:2:2:2:2:2,10,-3:-4:-5:-6:-7:-8:-9:-10:-11:-12:-12,yes,0,0x80,5,magic,0,	WZ_FIREPILLAR,Coluna de Fogo
+81,0,6,4,3,0,3,10,1,yes,0,0,0,magic,5,		WZ_SIGHTRASHER,Supernova
+83,9,8,2,3,0,3:3:3:3:3:3:3:3:3:3:14,10,1:1:2:2:3:3:4:4:5:5:15,yes,0,0,0,magic,0,	WZ_METEOR,Chuva de Meteoros
+84,9,8,1,4,0,0,10,3:4:5:6:7:8:9:10:11:12,yes,0,0,0,magic,2:3:3:4:4:5:5:6:6:7,	WZ_JUPITEL,Trovão de Júpiter
+85,9,8,2,4,0,0,10,-10,yes,0,0,0,magic,0,		WZ_VERMILION,Ira de Thor
+86,9,8,1,1,0,0,5,1,yes,0,0,0,magic,0,		WZ_WATERBALL,Esfera d'Água
+87,9,6,2,1,0x1,0,10,1,yes,0,0,0,magic,0,		WZ_ICEWALL,Barreira de Gelo
+88,0,6,4,1,0x2,2,10,1,yes,0,0,0,magic,0,		WZ_FROSTNOVA,Congelar
+89,9,6,2,1,0,0,10,1,yes,0,0,0,magic,2,		WZ_STORMGUST,Nevasca
+90,9,8,1,2,0,0,5,1:2:3:4:5,yes,0,0,0,magic,0,	WZ_EARTHSPIKE,Coluna de Pedra
+91,9,8,2,2,0,0,5,1:2:3:4:5,yes,0,0,0,magic,0,	WZ_HEAVENDRIVE,Fúria da Terra
+92,9,6,2,2,0x1,0,5,1,yes,0,0,3,magic,0,		WZ_QUAGMIRE,Pântano dos Mortos
+93,9,6,1,0,0x1,0,1,1,yes,0,0,0,magic,0,		WZ_ESTIMATION,Sentido Sobrenatural
+94,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_IRON,Trabalhar Ferro
+95,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_STEEL,Trabalhar Aço
+96,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_ENCHANTEDSTONE,Produzir Pedra Fundamental
+97,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		BS_ORIDEOCON,Perícia com Oridecon
+98,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_DAGGER,Forjar Adaga
+99,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_SWORD,Forjar Espada
+100,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_TWOHANDSWORD,Forjar Espada de Duas Mãos
 101,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_AXE,Smith Axe
 102,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_MACE,Smith Mace
 103,0,0,0,0,0,0,3,0,no,0,0,0,weapon,0,		BS_KNUCKLE,Smith Knucklebrace
