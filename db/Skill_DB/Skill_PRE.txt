@@ -46,56 +46,56 @@
 // 16 Name
 // 17 Description
 
-1,0,0,0,0,0,0,9,0,no,0,0,0,none,0,		NV_BASIC,Basic Skill
-2,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		SM_SWORD,Sword Mastery
-3,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		SM_TWOHAND,Two-Handed Sword Mastery
-4,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SM_RECOVERY,Increase HP Recovery
-5,-1,6,1,-1,0,0,10,1,no,0,0,0,weapon,0,		SM_BASH,Bash
-6,9,6,1,0,1,0,10,1,no,0,0,0,none,0,		SM_PROVOKE,Provoke
-7,0,6,4,3,0x2,2,10,1,no,0,0,0,weapon,2,		SM_MAGNUM,Magnum Break
-8,0,6,4,0,0x1,0,10,1,no,0,0,0,weapon,0,		SM_ENDURE,Endure
-9,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MG_SRECOVERY,Increase SP Recovery
-10,0,6,4,3,0x3,3,1,1,yes,0,0,0,magic,0,		MG_SIGHT,Sight
-11,9,6,1,8,0x6,1,10,1,yes,0,0,0,magic,0,		MG_NAPALMBEAT,Napalm Beat
-12,9,8,2,8,0x1,0,10,1,yes,0,0,0,magic,0,		MG_SAFETYWALL,Safety Wall
-13,9,8,1,8,0,0,10,1:1:2:2:3:3:4:4:5:5,yes,0,0,0,magic,0,		MG_SOULSTRIKE,Soul Strike
-14,9,8,1,1,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_COLDBOLT,Cold Bolt
-15,9,6,1,1,0,0,10,1,yes,0,0,0,magic,0,		MG_FROSTDIVER,Frost Diver
-16,2,6,1,2,0x1,0,10,1,yes,0,0,0,magic,0,		MG_STONECURSE,Stone Curse
-17,9,6,1,3,0x2,2,10,1,yes,0,0,0,magic,0,		MG_FIREBALL,Fire Ball
-18,9,6,2,3,0,0,10,1,yes,0,0,3,magic,2,		MG_FIREWALL,Fire Wall
-19,9,8,1,3,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_FIREBOLT,Fire Bolt
-20,9,8,1,4,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_LIGHTNINGBOLT,Lightning Bolt
-21,9,8,2,4,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_THUNDERSTORM,Thunderstorm
-22,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		AL_DP,Divine Protection
-23,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		AL_DEMONBANE,Demon Bane
-24,0,6,4,6,0x3,2,1,1,yes,0,0,0,magic,0,		AL_RUWACH,Ruwach
-25,9,6,2,0,0x1,0,1,1,yes,0,0,0,magic,0,		AL_PNEUMA,Pneuma
-26,0,6,4,0,0x1,0,2,1,yes,0,0,0,magic,0,		AL_TELEPORT,Teleport
-27,9,6,2,0,0x1,0,4,1,yes,0,0,3,magic,0,		AL_WARP,Warp Portal
-28,9,6,16,6,0x21,0,10,1,yes,0,0,0,magic,0,	AL_HEAL,Heal
-29,9,6,16,0,0x1,0,10,1,yes,0,0,0,magic,0,	AL_INCAGI,Increase AGI
-30,9,6,1,0,0x1,0,10,1,yes,0,0,0,magic,0,		AL_DECAGI,Decrease AGI
+1,0,0,0,0,0,0,9,0,no,0,0,0,none,0,		NV_BASIC,Habilidade Básicas
+2,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		SM_SWORD,Perícia com Espada
+3,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		SM_TWOHAND,Perícia com Espada de Duas Mãos
+4,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SM_RECOVERY,Aumentar Recuperação de HP
+5,-1,6,1,-1,0,0,10,1,no,0,0,0,weapon,0,		SM_BASH,Golpe Fulminante
+6,9,6,1,0,1,0,10,1,no,0,0,0,none,0,		SM_PROVOKE,Provocar
+7,0,6,4,3,0x2,2,10,1,no,0,0,0,weapon,2,		SM_MAGNUM,Impacto Explosivo
+8,0,6,4,0,0x1,0,10,1,no,0,0,0,weapon,0,		SM_ENDURE,Vigor
+9,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MG_SRECOVERY,Aumentar Recuperação de SP
+10,0,6,4,3,0x3,3,1,1,yes,0,0,0,magic,0,		MG_SIGHT,Chama Reveladora
+11,9,6,1,8,0x6,1,10,1,yes,0,0,0,magic,0,		MG_NAPALMBEAT,Ataque Espiritual
+12,9,8,2,8,0x1,0,10,1,yes,0,0,0,magic,0,		MG_SAFETYWALL,Escudo Mágico
+13,9,8,1,8,0,0,10,1:1:2:2:3:3:4:4:5:5,yes,0,0,0,magic,0,		MG_SOULSTRIKE,Espíritos Anciões
+14,9,8,1,1,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_COLDBOLT,Lanças de Gelo
+15,9,6,1,1,0,0,10,1,yes,0,0,0,magic,0,		MG_FROSTDIVER,Rajada Congelante
+16,2,6,1,2,0x1,0,10,1,yes,0,0,0,magic,0,		MG_STONECURSE,Petrificar
+17,9,6,1,3,0x2,2,10,1,yes,0,0,0,magic,0,		MG_FIREBALL,Bola de Fogo
+18,9,6,2,3,0,0,10,1,yes,0,0,3,magic,2,		MG_FIREWALL,Barreira de Fogo
+19,9,8,1,3,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_FIREBOLT,Lanças de Fogo
+20,9,8,1,4,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_LIGHTNINGBOLT,Relâmpago
+21,9,8,2,4,0,0,10,1:2:3:4:5:6:7:8:9:10,yes,0,0,0,magic,0,	MG_THUNDERSTORM,Tempestade de Raios
+22,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		AL_DP,Proteção Divina
+23,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		AL_DEMONBANE,Flagelo do Mal
+24,0,6,4,6,0x3,2,1,1,yes,0,0,0,magic,0,		AL_RUWACH,Revelação
+25,9,6,2,0,0x1,0,1,1,yes,0,0,0,magic,0,		AL_PNEUMA,Escudo Sagrado
+26,0,6,4,0,0x1,0,2,1,yes,0,0,0,magic,0,		AL_TELEPORT,Teleporte
+27,9,6,2,0,0x1,0,4,1,yes,0,0,3,magic,0,		AL_WARP,Portal
+28,9,6,16,6,0x21,0,10,1,yes,0,0,0,magic,0,	AL_HEAL,Curar
+29,9,6,16,0,0x1,0,10,1,yes,0,0,0,magic,0,	AL_INCAGI,Aumentar Agilidade
+30,9,6,1,0,0x1,0,10,1,yes,0,0,0,magic,0,		AL_DECAGI,Diminuir Agilidade
 31,0,6,4,0,0x1,0,1,1,yes,0,0,0,magic,0,		AL_HOLYWATER,Aqua Benedicta
-32,0,6,4,0,0x3,15,10,1,yes,0,0,0,magic,0,	AL_CRUCIS,Signum Crucis
+32,0,6,4,0,0x3,15,10,1,yes,0,0,0,magic,0,	AL_CRUCIS,Signum Crusis
 33,0,6,4,0,0x3,-1,10,1,yes,0,0,0,magic,0,	AL_ANGELUS,Angelus
-34,9,6,16,0,0x1,0,10,1,yes,0,0,0,magic,0,	AL_BLESSING,Blessing
-35,9,6,16,0,0x1,0,1,1,yes,0,0,0,magic,0,		AL_CURE,Cure
-36,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_INCCARRY,Enlarge Weight Limit
-37,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_DISCOUNT,Discount
-38,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_OVERCHARGE,Overcharge
-39,1,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_PUSHCART,Pushcart
-40,1,6,4,0,0x1,0,1,1,no,0,0,0,none,0,		MC_IDENTIFY,Item Appraisal
-41,1,6,4,0,0x1,0,10,1,no,0,0,0,none,0,		MC_VENDING,Vending
+34,9,6,16,0,0x1,0,10,1,yes,0,0,0,magic,0,	AL_BLESSING,Benção
+35,9,6,16,0,0x1,0,1,1,yes,0,0,0,magic,0,		AL_CURE,Medicar
+36,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_INCCARRY,Aumentar Capacidade de Carga
+37,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_DISCOUNT,Desconto
+38,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_OVERCHARGE,Superfaturar
+39,1,0,0,0,0,0,10,0,no,0,0,0,none,0,		MC_PUSHCART,Usar Carrinho
+40,1,6,4,0,0x1,0,1,1,no,0,0,0,none,0,		MC_IDENTIFY,Identificar Item
+41,1,6,4,0,0x1,0,10,1,no,0,0,0,none,0,		MC_VENDING,Comércio
 42,-1,6,1,-1,0,0,10,1,no,0,0,0,weapon,0,		MC_MAMMONITE,Mammonite
-43,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		AC_OWL,Owl's Eye
-44,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		AC_VULTURE,Vulture's Eye
-45,0,6,4,0,0x3,3,10,1,no,0,0,0,weapon,0,		AC_CONCENTRATION,Improve Concentration
-46,-9,8,1,-1,0,0,10,2,no,0,0,0,weapon,0,		AC_DOUBLE,Double Strafe
-47,-9,6,2,-1,0x2,2,10,1,no,0,0x2000,0,weapon,2,	AC_SHOWER,Arrow Shower
-48,-1,8,0,-1,0,0,10,2,no,0,0,0,weapon,0,		TF_DOUBLE,Double Attack
-49,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		TF_MISS,Improve Dodge
-50,1,6,1,0,1,0,10,1,no,0,0,0,weapon,0,		TF_STEAL,Steal
+43,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		AC_OWL,Precisão
+44,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		AC_VULTURE,Olhos de Águia
+45,0,6,4,0,0x3,3,10,1,no,0,0,0,weapon,0,		AC_CONCENTRATION,Concentração
+46,-9,8,1,-1,0,0,10,2,no,0,0,0,weapon,0,		AC_DOUBLE,Rajada de Flechas
+47,-9,6,2,-1,0x2,2,10,1,no,0,0x2000,0,weapon,2,	AC_SHOWER,Chuva de Flechas
+48,-1,8,0,-1,0,0,10,2,no,0,0,0,weapon,0,		TF_DOUBLE,Ataque Duplo
+49,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,		TF_MISS,Perícia em Esquiva
+50,1,6,1,0,1,0,10,1,no,0,0,0,weapon,0,		TF_STEAL,Furto
 51,1,6,4,0,1,0,10,1,no,0,0,0,none,0,		TF_HIDING,Hiding
 52,-2,6,1,5,0,0,10,1,no,0,0,0,weapon,0,		TF_POISON,Envenom
 53,9,6,16,5,0x1,0,1,1,no,0,0,0,weapon,0,		TF_DETOXIFY,Detoxify
