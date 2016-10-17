@@ -17,4 +17,4 @@
 // - Cidade de Jawaii                                            ||
 //===============================================================//
 
-izlude,171,185,3	duplicate(Honeymoon_Helper_Izlude)	Acistente dos Casais#Izlude	1_F_LIBRARYGIRL
+izlude,171,185,3	duplicate(Honeymoon_Helper_Izlude)	Auxiliar Lua de Mel#Izlude	1_F_LIBRARYGIRL

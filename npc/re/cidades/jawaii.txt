@@ -17,8 +17,8 @@
 // - Cidade de Jawaii                                            ||
 //===============================================================//
 
-izlude,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Assistente de Casais#Izlude	1_F_LIBRARYGIRL
-izlude_a,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Assistente de Casais#Iz_a	1_F_LIBRARYGIRL
-izlude_b,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Assistente de Casais#Iz_b	1_F_LIBRARYGIRL
-izlude_c,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Assistente de Casais#Iz_c	1_F_LIBRARYGIRL
-izlude_d,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Assistente de Casais#Iz_d	1_F_LIBRARYGIRL
+izlude,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Auxiliar Lua de Mel#Izlude	1_F_LIBRARYGIRL
+izlude_a,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Auxiliar Lua de Mel#Iz_a	1_F_LIBRARYGIRL
+izlude_b,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Auxiliar Lua de Mel#Iz_b	1_F_LIBRARYGIRL
+izlude_c,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Auxiliar Lua de Mel#Iz_c	1_F_LIBRARYGIRL
+izlude_d,180,224,3	duplicate(Honeymoon_Helper_Izlude)	Auxiliar Lua de Mel#Iz_d	1_F_LIBRARYGIRL
