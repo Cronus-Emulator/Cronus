@@ -29,7 +29,7 @@ payon,246,154,0	script	Senhorita#payon	4_F_01,{
 	mes "[Senhorita]";
 	mes "Muitas famílias tiveram que lutar para sobreviver, e muitas vezes não conseguiam.";
 	mes "Elas tiveram que lutar para sobreviver, e muitas vezes não conseguiam pagar corretamente o enterro dos seus mortos.";
-	mes "Algumas pessoas jogavam seus mortos na caverna perto da aldeia. ";
+	mes "Algumas pessoas jogavam seus mortos na caverna perto da aldeia.";
 	next;
 	mes "[Senhorita]";
 	mes "Então, naquela caverna, é dito que existem muitos zumbis andando.";

@@ -18,7 +18,7 @@
 //===============================================================||
 // = Alterações:                                                 ||
 // - Cabeçalho [SlexFire]                                        ||
-// - Tradução com base em revisões passadas do cronus [SlexFire] ||
+// - Tradução [Revisões Cronus] / [SlexFire]                     ||
 // - Func. Sex, adicionada em algumas partes [SlexFire]          ||
 //===============================================================||
 // = Descrição:                                                  ||

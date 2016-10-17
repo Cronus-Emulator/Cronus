@@ -18,7 +18,7 @@
 //===============================================================||
 // = Alterações:                                                 ||
 // - Cabeçalho [SlexFire]                                        ||
-// - Tradução com base em revisões passadas do cronus [J4ND3RS0N]||
+// - Tradução [Revisões Cronus] / [J4ND3RS0N]                    ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Cidade de Louyang                                           ||

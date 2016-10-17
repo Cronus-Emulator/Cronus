@@ -17,7 +17,7 @@
 // - 1.0                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Tradução com base em revisões passadas do Cronus [SlexFire] ||
+// - Tradução [Revisões Cronus] / [SlexFire]                     ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - NPCs referentes a cidade de Kunlun                          ||
