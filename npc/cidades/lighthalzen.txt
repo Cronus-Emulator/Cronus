@@ -1,123 +1,86 @@
-//===== Hercules Script ======================================
-//= Lighthalzen City
-//===== By: ==================================================
-//=  erKURITA, Au{R}oN (Translated by Alan), $ephiroth
-//===== Current Version: =====================================
-//= 2.2
-//===== Description: =========================================
-//= Lighthalzen NPCs (Temporal names for now) [erKURITA]
-//===== Additional Comments: ==================================
-//= 2.0 Added missing Lab Staff#amano08 NPC. (bugreport:4319) [Gepard]
-//= 2.1 Commented out Duplicate NPCs. (bugreport:4555)
-//= 2.2 Added missing NPC found in AEGIS files. [L0ne_W0lf]
-//=============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//	                   Scripts                                   ||
+//===============================================================||
+// = Nome do NPC:                                                ||
+// - lighthalzen.txt                                             ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.0                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revisões Cronus] / [SlexFire]                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - NPCs referentes a cidade de Lighthalzen                     ||
+//===============================================================//
 
 lighthalzen,198,285,5	script	Jiwon#zen5	4_F_LGTGIRL,{
 	mes "[Jiwon]";
-	mes "I think we're really";
-	mes "fortunate to be able to";
-	mes "live in such a beautiful";
-	mes "and peaceful city like this.";
+	mes "Acho que temos muita sorte por poder viver em uma cidade tão bonita e pacífica como essa.";
 	next;
 	mes "[Jiwon]";
-	mes "It's just so nice to";
-	mes "have this pleasant weather,";
-	mes "these lush gardens and to";
-	mes "meet all of these kind people.";
-	mes "Lighthalzen is like Asgard";
-	mes "in Midgard, heaven on earth~";
+	mes "É tão bom viver em um clima tão agradável, com jardins tão lindos e poder conhecer todas essas pessoas boas. Lighthalzen é como Asgard em Midgard, é um paraíso na terra~";
 	close;
 }
 
 lighthalzen,220,244,3	script	Samnang#zen2	4_F_LGTGRAND,{
 	mes "[Samnang]";
-	mes "^333333*Sigh...*^000000";
-	mes "It gets harder for me";
-	mes "to move around as I get";
-	mes "older. That's understandable";
-	mes "for an elderly person, right?";
+	mes "^333333*Suspiro...*^000000";
+	mes "Fica cada vez mais díficil me locomover enquanto envelheço. Mas acho que isso é compreensível, não?";
 	next;
 	mes "[Samnang]";
-	mes "Just the other day, these";
-	mes "hoodlums in black suits";
-	mes "were yelling at me to get out";
-	mes "of their way. But of course,";
-	mes "I didn't move quickly enough.";
-	mes "So what did they do to me?";
+	mes "Mas alguns dias atrás, uns caras de terno preto gritaram comigo para eu sair da frente deles. Mas claro que não pude me mover muito rápido, então sabe o que eles fizeram?";
 	next;
 	mes "[Samnang]";
-	mes "They punched me.";
-	mes "Right in the womb!";
-	mes "I know that I'm not";
-	mes "pregnant, but that's";
-	mes "besides the point. Never hit";
-	mes "a lady, especially an old one!";
+	mes "Me deram um soco. Bem na barriga!";
+	mes "Não é que eu esteja grávida, mas isso não importa. Homens nunca podem bater em mulheres, especialmente idosas!";
 	close;
 }
 
 lighthalzen,261,112,3	script	Ruth#zen4	4_F_LGTGIRL,{
 	mes "[Ruth]";
-	mes "Sweety, isn't it";
-	mes "nice to be together";
-	mes "under this beautiful";
-	mes "sunlight? It's perfect";
-	mes "for our date. Ahhhh~";
+	mes "Amor, não é bom estarmos juntos aqui? É o lugar perfeito para o nosso encontro. Ahhhh~";
 	next;
 	mes "[Ruth]";
-	mes "I'm so happy to be";
-	mes "with you. I feel like";
-	mes "I'm just melting with";
-	mes "happiness. Oh, I love";
-	mes "you so much, Oyoung.";
+	mes "Estou tão feliz por estar com você. Sinto que estou derretendo de felicidade!";
+	mes "Ah, eu te amo tanto,";
+	mes "Oyoung.";
 	next;
 	mes "[" + strcharinfo(0) + "]";
-	mes "Whoa...";
-	mes "This couple is";
-	mes "really headed for";
-	mes "Cloud 9, aren't they?";
+	mes "Epa...";
+	mes "Esse casal está indo para a Nuvem 9, não está?";
 	close;
 }
 
 lighthalzen,259,108,7	script	Oyoung#zen14	4_M_LGTMAN,{
 	mes "[Oyoung]";
-	mes "Girl, you look like";
-	mes "you're comin' down with";
-	mes "the love bug. But there's";
-	mes "only one prescription for";
-	mes "this ailment, ooooh yeah...";
+	mes "Garota, parece que você foi picada pela mosquinha do amor. Mas há um remédio para esse mal! Ahhh sim, eu garanto que há!";
 	next;
 	mes "[Oyoung]";
-	mes "You need yo'self";
-	mes "your daily dose of";
-	mes "vitamin O-YOUNG.";
-	mes "And your lips look like";
-	mes "they got vitamin deficiency.";
-	mes "I better take care of that~";
+	mes "Você precisa de uma dose diária da Vitamina do Oyoung! E pelo que vejo seus lábios têm deficiência dessa vitamina! Vou tomar conta disso!";
 	next;
 	mes "[" + strcharinfo(0) + "]";
-	mes "Sweet Sister!";
-	mes "I don't know what's";
-	mes "more mind boggling--";
-	mes "The fact that he used";
-	mes "that line or the fact that";
-	mes "it's actually working...";
+	mes "Minha nossa!";
+	mes "Não sei o que é mais assustador--";
+	mes "Ele ter usado aquela cantada ou o fato de ela ter funcionado...";
 	close;
 }
 
 lighthalzen,233,121,3	script	Kariya#li_01	1_F_MARIA,{
 	mes "[Kariya]";
-	mes "I think ''Lighthalzen'' is";
-	mes "supposed to mean ''crest of";
-	mes "light,'' though I hear that this";
-	mes "city was actually named after";
-	mes "somebody. Who knows for sure?";
+	mes "Acho que 'Lighthalzen' significa algo como 'Pico de Luz', apesar de ter ouvido que essa cidade foi nomeada para homenagear alguém. Mas quem pode saber?";
 	next;
 	mes "[Kariya]";
-	mes "Still, it's a fitting";
-	mes "name for the wealthiest";
-	mes "and most luxurious city in";
-	mes "all the Schwaltzvalt Republic.";
-	mes "So how do you like this place?";
+	mes "Ainda assim, é um bom nome para a cidade mais luxuosa e abastada de toda a República de Schwaltzvalt. O que você acha daqui?";
 	close;
 }
 
