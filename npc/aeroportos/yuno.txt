@@ -5,39 +5,39 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Nome do NPC:                                                ||
 // - yuno.txt                                                    ||
 //===============================================================||
-// = CriaÃ§Ã£o:                                                    ||
+// = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
 //===============================================================||
-// = VersÃ£o:                                                     ||
+// = Versão:                                                     ||
 // - 1.0                                                         ||
 //===============================================================||
-// = AlteraÃ§Ãµes:                                                 ||
-// - TraduÃ§Ã£o [Wolf]                                             ||
+// = Alterações:                                                 ||
+// - Tradução [Wolf]                                             ||
 // - Add Func Sex [Wolf]                                         ||
 //===============================================================||
-// = DescriÃ§Ã£o:                                                  ||
+// = Descrição:                                                  ||
 // - Aeroplano de Juno                                           ||
 //===============================================================//
 
 y_airport,143,43,5	script	Equipe do Aeroporto#y_air1a::y_airport1	4_F_01,{
 	mes "[Equipe do Aeroporto]";
-	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno, aqui oferecemos voos domÃ©sticos para Einbroch, Lighthalzen e Hugel,";
+	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno, aqui oferecemos voos domésticos para Einbroch, Lighthalzen e Hugel,";
 	mes "Lighthalzen e Hugel, e internacionais para Izlude e Rachel. ";
-	mes "Gostaria de nossos serviÃ§os?";
+	mes "Gostaria de nossos serviços?";
 	next;
 	if (select("Embarcar.:Cancelar.") == 1) {
 		mes "[Equipe do Aeroporto]";
 		mes "A taxa para os voos custam";
-		mes "1,200 zeny. Caso vocÃª tenha";
+		mes "1,200 zeny. Caso você tenha";
 		mes "o Bilhete para Aeroplano,";
-		mes "a taxa nÃ£o serÃ¡ cobrada. Gostaria de embarcar?";
+		mes "a taxa não será cobrada. Gostaria de embarcar?";
 		next;
-		if (select("Sim:NÃ£o") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
 				delitem 7311,1; //Bilhete
 				warp "y_airport",148,51;
@@ -49,7 +49,7 @@ y_airport,143,43,5	script	Equipe do Aeroporto#y_air1a::y_airport1	4_F_01,{
 				end;
 			}
 			mes "[Equipe do Aeroporto]";
-			mes "Me desculpe, mas vocÃª nÃ£o";
+			mes "Me desculpe, mas você não";
 			mes "possui os 1,200 zenys para";
 			mes "o embarque.";
 			close;
@@ -57,55 +57,55 @@ y_airport,143,43,5	script	Equipe do Aeroporto#y_air1a::y_airport1	4_F_01,{
 	}
 	mes "[Equipe do Aeroporto]";
 	mes "Obrigad"+(Sex?"o":"a")+",";
-	mes "e tenha um Ã³timo dia.";
+	mes "e tenha um ótimo dia.";
 	close;
 }
 
 y_airport,158,43,5	duplicate(y_airport1)	Airport Staff#y_air1b	4_F_01
 y_airport,126,43,5	duplicate(y_airport1)	Airport Staff#y_air1c	4_F_01
 
-y_airport,143,49,3	script	Equipe da RecepÃ§Ã£o#y_air2a::y_airport2	4_F_01,{
-	mes "[Equipe da RecepÃ§Ã£o]";
+y_airport,143,49,3	script	Equipe da Recepção#y_air2a::y_airport2	4_F_01,{
+	mes "[Equipe da Recepção]";
 	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno.";
-	mes "Se vocÃª acabou de chegar do seu voo, deixe que eu te guie.";
-	mes "Ou caso prefira, embarque no dirigÃ­vel e embarque ao seu destino.";
+	mes "Se você acabou de chegar do seu voo, deixe que eu te guie.";
+	mes "Ou caso prefira, embarque no dirigível e embarque ao seu destino.";
 	next;
 	if (select("Sair do terminal principal.:Cancelar") == 1) {
-		mes "[Equipe da RecepÃ§Ã£o]";
-		mes "Uma vez no terminal principal, vocÃª terÃ¡ que pagar outra taxa para embarcar no digirÃ­vel.";
-		mes "VocÃª sÃ³ deverÃ¡ sair se a cidade de Juno for seu Ãºltimo destino.";
+		mes "[Equipe da Recepção]";
+		mes "Uma vez no terminal principal, você terá que pagar outra taxa para embarcar no digirível.";
+		mes "Você só deverá sair se a cidade de Juno for seu último destino.";
 		mes "Deseja prosseguir para o";
 		mes "terminal principal?";
 		next;
-		if (select("Sim:NÃ£o") == 1) {
+		if (select("Sim:Não") == 1) {
 			warp "y_airport",142,40;
 			end;
 		}
 	}
-	mes "[Equipe da RecepÃ§Ã£o]";
+	mes "[Equipe da Recepção]";
 	mes "Tudo certo, obrigad"+(Sex?"o":"a")+"";
 	mes "pelo seu apoio, e espero";
-	mes "que vocÃª tenha um voo agradÃ¡vel~";
+	mes "que você tenha um voo agradável~";
 	close;
 }
 
 y_airport,126,51,3	duplicate(y_airport2)	Arrival Staff#y_air2b	4_F_01
 y_airport,158,50,3	duplicate(y_airport2)	Arrival Staff#y_air2c	4_F_01
 
-y_airport,145,63,5	script	Voos DomÃ©sticos	4_F_02,{
+y_airport,145,63,5	script	Voos Domésticos	4_F_02,{
 	mes "[Equipe de Bordo]";
-	mes "VocÃª gostaria de embarcar no ";
-	mes "dirigÃ­vel que voa atÃ© Einbroch,";
+	mes "Você gostaria de embarcar no ";
+	mes "dirigível que voa até Einbroch,";
 	mes "Lighthalzen e Hugel? Se sim,";
-	mes "deixe que eu te guie atÃ©";
-	mes "a Ã¡rea de embarque.";
+	mes "deixe que eu te guie até";
+	mes "a área de embarque.";
 	next;
-	if (select("Sim:NÃ£o") == 1) {
+	if (select("Sim:Não") == 1) {
 		warp "yuno",59,244;
 		end;
 	}
 	mes "[Equipe de Bordo]";
-	mes "Muito bem, entÃ£o.";
+	mes "Muito bem, então.";
 	mes "Obrigad"+(Sex?"o":"a")+" por";
 	mes "se tornar um cliente, espero";
 	mes "uma viajem divertida~";
@@ -114,18 +114,18 @@ y_airport,145,63,5	script	Voos DomÃ©sticos	4_F_02,{
 
 y_airport,140,63,5	script	Voos Internacionais	4_F_02,{
 	mes "[Equipe de Bordo]";
-	mes "VocÃª deseja embarcar no";
-	mes "dirigÃ­vel que leva atÃ©";
+	mes "Você deseja embarcar no";
+	mes "dirigível que leva até";
 	mes "Juno, Izlude e Rachel?";
 	mes "Se sim, deixe que eu te guie";
-	mes "atÃ© a Ã¡rea de embarque.";
+	mes "até a área de embarque.";
 	next;
-	if (select("Sim:NÃ£o") == 1) {
+	if (select("Sim:Não") == 1) {
 		warp "yuno",47,244;
 		end;
 	}
 	mes "[Equipe de Bordo]";
-	mes "Muito bem, entÃ£o.";
+	mes "Muito bem, então.";
 	mes "Obrigad"+(Sex?"o":"a")+" por";
 	mes "voar conosco, espero uma";
 	mes "viajem divertida.";
@@ -136,17 +136,17 @@ yuno,14,262,5	script	Equipe do Aeroporto#yuno01	4_F_02,{
 	mes "[Equipe do Aeroporto]";
 	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno.";
 	mes "Por favor, utilize esta porta";
-	mes "para embarcar no dirigÃ­vel que";
-	mes "voa atÃ© Izlude dentro do";
+	mes "para embarcar no dirigível que";
+	mes "voa até Izlude dentro do";
 	mes "Reino de Rune-Midgard,";
-	mes "e para Rachel na RepÃºblica de";
+	mes "e para Rachel na República de";
 	mes "Arunafeltz.";
 	next;
 	mes "[Equipe do Aeroporto]";
 	mes "Ou caso seu destino seja";
-	mes "Juno, desÃ§a as escadas e";
-	mes "peÃ§a para a Equipe de RecepÃ§Ã£o";
-	mes "levÃ¡-lo atÃ© o terminal.";
+	mes "Juno, desça as escadas e";
+	mes "peça para a Equipe de Recepção";
+	mes "levá-lo até o terminal.";
 	mes "Obrigado, e tenha uma boa viajem.";
 	close;
 }
@@ -155,15 +155,15 @@ yuno,88,263,3	script	Equipe do Aeroporto#yuno02	4_F_02,{
 	mes "[Equipe do Aeroporto]";
 	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Juno.";
 	mes "Por favor, utilize esta porta";
-	mes "para embarcar no dirigÃ­vel que";
-	mes "voa atÃ© Einbroch, Lighthalzen e";
-	mes "Hugel na RepÃºblica de Schwaltzvalt.";
+	mes "para embarcar no dirigível que";
+	mes "voa até Einbroch, Lighthalzen e";
+	mes "Hugel na República de Schwaltzvalt.";
 	next;
 	mes "[Equipe do Aeroporto]";
 	mes "Ou caso seu destino seja";
-	mes "Juno, desÃ§a as escadas e";
-	mes "peÃ§a para a Equipe de RecepÃ§Ã£o";
-	mes "levÃ¡-lo atÃ© o terminal.";
+	mes "Juno, desça as escadas e";
+	mes "peça para a Equipe de Recepção";
+	mes "levá-lo até o terminal.";
 	mes "Obrigado, e tenha uma boa viajem.";
 	close;
 }

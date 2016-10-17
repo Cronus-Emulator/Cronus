@@ -5,21 +5,21 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Nome do NPC:                                                ||
 // - izlude.txt                                                  ||
 //===============================================================||
-// = CriaÃ§Ã£o:                                                    ||
+// = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
 //===============================================================||
-// = VersÃ£o:                                                     ||
+// = Versão:                                                     ||
 // - 1.0                                                         ||
 //===============================================================||
-// = AlteraÃ§Ãµes:                                                 ||
-// - TraduÃ§Ã£o [Wolf]                                             ||
+// = Alterações:                                                 ||
+// - Tradução [Wolf]                                             ||
 //===============================================================||
-// = DescriÃ§Ã£o:                                                  ||
+// = Descrição:                                                  ||
 // - Aeroplano de Izlude                                         ||
 //===============================================================//
 
@@ -32,12 +32,12 @@
 	if (select("Embarcar no voo para Juno/Rachel.:Cancelar.") == 1) {
 		mes "[Equipe do Aeroporto]";
 		mes "O voo tem um custo de";
-		mes "1,200 zeny. Ou caso vocÃª tenha";
+		mes "1,200 zeny. Ou caso você tenha";
 		mes "um Bilhete para o Aeroplano,";
-		mes "sua taxa nÃ£o Ã© cobrada. EntÃ£o,";
+		mes "sua taxa não é cobrada. Então,";
 		mes "gostaria de embarcar?";
 		next;
-		if (select("Sim:NÃ£o") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
 				delitem 7311,1; //Bilhete para o Aeroplano
 				warp "airplane_01",244,58;
@@ -49,7 +49,7 @@
 				end;
 			}
 			mes "[Equipe do Aeroporto]";
-			mes "Desculpe, mas vocÃª nÃ£o";
+			mes "Desculpe, mas você não";
 			mes "possui 1,200 zenys para";
 			mes "pagar o embarque.";
 			close;

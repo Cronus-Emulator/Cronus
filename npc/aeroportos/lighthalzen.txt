@@ -5,21 +5,21 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Nome do NPC:                                                ||
 // - lighthalzen.txt                                             ||
 //===============================================================||
-// = CriaÃ§Ã£o:                                                    ||
+// = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
 //===============================================================||
-// = VersÃ£o:                                                     ||
+// = Versão:                                                     ||
 // - 1.0                                                         ||
 //===============================================================||
-// = AlteraÃ§Ãµes:                                                 ||
-// - TraduÃ§Ã£o [Wolf]                                             ||
+// = Alterações:                                                 ||
+// - Tradução [Wolf]                                             ||
 //===============================================================||
-// = DescriÃ§Ã£o:                                                  ||
+// = Descrição:                                                  ||
 // - Aeroplano de Lighthalzen                                    ||
 //===============================================================//
 
@@ -30,14 +30,14 @@ lhz_airport,143,43,5	script	Equipe do Aeroporto#lhz_air1a::lhz_airport1	4_F_01,{
 	mes "onde oferemos voos frequentes";
 	mes "para Einbroch, Juno e Hugel.";
 	next;
-	if (select("Embarcar no dirigÃ­vel.:Cancelar.") == 1) {
+	if (select("Embarcar no dirigível.:Cancelar.") == 1) {
 		mes "[Equipe do Aeroporto]";
-		mes "A taxa do voo Ã© de";
-		mes "1,200 zeny, mas caso vocÃª";
+		mes "A taxa do voo é de";
+		mes "1,200 zeny, mas caso você";
 		mes "possua o Bilhete para o Aeroplano,";
-		mes "essa taxa nÃ£o Ã© cobrada.";
+		mes "essa taxa não é cobrada.";
 		next;
-		if (select("Sim:NÃ£o") == 1) {
+		if (select("Sim:Não") == 1) {
 			if (countitem(7311) > 0) {
 				delitem 7311,1; //Bilhete para o Aeroplano
 				warp "lhz_airport",148,51;
@@ -49,7 +49,7 @@ lhz_airport,143,43,5	script	Equipe do Aeroporto#lhz_air1a::lhz_airport1	4_F_01,{
 				end;
 			}
 			mes "[Equipe do Aeroporto]";
-			mes "Desculpe, mas vocÃª nÃ£o possui";
+			mes "Desculpe, mas você não possui";
 			mes "os 1,200 zenys para pagar";
 			mes "o seu voo.";
 			close;
@@ -65,30 +65,30 @@ lhz_airport,143,43,5	script	Equipe do Aeroporto#lhz_air1a::lhz_airport1	4_F_01,{
 lhz_airport,158,43,5	duplicate(lhz_airport1)	Airship Staff#lhz_air1b	4_F_01
 lhz_airport,126,43,5	duplicate(lhz_airport1)	Airship Staff#lhz_air1c	4_F_01
 
-lhz_airport,143,49,3	script	Equipe de RecepÃ§Ã£o#lhz_air2a::lhz_airport2	4_F_01,{
-	mes "[Equipe de RecepÃ§Ã£o]";
+lhz_airport,143,49,3	script	Equipe de Recepção#lhz_air2a::lhz_airport2	4_F_01,{
+	mes "[Equipe de Recepção]";
 	mes "Bem-vind"+(Sex?"o":"a")+" ao Aeroporto de Lighthalzen.";
-	mes "Deixe-me guiÃ¡-lo ao seu terminal principal";
-	mes "caso vocÃª tenha acabado de chegar.";
-	mes "Ou embarque no dirigÃ­vel em busca de outro destino.";
+	mes "Deixe-me guiá-lo ao seu terminal principal";
+	mes "caso você tenha acabado de chegar.";
+	mes "Ou embarque no dirigível em busca de outro destino.";
 	next;
 	if (select("Sair do terminal principal.:Cancelar.") == 1) {
-		mes "[Equipe de RecepÃ§Ã£o]";
-		mes "Uma vez no terminal principal, vocÃª precisarÃ¡ pagar outra";
-		mes "taxa para embarcar no dirigÃ­vel. VocÃª sÃ³ deverÃ¡";
-		mes "sair caso a cidade de Lighthalzen for seu Ãºltimo destino.";
+		mes "[Equipe de Recepção]";
+		mes "Uma vez no terminal principal, você precisará pagar outra";
+		mes "taxa para embarcar no dirigível. Você só deverá";
+		mes "sair caso a cidade de Lighthalzen for seu último destino.";
 		mes "Gostaria de prosseguir ao terminal principal?";
 		next;
-		if (select("Sim:NÃ£o") == 1) {
+		if (select("Sim:Não") == 1) {
 			warp "lhz_airport",142,40;
 			end;
 		}
 	}
-	mes "[Equipe de RecepÃ§Ã£o]";
+	mes "[Equipe de Recepção]";
 	mes "Certo, obrigado";
 	mes "pelo seu apoio e";
-	mes "espero que vocÃª tenha";
-	mes "um voo agradÃ¡vel~";
+	mes "espero que você tenha";
+	mes "um voo agradável~";
 	close;
 }
 

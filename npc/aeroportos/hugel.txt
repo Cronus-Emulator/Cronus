@@ -5,31 +5,31 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Nome do NPC:                                                ||
 // - hugel.txt                                                   ||
 //===============================================================||
-// = CriaÃ§Ã£o:                                                    ||
+// = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
 //===============================================================||
-// = VersÃ£o:                                                     ||
+// = Versão:                                                     ||
 // - 1.0                                                         ||
 //===============================================================||
-// = AlteraÃ§Ãµes:                                                 ||
-// - TraduÃ§Ã£o [Wolf]                                             ||
+// = Alterações:                                                 ||
+// - Tradução [Wolf]                                             ||
 //===============================================================||
-// = DescriÃ§Ã£o:                                                  ||
+// = Descrição:                                                  ||
 // - Aeroplano de Hugel                                          ||
 //===============================================================//
 
 hugel,178,142,0	script	toairplane#hugel	WARPNPC,1,1,{
 	end;
 OnTouch:
-	mes "Para usar o aeroplano, vocÃª precisarÃ¡ pagar uma taxa de 1,200 zenys ou possuir um Bilhete para o Aeroplano.";
-	mes "Gostaria de utilizar nossos serviÃ§os?";
+	mes "Para usar o aeroplano, você precisará pagar uma taxa de 1,200 zenys ou possuir um Bilhete para o Aeroplano.";
+	mes "Gostaria de utilizar nossos serviços?";
 	next;
-	if (select("Sim:NÃ£o") == 1) {
+	if (select("Sim:Não") == 1) {
 		if (countitem(7311) > 0) {
 			delitem 7311,1; //Bilhete para o Aerplano
 			warp "airplane",244,58;
@@ -40,8 +40,8 @@ OnTouch:
 			warp "airplane",244,58;
 			end;
 		}
-		mes "Desculpe, mas vocÃª nÃ£o possui o zeny necessÃ¡rio.";
-		mes "Lembre-se, vocÃª precisa possuir o Bilhete para o Aeroplano, ou possuir a taxa de embarque equivalente a 1,200 zenys.";
+		mes "Desculpe, mas você não possui o zeny necessário.";
+		mes "Lembre-se, você precisa possuir o Bilhete para o Aeroplano, ou possuir a taxa de embarque equivalente a 1,200 zenys.";
 		close;
 	}
 	mes "Obrigado, e volte novamente.";
