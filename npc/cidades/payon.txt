@@ -1,369 +1,349 @@
-//===== Hercules Script ======================================
-//= Payon City
-//===== By: ==================================================
-//= Muad Dib (1.0) Darkchild (1.1) Muad Dib (1.2)
-//= Darkchild (1.3) DracoRPG (1.5) L0ne_W0lf (2.1)
-//===== Current Version: =====================================
-//= 2.1c
-//===== Description: =========================================
-//= Payon City Npcs
-//===== Additional Comments: =================================
-//= Most Credits To Muad Dib, Some Stuff By Me
-//= 1.4 Corrected a few typos
-//= 1.5 Rescripted old NPCs + scripted new ones (from iRO Sak) [DracoRPG]
-//= 1.5b Used Dino9021's script for the Gemstone exchanger [DracoRPG]
-//= 1.5b1 fixed Gemstone Exchanger NPC [Lupus]
-//= 1.5b2 added adv.classes/baby classes support [Lupus]
-//= 1.6 Fixed typos [Nexon]
-//= 1.7 Fixed bugs and exploits V__V [Lupus]
-//= 1.8 Removed Duplicates [Silent]
-//= 1.9 Fixed missing next;'s [Evera]
-//= 2.0 fixed some bugs, optimized script, added missing msg [Lupus]
-//= 2.1 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//=     Moved Gemstone Trader "Jade" to /merchants/gemstone.txt
-//=     Moved Fortune Teller to /other/fortune.txt
-//= 2.1b Added a missing close in the Monster Scholar. [L0ne_W0lf]
-//= 2.1c Minor bug fixes. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.1c                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revisões Cronus]                                  ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Cidade de Payon                                             ||
+//===============================================================//
 
 // Payon
 //============================================================
-payon,246,154,0	script	Lady#payon	4_F_01,{
-	mes "[Lady]";
-	mes "A long time ago,";
-	mes "when Payon was still";
-	mes "developing, many of the";
-	mes "villagers lived in poverty.";
+payon,246,154,0	script	Senhorita#payon	4_F_01,{
+	mes "[Senhorita]";
+	mes "Há muito tempo atrás Payon, quando ainda estava em desenvolvimento, muitos dos aldeões viviam na pobreza.";
 	next;
-	mes "[Lady]";
-	mes "Many families had to struggle to survive, and often could not even afford to properly bury their dead. Some people threw their dead into the cave near the village.";
+	mes "[Senhorita]";
+	mes "Muitas famílias tiveram que lutar para sobreviver, e muitas vezes não conseguiam.";
+	mes "Elas tiveram que lutar para sobreviver, e muitas vezes não conseguiam pagar corretamente o enterro dos seus mortos.";
+	mes "Algumas pessoas jogavam seus mortos na caverna perto da aldeia. ";
 	next;
-	mes "[Lady]";
-	mes "So in that cave, it is said that there are many walking Zombies,";
-	mes "the dead who cannot rest in peace and are unable to pass on to the next world.";
+	mes "[Senhorita]";
+	mes "Então, naquela caverna, é dito que existem muitos zumbis andando.";
+	mes "Eles são mortos que não podem descansar em paz e são incapazes de passar para o outro mundo.";
 	next;
-	mes "[Lady]";
-	mes "The Zombies, upon sensing the warmth of a human, begin to assault them, but that doesn't mean these Undead hold a grudge against";
-	mes "the living.";
+	mes "[Senhorita]";
+	mes "Os Zumbis,após detectarem o calor de um ser humano, começam a atacá-los.";
+	mes "Mas isso não significa que esses mortos-vivos guardam rancor contra os vivos";
 	next;
-	mes "[Lady]";
-	mes "Their rotten bodies can't leave the cold, dark and damp cave, so it's instinctual for them to attack warmth which would speed up the decomposition of their bodies.";
+	mes "[Senhorita]";
+	mes "Seus corpos podres não puderam sair da caverna fria, escura e úmida.";
+	mes "Por isso é instintivo para eles atacarem o calor que vai acelerar a decomposição de seus corpos.";
 	next;
-	mes "[Lady]";
-	mes "The Zombies in the Payon Cave";
-	mes "may be spooky, but their story";
-	mes "is also kind of tragic.";
+	mes "[Senhorita]";
+	mes "Os zumbis na caverna de Payon podem ser assustadores,mas as suas histórias também são trágicas.";
 	close;
 }
 
-payon,134,211,4	script	Young Man#payon	1_M_ORIENT01,{
-	mes "[Young Man]";
-	mes "From your attire,";
-	mes "I can see that you";
-	mes "are a stranger here.";
-	mes "Welcome to Payon.";
+payon,134,211,4	script	Jovem Homem#payon	1_M_ORIENT01,{
+	mes "[Jovem Homem]";
+	mes "Pelo seu rosto eu posso ver que você é um estranho aqui.";
+	mes "Bem-vindo a Payon.";
 	next;
-	mes "[Young Man]";
-	mes "You must be a well-experienced fighter, otherwise you'd never be able to arrive here after passing the steep, mountainous areas and dangerous creatures surrounding this city.";
+	mes "[Jovem Homem]";
+	mes "Você deve ser um lutador bem experiente.";
+	mes "Caso contrário você nunca seria capaz de chegar aqui depois de passar por areas íngremes.";
+	mes "Áreas montanhosas e criaturas perigosas ao redor desta cidade.";
 	next;
-	mes "[Young Man]";
-	mes "I'm no expert at fighting, but someone once told me that sheer strength alone won't be able to win some battles.";
+	mes "[Jovem Homem]";
+	mes "Eu não sou nenhum perito em combate, mas alguém me disse uma vez que a força bruta sozinha não será capaz de vencer algumas batalhas";
 	next;
-	mes "[Young Man]";
-	mes "Sometimes, you may encounter creatures protected by a hard-shell that don't be damaged by physical attacks. Only psychic power, like Magic, can easily defeat such creatures.";
+	mes "[Jovem Homem]";
+	mes "Às vezes, você poderá encontrar criaturas protegidas por uma casca dura que não é danificada por ataques físicos.";
+	mes "Só o poder psíquico, como os dos Mágicos, podem facilmente derrotar essas criaturas.";
 	next;
-	mes "[Young Man]";
-	mes "Of course, not everyone can study magic. The point is that you should keep different kinds of friends and comrades close to you, as you can't possibly handle every situation by yourself.";
+	mes "[Jovem Homem]";
+	mes "Naturalmente, nem todos podem estudar magia.";
+	mes "O ponto é que você deve manter diferentes tipos de amigos e camaradas perto de você.";
+	mes "Porque você não pode lidar com cada situação por si mesmo.";
 	close;
 }
 
-payon,173,82,0	script	Young Man#2payon	4_M_ORIENT01,{
-	mes "[Young Man]";
-	mes "I remember the story my dearly departed grandfather has told me.";
+payon,173,82,0	script	Jovem Homem#2payon	4_M_ORIENT01,{
+	mes "[Jovem Homem]";
+	mes "Lembro-me da história do meu saudoso avô me contou.";
 	next;
-	mes "[Young Man]";
-	mes "It's about this Amulet that possesses an Evil Power.";
-	mes "With it, you could awaken";
-	mes "the Dead from the Grave.";
+	mes "[Jovem Homem]";
+	mes "É sobre este amuleto, que possui um poder maligno.";
+	mes "Com ele, você pode despertar os mortos da sepultura.";
 	next;
-	mes "[Young Man]";
-	mes "Well, I'm not sure if it's true or not. But, I wonder, what would happen if I used it to summon";
-	mes "my grandfather from the other realm....";
+	mes "[Jovem Homem]";
+	mes "Bem, eu não tenho certeza se é verdade ou não.";
+	mes "Mas, eu pergunto, o que aconteceria se eu o usasse para chamar meu avô de outro reino ....";
 	next;
 	mes "[?]";
-	mes "^3299CCNever think";
-	mes "of such a thing...";
-	mes "My son.^000000";
+	mes "^3299CCnunca pense uma coisa dessas meu filho.^000000";
 	next;
-	mes "[Young Man]";
+	mes "[Jovem Homem]";
 	mes "EEEEEEK-!";
-	mes "What was that?!";
-	mes "G-grandpa...?";
+	mes "O que foi aquilo?";
+	mes "A-avô...?";
 	next;
 	mes "...";
 	next;
 	mes "...";
 	mes "......";
-	mes "[Young Man]";
+	mes "[Jovem Homem]";
 	mes "...";
-	mes "G-God...?";
+	mes "D-Deus...?";
 	close;
 }
 
-payon,158,246,3	script	Guardsman#payon	4_M_PAY_SOLDIER,3,3,{
+payon,158,246,3	script	Guarda#payon	4_M_PAY_SOLDIER,3,3,{
 	end;
 
 OnTouch:
-	mes "[Guardsman]";
-	mes "This is the Central Palace of Payon. This place is open to the public, but in accordance with our laws, you must behave in an orderly fashion once inside.";
+	mes "[Guarda]";
+	mes "Este é o Palácio Central de Payon.";
+	mes "Este local é aberto ao público, mas de acordo com nossas leis, você deve se comportar de forma ordenada, uma vez dentro.";
 	next;
-	mes "[Guardsman]";
-	mes "In the interest of protecting the peace, we will disarm your equipment once you enter.";
-	mes "Your cooperation is";
-	mes "much appreciated.";
+	mes "[Guarda]";
+	mes "No interesse de proteger a paz, vamos desarmar o equipamento uma vez que você entrar.";
+	mes "Sua cooperação é muito apreciada.";
 	nude;
 	close;
 }
 
 payon,249,156,1	script	Woman#payon	1_F_01,{
-	mes "[Woman]";
-	mes "Welcome to Payon.";
-	mes "You must have had";
-	mes "a hard time getting";
-	mes "through the Payon Forest.";
-	mes "How was your trip?";
+	mes "[Mulher]";
+	mes "Bem vindo a Payon você deve ter tido uma certa dificuldade em conseguir andar através da floresta de payon como foi a viagem?";
 	next;
-	mes "[Woman]";
-	mes "We've been receiving less tourists because of the increasing numbers of monsters outside, so it's quieter nowadays.";
+	mes "[Mulher]";
+	mes "Temos recebido menos turistas por causa do aumento de monstros lá fora, por isso está mais quieto hoje.";
 	next;
-	mes "[Woman]";
-	mes " To be honest, things are getting tough because of all those monsters. ^666666*Sigh...*^000000";
+	mes "[Mulher]";
+	mes "Para ser honesto, as coisas estão ficando difíceis, por causa de todos esses monstros.";
+	mes "^666666*Sigh...*^000000";
 	next;
-	mes "[Woman]";
-	if (Sex == 1)
-		mes "Whoa~! I just noticed those arms of yours look pretty solid. You look pretty strong, guy. Just how many monsters have you killed?!";
-	else
-		mes "Oooh! I didn't notice before, but you look pretty strong beneath all of that feminine charm.";
-	next;
-	mes "[Woman]";
-	mes "Hey, I know of a good place for you to hunt. It just so happens that there's a cave in the middle of Payon.";
-	next;
-	mes "[Woman]";
-	mes "If you're interested, just head North, pass the forest, and go towards the Northwest. You'll know you've arrived when you're in the place filled with the smell of stinky monsters.";
-	next;
-	switch(select("It sounds dangerous!:I better prepare myself...!:That's a nice dress you're wearing~")) {
-	case 1:
-		mes "[Woman]";
-		mes "Oh come on, don't be a coward.";
-		mes "It's just a simple cave filled with normal monsters. It's quite safe. We've even established an Archer Village near that cave to prevent misfortunate incidents. Hohoohoho~ ";
-		break;
-	case 2:
-		mes "[Woman]";
-		mes "Oh don't worry about any preparations. There's a Tool Dealer right in front of the cave, so you can purchase anything you need from my husban, er, that guy~";
-		break;
-	case 3:
-		mes "[Woman]";
-		mes "Oh hohohoho!";
-		mes "So you've noticed?";
-		mes "I hear this is the";
-		mes "latest trend in Prontera";
-		mes "these days.";
-		next;
-		mes "[Woman]";
-		mes "Most of the women in this town don't know anything about fashion! My husband bought this for me as";
-		mes "a present. He makes quite a lot of money, you know. Hohohoho~";
-		break;
-	}
-	close;
-}
-
-payon,246,158,5	script	Woman#2payon	1_F_01,0,0,{
-	mes "[Jim's Mother]";
-	mes "Oh boy~";
-	mes "There she goes again.";
-	mes "Without a doubt, that";
-	mes "woman is the town gossip.";
-	next;
-	mes "[Jim's Mother]";
-	mes "Please don't judge the rest";
-	mes "of the people living in Payon by her behavior. She's the only loudmouth. I guess she's just too excited about what the fortune teller told her.";
-	next;
-	mes "[Jim's Mother]";
+	mes "[Mulher]";
 	if (Sex == 1) {
-		mes "Ooh...!";
-		mes "You've got";
-		mes "such broad shoulders!";
-		mes "Will you go out with me?";
-		mes "I'll treat you to";
-		mes "a nice dinner~";
+		mes "Eu notei que seus braços são bastante grossos.";
+		mes "Você parece muito forte, cara.";
+		mes "Quantos monstros você matou?";
 	}
 	else {
-		mes "My, you're a pretty girl!";
-		mes "I'm sure you're always busy";
-		mes "beating the boys away with a stick...";
-		mes "Or a well timed insult joke.";
+		mes "Eu não percebi antes, mas você olhar bem forte embaixo de todo esse charme feminino.";
 	}
 	next;
-	if (select("Fortune Teller...? :Well, see you later~") == 1) {
-		mes "[Jim's Mother]";
-		mes "Oh yes...";
-		mes "There's an extraordinary fortune teller in the Central Palace of Payon. The more Zeny you pay her, the better fortune you'll get!";
+	mes "[Mulher]";
+	mes "Ei, eu sei de um lugar bom para você caçar.";
+	mes "Acontece que há uma caverna no meio de Payon.";
+	next;
+	mes "[Mulher]";
+	mes "Se você estiver interessado, vá para o Norte, passe pela floresta, e siga em direção ao noroeste.";
+	mes "Você saberá que você chegou quando você estiver num lugar com o o mau cheiro de monstros.";
+	next;
+	switch(select("Parece perigoso!:Melhor eu me preparar ...!:É um belo vestido que você está vestindo .")) {
+	case 1:
+		mes "[Mulher]";
+		mes "Oh venha, não seja coverde.";
+		mes "É apenas uma simples caverna cheia de monstros normais.";
+		mes "É bastante seguro.";
+		mes "Temos ainda uma vila de arqueiros perto da caverna para evitar incidentes infelizes.";
+		mes "Hohoohoho.";
+		break;
+	case 2:
+		mes "[Mulher]";
+		mes "Ah, não se preocupe com qualquer preparação.";
+		mes "Existe uma loja de ferramenta perto da caverna, assim você pode comprar qualquer coisa que você precise com o senhor husban, .";
+		break;
+	case 3:
+		mes "[Mulher]";
+		mes "Oh hohohoho!";
+		mes "Você soube da mais nova notícia?";
+		mes "Eu ouvi que saiu umas novas tendências de moda em Prontera esses dias.";
 		next;
-		mes "[Jim's Mother]";
-		mes "She told me";
-		mes "I would meet";
-		mes "a nice guy this month.";
-		mes "Hohohoho~ ";
+		mes "[Mulher]";
+		mes "A maioria das mulheres nesta cidade ainda não sabem nada sobre moda! ";
+		mes "Meu marido comprou esse presente pra mim.";
+		mes "Ele faz muito dinheiro, você sabia? Hohohoho .";
+		break;
+	}
+	close;
+}
+
+payon,246,158,5	script	Mulher#2payon	1_F_01,0,0,{
+	mes "[Mãe de Jim]";
+	mes "Oh Garoto.";
+	mes "Lá vai ela de novo. Está vendo aquela mulher?";
+	mes "É a fofoqueira da cidade.";
+	next;
+	mes "[Mãe de Jim]";
+	mes "Por favor, não julgue o resto das pessoas que vivem em Payon por seu comportamento.";
+	mes "Ela é a única pessoa que grita. Eu acho que ela está muito animada pelo que a cartomante lhe disse.";
+	next;
+	mes "[Mãe de Jim]";
+	if (Sex == 1) {
+		mes "Ooh, garoto...";
+		mes "você tem ombros largos você gostaria de sair comigo?";
+		mes "Posso te convidar para um jantar.";
+	}
+	else {
+		mes "Meu, você é uma bela garota!";
+		mes "Tenho certeza que você anda ocupada batendo nos meninos com um pedaço de pau meninos com um pedaço de pau ou com uma piada sem graça.";
+	}
+	next;
+	if (select("Cartomante..?:Bem, eu vejo você mais tarde.") == 1) {
+		mes "[Mãe de Jim]";
+		mes "Oh sim...";
+		mes "Existe uma cartomante extraordinária no Palácio Central de Payon.";
+		mes "Quanto mais você paga a ela, mais sorte você vai ganhar!";
+		next;
+		mes "[Mãe de Jim]";
+		mes "Ela me disse que";
+		mes "Gostaria de conhecer um cara legal este mês.";
+		mes "Hohohoho. ";
 		close;
 	}
-	mes "[Jim's Mother]";
+	mes "[Mãe de Jim]";
 	mes "Mmmm...?";
-	mes "You don't have";
-	mes "any time to stay";
-	mes "and chit-chat with me?";
+	mes "Você não tem um tempo, para ficar e bater um papo comigo?";
 	close;
 }
 
-payon,210,110,1	script	Drunkard#payon	2_M_PHARMACIST,{
+payon,210,110,1	script	Bêbado#payon	2_M_PHARMACIST,{
 	if (Class != Job_Archer) {
-		mes "[Drunkard]";
-		mes "Hey...";
-		mes "H-Hey...!";
+		mes "[Bêbado]";
+		mes "Ei...";
+		mes "E-Ei...!";
 		next;
-		mes "[Drunkard]";
-		mes "I wonder why those";
-		mes "stupid Archers even";
-		mes "bother trying to aim!";
-		mes "You're all weak!";
-		mes "Weeeeak!";
+		mes "[Bêbado]";
+		mes "Eu me pergunto porque esses estupidos arqueiros vem me incomodar com o mesmo objetivo sempre!";
+		mes "Você é tão fraco! Eu disse FRAAAAACO!";
 		next;
-		mes "[Drunkard]";
+		mes "[Bêbado]";
 		mes "Bwahahahaha!";
-		mes "Buy me a drink?!";
+		mes "Será que você poderia comprar para mim uma bebida?";
 	} else {
-		mes "[Drunkard]";
-		mes "An Archer!";
-		mes "Oh man, you guys!";
-		mes "You guys are the best!";
+		mes "[Bêbado]";
+		mes "Opa, um arqueiro! Seja homem ou um garoto";
+		mes "Vocês são os melhores!";
 		next;
-		mes "[Drunkard]";
+		mes "[Bêbado]";
 		mes "Bwahahahaha!";
-		mes "Buy me a drink?!";
+		mes "Será que você poderia comprar para mim uma bebida?";
 	}
 	next;
-	switch(select("Alright, but only one drink.:No thanks, pal.:Oh my God! Hell no!")) {
+	switch(select("Certo, mas só uma bebida.:Não, obrigado amigo.:Oh meu Deus, nem pensar!!")) {
 	case 1:
 		Zeny = (Zeny < 100) ? 0 : (Zeny - 100);
-		mes "[Drunkard]";
-		mes "Thanks...!";
-		mes "..Brother!";
+		mes "[Bêbado]";
+		mes "Obrigado...";
+		mes "...Irmão!";
 		next;
-		mes "[Drunkard]";
-		mes "Most people don't even wanna";
-		mes "buy me drinks! Maybe cuz I used to fool around too much with the ladies back in my day!";
+		mes "[Bêbado]";
+		mes "A maioria das pessoas nunca querem comprar bebidas para mim!";
+		mes "Talvez porque eu era acostumado abrincar demais com as senhoras da minha época!";
 		next;
-		mes "[Drunkard]";
-		mes "Though, the women I used to play with are grannies now! Hahahaha! One of them still primps herself with makeup and stuff! Can you believe that?!";
+		mes "[Bêbado]";
+		mes "Embora, as mulheres que eu costumava brincar estão velhinhas agora!";
+		mes "Hahahahaha!";
+		mes "Um dia desses elas ainda se enfeitavam e colocavam maquiagem, você acredita nisso?";
 		next;
-		mes "[Drunkard]";
-		mes "I'm like...";
-		mes "Come on...!";
-		mes "Some faces are";
-		mes "beyond fixing!";
-		mes "Oh? I made a funny!";
-		mes "Bwahahahahahah!";
+		mes "[Bêbado]";
+		mes "Eu sou assim mesmo, um pouco brincalhão...";
+		mes "Vamos lá...";
+		mes "Alguns rostos eram minhas paixões!";
+		mes "Calma, hahaha eu fiz uma piada. Bwahahahahahah!";
 		next;
-		mes "[Drunkard]";
-		mes "^666666*Gulp~ Gulp~*^000000";
-		mes "Man, this is great!";
-		mes "You the maaaaaaan~!";
-		mes "Muhahahahaha!";
+		mes "[Bêbado]";
+		mes "^666666*Gulp. Gulp.*^000000 cara isso é ótimo!";
+		mes "Você é o caraaaa!";
 		break;
 	case 2:
-		mes "[Drunkard]";
+		mes "[Bêbado]";
 		mes "Bah!";
-		mes "Kids nowadays!";
-		mes "Now respect for";
-		mes "their elders! Fine!";
-		mes "I'm not gonna beg you!";
+		mes "As crianças de hoje não respeitam os mais velhos.";
+		mes "Por isso não te cobrarei respeito a mim";
 		break;
 	case 3:
-		mes "[Drunkard]";
-		mes "Fine...!";
-		mes "Fine by me!";
+		mes "[Bêbado]";
+		mes "Tudo bem...";
+		mes "Por mim tudo bem, não preciso do seu respeito por mim!";
 		break;
 	}
 	close;
 }
 
-payon,132,235,3	script	Monster Scholar#02	4W_M_02,{
-	mes "[Monster Scholar Vuicokk]";
-	mes "Nice to meet you.";
-	mes "I am called Vuicokk.";
-	mes "I am a scholar in the Monster Research organization of the Rune Midgarts Kingdom. Do you have any questions about monsters?";
+payon,132,235,3	script	Estudante de Monstros#02	4W_M_02,{
+	mes "[Estudante de Monstros Vuicokk]";
+	mes "É um prazer te conhecer!";
+	mes "Eu sou chamado Vuicokk.";
+	mes "Eu sou um estudioso da organização de Pesquisa de monstros do reino de Rune Midgard.";
+	mes "Você tem alguma dúvida sobre monstros?";
 	next;
-	switch(select("Any news?:Undead Monsters?:Monster Research Organization?")) {
+	switch(select("Quer saber alguma notícia?:Sobre monstros?:Sobre a Organização de Pesquisas de monstros?")) {
 	case 1:
-		mes "[Monster Scholar Vuicokk]";
-		mes "Payon is located deep inside the forest where it can easily be attacked by hordes of monsters. Monsters also come from the dangerous cave located near town.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Payon fica no fundo da floresta, onde ela pode ser facilmente atacada por monstros.";
+		mes "Eles também vêm da caverna perigosa localizada perto da cidade.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "Since Undead monsters roam the Payon Cave, it has attracted the attention of the monster academic world. My job here is to analyze their characteristics.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Há algum tempo os monstros da caverna de payon tem atraído a atenção da organização de pesquisa de monstros.";
+		mes "Meu trabalho principal é estudar as suas caracteristicas.";
 		break;
 	case 2:
-		mes "[Monster Scholar Vuicokk]";
-		mes "What is most remarkable of the Undead monsters in Payon is their origin Most of them used to be citizens of Payon!";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "O mais interessante sobre esses monstros é que eles um dia foram cidadãos de payon.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "However, these souls are";
-		mes "unable to rest in peace and still wander about as Undead bound";
-		mes "to this world.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "No entanto, essas almas são incapazes de descansar em paz, por isso ainda vagam como mortos-vivos neste mundo.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "These monsters cannot be classified with other monsters that have mutated from living creatures, so our wise and benevolent ruler, King Tristram III, has taken a great interest in Payon's Undead.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Estes monstros não podem ser classificados como monstros comuns.";
+		mes "Porque eles foram gerados a partir de seres vivos.";
+		mes "Então o nosso governante sábio e benevolente, o rei Tristam III, tomou um grande interesse pelos mortos vivos de Payon.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "After all, some of these";
-		mes "Undead used to belong to";
-		mes "the Rune-Midgarts Kingdom.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Afinal, alguns desses mortos- vivos pertenceram ao Reino de Rune-Midgard";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "As his subjects,";
-		mes "King Tristram III";
-		mes "feels some responsbility";
-		mes "to release their souls.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "E eram súditos do rei.";
+		mes "Então o rei Tristram III sente-se no dever de liberar as suas almas.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "His Majesty has been supporting";
-		mes "us in our search to discover how to eliminate all of the Undead in this world. We will try to accomplish this goal as soon as we";
-		mes "possibly can.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Vossa Magestade tem vindo nos apoiar nossas buscas para descobrir como eliminar todos os zumbis no mundo.";
+		mes "Vamos tentar alcançar este objetivo, logo que possível.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "For the safety of our people,";
-		mes "for the sake of their bereaved families, and in accordance with King Tristram III's order, we must succeed!";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Para a segurança do nosso povo, para o bem das famílias enlutadas.";
+		mes "Em concordância com a ordem do rei Tristam III, teremos que ter sucesso!";
 		break;
 	case 3:
-		mes "[Monster Scholar Vuicokk]";
-		mes "As you may well know,";
-		mes "monsters have been endlessly spawning in this world, and the threat of their attacks is grows greater every day.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Como você bem sabe os monstros foram infinitamente desovados neste mundo, e a ameaça dos seus ataques estão crescendo a cada dia.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "In response to this,";
-		mes " the Monster Research";
-		mes "Organization has been formed.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Em resposta disso a organização de pesquisa de monstros foi formada.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "Talented people around the world have joined forces in an effort to deduce the origin of monsters, and a way to eliminate them once and for all.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Algumas pessoas talentosas de todo o mundo se uniram em um unico propósito.";
+		mes "Descobrir a origem dos monstros, e também uma maneira de eliminá-los de uma vez por todas.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "Of course, it's not";
-		mes "as easy as you would may believe. Many have sacrificed their lives in the pursuit of this knowledge.";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Claro que não é tão fácil como você pode imaginar, muitos já sacrificaram suas vidas em busca desse conhecimento.";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "In our missions, the number of victims of monster attacks have been countless. Still, nothing can stop us. If our suffering can save humanity, so be it!";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "Em nossas missões, os números de vitimas atacadas por monstros foram incontáveis.";
+		mes "Ainda sim, nada vai nos parar.Se o nosso sofrimento poderá salvar a humanidade, que assim seja!";
 		next;
-		mes "[Monster Scholar Vuicokk]";
-		mes "^666666*Ahem*^000000 My apologies, I get too excited sometimes. But if you happen to meet other scholars such as myself, please treat them well. Our jobs are very difficult!";
+		mes "[Estudante de Monstros Vuicokk]";
+		mes "^666666*Ah*^000000";
+		mes "Mil desculpas, eu fico muito animado, ás vezes.Mas se você encontrar outros estudiosos, como eu.";
+		mes "Por favor trate-os bem. Nosso trabalho é memorável, porém muito dificil.";
 		break;
 	}
 	close;
@@ -372,459 +352,453 @@ payon,132,235,3	script	Monster Scholar#02	4W_M_02,{
 // Inside Payon
 //============================================================
 payon_in01,180,7,2	script	Waitress#payon	4_F_01,{
-	mes "[Pub Lady]";
-	mes "This place is always bustling with busy people. Little Novices come and go to become Archers, and everyone else is buying arrows while I have to stay here in this small shop.";
+	mes "[Garçonete]";
+	mes "Este lugar sempre está movimentado com pessoas.";
+	mes "Noviços sempre aparecem por aqui para virar arqueiros, ou para comprar flecha.";
+	mes "Eles se divertem enquanto eu fico aqui nessa pequena loja.";
 	next;
-	mes "[Pub Lady]";
-	mes "And I'm sick and tired of making this noodle soup. I have to shower all the time so I can get rid of the smell. And it's not so easy";
-	mes "to get rid of.";
+	mes "[Garçonete]";
+	mes "Eu já estou ficando cansada e doente de tanto fazer sopa de macarrão.";
+	mes "Tenho que tomar diversos banhos ao dia, para me livrar desse cheiro.";
+	mes "E acredite não é nada fácil livrar-se dele.";
 	next;
-	mes "[Pub Lady]";
-	mes "I feel so...";
-	mes "Bored.";
-	mes "And lonely...";
+	mes "[Garçonete]";
+	mes "Eu me sinto tão...";
+	mes "Entediada e sozinha...";
 	next;
-	mes "[Pub Lady]";
-	if (Sex == 1)
-		mes "Where I can find the right person, a hot and Sexy hunk who can take me away from here? Um, hey mister, are you listening?";
+	mes "[Garçonete]";
+	if (Sex == 1) {
+		mes "Onde posso encontrar a pessoa certa, alguém amável e meiga, para me levar daqui?";
+		mes "Hum, Hey! você está me ouvindo?";
+	}
 	else {
-		mes "Where I can find the right person, a cute, yet hard-bodied hunk who can take me away from here?";
-		mes "Um, hey lady, are";
-		mes "you listening?";
+		mes "Onde eu posso encontrar a pessoa certa, alguém bonita, mas que seja um pouco dificil de conquistar, para poder me levar daqui?";
+		mes "Hum, heeeeei senhora você está me ouvindo?";
 	}
 	next;
-	mes "[Pub Lady]";
-	mes "The old fortune teller told me that I'd have great luck in the near future! But what's wrong with me? I'm just living day to day. Maybe I'm just dumb and wishy-washy.";
+	mes "[Garçonete]";
+	mes "A cartomante velha, me disse que eu teria muita sorte em um futuro próximo.";
+	mes "Mas o que há de errado comigo? Eu estou vivendo dia após dia e nada...";
+	mes "Talvez eu seja um burro e azarado mesmo...";
 	next;
-	mes "[Pub Lady]";
-	mes "I'm so sorry,";
-	mes "I've said too much.";
-	mes "Now I'm just acting stupid.";
-	mes "I'm sorry you had to listen";
-	mes "to all that.";
+	mes "[Garçonete]";
+	mes "Sinto muito.";
+	mes "Eu falo demais.";
+	mes "Agora vou apenas ouvir...";
+	mes "Lamento por você ter ouvido tantas asneiras.";
 	next;
-	mes "[Pub Lady]";
-	mes "So...";
-	mes "How may I help you? ";
+	mes "[Garçonete]";
+	mes "Então...";
+	mes "Como posso te ajudar?";
 	next;
-	switch(select("Have you ever heard of Zombies?:Fortune Teller...?:I needs some booze.")) {
+	switch(select("Você ja ouviu falar de zumbis?:Bancário...?:Eu preciso de uma bebida.")) {
 	case 1:
-		mes "[Pub Lady]";
-		mes "Of course I've";
-		mes "heard of Zombies!";
-		mes "This is Payon, after all.";
-		mes "Zombies are the walking";
-		mes "Undead, and you can easily";
-		mes "find them around here.";
+		mes "[Garçonete]";
+		mes "É claro que quero ouvir sobre zumbis!";
+		mes "Esta é Payon agora.";
+		mes "Você pode encontrar zumbis caminhando, eles são mortos-vivos, e você pode facilmente encontrá-los aqui.";
 		next;
-		mes "[Pub Lady]";
-		mes "I hear that they fear holiness, so Archers prefer to use arrow made out of silver, a holy metal, against them.";
+		mes "[Garçonete]";
+		mes "Eu ouvi dizer que eles temem a santidade, por isso eles tem medo de arqueiros,";
+		mes "Eles preferem usar setas feitas de prata, um metal sagrado, que é infalível contra eles.";
 		next;
-		mes "[Pub Lady]";
-		mes "Legend says that the chief of this town used silver arrows against Zombies that used to be his brethren in order to release their souls so that they may rest in peace.";
+		mes "[Garçonete]";
+		mes "A lenda diz que o chefe desta cidade, usava flechas de prata contra os zumbis.";
+		mes "Que costumavam ser seus irmãos, afim de liberar suas almas para que pudessem descansar em paz.";
 		next;
-		mes "[Pub Lady]";
-		mes "We believe that exorcising";
-		mes "Zombies in this way will lead them peacefully to the afterlife. Their souls no longer need to anguish.";
+		mes "[Garçonete]";
+		mes "Nós acreditamos que se exorcizarmos os zumbis, poderemos leválos pacificamente a uma vida após a morte.";
+		mes "E que suas almas não precisaram viver angustiadas nunca mais.";
 		next;
-		mes "[Pub Lady]";
-		mes "You might not share our beliefs, but my grandfather was one of the Undead. I appreciate that the chief was able to free him from being bound to the world of the living.";
+		mes "[Garçonete]";
+		mes "Você pode não acreditar nas nossas crenças,mas meu avô foi um dos mortos-vivos.";
+		mes "Acredito que meu chefe era capaz de libertá-lo do mundo dos vivos.";
 		break;
 	case 2:
-		mes "[Pub Lady]";
-		mes "Oh! Our fortune teller is a really extraordinary person. Well, she doesn't hang around here as";
-		mes "much as she used to do. ";
+		mes "[Garçonete]";
+		mes "Temos uma cartomante, ela é uma pessoa extraordinária.";
+		mes "Porém ela não fica mais por aqui, como ela fazia antigamente.";
 		next;
-		mes "[Pub Lady]";
-		mes "She used to stay here to tell fortunes for our patrons, but ever since the chief recognized her talents, she now stays in the Central Palace. So you'd better go there if you want to see her.";
+		mes "[Garçonete]";
+		mes "Ela costumava ficar aqui, para nos contar sobre a sorte da nossa vida, só que ela foi reconhecida por ter este talento.";
+		mes "Foi levada pelo nosso chefe.";
+		mes "Agora ela fica no palácio central, então se quiser vê-la terá que ir até la.";
 		break;
 	case 3:
-		mes "[Pub Lady]";
-		mes "You...";
-		mes "needs some";
-		mes "booze, eh?";
-		mes "Don't we all?";
+		mes "[Garçonete]";
+		mes "Você... precisa de alguma bebida?";
+		mes "Não temos nada ao seu gosto?";
 		next;
-		mes "[Pub Lady]";
-		mes "But I'm so sorry, we sold out.";
-		mes "And we can't afford to prepare alcohol anymore because of the hostile creatures out there. But please come again later. I'm sorry for the inconvenience.";
+		mes "[Garçonete]";
+		mes "Eu sinto muito, não vendemos para fora.";
+		mes "Não podemos nos dar ao luxo de preparar o alcóol, poos há criaturas hostis lá fora.";
+		mes "Mas por favor, volte mais tarde.";
+		mes "Desculpe-nos pelos transtornos. ";
 		break;
 	}
 	next;
-	mes "[Pub Lady]";
-	mes "Have a nice";
-	mes "day, dearie.";
+	mes "[Garçonete]";
+	mes "Tenha um bom dia querido";
 	next;
-	mes "[Pub Lady]";
-	mes "^666666*Sob*^000000";
-	mes "When will I be romanced";
-	mes "by my perfectly formed,";
-	mes "yet well read man?";
+	mes "[Garçonete]";
+	mes "^666666*Choro*^000000";
+	mes "Um dia vou ser recompensada pelo meu bom comportamento.";
+	mes "Será que ainda encontrarei um homem para mim?";
 	close;
 }
 
-payon_in03,96,116,3	script	Chief Guardsman#payon	4_M_PAY_SOLDIER,3,3,{
+payon_in03,96,116,3	script	Guarda Chefe#payon	4_M_PAY_SOLDIER,3,3,{
 	end;
 
 OnTouch:
-	mes "[Chief Guardsman]";
-	mes "What brings";
-	mes "you here? ";
+	mes "[Guarda Chefe]";
+	mes "O que trás você aqui?";
 	next;
-	mes "[Chief Guardsman]";
-	mes "I can see that you are not one of the Payon locals. I would just like to remind you to conduct yourself in an orderly manner. Remember,";
-	mes "you are a guest here.";
+	mes "[Guarda Chefe]";
+	mes "Eu posso ver que você não é morador de payon.";
+	mes "Eu gostaria apenas de lembrá-lo, que estou aqui para conduzi-lo de forma correta.";
+	mes "Lembre-se: você é nosso convidado.";
 	next;
-	mes "[Chief Guardsman]";
-	mes "In the interest of protecting the public peace, I will disarm your equipment. Thank you for your cooperation.";
+	mes "[Guarda Chefe]";
+	mes "No interesse de proteger a paz pública, eu vou desarmar o seu equipamento.";
+	mes "Obrigado pela sua cooperação.";
 	nude;
 	close;
 }
 
-payon_in01,66,64,5	script	Archer Zakk#payon	4_M_ORIENT01,{
-	mes "[Archer Zakk]";
-	mes "I'm kind of worried";
-	mes "about one of my pals.";
+payon_in01,66,64,5	script	Arqueiro Zakk#payon	4_M_ORIENT01,{
+	mes "[Arqueiro Zakk]";
+	mes "Estou ocupado com um dos meus amigos.";
 	next;
-	mes "[Archer Zakk]";
-	mes "Even though he's an expert at archery, no one likes his motor mouth. Even our chief is getting fed up with him!";
+	mes "[Arqueiro Zakk]";
+	mes "Mesmo que ele seja um perito em tiro com arco, ninguém gosta de pessoas aque falam demais e não tem limites.";
+	mes "Até mesmo nosso chefe está ficando farto dele!";
 	next;
-	switch(select("Your friend?:Payon has a chief?: Motor... Mouth?")) {
+	switch(select("Seu amigo?:Payon tem um chefe?:Boca... motorizada?")) {
 	case 1:
-		mes "[Archer Zakk]";
-		mes "Ah, right. This buddy of mine is the number one archer in Payon.";
-		mes "He teaches newbie Archers around the Archer Village. It might be a good idea to talk to him at least once.";
+		mes "[Arqueiro Zakk]";
+		mes "Sim vou te explicar melhor.";
+		mes "Este meu amigo é o arqueiro número um de payon.";
+		mes "Ele ensina arqueiros novatos, ao arredores da vila dos arqueiros.";
+		mes "Pode ser uma boa ideia falar com ele,não custa nada tentar.";
 		break;
 	case 2:
-		mes "[Archer Zakk]";
-		mes "Our chief lives in the Central Palace. I guess you can say that he's the spiritual guide of Payon.";
+		mes "[Arqueiro Zakk]";
+		mes "Nossas vidas dependem do chefe fo pálacio central.";
+		mes "Ele é o guia espiritual de payon.";
 		next;
-		mes "[Archer Zakk]";
-		mes "He used to menace the monsters in Payon Forest, carrying his Gakkung. I remember watching him fight when I was just a little kid.";
+		mes "[Arqueiro Zakk]";
+		mes "ele usou seu arco gakkung contra os monstros da floresta de payon, eu me lembro de vê-lo lutar quando eu era apenas uma criança.";
 		next;
-		mes "[Archer Zakk]";
-		mes "But now he";
-		mes "seems old and weak.";
-		mes "Still, his eyes are as sharp as they used to be during his days";
-		mes "of battle, where he'd never miss";
-		mes "a target.";
+		mes "[Arqueiro Zakk]";
+		mes "Mas agora, ele parece velho e fraco.";
+		mes "Ainda assim, seus olhos são tao vivos quanto costumava ser durante seus dias de batalha, onde ele nunca perdeu um alvo.";
 		next;
-		mes "[Archer Zakk]";
-		mes "I admire our chief";
-		mes "from the bottom";
-		mes "of my heart. ";
+		mes "[Arqueiro Zakk]";
+		mes "Eu admiro o nosso chefe do fundo do meu coração.";
 		break;
 	case 3:
-		mes "[Archer Zakk]";
-		mes "You don't know";
-		mes "what a motormouth is...?";
+		mes "[Arqueiro Zakk]";
+		mes "Você não sabe o que é um boca de motor ?";
 		next;
-		mes "[Archer Zakk]";
-		mes "Motormouth";
-		mes "Noun. Some fool who chatters";
-		mes "way too much about stuff that doesn't really matter and doesn't know when to stop.";
+		mes "[Arqueiro Zakk]";
+		mes "Boca de motor é um substantivo que usamos para alguns tolos que falam demais coisas que não interessam e não tem limites para parar de falar.";
 		next;
-		mes "[Archer Zakk]";
-		mes "But yeah, my pal is not only";
-		mes "a legend at archery, he's also well known for how long he's let that mouth of his run.";
+		mes "[Arqueiro Zakk]";
+		mes "Mas assim, meu amigo não é apenas uma lenda no arco e flecha, ele também ficou conhecido, pela sua sua fama de inconveniente.";
 		next;
-		mes "[Archer Zakk]";
-		mes "Anyway, my pal Wolt doesn't have";
-		mes "a place of his own, so he stays at the Inn. Why don't you go and meet him? He's actually an okay guy if you can stand all the chatter.";
+		mes "[Arqueiro Zakk]";
+		mes "Enfim meu amigo Wolt não tem uma casa própria, ele fica na pousada.";
+		mes "Por que você não vai lá encontrá-lo?";
+		mes "Ele é realmente um cara legal, se você gostar de pessoas que falam muito.";
 		break;
 	}
 	close;
 }
 
-payon_in01,47,59,2	script	Archer Wolt#payon	4_M_ORIENT01,{
-	mes "[Archer Wolt]";
-	mes "Archers should";
-	mes "practice as much";
-	mes "as they can. Otherwise,";
-	mes "they'll never become experts.";
+payon_in01,47,59,2	script	Arqueiro Wolt#payon	4_M_ORIENT01,{
+	mes "[Arqueiro Wolt]";
+	mes "Arqueiros devem ter prática tanto quanto já possuem.";
+	mes "Caso contrário, eles nunca chegarão a ser especialistas na arte de atirar.";
 	next;
-	mes "[Archer Wolt]";
-	mes "Oh, hey there!";
-	mes "I'm Wolt the Archer,";
-	mes "but, erm, you can";
-	mes "just call me 'Wolt.'";
+	mes "[Arqueiro Wolt]";
+	mes "Ah, você ai!";
+	mes "Eu sou o Arqueiro Wolt, mas você pode me chamar apenas de Wolt.";
 	next;
-	mes "[Archer Wolt]";
-	mes "I know this is a bit of an unexpected question, but do";
-	mes "you tend to spend a lot of your";
-	mes "time in idleness?";
+	mes "[Arqueiro Wolt]";
+	mes "Eu sei que farewi uma pergunta um tanto inconveniente mas você quer gastar seu tempo comigo?";
 	next;
-	switch(select("Oh, hell no.:Yeah. I guess...")) {
-	case 1:
-		mes "[Archer Wolt]";
-		mes "Ooh. That's good. In fact, that's great! If only all of us Archers had that kind of attitude. If you have time to just sit around, then you have the time to go out and practice!";
+	if (select("Oh, que inferno! não quero:Sim. eu acho que...")) {
+		mes "[Arqueiro Wolt]";
+		mes "Oh isso é bom, na verdade, isso é ótimo!";
+		mes "Se todos nós arqueiros tivessémos essa atitude.";
+		mes "Se você tem tempo para sentar e ouvir, você terá tempo para sair e praticar.";
 		next;
-		mes "[Archer Wolt]";
-		mes "Yeah...";
-		mes "As Archers, we kind of look";
-		mes "down on people who slack off";
-		mes "on the training.";
+		mes "[Arqueiro Wolt]";
+		mes "Sim...";
+		mes "Como arqueiros não vemos com bons olhos quem não se esforça nos treinamentos.";
 		next;
-		mes "[Archer Wolt]";
-		mes "If you don't work hard, then you'll end up being a horrible Archer. No one can depend on your aim!";
-		mes "I mean, nobody!";
+		mes "[Arqueiro Wolt]";
+		mes "Se você não trabalhar duro, então você vai acabar sendo um Arqueiro horrível.";
+		mes "Ninguém vai poder ser ajudado por você";
+		mes "Eu digo, NINGUÉM!";
 		next;
-		mes "[Archer Wolt]";
-		mes "Did you ask how we go about";
-		mes "our training? Well, the Archers of Payon don't have much time to just play around with their Bows.";
-		mes "I guess we go out and";
-		mes "engage in actual fighting.";
+		mes "[Arqueiro Wolt]";
+		mes "Você perguntou como nos preparamos não é mesmo?";
+		mes "Bem, os arqueiros de payon não possuem muito tempo para brincar com os arcos.";
+		mes "Nós saimos atrás de combates reais.";
 		next;
-		mes "[Archer Wolt]";
-		mes "So we just carry out Bows wherever we go, and spend all day looking for monsters to kill. Oh, and after we find some monsters, we";
-		mes "kill them of course. That almost goes without saying.";
+		mes "[Arqueiro Wolt]";
+		mes "Nós nos aventuramos e passamos o dia todo á procura de monstros.";
+		mes "Depois de encontrar alguns, nós os matamos,é claro.";
 		next;
-		if (select("I guess you'd need a good Bow. :You call that 'practice?!'") == 1) {
-			mes "[Archer Wolt]";
-			mes "That's right!";
-			mes "An Archer depends";
-			mes "on the strength";
-			mes "of his Bow!";
+		if (select("Eu acho que você precisa de um bom arco.:Você chama isso de 'prática?'") == 1) {
+			mes "[Arqueiro Wolt]";
+			mes "Isso mesmo!";
+			mes "Um arqueiro depende principalmenre da força do seu arco.";
 			next;
-			mes "[Archer Wolt]";
-			mes "Bows constructed in Payon";
-			mes "are the greatest on this continent! They are light and stout, made out of high quality tree Trunks from Payon Forest!";
+			mes "[Arqueiro Wolt]";
+			mes "Os arcos construídos em payon são os maiores do continente!";
+			mes "Eles são leves e robustos, feitos de troncos de árvores de alta qualidade, retirados da floresta de payon.";
 			next;
-			mes "[Archer Wolt]";
-			mes "The quality of the wood often determines the quality of the Bow. My lil' sweety was made out of a walnut tree, and is strong enough to bear thousands of pounds";
-			mes "of force.";
+			mes "[Arqueiro Wolt]";
+			mes "A qualidade da madeira, muitas vezes determina a qualidade do arco, e na força que ele possue.";
 			next;
 			mes "[Arche Wolt]";
-			mes "Oh, oh! And my Bow's stylish as well. It comes in a sophisticated ebony color, and I just look so cool and heroic while I'm killing monsters~!";
+			mes "Oh,oh! Eu tenho um arco muito elegante.";
+			mes "Ele tem uma cor de ébano sofisticada, e acredite ele parece muito legal e heróico quando estou me aventurando matando monstros.";
 			next;
-			mes "[Archer Wolt]";
-			mes "Oh, and the trees in Payon Forest are famous for the quality of their wood. But then, more and more of them have been turning into monsters. Is this the work of evil forces?!";
+			mes "[Arqueiro Wolt]";
+			mes "Falando das arvores de payon, elas são famosas pela qualidade das suas madeiras.";
+			mes "Mas então, você deve estar se perguntando:Por que elas viraram monstros?";
 			next;
-			mes "[Archer Wolt]";
-			mes "It's a pity because the tree monsters used to be beautiful, majestic trees. But then it's okay if we kill them, so that we can make Bows out of their wood.";
+			mes "[Arqueiro Wolt]";
+			mes "De fato é uma pena porque essas árvores monstros costumavam ser árvores belas e majestosas.";
+			mes "Mas, relaxe está tudo bem, se matá-las, você poderá fazer arcos com sua madeira.";
 			next;
-			mes "[Archer Wolt]";
-			mes "And then we use these Bows to kill even more tree monsters... And then make more wood! Mwahahahaha! It's an endless cycle!";
+			mes "[Arqueiro Wolt]";
+			mes "E o ciclo da nossa vida segue assim, nós usamos nossos arcos para matar essas ávores, para conseguir mais madeira, Mwahahahaha!";
+			mes "É um ciclo sem fim !";
 			next;
-			select("^666666*Ahem!*^000000 Speaking of endless...");
-			mes "[Archer Wolt]";
-			mes "Yeah...";
-			mes "You're right.";
-			mes "Monsters are everywhere,";
-			mes "can you believe it?";
+			select("^666666Esses monstros parecem intermináveis...^000000");
+			mes "[Arqueiro Wolt]";
+			mes "Sim...";
+			mes "Você está certo.";
+			mes "Os monstros estão por toda a parte.";
+			mes "Você acredita nisso?";
 			next;
-			mes "[Archer Wolt]";
-			mes "Do you understand";
-			mes "why the Archer Village";
-			mes "was built where it is?";
+			mes "[Arqueiro Wolt]";
+			mes "Você entende por que a vila dos arqueiros foi construída no lugar que está?";
 			next;
-			mes "[Archer Wolt]";
-			mes "To the West, near Archer Village, you'll see Payon Cave. Inside the cave, an enormous amount of monster endlessly spawn without showing any sign of slowing down.";
+			mes "[Arqueiro Wolt]";
+			mes "No ocidente, da vila você verá a caverna de payon.";
+			mes "Dentro dela, existe uma enorme quantidade de monstros.";
+			mes "Que possuem um constante renascimento, sem mostrar nenhum senão de escassez do nascimento deles.";
 			next;
-			mes "[Archer Wolt]";
-			mes "We Archers are here to protect our territory against them, as ordered by our honorable chief!";
+			mes "[Arqueiro Wolt]";
+			mes "Nós arqueiros, estamos aqui para proteger o nosso território contra eles, como é ordenado pelo nosso chefe!";
 			next;
-			switch(select("Cave, you say?:Chief...? :Oh man, I hate this town!")) {
-			case 1:
-				mes "[Archer Wolt]";
-				mes "If you head North";
-				mes "of town, you'll find";
-				mes "Payon Cave.";
+			if (select("Você disse caverna?:Chefe ...? :Cara, eu odeio essa cidade!") == 1) {
+				mes "[Arqueiro Wolt]";
+				mes "Se você for para o norte da cidade, você irpa encontrar a caverna de payon.";
 				next;
-				mes "[Archer Wolt]";
-				mes "Once inside, you'll encounter all sorts lots of ugly monsters. Like those nasty looking Bats, and";
-				mes "those Zombies...";
+				mes "[Arqueiro Wolt]";
+				mes "Uma vez dentro, você encontrará todos os tipos de monstros, como morcegos desagradáveis e os zumbis...";
 				next;
-				mes "[Archer Wolt]";
-				mes "If we let them out of that place, they'd run all over Payon! So, we gotta get in there and clean that place up of monsters.";
+				mes "[Arqueiro Wolt]";
+				mes "Se deixarmos eles fugirem de lá, irão infestar toda Payon!";
+				mes "Então, nós temos que chegar lá e limpar todo aquele lugar.";
 				next;
-				mes "[Archer Wolt]";
-				mes "But since these monsters endlessly respawn, sometimes I feel like we're wasting our time and energy for nothing...";
+				mes "[Arqueiro Wolt]";
+				mes "Mas, o frustante é que esses monstros ficam nascendo constantemente.";
+				mes "Ás vezes eu sinto que estamos perdendo nosso tempo e energia em vão.";
 				next;
-				mes "[Archer Wolt]";
+				mes "[Arqueiro Wolt]";
 				mes "Whoa...";
-				mes "Alright, I think yet my mouth run";
-				mes "a marathon again. I better let you go. There's lots of training to do, and plenty of monsters to kill!";
-				break;
-			case 2:
-				mes "[Archer Wolt]";
-				mes "Our chief? Ah, he's such a swell guy. Then again, he's always scolds me for talking too much.";
-				next;
-				mes "[Archer Wolt]";
-				mes "He always working to make sure";
-				mes "that Payon is safe from harm. Lately, I've been worried since he hasn't been coming out the Palace lately. That might be a bad sign.";
-				next;
-				mes "[Archer Wolt]";
-				mes "A bad sign of what, I'm not really sure. There could be problems with Payon, or maybe he's got something he needs to handle on his own. Anyway, there's always guards in his room for some reason.";
-				next;
-				mes "[Archer Wolt]";
-				mes "Heh heh heh~";
-				mes "I'll get in trouble if he knows";
-				mes "I told an outsider know too much about his affairs. Oh well! It's too late. I already told you! There's no use regretting it!";
-				next;
-				mes "[Archer Wolt]";
-				mes "But...";
-				mes "It's not too late for me to just shut my mouth. Keep it closed. Shutting up now. Quiet as a mouse. Seeya later~!";
-				break;
+				mes "Tudo bem, eu vou me controlar senão";
+				mes "começo a falar feito alguém correndo uma maratona de novo.";
+				mes "É melhor eu deixar você ir.Existem treinamentos para você fazer, e o melhor muitos monstros para matar!";
+				close;
 			}
+			mes "[Arqueiro Wolt]";
+			mes "Ah atens que eu me esqueça, você perguntou sobre nosso chefe correto?";
+			mes "Ele é um cara sério.";
+			mes "E sempre me repreende por falar demais.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "ele sempre está trabalhando para garantir";
+			mes "que payon é segura e que está protegida de danos.";
+			mes "Ultimamente tenho ficado preocupado porque ele não tem saído mais do palácio.";
+			mes "Isso pode ser um mal sinal.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Sim um mal sinal, mas eu não tenho muita certeza...";
+			mes "Não podemos ter problema em payon, e ultimamnte tem havido mudanças por aqui, até seguranças no quarto dele, colocaram.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Hehehe.";
+			mes "Eu ficarei em apuros se ele souber que disse assuntos pessoais dele a um estranho.";
+			mes "Bem já é muito tarde.";
+			mes "E como eu já disse não se pode lamentar pelo tempo perdido.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Mas...";
+			mes "Não é tarde demais para mim, preciso apenas calar a boca.";
+			mes "Manter-me quieto.";
+			mes "Estou me auto-desligando agora...";
+			mes "Irei ficar quietinho como um rato, tenha uma boa tarde .!";
 			close;
 		}
-		mes "[Archer Wolt]";
+		mes "[Arqueiro Wolt]";
 		mes "Hmm...?";
-		mes "And you don't?";
-		mes "What better practice";
-		mes "than the real, honest";
-		mes "to goodness thing?";
+		mes "Qual é a sua opnião?";
+		mes "O que é melhor do que ser realista, honesto e fazer as coisas para o bem?";
 		next;
-		mes "[Archer Wolt]";
-		mes "Though, you may have a point";
-		mes "there. I mean, you should be able to practice without having to suffer serious consequences.";
-		mes "You know, like death.";
+		mes "[Arqueiro Wolt]";
+		mes "Embora você tenha suas opniões próprias...";
+		mes "Quero te dizer que você tem que ser capaz de praticar tudo na vida sem sofrer consequências graves.";
+		mes "Como a morte.";
 		next;
-		mes "[Archer Wolt]";
-		mes "But we've gotta make do";
-		mes "with what we've got!";
-		mes "An Archer's life is";
-		mes "endless training!";
-		mes "Endless practice!";
+		mes "[Arqueiro Wolt]";
+		mes "Mas nós temos que fazer valer o que temos de melhor!";
+		mes "A vida de um Arqueiro, possui uma formação infindável!";
+		mes "Sempre acumulando experiências na prática!";
 		next;
-		mes "[Archer Wolt]";
+		mes "[Arqueiro Wolt]";
 		mes "Hm...?";
-		mes "Are you tired of me repeating the same thing over and over again?";
-		mes "Oh, just bear with me. Think of it as practicing your patience~";
-		break;
-	case 2:
-		mes "[Archer Wolt]";
-		mes "Eh...";
-		mes "I guess it's important";
-		mes "to set aside time to rest.";
-		next;
-		mes "[Archer Wolt]";
-		mes "But it's also a good idea to set aside time for practicing and training, and practicing and training!";
-		next;
-		mes "[Archer Wolt]";
-		mes "And it's a very bad idea to rest when you should be alert, or well, when you're supposed to be doing something else.";
-		next;
-		mes "[Archer Wolt]";
-		mes "That reminds me of the time";
-		mes "I set fire to my house during the holidays. It was an accident, of course, but boy, were my folks angry!";
-		next;
-		mes "[Archer Wolt]";
-		mes "Hahahaha~";
-		mes "It all started when I decided to take a bath. Here, in Payon, we use the old style baths, so we need to make a fire to heat the water. Cold baths are just so uncomfortable.";
-		next;
-		mes "[Archer Wolt]";
-		mes "But nice, warm baths are veeeery comfortable. That was probably the best bath I had in my life! It was so comfortable, I fell asleep.";
-		next;
-		mes "[Archer Wolt]";
-		mes "But while I was sleeping,";
-		mes "I guess I didn't notice the fire reach the floor, walls and ceiling! Luckily, I was in a tub full of water, so I was okay.";
-		next;
-		mes "[Archer Wolt]";
-		mes "I would've gotten help if it weren't for the fact that the fire had burned my clothes while I was napping. So, of course, I couldn't just run around town in the nude.";
-		next;
-		mes "[Archer Wolt]";
-		mes "So...";
-		mes "I just sat in the water for about an hour, completely naked, and yelling 'Help me,' until someone could hear me.";
-		next;
-		mes "[Archer Wolt]";
-		mes "But, it turned out that no one could hear me. Luckily, our roof caved in and totally demolished our walls so that my screams could finally reach passerby. And it was in that way that I survived.";
-		next;
-		switch(select("Um, what's the point of that story?:I guess I better not get lazy then. :Blah blah blah. See ya. ")) {
-		case 1:
-			mes "[Archer Wolt]";
-			mes "Oh...";
-			mes "Umm...";
-			mes "You mean, like,";
-			mes "the moral of the story?";
-			next;
-			mes "[Archer Wolt]";
-			mes "Resting during the right times is perfectly fine. Just don't go and take a break when you shouldn't. That kind of behavior would make anyone in our town angry!";
-			next;
-			mes "[Archer Wolt]";
-			mes "Our chief is especially annoyed by that kind of irresponsible attitude. I guess, around here, only the town drunkard subscribes to that kind of policy.";
-			next;
-			switch(select("Chief?:Town Drunkard? :Man, you talk too much!")) {
-			case 1:
-				mes "[Archer Wolt]";
-				mes "Our chief? Ah, he's such a swell guy. Then again, he's always scolds me for talking too much.";
-				next;
-				mes "[Archer Wolt]";
-				mes "He always working to make sure";
-				mes "that Payon is safe from harm. Lately, I've been worried since he hasn't been coming out the Palace lately. That might be a bad sign...";
-				next;
-				mes "[Archer Wolt]";
-				mes "A bad sign of what, I'm not really sure. There could be problems with Payon, or maybe he's got something he needs to handle on his own. Anyway, there's always guards in his room for some reason.";
-				next;
-				mes "[Archer Wolt]";
-				mes "Heh heh heh~";
-				mes "I'll get in trouble if he knows";
-				mes "I told an outsider know too much about his affairs. Oh well! It's too late. I already told you! There's no use regretting it!";
-				next;
-				mes "[Archer Wolt]";
-				mes "But...";
-				mes "It's not too late for me to just shut my mouth. Complete silence. I'm not even opening my mouth. Starting right about... Now!";
-				mes "Seeya later~!";
-				break;
-			case 2:
-				mes "[Archer Wolt]";
-				mes "You know...";
-				mes "The guy in the pub.";
-				mes "Loud, and obnoxious";
-				mes "and annoying to liste--";
-				next;
-				mes "[Archer Wolt]";
-				mes "Hmm...?";
-				mes "What's that look for?";
-				mes "Anyway, when I have";
-				mes "some spare cash, I try";
-				mes "to buy him a drink.";
-				next;
-				mes "[Archer Wolt]";
-				mes "Still...";
-				mes "It's not a good";
-				mes "idea to drink so much.";
-				mes "Or as much as he does...";
-				break;
-			case 3:
-				mes "[Archer Wolt]";
-				mes "...!";
-				next;
-				mes "[Archer Wolt]";
-				mes "...";
-				mes "I...";
-				mes "B-but...!";
-				break;
-			}
-			break;
-		case 2:
-			mes "[Archer Wolt]";
-			mes "Oh good~!";
-			mes "I guess you got";
-			mes "the point of my story!";
-			next;
-			mes "[Archer Wolt]";
-			mes "We, as Archers, put a lot of importance on training and practice, so we kind of look";
-			mes "down on people who aren't";
-			mes "diligent at all.";
-			next;
-			mes "[Archer Wolt]";
-			mes "Still...";
-			mes "I have to admit that, at heart,";
-			mes "I'm a pretty lazy guy. I guess it's pretty amazing that someone like";
-			mes "me can even be an Archer!";
-			next;
-			mes "[Archer Wolt]";
-			mes "In any case,";
-			mes "whatever you do";
-			mes "in life, do it";
-			mes "with passion!";
-			break;
-		case 3:
-			break;
-		}
+		mes "Você está cansado de me ouvir repetir a mesma conversa outra vez?";
+		mes "Ah, tenha paciência comigo.Pense nisso como praticar a sua paciência";
+		close;
 	}
-	close;
+	mes "[Arqueiro Wolt]";
+	mes "Eh...";
+	mes "Eu acho que é importante reservar um tempo para descansar.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Mas também é uma ótima ideia reservar um tempo, para prática e treinamento.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "E acredite você deve estar alerta, você deveria fazer outra coisa, ao invés de pensar em descansar.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Isso me faz lembrar do tempo...";
+	mes "Que atearam fogo na minha casa durante as férias.";
+	mes "Foi um acidente, claro,mas o menino matou meus pais de raiva.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Hahahaha.";
+	mes "Tudo começou, quando decidi tomar um banho em payon.";
+	mes "Nós usamos a moda antiga nos banhos, precisamos fazer uma fogueira para esquentar a água.";
+	mes "Banhos frios são desconfortáveis.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Pois bem, banhos quentes são confortáveis e aquele banho foi o melhor banho que tive em minha vida!";
+	mes "Foi tão bom que adormeci.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Mas enquanto eu dormia,";
+	mes "Eu não percebi que o fogo começou a ir para as paredes e o teto!";
+	mes "Felizmente eu estava em uma banheira cheia de água.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Eu teria conseguido ajudar, se minhas roupas não tivessem sido queimadas, enquanto eu dormia.";
+	mes "E eu não sairia nu correndo pela cidade.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Então...";
+	mes "Eu apenas sentei-me na água por cerca de uma hora, completamente nu e pedindo ajuda, até que alguém pudesse me ouvir.";
+	next;
+	mes "[Arqueiro Wolt]";
+	mes "Porém, eu descobri que ninguém me ouvia.";
+	mes "O nosso teto desabou demolindo as paredes ao meu redor.";
+	mes "Dessa forma puderam ouvir meus gritos e foi assim que sobrevivi.";
+	next;
+	switch(select("Hum, qual é dessa história?:Acho melhor não ficar com preguiça.:Blah blah blah.")) {
+	case 1:
+		mes "[Arqueiro Wolt]";
+		mes "Oh...";
+		mes "Umm...";
+		mes "Você quer saber qual a moral da história?";
+		next;
+		mes "[Arqueiro Wolt]";
+		mes "Repousar aqui é algo que você pode fazer.";
+		mes "Porém nem sempre é hora de descansar, esse tipo de comportamento preguiçoso deixa o povo da nossa cidade bastante raivoso.";
+		next;
+		mes "[Arqueiro Wolt]";
+		mes "Nosso chefe é o que mais se irrita com esses tipos de atitude.";
+		mes "Eu acho que por aqui só bêbados aprovam esses comportamentos insanos.";
+		next;
+		switch(select("Chefe?:bêbado da cidade?:Cara, você fala demais!")) {
+		case 1:
+			mes "[Arqueiro Wolt]";
+			mes "Nosso chefe?";
+			mes "Ah, ele é um cara meio chato.";
+			mes "Ele sempre me repreende por eu falar demais.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Ele sempre está trabalhando para garantir";
+			mes "Que payon ficará segura e sem danos.";
+			mes "Ultimamente tenho ficado preocupado, pois ele não tem saído do palácio recentemente.";
+			mes "Isso pode ser um mal sinal...";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Eu não tenho certeza,mas pode ser um mal sinal.";
+			mes "Tudo está muito estranho, até guardas estão de prontidão no seu quarto por algum motivo.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Hehehe.";
+			mes "Eu vou ficar em apuros se ele souber que falei dos assuntos dele a um estranho!";
+			mes "Se bem que já é meio tarde para eu dizer isso,Não adianta nem lamentar por isso, eu já disse mesmo!";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Mas";
+			mes "Não é tarde demais, só preciso calar minha boca.Ficar em silêncio, quieto na minha, antes que seja tarde.";
+			close;
+		case 2:
+			mes "[Arqueiro Wolt]";
+			mes "Você sabia...";
+			mes "Que o cara do bar sim aquele chamado Loud é detestável?";
+			mes "E acredite ele é irritante por demais.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Hum..";
+			mes "o que você tanto procura?";
+			mes "Relaxe, eu devo ter algum dinheiro sobrando, ai eu tento lhe comprar uma bebida.";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "Se bem que...";
+			mes "Não é uma boa ideia beber muito não faz muito bem para a saúde.";
+			close;
+		case 3:
+			mes "[Arqueiro Wolt]";
+			mes "...!";
+			next;
+			mes "[Arqueiro Wolt]";
+			mes "...";
+			mes "Eu...";
+			mes "...!";
+			close;
+		}
+	case 2:
+		mes "[Arqueiro Wolt]";
+		mes "Ah, que bom.!";
+		mes "Eu acho que chegamos a o ponto final da minha historia";
+		next;
+		mes "[Arqueiro Wolt]";
+		mes "Nós arqueiros, temos que por muita importância na nossa formação.";
+		mes "Pprincipalmente na prática do que aprendemos nosso olhar deve ser minucioso e devemos ser diligentes em tudo que fazemos.";
+		next;
+		mes "[Arqueiro Wolt]";
+		mes "Mas eu...";
+		mes "Tenho que admitir do fundo do meu coração que eu sou uma cara muito preguiçoso.";
+		mes "As vezes me pergunto como alguém como eu pode ser chamado de arqueiro.";
+		next;
+		mes "[Arqueiro Wolt]";
+		mes "Mas apesar de tudo o que você for fazer na vida, tem que fazer com paixão!";
+		close;
+	case 3:
+		close;
+	}
 }
 
 payon_in03,99,190,4	script	Chief#payon	1_M_PAY_ELDER,2,2,{
@@ -832,138 +806,131 @@ payon_in03,99,190,4	script	Chief#payon	1_M_PAY_ELDER,2,2,{
 
 OnTouch:
 	if (BaseLevel < 30) {
-		mes "[Guard]";
-		mes "Hey...";
-		mes "Hey...!";
-		mes "Show your respect";
-		mes "to our chief!";
+		mes "[Guarda]";
+		mes "Ei...";
+		mes "Ei...!";
+		mes "Mostre o seu respeito ao nosso chefe!";
 		close;
 	}
 	if (BaseLevel > 30) {
 		.@oldman_random = rand(1,2);
 		if (.@oldman_random == 1) {
-			mes "[Guard]";
-			mes "Hey...";
-			mes "Hey...!";
-			mes "Show your respect";
-			mes "to our chief!";
+			mes "[Guarda]";
+			mes "Ei...";
+			mes "Ei...!";
+			mes "Mostre respeito ao nosso chefe!";
 			next;
-			mes "[Guard]";
-			mes "Heeeey!";
-			mes "I said... ";
+			mes "[Guarda]";
+			mes "Eeeeei!";
+			mes "Eu disse...";
 			next;
-			mes "[Chief]";
-			mes "It's fine, it's fine.";
-			mes "It's been a long time";
-			mes "since I've spoken to";
-			mes "such young people.";
+			mes "[Chefe]";
+			mes "Tudo bem, tudo bem...";
+			mes "Já se passou muito tempo desde que falei com pessoas jovens.";
 			next;
 		}
-		switch(select("Please tell me about Payon.:Where are the guards from?:Please tell me about the cave. :What does an Archer do?:What does a Hunter do?")) {
+		switch(select("Por favor, me fale sobre Payon.:Onde estão os guardas daqui?:Conte-me sobre a caverna.:O que faz um arqueiro faz?:O que um caçador faz?")) {
 		case 1:
-			mes "[Chief]";
-			mes "Payon is the city of highlanders. As long as our history can relate, our city has been self-sufficient.";
+			mes "[Chefe]";
+			mes "Payon é uma cidade rodeada de montanhas.";
+			mes "Nossa cidade até hoje foi auto-suficiente.";
 			next;
-			mes "[Chief]";
-			mes "Although our ancestors did not enjoy the benefits of cultural exchange with the Rune-Midgarts Kingdom as we do today, they knew how to make a living without";
-			mes "any help.";
+			mes "[Chefe]";
+			mes "Embora nossos antepassados não usufruiam dos beneficios de intercâmbio cultural com o reino de Rune-Midgard.";
+			mes "Como fazemos hoje, eles sabiam sobreviver sem pedir qualquer ajuda.";
 			next;
-			mes "[Chief]";
-			mes "Payon has developed its own cultures and ways. We've invented our own means to protect ourselves against the elements, and Payon men and women train as Archers and Hunters to defend themselves.";
+			mes "[Chefe]";
+			mes "Payon desenvolveu suas próprias culturas e formas de vida.";
+			mes "Nós inventamos nossos próprios meios de nos proteger contra elementos do mal.";
+			mes "E treinamos arqueiros e caçadores sejam eles homens ou mulheres.";
 			next;
-			mes "[Chief]";
-			mes "I've heard of weak, cowardly";
-			mes "young people who fear the fields or dungeons filled with monsters. But to us, battle is a way of life.";
+			mes "[Chefe]";
+			mes "Já ouvi falar de fracos, covardes que temem os campos e masmorras cheios de monstros.";
+			mes "Mas, para nós a batalha é um meio de vida.";
 			next;
-			mes "[Chief]";
-			mes "That is why his Majesty, King Tristram III wishes for us to train young people how to effectively fight against evil creatures.";
+			mes "[Chefe]";
+			mes "É por isso que sua Majestade o Rei Tristam III desa nos formar como jovens corajosos para aniquilar criaturas do mal.";
 			break;
 		case 2:
-			mes "[Chief]";
-			mes "Even since I was young,";
-			mes "Prontera has sent civil";
-			mes "servants and envoys to Payon.";
+			mes "[Chefe]";
+			mes "Quando eu era jovem prontera enviou alguns servos para payon.";
 			next;
-			mes "[Chief]";
-			mes "Royal troops, Kafra Ladies, Guards... At first, there was conflict brought about by differences in our customs";
-			mes "and cultures.";
+			mes "[Chefe]";
+			mes "Tropas da realeza, Kafras e etc...";
+			mes "No início houve um conflito de costumes e culturas.";
 			next;
-			mes "[Chief]";
-			mes "However, as time passed,";
-			mes "we've been able to resolve such petty differences. I cannot deny that they've helped us speedily develop our trade with foreign nations.";
+			mes "[Chefe]";
+			mes "No entanto, com o tempo conseguimos resolver essas diferenças mesquinhas.";
+			mes "Além do que não posso negar que, eles nos ajudaram a desenvolver o comércio com as nações estrangeiras.";
 			next;
-			mes "[Chief]";
-			mes "Now, people who used to be outsiders are now bonifide Payon citizens. When I was young, I would never imagined such a thing possible. Hahahaha~!";
+			mes "[Chefe]";
+			mes "Agora as pessoas que costumavam esnobar payon, hoje possuem um imenso prazer em visitar a nossa cidade.";
+			mes "Quando eu era jovem eu nunca imaginei que isso aconteceria um dia. Hahaha.!";
 			next;
-			mes "[Chief]";
-			mes "It pleases me to see and meet with them. Even though have come from other places, they have a love for Payon that is as sincere as my own.";
+			mes "[Chefe]";
+			mes "Acredite, hoje eu me agrado em conhecer esses povos.";
+			mes "Apesar de terem vindo de outros lugares, eles possuem um amor por payon que é tão sincero quanto o meu.";
 			break;
 		case 3:
-			mes "[Chief]";
+			mes "[Chefe]";
 			mes "Ah...";
-			mes "I used to go to the cave";
-			mes "to the North sometimes. But it";
-			mes "is harder now than it was then.";
+			mes "As vezes eu costumava ir para a caverna ao norte.";
+			mes "Mas agora é mais difícil que antigamente.";
 			next;
-			mes "[Chief]";
-			mes "Evil creatures that I've never seen before endlessly respawn in that place. The monsters in Payon Cave today are different than the ones we used to fight with.";
+			mes "[Chefe]";
+			mes "Criaturas do mal nascem em qualquer lugar na caverna de Payon, sendo que são monstros diferentes dos quais nós estamos habituados a lutar";
 			next;
-			mes "[Chief]";
-			mes "Have you ever happened to see";
-			mes "the Zombies...? Some of them are warriors who entered the cave to protect this village, but never came back.";
+			mes "[Chefe]";
+			mes "Você chegou a ver os";
+			mes "Zombis...? Alguns zumbis são guerreiros que sairam para proteger essa cidade e nunca mais voltaram.";
 			next;
-			mes "[Chief]";
-			mes "Although they are a threat, some of those Undead are also victims of that cave. I'm too old to endure that kind of pain...";
+			mes "[Chefe]";
+			mes "Apesar desses mortos vivos serem uma ameaça para essa cidade, alguns são vítimas da própria caverna.";
+			mes "Estou velho de mais para suportar esse tipo de dor...";
 			next;
-			mes "[Chief]";
-			mes "I must do anything I can to stop the Undead, and release their souls from eternal anguish.";
+			mes "[Chefe]";
+			mes "Eu preciso fazer algo para libertar as almas dos mortos vivos de sua angústia eterna.";
 			break;
 		case 4:
-			mes "[Chief]";
-			mes "Ah, it is fortunate that archery is a specialty here in Payon. Because of the surrounding forest, we have an abundant supply of wood to create Bows.";
+			mes "[Chefe]";
+			mes "Ah, aqui existe uma ambudância de arqueiros especialistas em Payon.";
+			mes "Por causa floresta, possuimos grande suprimento de madeira para criar flechas.";
 			next;
-			mes "[Chief]";
-			mes "The forest also is a good training place for Archers to learn how to use their environment to impede the advance of their enemies while attacking from a safe distance.";
+			mes "[Chefe]";
+			mes "A floresta é um bom lugar para os arqueiros treinarem e aprenderem a usar o ambiente para impedir o avanço de forças inimigas.";
+			mes "Podendo atacar a uma distância segura.";
 			next;
-			mes "[Chief]";
-			mes "The forest can also be convenient in unexpected ways. When I was young, I ran out of arrows while fighting against monsters in the woods, but arrows dropped by other monsters saved my life! Mwahah!";
+			mes "[Chefe]";
+			mes "A floresta pode ser conveniente para surpresas inexperadas.";
+			mes "Quando eu era jovem, eu corre com as flechas para lutar contra os monstros da floresta.";
+			mes "Mas eu acabei deixando as flechas cairem e outro monstro salvou minha vida! Mwahaha!";
 			break;
 		case 5:
-			mes "[Chief]";
-			mes "As foreign cultures were introduced to Payon, changes have been brought about to our battle style.";
+			mes "[Chefe]";
+			mes "Como muitas culturas foram introduzidas em Payon, mudanças tem influênciado nosso estilo de batalha.";
 			next;
-			mes "[Chief]";
-			mes "Technology, especially that of explosives, enabled new methods";
-			mes "of battle. We were no longer limited to the use of just bows and arrows.";
+			mes "[Chefe]";
+			mes "Tecnologia, especialmente com explosivos, habilitando novos métodos de batalha.";
+			mes "Nós não ficaremos limitados somente ao uso de arco e flecha.";
 			next;
-			mes "[Chief]";
-			mes "Trapping skills, which make";
-			mes "hunting monsters much easier, were developed enable here in Payon. Experts in the new skills were dubbed 'Hunters' by our previous Chief.";
+			mes "[Chefe]";
+			mes "Habilidade com armadilhas, fazem caçar monstros com maior facilidade, foram desenvolvidas aqui em Payon.";
+			mes "Os especialistas com essa nova habilidade são chamados de 'Caçadores' por nosso Chefe anterior.";
 			next;
-			mes "[Chief]";
-			mes "Although highly effective, trapping is a really dangerous skill if not used properly. That's why we do not approve of the inexperienced becoming Hunters.";
+			mes "[Chefe]";
+			mes "Embora altamente efetiva, essa habilidade realmente é um perigo para quem não sabe usar.";
+			mes "Por isso nós não aprovamos pessoas experientes para se tornar um Caçador.";
 			next;
-			mes "[Chief]";
-			mes "However, we welcome people";
-			mes "who have proven to be capable to take the challange of the Hunter class.";
+			mes "[Chefe]";
+			mes "Porém, nós damos boas vindas as pessoas que provam ser capazes de se tornar um Caçador.";
 			break;
 		}
 		next;
-		mes "[Chief]";
-		mes "So tired...";
-		mes "I'd better rest.";
-		mes "Please, take care";
-		mes "of yourself.";
+		mes "[Chefe]";
+		mes "Então, cansado...";
+		mes "É melhor descansar um pouco.";
+		mes "Por favor, se cuide bem.";
 		close;
-
-		//This actually never happens on iRO
-		//if (.@oldman_random == 2) {
-		//	mes "[Guard]";
-		//	mes "The Chief is";
-		//	mes "taking a rest.";
-		//	mes "Would you mind";
-		//	mes "coming back later?";
-		//}
 	}
 	end;
 }
@@ -971,18 +938,14 @@ OnTouch:
 payon_in03,102,185,5	script	Guard#payon	4_M_PAY_SOLDIER,{
 	if (BaseLevel < 30) {
 		mes "[Guard]";
-		mes "Hey...!";
-		mes "You're not";
-		mes "allowed here!";
-		mes "Go back outside!";
+		mes "Ei...!";
+		mes "Você não está autorizado a ficar aqui!";
+		mes "Saia!";
 		close;
 	}
 	if (BaseLevel > 30) {
-		mes "[Guard]";
-		mes "I'm sorry,";
-		mes "but you're";
-		mes "not allowed here.";
-		mes "Please leave.";
+		mes "Eu lamento mas você não pode ficar aqui.";
+		mes "Por favor, saia.";
 		close;
 	}
 	end;
@@ -990,87 +953,79 @@ payon_in03,102,185,5	script	Guard#payon	4_M_PAY_SOLDIER,{
 
 // Payon Archer Village
 //============================================================
-pay_arche,77,131,2	script	Archer Joe#payon	4_M_ORIENT01,{
-	mes "[Archer Joe]";
+pay_arche,77,131,2	script	Arqueiro Joe#payon	4_M_ORIENT01,{
+	mes "[Arqueiro Joe]";
 	mes "Payon!";
-	mes "Such a wonderful";
-	mes "place! Superb Bows";
-	mes "and skillful Archers!";
+	mes "Esse maravilhoso lugar! Com arqueiros Habilidosos!";
 	next;
-	mes "[Archer Joe]";
-	mes "Hey you~!";
-	mes "Have you heard";
-	mes "of famous Payon?";
+	mes "[Arqueiro Joe]";
+	mes "Ei, você.!";
+	mes "Você já ouvir falar na famosa Payon?";
 	next;
-	switch(select("Yeah, of course~! :Pay...on?:...")) {
+	switch(select("Sim, é claro.!:Pay...on? :...")) {
 	case 1:
-		mes "[Archer Joe]";
-		mes "Oh! You the man!";
-		mes "You know the Archers of Payon!";
-		mes "We never miss our target! Even from a distance, the hearts of our foes are unsafe!";
+		mes "[Arqueiro Joe]";
+		mes "Ah, você é o cara!";
+		mes "Você conhece os arqueiros de Payon!";
+		mes "Nós jamais perderemos nossa meta, mesmo a distância nossos inimigos não estarão seguros.";
 		next;
-		if (select("So, you like this place, huh? :Hahahaha~") == 1) {
-			mes "[Archer Joe]";
-			mes "Yes! I love this place!";
-			mes "I love this city so much,";
-			mes "I've even been doing research on it! If there's anything you wanna know about Payon, please ask me!";
+		if (select("Então, você gosta desse lugar, ein?:Hahahaha.") == 1) {
+			mes "[Arqueiro Joe]";
+			mes "Sim! Eu amo esse lugar!";
+			mes "Eu amo muito essa cidade.";
+			mes "Eu mesmo estava pesquisando sobre ela.";
+			mes "Se existe algo que você queira saber sobre Payon, fale comigo por favor!";
 			next;
-			switch(select("The people wear unique clothing here.:What's the building in the middle of town?:Who's that guy drinking over there? :Talk to you later.")) {
+			switch(select("As pessoas usam roupas únicas aqui.:Onde fica o edifício central da Cidade?:Quem é aquele cara bebendo ali?:Conversar outra hora.")) {
 			case 1:
-				mes "[Archer Joe]";
-				mes "Yes, I agree.";
-				mes "You must know this place used to be isolated because of the thick forests and the mountainous area.";
+				mes "[Arqueiro Joe]";
+				mes "Sim, eu concordo.";
+				mes "você precisa conhecer esse lugar, ele cosumava ser isolado por causa das densas florestas e áreas montanhosas.";
 				next;
-				mes "[Archer Joe]";
-				mes "Because of that, the Payon developed a culture of its own, which is quite different than that of the rest of Rune-Midgard.";
+				mes "[Arqueiro Joe]";
+				mes "Por isso Payon, desenvolveu uma cultora própria que é diferente do resto de Rune-Midgard.";
 				next;
-				mes "[Archer Joe]";
-				mes "This garment is traditional Payon clothing! Why don't you try wearing one? It's very comfortable~";
-				break;
+				mes "[Arqueiro Joe]";
+				mes "Essa é uma roupa tradicional de Payon! Porque você não tenta usar?";
+				mes "Ela é bem confotável.";
+				close;
 			case 2:
-				mes "[Archer Joe]";
-				mes "You mean the Central Palace? Strangers aren't allowed to enter that place. People say the royal family and their friends from outside gather there.";
+				mes "[Arqueiro Joe]";
+				mes "Quer dizer que no Palácio Central, estranhos não podem entrar?";
+				mes "A família real, amigos e conhecidos se reunem ali dentro.";
 				next;
-				mes "[Archer Joe]";
-				mes "I'd like to go there sometime, and see what it's like on the inside!";
-				break;
+				mes "[Arqueiro Joe]";
+				mes "Eu gostaria de ver como é lá dentro algum dia.";
+				close;
 			case 3:
-				mes "[Archer Joe]";
-				mes "Oh! That guy's notorious!";
-				mes "Whatever you do, don't treat";
-				mes "him to any drinks!";
-				mes "You'll regret it!";
-				break;
+				mes "[Arqueiro Joe]";
+				mes "Ah! Esse cara é famoso!";
+				mes "Tudo o que você deve fazer é não dar bebidas para ele!";
+				mes "Você vai se arrepender!";
+				close;
 			case 4:
-				mes "[Archer Joe]";
-				mes "Okay!";
-				mes "See ya!";
-				mes "Catch you later!";
-				break;
+				mes "[Arqueiro Joe]";
+				mes "Ok!";
+				mes "Até logo!";
+				close;
 			}
 		}
-		close;
-
 	case 2:
-		mes "[Archer Joe]";
-		mes "What a shame...";
-		mes "How have you not";
-		mes "heard of the Payon Archers?";
+		mes "[Arqueiro Joe]";
+		mes "Que vergonha...";
+		mes "Como é que você nunca ouvir sobre os arqueiros de Payon?";
 		next;
-		mes "[Archer Joe]";
-		mes "Well, when you ";
-		mes "learn more about us,";
-		mes "let's talk again and I can tell you why the Payon Archers are";
-		mes "so great!";
-		break;
+		mes "[Arqueiro Joe]";
+		mes "Bem, quando você aprender mais sobre nós vamos conversar novamente.";
+		mes "E eu posso lhe dizer porque os arqueiros de Payon são tão incríveis!";
+		close;
 	case 3:
-		mes "[Archer Joe]";
-		mes "Why are";
-		mes "you so quiet?";
-		mes "You're not shy, are you?";
-		mes "Come on, there's no reason";
-		mes "to be bashful around me~";
-		break;
+		mes "[Arqueiro Joe]";
+		mes "Porque você estão tão quieto?";
+		mes "Você não é tímido, certo?";
+		mes "Venha, não existe razão para que se sinta acanhado perto de mim.";
+		close;
 	}
-	close;
 }
+
+
