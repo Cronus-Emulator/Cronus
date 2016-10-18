@@ -5,22 +5,22 @@
 //               | |   | '__/ _ \| '_ \| | | / __|               ||
 //               | \__/\ | | (_) | | | | |_| \__ \               ||
 //                \____/_|  \___/|_| |_|\__,_|___/               ||
-//	                   Scripts                                   ||
+//                     Scripts                                   ||
 //===============================================================||
 // = Nome do NPC:                                                ||
 // - geffen.txt                                                  ||
 //===============================================================||
-// = Cria√ß√£o:                                                    ||
+// = CriaÁ„o:                                                    ||
 // - eA/Herc/Cronus                                              ||
 //===============================================================||
-// = Vers√£o:                                                     ||
+// = Vers„o:                                                     ||
 // - 1.0a                                                        ||
 //===============================================================||
-// = Altera√ß√µes:                                                 ||
-// - Cabe√ßalho [SlexFire]                                        ||
-// - Tradu√ß√£o [Roberto], [SlexFire], [Nerdz]                     ||
+// = AlteraÁıes:                                                 ||
+// - CabeÁalho [SlexFire]                                        ||
+// - TraduÁ„o [Roberto], [SlexFire], [Nerdz]                     ||
 //===============================================================||
-// = Descri√ß√£o:                                                  ||
+// = DescriÁ„o:                                                  ||
 // - NPCs referentes a cidade de Geffen                          ||
 //===============================================================//
 
@@ -30,20 +30,20 @@ geffen,59,143,0	script	Meera	4_F_02,{
 	mes "a Cidade da Magia!";
 	next;
 	mes "[Meera]";
-	mes "Eu n√£o sei muito sobre magia, mas qual √© o seu gosto m√°gico? ^CC6600Mel^000000!";
+	mes "Eu n„o sei muito sobre magia, mas qual È o seu gosto m·gico? ^CC6600Mel^000000!";
 	next;
 	mes "[Meera]";
-	mes "Isto √© muiiiito doce e delicioso. N√£o tenho certeza se √© um afrodiziaco, mas eu sei de um fato que vai alivia-lo da fadiga e recuperar sua sa√∫de!";
+	mes "Isto È muiiiito doce e delicioso. N„o tenho certeza se È um afrodiziaco, mas eu sei de um fato que vai alivia-lo da fadiga e recuperar sua sa˙de!";
 	next;
 	mes "[Meera]";
-	mes "Os zang√µes vivem nos campos e passam a vida recolhendo o n√©ctar sob comando da Abelha Rainha. O Mel √© feito a partir do nectar que eles re√∫nem.";
+	mes "Os zangıes vivem nos campos e passam a vida recolhendo o nÈctar sob comando da Abelha Rainha. O Mel È feito a partir do nectar que eles re˙nem.";
 	next;
 	mes "[Meera]";
-	mes "Mas isso n√£o √© tudo. H√° um tipo especial de mel que √© feito somente para as Abelhas Rainhas comerem:";
-	mes "^CC6600Gel√©ia Real^000000!";
+	mes "Mas isso n„o È tudo. H· um tipo especial de mel que È feito somente para as Abelhas Rainhas comerem:";
+	mes "^CC6600GelÈia Real^000000!";
 	next;
 	mes "[Meera]";
-	mes "Nada se compara ao delicioso sabor da Gel√©ia Real. E eu acho que √© melhor pra voc√™ do que o mel comum!";
+	mes "Nada se compara ao delicioso sabor da GelÈia Real. E eu acho que È melhor pra vocÍ do que o mel comum!";
 	close;
 }
 
@@ -52,50 +52,50 @@ geffen,156,190,0	script	Orwalk	4_KID01,{
 	mes "...Interessante.";
 	mes "Muito intrigante.";
 	mes "Oh! Deixe-me lhe contar";
-	mes "esta hist√≥ria maravilhosa~";
+	mes "esta histÛria maravilhosa~";
 	next;
 	mes "[Orwalk]";
-	mes "Quando eu estava pesquisando magia, eu descobri este pergaminho misterioso. Ele descrevia esta √°rvore chamada Yggdrasil.";
+	mes "Quando eu estava pesquisando magia, eu descobri este pergaminho misterioso. Ele descrevia esta ·rvore chamada Yggdrasil.";
 	next;
 	mes "[Orwalk]";
-	mes "As folhas, sementes e frutos de Yggdrasil ligam todos os seres vivos deste mundo. De acordo com este pergaminho, Yggdrasil tamb√©m est√° envolvido com a cria√ß√£o do mundo.";
+	mes "As folhas, sementes e frutos de Yggdrasil ligam todos os seres vivos deste mundo. De acordo com este pergaminho, Yggdrasil tambÈm est· envolvido com a criaÁ„o do mundo.";
 	next;
 	mes "[Orwalk]";
-	mes "Falando nisso, tamb√©m ouvi falar de um rumor sobre uma √°rvore em um terreno perto de Comodo. Eles devem ser ligados, tenho certeza disso!";
+	mes "Falando nisso, tambÈm ouvi falar de um rumor sobre uma ·rvore em um terreno perto de Comodo. Eles devem ser ligados, tenho certeza disso!";
 	close;
 }
 
 geffen_in,164,109,0	script	Wizard Stanza	1_M_WIZARD,{
 	mes "[Stanza]";
-	mes "Eu senti a presen√ßa de um esp√≠rito poderoso. Pode ser voc√™...?";
+	mes "Eu senti a presenÁa de um espÌrito poderoso. Pode ser vocÍ...?";
 	next;
 	mes "[Stanza]";
 	if (BaseJob == Job_Mage)
-		mes "Parece que voc√™ est√° treinado nas artes m√≠sticas. Magia... Seu poder √© regido pelas leis da causa e efeito.";
+		mes "Parece que vocÍ est· treinado nas artes mÌsticas. Magia... Seu poder È regido pelas leis da causa e efeito.";
 	else if (BaseJob == Job_Acolyte) {
 		mes "Ah...";
-		mes "Vejo que voc√™ exerce o poder santo, de uma forma ou de outra. Suponho que o Poder Santo pode ser considerado uma forma de energia m√≠stica.";
+		mes "Vejo que vocÍ exerce o poder santo, de uma forma ou de outra. Suponho que o Poder Santo pode ser considerado uma forma de energia mÌstica.";
 	}
 	else if (Class == Job_Novice)
-		mes "Embora voc√™ n√£o seja capaz de usar magia ou qualquer tipo de habilidades poderosas por agora, este conhecimento pode lhe ser √∫til no futuro, jovem Novi√ßo...";
+		mes "Embora vocÍ n„o seja capaz de usar magia ou qualquer tipo de habilidades poderosas por agora, este conhecimento pode lhe ser ˙til no futuro, jovem NoviÁo...";
 	else
-		mes "Embora voc√™ n√£o seja formamelmente treinado no uso de magias, voc√™ usa as habilidades que atraem sob as energias do al√©m, quer voc√™ saiba disso ou n√£o...";
+		mes "Embora vocÍ n„o seja formamelmente treinado no uso de magias, vocÍ usa as habilidades que atraem sob as energias do alÈm, quer vocÍ saiba disso ou n„o...";
 	next;
 	mes "[Stanza]";
-	mes "Se voc√™ usa a energia m√≠stica pra prejudicar os outros ou para desafiar as regras da M√£e Natureza, o poder ir√° naturalmente se virar contra voc√™. Lembre-se, voc√™ colhe o que planta.";
+	mes "Se vocÍ usa a energia mÌstica pra prejudicar os outros ou para desafiar as regras da M„e Natureza, o poder ir· naturalmente se virar contra vocÍ. Lembre-se, vocÍ colhe o que planta.";
 	next;
 	mes "[Stanza]";
-	mes "Mas h√° um item que pode lhe proteger do lan√ßador de consequencia doente, permitindo o uso seguro de certos m√°gicos. Estas s√£o as brilhantes pedras m√≠sticas chamadas Pedras Preciosas.";
+	mes "Mas h· um item que pode lhe proteger do lanÁador de consequencia doente, permitindo o uso seguro de certos m·gicos. Estas s„o as brilhantes pedras mÌsticas chamadas Pedras Preciosas.";
 	next;
 	mes "[Stanza]";
 	mes "Pedra Preciosa...";
-	mes "Se voc√™ deseja usar seus poderes ao m√°ximo, lembre-se deste item.";
+	mes "Se vocÍ deseja usar seus poderes ao m·ximo, lembre-se deste item.";
 	close;
 }
 
 geffen,147,26,0	script	Ralphie	4W_M_01,{
 	mes "[Ralphie]";
-	mes "Em algum lugar neste mundo, h√° uma equipe rara que pode transformar energia ps√≠quica em vigor f√≠sico, dotando seu dono com ^990000poder destrutivo^000000...";
+	mes "Em algum lugar neste mundo, h· uma equipe rara que pode transformar energia psÌquica em vigor fÌsico, dotando seu dono com ^990000poder destrutivo^000000...";
 	next;
 	mes "[Ralphie]";
 	mes "Com isso, qualquer um poderia ser forte como Hercules... Mesmo um fracote como eu! Hahahahahah,";
@@ -103,23 +103,23 @@ geffen,147,26,0	script	Ralphie	4W_M_01,{
 	next;
 	emotion e_gasp;
 	mes "[Ralphie]";
-	mes "...C√©us!";
+	mes "...CÈus!";
 	mes "Desde quando";
-	mes "voc√™ estava ouvindo?";
+	mes "vocÍ estava ouvindo?";
 	next;
 	mes "[Ralphie]";
 	mes "Por acaso";
-	mes "voc√™ n√£o ouviu nada disso?";
+	mes "vocÍ n„o ouviu nada disso?";
 	mes "Muhwaha... ha. Ha.";
 	next;
 	mes "[Ralphie]";
 	mes "Bem...";
-	mes "Eu n√£o disse nada. Mas se";
-	mes "eu disse, esque√ßa tudo sobre isso,";
+	mes "Eu n„o disse nada. Mas se";
+	mes "eu disse, esqueÁa tudo sobre isso,";
 	mes "o que quer que fosse~";
 	next;
 	mes "[Ralphie]";
-	mes "...Rapaz, isso √© estranho.";
+	mes "...Rapaz, isso È estranho.";
 	close;
 }
 
@@ -127,11 +127,11 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 	if (getequipid(1) == 2299) {
 		mes "[Stacey]";
 		mes "Oh...!";
-		mes "√â um Elmo de Orc que voc√™ est√° vestindo?! Isso √© muito legal! Wow...";
+		mes "… um Elmo de Orc que vocÍ est· vestindo?! Isso È muito legal! Wow...";
 		next;
 		mes "[Stacey]";
 		if (Sex) {
-			mes "Voc√™ parece t√£o...";
+			mes "VocÍ parece t„o...";
 			mes "Robusto e viril~";
 		}
 		else {
@@ -147,38 +147,38 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 		next;
 		mes "[Stacey]";
 		mes "Isto...";
-		mes "Isto √© um capacete";
-		mes "de orc Her√≥i!";
+		mes "Isto È um capacete";
+		mes "de orc HerÛi!";
 		next;
 		mes "[Stacey]";
 		if (Sex) {
 			mes "Isto...";
-			mes "√â como se voc√™ estivesse cercado por uma aurea masculina! Oooh~! Voc√™ deve ser irresist√≠vel para todas as garotas!";
+			mes "… como se vocÍ estivesse cercado por uma aurea masculina! Oooh~! VocÍ deve ser irresistÌvel para todas as garotas!";
 			next;
 			emotion e_lv;
 			mes "[Stacey]";
-			mes "E eu n√£o sou exce√ß√£o.";
+			mes "E eu n„o sou exceÁ„o.";
 		}
 		else {
-			mes "Nossa, voc√™ deve ser t√£o forte!";
+			mes "Nossa, vocÍ deve ser t„o forte!";
 			mes "Mas eu pensei que apenas membros da Tribo de Orcs usavam isso?";
 		}
 		close;
 	}
 	else {
 		mes "[Stacey]";
-		mes "Ol√°~!";
-		mes "Oh, voc√™ n√£o √©";
+		mes "Ol·~!";
+		mes "Oh, vocÍ n„o È";
 		if (Sex)
 		mes "um aventureiro?";
 		else
 		mes "uma aventureira?";
 		next;
 		mes "[Stacey]";
-		mes "Voc√™ j√° viu alguns Orcs da tribo de Demi-Human? Se voc√™ descer para o sul a partir daqui, eu acho que voc√™ pode encontrar Orcs na floresta profunda.";
+		mes "VocÍ j· viu alguns Orcs da tribo de Demi-Human? Se vocÍ descer para o sul a partir daqui, eu acho que vocÍ pode encontrar Orcs na floresta profunda.";
 		next;
 		mes "[Stacey]";
-		mes "Eu ouvi que os Orcs possuem uma cultura e linguagem pr√≥pria, supostamente apenas como n√≥s humanos. Ser√° que os Orcs v√£o a encontros...?";
+		mes "Eu ouvi que os Orcs possuem uma cultura e linguagem prÛpria, supostamente apenas como nÛs humanos. Ser· que os Orcs v„o a encontros...?";
 		next;
 		mes "[Stacey]";
 		mes "Sabe, onde eles sussuram coisas bonitas e depois... Ah! Eu realmente queria saber!";
@@ -188,28 +188,28 @@ geffen,111,48,0	script	Stacey	4W_F_01,{
 
 geffen_in,34,170,0	script	Theodoro	1_M_01,{
 	mes "[Theodoro]";
-	mes "Ol√°!";
-	mes "N√£o est√° um";
+	mes "Ol·!";
+	mes "N„o est· um";
 	mes "maravilhoso";
 	mes "dia hoje?";
 	next;
 	mes "[Theodoro]";
-	mes "Bem, eu n√£o sei. Venho estudando duro para me tornar um Mago. Fico acordado a noite toda, agonizando sobre tudo que √© m√°gico.";
+	mes "Bem, eu n„o sei. Venho estudando duro para me tornar um Mago. Fico acordado a noite toda, agonizando sobre tudo que È m·gico.";
 	next;
 	mes "[Theodoro]";
 	mes "*Suspiro..*";
 	mes "Eu me preocupo especialmente sobre todas as desvantagens de utilizar magia.";
 	next;
 	mes "[Theodoro]";
-	mes "Oh droga! Foi realmente irritante quando um inimigo de longa data me encontrou na ultima vez que estava explorando. Esse monstro miser√°vel interrompeu todos os meus feiti√ßos! N√£o consegui atingir tudo!";
+	mes "Oh droga! Foi realmente irritante quando um inimigo de longa data me encontrou na ultima vez que estava explorando. Esse monstro miser·vel interrompeu todos os meus feitiÁos! N„o consegui atingir tudo!";
 	next;
 	mes "[Theodoro]";
-	mes "Depois disso, eu percebi que precisava de algum tipo de arma para combater os ataques de longo alcance dos inimigos. Algo que posso atacar a longas dist√¢ncias...";
+	mes "Depois disso, eu percebi que precisava de algum tipo de arma para combater os ataques de longo alcance dos inimigos. Algo que posso atacar a longas dist‚ncias...";
 	next;
 	mes "[Theodoro]";
 	mes "Algum tipo de...";
-	mes "Afia√ß√£o, perfura√ß√£o";
-	mes "lan√ßador de proj√©til, preferencialmente feito com madeira.";
+	mes "AfiaÁ„o, perfuraÁ„o";
+	mes "lanÁador de projÈtil, preferencialmente feito com madeira.";
 	next;
 	mes "[Theodoro]";
 	mes "Mas onde";
@@ -224,39 +224,39 @@ geffen,146,148,4	script	Cara Suspeito	4W_M_03,6,6,{
 OnTouch:
 	mes "[?]";
 	mes "^333333*Psssst!*";
-	mes "E-Ei voc√™!";
-	mes "Voc√™ quer come√ßar suar m√£os em algo grande? Venha aqui!^000000";
+	mes "E-Ei vocÍ!";
+	mes "VocÍ quer comeÁar suar m„os em algo grande? Venha aqui!^000000";
 	next;
 	mes "[Cara Suspeito]";
 	if (Sex)
-		mes "Ei cara forte. Voc√™ parece suficientemente inteligente para reconhecer uma pechincha quando ele est√° bem na frente de seus olhos.";
+		mes "Ei cara forte. VocÍ parece suficientemente inteligente para reconhecer uma pechincha quando ele est· bem na frente de seus olhos.";
 	else
-		mes "Ora, ora, ora. Voc√™ n√£o √© uma garota bonita. Hoje √© apenas o seu dia de sorte!";
+		mes "Ora, ora, ora. VocÍ n„o È uma garota bonita. Hoje È apenas o seu dia de sorte!";
 	next;
 	mes "[Cara Suspeito]";
-	mes "Ent√£o me diga o que voc√™ quer e eu irei fazer um acordo sobre algo de valor, mercadorias mais valiosas.";
+	mes "Ent„o me diga o que vocÍ quer e eu irei fazer um acordo sobre algo de valor, mercadorias mais valiosas.";
 	next;
-	switch(select("Me d√™ alguma po√ß√£o para eu recuperar HP.:Uhm, voc√™ quer uma Faca?:Don't you have a good Manteau?:Voc√™ n√£o tem algo al√©m disso?")) {
+	switch(select("Me dÍ alguma poÁ„o para eu recuperar HP.:Uhm, vocÍ quer uma Faca?:Don't you have a good Manteau?:VocÍ n„o tem algo alÈm disso?")) {
 	case 1:
 		mes "[Cara Suspeito]";
 		mes "Ah, you into Potions, eh?";
 		mes "Sim, eu tenho essas coisas!";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Aqui est√°! Uma Po√ß√£o Vermelha de Alta qualidade! Come√ßa a funcionar imediatamente depois de tom√°-lo. Assim que ele toca seus l√°bios, voc√™ n√£o pode par√°-lo. Este material √© muito bom.";
+		mes "Aqui est·! Uma PoÁ„o Vermelha de Alta qualidade! ComeÁa a funcionar imediatamente depois de tom·-lo. Assim que ele toca seus l·bios, vocÍ n„o pode par·-lo. Este material È muito bom.";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Vamos l√° cara. Esta √© a ultima Po√ß√£o Vermelha. Eu o consegui de um amigo pr√≥ximo de um amigo, voc√™ sabe, uma fonte confi√°vel de verdade, e √© realmente barato tamb√©m. Voc√™ n√£o pode passar sobre essa!";
+		mes "Vamos l· cara. Esta È a ultima PoÁ„o Vermelha. Eu o consegui de um amigo prÛximo de um amigo, vocÍ sabe, uma fonte confi·vel de verdade, e È realmente barato tambÈm. VocÍ n„o pode passar sobre essa!";
 		next;
-		select("Uh, eu posso comprar Po√ß√µes Brancas em vez disso?");
+		select("Uh, eu posso comprar PoÁıes Brancas em vez disso?");
 		mes "[Cara Suspeito]";
-		mes "Po√ß√µes Brancas? Oh, elas n√£o existem. Mas, er, se algu√©m est√° vendendo este tipo de coisa, traga um para mim para que eu possa, uhm.. testar a diferen√ßa. Mas sim, eu tenho o materal real.";
-		next;
-		mes "[Cara Suspeito]";
-		mes "Voc√™ pode curar todas as suas feridas ao tomar as Po√ß√µes Vermelhas! E eu irei vender por apenas ^FF3333500 zeny^000000!";
+		mes "PoÁıes Brancas? Oh, elas n„o existem. Mas, er, se alguÈm est· vendendo este tipo de coisa, traga um para mim para que eu possa, uhm.. testar a diferenÁa. Mas sim, eu tenho o materal real.";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Agora, qu√£o barato ele √©?! Como eles s√£o em alta demanda, s√≥ posso lhe vender apenas 100";
+		mes "VocÍ pode curar todas as suas feridas ao tomar as PoÁıes Vermelhas! E eu irei vender por apenas ^FF3333500 zeny^000000!";
+		next;
+		mes "[Cara Suspeito]";
+		mes "Agora, qu„o barato ele È?! Como eles s„o em alta demanda, sÛ posso lhe vender apenas 100";
 		mes "de cada vez.";
 		next;
 		while(1) {
@@ -264,15 +264,15 @@ OnTouch:
 			if (.@input == 0) {
 				mes "[Cara Suspeito]";
 				if (Sex)
-					mes "Ah caaara~ Voc√™ est√° partindo meu cora√ß√£o! Quer dizer, a estes pre√ßos, eu estou praticamente realizando caridade!";
+					mes "Ah caaara~ VocÍ est· partindo meu coraÁ„o! Quer dizer, a estes preÁos, eu estou praticamente realizando caridade!";
 				else
-					mes "E-espeeeere! Voc√™ n√£o deixou-me dizer a parte sobre como as Po√ß√µes Vermelhas pode ajud√°-lo a perder e ganhar peso em todos os lugares certos! Espeeeere!";
+					mes "E-espeeeere! VocÍ n„o deixou-me dizer a parte sobre como as PoÁıes Vermelhas pode ajud·-lo a perder e ganhar peso em todos os lugares certos! Espeeeere!";
 				close;
 			}
 			else if (.@input > 100) {
 				mes "[Cara Suspeito]";
 				mes "Uau...";
-				mes "N√£o posso deixa-lo comprar muitos. Quer dizer.. n√£o √© gosto, voc√™ sabe, h√° um tra√ßo de impureza nessas po√ß√µes ou algo do tipo...";
+				mes "N„o posso deixa-lo comprar muitos. Quer dizer.. n„o È gosto, vocÍ sabe, h· um traÁo de impureza nessas poÁıes ou algo do tipo...";
 				next;
 			}
 			else
@@ -282,12 +282,12 @@ OnTouch:
 		if (Zeny < .@Red_potion_hap) {
 			mes "[Cara Suspeito]";
 			mes "Ahh~";
-			mes "Ent√£o voc√™";
-			mes "est√° sem grana?";
+			mes "Ent„o vocÍ";
+			mes "est· sem grana?";
 			mes "Que pena.";
 			next;
 			mes "[Cara Suspeito]";
-			mes "^333333Agora eu tenho que encontrar algum outro ot√°rio para despejar este lixo!^000000 *Ahem* Quero dizer, vamos novamente!";
+			mes "^333333Agora eu tenho que encontrar algum outro ot·rio para despejar este lixo!^000000 *Ahem* Quero dizer, vamos novamente!";
 			close;
 		}
 		Zeny -= .@Red_potion_hap;
@@ -296,53 +296,53 @@ OnTouch:
 	case 2:
 		mes "[Cara Suspeito]";
 		if (Sex) {
-			mes "O que um cara forte quer com uma faca? Aquilo s√≥ ir√° romper com a for√ßa de seus balan√ßos incrivelmente poderosos!";
+			mes "O que um cara forte quer com uma faca? Aquilo sÛ ir· romper com a forÁa de seus balanÁos incrivelmente poderosos!";
 			next;
 			mes "[Cara Suspeito]";
 			mes "Agora...";
-			mes "O que voc√™ realmente";
-			mes "precisa √© de uma ^FF3333faca para homem^000000.";
+			mes "O que vocÍ realmente";
+			mes "precisa È de uma ^FF3333faca para homem^000000.";
 		}
 		else {
-			mes "Uma boa mo√ßa como voc√™ querendo uma faca? Ah, facas de cozinha s√£o para esposas donas de casa.";
+			mes "Uma boa moÁa como vocÍ querendo uma faca? Ah, facas de cozinha s„o para esposas donas de casa.";
 			next;
 			mes "[Cara Suspeito]";
 			mes "Agora...";
-			mes "O que voc√™ realmente";
-			mes "precisa √© de uma boa e afiada";
-			mes "^FF3333Adaga Francesa^000000 para combinar com sua beleza e eleg√¢ncia.";
+			mes "O que vocÍ realmente";
+			mes "precisa È de uma boa e afiada";
+			mes "^FF3333Adaga Francesa^000000 para combinar com sua beleza e eleg‚ncia.";
 		}
 		next;
 		mes "[Cara Suspeito]";
 		mes "Eu a chamo de...";
 		mes "^FF3333Main Gauche^000000! Eu mesmo inventei-a. E vendo por apenas 9400 zenys!";
 		next;
-		select("Voc√™ vai me dar a bainha tamb√©m?");
+		select("VocÍ vai me dar a bainha tambÈm?");
 		mes "[Cara Suspeito]";
 		mes "Uma bainha?";
-		mes "Nossa, voc√™ est√° pedindo demais! Mas est√° bem...";
+		mes "Nossa, vocÍ est· pedindo demais! Mas est· bem...";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Como eu gostei de voc√™, vou te dar uma bainha de gra√ßa. Que tal isso,";
-		mes "n√£o √© uma excelente barganha?";
+		mes "Como eu gostei de vocÍ, vou te dar uma bainha de graÁa. Que tal isso,";
+		mes "n„o È uma excelente barganha?";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Voc√™ n√£o pode perder essa chance! Quantas voc√™ quer?";
+		mes "VocÍ n„o pode perder essa chance! Quantas vocÍ quer?";
 		next;
 		while(1) {
 			input .@input;
 			if (.@input == 0) {
 				mes "[Cara Suspeito]";
-				mes "Nossa, quantas chances como essa voc√™ deixou passar? Espero que voc√™ ganhe na loteria...";
-				mes "Voc√™ provavelmente";
-				mes "deixaria passar tamb√©m.";
+				mes "Nossa, quantas chances como essa vocÍ deixou passar? Espero que vocÍ ganhe na loteria...";
+				mes "VocÍ provavelmente";
+				mes "deixaria passar tambÈm.";
 				close;
 
 			}
 			else if (.@input > 100) {
 				mes "[Cara Suspeito]";
 				mes "Uau!";
-				mes "N√£o posso te vender tantas! Isso chamaria a aten√ß√£o da Cavalaria de Pront--Digo, √©, eu ia doar algumas adagas para... Crian√ßas carentes?";
+				mes "N„o posso te vender tantas! Isso chamaria a atenÁ„o da Cavalaria de Pront--Digo, È, eu ia doar algumas adagas para... CrianÁas carentes?";
 				next;
 			}
 			else
@@ -352,7 +352,7 @@ OnTouch:
 		if (Zeny < .@Main_gauche_hap) {
 			mes "[Cara Suspeito]";
 			mes "Sem dinheiro?";
-			mes "Quando o melhor neg√≥cio da sua vida seria fechado? Tr√°gico, realmente tr√°gico...";
+			mes "Quando o melhor negÛcio da sua vida seria fechado? Tr·gico, realmente tr·gico...";
 			close;
 		}
 		Zeny -= .@Main_gauche_hap;
@@ -361,40 +361,40 @@ OnTouch:
 	case 3:
 		mes "[Cara Suspeito]";
 		if (Sex)
-			mes "Um manto? Que besteira! Existe algo muito melhor em mat√©ria de armaduras!";
+			mes "Um manto? Que besteira! Existe algo muito melhor em matÈria de armaduras!";
 		else
-			mes "Por que uma menina t√£o bonita usaria algo t√£o fora de moda? Sabe o que te deixaria ainda mais bela?";
+			mes "Por que uma menina t„o bonita usaria algo t„o fora de moda? Sabe o que te deixaria ainda mais bela?";
 		next;
 		mes "[Cara Suspeito]";
 		mes "Isso mesmo!";
-		mes "Um capuz! Usar um desses √© a melhor maneira de ganhar respeito hoje em dia!";
+		mes "Um capuz! Usar um desses È a melhor maneira de ganhar respeito hoje em dia!";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Se voc√™ usar um capuz, os monstros ter√£o medo e fugir√£o de voc√™! E olhe s√≥ o tecido. Posso puxar o quanto quiser que n√£o rasga.";
+		mes "Se vocÍ usar um capuz, os monstros ter„o medo e fugir„o de vocÍ! E olhe sÛ o tecido. Posso puxar o quanto quiser que n„o rasga.";
 		next;
-		select("Esse capuz n√£o tem fecho...?");
+		select("Esse capuz n„o tem fecho...?");
 		mes "[Cara Suspeito]";
-		mes "O que voc√™ est√° dizendo? N√£o precisa de fecho! As fibras Rayon e Nylon e Krypton de que ele √© feito mant√™m o capuz seguro em sua cabe√ßa!";
+		mes "O que vocÍ est· dizendo? N„o precisa de fecho! As fibras Rayon e Nylon e Krypton de que ele È feito mantÍm o capuz seguro em sua cabeÁa!";
 		next;
 		mes "[Cara Suspeito]";
 		mes "Cara...";
-		mes "Muita tecnologia foi investida nesse capuz. Voc√™ acredita que eu vou vend√™-lo por apenas 930 zenys?";
+		mes "Muita tecnologia foi investida nesse capuz. VocÍ acredita que eu vou vendÍ-lo por apenas 930 zenys?";
 		next;
 		mes "[Cara Suspeito]";
-		mes "√â o neg√≥cio do s√©culo. Ent√£o, quantos voc√™ quer?";
+		mes "… o negÛcio do sÈculo. Ent„o, quantos vocÍ quer?";
 		next;
 		while(1) {
 			input .@input;
 			if (.@input == 0) {
 				mes "[Cara Suspeito]";
 				mes "Ahhh...";
-				mes "N√£o foi por causa do fecho, n√©?";
+				mes "N„o foi por causa do fecho, nÈ?";
 				close;
 			}
 			else if (.@input > 100) {
 				mes "[Cara Suspeito]";
 				mes "Nossa~!";
-				mes "N√£o posso vender tantos! O que voc√™ est√° fazendo, tentando tirar vantagem?";
+				mes "N„o posso vender tantos! O que vocÍ est· fazendo, tentando tirar vantagem?";
 				next;
 			}
 			else
@@ -404,7 +404,7 @@ OnTouch:
 		if (Zeny < .@Hood__hap) {
 			mes "[Cara Suspeito]";
 			mes "Ah...";
-			mes "Sem dinheiro, n√£o √©?";
+			mes "Sem dinheiro, n„o È?";
 			close;
 		}
 		Zeny -= .@Hood__hap;
@@ -413,14 +413,14 @@ OnTouch:
 	case 4:
 		mes "[Cara Suspeito]";
 		mes "Cara...";
-		mes "Voc√™ gosta de pedir o imposs√≠vel. Vou te contar uma coisa. Nenhum outro mercador vende os meus produtos. S√£o √∫nicos.";
+		mes "VocÍ gosta de pedir o impossÌvel. Vou te contar uma coisa. Nenhum outro mercador vende os meus produtos. S„o ˙nicos.";
 		next;
 		mes "[Cara Suspeito]";
-		mes "Voc√™ tem que acreditar!";
+		mes "VocÍ tem que acreditar!";
 		close;
 	}
 	mes "[Cara Suspeito]";
-	mes "N√£o precisa ir a nenhum outro lugar, j√° que obviamente eu tenho os melhores itens!";
+	mes "N„o precisa ir a nenhum outro lugar, j· que obviamente eu tenho os melhores itens!";
 	next;
 	mes "[Cara Suspeito]";
 	mes "Volte sempre, e compre mais coisas. Adoro um cliente que sabe o que quer! Hehe~";
@@ -430,11 +430,11 @@ OnTouch:
 geffen_in,22,125,1	script	Crumpler	1_M_HOF,{
 	mes "[Crumpler]";
 	mes "Ooooh~!";
-	mes "Voc√™ est√° bem vestido, maguinho,";
+	mes "VocÍ est· bem vestido, maguinho,";
 	mes "vai tirar um coelho da cartola?";
 	next;
 	if (Class == Job_Mage) {
-		mes "^3355FFAlgum dia, voc√™ promete a si mesmo, voc√™ se vingar√° desse b√™bado que difamou os Magos. Algum dia...^000000";
+		mes "^3355FFAlgum dia, vocÍ promete a si mesmo, vocÍ se vingar· desse bÍbado que difamou os Magos. Algum dia...^000000";
 		close;
 	}
 	else if (Class == Job_Wizard) {
@@ -444,13 +444,13 @@ geffen_in,22,125,1	script	Crumpler	1_M_HOF,{
 		mes "Um Bruxo?! *Pff*";
 		next;
 		mes "[Crumpler]";
-		mes "Todos sabemos que Bruxos s√£o inteligentes, mas sem for√ßa nenhuma! Venha, espertalh√£o! Mostre seus poderes!";
+		mes "Todos sabemos que Bruxos s„o inteligentes, mas sem forÁa nenhuma! Venha, espertalh„o! Mostre seus poderes!";
 		next;
-		switch(select("Chuva de Meteoros!:Ira de Thor!:Mostrar compaix√£o.")) {
+		switch(select("Chuva de Meteoros!:Ira de Thor!:Mostrar compaix„o.")) {
 		case 1:
 			mes "[Crumpler]";
 			mes "Huh?";
-			mes "O que voc√™ disse?";
+			mes "O que vocÍ disse?";
 			next;
 			mes "[Crumpler]";
 			mes "...";
@@ -471,21 +471,21 @@ geffen_in,22,125,1	script	Crumpler	1_M_HOF,{
 		case 2:
 			mes "[Crumpler]";
 			mes "Hahahahaah!";
-			mes "Tolo! S√≥ um monstro como o Baphomet pode usar um feiti√ßo como es--";
+			mes "Tolo! SÛ um monstro como o Baphomet pode usar um feitiÁo como es--";
 			next;
 			mes "[Crumpler]";
 			mes "Meu deus...";
-			mes "Voc√™ est√° falando s√©rio...";
+			mes "VocÍ est· falando sÈrio...";
 			next;
 			specialeffect EF_LORD;
 			mes "[Crumpler]";
 			mes "ARRRRRGH~!";
-			mes "EST√Å QUENTEEEEE!";
+			mes "EST¡ QUENTEEEEE!";
 			close;
 		case 3:
 			mes "["+strcharinfo(0)+"]";
-			mes "N√£o...";
-			mes "S√≥ posso usar meus";
+			mes "N„o...";
+			mes "SÛ posso usar meus";
 			mes "poderes para o bem.";
 			next;
 			mes "[Crumpler]";
@@ -496,114 +496,114 @@ geffen_in,22,125,1	script	Crumpler	1_M_HOF,{
 		}
 	}
 	else if (Class == Job_Sage) {
-		select("Na verdade, senhor, sou um S√°bio.");
+		select("Na verdade, senhor, sou um S·bio.");
 		mes "[Crumpler]";
 		mes "Um...";
-		mes "S√°bio?";
+		mes "S·bio?";
 		emotion e_what;
 		next;
 		mes "[Crumpler]";
-		mes "N√£o sei o que √© isso. Mas suponho que n√£o pode ser t√£o ruim quanto um Mago.";
+		mes "N„o sei o que È isso. Mas suponho que n„o pode ser t„o ruim quanto um Mago.";
 		next;
 		mes "[Crumpler]";
-		mes "Ent√£ooo...";
+		mes "Ent„ooo...";
 		mes "Quer beber comigo?";
 		close;
 	}
 	else {
 		mes "[Crumpler]";
 		mes "Espere um momento...";
-		mes "Voc√™ n√£o √© um mago!";
-		mes "Devo estar muito b√™bado!";
+		mes "VocÍ n„o È um mago!";
+		mes "Devo estar muito bÍbado!";
 		next;
 		mes "[Crumpler]";
 		mes "Cara, eu odeio magos! Sempre estudando e cantando e aumentando as taxas...";
 		next;
 		mes "[Crumpler]";
-		mes "Roubando nossos empregos, censurando a m√≠dia, arruinando nosso sistema educacional, piorando a polui√ß√£o do ar, guerreando, compondo raps...";
+		mes "Roubando nossos empregos, censurando a mÌdia, arruinando nosso sistema educacional, piorando a poluiÁ„o do ar, guerreando, compondo raps...";
 		close;
 	}
 }
 
 geffen_in,59,61,1	script	Skyler	1_M_PUBMASTER,{
 	mes "[Skyler]";
-	mes "Ol√°, ol√°.";
-	mes "Voc√™ n√£o est√° procurando";
-	mes "pelo Eric, est√°?";
+	mes "Ol·, ol·.";
+	mes "VocÍ n„o est· procurando";
+	mes "pelo Eric, est·?";
 	next;
-	if (select("Eric? Quem √© esse?:Sim. Sim, estou.") == 1) {
+	if (select("Eric? Quem È esse?:Sim. Sim, estou.") == 1) {
 		mes "[Skyler]";
-		mes "Ah, desculpe. Ele √© o homem no quarto √† minha esquerda. Ele est√° sempre trabalhando em algum tipo de projeto.";
+		mes "Ah, desculpe. Ele È o homem no quarto ‡ minha esquerda. Ele est· sempre trabalhando em algum tipo de projeto.";
 		next;
 		mes "[Skyler]";
-		mes "Alguma coisa a ver com Ear Muffs. Acho que ele est√° procurando investidores para ajud√°-lo a terminar o que ele est√° fazendo.";
+		mes "Alguma coisa a ver com Ear Muffs. Acho que ele est· procurando investidores para ajud·-lo a terminar o que ele est· fazendo.";
 		close;
 	}
 	mes "[Skyler]";
-	mes "Ah, certo. Voc√™ encontrar√° o Eric no quarto √† minha esquerda. Ele ficar√° feliz em saber que algu√©m est√° interessado no que ele est√° construindo.";
+	mes "Ah, certo. VocÍ encontrar· o Eric no quarto ‡ minha esquerda. Ele ficar· feliz em saber que alguÈm est· interessado no que ele est· construindo.";
 	next;
 	mes "[Skyler]";
 	mes "Pelo que me lembro, ele estava desencorajado, achando que nunca terminaria seu projeto.";
 	next;
 	mes "[Skyler]";
-	mes "Fico contente de saber que voc√™ veio at√© aqui para ajud√°-lo.";
+	mes "Fico contente de saber que vocÍ veio atÈ aqui para ajud·-lo.";
 	close;
 }
 
-geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
+geffen_in,27,134,5	script	GarÁonete#elen	4_F_02,{
 	mes "[Elenore]";
 	mes "Esse lugar...";
 	mes "Tem uma atmosfera";
 	mes "diferente.";
 	next;
 	mes "[Elenore]";
-	mes "N√≥s temos uma esp√©cie de vidente que est√° sempre por a√≠, e um b√™bado que passa o dia inteiro reclamando dos magos.";
+	mes "NÛs temos uma espÈcie de vidente que est· sempre por aÌ, e um bÍbado que passa o dia inteiro reclamando dos magos.";
 	next;
 	mes "[Elenore]";
 	mes "Bem...";
 	mes "O que posso";
-	mes "fazer por voc√™?";
+	mes "fazer por vocÍ?";
 	next;
-	if (select("Posso beber algo?:Voc√™ tem novidades para me contar?") == 1) {
+	if (select("Posso beber algo?:VocÍ tem novidades para me contar?") == 1) {
 		mes "[Elenore]";
 		mes "Bem...";
-		mes "Se voc√™ quiser algo alco√≥lico, o Rei Tristam III proibiu a venda. Ouvi dizer que agora s√≥ podem serv√≠-lo em determinados lugares.";
+		mes "Se vocÍ quiser algo alcoÛlico, o Rei Tristam III proibiu a venda. Ouvi dizer que agora sÛ podem servÌ-lo em determinados lugares.";
 		next;
 		mes "[Elenore]";
-		mes "Mesmo assim as pessoas conseguem ficar b√™badas com os drinques sem √°lcool que servimos aqui. Acho que √© psicol√≥gico.";
+		mes "Mesmo assim as pessoas conseguem ficar bÍbadas com os drinques sem ·lcool que servimos aqui. Acho que È psicolÛgico.";
 		next;
 		mes "[Elenore]";
-		mes "Eu realmentee queria poder visitar o lugar em que servem drinques de verdade. Ouvi dizer que √© o para√≠so!";
+		mes "Eu realmentee queria poder visitar o lugar em que servem drinques de verdade. Ouvi dizer que È o paraÌso!";
 		close;
 	}
 	switch(rand(1,4)) {
 	case 1:
 		mes "[Elenore]";
 		mes "Novidades...?";
-		mes "Bem, ouvi dizer que est√£o abrindo";
+		mes "Bem, ouvi dizer que est„o abrindo";
 		mes "um novo aeroporto em Juno!";
 		next;
 		mes "[Elenore]";
-		mes "Ou pelo menos, est√£o planejando. O avi√£o ainda n√£o est√° pronto para decolar. Enquanto isso existe uma esp√©cie de representante da corpora√ß√£o l√°, oferecendo servi√ßos de teletransporte.";
+		mes "Ou pelo menos, est„o planejando. O avi„o ainda n„o est· pronto para decolar. Enquanto isso existe uma espÈcie de representante da corporaÁ„o l·, oferecendo serviÁos de teletransporte.";
 		next;
 		mes "[Elenore]";
-		mes "Parece que a Corpora√ß√£o Kafra finalmente tem concorr√™ncia! Mas n√£o acho que existam muitas garotas atraentes como as garotas Kafra...";
+		mes "Parece que a CorporaÁ„o Kafra finalmente tem concorrÍncia! Mas n„o acho que existam muitas garotas atraentes como as garotas Kafra...";
 		break;
 	case 2:
 		mes "[Elenore]";
-		mes "Voc√™ n√£o ouviu?";
-		mes "H√° uma nova moda no Reino de Rune-Midgard!";
+		mes "VocÍ n„o ouviu?";
+		mes "H· uma nova moda no Reino de Rune-Midgard!";
 		next;
 		mes "[Elenore]";
-		mes "As pessoas est√£o vindo, usando chap√©us novos e bonitinhos! Vi um de ursinho, e teve uma garota que chegou usando orelhinhas de gato pretas...";
+		mes "As pessoas est„o vindo, usando chapÈus novos e bonitinhos! Vi um de ursinho, e teve uma garota que chegou usando orelhinhas de gato pretas...";
 		next;
 		mes "[Elenore]";
-		mes "Claro, nem todo estilo popular me agrada. Porque sabe, eu vi um cara andando com um cogumelo na cabe√ßa. E ouvi dizer que tem algu√©m fazendo chap√©us de peixes!";
+		mes "Claro, nem todo estilo popular me agrada. Porque sabe, eu vi um cara andando com um cogumelo na cabeÁa. E ouvi dizer que tem alguÈm fazendo chapÈus de peixes!";
 		next;
 		mes "[Elenore]";
-		mes "Acho que chap√©us";
-		mes "como esses s√£o";
-		mes "art√≠sticos demais para o meu gosto.";
+		mes "Acho que chapÈus";
+		mes "como esses s„o";
+		mes "artÌsticos demais para o meu gosto.";
 		break;
 	case 3:
 		mes "[Elenore]";
@@ -615,9 +615,9 @@ geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
 		next;
 		mes "[Elenore]";
 		if (Sex)
-			mes "Voc√™ ouviu falar de "+strcharinfo(0)+"? Ele √© supostamente o her√≥i mais lindo da regi√£o!";
+			mes "VocÍ ouviu falar de "+strcharinfo(0)+"? Ele È supostamente o herÛi mais lindo da regi„o!";
 		else
-			mes "Voc√™ ouviu falar de"+strcharinfo(0)+"? Dizem que ela √© uma das meninas mais bonitas de Rune-Midgard!";
+			mes "VocÍ ouviu falar de"+strcharinfo(0)+"? Dizem que ela È uma das meninas mais bonitas de Rune-Midgard!";
 		break;
 	case 4:
 		switch(rand(1,2)) {
@@ -629,19 +629,19 @@ geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
 			mes "[Elenore]";
 			mes "Ugh...";
 			mes "Ooooh...";
-			mes "Minha c-cabe√ßa...";
-			mes "Est√° doendo...";
+			mes "Minha c-cabeÁa...";
+			mes "Est· doendo...";
 			next;
-			mes "[Esp√≠rito de William]";
-			mes "^990000Saia de perto da minha filha, esc√≥ria, antes que eu venda seus org√£os por zeny!";
-			mes "T√° me ouvindo?!^000000";
+			mes "[EspÌrito de William]";
+			mes "^990000Saia de perto da minha filha, escÛria, antes que eu venda seus org„os por zeny!";
+			mes "T· me ouvindo?!^000000";
 			next;
 			mes "[Elenore]";
 			mes "*cof*";
 			mes "Oh...!";
 			mes "Desculpe por isso!";
 			mes "Eu devo estar com";
-			mes "um come√ßo de gripe!";
+			mes "um comeÁo de gripe!";
 			mes "...Ou algo do tipo.";
 			next;
 			mes "^3355FFEstranho...";
@@ -650,8 +650,8 @@ geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
 			mes "um minuto, ali...";
 			break;
 		case 2:
-			mes "[Esp√≠rito de William]";
-			mes "^990000Ei, seu man√≠aco sexual!!! Pare de olhar pra minha filha desse jeito, antes que eu arranque seus olhos e os coma com macarr√£o!^000000";
+			mes "[EspÌrito de William]";
+			mes "^990000Ei, seu manÌaco sexual!!! Pare de olhar pra minha filha desse jeito, antes que eu arranque seus olhos e os coma com macarr„o!^000000";
 			next;
 			mes "["+strcharinfo(0)+"]";
 			if (Sex) {
@@ -660,14 +660,14 @@ geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
 				next;
 				mes "[Elenore]";
 				mes "Huh...?";
-				mes "Oh, papai deve ter me possu√≠do de novo. Acontece comigo e minha irm√£ o tempo todo.";
+				mes "Oh, papai deve ter me possuÌdo de novo. Acontece comigo e minha irm„ o tempo todo.";
 				next;
 				mes "["+strcharinfo(0)+"]";
-				mes "S√©rio?";
-				mes "Huh. √â uma chatice.";
+				mes "SÈrio?";
+				mes "Huh. … uma chatice.";
 				next;
 				mes "[Elenore]";
-				mes "√â...";
+				mes "…...";
 				mes "Me fala disso.";
 				break;
 			}
@@ -675,12 +675,12 @@ geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
 				mes "E-espeeeeeera~";
 				mes "Mas, mas eu sou uma garota!";
 				next;
-				mes "[Esp√≠rito de William]";
-				mes "^990000Que parte do ^FF0000eu vou gritar onde voc√™ estiver^000000 ^990000voc√™ n√£o entendeu?! Agora sai daqui, pervertido!^000000";
+				mes "[EspÌrito de William]";
+				mes "^990000Que parte do ^FF0000eu vou gritar onde vocÍ estiver^000000 ^990000vocÍ n„o entendeu?! Agora sai daqui, pervertido!^000000";
 				next;
 				mes "^3355FFAaaah~!";
 				mes "Como ela ficou";
-				mes "t√£o assustadora?!^000000";
+				mes "t„o assustadora?!^000000";
 				break;
 			}
 		}
@@ -689,9 +689,9 @@ geffen_in,27,134,5	script	Gar√ßonete#elen	4_F_02,{
 	close;
 }
 
-geffen_in,70,67,3	script	Gar√ßonete#elise	4_F_01,{
+geffen_in,70,67,3	script	GarÁonete#elise	4_F_01,{
 	mes "[Elisa]";
-	mes "Ol√°~";
+	mes "Ol·~";
 	mes "Posso te ajudar";
 	mes "com alguma coisa?";
 	next;
@@ -701,38 +701,38 @@ geffen_in,70,67,3	script	Gar√ßonete#elise	4_F_01,{
 		mes "Drink?";
 		next;
 		mes "[Elisa]";
-		mes "Voc√™ sabe que n√≥s n√£o servimos mais √°lcool por aqui. S√≥ temos esses drinks falsos que nem tem gosto nem efeito. √â, eles s√£o chatos...";
+		mes "VocÍ sabe que nÛs n„o servimos mais ·lcool por aqui. SÛ temos esses drinks falsos que nem tem gosto nem efeito. …, eles s„o chatos...";
 		next;
 		mes "[Elisa]";
-		mes "S√≥ servimos praticamente √°gua, aqui. Isso e umas imita√ß√µes ruins de drinks alc√≥olicos.";
+		mes "SÛ servimos praticamente ·gua, aqui. Isso e umas imitaÁıes ruins de drinks alcÛolicos.";
 		next;
 		mes "[Elisa]";
-		mes "√â horr√≠vel que o Rei Tristram III proibiu √°lcool no nosso reino! √â provavelmente a √∫nica decis√£o ruim que ele tomou durante todo seu reinado!";
+		mes "… horrÌvel que o Rei Tristram III proibiu ·lcool no nosso reino! … provavelmente a ˙nica decis„o ruim que ele tomou durante todo seu reinado!";
 		close;
 	}
 	switch(rand(1,4)) {
 	case 1:
 		mes "[Elisa]";
-		mes "Sabe o que √©";
-		mes "t√£o estranho?";
+		mes "Sabe o que È";
+		mes "t„o estranho?";
 		next;
 		mes "[Elisa]";
-		mes "Fui pro santu√°rio de Prontera e tenho certeza que vi";
+		mes "Fui pro santu·rio de Prontera e tenho certeza que vi";
 		mes "um sacerdote casando com uma sacerdotisa!";
 		next;
 		mes "[Elisa]";
-		mes "Eu n√£o tinha ideia se sacerdotes poderiam se casar ou n√£o, mas at√© o Rei Tristram estava l√°,";
-		mes "ent√£o acho que est√° tudo bem!";
+		mes "Eu n„o tinha ideia se sacerdotes poderiam se casar ou n„o, mas atÈ o Rei Tristram estava l·,";
+		mes "ent„o acho que est· tudo bem!";
 		break;
 	case 2:
 		mes "[Elisa]";
-		mes "N√£o gosto de estereotipar as pessoas, mas voc√™ j√° percebeu que os espadachins e cavaleiros";
-		mes "tendem a ser, voc√™ sabe...";
+		mes "N„o gosto de estereotipar as pessoas, mas vocÍ j· percebeu que os espadachins e cavaleiros";
+		mes "tendem a ser, vocÍ sabe...";
 		next;
 		mes "[Elisa]";
 		mes "...desafiados em INT?";
 		mes "Tudo que eles parecem saber";
-		mes "√© esmagar coisas!";
+		mes "È esmagar coisas!";
 		break;
 	case 3:
 		mes "[Elisa]";
@@ -740,15 +740,15 @@ geffen_in,70,67,3	script	Gar√ßonete#elise	4_F_01,{
 		mes "Hmmmm, bem...";
 		next;
 		mes "[Elisa]";
-		mes "Voc√™ sabe o nome";
+		mes "VocÍ sabe o nome";
 		mes "do nosso reino, certo?";
 		mes "O reino de Rune-Midgarts?";
 		next;
 		mes "[Elisa]";
-		mes "Ouvi dizer que originalmente ele era chamado de reino de Rune-Midgard, por causa do nosso continente. Entretanto, por alguma raz√£o, o nome mudou para 'Rune-Midgarts.'";
+		mes "Ouvi dizer que originalmente ele era chamado de reino de Rune-Midgard, por causa do nosso continente. Entretanto, por alguma raz„o, o nome mudou para 'Rune-Midgarts.'";
 		next;
 		mes "[Elisa]";
-		mes "Obviamente foi uma boa decis√£o, j√° que as pessoas ficavam confundindo o continente com o reino. Estranho, n√©?";
+		mes "Obviamente foi uma boa decis„o, j· que as pessoas ficavam confundindo o continente com o reino. Estranho, nÈ?";
 		break;
 	case 4:
 		switch(rand(1,2)) {
@@ -758,16 +758,16 @@ geffen_in,70,67,3	script	Gar√ßonete#elise	4_F_01,{
 			mes "Hmmmm, bem...";
 			next;
 			mes "[Elisa]";
-			mes "Isso √© engra√ßado...";
-			mes "Eu, eu n√£o consigo pensar em nada. T-t√° tudo parecendo t√£o estranho...";
+			mes "Isso È engraÁado...";
+			mes "Eu, eu n„o consigo pensar em nada. T-t· tudo parecendo t„o estranho...";
 			next;
 			mes "...";
 			next;
 			mes "...";
 			mes "......";
 			next;
-			mes "[Esp√≠rito de William]";
-			mes "^990000Sai de perto da minha filha, ou eu vou estourar seus miolos! Elisa vai casar com um m√©dico! Ou um advogado.^000000";
+			mes "[EspÌrito de William]";
+			mes "^990000Sai de perto da minha filha, ou eu vou estourar seus miolos! Elisa vai casar com um mÈdico! Ou um advogado.^000000";
 			next;
 			mes "["+strcharinfo(0)+"]";
 			if (Sex) {
@@ -780,29 +780,29 @@ geffen_in,70,67,3	script	Gar√ßonete#elise	4_F_01,{
 				mes "But...";
 				mes "I'm a girl!";
 				next;
-				mes "[Esp√≠rito de William]";
+				mes "[EspÌrito de William]";
 				mes "^990000QUE...?!";
-				mes "√â pior ainda!!^000000";
+				mes "… pior ainda!!^000000";
 				next;
 				mes "^3355FFIsso foi assustador...!";
 				mes "Parece que o amor de um pai dura pra sempre, mesmo depois da morte.^000000";
 			}
 			break;
 		case 2:
-			mes "[Esp√≠rito de William]";
-			mes "^990000Como voc√™ ousa tentar dar em cima da minha filha preciosa! Quer provar a raiva de um pai furioso?!^000000";
+			mes "[EspÌrito de William]";
+			mes "^990000Como vocÍ ousa tentar dar em cima da minha filha preciosa! Quer provar a raiva de um pai furioso?!^000000";
 			next;
 			mes "[Elisa]";
 			mes "O-opa...!";
 			mes "Me desculpa!";
 			next;
 			mes "[Elisa]";
-			mes "√â s√≥ que...";
-			mes "O esp√≠rito do meu pai,";
-			mes "que Deus o tenha, √©";
+			mes "… sÛ que...";
+			mes "O espÌrito do meu pai,";
+			mes "que Deus o tenha, È";
 			mes "um pouco super protetor!";
 			next;
-			mes "^3355FFVoc√™ se afasta.";
+			mes "^3355FFVocÍ se afasta.";
 			mes "Muito. Cuidadosamente.^000000";
 			break;
 		}
@@ -817,20 +817,20 @@ geffen_in,79,76,2	script	Mercador Daven	2_M_PHARMACIST,{
 	next;
 	mes "[Mercador Daven]";
 	mes "Mas agora tem Magos e Bruxos e uma economia";
-	mes "pr√≥spera nessa cidade!";
+	mes "prÛspera nessa cidade!";
 	next;
-	switch(select("Magos...?:Economia?:Quem √© voc√™?")) {
+	switch(select("Magos...?:Economia?:Quem È vocÍ?")) {
 	case 1:
 		if (BaseJob == Job_Mage) {
 			mes "[Mercador Daven]";
-			mes "Magos s√£o os manejadores de magia. Mas voc√™ vai saber mais sobre esse t√≥pico agora, n√©?";
+			mes "Magos s„o os manejadores de magia. Mas vocÍ vai saber mais sobre esse tÛpico agora, nÈ?";
 		}
 		else {
 			mes "[Mercador Daven]";
-			mes "Magos e Bruxos est√£o sempre carregando livros e estudando magia. √â assim que eles s√£o.";
+			mes "Magos e Bruxos est„o sempre carregando livros e estudando magia. … assim que eles s„o.";
 			next;
 			mes "[Mercador Daven]";
-			mes "Tem uma escola de magia no noroeste da cidade, para aprendizes interessados em se tornar Magos. L√°, eles podem aprender o b√°sico de magia.";
+			mes "Tem uma escola de magia no noroeste da cidade, para aprendizes interessados em se tornar Magos. L·, eles podem aprender o b·sico de magia.";
 			next;
 			mes "[Mercador Daven]";
 			mes "Depois de se tornar experiente no uso de magia, Magos podem se qualificar para se tornar Bruxos.";
@@ -843,14 +843,14 @@ geffen_in,79,76,2	script	Mercador Daven	2_M_PHARMACIST,{
 		if (Class == Job_Blacksmith) {
 			mes "[Mercador Daven]";
 			mes "A economia...?";
-			mes "Isso √© tudo gra√ßas aos Ferreiros! Mas voc√™ j√° deve saber disso, n√£o √© mesmo?";
+			mes "Isso È tudo graÁas aos Ferreiros! Mas vocÍ j· deve saber disso, n„o È mesmo?";
 		}
 		else {
 			mes "[Mercador Daven]";
-			mes "Bem, acho que voc√™ pode agradecer aos Ferreiros pela economia aqui em Geffen. Com certeza, eles sempre sujos, suados, fedendo e falam meio rude...";
+			mes "Bem, acho que vocÍ pode agradecer aos Ferreiros pela economia aqui em Geffen. Com certeza, eles sempre sujos, suados, fedendo e falam meio rude...";
 			next;
 			mes "[Mercador Daven]";
-			mes "Mas s√£o pessoas que trabalham duro. E tamb√©m, os min√©rios que eles refinam e as armas que criam tem alta demanda.";
+			mes "Mas s„o pessoas que trabalham duro. E tambÈm, os minÈrios que eles refinam e as armas que criam tem alta demanda.";
 			next;
 			mes "[Mercador Daven]";
 			mes "Aventureiros pagam aos Ferreiros um monte do seus suados zenys por armas de alta qualidade que somente eles podem criar.";
@@ -864,13 +864,13 @@ geffen_in,79,76,2	script	Mercador Daven	2_M_PHARMACIST,{
 		if (Class == Job_Swordman) {
 			mes "[Mercador Daven]";
 			mes "Opa, opa!";
-			mes "Era s√≥ uma piada!";
+			mes "Era sÛ uma piada!";
 			mes "Me desculpe!";
 		}
 		else {
 			mes "[Mercador Daven]";
 			mes "Impacto Explosivo?";
-			mes "Mas voc√™ nem sabe fazer isso, sabe?";
+			mes "Mas vocÍ nem sabe fazer isso, sabe?";
 		}
 		break;
 	}
@@ -879,55 +879,55 @@ geffen_in,79,76,2	script	Mercador Daven	2_M_PHARMACIST,{
 
 geffen_in,114,73,5	script	Hadenheim	4_M_SEAMAN,{
 	mes "[Hans Hadenheim]";
-	mes "Cara, o continente de Rune-Midgard √© t√£o grande! Como vai voc√™, jovem?";
+	mes "Cara, o continente de Rune-Midgard È t„o grande! Como vai vocÍ, jovem?";
 	next;
 	mes "[Hans Hadenheim]";
-	mes "Essa Geffen √© estranha. Mas valeu a pena viajar da Rep√∫blica de Schubaltzwald at√© aqui.";
+	mes "Essa Geffen È estranha. Mas valeu a pena viajar da Rep˙blica de Schubaltzwald atÈ aqui.";
 	next;
-	if (select("Rep√∫blica de Schubaltzwald?:Ent√£o, por que voc√™ est√° viajando?") == 1) {
+	if (select("Rep˙blica de Schubaltzwald?:Ent„o, por que vocÍ est· viajando?") == 1) {
 		mes "[Hans Hadenheim]";
-		mes "Voc√™...";
-		mes "N√£o conhece a";
-		mes "Rep√∫blica de Schubaltzwald?";
+		mes "VocÍ...";
+		mes "N„o conhece a";
+		mes "Rep˙blica de Schubaltzwald?";
 		next;
 		mes "[Hans Hadenheim]";
-		mes "Voce sabe, aliado do reino de Rune-Midgarts. Um... Nossa cidade capital √© Juno?";
+		mes "Voce sabe, aliado do reino de Rune-Midgarts. Um... Nossa cidade capital È Juno?";
 		next;
 		mes "[Hans Hadenheim]";
-		mes "Voc√™ realmente deveria";
+		mes "VocÍ realmente deveria";
 		mes "se atualizar nos";
 		mes "eventos globais!";
 		close;
 	}
 	mes "[Hans Hadenheim]";
-	mes "Ah, estou viajando a neg√≥cios. Parece que o com√©rcio estrangeiro d√° muito dinheiro.";
+	mes "Ah, estou viajando a negÛcios. Parece que o comÈrcio estrangeiro d· muito dinheiro.";
 	next;
 	mes "[Hans Hadenheim]";
-	mes "Todas essas cidades que est√£o sendo descobertas por exploradores est√£o fazendo as importa√ß√µes e exporta√ß√µes explodirem!";
+	mes "Todas essas cidades que est„o sendo descobertas por exploradores est„o fazendo as importaÁıes e exportaÁıes explodirem!";
 	next;
 	mes "[Hans Handenheim]";
 	if (BaseJob == Job_Merchant)
-		mes "Voc√™ tamb√©m √© um mercador, n√£o? Ent√£o voc√™ entende porque estamos na Idade do Ouro do Com√©rcio!";
+		mes "VocÍ tambÈm È um mercador, n„o? Ent„o vocÍ entende porque estamos na Idade do Ouro do ComÈrcio!";
 	else if (Class == Job_Novice) {
 		mes "Acho...";
-		mes "Que todos esses conceitos talvez sejam muito complicados para voc√™.";
+		mes "Que todos esses conceitos talvez sejam muito complicados para vocÍ.";
 	}
 	else
 		mes "Enfim...";
 	next;
 	mes "[Hans Hadenheim]";
-	mes "Voc√™ foi a alguma das terras novas? Elas s√£o muito interessantes, e voc√™ pode aprender muito com a cultura estrangeira.";
+	mes "VocÍ foi a alguma das terras novas? Elas s„o muito interessantes, e vocÍ pode aprender muito com a cultura estrangeira.";
 	next;
 	mes "[Hans Hadenheim]";
-	mes "Mas se voc√™ quiser apreciar uma bela vista, sugiro que visita minha cidade natal, Juno. √â muito bonita, sabe.";
+	mes "Mas se vocÍ quiser apreciar uma bela vista, sugiro que visita minha cidade natal, Juno. … muito bonita, sabe.";
 	close;
 }
 
 geffen_in,39,127,2	script	Vidente	4_M_BIBI,{
 	mes "[Vidente]";
 	mes "Ah...";
-	mes "N√£o diga! Voc√™ veio saber seu futuro, n√£o? Eu sei...";
-	mes "Eu sei... Posso prever o futuro! Ent√£o, sobre o que voc√™ quer saber?";
+	mes "N„o diga! VocÍ veio saber seu futuro, n„o? Eu sei...";
+	mes "Eu sei... Posso prever o futuro! Ent„o, sobre o que vocÍ quer saber?";
 	next;
 	switch(select("Vida!:Amor!:Dinheiro!:Notas!:Futuro!:Moda!")) {
 	case 1:
@@ -935,240 +935,240 @@ geffen_in,39,127,2	script	Vidente	4_M_BIBI,{
 		switch(rand(1,5)) {
 		case 1:
 			mes "Vida...?";
-			mes "Nossa, √© uma categoria ampla. Mas vou entrar em contato com alguns esp√≠ritos e verei o que posso fazer.";
+			mes "Nossa, È uma categoria ampla. Mas vou entrar em contato com alguns espÌritos e verei o que posso fazer.";
 			next;
 			mes "[Vidente]";
 			mes "Hmmm...";
-			mes "Certo, consegui algo. Hmmm voc√™ viver√° at√© uma idade avan√ßada. At√© quando?";
+			mes "Certo, consegui algo. Hmmm vocÍ viver· atÈ uma idade avanÁada. AtÈ quando?";
 			next;
 			mes "[Vidente]";
-			mes "^333333*cof!*^000000enta e nove anos. Isso n√£o √© √≥timo? √â uma idade avan√ßada, e voc√™ ainda tem muitos anos aben√ßoados para aproveitar.";
+			mes "^333333*cof!*^000000enta e nove anos. Isso n„o È Ûtimo? … uma idade avanÁada, e vocÍ ainda tem muitos anos abenÁoados para aproveitar.";
 			next;
 			mes "[Vidente]";
-			mes "E voc√™ tamb√©m ter√° sucesso sempre. Voc√™ ter√° sucesso em obter vit√≥rias e derrotas!";
+			mes "E vocÍ tambÈm ter· sucesso sempre. VocÍ ter· sucesso em obter vitÛrias e derrotas!";
 			next;
 			mes "[Vidente]";
-			mes "Voc√™ talvez n√£o entenda esse peda√ßo de sabedoria agora, mas quando souber mais sobre esse mundo maluco, ele far√° sentido.";
+			mes "VocÍ talvez n„o entenda esse pedaÁo de sabedoria agora, mas quando souber mais sobre esse mundo maluco, ele far· sentido.";
 			next;
 			break;
 		case 2:
 			mes "Hmm...";
-			mes "O que posso te contar sobre a vida? Vou entrar em contato com o mundo dos esp√≠ritos~";
+			mes "O que posso te contar sobre a vida? Vou entrar em contato com o mundo dos espÌritos~";
 			next;
 			mes "[Vidente]";
 			mes "Certo, entendi!";
 			mes "Seus sonhos se";
-			mes "tornar√£o realidade!";
+			mes "tornar„o realidade!";
 			next;
 			mes "[Vidente]";
-			mes "Claro, n√£o sei bem quais sonhos, mas espero que sejam os agrad√°veis que se tornar√£o realidade, e n√£o aqueles seus pesadelos estranhos.";
+			mes "Claro, n„o sei bem quais sonhos, mas espero que sejam os agrad·veis que se tornar„o realidade, e n„o aqueles seus pesadelos estranhos.";
 			next;
 			mes "[Vidente]";
-			mes "Qual sonhos exatamente? Bem, os esp√≠ritos est√£o meio reticentes hoje. Eles n√£o est√£o com humor para falar. Eles tamb√©m t√™m vida, sabe. Espere, isso n√£o faz sentido.";
+			mes "Qual sonhos exatamente? Bem, os espÌritos est„o meio reticentes hoje. Eles n„o est„o com humor para falar. Eles tambÈm tÍm vida, sabe. Espere, isso n„o faz sentido.";
 			next;
 			break;
 		case 3:
-			mes "Sinto que voc√™ est√° prestes a tomar uma decis√£o que talvez se arrependa. Aconselho que voc√™ espere e reflita.";
+			mes "Sinto que vocÍ est· prestes a tomar uma decis„o que talvez se arrependa. Aconselho que vocÍ espere e reflita.";
 			next;
 			mes "[Vidente]";
-			mes "Embora a press√£o seja grande, lembre-se de que as decis√µes tomadas impulsivamente s√£o normalmente ruins. Respire fundo e relaxe.";
+			mes "Embora a press„o seja grande, lembre-se de que as decisıes tomadas impulsivamente s„o normalmente ruins. Respire fundo e relaxe.";
 			next;
 			mes "[Vidente]";
-			mes "Mesmo se voc√™ estiver sem tempo, √© melhor planejar tudo cuidadosamente para n√£o desperdi√ßar esfor√ßos ou cometer erros.";
+			mes "Mesmo se vocÍ estiver sem tempo, È melhor planejar tudo cuidadosamente para n„o desperdiÁar esforÁos ou cometer erros.";
 			next;
 			mes "[Vidente]";
 			mes "Lembre-se de que calma";
-			mes "e paci√™ncia s√£o as chaves";
+			mes "e paciÍncia s„o as chaves";
 			mes "para resolver qualquer crise.";
 			next;
 			break;
 		case 4:
-			mes "Hmmm... Sinto que voc√™ est√° passando por uma fase dif√≠cil. Voc√™ deveria priorizar seguran√ßa ou felicidade?";
+			mes "Hmmm... Sinto que vocÍ est· passando por uma fase difÌcil. VocÍ deveria priorizar seguranÁa ou felicidade?";
 			next;
 			mes "[Vidente]";
-			mes "Sugiro que voc√™ pense cuidadosamente antes de decidir o seu caminho. E lembre-se, voc√™ apenas aprender√° quando cometer erros.";
+			mes "Sugiro que vocÍ pense cuidadosamente antes de decidir o seu caminho. E lembre-se, vocÍ apenas aprender· quando cometer erros.";
 			next;
 			mes "[Vidente]";
-			mes "Se voc√™ planejar cuidadosamente e realizar a√ß√µes positivas, voc√™ pode";
+			mes "Se vocÍ planejar cuidadosamente e realizar aÁıes positivas, vocÍ pode";
 			mes "ter tudo!";
 			next;
 			break;
 		case 5:
 			mes "Hmm...";
-			mes "Sinto que voc√™ brigou com algu√©m pr√≥ximo a voc√™ Algu√©m com quem voc√™ se importa muito.";
+			mes "Sinto que vocÍ brigou com alguÈm prÛximo a vocÍ AlguÈm com quem vocÍ se importa muito.";
 			next;
 			mes "[Vidente]";
-			mes "Voc√™ precisa tomar a iniciativa! Resolva esse problema sem se deixar abalar por suas emo√ß√µes.";
+			mes "VocÍ precisa tomar a iniciativa! Resolva esse problema sem se deixar abalar por suas emoÁıes.";
 			next;
 			mes "[Vidente]";
-			mes "Tente consertar seus erros, engula seu orgulho e pe√ßa desculpas sinceramente se precisar. Uma amizade vale isso? Eu acho que sim.";
+			mes "Tente consertar seus erros, engula seu orgulho e peÁa desculpas sinceramente se precisar. Uma amizade vale isso? Eu acho que sim.";
 			next;
 		}
 		mes "[Vidente]";
-		mes "Bem, espero ter sanado todas as suas d√∫vidas sobre o futuro. Afinal, meu trabalho √© ser um consultor ps√≠quico. Volte quando quiser~";
+		mes "Bem, espero ter sanado todas as suas d˙vidas sobre o futuro. Afinal, meu trabalho È ser um consultor psÌquico. Volte quando quiser~";
 		close;
 	case 2:
 		mes "[Vidente]";
 		switch(rand(1,4)) {
 		case 1:
-			mes "Quer saber seu futuro no amor? Oh ho~ Ent√£o voc√™ gosta de algu√©m! Vamos, pode me contar!";
+			mes "Quer saber seu futuro no amor? Oh ho~ Ent„o vocÍ gosta de alguÈm! Vamos, pode me contar!";
 			next;
 			mes "[Vidente]";
 			mes "Certo...";
-			mes "Sinto uma forte energia amorosa emanando da sua alma. √â intimidadora, e afasta os fracos.";
+			mes "Sinto uma forte energia amorosa emanando da sua alma. … intimidadora, e afasta os fracos.";
 			next;
 			mes "[Vidente]";
-			mes "Ent√£o basicamente, prevejo que voc√™ logo atrair√° pessoas realmente fortes. Atletas, fisiculturistas, pedreiros, gente desse tipo.";
+			mes "Ent„o basicamente, prevejo que vocÍ logo atrair· pessoas realmente fortes. Atletas, fisiculturistas, pedreiros, gente desse tipo.";
 			next;
 			mes "[Vidente]";
-			mes "Ent√£o se √© isso que voc√™ quer, parab√©ns! A sorte lhe sorri hoje.";
+			mes "Ent„o se È isso que vocÍ quer, parabÈns! A sorte lhe sorri hoje.";
 			next;
 			mes "[Vidente]";
-			mes "Mas se voc√™ quer o oposto, sinto muito. A sorte sorri sarcasticamente hoje. Mas n√£o √© tarde demais para mudar o destino!";
+			mes "Mas se vocÍ quer o oposto, sinto muito. A sorte sorri sarcasticamente hoje. Mas n„o È tarde demais para mudar o destino!";
 			next;
 			break;
 		case 2:
-			mes "Amoooor, ent√£o?";
+			mes "Amoooor, ent„o?";
 			mes "Deixe-me entrar em contato";
-			mes "com os esp√≠ritos rapidamente.";
+			mes "com os espÌritos rapidamente.";
 			next;
 			mes "[Vidente]";
-			mes "Ah! Uma velha chama se reacender√°! N√£o sei se a pessoa se apaixonar√° por voc√™ de novo, se pedir√° dinheiro ou se est√° de volta para se vingar...";
+			mes "Ah! Uma velha chama se reacender·! N„o sei se a pessoa se apaixonar· por vocÍ de novo, se pedir· dinheiro ou se est· de volta para se vingar...";
 			next;
 			mes "[Vidente]";
-			mes "Mas um velho amor voltar√° √† sua vida. De alguma forma. Ent√£o, se isso for uma boa not√≠cia, parab√©ns! Mas se for uma not√≠cia ruim, tome cuidado!";
+			mes "Mas um velho amor voltar· ‡ sua vida. De alguma forma. Ent„o, se isso for uma boa notÌcia, parabÈns! Mas se for uma notÌcia ruim, tome cuidado!";
 			next;
 			break;
 		case 3:
 			mes "Um...";
 			if (Sex)
-				mes "A menina com quem voc√™";
+				mes "A menina com quem vocÍ";
 			else
-				mes "O menino com quem voc√™";
-			mes "est√° saindo agora";
-			mes "√© ideal para voc√™!";
+				mes "O menino com quem vocÍ";
+			mes "est· saindo agora";
+			mes "È ideal para vocÍ!";
 			next;
-			switch(select("Como voc√™ sabe?:Voc√™ est√° errado!:Estou solteiro!")) {
+			switch(select("Como vocÍ sabe?:VocÍ est· errado!:Estou solteiro!")) {
 			case 1:
 				mes "[Vidente]";
 				mes "Bem...";
-				mes "N√≥s que temos poderes ps√≠quicos somos muito bons nesse tipo de coisa. E √© t√£o bom ver que voc√™ est√° feliz com a pessoa que voc√™ gosta!";
+				mes "NÛs que temos poderes psÌquicos somos muito bons nesse tipo de coisa. E È t„o bom ver que vocÍ est· feliz com a pessoa que vocÍ gosta!";
 				close;
 			case 2:
 				mes "[Vidente]";
-				mes "Voc√™ n√£o me deixou terminar a frase.";
+				mes "VocÍ n„o me deixou terminar a frase.";
 				next;
 				mes "[Vidente]";
 				if (Sex)
-					mes "A menina com quem voc√™";
+					mes "A menina com quem vocÍ";
 				else
-					mes "O menino com quem voc√™";
-				mes "est√° saindo agora √© ideal para voc√™, se voc√™ quiser passar o resto da vida infeliz!";
+					mes "O menino com quem vocÍ";
+				mes "est· saindo agora È ideal para vocÍ, se vocÍ quiser passar o resto da vida infeliz!";
 				next;
 				mes "[Vidente]";
-				mes "Mas se voc√™ for terminar, fa√ßa isso logo e tente manter a amizade.";
+				mes "Mas se vocÍ for terminar, faÁa isso logo e tente manter a amizade.";
 				next;
 				mes "[Vidente]";
-				mes "Isso far√° com que voc√™s dois se tornem melhores. Pelo menos √© o que eu acho.";
+				mes "Isso far· com que vocÍs dois se tornem melhores. Pelo menos È o que eu acho.";
 				close;
 			case 3:
 				mes "[Vidente]";
 				mes "Oh...";
 				mes "Bem, me desculpe.";
-				mes "As vezes eu misturo o presente e o futuro. Voc√™ entende n√£o √©, j√° que estou sempre prevendo o futuro...";
+				mes "As vezes eu misturo o presente e o futuro. VocÍ entende n„o È, j· que estou sempre prevendo o futuro...";
 				next;
 				mes "[Vidente]";
 				if (Sex) {
 					mes "O que eu quis dizer na verdade foi que";
-					mes "^3355FFvoc√™ encontrar√° a mulher perfeita em breve^000000. Sim, foi isso que eu quis dizer!";
+					mes "^3355FFvocÍ encontrar· a mulher perfeita em breve^000000. Sim, foi isso que eu quis dizer!";
 				}
 				else {
 					mes "O que eu quis dizer na verdade foi que";
-					mes "^3355FFvoc√™ encontrar√° o homem perfeito em breve^000000. Sim, foi isso que eu quis dizer!";
+					mes "^3355FFvocÍ encontrar· o homem perfeito em breve^000000. Sim, foi isso que eu quis dizer!";
 				}
 				close;
 			}
 			break;
 		case 4:
-		mes "Querendo um romance, eh? Sempre bom ter novas emo√ß√µes.";
+		mes "Querendo um romance, eh? Sempre bom ter novas emoÁıes.";
 			next;
 			mes "[Vidente]";
-			mes "Estranho, eu vejo um tri√¢ngulo amoroso em seu futuro. N√£o, espere! Na verdade...";
-			mes "Um dec√°gono amoroso?";
+			mes "Estranho, eu vejo um tri‚ngulo amoroso em seu futuro. N„o, espere! Na verdade...";
+			mes "Um dec·gono amoroso?";
 			next;
 			mes "[Vidente]";
-			mes "Qual o pol√≠gono com onze lados? Ah, voc√™ n√£o pode esperar que eu saiba qual √©. Sou um vidente, n√£o um matem√°tico.";
+			mes "Qual o polÌgono com onze lados? Ah, vocÍ n„o pode esperar que eu saiba qual È. Sou um vidente, n„o um matem·tico.";
 			next;
 		}
 		mes "[Vidente]";
-		mes "O amor √© sempre divertido! Mesmo nesse mundo sombrio, o amor nos rodeia com seu brilho convidativo. Cuide de quem for especial para voc√™, e volte para outra leitura!";
+		mes "O amor È sempre divertido! Mesmo nesse mundo sombrio, o amor nos rodeia com seu brilho convidativo. Cuide de quem for especial para vocÍ, e volte para outra leitura!";
 		close;
 	case 3:
 		mes "[Vidente]";
 		switch(rand(1,3)) {
 		case 1:
-			mes "Dinheiro? Bem, aposto que voc√™ tem mais sorte com isso do que eu. Afinal, eu fico sentado aqui o dia inteiro, fazendo consultas de gra√ßa!";
+			mes "Dinheiro? Bem, aposto que vocÍ tem mais sorte com isso do que eu. Afinal, eu fico sentado aqui o dia inteiro, fazendo consultas de graÁa!";
 			next;
 			mes "[Vidente]";
 			mes "Bem...";
-			mes "Os esp√≠ritos me dizem que voc√™ talvez n√£o ganhe na loteria, n√£o importa quantos t√≠quetes voc√™ compre. Me desculpe, mas √© verdade.";
+			mes "Os espÌritos me dizem que vocÍ talvez n„o ganhe na loteria, n„o importa quantos tÌquetes vocÍ compre. Me desculpe, mas È verdade.";
 			next;
 			mes "[Vidente]";
-			mes "Mas eu impedi voc√™ de continuar perdendo dinheiro com isso! Se voc√™ comprasse t√≠quetes de loteria durante toda a vida, gastaria quase uma fortuna!";
+			mes "Mas eu impedi vocÍ de continuar perdendo dinheiro com isso! Se vocÍ comprasse tÌquetes de loteria durante toda a vida, gastaria quase uma fortuna!";
 			next;
 			break;
 		case 2:
-		mes "Ah sim. Entrarei em contato com os esp√≠ritos. Eles normalmentes d√£o bons conselhos financeiros, mesmo n√£o tendo nenhum tipo de economia l√°.";
+		mes "Ah sim. Entrarei em contato com os espÌritos. Eles normalmentes d„o bons conselhos financeiros, mesmo n„o tendo nenhum tipo de economia l·.";
 			next;
 			mes "[Vidente]";
-			mes "Primeiro, controle seu dinheiro e s√≥ gaste o que puder. Quer uma dica? De cada dez zenys que voc√™ ganhar, guarde um para investir ou deixar de reserva.";
+			mes "Primeiro, controle seu dinheiro e sÛ gaste o que puder. Quer uma dica? De cada dez zenys que vocÍ ganhar, guarde um para investir ou deixar de reserva.";
 			next;
 			mes "[Vidente]";
-			mes "E, n√£o importa o que voc√™ fa√ßa, n√£o seja um vidente em Rune-Midgard. Parece que o que d√° dinheiro mesmo √© descobrir novas terras. Por que eu n√£o fiz isso?";
+			mes "E, n„o importa o que vocÍ faÁa, n„o seja um vidente em Rune-Midgard. Parece que o que d· dinheiro mesmo È descobrir novas terras. Por que eu n„o fiz isso?";
 			next;
 			break;
 		case 3:
-			mes "Ent√£o voc√™ quer saber sobre dinheiro. Vou entrar em contato com os esp√≠ritos...";
+			mes "Ent„o vocÍ quer saber sobre dinheiro. Vou entrar em contato com os espÌritos...";
 			next;
 			mes "[Vidente]";
-			mes "Ah, sim. Eles est√£o me dizendo que √© melhor ser sempre cauteloso. Certamente voc√™ deve saber que exploradores nunca gastam mais do que a verba destinada a eles.";
+			mes "Ah, sim. Eles est„o me dizendo que È melhor ser sempre cauteloso. Certamente vocÍ deve saber que exploradores nunca gastam mais do que a verba destinada a eles.";
 			next;
 			mes "[Vidente]";
-			mes "E voc√™ tamb√©m deve evitar apostar com seu dinheiro. Quero dizer que voc√™ deve guardar e investir cuidadosamente. N√£o se deixe cair na tenta√ß√£o de entrar em esquemas do tipo fique-rico-r√°pido!";
+			mes "E vocÍ tambÈm deve evitar apostar com seu dinheiro. Quero dizer que vocÍ deve guardar e investir cuidadosamente. N„o se deixe cair na tentaÁ„o de entrar em esquemas do tipo fique-rico-r·pido!";
 			next;
 			mes "[Vidente]";
-			mes "Mas por outro lado, esquemas desse tipo podem ser bons, se voc√™ souber o que est√° fazendo. Estou certo, n√£o?";
+			mes "Mas por outro lado, esquemas desse tipo podem ser bons, se vocÍ souber o que est· fazendo. Estou certo, n„o?";
 			next;
 		}
 		mes "[Vidente]";
-		mes "Bem, precisamos de dinheiro para viver, mas ter dinheiro n√£o significa ter uma vida plena. N√£o esque√ßa que existem outras coisas que s√£o importantes tamb√©m. E tente n√£o ficar muito nervoso, certo?";
+		mes "Bem, precisamos de dinheiro para viver, mas ter dinheiro n„o significa ter uma vida plena. N„o esqueÁa que existem outras coisas que s„o importantes tambÈm. E tente n„o ficar muito nervoso, certo?";
 		close;
 	case 4:
 		mes "[Vidente]";
 		switch(rand(1,4)) {
 		case 1:
-			mes "Suas notas? Voc√™ ainda est√° na escola? Estou impressionado! Seus olhos me dizem que voc√™ √© muito maduro para a sua idade. Certo, vou consultar os esp√≠ritos...";
+			mes "Suas notas? VocÍ ainda est· na escola? Estou impressionado! Seus olhos me dizem que vocÍ È muito maduro para a sua idade. Certo, vou consultar os espÌritos...";
 			next;
 			mes "[Vidente]";
-			mes "Hm? Tudo que eles disseram foi 'Voc√™ estuda?' Bem, acho que acabei respondendo sua pergunta com outra pergunta!";
+			mes "Hm? Tudo que eles disseram foi 'VocÍ estuda?' Bem, acho que acabei respondendo sua pergunta com outra pergunta!";
 			next;
 			break;
 		case 2:
-			mes "Voc√™ est√° me perguntando sobre as suas notas? Que estranho. Digo, voc√™ est√° querendo saber sobre o seu boletim?";
+			mes "VocÍ est· me perguntando sobre as suas notas? Que estranho. Digo, vocÍ est· querendo saber sobre o seu boletim?";
 			next;
 			mes "[Vidente]";
-			mes "A educa√ß√£o √© muito importante, mas n√£o desanime se suas notas n√£o s√£o t√£o boas quanto voc√™ gostaria.";
+			mes "A educaÁ„o È muito importante, mas n„o desanime se suas notas n„o s„o t„o boas quanto vocÍ gostaria.";
 			next;
 			mes "[Vidente]";
-			mes "Talvez o seu estilo de aprendizado n√£o seja condizente com o m√©todo da sua escola, ou talvez voc√™ n√£o esteja muito interessado nos assuntos que ensinam l√°. √â compreens√≠vel.";
+			mes "Talvez o seu estilo de aprendizado n„o seja condizente com o mÈtodo da sua escola, ou talvez vocÍ n„o esteja muito interessado nos assuntos que ensinam l·. … compreensÌvel.";
 			next;
 			mes "[Vidente]";
-			mes "Os esp√≠ritos me dizem que voc√™ deve tentar diferentes estilos de aprendizagem, para garantir que obtenha as notas que quer.";
+			mes "Os espÌritos me dizem que vocÍ deve tentar diferentes estilos de aprendizagem, para garantir que obtenha as notas que quer.";
 			next;
 			mes "[Vidente]";
 			mes "Sim...";
-			mes "Os esp√≠ritos est√£o";
-			mes "incrivelmente pregui√ßosos hoje.";
+			mes "Os espÌritos est„o";
+			mes "incrivelmente preguiÁosos hoje.";
 			next;
 			break;
 		case 3:
@@ -1176,102 +1176,102 @@ geffen_in,39,127,2	script	Vidente	4_M_BIBI,{
 			mes "Hahahahahahaha~!";
 			next;
 			mes "[Vidente]";
-			mes "Ah, desculpe. Eu adoro fazer isso. Bem, agora vou perguntar aos esp√≠ritos. Hmmm...";
+			mes "Ah, desculpe. Eu adoro fazer isso. Bem, agora vou perguntar aos espÌritos. Hmmm...";
 			next;
 			mes "[Vidente]";
-			mes "Hmm. Os esp√≠ritos est√£o rudes hoje. Eles est√£o dizendo 'Se voc√™ est√° t√£o preocupado com suas notas, por que n√£o vai falar com seu professor?'";
+			mes "Hmm. Os espÌritos est„o rudes hoje. Eles est„o dizendo 'Se vocÍ est· t„o preocupado com suas notas, por que n„o vai falar com seu professor?'";
 			next;
 			mes "[Vidente]";
-			mes "Agora que estou pensando nisso, eles tem raz√£o. Por que voc√™ n√£o vai falar com seu professor para ver se h√° algum problema?";
+			mes "Agora que estou pensando nisso, eles tem raz„o. Por que vocÍ n„o vai falar com seu professor para ver se h· algum problema?";
 			next;
 			mes "[Vidente]";
-			mes "Eles s√£o pagos para te ajudar. E minha consulta √© de gra√ßa. Ent√£o...";
+			mes "Eles s„o pagos para te ajudar. E minha consulta È de graÁa. Ent„o...";
 			next;
 			break;
 		case 4:
 			mes "Ah, legal!";
-			mes "Sinto que voc√™ logo vai tirar um Dez...";
-			mes "Em Esfor√ßo!";
+			mes "Sinto que vocÍ logo vai tirar um Dez...";
+			mes "Em EsforÁo!";
 			next;
 			mes "[Vidente]";
-			mes "N√£o posso te dizer quais as suas notas. Talvez voc√™ esteja destinado a tirar dez em todas as mat√©rias, mas se eu falar isso...";
+			mes "N„o posso te dizer quais as suas notas. Talvez vocÍ esteja destinado a tirar dez em todas as matÈrias, mas se eu falar isso...";
 			next;
 			mes "[Vidente]";
-			mes "Voc√™ provavelmente relaxaria, pararia de estudar, reprovaria e causaria um paradoxo no tempo. Porque eu realmente preciso ir para o futuro para ver o que vai acontecer, entende?";
+			mes "VocÍ provavelmente relaxaria, pararia de estudar, reprovaria e causaria um paradoxo no tempo. Porque eu realmente preciso ir para o futuro para ver o que vai acontecer, entende?";
 			next;
 			mes "[Vidente]";
-			mes "Ao inv√©s de se preocupar com paradoxos no tempo, por que voc√™ n√£o faz o seu pr√≥prio destino?";
+			mes "Ao invÈs de se preocupar com paradoxos no tempo, por que vocÍ n„o faz o seu prÛprio destino?";
 			next;
 		}
 		mes "[Vidente]";
-		mes "De qualquer forma, √© dif√≠cil se concentrar nos estudos, mas pode compensar. Espero que voc√™ se d√™ bem no que voc√™ decida fazer~";
+		mes "De qualquer forma, È difÌcil se concentrar nos estudos, mas pode compensar. Espero que vocÍ se dÍ bem no que vocÍ decida fazer~";
 		close;
 	case 5:
 		mes "[Vidente]";
-		mes "O futuro? Achei que estava impl√≠cito que tudo que eu falar ser√° sobre o futuro, de qualquer tema que voc√™ escolha.";
+		mes "O futuro? Achei que estava implÌcito que tudo que eu falar ser· sobre o futuro, de qualquer tema que vocÍ escolha.";
 		next;
 		mes "[Vidente]";
-		mes "Acho que voc√™ quer saber sobre o futuro em geral. Vou consultar os esp√≠ritos, e veremos o que eles t√™m a dizer, ok?";
+		mes "Acho que vocÍ quer saber sobre o futuro em geral. Vou consultar os espÌritos, e veremos o que eles tÍm a dizer, ok?";
 		next;
 		mes "[Vidente]";
 		switch(rand(1,4)) {
 		case 1:
 			mes "Hmm...";
-			mes "No futuro, Sexo, Viol√™ncia e Rock and Roll ser√£o abolidos. A humanidade viver√° numa era de paz e chatice.";
+			mes "No futuro, Sexo, ViolÍncia e Rock and Roll ser„o abolidos. A humanidade viver· numa era de paz e chatice.";
 			next;
 			mes "[Vidente]";
-			mes "N√£o sei quando isso vai acontecer, mas espero que demore bastante!";
+			mes "N„o sei quando isso vai acontecer, mas espero que demore bastante!";
 			next;
 			break;
 		case 2:
-			mes "No futuro a Terra ser√° protegida por um √∫nico rob√¥: Plutonium Overdrive Ignition Negatron G, ou POING.";
+			mes "No futuro a Terra ser· protegida por um ˙nico robÙ: Plutonium Overdrive Ignition Negatron G, ou POING.";
 			next;
 			mes "[Vidente]";
-			mes "POING expulsou os invasores Kylorianos por muito tempo, at√© ser derrotado pelo Nyxltron 47, feito pelo Dr. Hubris.";
+			mes "POING expulsou os invasores Kylorianos por muito tempo, atÈ ser derrotado pelo Nyxltron 47, feito pelo Dr. Hubris.";
 			next;
 			mes "[Vidente]";
 			mes "Mas felizmente o doutor Pyeus finalizou bem a tempo o Dispostivo de Desconhecimento de Gravidade para o POING.";
 			next;
 			mes "[Vidente]";
-			mes "Ent√£o POING levantou-se novamente, renascido como o Her√≥i Autom√°tico: GOD-POING. Que obviamente destruiu o Nyxltron 47.";
+			mes "Ent„o POING levantou-se novamente, renascido como o HerÛi Autom·tico: GOD-POING. Que obviamente destruiu o Nyxltron 47.";
 			next;
 			mes "[Vidente]";
-			mes "Essa √© provavelmente a coisa mais importante que posso te contar sobre o futuro. O resto √© muito sem gra√ßa.";
+			mes "Essa È provavelmente a coisa mais importante que posso te contar sobre o futuro. O resto È muito sem graÁa.";
 			next;
 			break;
 		case 3:
-			mes "No futuro, acredite ou n√£o, a internet ser√° substitu√≠da por um grande c√©rebro. N√£o sei como, mas acredite, o c√©rebro √© enorme.";
+			mes "No futuro, acredite ou n„o, a internet ser· substituÌda por um grande cÈrebro. N„o sei como, mas acredite, o cÈrebro È enorme.";
 			next;
 			mes "[Vidente]";
-			mes "Gra√ßas ao grande n√∫mero de blogs, o c√©rebro se torna pac√≠fico, e decide n√£o dominar o mundo, como tinha planejado antes.";
+			mes "GraÁas ao grande n˙mero de blogs, o cÈrebro se torna pacÌfico, e decide n„o dominar o mundo, como tinha planejado antes.";
 			next;
 			mes "[Vidente]";
 			mes "Sim...";
-			mes "Esse c√©rebro se torna uma fonte do bem, um benfeitor da ra√ßa humana, pelo menos enquanto as pessoas continuarem a escrever assuntos pessoais na internet.";
+			mes "Esse cÈrebro se torna uma fonte do bem, um benfeitor da raÁa humana, pelo menos enquanto as pessoas continuarem a escrever assuntos pessoais na internet.";
 			next;
 			break;
 		case 4:
-			mes "No futuro, muitas plantas ser√£o modificadas geneticamente.";
-			mes "Existir√£o muitos tipos diferentes! √â bem estranho!";
+			mes "No futuro, muitas plantas ser„o modificadas geneticamente.";
+			mes "Existir„o muitos tipos diferentes! … bem estranho!";
 			next;
 			mes "[Vidente]";
-			mes "Eventualmente surgir√£o √°rvores que ao inv√©s de frutos, originam clones de celebridades. Hoje, isso parece um milagre da ci√™ncia, e uma amea√ßa √†s estrelas de Hollywood.";
+			mes "Eventualmente surgir„o ·rvores que ao invÈs de frutos, originam clones de celebridades. Hoje, isso parece um milagre da ciÍncia, e uma ameaÁa ‡s estrelas de Hollywood.";
 			next;
 			mes "[Vidente]";
-			mes "Mas as pessoas que compram essas √°rvores s√£o as mesmas que usam aquelas camisetas estranhas...";
+			mes "Mas as pessoas que compram essas ·rvores s„o as mesmas que usam aquelas camisetas estranhas...";
 			next;
 			mes "[Vidente]";
-			mes "Sabe, que tem um senso de humor tosco, com a palavra 'Gatostr√≥fico' e o desenho de um gatinho vestido como um cientista maluco ou algo do g√™nero.";
+			mes "Sabe, que tem um senso de humor tosco, com a palavra 'GatostrÛfico' e o desenho de um gatinho vestido como um cientista maluco ou algo do gÍnero.";
 			next;
 		}
 		mes "[Vidente]";
 		mes "Bem...";
-		mes "Essa √© a minha predi√ß√£o. Voc√™ pode argumentar com a sabedoria do mundo dos esp√≠ritos?";
+		mes "Essa È a minha prediÁ„o. VocÍ pode argumentar com a sabedoria do mundo dos espÌritos?";
 		close;
 	case 6:
 		mes "[Vidente]";
 		mes "Moda...?";
-		mes "O que isso tem a ver com o sobrenatural? Bem, entrarei em contato com os esp√≠ritos. L√° vamos n√≥s...";
+		mes "O que isso tem a ver com o sobrenatural? Bem, entrarei em contato com os espÌritos. L· vamos nÛs...";
 		next;
 		mes "[Vidente]";
 		switch(rand(1,5)) {
@@ -1289,118 +1289,118 @@ geffen_in,39,127,2	script	Vidente	4_M_BIBI,{
 			mes "[Vidente]";
 			mes "Um...";
 			mes "Um... Peixe?";
-			mes "Na cabe√ßa de algu√©m?";
+			mes "Na cabeÁa de alguÈm?";
 			next;
 			mes "[Vidente]";
 			mes "...";
-			mes "Que vis√£o horr√≠vel!";
+			mes "Que vis„o horrÌvel!";
 			next;
 			break;
 		case 2:
-			mes "√â bom usar elmos valiosos! E tamb√©m √© bom usar roupas bonitas! Mas lembre-se...";
+			mes "… bom usar elmos valiosos! E tambÈm È bom usar roupas bonitas! Mas lembre-se...";
 			next;
 			mes "[Vidente]";
-			mes "N√£o importa o quanto voc√™ gastou no seu guarda-roupa, voc√™ ainda vai parecer bobo se n√£o usar pe√ßas que combinem.";
+			mes "N„o importa o quanto vocÍ gastou no seu guarda-roupa, vocÍ ainda vai parecer bobo se n„o usar peÁas que combinem.";
 			next;
 			mes "[Vidente]";
-			mes "Vou te dar um exemplo de gente que n√£o sabe se vestir. Imagine um Crusader usando uma coroa, orelhas de elfo e um Iron Cain.";
+			mes "Vou te dar um exemplo de gente que n„o sabe se vestir. Imagine um Crusader usando uma coroa, orelhas de elfo e um Iron Cain.";
 			next;
 			mes "[Vidente]";
-			mes "Ele n√£o ia parecer na moda, ia parecer o Pr√≠ncipe da Breguice.";
+			mes "Ele n„o ia parecer na moda, ia parecer o PrÌncipe da Breguice.";
 			next;
 			break;
 		case 3:
 			mes "Eu vejo...";
-			mes "Que chap√©us de caub√≥i ser√£o muito populares entre";
+			mes "Que chapÈus de caubÛi ser„o muito populares entre";
 			mes "garotas Super Novices";
 			mes "em breve!";
 			next;
 			mes "[Vidente]";
-			mes "Voc√™ n√£o concorda? Chap√©us de caub√≥i ficam √≥timos em Super Novices!";
+			mes "VocÍ n„o concorda? ChapÈus de caubÛi ficam Ûtimos em Super Novices!";
 			next;
 			break;
 		case 4:
-			mes "Pode ser uma boa id√©ia seguir um tema. Por exemplo, voc√™ pode usar Angel Wing e Angel Wing Ears ao mesmo tempo.";
+			mes "Pode ser uma boa idÈia seguir um tema. Por exemplo, vocÍ pode usar Angel Wing e Angel Wing Ears ao mesmo tempo.";
 			next;
 			mes "[Vidente]";
-			mes "Claro que isso pode ser caro demais para a maioria das pessoas, mas voc√™ entendeu.";
+			mes "Claro que isso pode ser caro demais para a maioria das pessoas, mas vocÍ entendeu.";
 			next;
 			break;
 		case 5:
-			mes "Eu prevejo que sombreros se tornar√£o muito populares quando um grande grupo de Bardos formarem uma guild na qual os membros s√≥ usar√£o sombreros.";
+			mes "Eu prevejo que sombreros se tornar„o muito populares quando um grande grupo de Bardos formarem uma guild na qual os membros sÛ usar„o sombreros.";
 			next;
 			mes "[Vidente]";
-			mes "Ou ser√° que √© o Feathered Bonnet que estourar√° em popularidade? Os dois chap√©us s√£o muito estilosos, principamente em bardos...";
+			mes "Ou ser· que È o Feathered Bonnet que estourar· em popularidade? Os dois chapÈus s„o muito estilosos, principamente em bardos...";
 			next;
 		}
 		mes "[Vidente]";
 		mes "Bem...";
-		mes "N√≥s, videntes, n√£o sabemos muito sobre moda, mas eu espero ter ajudado.";
+		mes "NÛs, videntes, n„o sabemos muito sobre moda, mas eu espero ter ajudado.";
 		close;
 	}
 }
 
 geffen_in,109,72,2	script	Professor de Monstros	4_F_01,{
 	mes "[Estheres]";
-	mes "Ol√°, sou o especialista em Monstros daqui de Geffen. Voc√™ gostaria de saber alguma coisa?";
+	mes "Ol·, sou o especialista em Monstros daqui de Geffen. VocÍ gostaria de saber alguma coisa?";
 	next;
 	switch(select("Monsters in the Area.:Recent Monster News.:Era of Monsters:Jellopy Theory.")) {
 	case 1:
 		mes "[Estheres]";
-		mes "Bem, como voc√™ talvez saiba, j√° que Mages e Wizards treinam em Geffen, os monstros n√£o chegam muito perto da cidade. Ent√£o aventureiros fatigados podem descansar aqui.";
+		mes "Bem, como vocÍ talvez saiba, j· que Mages e Wizards treinam em Geffen, os monstros n„o chegam muito perto da cidade. Ent„o aventureiros fatigados podem descansar aqui.";
 		next;
 		mes "[Estheres]";
-		mes "Mas se voc√™ quiser ca√ßar monstros fortes, pode cruzar a ponte a oeste e lutar com Kobolds.";
+		mes "Mas se vocÍ quiser caÁar monstros fortes, pode cruzar a ponte a oeste e lutar com Kobolds.";
 		next;
 		mes "[Estheres]";
 		if (BaseLevel > 40)
-			mes "Voc√™ parece forte o suficiente para ir at√© l√°. Mas se vir algu√©m com menos experi√™ncia atravessando a ponte, poderia avis√°-lo do perigo.";
+			mes "VocÍ parece forte o suficiente para ir atÈ l·. Mas se vir alguÈm com menos experiÍncia atravessando a ponte, poderia avis·-lo do perigo.";
 		else
-			mes "Mas se voc√™ est√° planejando ir l√°, melhor n√£o ir sozinho. Recomendo que voc√™ v√° preparado se quiser lutar com esse tipo de monstros.";
+			mes "Mas se vocÍ est· planejando ir l·, melhor n„o ir sozinho. Recomendo que vocÍ v· preparado se quiser lutar com esse tipo de monstros.";
 		break;
 	case 2:
 		mes "[Estheres]";
 		mes "Novidades?";
-		mes "Bem, o Museu de Monstros de Juno est√° aberto ao p√∫blico. H√° uma exposi√ß√£o fascinante, e v√°rios monstros est√£o a mostra.";
+		mes "Bem, o Museu de Monstros de Juno est· aberto ao p˙blico. H· uma exposiÁ„o fascinante, e v·rios monstros est„o a mostra.";
 		next;
 		mes "[Estheres]";
 		mes "Eu li sobre todos os tipos de monstros nas livrarias de Juno e de Prontera, e cacei alguns, mas agora tenho a chance de ver monstros muito fortes pessoalmente!";
 		next;
 		mes "[Estheres]";
-		mes "E os aventureiros de Rune-Midgarts fizeram descobertas fant√°sticas em suas explora√ß√µes.";
+		mes "E os aventureiros de Rune-Midgarts fizeram descobertas fant·sticas em suas exploraÁıes.";
 		next;
 		mes "[Estheres]";
-		mes "Quando uma nova terra √© encontrada, normalmente existem l√° monstros desconhecidos.";
+		mes "Quando uma nova terra È encontrada, normalmente existem l· monstros desconhecidos.";
 		next;
 		mes "[Estheres]";
-		mes "Ent√£o estamos descobrindo monstros novos o tempo todo! A variedade de criaturas que povoam o planeta √© impressionante.";
+		mes "Ent„o estamos descobrindo monstros novos o tempo todo! A variedade de criaturas que povoam o planeta È impressionante.";
 		break;
 	case 3:
 		mes "[Estheres]";
-		mes "A verdade √© que os monstros existem desde tempos antigos. A Era dos Monstros ocorreu quando o poder deles estava no auge.";
+		mes "A verdade È que os monstros existem desde tempos antigos. A Era dos Monstros ocorreu quando o poder deles estava no auge.";
 		next;
 		mes "[Estheres]";
 		mes "Eles oprimiram os humanos por muito tempo, mas foram aniquilados numa guerra entre os monstros e a humanidade.";
 		next;
 		mes "[Estheres]";
-		mes "Entretanto, o equil√≠brio da natureza mudou, e os monstros retornaram. Poucas pessoas sabem disso, mas os monstros j√° foram criaturas gentis. √â triste...";
+		mes "Entretanto, o equilÌbrio da natureza mudou, e os monstros retornaram. Poucas pessoas sabem disso, mas os monstros j· foram criaturas gentis. … triste...";
 		break;
 	case 4:
 		mes "[Estheres]";
 		mes "Ah sim, Jellopy.";
-		mes "Parece que todos os monstros daqui s√£o compostos de Jellopy. Mas isso √© apenas uma cristaliza√ß√£o formada por alguns monstros... Ou √© mais que isso?";
+		mes "Parece que todos os monstros daqui s„o compostos de Jellopy. Mas isso È apenas uma cristalizaÁ„o formada por alguns monstros... Ou È mais que isso?";
 		next;
 		mes "[Estheres]";
-		mes "Nossas pesquisas sobre monstros antigos e estudos feitos com monstros descobertos recentemente mostram que nenhum tra√ßo de Jellopy √© encontrado em monstros fortes.";
+		mes "Nossas pesquisas sobre monstros antigos e estudos feitos com monstros descobertos recentemente mostram que nenhum traÁo de Jellopy È encontrado em monstros fortes.";
 		next;
 		mes "[Estheres]";
-		mes "Mas mesmo assim, muitos acreditam numa rela√ß√£o entre Jellopys e monstros, apesar de ser dif√≠cil de acreditar nisso.";
+		mes "Mas mesmo assim, muitos acreditam numa relaÁ„o entre Jellopys e monstros, apesar de ser difÌcil de acreditar nisso.";
 		next;
 		mes "[Estheres]";
-		mes "√â poss√≠vel que as Jellopys estejam relacionadas com a personalidade e a for√ßa dos monstros. Ent√£o, se voc√™ misturar Jellopy com alguma coisa, poderia criar um monstro mais forte.";
+		mes "… possÌvel que as Jellopys estejam relacionadas com a personalidade e a forÁa dos monstros. Ent„o, se vocÍ misturar Jellopy com alguma coisa, poderia criar um monstro mais forte.";
 		next;
 		mes "[Estheres]";
-		mes "Mas fazer esse tipo de experimento pode ser perigoso. Voc√™ pode acabar soltando monstros assustadores no mundo...";
+		mes "Mas fazer esse tipo de experimento pode ser perigoso. VocÍ pode acabar soltando monstros assustadores no mundo...";
 		break;
 	}
 	close;
@@ -1408,23 +1408,23 @@ geffen_in,109,72,2	script	Professor de Monstros	4_F_01,{
 
 // Arma quest NPC Level 4 ------------------------------------------------------
 
-geffen,203,146,5	script	Cidad√£o	4W_M_01,{
-	mes "[Cidad√£o]";
-	mes "Havia um h√°bil criador de armas";
+geffen,203,146,5	script	Cidad„o	4W_M_01,{
+	mes "[Cidad„o]";
+	mes "Havia um h·bil criador de armas";
 	mes "em Al De Baran, e ele tinha 4 filhos.";
 	mes "Infelizmente, ele perdeu todos";
 	mes "enquanto desenvolvia uma arma poderosa.";
-	mes "Somente ele sobreviveu √† trag√©dia.";
+	mes "Somente ele sobreviveu ‡ tragÈdia.";
 	next;
-	mes "[Cidad√£o]";
+	mes "[Cidad„o]";
 	mes "Como deve ter sido triste para ele...";
-	mes "Gra√ßas ao incidente, o criador de armas";
+	mes "GraÁas ao incidente, o criador de armas";
 	mes "se aposentou e foi embora, viver em";
-	mes "outro lugar. Depois disso, ningu√©m nunca";
-	mes "p√¥de ver a arma que eles estavam desenvolvendo.";
+	mes "outro lugar. Depois disso, ninguÈm nunca";
+	mes "pÙde ver a arma que eles estavam desenvolvendo.";
 	next;
-	mes "[Cidad√£o]";
-	mes "N√£o acho que os filhos dele foram";
-	mes "para o c√©u com a ansiedade.";
+	mes "[Cidad„o]";
+	mes "N„o acho que os filhos dele foram";
+	mes "para o cÈu com a ansiedade.";
 	close;
 }
