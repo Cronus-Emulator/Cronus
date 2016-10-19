@@ -8,7 +8,7 @@
 //	                   Scripts                                   ||
 //===============================================================||
 // = Nome do NPC:                                                ||
-// - arquiero.txt                                                ||
+// - arqueiro.txt                                                ||
 //===============================================================||
 // = Criação:                                                    ||
 // - eA/Herc/Cronus                                              ||
@@ -20,7 +20,7 @@
 // - Tradução [Revisões Cronus] / [Kyuke]                        ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - NPC de troca de classe arquiero PRE-RE                      ||
+// - NPC de troca de classe arqueiro PRE-RE                      ||
 //===============================================================//
 
 payon_in02,64,71,4	script	Guia dos Arqueiros#pay	4_M_03,{
