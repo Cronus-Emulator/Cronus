@@ -1,691 +1,662 @@
-//===== Hercules Script ======================================
-//= Priest Job Quest
-//===== By: ==================================================
-//= Translated By: Pgro Team (OwNaGe)(Aegis)
-//= Converted by: kobra_k88.
-//= Further bugfixed and tested by Lupus
-//===== Current Version: =====================================
-//= 2.6
-//===== File Encoding ========================================
-//= CP-949 (EUC-KR compatible). Do NOT read/save it as UTF-8.
-//===== Description: =========================================
-//= [Official Conversion]
-//= Job Change quest for Priest class.
-//===== Additional Comments: =================================
-//= Fully working.  Changed the way Priests enter the test room to help Acos.
-//= Must use this with the included Acolyte quest to work properely.
-//= 1.3 Added Baby Class support, fixed 3 wrong constants bugs [Lupus]
-//= 1.5 Fixed possible EXP abuse [Lupus]
-//= 1.6 Added a func which prevent advanced classes passing
-//=     2nd Job Quests again. It also guides adv classes where
-//=     to go. [Lupus]
-//= 2.0 Changed numbers to constants. [Vicious]
-//= 2.1 Merged JFunc [Lupus]
-//= 2.1a Fixed typo [KarLaeda]
-//= 2.2 Rescripted to Aegis 10.3 standards. [L0ne_W0lf]
-//= 2.3 Several bugfixes with the help of Barron-Monster. [L0ne_W0lf]
-//= 2.3a More bug fixes. [L0ne_W0lf]
-//= 2.4 Changed Marthilda to Mathilda. [L0ne_W0llf]
-//= 2.4a Deleted unused variables. [Samuray22]
-//= 2.4b Corrected a Typo error ";;". [Samuray22]
-//= 2.5 Added Quest Log commands. [Kisuka]
-//= 2.6 Removed the need for use of 'goto.' [L0ne_W0lf]
-//==========================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.6                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revião Cronus]                                    ||
+// - Adesão da Tradução [Spell Master]                           ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quest de Mudança de Classe para Sacerdote                   ||
+//===============================================================//
 
-prt_church,16,41,4	script	High Bishop#prst	1_M_PASTOR,{
+prt_church,16,41,4	script	Bispo#prst	1_M_PASTOR,{
 	// Uncomment the following 'if' statement to allow High Priests to assist Acolytes with the job change quest.
 	// Officially High Priests are blocked from helping by an indiscriminate check if you are a transcended character.
 	//if (Class == Job_High_Priest) .@AllowHPAssist = 1;
 	if (Upper == 1 && .@AllowHPAssist != 1) {
-			mes "[Bishop Paul]";
-			mes "Hm...?";
-			mes "Ah, I sense that you are a warrior that has been to Valhalla. You who have been reborn... We are here to look after you.";
+			mes "[Bispo Paul]";
+			mes "Hum...?";
+			mes "Percebo que você é um guerreiro que já esteve em Valhalla. Já renasceu... Nós estamos aqui para cuidar de você..";
 			next;
-			mes "[Bishop Paul]";
-			mes "Do not let evil conquer your soul. You have enough courage and power to overcome the hardest situation. May God bless you...";
+			mes "[Bispo Paul]";
+			mes "Não deixe que o mal conquiste sua alma. Você possui coragem e poder suficiente para superar as situações difíceis. Que Deus te abençoe...";
 			close;
 	}
 	if (BaseJob != Job_Acolyte) {
 		if (BaseJob == Job_Priest) {
-			mes "[Bishop Paul]";
+			mes "[Bispo Paul]";
 			mes "Ah...";
 			if (Sex)
-				mes "It is good to see you again, Brother " + strcharinfo(0) + ". Once again, God's grace has caused our paths to cross.";
+				mes "É bom ver você de novo, irmão " + strcharinfo(0) + ". Mais uma vez, a graça de Deus fez com que nossos caminhos se cruzassem.";
 			else
-				mes "It is good to see you once again, Sister " + strcharinfo(0) + ". The grace of God has brought you once more before me.";
+				mes "É bom ver você de novo, irmã " + strcharinfo(0) + ". A graça de Deus a trouxe mais uma vez até mim.";
 			next;
-			mes "[Bishop Paul]";
-			mes "I'm pleased to see that you are continuing to lead the children of God on the right path. Is there anything I can help you with today?";
+			mes "[Bispo Paul]";
+			mes "Estou satisfeito por ver que você continua orientando as crianças de Deus pelo caminho certo. Há algo com que eu possa fazer para te ajudar?";
 			next;
-			switch(select("How is your health?:I want to help this Acolyte.:Father, I need your help.")) {
+			switch(select("Como está?:Eu quero ajudar um Noviço.:Bispo, eu preciso de sua ajuda.")) {
 			case 1:
-				mes "[Bishop Paul]";
-				mes "Thank you for your concern. I'm doing fine and am in good health. Please give my regards to your brothers and sisters.";
+				mes "[Bispo Paul]";
+				mes "Agradeço por se preocupar. Eu estou bem e tenho uma boa saúde. Por favor mande lembraças para seus irmãos e irmãs.";
 				next;
-				mes "[Bishop Paul]";
-				mes "Keep in mind that we are God's messengers on this Earth. Always remember that we must always help others.";
+				mes "[Bispo Paul]";
+				mes "Lembre-se que somos os mensageiros de Deus na Terra. Nós devemos estar sempre ajudando e fazendo boas ações para os outros.";
 				close;
 			case 2:
-				mes "[Bishop Paul]";
-				mes "Ah, that's a good idea. Helping young Acolytes should also be one of a Priest's priorities.";
+				mes "[Bispo Paul]";
+				mes "Que boa idéia. Ajudar jovens Noviços deve ser uma das prioridades de um Sacerdote.";
 				next;
-				mes "[Bishop Paul]";
-				mes "However, there are certain things that an Acolyte must do alone. All Acolytes must complete their divine test by themselves.";
+				mes "[Bispo Paul]";
+				mes "Mas, existem certas coisas que um Noviço deve fazer sozinho. Todos os Noviços devem completar seu teste divino sozinhos.";
 				next;
-				mes "[Bishop Paul]";
-				mes "I hope you will assist your Acolyte friend in the second test, the spiritual training.";
+				mes "[Bispo Paul]";
+				mes "Espero que você ajude seu amigo Noviço no segundo teste, o treinamento espiritual.";
 				next;
-				mes "[Bishop Paul]";
-				mes "You need to bring ^0000FF1 Rosary^000000 in order to accompany an Acolyte in spiritual training. If you have one of those, I can send you to the test area now.";
+				mes "[Bispo Paul]";
+				mes "Você precisa me trazer ^0000FF1 Rosário^000000 como condição para acompanhar um Noviço no seu treinamento espiritual. Se você já possui, eu posso enviá-lo para a área de testes agora mesmo.";
 				next;
-				mes "[Bishop Paul]";
-				mes "Do you wish to help him out during the spiritual training?";
+				mes "[Bispo Paul]";
+				mes "Você quer ajudá-lo durante o treinamento espiritual?";
 				next;
-				if (select("Yes, I do.:Give me a second.") == 1) {
+				if (select("Sim, quero.:Me dê um tempo.") == 1) {
 					if (countitem(2608) > 0) {
-						mes "[Bishop Paul]";
-						mes "I will now send you to the training place for Acolytes. Please send my regards to Brother Peter...";
+						mes "[Bispo Paul]";
+						mes "Irei enviá-lo agora mesmo para o lugar de treinamento dos Noviços. Por favor mande lembranças ao Irmão Pedro...";
 						next;
-						mes "[Bishop Paul]";
-						mes "I hope you will assist this Acolyte in becoming a Priest.";
+						mes "[Bispo Paul]";
+						mes "Espero que você possa ajudar esse Noviço a torna-se um Sacerdote.";
 						close2;
 						warp "job_prist",26,178;
 						end;
 					}
-					mes "[Bishop Paul]";
-					mes "Unfortunately you didn't bring a ^0000FFRosary^000000. You need one of those in order to be in the testing area.";
+					mes "[Bispo Paul]";
+					mes "Infelizmente você não trouxe o ^0000FFRosário^000000. É necessário um desses como condição para ira té a área de testes.";
 					close;
 				}
-				mes "[Bishop Paul]";
-				mes "I see, take your time. Don't forget to bring a ^0000FFRosary^000000...";
+				mes "[Bispo Paul]";
+				mes "Compreendo, pode demorar o tempo que quiser. Mas não esqueça de trazer o ^0000FFRosário^000000...";
 				close;
 			case 3:
-				mes "[Bishop Paul]";
-				mes "You must be strong. Have faith, as you are loved by God. I pray the wounds of the body are healed soon...";
+				mes "[Bispo Paul]";
+				mes "Você precisa ser forte. Tenha fé, você é amado por Deus. Eu rezo para que todas as feridas do corpo sejam curadas em breve...";
 				next;
 				percentheal 90,0;
-				mes "[Bishop Paul]";
-				mes "God, please look after your poor children. Help them overcome their hardships and difficulties. Refresh their spirits...";
+				mes "[Bispo Paul]";
+				mes "Deus, por favor cuide dessas pobres crianças. Ajude elas a superar suas dores e dificuldades. Dê energia aos seus espíritos...";
 				next;
 				percentheal 0,90;
-				mes "[Bishop Paul]";
-				mes "I hope my invocation has eased your pain. Now please go forth and spread God's message. May God be with you...";
+				mes "[Bispo Paul]";
+				mes "Acredito que minha invocação tenha aliviado sua dor. Agora por favor espalhe a mensagem de Deus. Que Deus esteja com você...";
 				close;
 			}
 		}
 		else if (BaseClass == Job_Novice) {
 			mes "[Bishop Paul]";
-			mes "May God be";
+			mes "Que deus esteja";
 			if (Sex)
-				mes "with you, brother.";
+				mes "com você, irmão";
 			else
-				mes "with you, sister.";
+				mes "com você, irmã";
 			next;
-			mes "[Bishop Paul]";
-			mes "You are in";
-			mes "the Sanctuary.";
-			mes "What brings you here?";
+			mes "[Bispo Paul]";
+			mes "Você está dentro";
+			mes "do Santuário.";
+			mes "O que o trouxe até aqui?";
 			next;
-			switch(select("I want to be an Acolyte.:I want to be a Priest.:Nothing, really.")) {
+			switch(select("Eu quero me tornar um Noviço.:Eu quero me tornar um Sacerdote.:Nada, em especial.")) {
 			case 1:
-				mes "[Bishop Paul]";
-				mes "Oh I see...";
-				mes "If you wish to become an Acolyte, please visit the other room.";
+				mes "[Bispo Paul]";
+				mes "Ah, entendo...";
+				mes "Se deseja se tornar um Noviço, por favor vá até a outra sala.";
 				break;
 			case 2:
-				mes "[Bishop Paul]";
-				mes "Oh I see. However, you must first become an Acolyte before becoming a Priest. Please visit the other room.";
+				mes "[Bispo Paul]";
+				mes "Entendo. Tudo bem, você deve primeiro se tornar um Noviço antes de virar Sacerdote. Por favor vá até a outra sala.";
 				break;
 			case 3:
-				mes "[Bishop Paul]";
-				mes "Please make yourself at home. On Earth, nowhere is safer than this Sanctuary.";
+				mes "[Bispo Paul]";
+				mes "Por favor se sinta-se em casa. Na Terra, nenhum lugar é seguro como esse Santuário.";
 				break;
 			}
 			next;
-			mes "[Bishop Paul]";
-			mes "May God bless you.";
+			mes "[Bispo Paul]";
+			mes "Que Deus te abençoe.";
 			close;
 		}
 		else {
 			mes "[Bishop Paul]";
-			mes "May God be";
+			mes "Que deus esteja";
 			if (Sex)
-				mes "with you, brother.";
+				mes "com você, irmão.";
 			else
-				mes "with you, sister.";
+				mes "com você, irmã.";
 			next;
-			mes "[Bishop Paul]";
-			mes "What brings you here";
-			mes "to Prontera Sanctuary?";
+			mes "[Bispo Paul]";
+			mes "Você está dentro";
+			mes "do Santuário.";
+			mes "O que o trouxe até aqui?";
 			next;
-			switch(select("Information about Priests.:Nothing.")) {
+			switch(select("Informações sobre os Sacerdotes.:Nada.")) {
 			case 1:
-				mes "[Bishop Paul]";
-				mes "Priests have the authority to perform and administer religious rites.";
+				mes "[Bispo Paul]";
+				mes "Sacerdotes tem autoridade para efetuar e administrar rituais religiosos.";
 				next;
-				mes "[Bishop Paul]";
-				mes "You must first be thoroughly disciplined as an Acolyte before you can be promoted to the position of Priest.";
+				mes "[Bispo Paul]";
+				mes "Você deve primeiro ser completamente disciplinado como um Noviço antes de promover-se a posição de Sacerdote.";
 				next;
-				mes "[Bishop Paul]";
-				mes "When you reach Acolyte Job level 40, you will be able to apply for the Priest test.";
+				mes "[Bispo Paul]";
+				mes "Quando você alcançar o nível 40 de Classe, vocè estará apto para aplicar-se ao teste de Sacerdote.";
 				next;
-				mes "[Bishop Paul]";
-				mes "If you pass the test, you will be able to use more powerful skills that will be effective against Demon and Undead creatures...";
+				mes "[Bispo Paul]";
+				mes "Se você passar no teste, você poderá usar habilidades mais poderosas que irão ser efetivas contra Demônios e Mortos-Vivos...";
 				next;
-				mes "[Bishop Paul]";
-				mes "With all of your ability, you will play an important role in towns and dungeons.";
+				mes "[Bispo Paul]";
+				mes "Com toda sua habilidade, poderá desempenhar um papel importante em cidades e calabouços.";
 				next;
-				mes "[Bishop Paul]";
-				mes "Our duty and obligation as Priests is to devote ourselves to helping others without expecting reward.";
+				mes "[Bispo Paul]";
+				mes "Nosso dever e obrigação como Sacerdote é nos devotar ajudando os outros sem esperar nenhuma tipo de recompensa.";
 				next;
-				mes "[Bishop Paul]";
-				mes "As we help others, we must not expect to treat us in a similar fashion. To be a great Priest is your choice and responsibility, not anyone else's.";
+				mes "[Bispo Paul]";
+				mes "À medida que vamos ajudando os outros, não devemos esperar tratamento igual. Ser um grande sacerdote é de responsabilidade opção exclusivamente sua.";
 				next;
-				mes "[Bishop Paul]";
-				mes "However, those who receive should be polite. You should give an outstanding example, but you should also have your limits as a human.";
+				mes "[Bispo Paul]";
+				mes "Porém, quem recebe ajuda deve ser grato. Você deve dar exemplo, mas você também deve ter seu limite como humano.";
 				next;
-				mes "[Bishop Paul]";
-				mes "I hope I explained enough of the class. Why don't you go outside and talk to some of the other Priests if you want to learn more about our way of life?";
+				mes "[Bispo Paul]";
+				mes "Espero que tenha explicado o suficiente sobre Sacerdotes. Por que você não vai lá fora e conversa com alguns outros Sacerdores, se quer saber mais sobre seus estilos de vida?";
 				next;
 				break;
 			case 2:
-				mes "[Bishop Paul]";
-				mes "Please make yourself at home. Nowhere on Earth is safer than the Prontera Sanctuary.";
+				mes "[Bispo Paul]";
+				mes "Por favor sinta-se em casa. Na Terra, nenhum lugar é tão seguro como esse Santuário.";
 				next;
 				break;
 			}
-			mes "[Bishop Paul]";
-			mes "Well...";
-			mes "May God";
-			mes "bless you.";
+			mes "[Bispo Paul]";
+			mes "Bem...";
+			mes "Que Deus";
+			mes "o abençoe.";
 			close;
 		}
 	}
 	if (PRIEST_Q == 0) {
 		mes "[Bishop Paul]";
-		mes "May God bless";
+		mes "Que deus esteja";
 		if (Sex)
-			mes "you, Brother.";
+			mes "com você, irmão";
 		else
-			mes "you, Sister.";
-		mes "What brings";
-		mes "you to me?";
+			mes "com você, irmã";
+		mes "O que o traz";
+		mes "até aqui?";
 		next;
-		switch(select("I want to be a Priest.:How are you, Father?")) {
+		switch(select("Eu quero me tornar um Sacerdote.:Como você está, Bispo?")) {
 		case 1:
-			mes "[Bishop Paul]";
-			mes "I see. So you wish to be a Priest. God will be delighted by your decision and will bless you.";
+			mes "[Bispo Paul]";
+			mes "Compreendo. Então você deseja se tornar um Sacerdote. Deus ficará satisfeito com sua decisão e irá te abençoar.";
 			next;
-			mes "[Bishop Paul]";
-			mes "I am Bishop Paul Cervantes, and am in charge of the Prontera Parish.";
-			mes "I am glad to meet a person as eager and devoted to God such as yourself.";
+			mes "[Bispo Paul]";
+			mes "Eu sou o Bispo Paul Cervantes, e estou no comando da Igreja de Prontera.";
+			mes "Fico satisfeito em encontrar uma pessoa tão interessada e devotada a Deus como você.";
 			next;
-			mes "[Bishop Paul]";
-			mes "If you set your mind on becoming a Priest, you must undergo several tests. Only Acolytes who reach job level 40 are qualified for testing.";
+			mes "[Bispo Paul]";
+			mes "Se você está decidido em se tornar um Sacerdote, você deve realizar alguns testes. Apenas Noviços que atingiram o nível 40 de classe estão qualificados para os testes.";
 			next;
-			mes "[Bishop Paul]";
-			mes "If you satisfy the requirements, I suggest that you apply for the Priest job first. Do you wish to apply now?";
+			mes "[Bispo Paul]";
+			mes "Satisfazendo os requisitos sugiro que você se aplique para o primeiro trabalho como Sacerdote. Você deseja aplicar-se agora?";
 			next;
-			if (select("Yes, I do.:I need some time to think about it...") == 1) {
+			if (select("Sim, quero.:Vou precisar de um tempo para pensar...") == 1) {
 				if (JobLevel < 40) {
-					mes "[Bishop Paul]";
-					mes "You are not yet qualified to be a Priest. Please go out into the world and broaden your experiences.";
+					mes "[Bispo Paul]";
+					mes "Você não está capacitado ainda para se tornar um Sacerdote. Por favor saia pelo mundo e aumente suas experiências.";
 					next;
-					mes "[Bishop Paul]";
-					mes "There are still things that you must learn as an Acolyte. However, I look forward to meeting you again very soon.";
+					mes "[Bispo Paul]";
+					mes "Ainda existem algumas coisas que você deve aprender como um Noviço. Entretanto, estou ansioso em vê-lo novamente.";
 					close;
 				}
 				if (SkillPoint) {
-					mes "[Bishop Paul]";
-					mes "You have skill points left.";
-					mes "I strongly recommend that you use all of these skill points before you apply for the Priest job change test.";
+					mes "[Bispo Paul]";
+					mes "Você tem pontos de habilidade sobrando.";
+					mes "Recomendo que você use todos os seus pontos de habilidade antes de aplicar-se para o teste de Sacerdote.";
 					close;
 				}
 				PRIEST_Q = 1;
 				setquest 8009;
-					mes "[Bishop Paul]";
-				if (Sex)
-					mes "Now I will explain the Three Trials of Priesthood. These tribulations will bring you much suffering, but I hope you can complete them, Brother " + strcharinfo(0) + ".";
-				else
-					mes "Now I will explain the Three Trials of Priesthood. These tribulations will bring you much suffering, but I hope you can complete them, Sister " + strcharinfo(0) + ".";
+				mes "[Bispo Paul]";
+				mes "Agora irei explicar os Três Exames do Sacedócio. Esses testes irão lhe trazer muito sofrimento, mas espero que você consiga superá-los, "+((Sex)?"Irmão.":"Irmã.")+" "+strcharinfo(0)+".";
 				next;
-				mes "[Bishop Paul]";
-				mes "For the First Trial, you will make a pilgrimage, and visit three acscetic Priests in a specific order.";
+				mes "[Bispo Paul]";
+				mes "No primeiro exame, você deve fazer uma viagem, e visitar três sacerdotes em uma ordem específica.";
 				next;
-				mes "[Bishop Paul]";
-				mes "The Second Trial will consist of spiritual training. You must resist the temptations of Demons and the Undead.";
+				mes "[Bispo Paul]";
+				mes "O segundo exame consiste em um treinamento espiritual. Você deve resistir as tentações de Demônios e Mortos-Vivos.";
 				next;
-				mes "[Bishop Paul]";
-				mes "In the Final Trial, you will promise your devotion to God. Your willingness to sacrifice yourself will also be questioned.";
+				mes "[Bispo Paul]";
+				mes "E por fim no exame final, você irá prometer sua devoção a Deus. Sua vontade de  se sacrificar também será questionada.";
 				next;
-				mes "[Bishop Paul]";
-				mes "Acolytes that have reached Job Level 50 will be exempt from the First Trial, the pilgrimage, as they have already demonstrated their enthusiasm and devotion.";
+				mes "[Bispo Paul]";
+				mes "Noviços que alcançarem o Nível de Classe 50 estarão isentos do primeiro exame: a viagem, já que demonstraram dedicação e devoção.";
 				next;
 				if (JobLevel == 50) {
-					mes "[Bishop Paul]";
-					mes "I can see the great effort you have exerted to reach job level 50. You have been a loyal servant to God.";
+					mes "[Bispo Paul]";
+					mes "Vejo o esforço que você fez para alcançar o Nível de Classe 50. Você é um servo leal de Deus.";
 					next;
-					mes "[Bishop Paul]";
-					mes "Now, you may go directly go to the Second Trial: Spiritual Training. For this training, you may bring a Priest with you.";
+					mes "[Bispo Paul]";
+					mes "Agora, você poderá ir diretamente para o segundo exame: Treinamento Espiritual. Nesse exame, você pode contar com a ajuda de um Sacerdote.";
 					next;
-					mes "[Bishop Paul]";
-					mes "I have no doubt that you will do a good job by yourself. However, it will be easier with the aid of a Brother or Sister that has already become a Priest.";
+					mes "[Bispo Paul]";
+					mes "Não tenho dúvidas de que você consegue fazer um bom trabalho sozinho. Porém, será mais fácil com a ajuda de um Irmão ou Irmã que já tenha se tornado um Sacerdote.";
 					next;
 					PRIEST_Q = 5;
 					changequest 8009,8011;
-					mes "[Bishop Paul]";
-					mes "Well, are you ready for the Spiritual Training?";
+					mes "[Bispo Paul]";
+					mes "Bem, você está pronto para o treinamento espiritual?";
 					next;
-					if (select("I am ready.:Give me a minute.") == 1) {
-						mes "[Bishop Paul]";
-						mes "Good. I will send you to the training ground. When you get there, please speak to Brother Peter who is in charge of the training.";
+					if (select("Eu estou pronto.:Me dê um minuto.") == 1) {
+						mes "[Bispo Paul]";
+						mes "Bom. Irei mandá-lo para o campo de treinamento. Quando chegar lá, por favor fale com o irmão Pedro, que está encarregado do treinamento.";
 						next;
 						warp "job_prist",24,180;
 						end;
 					}
-					mes "[Bishop Paul]";
-					mes "No problem, take your time.";
-					mes "May God give you the strength to overcome your fears...";
+					mes "[Bispo Paul]";
+					mes "Sem problema, não tenha pressa.";
+					mes "Que Deus lhe dê força para superar seus medos...";
 					close;
 				}
-				mes "[Bishop Paul]";
-				mes "Well, let me tell you the order of the ascetic Priests that you must visit for your pilgrimage.";
+				mes "[Bispo Paul]";
+				mes "Bem, deixe me dizer a ordem dos sacerdotes que você deve visitar na sua viagem.";
 				next;
-				mes "[Bishop Paul]";
-				mes "First, please visit Father";
-				mes "Rubalkabara who is Northeast";
-				mes "of the Prontera Ruins.";
+				mes "[Bispo Paul]";
+				mes "Primeiro, por favor visite o Irmão";
+				mes "Simão que está a Nordeste";
+				mes "nas Ruínas de Prontera.";
 				next;
-				mes "[Bishop Paul]";
-				mes "Second, please visit Sister Mathilda. She is located in";
-				mes "an area near Morroc, Southwest of Prontera.";
+				mes "[Bispo Paul]";
+				mes "Segundo, visite a Irmã Matilda. Ela está localizada em";
+				mes "uma área próxima a Morroc, Sudoeste de Prontera.";
 				next;
-				mes "[Bishop Paul]";
-				mes "The third Priest you must visit is Father Yosuke. He is in a field Northwest of Prontera.";
+				mes "[Bispo Paul]";
+				mes "O terceiro sacerdote que você deve visitar será o Irmão Bartolomeu. Ele está em um campo a Noroeste de Prontera.";
 				next;
-				mes "[Bishop Paul]";
-				mes "Well then, I wish you a safe journey. If you have any questions, please ask Sister Cecilia.";
+				mes "[Bispo Paul]";
+				mes "Então Bem, desejo a você uma jornada segura. Se você tiver alguma dúvida, por favor pergunte a Irmã Cecília.";
 				next;
-				mes "[Bishop Paul]";
-				mes "When you return from your pilgrimage, I will let you know";
-				mes "of the next test.";
+				mes "[Bispo Paul]";
+				mes "Ao retornar de sua viagem, eu falarei mais sobre";
+				mes "o próximo teste.";
 				next;
-				mes "[Bishop Paul]";
-				mes "May God";
-				mes "bless you...";
+				mes "[Bispo Paul]";
+				mes "Que Deus";
+				mes "te abençoe...";
 				changequest 8009,8010;
 				close;
 			}
-			mes "[Bishop Paul]";
-			mes "Please take your time.";
-			mes "You are always welcomed.";
-			mes "May God bless you...";
+			mes "[Bispo Paul]";
+			mes "Por favor, volte quando quiser.";
+			mes "Você será sempre bem-vindo.";
+			mes "Que Deus te abençoe...";
 			close;
 		case 2:
-			mes "[Bishop Paul]";
-			mes "I see...";
-			mes "I am doing fine";
-			mes "and am in good health.";
-			mes "Thank you for asking.";
+			mes "[Bispo Paul]";
+			mes "Eu vou indo bem";
+			mes "e estou com boa saúde.";
+			mes "Obrigado por perguntar.";
 			next;
-			mes "[Bishop Paul]";
-			if (Sex)
-				mes "I hope you will continue to go on your mission as God's servant, brother.";
-			else
-				mes "I hope you will continue to go on your mission as God's servant, sister.";
+			mes "[Bispo Paul]";
+			mes "Espero que você continue em sua missão como servo de Deus, "+((Sex)?"irmão":"irmã")+"";
 			next;
-			mes "[Bishop Paul]";
-			mes "Hopefully, our paths";
-			mes "will cross again.";
-			mes "May God bless you...";
+			mes "[Bispo Paul]";
+			mes "Espero, que nossos caminhos";
+			mes "se cruzem novamente.";
+			mes "Que Deus te abençoe...";
 			close;
 		}
 	}
 	else if (PRIEST_Q == 1) {
-		mes "[Bishop Paul]";
-		mes "May I ask you the reason you're still here? You didn't forget your pilgrimage, did you?";
+		mes "[Bispo Paul]";
+		mes "Posso perguntar por que razão você ainda está por aqui? Você não esqueceu que deve viajar, esqueceu?";
 		next;
-		if (select("Sorry father, I need to check the order.:No no no, not at all.") == 1) {
-			mes "[Bishop Paul]";
-			mes "Ah, I see. I will let you know the order of pilgrimage again, and hope that you will have a safe journey.";
+		if (select("Desculpe Bispo, eu preciso checar a ordem.:Não, imagina.") == 1) {
+			mes "[Bispo Paul]";
+			mes "Certo. Irei relembrar a ordem de vistita novamente, e espero que você tenha uma jornada segura.";
 			next;
-			mes "[Bishop Paul]";
-			mes "First, meet Father Rubalkabara. He's at the Northeast of the Prontera ruins.";
+			mes "[Bispo Paul]";
+			mes "Primeiro, encontre o Irmão Simão, ele está a Nordeste das ruínas de Prontera.";
 			next;
-			mes "[Bishop Paul]";
-			mes "Then, remember to meet Sister Mathilda. She's somewhere near the town of Morroc, Southwest of Prontera.";
+			mes "[Bispo Paul]";
+			mes "Lembre-se de se encontrar com a Irmã Matilda. Ela está em algum lugar perto da cidade de Morroc, Sudoeste de Prontera.";
 			next;
-			mes "[Bishop Paul]";
-			mes "And lastly, please seek out Father Yosuke. He is in the a field Northwest of Prontera.";
+			mes "[Bispo Paul]";
+			mes "E finalmente, por favor procure pelo Irmão Bartolomeu. Ele está em um campo a Noroeste de Prontera.";
 			next;
-			mes "[Bishop Paul]";
-			mes "Well then, I shall pray for your safe journey. If you want more information, please ask Sister Cecilia.";
+			mes "[Bispo Paul]";
+			mes "Bem, então eu vou rezar para que sua jornada seja tranquila. Se quiser mais informações, por favor pergunte a Irmã Cecília.";
 			next;
-			mes "[Bishop Paul]";
-			mes "When you get back from the pilgrimage, I will let you know the next test.";
+			mes "[Bispo Paul]";
+			mes "Quando você voltar de sua jornada, falarei mais sobre seu próximo teste.";
 			next;
-			mes "[Bishop Paul]";
-			mes "May God bless you...";
+			mes "[Bispo Paul]";
+			mes "Que Deus te abençoe...";
 			close;
 		}
-		mes "[Bishop Paul]";
-		mes "I see. But still, if you have any questions, you may wish to ask Sister Cecilia. She will address any of your concerns.";
+		mes "[Bispo Paul]";
+		mes "Entendo. Mas se você tiver qualquer pergunta, pode perguntar a Irmã Cecília. Ela irá responder qualquer dúvida sua.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Well then, I shall pray for your safe journey. May God bless you...";
+		mes "[Bispo Paul]";
+		mes "Bem, então eu vou rezar para que sua jornada seja segura. Que Deus te abençoe...";
 		close;
 	}
 	else if (PRIEST_Q == 2) {
-		mes "[Bishop Paul]";
-		mes "I see you have returned from your meeting with Father Rubalkabara. How is he doing? I am worried about his health, since he's been there all alone... ";
+		mes "[Bispo Paul]";
+		mes "Eu vejo que você já se encontrou com o Irmão Simão. Como ele está? Estou preocupado com sua saúde, principalmente por que ele fica completamente sozinho... ";
 		next;
-		mes "[Bishop Paul]";
-		mes "For your next quest, you should meet Sister Mathilda. I shall be awaiting your safe return.";
+		mes "[Bispo Paul]";
+		mes "No próximo exame, você deve se encontrar com a Irmã Matilda. Estarei por sua volta.";
 		close;
 	}
 	else if (PRIEST_Q == 3) {
-		mes "[Bishop Paul]";
-		mes "I see that you have returned from your journey to meet Sister Mathilda. She has been meditating in the hot, dry desert for a long time.";
+		mes "[Bispo Paul]";
+		mes "Parece que você já se encontrou com a Irmã Matilda. Ela está meditando no quente e seco deserto faz muito tempo.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Finally, it is now time for you to meet Father Yosuke. He is doing penance somewhere around a field Northwest of Prontera. Please seek him out, and then return here to me.";
+		mes "[Bispo Paul]";
+		mes "Por fim, está na hora de você encontrar o Irmão Bartolomeu. Ele está fazendo penitência em um lugar num campo próximo ao Noroeste de Prontera. Por favor ache-o, e então volte e fale comigo.";
 		close;
 	}
 	else if (PRIEST_Q == 4) {
 		PRIEST_Q = 5;
 		changequest 8010,8011;
-		mes "[Bishop Paul]";
-		mes "You've accomplished";
-		mes "your pilgrimage.";
-		mes "Congratulations.";
+		mes "[Bispo Paul]";
+		mes "Sua viagem";
+		mes "está terminada.";
+		mes "Parabéns.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Now it is time to begin your spiritual training. As I mentioned before, you may bring a Priest to help you during this training.";
+		mes "[Bispo Paul]";
+		mes "É hora de começar seu treinamento espiritual. Como mencionei anteriormente, você pode trazer um Sacerdote para ajudá-lo.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Although you cannot receive their help throughout all of the testing, they can at least help you during the spiritual training.";
+		mes "[Bispo Paul]";
+		mes "Porém, você não poderá receber a ajuda em todos os exames, eles podem ajudá-lo apenas durante o treinamento espiritual.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Well, are you ready for";
-		mes "the spiritual training?";
+		mes "[Bispo Paul]";
+		mes "Você está pronto para";
+		mes "o treinamento espiritual?";
 		next;
-		if (select("I'm ready.:Give me a minute.") == 1) {
-			mes "[Bishop Paul]";
-			mes "Good. I will send you to the training ground. When you get there, please speak to Brother Peter who is in charge of the training.";
+		if (select("Sim estou pronto.:Me dê um tempo.") == 1) {
+			mes "[Bispo Paul]";
+			mes "Ótimo. Irei enviá-lo para o centro de treinamento. Quando chegar lá, por favor fale com o Irmão Pedro, ele é o responsável por esse exame.";
 			next;
 			warp "job_prist",24,180;
 			end;
 		}
-		mes "[Bishop Paul]";
-		mes "No problem,";
-		mes "take your time.";
-		mes "May God grant you";
-		mes "the strength to";
-		mes "overcome your fears...";
+		mes "[Bispo Paul]";
+		mes "Está bem,";
+		mes "não tenha pressa.";
+		mes "Que Deus te dê forças";
+		mes "para superar";
+		mes "seus medos...";
 		close;
 	}
 	else if (PRIEST_Q == 5) {
-		mes "[Bishop Paul]";
-		mes "You seem confident about the spiritual training. Shall we begin?";
+		mes "[Bispo Paul]";
+		mes "Você aparenta estar confiante com o treinamento espiritual. Podemos começar?";
 		next;
-		if (select("I'm ready.:Give me a minute.") == 1) {
-			mes "[Bishop Paul]";
-			mes "Good. I will send you to the training ground. When you get there, please speak to Brother Peter who is in charge of the training.";
+		if (select("Sim estou pronto.:Me dê um tempo.") == 1) {
+			mes "[Bispo Paul]";
+			mes "Ótimo. Irei enviá-lo para o centro de treinamento. Quando chegar lá, por favor fale com o Irmão Pedro, ele é o responsável por esse exame.";
 			next;
 			warp "job_prist",24,180;
 			end;
 		}
-		mes "[Bishop Paul]";
-		mes "No problem,";
-		mes "take your time.";
-		mes "May God grant you";
-		mes "the strength to";
-		mes "overcome your fears...";
+		mes "[Bispo Paul]";
+		mes "Está bem,";
+		mes "não tenha pressa.";
+		mes "Que Deus te dê forças";
+		mes "para superar";
+		mes "seus medos...";
 		close;
 	}
 	else if (PRIEST_Q == 6) {
-		mes "[Bishop Paul]";
-		mes "You look tired and exhausted. However, you must endure even more suffering once you become a Priest.";
+		mes "[Bispo Paul]";
+		mes "Você parece exausto. Mas, terá que suportar ainda mais sofrimento se quiser se tornar um Sacerdote.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Please endure these trials for the sake of your dream. Why don't you challenge the spiritual training again?";
+		mes "[Bispo Paul]";
+		mes "Por favor suporte essas exames, pense em seu sonho. Por que você não desafia o treinamento espiritual novamente?";
 		next;
-		if (select("I'll try again.:Give me a minute.") == 1) {
-			mes "[Bishop Paul]";
-			mes "Good. I will send you to the training ground. Please ask for help from Brother Peter.";
+		if (select("Eu irei tentar denovo.:Dê-me um minuto.") == 1) {
+			mes "[Bispo Paul]";
+			mes "Ótimo. Eu irei enviá-lo para o centro de treinamento. Por favor fale com o Irmão Pedro.";
 			next;
 			warp "job_prist",24,180;
 			end;
 		}
-		mes "[Bishop Paul]";
-		mes "No problem,";
-		mes "take your time.";
-		mes "May God grant you";
-		mes "the strength to";
-		mes "overcome your fears...";
+		mes "[Bispo Paul]";
+		mes "Está bem,";
+		mes "não tenha pressa.";
+		mes "Que Deus te dê forças";
+		mes "para superar";
+		mes "seus medos...";
 		close;
 	}
 	else if (PRIEST_Q == 7) {
-		mes "[Bishop Paul]";
-		mes "I am glad that you've done well with the spiritual training. Congratulations. You are now qualified to be called a Priest.";
+		mes "[Bispo Paul]";
+		mes "Estou feliz por você ter terminado o treinamento espiritual. Parabéns. Agora você pode ser chamado de Sacerdote.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Now, you must go and swear your devotion to God with Sister Cecilia. Don't be nervous...";
+		mes "[Bispo Paul]";
+		mes "Agora, jure sua devoção a Deus para a Irmã Cecília. Não fique nervoso...";
 		next;
-		mes "[Bishop Paul]";
-		mes "Just answer honestly, and listen to the voice of God that speaks quietly in your heart.";
+		mes "[Bispo Paul]";
+		mes "Responda honestamente, e escute a voz de Deus que irá falar silenciosamente no seu coração.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Well then...";
-		mes "I will be here";
-		mes "waiting for you.";
+		mes "[Bispo Paul]";
+		mes "Bem...";
+		mes "Estarei aqui";
+		mes "esperando por você.";
 		close;
 	}
 	else if (PRIEST_Q == 8) {
-		mes "[Bishop Paul]";
-		mes "Hmm? You haven't made your oath yet...? Without the conviction of an oath to God, you may be tempted by evil at anytime.";
+		mes "[Bispo Paul]";
+		mes "Hum? Você ainda não fez seus juramentos...? Sem a convicção de um juramento a Deus, você pode ser tentado pelo mal a qualquer momento.";
 		next;
-		mes "[Bishop Paul]";
-		mes "You should go to sister Cecilia and promise your devotion to God. Return here with honor, and listen to the voice of God that speaks quietly in your heart.";
+		mes "[Bispo Paul]";
+		mes "Vá até a Irmã Cecília e prometa sua devoção a Deus. Retorne aqui com honra, e escute a voz de Deus que irá falar silenciosamente no seu coração.";
 		close;
 	}
 	else if (PRIEST_Q == 9) {
 		if (SkillPoint) {
-			mes "[Bishop Paul]";
-			mes "You have remaining skills points. Please use these skill points to upgrade your skills, and then return to me.";
+			mes "[Bispo Paul]";
+			mes "Você ainda possui pontos de habilidade restando. Por favor use todos essses pontos para melhorar suas habilidades, e depois volte.";
 			close;
 		}
-		mes "[Bishop Paul]";
-		mes "Congratulations, you have completed the trials required of all Priests. Let me promote you to the position of Priest right away.";
+		mes "[Bispo Paul]";
+		mes "Parabéns, você completou todos os exames necessários dos Sacerdotes. Deixe-me promovê-lo a um Sacerdote agora mesmo.";
 		next;
-		mes "[Bishop Paul]";
-		mes "God, grant your power to your servant standing before you.";
+		mes "[Bispo Paul]";
+		mes "Deus, conceda seu poder para este servo diante de ti.";
 		changequest 8015,8016;
-		if (Sex)
-			mes "Let him send your message throughout the ends of the earth.";
-		else
-			mes "Let her send your message throughout the ends of the earth.";
+		mes "Deixe que "+((Sex)?"ele":"ela")+" envie sua mensagem pelos arredores do mundo.";
 		next;
-		mes "[Bishop Paul]";
-		mes "Make this servant of yours an instrument of your miraculous works...";
+		mes "[Bispo Paul]";
+		mes "Faça desse servo um instrumento de seu trabalho...";
 		next;
 		.@joblvl = JobLevel;
 		completequest 8016;
 		callfunc "Job_Change",Job_Priest;
 		callfunc "F_ClearJobVar";		// clears all job variables for the current player
-		mes "[Bishop Paul]";
-		mes "Now you are born again as a Priest. I congratulate you, and hope you will greatly help other people for the rest of your life.";
+		mes "[Bispo Paul]";
+		mes "Agora você nasceu novamente sendo um Sacerdote. Eu te parabenizo, e espero que você ajude outras pessoas pelo resto de sua vida.";
 		next;
 		mes "[Bishop Paul]";
 		if (.@joblvl < 50) {
 			getitem 1550,1; //Book
-			mes "This book is for you. I hope it will aid you in spreading God's message on earth.";
+			mes "Este livro é seu. Espero que ele te ajude a espalhar a mensagem de Deus na Terra.";
 		}
 		else {
 			getitem 1551,1; //Bible
-			mes "In commemoration of your job change, I am giving you a bible. This will lighten your way to the path of righteousness.";
+			mes "Em comemoração a sua mudança de classe, te darei uma bíblia. Isto irá iluminá-lo pelo caminho da graça.";
 		}
 		next;
-		mes "[Bishop Paul]";
-		mes "You've shown great effort, and have made admirable progress in your personal quest for holiness. Please lead your life as a sincere Priest...";
+		mes "[Bispo Paul]";
+		mes "Você demonstrou muito esforço, e fez um admirável progresso em sua tarefa pessoal de santidade. Por favor viva sua vida como um verdadeiro Sacerdote...";
 		close;
 	}
 }
 
-prt_church,27,24,1	script	Sister Cecilia	1_F_PRIEST,{
-	mes "[Sister Cecilia]";
+prt_church,27,24,1	script	Irmã Cecília	1_F_PRIEST,{
+	mes "[Irmã Cecília]";
 	if (BaseJob != Job_Acolyte) {
 		if (BaseJob == Job_Priest) {
-			mes "May god bless you, "+ (Sex ? "brother":"sister") +". It brings my heart joy to see that you working hard to carry out the will of God.";
+			mes "Que deus te abençoe, "+((Sex)?"irmão.":"irmã.")+" Meu coração fica alegre ao ver que você está trabalhando duro para cumprir a vontade de Deus.";
 		} else if (Class == Job_Novice) {
-			mes "May god bless you, "+ (Sex ? "brother":"sister") +".";
-			mes "Prontera parish welcomes you.";
+			mes "Que deus te abençoe, "+((Sex)?"irmão.":"irmã.")+"";
+			mes "A Catedral de Prontera o parabeniza.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "Oh, you haven't chosen a job yet? Why don't you consider devoting your life to God?";
+			mes "[Irmã Cecília]";
+			mes "Você ainda não escolheu uma classe? Por que você não dedica sua vida a Deus?";
 			next;
-			mes "[Sister Cecilia]";
-			mes "You can lead a fulfilling life as an Acolyte, helping out other people in need.";
+			mes "[Irmã Cecília]";
+			mes "Você pode ter uma vida completa sendo um Noviço, ajudando outras pessoas.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "If you're interested, please ask the Priest in the other room. You won't ever regret the choice to become an Acolyte.";
+			mes "[Irmã Cecília]";
+			mes "Se você estiver interessado, fale com o Sacerdote na outra sala. Você não irá se arrepender de se tornar um noviço.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "When you reach Job level 40 as an Acolyte, you can be promoted to a Priest.";
+			mes "[Irmã Cecília]";
+			mes "Quando você chegar ao nível 40 de Classe como um Noviço, você poderá ser promovido a Sacerdote.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "But please...";
-			mes "Take your time, and decide what job will be the best for you.";
+			mes "[Irmã Cecília]";
+			mes "Mas por favor...";
+			mes "Não tenha pressa, e decida qual classe será a melhor para você.";
 		} else {
-			mes "May god bless you, "+ (Sex ? "brother":"sister") +".";
-			mes "Welcome to Prontera parish. How may I help you?";
+			mes "Que deus te abençoe, "+((Sex)?"irmão.":"irmã.")+"";
+			mes "Bem-vindo a Catedral de Prontera. Como posso te ajudar?";
 			next;
-			if (select("Tell me more about Priests.:Nothing.") == 1) {
-				mes "[Sister Cecilia]";
-				mes "Messengers of God are usually known as Priests. After becoming an Acolyte, you can train with the goal of becoming a Priest.";
+			if (select("Me fale mais sobre Sacerdotes.:Nada.") == 1) {
+				mes "[Irmã Cecília]";
+				mes "Os Mensageiros de Deus são normalmente conhecidos como: Sacerdotes. Após se tornar um Noviço, você pode treinar com o objetivo de se tornar um Sacerdote.";
 				next;
-				mes "[Sister Cecilia]";
-				mes "Servants of God are prohibited to use weapons based on blades. For us, the meaning of battle with monsters is not in the killing, but in the enlightening of their souls.";
+				mes "[Irmã Cecília]";
+				mes "Servos de Deus são proibidos de usar armas do tipo lâmina ou armas brancas. Para nós, o significado da batalha com monstros não é matar, mas sim iluminar e purificar suas Almas.";
 			} else {
-				mes "[Sister Cecilia]";
-				mes "I see. Well, feel free to relax and make yourself at home. Nowhere on earth is safer than the Prontera Sanctuary.";
+				mes "[Irmã Cecília]";
+				mes "Entendo. Bem, sinta-se livre para relaxar e sentir-se em casa. Nenhum lugar na terra é mais seguro do que a Catedral de Prontera.";
 				next;
-				mes "[Sister Cecilia]";
-				mes "May God bless you...";
+				mes "[Irmã Cecília]";
+				mes "Que Deus te abençoe...";
 			}
 		}
 		close;
 	}
 	if (PRIEST_Q == 0) {
-		if (Sex)
-			mes "May God bless you, brother.";
-		else
-			mes "May God bless you, sister.";
-		mes "May I ask what brings you here?";
+		mes "Que Deus te abençoe, "+((Sex)?"irmão.":"irmã.")+"";
+		mes "Posso perguntar o que te faz vir aqui?";
 		next;
-		switch(select("I wish to become a Priest.:Nothing.")) {
+		switch(select("Eu quero me tornar um Sacerdote.:Nada.")) {
 		case 1:
-			mes "[Sister Cecilia]";
-			mes "I see. You've devoted yourself to God. Many Acolytes wish to become Priests to continue on their personal journey towards holiness.";
+			mes "[Irmã Cecília]";
+			mes "Entendo. Você se dedica a Deus. Muitos Noviços desejam ser sacerdotes e continuar em sua jornada pessoal de santidade.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "Let me introduce myself. I am Cecilia Margarita, and I am in charge of part of the Priest job change process.";
+			mes "[Irmã Cecília]";
+			mes "Deixe-me que eu me apresente. Sou Cecília Margarita, e estou no comando da área encarregada pelo processo de mudança de classe para Sacerdote.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "I've been supporting many people in becoming Priests ever since I joined the Prontera Parish. That is one of my main responsibilities.";
+			mes "[Irmã Cecília]";
+			mes "Tenho ajudado muitas pessoas a se tornarem Sacerdotes desde quando entrei na Catedral de Prontera. Essa é uma das minhas responsabilidades.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "In order to become a Priest, you must complete 3 trials. A pilgrimage, a session of spiritual training, and an oath of devotion to God.";
+			mes "[Irmã Cecília]";
+			mes "Para se tornar um Sacerdote, você deve completar 3 exames. Uma viajem, uma sessão de treinamento espiritual, e um juramento de devoção a Deus.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "If you wish to become a servant of God, please apply for the Priest job with Bishop Paul, and complete all 3 trials.";
+			mes "[Irmã Cecília]";
+			mes "Se você deseja se tornar um servo de Deus, por favor inscreva-se com o Bispo Paul, e complete os 3 exames.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "If you experience a problem during any of your trials, feel free to visit me. I will help you as much as I can.";
+			mes "[Irmã Cecília]";
+			mes "E se por acaso você experimentar um problema durante qualquer um dos exames, sinta-se a vontade para vir falar comigo. Eu vou te ajudar como puder.";
 			close;
 		case 2:
-			mes "[Sister Cecilia]";
-			mes "Make yourself at home. I insist that you recover and take a rest in this Sanctuary. May God bless you...";
+			mes "[Irmã Cecília]";
+			mes "Fique à vontade. Eu insisto que você se recupere e tenha um bom descanso neste Santuário. Que Deus te abençoe...";
 			close;
 		}
 	}
 	else if (PRIEST_Q == 1) {
-		mes "Ah, you've started your pilgrimage. Please do your best to accomplish this first trial.";
+		mes "Ah, você começou sua jornada. Por favor dê seu melhor para completar sua primeira tarefa.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "The first Priest you must meet is Father Rubalkabara. He is in the ruins Northeast of Prontera.";
+		mes "[Irmã Cecília]";
+		mes "O primeiro Sacerdote que você precisa encontrar é o Irmão Simão. Ele está nas ruinas ao nordeste de Prontera.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Travel one field North from Prontera, and then three fields East, and you will arrive at the ruins.";
+		mes "[Irmã Cecília]";
+		mes "Vá para o Norte de Prontera, e então siga 3 campos a Leste, e você chegará nas ruinas.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Of course, you can also head 1 field East from Prontera, then go 1 field north, and then go 2 fields East...";
+		mes "[Irmã Cecília]";
+		mes "Claro, você também poder ir para o campo Leste de Prontera, então ir 1 Campo para o Norte, e seguir 2 campos a Leste...";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Father Rubalkabara will be at the entrance of the Prontera Ruins. Be careful. That place is a habitat for aggressive Chocos.";
+		mes "[Irmã Cecília]";
+		mes "Irmão Simão estará na entrada das ruinas de Prontera. Seja cuidadoso. Aquele lugar está cheio de Chocos agressivos.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "After meeting Father Rubalkabara, please visit Sister Mathilda and Father Yosuke. You can check your quest progress with me if you have any questions later.";
+		mes "[Irmã Cecília]";
+		mes "Depois de falar com o Irmão Simão, por favor visite Irmã Matilda e Irmão Bartolomeu. Você pode checar o progresso da sua peregrinação comigo se você tiver qualquer perguntas.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Well then, have a good journey. Please don't give up to short lived tribulations, and I hope that you accomplish your goals.";
+		mes "[Irmã Cecília]";
+		mes "Bem então, faça uma boa jornada. Por favor não desista por sofrimentos de pouca vida, e eu espero que você cumpra seus objetivos.";
 		close;
 	}
 	else if (PRIEST_Q == 2) {
-		mes "Oh, you've met Father Rubalkabara. Now it's time for you to visit Sister Mathilda. She is near a town named Morroc.";
+		mes "Ah, você encontrou o Irmão Simão. Agora é hora de visitar a Irmã Matilda. Ela está perto de uma cidade chamada Morroc.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "She has been training her religious discipline somewhere in a field North of Morroc. If you look around that field, you will be able to find her.";
+		mes "[Irmã Cecília]";
+		mes "Ela tem treinado sua disciplina religiosa em um lugar ao Norte de Morroc. Se você procurá-la por lá, irá encontrá-la.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Of course, sometimes I want to devote myself to training like those other Priests, but I have my duty to assist those Acolytes applying for the Priest job.";
+		mes "[Irmã Cecília]";
+		mes "Óbvio, as vezes tenho vontade de me dedicar ao treinamento como esses Sacerdotes, mas eu possuo essa tarefa de ajudar os Noviços a se tornarem Sacerdotes.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "But I believe this is God's will, and that this is the work he has intended me to do as his servant. Have a safe journey, and come back safely.";
+		mes "[Irmã Cecília]";
+		mes "Sei que essa é a vontade de Deus, e esse é o trabalho que ele pretende que eu faça como sua serva. Tenha uma viagem segura.";
 		close;
 	}
 	else if (PRIEST_Q == 3) {
-		mes "Now, the final Priest that you must meet is Father Yosuke. I've heard that he is training near a lake located Northwest of Prontera.";
+		mes "Por fim, O último Sacerdote que você deve encontrar é o Irmão Bartolomeu. Ouvi dizer que ele está treinando perto de um lago localizado a Noroeste de Prontera.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "From Prontera, travel one field North, and then two fields towards the West. You may also travel two fields West first, and then travel one field to the North.";
+		mes "[Irmã Cecília]";
+		mes "Saindo de Prontera, vá um campo para o Norte, e dois campos para Oeste. Você também pode viajar por dois campos Oeste, e percorrer um campo para Norte.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Although there are still two trials awaiting you, I have faith that you will be able to accomplish your goal of becoming a Priest...";
+		mes "[Irmã Cecília]";
+		mes "Mesmo apesar de ainda existirem 2 exames esperando por você, tenho fé  de que você será capaz de cumprir seu objetivo que é se tornar um Sacerdote...";
 		close;
 	}
 	else if (PRIEST_Q == 4) {
-		mes "Welcome. You demonstrated great effort to accomplish your first trial. Now, speak to Bishop Paul so that you can begin your next trial on your path to Priesthood.";
+		mes "Bem-vindo. Você demonstrou grande esforço ao completer seu primeira exame. Fale com o Bispo Paulo para começar seu próximo teste no caminho do sacerdócio.";
 		next;
-		mes "[Sister Cecilia]";
-		if (Sex)
-			mes "Brother "+ strcharinfo(0) +"...";
-		else
-			mes "Sister "+ strcharinfo(0) +"...";
-		mes "The spiritual training is much more difficult than the pilgrimage, but I believe in you.";
+		mes "[Irmã Cecília]";
+		mes ""+((Sex)?"Irmão":"Irmã")+" "+strcharinfo(0)+"...";
+		mes "A formação espiritual é muito mais difícil do que a viagem, mas acredito em você.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "I hope that you find someone who has already become a Priest to help during the spiritual training. Good luck, and have faith.";
+		mes "[Irmã Cecília]";
+		mes "Eu espero que você possa encontrar alguém que já se tornou um Sacerdote para ajudá-lo durante o treinamento espiritual. Boa sorte, e tenha fé.";
 		close;
 	}
 	else if (PRIEST_Q == 5) {
-		mes "Oh, you haven't finished the spiritual training yet?";
+		mes "Ah, você ainda não acabou o treinamento espiritual?";
 		next;
-		mes "[Sister Cecilia]";
-		mes "I cannot let you know the specific details, but as long as you believe in yourself and have faith in all that is good, you will succeed.";
+		mes "[Irmã Cecília]";
+		mes "Eu não posso dar detalhes, mas se você acreditar em si mesmo e tiver fé em tudo que é bom, você se sairá bem.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Please speak to Father Peter in the test hall for more details. He is a close friend of Bishop Paul and may give you some useful tips for the spiritual training.";
+		mes "[Irmã Cecília]";
+		mes "Por favor fale com Irmão Pedro na sala de testes se quiser saber mais. Ele é um amigo próximo do Bispo Paul e pode te dar algumas dicas úteis sobre o treinamento espiritual.";
 		close;
 	}
 	else if (PRIEST_Q == 6) {
-		mes "Yes, I understand that you've been through a really difficult situation. However, do not give up and succumb to temptation. You must be able to resist evil to become a Priest.";
+		mes "Sim, eu compreendo que você passou por uma situação bastante complicada. Mas, não desista e se entregue a tentação. Você deve ser capaz de resistir ao mal se quiser se tornar um Sacerdote.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "If you know somebody who has already become a Priest, ask them to help you during your spiritual training.";
+		mes "[Irmã Cecília]";
+		mes "E se por acaso você conhece alguém que já se tornou um Sacerdote, peça que te ajudem durante o treinamento espiritual.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "May God give you guidance and protection. When you complete your training, please come back to me.";
+		mes "[Irmã Cecília]";
+		mes "Que Deus te guie e proteja. Quando você completar seu treinamento, por favor volte até aqui.";
 		close;
 	}
 	else if (PRIEST_Q == 7 || PRIEST_Q == 8) {
@@ -698,146 +669,138 @@ prt_church,27,24,1	script	Sister Cecilia	1_F_PRIEST,{
 		else if (PRIEST_Q == 8) {
 			mes "...";
 			next;
-			mes "[Sister Cecilia]";
-			mes "Welcome back.";
-			mes "I hope that you've reflected on what you've said last time, and that you now have the attitude to become a Priest.";
+			mes "[Irmã Cecília]";
+			mes "Bem-vindo de volta.";
+			mes "Espero que você já tenha refletido sobre o que me disse da última vez, e também que você já tenha uma atitude de Sacerdote.";
 		}
 		next;
-		mes "[Sister Cecilia]";
-		if (Sex)
-			mes "Brother "+ strcharinfo(0) +"...";
-		else
-			mes "Sister "+ strcharinfo(0) +"...";
-		mes "We will now begin your formal oath for the Priesthood. Make yourself comfortable, and just answer with your heart.";
+		mes "[Irmã Cecília]";
+		mes ""+((Sex)?"Irmão":"Irmã")+" "+strcharinfo(0)+"...";
+		mes "Agora poderemos começar seu formal Juramento de Sacerdócio. Sinta-se confortável, e apenas responda com seu coração.";
 		next;
-		mes "[Sister Cecilia]";
-		if (Sex)
-			mes "Brother "+ strcharinfo(0) +",";
-		else
-			mes "Sister "+ strcharinfo(0) +",";
-		mes "Are you willing";
-		mes "to give your life to God?";
+		mes "[Irmã Cecília]";
+		mes ""+((Sex)?"Irmão":"Irmã")+" "+strcharinfo(0)+"...";
+		mes "Você está disposto";
+		mes "a entregar sua vida a Deus?";
 		next;
-		if (select("Yes.:No!") == 2) {
-			mes "[Sister Cecilia]";
-			mes "Aw...? How could you give me that kind of answer? I assume you're not ready to be a Priest yet...";
+		if (select("Sim.:Não!") == 2) {
+			mes "[Irmã Cecília]";
+			mes "Hã...? Como você pode me dar esse tipo de resposta? Eu suponho que você não está pronto para o teste ainda...";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "You should reflect a little more on the teachings of holiness and come back later. You can't be a Priest if your spirit is weak.";
+			mes "[Irmã Cecília]";
+			mes "Reflita um pouco mais nos ensinamentos da santidade e volte após isso. Você não pode ser um Sacerdote com um espírito fraco.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		mes "Will you take advantage of the holy abilities given by God for selfish, destructive or greedy ends?";
+		mes "[Irmã Cecília]";
+		mes "Você usará seus poderes apenas para si mesmo?";
 		next;
-		if (select("Yes.:No.") == 1) {
-			mes "[Sister Cecilia]";
-			mes "Aw...? God won't grant you the power of holiness if your goals aren't just and pure. Meditate on your motivations for a while, and then come back to me.";
+		if (select("Sim.:Não.") == 1) {
+			mes "[Irmã Cecília]";
+			mes "Hã...? Deus não vai te conceder o poder da santidade se seus objetivos não são justos e puros. Medite sobre seus motivos, e então volte aqui.";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "Think about the qualities that make Priests people of respect. You can't be a Priest if your spirit is not in accordance with God.";
+			mes "[Irmã Cecília]";
+			mes "Reflita sobre as qualidades que fazem um Sacerdote uma pessoa de respeito. Você não pode ser um Sacerdote se seu espírito não está em harmonia com Deus.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		mes "Will you help aid others, even complete strangers, in battles by easing their suffering?";
+		mes "[Irmã Cecília]";
+		mes "Você vai usar seus poderes para ajudar os outros?" ;
 		next;
-		if (select("Yes.:No.") == 2) {
-			mes "[Sister Cecilia]";
-			mes "No, no. You've got the wrong idea. God authorizes us to use his power to support his children. You must help people in danger: it is your obligation.";
+		if (select("Sim.:Não.") == 2) {
+			mes "[Irmã Cecília]";
+			mes "Não. Você está errado. Deus nos autoriza a usar seus poderes para ajudar seus filhos. Você deve ajudar pessoas em perigo: Essa é sua obrigação.";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "Go and observe the adventurers that are fighting for peace in this world. They will teach you what you must do in order to help them.";
+			mes "[Irmã Cecília]";
+			mes "Vá e observe aventureiros que estão lutando por paz nesse mundo. Eles irão te mostrar o que você deve fazer para ajudá-los.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		mes "Are you willing to sacrifice yourself for the sake of others?";
+		mes "[Irmã Cecília]";
+		mes "Você se sacrificaria pela vida de outra pessoa?";
 		next;
-		if (select("Yes.:No.") == 2) {
-			mes "[Sister Cecilia]";
-			mes "How can you say no...? That's one of the basic principles of Priesthood. You must value the welfare of others over your own safety.";
+		if (select("Sim.:Não.") == 2) {
+			mes "[Irmã Cecília]";
+			mes "Como não...? Esse é um dos princípios básicos do Sacerdócio. Você deve preza o bem-estar dos outros até mesmo mais que o seu.";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "Go and think about the value of suffering and the meaning of sacrifice. When you think you understand more about helping those in need, come back to me.";
+			mes "[Irmã Cecília]";
+			mes "Pense um pouco sobre o valor do sofrimento e sobre o sacrifício. Quando pensar irá entender mais sobre o que significa ajudar os que precisam, após pensar volte aqui.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		mes "Will you repeatly say the same phrase in public in order to send God's message to his children?";
+		mes "[Irmã Cecília]";
+		mes "Você perturbará pessoas nos campos e nas cidades, repetindo as mesmas palavras várias vezes?";
 		next;
-		if (select("Yes.:No.") == 1) {
-			mes "[Sister Cecilia]";
-			mes "No no no... You've got it wrong. Even though your purpose is to spread God's message, no one will eagerly accept what you say when you spam text.";
+		if (select("Sim.:Não.") == 1) {
+			mes "[Irmã Cecília]";
+			mes "Não... Você não compreendeu. Apesar do motivo ser: espalhar a mensagem de Deus, ninguém irá aceitar o que você fala por que estará abusando.";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "Remember...";
-			mes "You must be a moral person, and display maturity and respect to other players. This kind of attitude applies for all classes,";
-			mes "I believe.";
+			mes "[Irmã Cecília]";
+			mes "Lembre-se...";
+			mes "Você deve ser uma pessoa com moral e respeito, e deve mostrar maturidade aos outros jogadores. Esse tipo de atitude é aplicada em todas as classes,";
+			mes "eu acredito.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		mes "Will you lure many monsters to help your party members level up?";
+		mes "[Irmã Cecília]";
+		mes "Você trará grandes quantidades de monstros para que seus amigos possam matá-los?";
 		next;
-		if (select("Yes.:No.") == 1) {
-			mes "[Sister Cecilia]";
-			mes "No, you won't. Luring many monsters does more harm than good. There is no exception. That behavior is totally unacceptable.";
+		if (select("Sim.:Não.") == 1) {
+			mes "[Irmã Cecília]";
+			mes "Não. Atrair muitos monstros traz mais mal que bem. Não há exceção nisso. Esse comportamento é totalmente inaceitável.";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "Even if it looks like you are aiding your party members, such action results in bad karma. Please reflect on that for a while.";
+			mes "[Irmã Cecília]";
+			mes "Mesmo parecendo que você está ajudando os membros de seu grupo, essa atitude resultará em uma má consequência. Por favor reflita sobre isso.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		mes "Will you follow God, no matter what it takes, even if he demands you to kill yourself?";
+		mes "[Irmã Cecília]";
+		mes "Você viverá e morrerá pela glória divina?";
 		next;
-		if (select("Yes.:No.") == 2) {
-			mes "[Sister Cecilia]";
-			mes "With that spirit, you can't be a Priest. If it is God's will to sacrifice yourself for a good purpose, you must carry out God's will as his servant.";
+		if (select("Sim.:Não.") == 2) {
+			mes "[Irmã Cecília]";
+			mes "Com esse espírito, você não pode se tornar um Sacerdote. Se a vontade de Deus é que você se sacrifique por um bem maior, você deve cumprir essa vontade como sendo seu servo.";
 			next;
 			PRIEST_Q = 8;
-			mes "[Sister Cecilia]";
-			mes "Besides, God has also given Priests the resurrection power. Think about the meaning of life and death again, and then come back to me.";
+			mes "[Irmã Cecília]";
+			mes "E também, Deus deu aos Sacerdotes o poder de ressucitação. Pense sobre o sentido da vida e da morte novamente, após isso volte.";
 			close;
 		}
-		mes "[Sister Cecilia]";
-		if (Sex)
-			mes "Brother "+ strcharinfo(0) +"...";
-		else
-			mes "Sister "+ strcharinfo(0) +"...";
-		mes "You have demonstrated your devotion to God. Will you swear to adhere to his teachings for the rest of your days?";
+		mes "[Irmã Cecília]";
+		mes "[Irmã Cecília]";
+		mes ""+((Sex)?"Irmão":"Irmã")+" "+strcharinfo(0)+"...";
+		mes "Eu o ouvi, irmão. Por fim, jure a Deus que você respondeu com sinceridade as minhas perguntas";
 		next;
-		if (select("I do.:No.") == 1) {
+		if (select("Eu juro.:Não.") == 1) {
 			PRIEST_Q = 9;
 			changequest 8014,8015;
-			mes "[Sister Cecilia]";
-			mes "Now, you have completed your oath of Priesthood and accomplished all three trials required to become a Priest.";
+			mes "[Irmã Cecília]";
+			mes "Agora, você completou seu juramento de Sacerdócio e todos os três exames para se tornar um Sacerdote.";
 			next;
-			mes "[Sister Cecilia]";
-			mes "Now go to Bishop Paul. And remember, we are all brothers and sisters in the eyes of God. Peace be with you...";
+			mes "[Irmã Cecília]";
+			mes "Vá ao Bispo Paul. E lembre-se, nós todos somos irmãos e irmãs aos olhos de Deus. Que a paz esteja com você...";
 			close;
 		}
-		mes "[Sister Cecilia]";
+		mes "[Irmã Cecília]";
 		mes "...";
 		next;
-		mes "[Sister Cecilia]";
+		mes "[Irmã Cecília]";
 		mes "...";
 		mes "......";
 		next;
 		PRIEST_Q = 8;
-		mes "[Sister Cecilia]";
-		mes "You've come so far...";
-		mes "Why would you want";
-		mes "to throw this all away...?";
+		mes "[Irmã Cecília]";
+		mes "Você chegou tão longe...";
+		mes "Por que quer";
+		mes "jogar tudo isso fora...?";
 		close;
 	}
 	else if (PRIEST_Q == 9) {
-		mes "Congratulations.";
-		mes "You've completed all three trials required for the Priesthood. Bishop Paul is now waiting for you.";
+		mes "Parabéns.";
+		mes "Você completou todos os três exames necessários. O Bispo Paul está esperando por você.";
 		next;
-		mes "[Sister Cecilia]";
-		mes "Peace be with you...";
+		mes "[Irmã Cecília]";
+		mes "Que a paz esteja com você...";
 		close;
 	}
 }
@@ -845,106 +808,100 @@ prt_church,27,24,1	script	Sister Cecilia	1_F_PRIEST,{
 // 2nd Test
 //==========================================================
 job_prist,24,187,4	script	Peter S. Alberto	4_M_MINISTER,{
-	mes "[Father Peter]";
-	if (BaseJob == Job_Priest) {
-		mes "Welcome!";
-		if (Sex)
-			mes "Brother "+ strcharinfo(0) +"!";
-		else
-			mes "Sister "+ strcharinfo(0) +"!";
-		mes "So good to see you again!";
-		next;
-		mes "[Father Peter]";
-		mes "Are you here to help an Acolyte friend for the spiritual training? That's great~ I think you'll do a good job.";
-		next;
-		mes "[Father Peter]";
-		mes "Remember, no matter how much you want to help this Acolyte, this is not your quest.";
-		next;
-		mes "[Father Peter]";
-		mes "You may assist and lighten your friend's burden, but you take upon this task for yourself.";
-		next;
-		mes "[Father Peter]";
-		mes "So...";
-		mes "Are you gonna help him right now?";
-		next;
-		switch(select("Yes, I am.:Give me a minute.:I changed my mind.")) {
-		case 1:
-			mes "[Father Peter]";
-			mes "Go for it! As your Acolyte enters, the test will begin. Now, I will send you to the testing area.";
-			close2;
-			warp "job_prist",24,44;
-			end;
-		case 2:
-			mes "[Father Peter]";
-			mes "Hm...?";
-			mes "What for?";
-			mes "Well, so long as you arrive in time to help your friend, it will be okay.";
-			close;
-		case 3:
-			mes "[Father Peter]";
-			mes "Oh...?";
-			mes "Then please,";
-			mes "go ahead. God bless";
-			mes "you, and take care!";
-			close2;
-			warp "prontera",234,318;
-			end;
-		}
+	mes "Bem-vindo!";
+	mes ""+((Sex)?"Irmão":"Irmã")+" "+strcharinfo(0)+"...";
+	mes "É muito bom te rever!";
+	next;
+	mes "[Irmão Peter]";
+	mes "Você está aqui para ajudar um amigo seu Noviço no treinamento espiritual? Isso é ótimo ~ Acho que você irá conseguir fazer um ótimo trabalho.";
+	next;
+	mes "[Irmão Peter]";
+	mes "E lembre-se, não importa o quanto você queira ajudar seu amigo, apenas saiba que essa não é sua missão.";
+	next;
+	mes "[Irmão Peter]";
+	mes "Você pode assistir e torcer por seu amigo, mas isso é por sua conta.";
+	next;
+	mes "[Irmão Peter]";
+	mes "Então...";
+	mes "Irá ajudá-lo?";
+	next;
+	switch(select("Sim, vou.:Me dê um tempo.:Mudei de idéia.")) {
+	case 1:
+		mes "[Irmão Peter]";
+		mes "Então vá! Assim que o Noviço entrar, o teste irá começar. Agora, vou te mandar para a Arena de Testes.";
+		close2;
+		warp "job_prist",24,44;
+		end;
+	case 2:
+		mes "[Irmão Peter]";
+		mes "Hum...?";
+		mes "Por que?";
+		mes "Certo, desde que você chegue a tempo de ajudar seu amigo, não tem problemas.";
+		close;
+	case 3:
+		mes "[Irmão Peter]";
+		mes "Hã...?";
+		mes "Então por favor,";
+		mes "siga em frente. Deus te abençoe";
+		mes "e tome cuidado!";
+		close2;
+		warp "prontera",234,318;
+		end;
 	}
 	if (PRIEST_Q == 5) {
-		mes "Welcome~!";
-		mes "I congratulate you";
-		mes "for passing the first trail.";
+		mes "Bem-vindo~!";
+		mes "Receba meus parabéns";
+		mes "por passar no primeiro exame.";
 		next;
-		mes "[Father Peter]";
-		mes "My name is";
-		mes "Peter S. Alberto.";
-		mes "How is my buddy Paul?";
-		mes "Is he doing alright";
-		mes "these days?";
+		mes "[Irmão Peter]";
+		mes "Meu nome é";
+		mes "Pedro S. Alberto.";
+		mes "Como está meu colega Paulo?";
+		mes "Ele está bem durante";
+		mes "esses dias?";
 		next;
-		mes "[Father Peter]";
-		mes "Oh, I keep forgetting that he was promoted to Bishop. I think I'm supposed to call him Bishop Paul, or 'His Excellency.' Haha~";
+		mes "[Irmão Peter]";
+		mes "Ah, sempre me esqueço que ele foi promovido a Bispo. Acho que deveria chamá-lo de Bispo Paul, ou 'Sua Excelência.' Haha~";
 		next;
-		mes "[Father Peter]";
-		mes "Anyway, let me give you a brief explanation of the spiritual training. Are you familiar with what the spiritual training is for Priests?";
+		mes "[Irmão Peter]";
+		mes "De todo jeito, me deixe dar uma pequena explicação sobre o treinamento espiritual. Você sabe o que o treinamento espiritual significa para os Sacerdotes?";
 		next;
-		switch(select("Yes, I do.:Sorry...")) {
+		switch(select("Sim, sei.:Desculpe...")) {
 		case 1:
-			mes "[Father Peter]";
-			mes "Haha, I like you! But it never hurts to have too much information. The more well informed you are, the more easily you'll pass the test!";
+			mes "[Irmão Peter]";
+			mes "Haha, gosto de você! Mas nunca é chato saber mais. Quanto mais informado você for, mais fácil passará no exame!";
 			next;
 			break;
 		case 2:
-			mes "[Father Peter]";
-			mes "Oh, no need to be sorry. I'm here to give you the information you need anyway. So, don't worry.";
+			mes "[Irmão Peter]";
+			mes "Ah, não se desculpe. Estou aqui para dar as informações que você precisar. Então, não se preocupe.";
 			next;
 			break;
 		}
-		mes "[Father Peter]";
-		mes "In spiritual training, you will be defeating evil creatures. Creatures of the Undead and Demons are all evil. In choosing to serve darkness, they are our enemies!";
+		mes "[Irmão Peter]";
+		mes "No treinamento espiritual, você irá derrotar criaturas malignas. Mortos-vivos e Demônios são do mal. Por isso, se escolheram servir as sombras, logo eles são nossos inimigos!";
 		next;
-		mes "[Father Peter]";
-		mes "There are too many evil creatures that roam this world against the will of God. Innocents suffer as a result of their malignance.";
+		mes "[Irmão Peter]";
+		mes "Existem muitas criaturas malignas que vagam por esse mundo contra a vontade de Deus. Pessoas inocentes sofrem por causa de suas maldades.";
 		next;
-		mes "[Father Peter]";
-		mes "We, as Priests, are obligated to exterminate all those creatures, thus spreading love and peace.";
+		mes "[Irmão Peter]";
+		mes "Nós, como Sacerdotes, somos obrigados a exterminar todas essas criaturas, assim espalhando amor e paz.";
 		next;
-		mes "[Father Peter]";
-		mes "This training will test your ability to eliminate evil. Since this trial is pretty difficult to be accomplished by yourself,";
-		mes "I recommend getting help from a Priest if you can.";
+		mes "[Irmão Peter]";
+		mes "Esse treinamento irá testar sua habildade de eliminar o mal. Já que essa exame é bem difícil de ser concluida sozinho,";
+		mes "recomendo que peça ajuda para um Sacerdote se puder.";
 		next;
-		mes "[Father Peter]";
-		mes "If you are close to a Priest, you'd better ask him to assist you during this trial. Now, are you ready?";
+		mes "[Irmão Peter]";
+		mes "Caso seja próximo de um Sacerdote, é melhor que peça ajuda durante essa exame. Você já está pronto?";
 		next;
-		switch(select("I'm ready.:Please hold on.:I want to go back.")) {
+		switch(select("Estou pronto.:Por favor espere.:Eu quero voltar.")) {
 		case 1:
-			mes "[Father Peter]";
-			mes "Now, let the spiritual training begin. It's simple. Just kill them all. Show no mercy to the creatures of darkness!";
+			mes "[Irmão Peter]";
+			mes "Deixe o treinamento espiritual começar. Ele é simples. Apenas mate todos. Não mostre misericórdia as criaturas da escuridão!";
 			next;
-			mes "[Father Peter]";
-			mes "Now...";
-			mes "Go for it!";
+			mes "[Irmão Peter]";
+			mes "Agora...";
+			mes "Vá!";
 			close2;
 			changequest 8011,8012;
 			warp "job_prist",24,44;
@@ -954,41 +911,41 @@ job_prist,24,187,4	script	Peter S. Alberto	4_M_MINISTER,{
 			end;
 		case 2:
 			PRIEST_Q = 6;
-			mes "[Father Peter]";
-			mes "Hm? What is it you need?";
-			mes "Well, no problem. You can";
-			mes "afford to take your time.";
+			mes "[Irmão Peter]";
+			mes "Hum? Do que você precisa?";
+			mes "Tudo bem. Você pode";
+			mes "demorar o tempo necessário.";
 			close;
 		case 3:
 			PRIEST_Q = 6;
-			mes "[Father Peter]";
-			mes "What...?";
-			mes "You wanna go back??";
+			mes "[Irmão Peter]";
+			mes "O que...?";
+			mes "Você quer voltar??";
 			next;
-			mes "[Father Peter]";
-			mes "I understand. I suppose you have some important reason or business that you must attend to. Come back whenever you can.";
+			mes "[Irmão Peter]";
+			mes "Entendo. Imagino que você tenha uma razão importante ou negócios a fazer. Volte quando quiser.";
 			close2;
 			warp "prontera",234,318;
 			end;
 		}
 	}
 	else if (PRIEST_Q == 6) {
-		mes "Are you ready this time?";
-		mes "Complete this trial quickly,";
-		mes "and become a Priest!";
+		mes "Está preparado dessa vez?";
+		mes "Complete este exame rápido,";
+		mes "e volte como um Sacerdote!";
 		next;
-		mes "[Father Peter]";
-		mes "Are you ready then?";
+		mes "[Irmão Peter]";
+		mes "Você está pronto então?";
 		next;
-		switch(select("I'm ready.:Please hold on.:I want to go back.")) {
+		switch(select("Estou pronto.:Por favor, espere.:Eu quero voltar.")) {
 		case 1:
-			mes "[Father Peter]";
-			mes "Now, let the spiritual training begin. For the glory of God, for peace on earth, and goodwill towards all men...";
+			mes "[Irmão Peter]";
+			mes "Agora, iremos iniciar o treinamento espiritual. Para a glória de Deus, pela paz na terra, e boa vontade com todos os homens...";
 			next;
-			mes "[Father Peter]";
-			mes "Go...";
-			mes "Kill those";
-			mes "misbegotten creatures!";
+			mes "[Irmão Peter]";
+			mes "Vamos...";
+			mes "Mate as";
+			mes "criaturas miseráveis!";
 			close2;
 			if (!questprogress(8012)) {
 				changequest 8011,8012;
@@ -999,18 +956,18 @@ job_prist,24,187,4	script	Peter S. Alberto	4_M_MINISTER,{
 			donpcevent "Peter S. Alberto#2::OnEnable";
 			end;
 		case 2:
-			mes "[Father Peter]";
-			mes "Hm? What is it you need?";
-			mes "Well, no problem. You can";
-			mes "afford to take your time.";
+			mes "[Irmão Peter]";
+			mes "Hum? Do que você precisa?";
+			mes "Tudo bem. Você pode";
+			mes "demorar o tempo necessário.";
 			close;
 		case 3:
-			mes "[Father Peter]";
-			mes "What...?";
-			mes "You wanna go back??";
+			mes "[Irmão Peter]";
+			mes "Como...?";
+			mes "Quer voltar??";
 			next;
-			mes "[Father Peter]";
-			mes "I understand. I suppose you have some important reason or business that you must attend to. Come back whenever you can.";
+			mes "[Irmão Peter]";
+			mes "Entendo. Imagino que você tenha uma razão importante ou negócios a fazer. Volte quando quiser.";
 			close2;
 			warp "prontera",234,318;
 			end;
@@ -1033,37 +990,34 @@ OnDisable:
 }
 
 job_prist,23,187,1	script	Peter S. Alberto#2	4_M_MINISTER,{
-	mes "[Father Peter]";
+	mes "[Irmão Peter]";
 	if (BaseJob == Job_Priest) {
-		mes "Welcome!";
-		if (Sex)
-			mes "Brother "+ strcharinfo(0) +"!";
-		else
-			mes "Sister "+ strcharinfo(0) +"!";
-		mes "So good to see you!";
+		mes "Bem-vindo!";
+		mes ""+((Sex)?"Irmão":"Irmã")+" "+strcharinfo(0)+"...";
+		mes "É muito bom te rever!";
 		next;
-		mes "[Father Peter]";
-		mes "Are you here to help an Acolyte friend for the spiritual training? That's great~ I think you'll do a good job.";
+		mes "[Irmão Peter]";
+		mes "Você está aqui para ajudar um amigo seu Noviço no treinamento espiritual? Isso é ótimo ~ Acho que você irá conseguir fazer um ótimo trabalho.";
 		next;
-		mes "[Father Peter]";
-		mes "Well, another Acolyte is in the training ground right now. You'll need to wait a little bit longer...";
+		mes "[Irmão Peter]";
+		mes "Um outro Noviço está realizando o teste. Espere um pouco mais ...";
 		next;
-		mes "[Father Peter]";
-		mes "Please come back a little later. If this acolyte's done with the training, I will send you to the training area.";
+		mes "[Irmão Peter]";
+		mes "Retorne um pouco mais tarde. Caso o Noviço tenha terminado, irei enviá-lo a área de treinamento.";
 		close;
 	}
 	if (PRIEST_Q == 5) {
-		mes "Please hold on for a while. Another acolyte is in the training ground right now.";
+		mes "Por favor, espere um pouco. Um outro Noviço está realizando o teste.";
 		next;
-		mes "[Father Peter]";
-		mes "If you want to take the test, please wait a while and talk to me again.";
+		mes "[Irmão Peter]";
+		mes "Se quiser fazer o teste, por favor espere um pouco mais.";
 		close;
 	}
 	else if (PRIEST_Q == 6) {
-		mes "Please hold on for a while. Another acolyte is in the training ground right now.";
+		mes "Por favor, espere um pouco. Um outro Noviço está realizando o teste.";
 		next;
-		mes "[Father Peter]";
-		mes "If you want to take the test, please wait a while and talk to me again.";
+		mes "[Irmão Peter]";
+		mes "Se quiser fazer o teste, por favor espere um pouco mais.";
 		close;
 	}
 	else {
@@ -1103,31 +1057,31 @@ OnEnable:
 
 OnM1:
 	.MyMobs = 13;
-	monster "job_prist",24,52,"Theft",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",18,52,"Want of Virtue",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",30,52,"Jealousy",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",24,52,"Furto",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",18,52,"Desejo de Virtude",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",30,52,"Ciúme",1015,1,"Z_C#prst::OnMyMobDead";
 	end;
 
 OnM2:
-	monster "job_prist",21,62,"Fury",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",27,62,"Envy",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",21,62,"Fúria",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",27,62,"Inveja",1015,1,"Z_C#prst::OnMyMobDead";
 	end;
 
 OnM3:
-	monster "job_prist",24,72,"Arrogance",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",18,72,"Lewdness",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",30,72,"Sloth",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",24,72,"Arrogância",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",18,72,"Luxúria",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",30,72,"Preguiça",1015,1,"Z_C#prst::OnMyMobDead";
 	end;
 
 OnM4:
-	monster "job_prist",21,82,"Gluttony",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",27,82,"Greed",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",21,82,"Gula",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",27,82,"Ganância",1015,1,"Z_C#prst::OnMyMobDead";
 	end;
 
 OnM5:
-	monster "job_prist",24,92,"Despair",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",18,92,"Distrust",1015,1,"Z_C#prst::OnMyMobDead";
-	monster "job_prist",30,92,"Fear",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",24,92,"Desespero",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",18,92,"Desconfiança",1015,1,"Z_C#prst::OnMyMobDead";
+	monster "job_prist",30,92,"Medo",1015,1,"Z_C#prst::OnMyMobDead";
 	end;
 
 OnDisable:
@@ -1165,25 +1119,26 @@ OnMyMobDead:
 job_prist,24,44,0	script	Zombie Info	-1,1,1,{
 OnTouch:
 	if (BaseJob == Job_Priest) {
-		mes "[Father Peter]";
-		mes "When the Priest applicant enters, 5 minutes will be given to complete this trial. Proceed slowly and help your Acolyte.";
+		mes "[Irmão Peter]";
+		mes "[Irmão Peter]";
+		mes "Quando o noviço entrar, 5 minutos serão dados para completar essa tarefa. Prossiga com calma e ajude seu amigo Noviço.";
 		next;
-		mes "[Father Peter]";
-		mes "Enter through the warp at the end of the hall, where you will be lead to the next test hall.";
+		mes "[Irmão Peter]";
+		mes "Entre pelo portal que está ao final do corredor, lá você será levado para a próxima sala de exames.";
 		next;
-		mes "[Father Peter]";
-		mes "Remember...";
-		mes "This trial must be";
-		mes "completed within";
-		mes "5 minutes. Best of luck~";
+		mes "[Irmão Peter]";
+		mes "Lembre-se...";
+		mes "Esse exame deve ser";
+		mes "completada dentro de";
+		mes "5 minutos. Boa Sorte ~";
 		close;
 	}
 	else if (BaseJob == Job_Acolyte){
-		mes "[Father Peter]";
-		mes "I will give you exactly 5 minutes! You must proceed slowly and eliminate the Zombies.";
+		mes "[Irmão Peter]";
+		mes "Te darei exatamente 5 minutos! Vá com calma e derrote os Zumbis.";
 		next;
-		mes "[Father Peter]";
-		mes "Slay all the zombies and go through the warp at the end of the hall. Make sure that you kill them all.";
+		mes "[Irmão Peter]";
+		mes "Derrote todos os zumbis e passe pelo portal no final do corredor. Certifique-se de matar todos.";
 		close;
 	}
 	end;
@@ -1312,20 +1267,20 @@ job_prist,168,45,4	script	Deviruchi#prst	DEVIRUCHI,8,1,{
 OnTouch:
 	if (BaseJob == Job_Priest) {
 		mes "[Deviruchi]";
-		mes "Whaaaaat...?";
-		mes "What are you";
-		mes "doing back here?";
+		mes "O queeeeee...?";
+		mes "O que você";
+		mes "está fazendo ai atrás?";
 		next;
 		mes "[Deviruchi]";
-		mes "Well, look who's the ^660000BMOC^000000 now. That's '^660000B^000000ig ^660000M^000000an ^660000O^000000n ^660000C^000000ampus,' if you didn't know. By the way, I was being sarcastic. You know, if you didn't notice.";
+		mes "Bem, veja quem é ^660000OGCDC^000000. Isso é '^660000G^000000rande ^660000C^000000ara ^660000D^000000o ^660000C^000000ampus,' caso não saiba. Estava sendo sarcástico. Você deve ter notado.";
 		next;
 		mes "[Deviruchi]";
-		mes "Are you really";
-		mes "happy being a Priest?";
-		mes "There's no possible way.";
+		mes "Você é realmente";
+		mes "feliz por ser um Sacerdote?";
+		mes "É impossível.";
 		next;
 		mes "[Deviruchi]";
-		mes "Alright, alright, for old time's sake, I'll let you pass me. But only this once. But I better not catch you again! This is evil turf, you hear?!";
+		mes "Certo, certo, por questões de tempo, vou deixar você passar. Mas só dessa vez. Não deixe te pegar denovo! Aqui é a área do mal, entendeu?!";
 		close;
 	}
 	if (BaseClass == Job_Acolyte) {
@@ -1346,64 +1301,64 @@ OnTouch:
 		mes "[Deviruchi]";
 		mes "Wouldn't life be so much easier if you weren't a Priest? And it'd be so easy. All you'd have to do is quit right now...";
 		next;
-		if (select("You're right, I quit!:Out of my sight, demon!") == 1) {
+		if (select("Está certo, eu desisto!:Desapareça, demônio!") == 1) {
 			mes "[Deviruchi]";
-			mes "^660000YES~!^000000 I mean...";
-			mes "Good for you!";
+			mes "^660000SIM~!^000000 Eu entendo...";
+			mes "Isso é bom!";
 			next;
 			mes "[Deviruchi]";
-			mes "Oh...?";
-			mes "Look at the ^660000time^000000.";
-			mes "You better get going.";
+			mes "Hã...?";
+			mes "Olha a ^660000hora^000000.";
+			mes "É melhor ir andando.";
 			next;
 			mes "[Deviruchi]";
-			mes "BWAHAHAHAHAHAH!";
-			mes "GET THE JOKE!?";
+			mes "BUAHAHAHAHAHAH!";
+			mes "GOSTOU DA PIADA!?";
 			close2;
 			warp "c_tower2",168,33;
 			end;
 		}
 		mes "[Deviruchi]";
-		mes "Out of your sight?";
-		mes "I guess I'm not the";
-		mes "cutest thing you've";
-		mes "ever seen, huh?";
+		mes "Desaparecer?";
+		mes "Você não acha que sou";
+		mes "a coisa mais fofinha que";
+		mes "você já viu, em?";
 		next;
 		mes "[Deviruchi]";
-		mes "But how about this...? Now, isn't this an attractive sight? A nice, shiny new card. Mint condition. Not too many people have this you know. But I happen to have soooo many, my pockets hurt.";
+		mes "Mas o que...? Veja, não parece atraente? Uma boa e rara carta. Pense nisso. Você não deve conhecer muitos que a possuem. Mas eu possuo muuuuuitas, meus bolsos estão cheios.";
 		next;
 		cutin "¹Ì½ºÆ®·¹½ºÄ«µå.bmp",4; // Mistress Card
 		mes "[Deviruchi]";
-		mes "Isn't it everyone's dream to have one of these? Think about it, being a Priest can only bring you suffering...";
+		mes "Não é o sonho de todos ter uma dessas? Pense nisso, ser um sacerdote só lhe trará sofrimento...";
 		next;
-		if (select("You're right, I'll take it!:Silence!") == 1) {
+		if (select("Você está certo, eu a quero!:Silêncio!") == 1) {
 			mes "[Deviruchi]";
-			mes "Good choice!";
-			mes "This card can";
-			mes "can be yours...";
+			mes "Ótima escolha!";
+			mes "Esta carta";
+			mes "pode ser sua...";
 			next;
 			cutin "¹Ì½ºÆ®·¹½ºÄ«µå.bmp",255; // Mistress Card
 			mes "[Deviruchi]";
-			mes "Theoretically!";
-			mes "BWAHAHAHAHAHAHAHA!";
-			mes "Go and earn it yourself!";
+			mes "Na teoria!";
+			mes "BUAHAHAHAHAHAHAHA!";
+			mes "A consiga você mesmo!";
 			close2;
 			warp "mjolnir_05",200,200;
 			end;
 		}
 		cutin "¹Ì½ºÆ®·¹½ºÄ«µå.bmp",255; // Mistress Card
 		mes "[Deviruchi]";
-		mes "Did...";
-		mes "Did you just tell";
-		mes "me to shut up?";
-		mes "Oh my God...";
+		mes "Você...";
+		mes "Você acabou de me dizer";
+		mes "para ficar em silêncio?";
+		mes "Meu Deus...";
 		next;
 		mes "[Deviruchi]";
-		mes "Sorry...";
-		mes "Oh ^660000your^000000 God.";
-		mes "Fine, get going.";
-		mes "But you'll regret";
-		mes "your decision later!";
+		mes "Desculpe...";
+		mes "Ah ^660000você^000000 é Deus.";
+		mes "Ótimo.";
+		mes "Mas você irá lamentar";
+		mes "sua decisão depois!";
 		close;
 	}
 	end;
@@ -1413,186 +1368,183 @@ job_prist,168,80,4	script	Doppelganger#prst	DOPPELGANGER,8,1,{
 OnTouch:
 	if (BaseJob == Job_Priest) {
 		mes "[Doppelganger]";
-		mes "What are you doing here? You've already made your choice, there's no going back... Priest.";
+		mes "O que você está fazendo aqui? Você já fez sua escolha, não há como voltar atrás... Sacerdote.";
 		next;
 		mes "[Doppelganger]";
-		mes "Besides, this is none of your business. Whether or not this Acolyte becomes a Priest isn't up to you. Now get out of here, before I get violent.";
+		mes "E também, isso não é sua obrigação. Querendo ou não, a decisão deste Noviço se tornar um Sacerdote ou não se tornar é algo que não está ao seu alcance. Agora saia daqui, antes que use a violência.";
 		close;
 	}
 	else if (BaseClass == Job_Acolyte) {
 		mes "[Doppelganger]";
-		mes "Hold on there, Acolyte.";
-		mes "I'm not like Deviruchi,";
-		mes "so I won't mince";
-		mes "words with you.";
+		mes "Espere ai, Novíço.";
+		mes "Eu não gosto do Deviruchi,";
+		mes "então eu posso";
+		mes "falar com você.";
 		next;
 		mes "[Doppelganger]";
-		mes "Now, why would you want to become a Priest? It's such a worthless, thankless job. If you want, I'll give you the chance to become a Novice. Then you can become something much better!";
+		mes "Agora me fale, por que você quer se tornar um Sacerdote? É um trabalho díficil, não compensa. Se você quiser, te dou a chance de se tornar um Aprendiz. E então você poderá se tornar algo muito melhor!";
 		next;
 		mes "[Doppelganger]";
-		mes "Of course, I'll let you redistribute your stat points by your base level. Now, isn't that a sweet deal...?";
+		mes "E é claro que irei deixar você redistribuir seus pontos de atributos. Me fale, não é um bom negócio...?";
 		next;
-		if (select("Deal, Deal!:No deal... Doppelganger.") == 1) {
+		if (select("Negociar, negociar!:Não negociar... Doppelganger.") == 1) {
 			mes "[Doppelganger]";
-			mes "Good choice~";
-			mes "I shall return your";
-			mes "job to a Novice";
-			mes "as you wish.";
+			mes "Boa escolha~";
+			mes "Irei transformar sua";
+			mes "classe em um Aprendiz.";
 			next;
 			mes "[Doppelganger]";
-			mes "Now go!!";
-			mes "Never step into";
-			mes "the light again!";
+			mes "Agora vamos!!";
+			mes "Nunca passe para";
+			mes "a luz novamente!";
 			close2;
 			warp "gef_dun02",210,177;
 			end;
 		}
 		mes "[Doppelganger]";
-		mes "I don't think you understood what I just offered. Think about it again. I mean, this is your one and only chance to undo your life mistakes. I mean, becoming an Acolyte?";
+		mes "Não acho que você tenha entendido exatamente o que eu te ofereci. Repense. Digo, essa é a sua única chance de deixar sua vida de erros. Se tornando um Noviço?";
 		next;
 		mes "[Doppelganger]";
-		mes "Just don't become a Priest. I won't ask you more than once. Then you can choose a better job... perhaps a Swordman like me.";
+		mes "Apenas não se torne um Sacerdote. Não irei te pedir mais de uma vez. Você pode escolher uma profissão melhor... talvez um Espadachim assim como eu.";
 		next;
-		if (select("I don't want to be a Priest!:I'll never listen to you!") == 1) {
+		if (select("Eu não quero mais me tornar um Sacerdote!:Eu nunca irei te ouvir!") == 1) {
 			mes "[Doppelganger]";
-			mes "Excellent choice. Now, never return to this place. I shall return your job to Novice as you wish.";
+			mes "Excelente escolha. Agora, nunca volte para este local. Irei transformar sua classe em um Aprendiz.";
 			next;
 			mes "[Doppelganger]";
-			mes "Now go!!";
-			mes "Never step into";
-			mes "the light again!";
+			mes "Agora vamos!!";
+			mes "Nunca passe para";
+			mes "a luz novamente!";
 			close2;
 			warp "gef_dun02",210,177;
 			end;
 		}
 		mes "[Doppelganger]";
-		mes "Hmpf. I admire";
-		mes "your determination.";
-		mes "Okay, you can pass.";
-		mes "For now.";
+		mes "Hmpf. Admiro";
+		mes "sua determinação.";
+		mes "Tudo bem, você pode passar.";
 		next;
 		mes "[Doppelganger]";
-		mes "But if by chance we meet again,";
-		mes "I assure you... You won't be happy at all to see me.";
+		mes "Mas se por acaso nos encontrarmos novamente,";
+		mes "Te garanto... Você não irá ficar feliz em me ver.";
 		close;
 	}
 }
 
-job_prist,168,115,4	script	Dark Lord#prst	DARK_LORD,8,1,{
+job_prist,168,115,4	script	Senhor das Trevas#prst	DARK_LORD,8,1,{
 OnTouch:
 	if (BaseJob == Job_Priest) {
-		mes "[Dark Lord]";
-		mes "^330033All is doom, darkness and despair! Those who love you will betray you, and all that will be left is grieving and fury!^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Tudo é escuridão desgraça e desespero! Aqueles que você ama irão te trair, e tudo o que restará serão luto e fúria!^000000";
 		next;
-		mes "[Dark Lord]";
-		mes "^330033To choose to become a servant of God is to choose eternal pain!";
-		mes "I shall personally see to that, mortal.^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Escolher se tornar um servo de Deus significa escolher uma dor eterna!";
+		mes "Vou vê-lo pessoalmente, mortal.^000000";
 		close;
 	}
 	else if (BaseClass == Job_Acolyte) {
-		mes "[Dark Lord]";
-		mes "^330033Halt, human.";
-		mes "Who has granted";
-		mes "you passage?^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Pare, humano.";
+		mes "Quem permitiu";
+		mes "sua passagem?^000000";
 		next;
-		mes "[Dark Lord]";
-		mes "^330033You still wish to become a Priest?! Fool! Then, I shall not let you pass. Go back. Otherwise, you will not survive.^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Você ainda deseja se tornar um Sacerdote?! Tolo! Então, eu não irei deixar você passar. Volte. Caso contrário, você não irá sobreviver.^000000";
 		next;
-		mes "[Dark Lord]";
-		mes "^330033It would be so easy for me to snap your fragile body in twain and grind your bones to dust.";
-		mes "Now, go back mortal!^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Seria tão fácil para mim para cortar o seu corpo frágil em dois e moer os ossos até virarem pó.";
+		mes "Agora, volte mortal!^000000";
 		next;
-		if (select("I'm so sorry. Spare me!:God will protect me.") == 1) {
-			mes "[Dark Lord]";
-			mes "^330033Don't ever come back!^000000";
+		if (select("Eu sinto muito. Poupe-me!:Deus irá me proteger.") == 1) {
+			mes "[Senhor das Trevas]";
+			mes "^330033Não volte nunca mais!^000000";
 			close2;
 			warp "gl_church",145,170;
 			end;
 		}
-		mes "[Dark Lord]";
-		mes "^330033It is no use to feign strength and courage. You are completely helpless before me. Your skills are laughable, and your weapons are but mere toys compared to my power.^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Não adianta fingir ter força e coragem. Você está completamente indefeso diante de mim. Suas habilidades são irrelevantes, e suas armas são meros brinquedos em comparação com o meu poder.^000000";
 		next;
-		mes "[Dark Lord]";
-		mes "^330033With just a wave of my hand, you will cease to exist. And no one will remember you. Tremble before the might of my infinite magic!^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Com apenas um aceno de mão, você irá deixar de existir. E ninguém vai lembrar de você. Tremerá diante do poderio da minha magia infinita!^000000";
 		next;
-		if (select("I beg you, don't...!:Begone, vile fiend!") == 1) {
-			mes "[Dark Lord]";
-			mes "^330033Don't ever come back!^000000";
+		if (select("Eu imploro, não...!:Demônio, vá embora!") == 1) {
+			mes "[Senhor das Trevas]";
+			mes "^330033Não volte nunca mais!^000000";
 			close2;
 			warp "gl_church",145,170;
 			end;
 		}
-		mes "[Dark Lord]";
-		mes "^330033Why...";
-		mes "Why don't you fear me?!";
-		mes "For a frail mortal, you";
-		mes "are quite annoying.^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Por que...";
+		mes "Por que você não tem medo de mim?!";
+		mes "Para um frágil mortal, você";
+		mes "é muito chato.^000000";
 		next;
-		mes "[Dark Lord]";
-		mes "^330033When next we meet, I will shall escort you to a realm of suffering where you shall spend years immersed in excruciating pain.";
-		mes "Mark my words...^000000";
+		mes "[Senhor das Trevas]";
+		mes "^330033Quando nos encontrarmos, vou levá-lo a um reino de sofrimento onde você irá passar anos sob uma dor imaginável.";
+		mes "Guarde minhas palavras...^000000";
 		close;
 	}
 }
 
-job_prist,168,150,4	script	Baphomet#prst	4_BAPHOMET,8,1,{
+job_prist,168,150,4	script	Bafomé#prst	4_BAPHOMET,8,1,{
 OnTouch:
 	if (BaseJob == Job_Priest) {
-		mes "[Baphomet]";
-		mes "I hate";
-		mes "Priests...";
+		mes "[Bafomé]";
+		mes "Odeio sacerdotes...";
 		next;
-		mes "[Baphomet]";
-		mes "I don't have any business with you, servant of God. Just pass through.";
+		mes "[Bafomé]";
+		mes "Não tenho nada a tratar com você, servo de Deus. Apenas vá embora.";
 		close;
 	}
 	else if (BaseClass == Job_Acolyte) {
-		mes "[Baphomet]";
-		mes "Greetings.";
+		mes "[Bafomé]";
+		mes "Saudações.";
 		next;
-		mes "[Baphomet]";
-		mes "..."+ strcharinfo(0) +".";
+		mes "[Bafomé]";
+		mes "..."+strcharinfo(0)+".";
 		next;
-		mes "[Baphomet]";
-		mes "Yes, human,";
-		mes "I know who you are.";
+		mes "[Bafomé]";
+		mes "Sim, humano,";
+		mes "sei quem é você.";
 		next;
-		mes "[Baphomet]";
-		mes "I also know that Deviruchi, Doppelganger and the Dark Lord have all failed to convince you to turn away from the Priesthood.";
-		mes "Now, I stand before";
-		mes "you to offer a deal.";
+		mes "[Bafomé]";
+		mes "E também sei que o Deviruchi, Doppelganger e o Senhor das Trevas falharam em convencer você a largar o sacerdócio.";
+		mes "Agora, resta somente eu";
+		mes "para lhe propor uma coisa.";
 		next;
-		mes "[Baphomet]";
-		mes "I can grant you any treasure you desire and infinite power at your fingertips. Powerful weapons that humans have never before seen...";
+		mes "[Bafomé]";
+		mes "Eu posso te garantir e dar qualquer tesouro que você queira e também posso te conceder poder infinito. Armas poderosas que humanos jamais viram...";
 		next;
-		mes "[Baphomet]";
-		mes "Mountains of zeny that you cannot possibly hope to spend in a lifetime. Though, who's to say that your lifespan should be limited? Fame, power, immortality: It can all be yours.";
+		mes "[Bafomé]";
+		mes "Montanhas de zeny que você em vida nunca conseguirá gastar. Quem disse que sua vida precisa ser limitada? Fama, poder, imortalidade: tudo isso pode ser seu.";
 		next;
-		mes "[Baphomet]";
-		mes "I will be yours to summon at anytime. All other humans will dread making you their enemy. You will become the most powerful person in all of history!";
+		mes "[Bafomé]";
+		mes "Eu poderei ser chamado a qualquer instante. Todos os humanos temerão ao serem seus inimigos. Você se tornará a pessoa mais poderosa de toda a história!";
 		next;
-		mes "[Baphomet]";
-		mes "Cease this foolishness of pursuing the Priesthood. Make a contract with me. The entire world is yours for the taking.";
+		mes "[Bafomé]";
+		mes "Deixe de lado essa idiotisse de buscar o sacerdócio. Faça um contrato comigo. O mundo inteiro será seu.";
 		next;
-		if (select("Deal.:No, Baphomet. You lose.") == 1) {
-			mes "[Baphomet]";
-			mes "Then we shall form a contract. You won't ever regret this moment...";
+		if (select("Negociar.:Não, Bafomé. Você perdeu.") == 1) {
+			mes "[Bafomé]";
+			mes "Então nós podemos formar um contrato. Você nunca se esquecerá desse momento...";
 			next;
-			mes "[Baphomet]";
-			mes "Follow me.";
-			mes "We will make the";
-			mes "contract in my";
-			mes "sanctum of darkness.";
+			mes "[Bafomé]";
+			mes "Siga-me.";
+			mes "Nós faremos o";
+			mes "contrato no meu";
+			mes "santuário da escuridão.";
 			close2;
 			warp "glast_01",200,203;
 			end;
 		}
-		mes "[Baphomet]";
-		mes "Foolish human...";
-		mes "You have made your choice. I will leave you alone for now, then. However, your training won't be as easy as you think.";
+		mes "[Bafomé]";
+		mes "Humano tolo...";
+		mes "Você fez sua escolha. Eu o deixarei. Entretanto, seu treinamento não será tão fácil como você pensa.";
 		next;
-		mes "[Baphomet]";
-		mes "I shall be preparing my troops for you. The day will come when I shall enjoy watching you writhe in agony as my fiends slowly devour you.";
+		mes "[Bafomé]";
+		mes "Eu prepararei minhas tropas para você. O momento que apreciarei a agonia de sua alma enquanto meus amigos lentamente a devoram chegará.";
 		close;
 	}
 }
@@ -1726,137 +1678,135 @@ OnTouch:
 function	script	F_FatherRub	{
 	if (PRIEST_Q != 0) {
 		if (PRIEST_Q == 1) {
-			mes "Ah yes, so you're the young Acolyte who wishes to become a Priest.";
+			mes "Ah, então você é o jovem Noviço que deseja se tornar um Sacerdote.";
 			next;
-			mes "[Father Rubalkabara]";
-			mes "I've received the message from Bishop Paul. Since you made the pilgrimage, I hope you accomplish your goal of becoming a Priest.";
+			mes "[Irmão Simão]";
+			mes "Eu recebi a mensagem do Bispo Paul. E já que você cumpriu a sua jornada, espero que você consiga seu objetivo de se tornar um Sacerdote.";
 			next;
-			mes "[Father Rubalkabara]";
-			mes "Also, if you have a chance, please visit this abbey again. It's a sacred place for our Church.";
+			mes "[Irmão Simão]";
+			mes "Além disso, se você tiver uma chance, por favor visite esta abadia novamente. Aqui é um lugar sagrado para a nossa igreja.";
 			next;
-			mes "[Father Rubalkabara]";
-			mes "Well then, please head to your next destination for your pilgrimage. Be safe in your travels.";
+			mes "[Irmão Simão]";
+			mes "Bem então, por favor dirija-se ao seu próximo destino da sua jornada. E fique seguro em suas viagens.";
 			close2;
 			savepoint "prt_fild03",361,255;
 			PRIEST_Q = 2;
 			end;
 		}
 		else if (PRIEST_Q == 2) {
-			mes "Please be hurry to the next destination for your pilgrimage. I hope you become a Priest soon.";
+			mes "Lembre-se de chegar o mais rápido possível ao seu destino. Espero que você se torne logo um Sacerdote.";
 			close;
 		}
-		mes "May I ask why you have returned? Please go back and continue your religious practice.";
+		mes "Posso te perguntar por que você voltou? Por favor, saia e continue sua prática religiosa.";
 		close;
 	}
-	mes "I have no idea what brought you here, but please excuse me.";
+	mes "Não faço idéia do que o trouxe até aqui, mas por favor desculpe-me.";
 	close;
 }
 
 function	script	F_MotherMart	{
 	if (PRIEST_Q != 0) {
 		if (PRIEST_Q == 1) {
-			mes "Hmm...";
-			mes "It seems you're";
-			mes "training to become";
-			mes "a Priest.";
+			mes "Parece que você está";
+			mes "treinando para se tornar";
+			mes "um Sacerdote.";
 			next;
-			mes "[Mother Mathilda]";
-			mes "However, at this point in your pilgrimage, I am not the person that you should be visiting.";
+			mes "[Irmã Matilda]";
+			mes "Entretanto, no momento não sou a pessoa que você deve visitar.";
 			next;
-			mes "[Mother Mathilda]";
-			mes "Perhaps you should ask Bishop Paul or Sister Cecilia once again. Well, may God be with you...";
+			mes "[Irmã Matilda]";
+			mes "Talvez você deva falar novamente com o Bispo Paul ou com a Irmã Cecília. Bem, que Deus esteja com você...";
 			close;
 		}
 		else if (PRIEST_Q == 2) {
-			mes "Ah, are you";
-			mes "a Priest trainee...?";
-			mes "Welcome!";
+			mes "Ah, você é";
+			mes "um aprendiz de Sacerdote...?";
+			mes "Bem-vindo!";
 			next;
-			mes "[Mother Mathilda]";
-			mes "We Priests are obliged to spread the message of God to";
-			mes "the peoples of the Earth.";
+			mes "[Irmã Matilda]";
+			mes "Nós Sacerdotes somos obrigados a espalhar a mensagem de Deus para";
+			mes "as pessoas na Terra.";
 			next;
-			mes "[Mother Mathilda]";
-			mes "After you become a Priest, your travels may take you to the Morroc Pyramids. I hope that you may release the Undead there from the evil to which they are bound.";
+			mes "[Irmã Matilda]";
+			mes "Depois de se tornar um Sacerdote, suas viagens poderão levá-lo as Pirâmides de Morroc. E eu espero que você possa libertar os Mortos-vivos de lá do mal que está os arrondando.";
 			next;
-			mes "[Mother Mathilda]";
-			mes "Well then...";
-			mes "I shall pray to";
-			mes "God for safety";
-			mes "on your journey.";
+			mes "[Irmã Matilda]";
+			mes "Bem...";
+			mes "Então eu orarei a";
+			mes "Deus para que você fique";
+			mes "seguro em sua jornada.";
 			close2;
 			savepoint "moc_fild07",35,355;
 			PRIEST_Q = 3;
 			end;
 		}
 		else if (PRIEST_Q == 3) {
-			mes "Please leave soon, and";
-			mes "continue your training.";
+			mes "Por favor, saia logo, e";
+			mes "continue seu treinamento.";
 			close;
 		}
-		mes "May I ask you the reason you came back? Please continue your training.";
+		mes "Posso te perguntar por que você voltou? Por favor, saia e continue sua prática religiosa.";
 		close;
 	}
-	mes "May God";
-	mes "be with you...";
+	mes "Que Deus";
+	mes "esteja com você...";
 	close;
 }
 
 function	script	F_FatherYos	{
 	if (PRIEST_Q != 0) {
 		if (PRIEST_Q == 1) {
-			mes "Hmm...";
-			mes "A Priest trainee, eh?";
+			mes "Hum...";
+			mes "Um aprendiz de Sacerdote, em?";
 			next;
-			mes "[Father Yosuke]";
-			mes "Well, you got the wrong person. If you're supposed to meet up with me at all, it'd be later.";
+			mes "[Irmão Bartolomeu]";
+			mes "Bem, você está falando com a pessoa errada. Ainda não é o momento certo de nos encontrarmos.";
 			next;
-			mes "[Father Yosuke]";
-			mes "But that's your own fault.";
-			mes "Now, go back to Church, kid.";
+			mes "[Irmão Bartolomeu]";
+			mes "Mas é problema seu. Agora, volte para a igreja, criança.";
 			close;
 		}
 		else if (PRIEST_Q == 2) {
-			mes "Hmm...";
-			mes "A Priest trainee, eh?";
+			mes "Hum...";
+			mes "Um aprendiz de Sacerdote, em?";
 			next;
-			mes "[Father Yosuke]";
-			mes "Well, you got the wrong person. If you're supposed to meet up with me at all, it'd be later.";
+			mes "[Irmão Bartolomeu]";
+			mes "Bem, você está falando com a pessoa errada. Ainda não é o momento certo de nos encontrarmos.";
 			next;
-			mes "[Father Yosuke]";
-			mes "But that's your own fault. Go back to Church.";
+			mes "[Irmão Bartolomeu]";
+			mes "Mas é problema seu. Agora, volte para a igreja, criança.";
 			close;
 		}
 		else if (PRIEST_Q == 3) {
-			mes "Hmm.";
-			mes "A Priest";
-			mes "trainee, eh? ";
-			mes "Welcome.";
+			mes "Hum.";
+			mes "Um aprendiz";
+			mes "de Sacerdote, em? ";
+			mes "Seja bem-vindo.";
 			next;
-			mes "[Father Yosuke]";
-			mes "I won't say";
-			mes "anything more.";
-			mes "Just devote your";
-			mes "life to God.";
+			mes "[Irmão Bartolomeu]";
+			mes "Eu não vou te dizer";
+			mes "mais nada.";
+			mes "Apenas dedique sua";
+			mes "vida a Deus";
 			next;
-			mes "[Father Yosuke]";
-			mes "Now go back to church.";
-			mes "Hereby, the first of";
-			mes "your trials is now";
-			mes "completed.";
+			mes "[Irmão Bartolomeu]";
+			mes "Agora volte para a igreja.";
+			mes "Pronto, seu primeiro";
+			mes "exame está concluído";
 			close2;
 			savepoint "prt_fild00",206,230;
 			PRIEST_Q = 4;
 			end;
 		}
 		else if (PRIEST_Q == 4) {
-			mes "I told you to go back to church.";
-			mes "Or do you want to live with me here for the rest of your life...?";
+			mes "Eu disse para você voltar a igreja.";
+			mes "Ou você quer viver aqui comigo para o resto da vida...?";
 			close;
 		}
-		mes "Just go be a Priest. This isn't a playground for kids.";
+		mes "Apenas vá se tornar um Sacerdote. Aqui não é um parque de brincadeiras.";
 		close;
 	}
-	mes "...Acolyte, you don't have any business with me here.";
+	mes "...Noviço, você não tem nada a tratar comigo.";
 	close;
 }
+
