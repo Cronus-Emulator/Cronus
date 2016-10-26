@@ -12,7 +12,6 @@
 //===============================================================||
 // = Alterações:                                                 ||
 // - Tradução [Spell Master]                                     ||
-// - Adesão da Tradução [Spell Master]                           ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Quest de Mudança de Classe para Mercenário                  ||
@@ -897,151 +896,151 @@ OnTouch:
 		next;
 		switch(rand(1,3)) {
 		case 1:
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "1. O que aqui não é um pré-requisito da habilidade Tocaia?";
 			next;
 			if (select("Furtividade Lv 2:Lâminas Destruídoras Lv 5:Esconder Lv 2:Perícia com Mão Esquerda Lv 2") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "2. Envenenar Arma faz sua arma que elemento?";
 			next;
 			if (select("Veneno:Terra:Fogo:Vento") == 1)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "3. Qual é a função de level 4 de Perícia com Mão Esquerda?";
 			next;
 			if (select("Ataque +80%:Ataque +70%:Ataque +90%:Ataque +108%!!") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "4. Qual item você precisa usar quando você usa 'Névoa Tóxica'?";
 			next;
 			if (select("Gema Verde:Gema Azul:Gema Amarela:Gema Vermelha") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "5. Quando você aumenta Envenenar Arma para o level 5, qual nova habilidade irá aparecer?";
 			next;
 			if (select("Envenenar:Lâminas Destruídoras:Explosão Tóxica:Nuvem Tóxica") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "6. Que habilidade abaixo permite que você possa caminhar por ai despercebido?";
 			next;
 			if (select("Esconderijo:Recua:Furtividade:Chutar Areia") == 3)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "7. Qual é o requerimento para Névoa Tóxica?";
 			next;
 			if (select("Alvo envenenado.:Precisa usar uma Gema Vermelha.:Você precisa ter uma quantia certa de HP.") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "8. Qual carta dos monstros abaixo adiciona para Inteligência?";
 			next;
 			if (select("Chonchon de Aço:Deviruchi:Salgueiro Ancião:Bafomé") == 3)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "9. Quanto SP você gasta quando você bate dobrado usando uma adaga?";
 			next;
 			if (select("15: É uma habilidade passiva, por isso o uso SP é 0.:It's habilidade passiva, por isso o uso SP é 10.:54") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "10. Qual é o melhor tipo de espada para se usar em Bybalan?";
 			next;
 			if (select("Espada do Vento da Perfuração:Espada de Gelo:Espada de Terra:Espada de Fogo") == 1)
 				.@assassin_t += 10;
 			break;
 		case 2:
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "1. Qual monstro dropa Katar com slot?";
 			next;
 			if (select("Besouro-Ladrão Macho:PecoPeco:Lobo do Deserto:Cobold") == 3)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "2. Qual carta abaixo pode ser introduzida em uma Jur?";
 			next;
 			if (select("Caramelo:Ghostring:Baphomet Jr.:DoppelGanger") == 1)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "3. Qual classe pode forjar armas elementais?";
 			next;
 			if (select("Mercador:Ferreiro:Gatuno:Sacerdote") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "4. Que arma abaixo não é uma arma da classe Katar?";
 			next;
 			if (select("Jamadhar:Jur:Katar:Gladius") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "5. Em Bybalan uma grande quantidade de monstros são de que elemento?";
 			next;
 			if (select("Água:Fogo:Vento:Terra") == 1)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "6. Qual monstro abaixo não pode ser domado e se tornar um lindo bichinho de estimação?";
 			next;
 			if (select("Poporing:Sapo de Roda:Lunático:Esporo Venenoso") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "7. Escolha o monstro que é fraco contra Fogo.";
 			next;
 			if (select("Cobold Espada:Cobold Maça:Cobold Martelo:Cobold Machado") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "8. Escolha um Katar não elemental.";
 			next;
 			if (select("Katar da Chama Impetuosa:Katar da Espinheira Empoeirada:Osso Afiad de Carniçal:Infiltrador") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "9. Escolha o monstro que não pertence ao grupo.";
 			next;
 			if (select("Poring:Ghostring:Creamy:Drops") == 3)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "10. Escolha um monstro não morto-vivo.";
 			next;
 			if (select("Drake:Megalodon:Esporo:Khalitzburg") == 3)
 				.@assassin_t += 10;
 			break;
 		case 3:
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "1. Qual é a taxa de esquiva aumentada quando você tem a habilidade 'Aumentar Esquiva' no level 1?";
 			next;
 			if (select("30:40:160:20") == 1)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "2. Qual monstro pode detectar alguém que está invisível/escondido?";
 			next;
 			if (select("Rabo de Verme:Andre:Mumia:Esqueleto") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "3. Mercenários podem usar armas duplas.  Qual set das armas abaixo um Mercenário pode usar?";
 			next;
 			if (select("Jur e Maça:Damascus e Claymore:Damascus e Stiletto:Machado e Stiletto") == 3)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "4. Em qual cidade você vira Gatuno?";
 			next;
 			if (select("Prontera:Lutie:Alberta:Morocc") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "5. Qual carta tem nada para fazer com Agilidade?";
 			next;
 			if (select("Carta Baphomet Jr.:Carta Sussurro:Carta Besouro-Ladrão Macho:Carta Chonchon") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "6. O que faz os Mercenários tão especiais?";
 			next;
 			if (select("Excelente habilidade de canto:Excelente habilidade de ação:Excelente habilidade de dança:Excelente habilidade de esquiva") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "7. Quando um Mercenário alcança Nível de Classe 50, qual é o bonus adicionado que ele/ela recebe em Agilidade?";
 			next;
 			if (select("7:8:9:10") == 4)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "8. Qual equipamento não pode ser usado por um Mercenário?";
 			next;
 			if (select("Adaga:Elmo:Sapatos:Broche") == 2)
 				.@assassin_t += 10;
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "9. Quando um Aprendiz quer se tornar um Gatuno, quais cogumelos ele/ela precisa roubar?";
 			next;
 			switch(select("Cogumelos Venenosos e Borrachentos:Cogumelos Vermelhos e Laranja:Cogumelos do Céu e Inferno:Cogumelos Negros e Brancos")) {
@@ -1052,7 +1051,7 @@ OnTouch:
 			default:
 				break;
 			}
-			mes "[O Sem Nome]";
+			mes "[O Anônimo]";
 			mes "10. Qual carta abaixo é inútil para um Mercenário?";
 			next;
 			if (select("Carta Ghostring:Carta Salgueiro Ancião:Carta Esqueleto Soldado:Carta Cobold") == 2)
