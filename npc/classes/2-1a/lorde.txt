@@ -1,0 +1,88 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.3                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revião Cronus]                                    ||
+// - Adesão da Tradução [Spell Master]                           ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Mudança de Classe para Lorde                                ||
+//===============================================================//
+
+valkyrie,44,39,5	script	Lorde#Valkyrie	1_M_KNIGHTMASTER,{
+	if (ADVJOB == 0 || Upper != 1) {
+		.@karma_d = rand(1,10);
+		if (.@karma_d > 4) {
+			mes "[Lorde]";
+			mes "Parabéns.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "[Lorde]";
+		mes "Nós Cavaleiros temos uma";
+		mes "enorme responsabilidade...";
+		mes "Para servir e proteger.";
+		next;
+		mes "[Lorde]";
+		mes "Mesmo à custa";
+		mes "de nossas próprias vidas,";
+		mes "temos de preservar o";
+		mes "bem-estar de nossos companheiros.";
+		close;
+	}
+	else if (ADVJOB == Job_Lord_Knight && Class == Job_Swordman_High && JobLevel > 39) {
+		mes "[Lorde]";
+		mes "É chegada a hora!";
+		mes "O mundo precisa de você.";
+		mes "Por favor continue sua vída";
+		mes "de herói com uma nova aparência.";
+		next;
+		mes "[Lorde]";
+		mes "Você gostaria de";
+		mes "se tornar um Lorde?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Lorde]";
+			mes "Quando estiver pronto,";
+			mes "sinta-se a vontade para voltar.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		if (SkillPoint) {
+			mes "[Lorde]";
+			mes "Ainda é possível que você aprenda mais habilidades. Por favor, use";
+			mes "todos os seus Pontos de Habilidades antes de voltar a falar comigo.";
+			close;
+		}
+		jobchange Job_Lord_Knight;
+		ADVJOB = 0;
+		mes "[Lorde]";
+		mes "Parabéns!";
+		mes "Sendo um Lorde,";
+		mes "Eu acredito que você irá";
+		mes "ser a frente da batalha,";
+		mes "e levar seus aliados para a vitória!";
+		close;
+	}
+	mes "[Lorde]";
+	mes "Bem-vindo";
+	mes "a Valhalla,";
+	mes "o Salão de Honras.";
+	next;
+	mes "[Lorde]";
+	mes "Por favor, sinta-se";
+	mes "confortável enquanto";
+	mes "você estiver aqui.";
+	mes "Honre os guerreiros.";
+	close;
+}
+

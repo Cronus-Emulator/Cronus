@@ -1,0 +1,92 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.3                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revião Cronus]                                    ||
+// - Adesão da Tradução [Spell Master]                           ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Mudança de Classe para Mestre Ferreiro                      ||
+//===============================================================//
+
+valkyrie,44,50,5	script	Mestre-Ferreiro#Valkyrie	4_M_JOB_BLACKSMITH,{
+	if (ADVJOB == 0 || Upper != 1) {
+		.@karma_d = rand(1,10);
+		if (.@karma_d > 4) {
+			mes "[Mestre-Ferreiro]";
+			mes "Parabéns.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		mes "[Mestre-Ferreiro]";
+		mes "Ah...";
+		mes "O melhor em";
+		mes "forja e refinamento.";
+		mes "Esse é o trabalho";
+		mes "do Mestre-Ferreiro.";
+		next;
+		mes "[Mestre-Ferreiro]";
+		mes "Sendo um será";
+		mes "o melhor dos melhores,";
+		mes "você começará a forjar com";
+		mes "o objetivo de descobrir";
+		mes "novas e melhores formas de";
+		mes "forja...";
+		close;
+	}
+	else if (ADVJOB == Job_Whitesmith && Class == Job_Merchant_High && JobLevel > 39) {
+		mes "[Mestre-Ferreiro]";
+		mes "Chegou a hora!";
+		mes "Nosso mundo precisa de coragem,";
+		mes "e de esforçados aventureiros";
+		mes "como você...";
+		next;
+		mes "[Mestre-Ferreiro]";
+		mes "Você gostaria de se tornar";
+		mes "um Mestre-Ferreiro?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Mestre-Ferreiro]";
+			mes "Quando estiver pronto,";
+			mes "sinta-se a vontade para voltar.";
+			mes "Honre os guerreiros!";
+			close;
+		}
+		if (SkillPoint) {
+			mes "[Mestre-Ferreiro]";
+			mes "Ainda é possível que você aprenda mais habilidades. Por favor, use";
+			mes "todos os seus Pontos de Habilidades antes de voltar a falar comigo.";
+			close;
+		}
+		jobchange Job_Whitesmith;
+		ADVJOB = 0;
+		mes "[Mestre-Ferreiro]";
+		mes "Parabéns!";
+		mes "Sendo um Mestre-Ferreiro,";
+		mes "eu acredito que você irá construir";
+		mes "um brilhante futuro";
+		mes "para Rune-Midgard.";
+		close;
+	}
+	mes "[Mestre-Ferreiro]";
+	mes "Bem-vindo";
+	mes "a Valhalla,";
+	mes "o Salão de Honras.";
+	next;
+	mes "[Atirador de Elite]";
+	mes "Por favor, sinta-se";
+	mes "confortável enquanto";
+	mes "você estiver aqui.";
+	mes "Honre os guerreiros.";
+	close;
+}
+
