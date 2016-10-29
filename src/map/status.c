@@ -12494,16 +12494,16 @@ int status_readdb(void)
 
 	// read databases
 	//
-	sv->readdb(map->db_path, "Job_DB/Job_Bonus.txt",',',1,1+MAX_LEVEL,-1,status->readdb_job2); // [ New DB ]
-	#ifdef RENEWAL // [ New DB ]
+	#ifdef RENEWAL
 		sv->readdb(map->db_path, "Status_DB/Size_Fix_RE.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
 		status->readdb_refine_libconfig("Status_DB/Refine_RE.conf");
 	#else
 		sv->readdb(map->db_path, "Status_DB/Size_Fix_PRE.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
 		status->readdb_refine_libconfig("Status_DB/Refine_PRE.conf");
 	#endif
-	sv->readdb(map->db_path, "Status_DB/SC_Config.txt", ',', 2, 2, SC_MAX, status->readdb_scconfig); // [ New DB ]
-	status->read_job_db();
+		sv->readdb(map->db_path, "Job_DB/Job_DB2.txt",      ',', 1, 1+MAX_LEVEL,-1,status->readdb_job2);
+		sv->readdb(map->db_path, "Status_DB/SC_Config.txt", ',', 2, 2, SC_MAX, status->readdb_scconfig);
+		status->read_job_db();
 
 	return 0;
 }
