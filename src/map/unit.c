@@ -1787,7 +1787,7 @@ int unit_skilluse_pos2( struct block_list *src, short skill_x, short skill_y, ui
 		unit->setdir(src, map->calc_dir(src, skill_x, skill_y));
 		ud->skilltimer = timer->add( tick+casttime, skill->castend_pos, src->id, 0 );
 		if( (sd && pc->checkskill(sd,SA_FREECAST) > 0) || skill_id == LG_EXEEDBREAK)
- -			status_calc_bl(&sd->bl, SCB_SPEED);
+			status_calc_bl(&sd->bl, SCB_SPEED);
 	} else {
 		ud->skilltimer = INVALID_TIMER;
 		skill->castend_pos(ud->skilltimer,tick,src->id,0);
