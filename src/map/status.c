@@ -2125,45 +2125,69 @@ int status_calc_pet_(struct pet_data *pd, enum e_status_calc_opt opt)
 	return 1;
 }
 
-unsigned int status_get_base_maxsp(struct map_session_data* sd, struct status_data *st) {
-	uint64 val = pc->class2idx(sd->status.class_);
-
-	val = status->dbs->SP_table[val][sd->status.base_level];
-
-	if ( sd->class_&JOBL_UPPER )
-		val += val * 25 / 100;
-	else if ( sd->class_&JOBL_BABY )
-		val = val * 70 / 100;
-	if ( (sd->class_&MAPID_UPPERMASK) == MAPID_TAEKWON && sd->status.base_level >= 90 && pc->famerank(sd->status.char_id, MAPID_TAEKWON) )
-		val *= 3; //Triple max SP for top ranking Taekwons over level 90.
-
-	val += val * st->int_ / 100;
-
-	return (unsigned int)cap_value(val, 0, UINT_MAX);
+/// Função auxiliar para status_base_pc_maxhp(), usada para pré-calcular o vetor hp_sigma_val[]
+void status_calc_sigma(void)
+{
+	int i, j;
+	for(i = 0; i < CLASS_COUNT; i++)
+	{
+		unsigned int k = 0;
+		status->dbs->hp_sigma_val[i][0] = status->dbs->hp_sigma_val[i][1] = 0;
+		for(j = 2; j <= MAX_LEVEL; j++)
+		{
+			k += (status->dbs->hp_coefficient[i]*j + 50) / 100;
+			status->dbs->hp_sigma_val[i][j] = k;
+			if (k >= INT_MAX)
+				break; //Overflow protection. [Skotlex]
+		}
+		for(; j <= MAX_LEVEL; j++)
+			status->dbs->hp_sigma_val[i][j] = INT_MAX;
+	}
 }
 
-unsigned int status_get_base_maxhp(struct map_session_data *sd, struct status_data *st) {
+/// Calcula o valor da base MaxHP de acordo com o nível de classe e base
+/// Equação recursiva usada para calcular o nível de bônus(Operações feitas com números inteiros)
+///    f(0) = 35 | f(x+1) = f(x) + A + (x + B)*C/D
+/// Reduz algo próximo de
+///    f(x) = 35 + x*(A + B*C/D) + sum(i=2..x){ i*C/D }
+unsigned int status_base_pc_maxhp(struct map_session_data *sd, struct status_data *st) {
 	uint64 val = pc->class2idx(sd->status.class_);
+	val = 35 + sd->status.base_level*(int64)status->dbs->hp_coefficient2[val]/100 + status->dbs->hp_sigma_val[val][sd->status.base_level];
 
-	val = status->dbs->HP_table[val][sd->status.base_level];
+	if((sd->class_&MAPID_UPPERMASK) == MAPID_NINJA || (sd->class_&MAPID_UPPERMASK) == MAPID_GUNSLINGER || (sd->class_&MAPID_UPPERMASK) == MAPID_REBELLION)
+		val += 100; // Você não poderá ter um HP aproximado sem isso
+	if((sd->class_&MAPID_UPPERMASK) == MAPID_TAEKWON && sd->status.base_level >= 90 && pc->famerank(sd->status.char_id, MAPID_TAEKWON))
+		val *= 3; // Triplo de HP máximo para o top ranking de Taekwons acima do nível 90.
+	if((sd->class_&MAPID_UPPERMASK) == MAPID_SUPER_NOVICE && sd->status.base_level >= 99)
+		val += 2000; // Bônus de hp para Supernovice de nível 99.
+	
+	val += val * st->vit/100; // +1% por cada ponto de VIT
+	
+	if (sd->class_&JOBL_UPPER)
+		val += val * 25/100; // Transclasses pega 25% de bônus de hp
+	else if (sd->class_&JOBL_BABY)
+		val -= val * 30/100; // A classe Baby pega uma penalidade de 30% de hp
+	return (unsigned int)cap_value(val,0,UINT_MAX);
+	
+}
 
-	if ( (sd->class_&MAPID_UPPERMASK) == MAPID_SUPER_NOVICE && sd->status.base_level >= 99 )
-		val += 2000; //Supernovice lvl99 hp bonus.
-	if ( (sd->class_&MAPID_THIRDMASK) == MAPID_SUPER_NOVICE_E && sd->status.base_level >= 150 )
-		val += 2000; //Extented Supernovice lvl150 hp bonus.
-
-	if ( sd->class_&JOBL_UPPER )
-		val += val * 25 / 100; //Trans classes get a 25% hp bonus
-	else if ( sd->class_&JOBL_BABY )
-		val = val * 70 / 100; //Baby classes get a 30% hp penalty
-
-	if ( (sd->class_&MAPID_UPPERMASK) == MAPID_TAEKWON && sd->status.base_level >= 90 && pc->famerank(sd->status.char_id, MAPID_TAEKWON) )
-		val *= 3; //Triple max HP for top ranking Taekwons over level 90.
-
-	val += val * st->vit / 100; // +1% per each point of VIT
+unsigned int status_base_pc_maxsp(struct map_session_data* sd, struct status_data *st) {
+	
+	uint64 val;
+	
+	val = 10 + sd->status.base_level*(int64)status->dbs->sp_coefficient[pc->class2idx(sd->status.class_)]/100;
+	val += val * st->int_/100;
+	
+	if (sd->class_&JOBL_UPPER)
+		val += val * 25/100;
+	else if (sd->class_&JOBL_BABY)
+		val -= val * 30/100;
+	if ((sd->class_&MAPID_UPPERMASK) == MAPID_TAEKWON && sd->status.base_level >= 90 && pc->famerank(sd->status.char_id, MAPID_TAEKWON))
+		val *= 3; // Triplo de SP máximo para o top ranking de Taekwons acima do nível 90.
 
 	return (unsigned int)cap_value(val,0,UINT_MAX);
 }
+
 
 void status_calc_pc_additional(struct map_session_data* sd, enum e_status_calc_opt opt) {
 	/* Just used for Plugin to give bonuses. */
@@ -2596,7 +2620,7 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 
 	// Basic MaxHP value
 	//We hold the standard Max HP here to make it faster to recalculate on vit changes.
-	sd->status.max_hp = status->get_base_maxhp(sd,bstatus);
+	sd->status.max_hp = status->base_pc_maxhp(sd,bstatus);
 	//This is done to handle underflows from negative Max HP bonuses
 	i64 = sd->status.max_hp + (int)bstatus->max_hp;
 	bstatus->max_hp = (unsigned int)cap_value(i64, 0, INT_MAX);
@@ -2621,7 +2645,7 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 	// ----- SP MAX CALCULATION -----
 
 	// Basic MaxSP value
-	sd->status.max_sp = status->get_base_maxsp(sd,bstatus);
+	sd->status.max_sp = status->base_pc_maxsp(sd,bstatus);
 	//This is done to handle underflows from negative Max SP bonuses
 	i64 = sd->status.max_sp + (int)bstatus->max_sp;
 	bstatus->max_sp = (unsigned int)cap_value(i64, 0, INT_MAX);
@@ -2807,12 +2831,17 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 	else if (pc_isridingdragon(sd))
 		bstatus->aspd_rate += 250-50*pc->checkskill(sd,RK_DRAGONTRAINING);
 #else // needs more info
-	if ( (skill_lv = pc->checkskill(sd, SG_DEVIL)) > 0 && !pc->nextjobexp(sd) )
-		bstatus->aspd_rate += 30 * skill_lv;
-	if ( pc_isridingpeco(sd) )
-		bstatus->aspd_rate -= 500 - 100 * pc->checkskill(sd, KN_CAVALIERMASTERY);
-	else if ( pc_isridingdragon(sd) )
-		bstatus->aspd_rate -= 250 - 50 * pc->checkskill(sd, RK_DRAGONTRAINING);
+	if((skill_lv=pc->checkskill(sd,SA_ADVANCEDBOOK))>0 && sd->status.weapon == W_BOOK)
+		bstatus->aspd_rate += 5*skill_lv;
+	if((skill_lv = pc->checkskill(sd,SG_DEVIL)) > 0 && !pc->nextjobexp(sd))
+		bstatus->aspd_rate += 30*skill_lv;
+	if((skill_lv=pc->checkskill(sd,GS_SINGLEACTION))>0 &&
+		(sd->status.weapon >= W_REVOLVER && sd->status.weapon <= W_GRENADE))
+		bstatus->aspd_rate += ((skill_lv+1)/2) * 10;
+	if (pc_isridingpeco(sd))
+		bstatus->aspd_rate -= 500-100*pc->checkskill(sd,KN_CAVALIERMASTERY);
+	else if (pc_isridingdragon(sd))
+		bstatus->aspd_rate -= 250-50*pc->checkskill(sd,RK_DRAGONTRAINING);
 #endif
 	bstatus->adelay = 2*bstatus->amotion;
 
@@ -3610,7 +3639,7 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag) {
 
 	if(flag&SCB_MAXHP) {
 		if( bl->type&BL_PC ) {
-			st->max_hp = status->get_base_maxhp(sd,st);
+			st->max_hp = status->base_pc_maxhp(sd,st);
 			if (sd)
 				st->max_hp += bst->max_hp - sd->status.max_hp;
 
@@ -3631,7 +3660,7 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag) {
 
 	if(flag&SCB_MAXSP) {
 		if( bl->type&BL_PC ) {
-			st->max_sp = status->get_base_maxsp(sd,st);
+			st->max_sp = status->base_pc_maxsp(sd,st);
 			if (sd)
 				st->max_sp += bst->max_sp - sd->status.max_sp;
 
@@ -3698,14 +3727,19 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag) {
 			amotion = status->base_amotion_pc(sd, st);
 #ifndef RENEWAL_ASPD
 			st->aspd_rate = status->calc_aspd_rate(bl, sc, bst->aspd_rate);
-#endif
+			
+			if(st->aspd_rate != 1000)
+				amotion = amotion*st->aspd_rate/1000;
+#else
+			// aspd = baseaspd + floor(sqrt((agi^2/2) + (dex^2/5))/4 + (potskillbonus*agi/200))
+			amotion -= (int)(sqrt((pow(st->agi, 2) / 2) + (pow(st->dex, 2) / 5)) / 4 + ((float)status->calc_aspd(bl, sc, 1) * st->agi / 200)) * 10;
+
+			if ( (status->calc_aspd(bl, sc, 2) + st->aspd_rate2) != 0 ) // RE ASPD percertage modifier
+				amotion -= ((amotion - ((sd->class_&JOBL_THIRD) ? battle_config.max_third_aspd : battle_config.max_aspd))
+				* (status->calc_aspd(bl, sc, 2) + st->aspd_rate2) / 10 + 5) / 10;
+				
 			if ( st->aspd_rate != 1000 ) // absolute percentage modifier
-				amotion = amotion * st->aspd_rate / 1000;
-			if ( sd && sd->ud.skilltimer != INVALID_TIMER && pc->checkskill(sd, SA_FREECAST) > 0 )
-				amotion = amotion * 5 * (pc->checkskill(sd, SA_FREECAST) + 10) / 100;
-#ifdef RENEWAL_ASPD
-			amotion += (max(0xc3 - amotion, 2) * (st->aspd_rate2 + status->calc_aspd(bl, sc, 2))) / 100;
-			amotion = 10 * (200 - amotion) + sd->bonus.aspd_add;
+				amotion = (200 - (200 - amotion / 10) * st->aspd_rate / 1000) * 10;
 #endif
 			amotion = status->calc_fix_aspd(bl, sc, amotion);
 			st->amotion = cap_value(amotion, ((sd->class_&JOBL_THIRD) ? battle_config.max_third_aspd : battle_config.max_aspd), 2000);
@@ -3959,32 +3993,35 @@ int status_check_visibility(struct block_list *src, struct block_list *target) {
 
 // Basic ASPD value
 int status_base_amotion_pc(struct map_session_data *sd, struct status_data *st) {
+	
 	int amotion;
-#ifdef RENEWAL_ASPD /* [malufett/Hercules] */
-	float temp;
-	int skill_lv, val = 0;
-	amotion = status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->weapontype1];
-	if ( sd->status.weapon > MAX_WEAPON_TYPE )
-		amotion += status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->weapontype2] / 4;
-	if ( sd->status.shield )
-		amotion += status->dbs->aspd_base[pc->class2idx(sd->status.class_)][MAX_WEAPON_TYPE];
-	switch ( sd->status.weapon ) {
-		case W_BOW:		case W_MUSICAL:
-		case W_WHIP:	case W_REVOLVER:
-		case W_RIFLE:	case W_GATLING:
-		case W_SHOTGUN:	case W_GRENADE:
-			temp = st->dex * st->dex / 7.0f + st->agi * st->agi * 0.5f;
-			break;
-		default:
-			temp = st->dex * st->dex / 5.0f + st->agi * st->agi * 0.5f;
+	
+#ifdef RENEWAL_ASPD
+	short mod = -1;
+
+	switch ( sd->weapontype2 ) { // adjustment for dual wielding
+	case W_DAGGER:
+		mod = 0;
+		break; // 0, 1, 1
+	case W_1HSWORD:
+	case W_1HAXE:
+		mod = 1;
+		if ( (sd->class_&MAPID_THIRDMASK) == MAPID_GUILLOTINE_CROSS ) // 0, 2, 3
+			mod = sd->weapontype2 / W_1HSWORD + W_1HSWORD / sd->weapontype2;
 	}
-	temp = (float)(sqrt(temp) * 0.25f) + 0xc4;
-	if ( (skill_lv = pc->checkskill(sd, SA_ADVANCEDBOOK)) > 0 && sd->status.weapon == W_BOOK )
-		val += (skill_lv - 1) / 2 + 1;
-	if ( (skill_lv = pc->checkskill(sd, GS_SINGLEACTION)) > 0 )
-		val += ((skill_lv + 1) / 2);
-	amotion = ((int)(temp + ((float)(status->calc_aspd(&sd->bl, &sd->sc, 1) + val) * st->agi / 200)) - min(amotion, 200));
+
+	amotion = (sd->status.weapon < MAX_WEAPON_TYPE && mod < 0)
+		? (status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->status.weapon]) // single weapon
+		: ((status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->weapontype2] // dual-wield
+		+ status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->weapontype2]) * 6 / 10 + 10 * mod
+		- status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->weapontype2]
+		+ status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->weapontype1]);
+	
+	if ( sd->status.shield )
+		amotion += (2000 - status->dbs->aspd_base[pc->class2idx(sd->status.class_)][W_FIST]) +
+ 		(status->dbs->aspd_base[pc->class2idx(sd->status.class_)][MAX_WEAPON_TYPE] - 2000);
 #else
+	
 	// base weapon delay
 	amotion = (sd->status.weapon < MAX_WEAPON_TYPE)
 		? (status->dbs->aspd_base[pc->class2idx(sd->status.class_)][sd->status.weapon]) // single weapon
@@ -3993,13 +4030,14 @@ int status_base_amotion_pc(struct map_session_data *sd, struct status_data *st) 
 	// percentual delay reduction from stats
 	amotion -= amotion * (4 * st->agi + st->dex) / 1000;
 
+#endif
+
 	// raw delay adjustment from bAspd bonus
 	amotion += sd->bonus.aspd_add;
 
 	/* angra manyu disregards aspd_base and similar */
 	if ( sd->equip_index[EQI_HAND_R] >= 0 && sd->status.inventory[sd->equip_index[EQI_HAND_R]].nameid == ITEMID_ANGRA_MANYU )
 		return 0;
-#endif
 
 	return amotion;
 }
@@ -12039,238 +12077,44 @@ int status_get_sc_type(sc_type type) {
 	return status->dbs->sc_conf[type];
 }
 
-void status_read_job_db_sub(int idx, const char *name, config_setting_t *jdb)
-{
-	config_setting_t *temp = NULL;
-	int i32 = 0;
-
-	struct {
-		const char *name;
-		int id;
-	} wnames[] = {
-		{ "Fist", W_FIST },
-		{ "Dagger", W_DAGGER },
-		{ "Sword", W_1HSWORD },
-		{ "TwoHandSword", W_2HSWORD },
-		{ "Spear", W_1HSPEAR },
-		{ "TwoHandSpear", W_2HSPEAR },
-		{ "Axe", W_1HAXE },
-		{ "TwoHandAxe", W_2HAXE },
-		{ "Mace", W_MACE },
-		{ "TwoHandMace", W_2HMACE },
-		{ "Rod", W_STAFF },
-		{ "Bow", W_BOW },
-		{ "Knuckle", W_KNUCKLE },
-		{ "Instrument", W_MUSICAL },
-		{ "Whip", W_WHIP },
-		{ "Book", W_BOOK },
-		{ "Katar", W_KATAR },
-		{ "Revolver", W_REVOLVER },
-		{ "Rifle", W_RIFLE },
-		{ "GatlingGun", W_GATLING },
-		{ "Shotgun", W_SHOTGUN },
-		{ "GrenadeLauncher", W_GRENADE },
-		{ "FuumaShuriken", W_HUUMA },
-		{ "TwoHandRod", W_2HSTAFF },
-#ifdef RENEWAL_ASPD
-		{ "Shield", MAX_WEAPON_TYPE }
-#endif
-	};
-
-	if ((temp = libconfig->setting_get_member(jdb, "Inherit"))) {
-		int nidx = 0;
-		const char *iname;
-		while ((iname = libconfig->setting_get_string_elem(temp, nidx++))) {
-			int i, iidx, iclass, avg_increment, base;
-			if ((iclass = pc->check_job_name(iname)) == -1) {
-				ShowWarning("status_read_job_db: '%s' tentando herdar desconhecido '%s'!\n", name, iname);
-				continue;
-			}
-			iidx = pc->class2idx(iclass);
-			status->dbs->max_weight_base[idx] = status->dbs->max_weight_base[iidx];
-			memcpy(&status->dbs->aspd_base[idx], &status->dbs->aspd_base[iidx], sizeof(status->dbs->aspd_base[iidx]));
-
-			for (i = 1; i <= MAX_LEVEL && status->dbs->HP_table[iidx][i]; i++) {
-				status->dbs->HP_table[idx][i] = status->dbs->HP_table[iidx][i];
-			}
-			base = (i > 1 ? status->dbs->HP_table[idx][1] : 35); // Safe value if none are specified
-			if (i > 2) {
-				if (i >= MAX_LEVEL + 1)
-					i = MAX_LEVEL;
-				avg_increment = (status->dbs->HP_table[idx][i] - base) / (i - 1);
-			} else {
-				avg_increment = 5;
-			}
-			for ( ++i; i <= pc->max_level[idx][0]; i++) {
-				status->dbs->HP_table[idx][i] = min(base + avg_increment * i, battle_config.max_hp);
-			}
-
-			for (i = 1; i <= MAX_LEVEL && status->dbs->SP_table[iidx][i]; i++) {
-				status->dbs->SP_table[idx][i] = status->dbs->SP_table[iidx][i];
-			}
-			base = (i > 1 ? status->dbs->SP_table[idx][1] : 10); // Safe value if none are specified
-			if (i > 2) {
-				if (i >= MAX_LEVEL + 1)
-					i = MAX_LEVEL;
-				avg_increment = (status->dbs->SP_table[idx][i] - base) / (i - 1);
-			} else {
-				avg_increment = 1;
-			}
-			for ( ++i; i <= pc->max_level[idx][0]; i++) {
-				status->dbs->SP_table[idx][i] = min(base + avg_increment * i, battle_config.max_sp);
-			}
-		}
-	}
-	if ((temp = libconfig->setting_get_member(jdb, "InheritHP"))) {
-		int nidx = 0;
-		const char *iname;
-		while ((iname = libconfig->setting_get_string_elem(temp, nidx++))) {
-			int i, iidx, iclass, avg_increment, base;
-			if ((iclass = pc->check_job_name(iname)) == -1) {
-				ShowWarning("status_read_job_db: '%s' tentando herdar desconhecido '%s' HP!\n", name, iname);
-				continue;
-			}
-			iidx = pc->class2idx(iclass);
-			for (i = 1; i <= MAX_LEVEL && status->dbs->HP_table[iidx][i]; i++) {
-				status->dbs->HP_table[idx][i] = status->dbs->HP_table[iidx][i];
-			}
-			base = (i > 1 ? status->dbs->HP_table[idx][1] : 35); // Safe value if none are specified
-			if (i > 2) {
-				if (i >= MAX_LEVEL + 1)
-					i = MAX_LEVEL;
-				avg_increment = (status->dbs->HP_table[idx][i] - base) / (i - 1);
-			} else {
-				avg_increment = 5;
-			}
-			for ( ++i; i <= pc->max_level[idx][0]; i++) {
-				status->dbs->HP_table[idx][i] = min(base + avg_increment * i, battle_config.max_hp);
-			}
-		}
-	}
-	if ((temp = libconfig->setting_get_member(jdb, "InheritSP"))) {
-		int nidx = 0;
-		const char *iname;
-		while ((iname = libconfig->setting_get_string_elem(temp, nidx++))) {
-			int i, iidx, iclass, avg_increment, base;
-			if ((iclass = pc->check_job_name(iname)) == -1) {
-				ShowWarning("status_read_job_db: '%s' tentando herdar desconhecido '%s' SP!\n", name, iname);
-				continue;
-			}
-			iidx = pc->class2idx(iclass);
-			for (i = 1; i <= MAX_LEVEL && status->dbs->SP_table[iidx][i]; i++) {
-				status->dbs->SP_table[idx][i] = status->dbs->SP_table[iidx][i];
-			}
-			base = (i > 1 ? status->dbs->SP_table[idx][1] : 10); // Safe value if none are specified
-			if (i > 2) {
-				if (i >= MAX_LEVEL + 1)
-					i = MAX_LEVEL;
-				avg_increment = (status->dbs->SP_table[idx][i] - base) / (i - 1);
-			} else {
-				avg_increment = 1;
-			}
-			for ( ++i; i <= pc->max_level[idx][0]; i++) {
-				status->dbs->SP_table[idx][i] = min(avg_increment * i, battle_config.max_sp);
-			}
-		}
-	}
-
-	if (libconfig->setting_lookup_int(jdb, "Weight", &i32))
-		status->dbs->max_weight_base[idx] = i32;
-	else if (!status->dbs->max_weight_base[idx])
-		status->dbs->max_weight_base[idx] = 20000;
-
-	if ((temp = libconfig->setting_get_member(jdb, "BaseASPD"))) {
-		int widx = 0;
-		config_setting_t *wpn = NULL;
-		while ((wpn = libconfig->setting_get_elem(temp, widx++))) {
-			int w, wlen = ARRAYLENGTH(wnames);
-			const char *wname = config_setting_name(wpn);
-
-			ARR_FIND(0, wlen, w, strcmp(wnames[w].name, wname) == 0);
-			if (w != wlen) {
-				status->dbs->aspd_base[idx][wnames[w].id] = libconfig->setting_get_int(wpn);
-			} else {
-				ShowWarning("status_read_job_db: tipo de arma '%s' desconhecido!\n", wname);
-			}
-		}
-	}
-
-	if ((temp = libconfig->setting_get_member(jdb, "HPTable"))) {
-		int level = 0, avg_increment, base;
-		config_setting_t *hp = NULL;
-		while (level <= MAX_LEVEL && (hp = libconfig->setting_get_elem(temp, level)) != NULL) {
-			i32 = libconfig->setting_get_int(hp);
-			status->dbs->HP_table[idx][++level] = min(i32, battle_config.max_hp);
-		}
-		base = (level > 0 ? status->dbs->HP_table[idx][1] : 35); // Safe value if none are specified
-		if (level > 2) {
-			if (level >= MAX_LEVEL + 1)
-				level = MAX_LEVEL;
-			avg_increment = (status->dbs->HP_table[idx][level] - base) / level;
-		} else {
-			avg_increment = 5;
-		}
-		for (++level; level <= pc->max_level[idx][0]; ++level) { /* limit only to possible maximum level of the given class */
-			status->dbs->HP_table[idx][level] = min(base + avg_increment * level, battle_config.max_hp); /* some are still empty? then let's use the average increase */
-		}
-	}
-
-	if ((temp = libconfig->setting_get_member(jdb, "SPTable"))) {
-		int level = 0, avg_increment, base;
-		config_setting_t *sp = NULL;
-		while (level <= MAX_LEVEL && (sp = libconfig->setting_get_elem(temp, level)) != NULL) {
-			i32 = libconfig->setting_get_int(sp);
-			status->dbs->SP_table[idx][++level] = min(i32, battle_config.max_sp);
-		}
-		base = (level > 0 ? status->dbs->SP_table[idx][1] : 10); // Safe value if none are specified
-		if (level > 2) {
-			if (level >= MAX_LEVEL + 1)
-				level = MAX_LEVEL;
-			avg_increment = (status->dbs->SP_table[idx][level] - base) / level;
-		} else {
-			avg_increment = 1;
-		}
-		for ( ++level; level <= pc->max_level[idx][0]; level++ ) {
-			status->dbs->SP_table[idx][level] = min(base + avg_increment * level, battle_config.max_sp);
-		}
-	}
-}
-
 /*------------------------------------------
-* DB reading.
-* job_db.conf    - weight, hp, sp, aspd
+* Leitura da DB.
+* job_RE.txt     - weight, hp, sp, aspd
+* job_PRE.txt    - weight, hp, sp, aspd
 * job_db2.txt    - job level stat bonuses
 * size_fix.txt   - size adjustment table for weapons
 * refine_db.txt  - refining data table
 *------------------------------------------*/
-void status_read_job_db(void) { /* [malufett/Hercules] */
-	int i = 0;
-	config_t job_db_conf;
-	config_setting_t *jdb = NULL;
-	#ifdef RENEWAL_ASPD
-		const char *config_filename = "db/Job_DB/Job_Table_RE.conf"; // [ New DB ]
-	#else
-		const char *config_filename = "db/Job_DB/Job_Table_PRE.conf"; // [ New DB ]
-	#endif
+bool status_read_job_db(char* fields[], int columns, int current) 
+{ // Job-specific values (weight, HP, SP, ASPD)
+	int idx, class_;
+	unsigned int i;
 
-	if ( libconfig->read_file(&job_db_conf, config_filename) ) {
-		ShowError("nao pode ler %s\n", config_filename);
-		return;
+	class_ = atoi(fields[0]);
+	
+	if(!pc->db_checkid(class_))
+	{
+		ShowWarning("status_read_job_db: Especificada uma classe invalida %d.\n", class_);
+		return false;
 	}
-	while ( (jdb = libconfig->setting_get_elem(job_db_conf.root, i++)) ) {
-		int class_, idx;
-		const char *name = config_setting_name(jdb);
-
-		if ( (class_ = pc->check_job_name(name)) == -1 ) {
-			ShowWarning("pc_read_job_db: '%s' nome de Job desconhecido!\n", name);
-			continue;
-		}
-
-		idx = pc->class2idx(class_);
-		status->read_job_db_sub(idx, name, jdb);
+	
+	idx = pc->class2idx(class_);
+	
+	status->dbs->max_weight_base[idx] = atoi(fields[1]);
+	status->dbs->hp_coefficient[idx]  = atoi(fields[2]);
+	status->dbs->hp_coefficient2[idx] = atoi(fields[3]);
+	status->dbs->sp_coefficient[idx]  = atoi(fields[4]);
+	
+#ifdef RENEWAL_ASPD
+	for(i = 0; i <= MAX_WEAPON_TYPE; i++)
+#else
+	for(i = 0; i < MAX_WEAPON_TYPE; i++)
+#endif
+	{
+		status->dbs->aspd_base[idx][i] = atoi(fields[i+5]);
 	}
-	ShowStatus("Realizada leitura de '"CL_WHITE"%d"CL_RESET"' entradas em '"CL_WHITE"%s"CL_RESET"'.\n", i, config_filename);
-	libconfig->destroy(&job_db_conf);
+
+	return true;
 }
 
 bool status_readdb_job2(char* fields[], int columns, int current)
@@ -12281,7 +12125,7 @@ bool status_readdb_job2(char* fields[], int columns, int current)
 
 	if(!pc->db_checkid(class_))
 	{
-		ShowWarning("status_readdb_job2: Especificado Job Class invalido %d.\n", class_);
+		ShowWarning("status_readdb_job2: Especificado uma classe invalida %d.\n", class_);
 		return false;
 	}
 	idx = pc->class2idx(class_);
@@ -12451,7 +12295,8 @@ bool status_readdb_scconfig(char* fields[], int columns, int current) {
 }
 /**
  * Read status db
- * job1.txt
+ * Job_Table_RE.txt
+ * Job_Table_PRE.txt
  * job2.txt
  * size_fixe.txt
  * refine_db.txt
@@ -12463,19 +12308,15 @@ int status_readdb(void)
 	// initialize databases to default
 	//
 	if( core->runflag == MAPSERVER_ST_RUNNING ) {//not necessary during boot
-		// reset job_db.conf data
+		// Reinicia os dados das tabelas de classe (RE/PRE)
 		memset(status->dbs->max_weight_base, 0, sizeof(status->dbs->max_weight_base));
-		memset(status->dbs->HP_table, 0, sizeof(status->dbs->HP_table));
-		memset(status->dbs->SP_table, 0, sizeof(status->dbs->SP_table));
+		memset(status->dbs->hp_coefficient, 0, sizeof(status->dbs->hp_coefficient));
+		memset(status->dbs->hp_coefficient2, 0, sizeof(status->dbs->hp_coefficient2));
+		memset(status->dbs->hp_sigma_val, 0, sizeof(status->dbs->hp_sigma_val));
+		memset(status->dbs->sp_coefficient, 0, sizeof(status->dbs->sp_coefficient));
+		memset(status->dbs->aspd_base, 0, sizeof(status->dbs->aspd_base));
 		// reset job_db2.txt data
 		memset(status->dbs->job_bonus,0,sizeof(status->dbs->job_bonus)); // Job-specific stats bonus
-	}
-	for ( i = 0; i < CLASS_COUNT; i++ ) {
-		for ( j = 0; j < MAX_WEAPON_TYPE; j++ )
-			status->dbs->aspd_base[i][j] = 2000;
-#ifdef RENEWAL_ASPD
-		status->dbs->aspd_base[i][MAX_WEAPON_TYPE] = 0;
-#endif
 	}
 
 	// size_fix.txt
@@ -12492,18 +12333,19 @@ int status_readdb(void)
 		}
 	}
 
-	// read databases
+	// Leitura das databases
 	//
 	#ifdef RENEWAL
+		sv->readdb(map->db_path, "Job_DB/Job_Table_RE.txt",   ',', 6+MAX_WEAPON_TYPE, 6+MAX_WEAPON_TYPE, -1, status->read_job_db);
 		sv->readdb(map->db_path, "Status_DB/Size_Fix_RE.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
 		status->readdb_refine_libconfig("Status_DB/Refine_RE.conf");
 	#else
+		sv->readdb(map->db_path, "Job_DB/Job_Table_PRE.txt",   ',', 5+MAX_WEAPON_TYPE, 5+MAX_WEAPON_TYPE, -1, status->read_job_db);
 		sv->readdb(map->db_path, "Status_DB/Size_Fix_PRE.txt", ',', MAX_WEAPON_TYPE, MAX_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
 		status->readdb_refine_libconfig("Status_DB/Refine_PRE.conf");
 	#endif
 		sv->readdb(map->db_path, "Job_DB/Job_DB2.txt",      ',', 1, 1+MAX_LEVEL,-1,status->readdb_job2);
 		sv->readdb(map->db_path, "Status_DB/SC_Config.txt", ',', 2, 2, SC_MAX, status->readdb_scconfig);
-		status->read_job_db();
 
 	return 0;
 }
@@ -12521,6 +12363,7 @@ int do_init_status(bool minimal) {
 	status->initChangeTables();
 	status->initDummyData();
 	status->readdb();
+	status->calc_sigma();
 	status->natural_heal_prev_tick = timer->gettick();
 	status->data_ers = ers_new(sizeof(struct status_change_entry),"status.c::data_ers",ERS_OPT_NONE);
 	timer->add_interval(status->natural_heal_prev_tick + NATURAL_HEAL_INTERVAL, status->natural_heal_timer, 0, 0, NATURAL_HEAL_INTERVAL);
@@ -12643,8 +12486,9 @@ void status_defaults(void) {
 	status->initDummyData = initDummyData;
 	status->base_amotion_pc = status_base_amotion_pc;
 	status->base_atk = status_base_atk;
-	status->get_base_maxhp = status_get_base_maxhp;
-	status->get_base_maxsp = status_get_base_maxsp;
+	status->calc_sigma = status_calc_sigma;
+	status->base_pc_maxhp = status_base_pc_maxhp;
+	status->base_pc_maxsp = status_base_pc_maxsp;
 	status->calc_npc_ = status_calc_npc_;
 	status->calc_str = status_calc_str;
 	status->calc_agi = status_calc_agi;
@@ -12680,5 +12524,4 @@ void status_defaults(void) {
 	status->readdb_refine_libconfig_sub = status_readdb_refine_libconfig_sub;
 	status->readdb_scconfig = status_readdb_scconfig;
 	status->read_job_db = status_read_job_db;
-	status->read_job_db_sub = status_read_job_db_sub;
 }

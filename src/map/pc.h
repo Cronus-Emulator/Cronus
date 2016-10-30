@@ -1065,8 +1065,6 @@ END_ZEROED_BLOCK; /* End */
 	void (*autotrade_prepare) (struct map_session_data *sd);
 	void (*autotrade_populate) (struct map_session_data *sd);
 	int (*autotrade_final) (DBKey key, DBData *data, va_list ap);
-
-	int (*check_job_name) (const char *name);
 };
 
 #ifdef CRONUS_CORE

@@ -2164,7 +2164,6 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(pc->autotrade_prepare, HP_pc_autotrade_prepare) },
 	{ HP_POP(pc->autotrade_populate, HP_pc_autotrade_populate) },
 	{ HP_POP(pc->autotrade_final, HP_pc_autotrade_final) },
-	{ HP_POP(pc->check_job_name, HP_pc_check_job_name) },
 /* pet */
 	{ HP_POP(pet->init, HP_pet_init) },
 	{ HP_POP(pet->final, HP_pet_final) },
@@ -2755,8 +2754,9 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(status->initDummyData, HP_status_initDummyData) },
 	{ HP_POP(status->base_amotion_pc, HP_status_base_amotion_pc) },
 	{ HP_POP(status->base_atk, HP_status_base_atk) },
-	{ HP_POP(status->get_base_maxhp, HP_status_get_base_maxhp) },
-	{ HP_POP(status->get_base_maxsp, HP_status_get_base_maxsp) },
+	{ HP_POP(status->calc_sigma, HP_status_calc_sigma) },
+	{ HP_POP(status->base_pc_maxhp, HP_status_base_pc_maxhp) },
+	{ HP_POP(status->base_pc_maxsp, HP_status_base_pc_maxsp) },
 	{ HP_POP(status->calc_npc_, HP_status_calc_npc_) },
 	{ HP_POP(status->calc_str, HP_status_calc_str) },
 	{ HP_POP(status->calc_agi, HP_status_calc_agi) },
@@ -2792,7 +2792,6 @@ struct HookingPointData HookingPoints[] = {
 	{ HP_POP(status->readdb_refine_libconfig_sub, HP_status_readdb_refine_libconfig_sub) },
 	{ HP_POP(status->readdb_scconfig, HP_status_readdb_scconfig) },
 	{ HP_POP(status->read_job_db, HP_status_read_job_db) },
-	{ HP_POP(status->read_job_db_sub, HP_status_read_job_db_sub) },
 /* storage */
 	{ HP_POP(storage->reconnect, HP_storage_reconnect) },
 	{ HP_POP(storage->delitem, HP_storage_delitem) },
