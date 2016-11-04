@@ -1,0 +1,1450 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 3.3                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revião Cronus]                                    ||
+// - Adesão da Tradução [Spell Master]                           ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Quest de Mudança de Classe para Templário                   ||
+//===============================================================//
+
+// Lider dos Templários: 1st Collect Items Test
+//============================================================
+prt_castle,45,169,5	script	Lider dos Templários	4_M_CRU_OLD,{
+	mes "[Michael Halig]";
+	if (Upper == 1) { //the baby classes were totally blocked... due to missing == 1
+		mes "Vá e treine para se preparar para a Guerra Santa que está chegando. A vitória estara nas mãos dos que estiverem melhor preparados para recebe-la.";
+		next;
+		mes "[Michael Halig]";
+		mes "Você não deve ficar aqui, meu amigo.";
+		mes "Aconselho-te a continuar praticando.";
+		close;
+	}
+	else if(BaseJob != Job_Swordman) {
+		if(BaseJob == Job_Crusader) {
+			mes "Vá e treine para se preparar para a Guerra Santa que está chegando. A vitória estara nas mãos dos que estiverem melhor preparados para recebe-la.";
+			next;
+			mes "[Michael Halig]";
+			mes "O Caos um dia surgirá para abalar nosso príncipios de paz, justiça e ordem. Enquanto não acabarmos com o mal e criarmos nosso mundo ideal nós não podemos parar de treinar.";
+			close;
+		}
+		else if(BaseJob == Job_Novice) {
+			mes "Nós somos Templários,";
+			mes "guerreiros preparados";
+			mes "para lutar na Guerra Santa.";
+			next;
+			mes "[Michael Halig]";
+			mes "Se você deseja se juntar a nós, primeiro você tem que ser um Espadachim e preparar-se...";
+			close;
+		}
+		mes "Nós somos Templários,";
+		mes "guerreiros preparados";
+		mes "para lutar na Guerra Santa.";
+		next;
+		mes "[Michael Halig]";
+		mes "Como aconteceu a mil anos atrás, as forças do mal um dia irão atacar, para tentar conquistar o mundo novamente.";
+		close;
+	}
+	else if(CRUS_Q <= 3 && countitem(1004) && countitem(1009)) {
+		mes "Ah...";
+		mes "Vejo que você foi convidado para se tornar um dos Templários. Nós entendemos sua vontade, mas temos que testar suas habilidades.";
+		next;
+		mes "[Michael Halig]";
+		mes "Fale com Moorenak Miyol que esta treinando na caverna subterrânea do Castelo de Prontera. Vá, e fale com ele primeiro.";
+		next;
+		delitem 1004, 1;
+		delitem 1009, 1;
+		CRUS_Q = 4;
+		mes "[Michael Halig]";
+		mes "Moorenak e outros como ele vão testar as suas habilidades e ajudar você a encontrar seu caminho. Volte aqui quando você tiver completado os testes deles...";
+		close;
+	}
+	else if(CRUS_Q == 0) {
+		mes "Nós somos Templários, guerreiros preparados para a Guerra Santa.";
+		mes "O que traz você";
+		mes "a este lugar?";
+		next;
+		if (select("Eu quero me preparar para a Guerra Santa!:Nada em particular.") == 1) {
+			mes "[Michael Halig]";
+			mes "Você deseja se tornar";
+			mes "um Templário...?";
+			mes "Se juntar a nós não é";
+			mes "tão facil como parece.";
+			next;
+			mes "[Michael Halig]";
+			mes "Eu sou Michael Halig. Eu sou um dos muitos Templários que estão se preparando para a Guerra Santa. Nós continuamos treinando com fé e lealdade infinita.";
+			next;
+			mes "[Michael Halig]";
+			mes "Nós recrutamos Espadachins que expressem fé, ou aqueles que nasceram como guerreiros";
+			mes "por Odin.";
+			next;
+			mes "[Michael Halig]";
+			mes "Possuindo o ^3355FFEmblema da Cavalaria^000000 e a ^3355FFMão Divina^000000 é o sinal de que você foi escolhido para se tornar um Templário.";
+			next;
+			mes "[Michael Halig]";
+			mes "Após obter os itens e passar em nossos testes, você estará pronto para se tornar um Templário.";
+			next;
+			mes "[Michael Halig]";
+			mes "Eu não sei que tipo de pessoa você é ao certo. Mas";
+			mes "Vou testa-lo se desejar. Você esta pronto para suportar os testes de preparação para a Guerra Santa?";
+			next;
+			if (select("Sim, eu estou.:Gostaria de pensar sobre isso.") == 1) {
+				if(JobLevel < 40) {
+					mes "[Michael Halig]";
+					mes "Espere...";
+					mes "Você não esta pronto.";
+					mes "Você precisa estar no";
+					mes "Nivel de Classe 40 ou mais para se tornar";
+					mes "um Templário.";
+					next;
+					mes "[Michael Halig]";
+					mes "Treine mais como um Espadachim e espere você ser chamado. Eu entendo sua intenção, mas no momento, você não pode se juntar a nós.";
+					close;
+				} 
+				if (SkillPoint) {
+					mes "[Michael Halig]";
+					mes "Você não terminou de aprender tudo como Espadachim. Use todos os seus pontos de habilidade sobrando e retorne a mim.";
+					close;
+				}
+				mes "[Michael Halig]";
+				mes "Então...";
+				mes "Vou testa-lo para ver se você esta pronto para se tornar um Templário.";
+				next;
+				mes "[Michael Halig]";
+				mes "Seu nome é";
+				mes "" + strcharinfo(0) + "...?";
+				mes "Vamos ver...";
+				next;
+				if (countitem(1004) && countitem(1009)) {
+					mes "[Michael Halig]";
+					mes "Ah...";
+					mes "Vejo que você foi chamado para se tornar um Templário. Estamos certos de sua vontade, mas precisamos testar suas capacidades.";
+					next;
+					mes "[Michael Halig]";
+					mes "Fale com Moorenak Miyol ele está treinando na caverna subterrânea do Castelo de Prontera. Vá, e fale com ele primeiro.";
+					next;
+					delitem 1004, 1;
+					delitem 1009, 1;
+					CRUS_Q = 4;
+					setquest 3009;
+					mes "[Michael Halig]";
+					mes "Moorenak e outros como ele querem testar o limite de suas capacidades e ajudar você a encontrar seu caminho. Retorne a mim quando tiver completado seus testes...";
+					close;
+				}
+				mes "[Michael Halig]";
+				mes "Mmm. Eu não posso dizer se você tem ou não o coração para se tornar um Templário. No entanto, se você tiver vontade, você conseguirá o que é preciso.";
+				next;
+				mes "[Michael Halig]";
+				mes "Agora...";
+				mes "O meu teste para você. Traga-me os seguintes itens e mostre-me sua determinação.";
+				next;
+				mes "[Michael Halig]";
+				.@cru_m1 = rand(1,3);
+				if(.@cru_m1 == 1) {
+					CRUS_Q = 1;
+					setquest 3006;
+					mes "10 ^3355FF"+getitemname(957)+"^000000";
+					mes "10 ^3355FF"+getitemname(959)+"^000000";
+					mes "10 ^3355FF"+getitemname(1099)+"^000000";
+					mes "10 ^3355FF"+getitemname(901)+"^000000";
+					next;
+				}
+				else if(.@cru_m1 == 2) {
+					CRUS_Q = 2;
+					setquest 3007;
+					mes "10 ^3355FF"+getitemname(932)+"^000000";
+					mes "10 ^3355FF"+getitemname(1043)+"^000000";
+					mes "10 ^3355FF"+getitemname(1098)+"^000000";
+					mes "10 ^3355FF"+getitemname(1094)+"^000000";
+					next;
+				}
+				else {
+					CRUS_Q = 3;
+					setquest 3008;
+					mes "10 ^3355FF"+getitemname(958)+"^000000";
+					mes "10 ^3355FF"+getitemname(930)+"^000000";
+					mes "10 ^3355FF"+getitemname(1041)+"^000000";
+					mes "10 ^3355FF"+getitemname(1062)+"^000000";
+					next;
+				}
+				mes "[Michael Halig]";
+				mes "Mostre-me o seu poder, trazendo-me estes itens. Se você conseguir, você estará pronto para o proximo teste. Que Odin lhe proteja.";
+				close;
+			}
+			mes "[Michael Halig]";
+			mes "Ninguém sabe quando a Guerra Santa começará. Temos que nos preparar desde cedo, e não podemos desistir";
+			mes "do nosso treinamento.";
+			next;
+			mes "[Michael Halig]";
+			mes "Se você achar que você foi escolhido para participar da Guerra Santa, por favor, volte imediatamente e faça o teste para se tornar";
+			mes "um Templário.";
+			close;
+		}
+		mes "[Michael Halig]";
+		if (Sex) mes "Se você tambem é um homem da espada, treinar constantemente e preparar-se. Ninguém sabe quando a Guerra Santa começará.";
+		else mes "Como uma mulher de espada, você deve treinar constantemente. Prepare-se, pois ninguém sabe quando a Guerra Santa irá começar.";
+		close;
+	}
+	else if(CRUS_Q >= 1 && CRUS_Q <= 3) {
+		mes "Você provou sua determinação com o emblema que eu dei para você, ou você possui os itens que provam que você recebeu seu chamado?";
+		next;
+		switch(CRUS_Q) {
+		case 1:
+			.@item1 = 957;
+			.@item2 = 959;
+			.@item3 = 1099;
+			.@item4 = 901;
+			break;
+		case 2:
+			.@item1 = 932;
+			.@item2 = 1043;
+			.@item3 = 1098;
+			.@item4 = 1094;
+			break;
+		case 3:
+			.@item1 = 958;
+			.@item2 = 930;
+			.@item3 = 1041;
+			.@item4 = 1062;
+			break;
+		}
+		if (countitem(.@item1) > 9 && countitem(.@item2) > 9 && countitem(.@item3) > 9 && countitem(.@item4) > 9) {
+			mes "[Michael Halig]";
+			mes "Ah, muito bem.";
+			mes "Você mostrou seu esforço e determinação. Você está pronto para proceder para o próximo teste.";
+			next;
+			mes "[Michael Halig]";
+			mes "Fale com Moorenak Miyol ele está treinando no calabouço subterrâneo do Castelo de Prontera. Vá, e fale com ele primeiro.";
+			next;
+			delitem .@item1, 10;
+			delitem .@item2, 10;
+			delitem .@item3, 10;
+			delitem .@item4, 10;
+			CRUS_Q = 4;
+			if (questprogress(3006)) {
+				changequest 3006,3009;
+			}
+			else if (questprogress(3007)) {
+				changequest 3007,3009;
+			}
+			else {
+				changequest 3008,3009;
+			}
+			mes "[Michael Halig]";
+			mes "Moorenak e outros como ele vão testar suas capacidades e ajudar você a escolher seu caminho. Retorne a mim quando você tiver completado seus testes...";
+			close;
+		}
+		mes "[Michael Halig]";
+		mes "Ah, Você ainda não completou o teste que lhe dei. Traga-me os seguintes itens, e prove a mim que você pode se tornar um Templário...";
+		next;
+		mes "[Michael Halig]";
+		mes "10 ^3355FF"+getitemname(.@item1)+"^000000";
+		mes "10 ^3355FF"+getitemname(.@item2)+"^000000";
+		mes "10 ^3355FF"+getitemname(.@item3)+"^000000";
+		mes "10 ^3355FF"+getitemname(.@item4)+"^000000";
+		next;
+		mes "[Michael Halig]";
+		mes "Se você se esforçar, você conseguirá completar essa tarefa. Que Odin proteja sua jornada.";
+		close;
+	}
+	else if(CRUS_Q == 10) {
+		if (SkillPoint) {
+			mes "Você não terminou de aprender tudo como Espadachim. Use todos os pontos de habilidade restantes, e então volte a falar comigo.";
+			close;
+		}
+		mes "Parabéns por completar todos os seus testes. Você esta pronto para lutar ao nosso lado na Guerra Santa como um Templário.";
+		next;
+		mes "[Michael Halig]";
+		mes "Juntos, vamos vencer a Guerra Santa e derrotar o mal e a tirania!";
+		next;
+		.@Joblevel = JobLevel;
+		completequest 3015;
+		callfunc "Job_Change",Job_Crusader;
+		callfunc "F_ClearJobVar";		//clears all job variables for the current player
+		mes "[Michael Halig]";
+		mes "Veja...!";
+		mes "Agora você é um Templário!";
+		mes "Quando a Guerra Sagrada começar, nós estaremos do mesmo lado para derrotar o mal.";
+		next;
+		mes "[Michael Halig]";
+		mes "Agora você é";
+		mes "um de nós!";
+		if (Sex) mes "...Irmão.";
+		else mes "...Irmã.";
+		next;
+		if(.@Joblevel != 50) getitem 504, 6;
+		else getitem 504, 12;
+		mes "[Michael Halig]";
+		mes "E use isso quando você estiver em perigo. Ele te dará forças quando seus ferimentos forem graves.";
+		next;
+		mes "[Michael Halig]";
+		mes "Nunca esqueça, a Guerra Sagrada está se aproximando. Nós precisamos nos preparar para a maré inevitável do mal que varrera este mundo. Agora, vá e lute pelos nossos princiopios de liberdade e justiça!";
+		close;
+	}
+	mes "Parece que você não completou todos os testes. Você não estará pronto para se tornar um Templário enquanto não tiver completado todos os testes.";
+	next;
+	mes "[Michael Halig]";
+	mes "Retorne a mim quando você tiver completado todos os seus testes. Quando você tiver terminado, você poderá se juntar ao grupo dos melhores Templários.";
+	close;
+}
+
+// Suffering Man: 2nd Endurance Test
+//============================================================
+prt_castle,164,32,1	script	Man in Anguish	4_M_JOB_KNIGHT1,{
+	mes "[Murnak Mijoul]";
+	if(BaseJob != Job_Swordman) {
+		if (BaseJob == Job_Crusader) {
+			mes "Não fique passeando em lugaqr como esse e vá descobrir até onde vai suas forças. O dia que juntaremos nossas mãos na batalha está se aproximando.";
+			close;
+		}
+		else if(BaseJob == Job_Novice) {
+			mes "Um Aprendiz...?";
+			mes "Tão novo, e ainda,";
+			mes "tem tanto potencial.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Deixe-me explicar a você que não sou criminoso. Estou aqui para treinar. Talvez, se você se tornar forte, entenderá.";
+			close;
+		}
+		mes "Hm. Você não tem nada para fazer neste lugar. Por favor deixe-o, e não interrompa meu treinamento.";
+		close;
+	}
+	else if(CRUS_Q >= 0 && CRUS_Q <= 3) {
+		mes "O que você quer...?";
+		mes "Se você não nem nada neste lugar,";
+		mes "então por favor deixe-o. Um estado tranquilo na mente é essencial para se treinar...";
+		next;
+		mes "[Murnak Mijoul]";
+		mes "Desejo melhorar meu senso de serenidade no meu coração para me preparar para a Guerra Santa que está por vir. Então por favor, não me pertube.";
+		close;
+	}
+	else if(CRUS_Q == 4) {
+		mes "O que é isto...?";
+		mes "Você tem negocios aqui";
+		if (Sex) mes "comigo, homem da espada?";
+		else mes "comigo, mulher da espada?";
+		next;
+		if (select("Eu gostaria de fazer o teste de Templário.:Nada.") == 1) {
+			mes "[Murnak Mijoul]";
+			mes "Você deseja se tornar um Templário...? Hm, lutar na Guerra Santa é algo admirável.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Seu nome é";
+			mes "" + strcharinfo(0) + "...?";
+			mes "Deixe-me dar";
+			mes "uma olhada em seu rosto.";
+			next;
+			if(getequipid(7) != 2608 && getequipid(8) != 2608) {
+				mes "[Murnak Mijoul]";
+				mes "Hmm. Você deseja se tornar um Templário, mas não usa um Rosário? Não tenho assuntos com você se você não usa nosso costume.";
+				close;
+			}
+			mes "[Murnak Mijoul]";
+			mes "Hmm...";
+			mes "Você parece 'mais-ou-menos', mas é jovem e ambicioso. Ambição pode esta contra você se você não agira com paciência.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Não me de razão para duvidar de você, e me mostre sua paciência. Você deve resistir ao meu teste com sua paciência se você deseja se tornar um Templário.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Você pode fazer o teste agora. É muito simples. Tudo que você tem que fazer é andar até o fim do corredor.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Porém...";
+			mes "Mas você tem que ter uma coisa em mente. Em nenhuma condição você poderá matar os monstros.";
+			next;
+			CRUS_Q = 5;
+			changequest 3009,3010;
+			mes "[Murnak Mijoul]";
+			mes "Então...";
+			mes "Boa Sorte.";
+			close2;
+			warp "job_cru",98,40;
+			end;
+		}
+		mes "[Murnak Mijoul]";
+		mes "Parece que você tem bastante tempo em suas mãos. Porque não vai fazer algo mais produtivo, como pegar jellopys fora das ruas ou algo assim?";
+		close;
+	}
+	else if(CRUS_Q == 5) {
+		mes "O que é isso...?";
+		mes "Você é o Espadachim de antes. O que aconteceu, você falho?";
+		next;
+		if (select("Deixe-me preparar o teste.:Que tipo de teste foi esse?!") == 1) {
+			mes "[Murnak Mijoul]";
+			mes "Eu deixarei você rafazer o teste quantas vezes quizer. Porém se você continuar falhando, tem um problema serio com seu";
+			mes "estado mental.";
+			next;
+			if(getequipid(7) != 2608 && getequipid(8) != 2608) {
+				mes "[Murnak Mijoul]";
+				mes "Espere...";
+				mes "Você perdeu seu Rosário? Você não pode deixa-lo em qualquer lugar. Nós somos guerreiros da santidade.";
+				next;
+				mes "[Murnak Mijoul]";
+				mes "Perder as coisas são atitudes de meros Espadachins. Se você realmente quer refazer o teste, você precisa respeitar as tradições dos Templários.";
+				close;
+			}
+			mes "[Murnak Mijoul]";
+			mes "Seu problema é o habito de atacar monstros no momento que ve um. Você tem que desenvolver a paciência e a resistência.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Apenas concentre-se...";
+			mes "No seu objetivo apenas e ande até o fim do corredor. É tão simples quanto você pensa";
+			mes "sobre isso.";
+			next;
+			mes "[Murnak Mijoul]";
+			mes "Não emportar como você vai fazer, você não pode matar nenhum monstro. Desta vez, você tem que pensar bem antes de sacar sua espada.";
+			next;
+			CRUS_Q = 5;
+			mes "[Murnak Mijoul]";
+			mes "Muito bem...";
+			mes "Boa Sorte.";
+			close2;
+			warp "job_cru",98,40;
+		}
+		mes "[Murnak Mijoul]";
+		mes "Como você pode dizer que não sabe do teste? Com este tipo de atitude, você nunca se tornará um Templário.";
+		next;
+		mes "[Murnak Mijoul]";
+		mes "Eu entendo que você está um pouco frustrado, mas você tem que superar sua frustração para passar neste teste.";
+		close;
+	}
+	else if(CRUS_Q == 6) {
+		mes "Hmm, parece que você foi bem. Não deve ter sido muito dificil. Você não tem mais negócios";
+		mes "comigo.";
+		next;
+		mes "[Murnak Mijoul]";
+		mes "Para seu próximo teste, vá até Gabriel Valentine no Santuário de Prontera. Bem, nos vemos por ai.";
+		close;
+	}
+	mes "Hmmm...";
+	mes "Você ainda tem testes para completar, para se tornar um Templário, não tem?";
+	close;
+}
+
+// Gabriel Valentine: 3rd Knowledge Test
+//============================================================
+prt_church,95,127,3	script	Crusader	4_F_CRU,{
+	mes "[Gabriel Valentine]";
+	if(BaseJob != Job_Swordman) {
+		if (BaseJob == Job_Crusader) {
+			mes "Bem vindo, colega Templário.";
+			mes "Como vai seu treinamento";
+			mes "bem?";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Você não pode esquecer de treinar todos os dias, e preparar-se para o dia da Guerra Santa que está chegando.";
+			close;
+		}
+		else if(BaseJob == Job_Novice) {
+			mes "Bem vindo, eu sou um Templário.";
+			mes "Eu estou me preparando para";
+			mes "a Guerra Santa";
+			mes "que está por vir.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Se você estiver interessado em se tornar um Templário, você precisa primeiro treinar como um Espadachim. Venha nos visitar depois que você tiver aprendido o suficiente como um Espadachim...";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Nós estamos localizados no Palacio Central de Prontera, então se você tiver tempo, não teria problema passar por la.";
+			close;
+		}
+		mes "Bem Vindo, nós somos Templários.";
+		mes "Nós estamos nos preparando para";
+		mes "a Guerra Santa";
+		mes "que está por vir.";
+		next;
+		mes "[Gabriel Valentine]";
+		mes "Espero que você treine para se peparar para o futuro também.";
+		close;
+	}
+	else if(CRUS_Q == 0) {
+		mes "Bem-vindo. Nós somos Templários.";
+		mes "Nós estamos nos preparando para a";
+		mes "previsa Guerra Santa";
+		mes "que está por vir.";
+		next;
+		mes "[Gabriel Valentine]";
+		mes "Se você deseja se tornar um Templário, por favor fale com nosso lider no Palacio Central de Prontera.";
+		close;
+	}
+	else if((CRUS_Q == 6) || (CRUS_Q == 7)) {
+		if(CRUS_Q == 6) {
+			mes "Bem-vindo.";
+			mes "Você foi bem";
+			mes "nos dolorosos testes?";
+			mes "Eu vou lhe dar o proximo teste.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Meu nome é Gabriel Valentine. Eu, também, estou me preparando para a Guerra Santa. Por enquanto, eu sou o guarda desta igreja.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Vou testar você para ver se você tem o conhecimento necessário para se tornar um Templário.";
+			mes "Não podemos ganhar a Guerra Santa apenas balançando nossas espadas.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Farei a";
+			mes "você 10 perguntas.";
+			mes "Responda-as corretamente.";
+			next;
+		}
+		else if(CRUS_Q == 7) {
+			mes "Bem vindo de volta~";
+			mes "Você se preparou";
+			mes "bem para esse teste?";
+			mes "Vamos tentar,";
+			mes "novamente...?";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Mai uma vez, eu vou";
+			mes "fazer 10 perguntas a você";
+			mes "Ouça com atenção, e";
+			mes "escolha a resposta correta.";
+			next;
+		}
+		.@cru_m = rand(1,3);
+		if (.@cru_m == 1) {
+			mes "[Gabriel Valentine]";
+			mes "1. Qual o atributo mais efetivo para atacar um Morto-Vivo?";
+			next;
+			if (select("Neutro:Terra:Morto-Vivo:Sagrado") == 4)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "2. Se o monstro for um Morto-Vivo Nivel 2, quanto de dano a mais o ataque Sagrado dará em comparação com o Fogo?";
+			next;
+			if (select("25 %:50 %:75 %:100 %") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "3. Qual desses itens não pode ser obtido de um Druida Maligno?";
+			next;
+			if (select("Chapéu de Monge:Folha de Yggdrasil:Erva Branca:Amuleto ") == 1)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "4. Qual monstro Morto-Vivo";
+			mes "tem mais HP?";
+			next;
+			if (select("Carniçal:Esqueleto Prisioneiro:Alma Penada:Zumbi Prisioneiro") == 4) 
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "5. Qual desses montros tem tamanho diferente que os outros?";
+			next;
+			if (select("Alma Penada:Khalitzburg:Drake:Druida Malígno") == 3)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "6. Qual dessas cartas garante a você tolerancia a ataques da propriedade Morto-Vivo?";
+			next;
+			if (select("Carta Orc Esqueleto:Carta Orc Zumbi:Carta Carniçal:Carta Esqueleto Operário") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "7. Qual era a relação entre Munak e Bongun antes de falecerem?";
+			next;
+			if (select("Grande Irmão e Pequena Irmã:Amigos de Infancia da mesma vila:Meio-irmão e irmã:Completamente estranhos") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "8. Qual dos seguintes monstros não é agressivo?";
+			next;
+			if (select("Soldado Esqueleto:Orc Esqueleto:Esqueleto:Esqueleto Operário") == 3)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "9. Qual o nome do escudo com uma Carta Munak inserida?";
+			next;
+			if (select("Escudo Energizante:Escudo Escarlate:Escudo Hipnotizante:Escudo de Alga") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "10. Qual desses monstros não derrubam Espólio?";
+			next;
+			if (select("Munak:Carniçal:Mumia:Soldado Esqueleto") == 1)
+				.@cru_t += 10;
+		}
+		else if (.@cru_m == 2) {
+			mes "[Gabriel Valentine]";
+			mes "1. Qual dos seguintes monstros tem atributo diferente dos outros?";
+			next;
+			if (select("Carat:Xamã do Vento:Isis:Andarilho") == 3)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "2. Qual espada é efetiva ao atacar um monstro Demonio?";
+			next;
+			if (select("Tsurugi Exorcizante:Tsurugi Celestial:Tsurugi Abissal:Tsurugi Nocauteante") == 1)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "3. Qual desses itens NÃO é derrubado pelo Dokebi?";
+			next;
+			if (select("Minério de Elunium:Martelo de Ouro:Maça Espada:Cajado do Poder") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "4. Qual monstro Demonio tem mais HP?";
+			next;
+			if (select("Giearth:Magnólia:Dokebi:Marionette") == 4)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "5. Qual desses monstros Demonio é de um tamanho diferente dos outros?";
+			next;
+			if (select("Ghostring:Sussuro:Deviruchi:Baphomet Jr.") == 1)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "6. Qual escudo reduz o dano de monstros Demonio?";
+			next;
+			if (select("Escudo do Paraíso:Escudo do Inferno:Escudo Escarlate:Escudo Excelente") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "7. Qual desses atributos é mais efetivo no Xamã do Vento?";
+			next;
+			if (select("Agua:Terra:Fogo:Vento") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "8. Qual dos monstros é diferente dos outros monstros Demonio?";
+			next;
+			if (select("Sohee:Isis:Dokebi:Sussurro") == 4)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "9. Qual efeito a Carta Marionete possui?";
+			next;
+			if (select("Aumenta a defesa contra ataques da propriedade Sombra em 30%:Aumenta a defesa contra ataques de veneno em 30%:Aumenta defesa contra propriedade Fantasma em 30%:Aumenta a Defesa contra ataques Neutros em 30%") == 3)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "10. Qual dessas é uma maneira efetiva para agir ao encontrar um monstro Demonio?";
+			next;
+			if (select("Gritar, 'Mal, va embora!':Oferecer sua alma e fazer um acordo.:Colocar Agua Benta na arma e atacar.:Colocar um chapéu de Deviruchi.") == 3)
+				.@cru_t += 10;
+		}
+		else {
+			mes "[Gabriel Valentine]";
+			mes "1. Qual o nivel de 'Proteção Divina' é necessário para aprender 'Flage do Mal'?";
+			next;
+			if (select("Nivel 1:Nivel 2:Nivel 3:Nivel 4") == 3)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "2. Se sua INT for 30, incluindo bonus de INT dos equipamentos, no nível 55, quanto de HP a habilidade Cura Nivel 5 recupera?";
+			next;
+			if (select("396:440:484:528") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "3. Com nivel 7 de Proteção Divina, em quanto sua defesa é almentada sobre Morto-Vivo?";
+			next;
+			if (select("21:22:23:24") == 1)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "4. Qual dessas lanças pode atacar o Pesadelo Sombrio, quando esta envolvido no atributo Fantasma?";
+			next;
+			if (select("Lança:Guisarme-Bico:Foice:Zephyrus") == 4)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "5. Qual o nivel de 'Cura' necessário para aprender 'Medicar'?";
+			next;
+			if (select("Nivel 1:Nivel 2:Nivel 3:Nivel 4") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "6. Qual a velocidade de ataque quando Perícia em Montario Nivel 3 é aprendido?";
+			next;
+			if (select("70 % da velocidade normal:80 % da velocidade normal:90 % da velocidade normal:100 % da velocidade normal") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "7. Qual dos seguintes não esta correto para a habilidade Flagelo do Mal?";
+			next;
+			if (select("Aumenta o dano em Morto-Vivo:Apenas Noviços podem aprender a habilidade:Quando master, + 30 aumenta:Habilidade Passiva") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "8. Quanto de SP a habilidade Cura Nivel 7 usa?";
+			next;
+			if (select("30:31:33:35") == 2)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "9. Qual destes status";
+			mes "não pode ser curado com Medicar?";
+			next;
+			if (select("Maldição:Silenciamento:Caos:Cegueira") == 1)
+				.@cru_t += 10;
+
+			mes "[Gabriel Valentine]";
+			mes "10. O que melhor descreve um Templário?";
+			next;
+			if (select("Se preparando para o matrimônio.:Se preparando para a Guerra Santa.:Se preparando para uma consumação.:Um preparador de poções.") == 2)
+				.@cru_t += 10;
+
+		}
+		mes "[Gabriel Valentine]";
+		mes "Bom trabalho~";
+		mes "Bem, primeiro deixe-me";
+		mes "dar uma olhada nos resultados.";
+		next;
+		mes "[Gabriel Valentine]";
+		mes " A Pontuação de " + strcharinfo(0) + "";
+		mes "é " + .@cru_t + " pontos...";
+		if(.@cru_t == 100) {
+			CRUS_Q = 8;
+			changequest 3011,3013;
+			mes "Super! Agora, é hora";
+			mes "de você pegar o proximo teste.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Vá para o Castelo de Prontera";
+			mes "e fale com Bliant Piyord.";
+			mes "Eu vou informa-lo";
+			mes "que ele fará seu proximo teste.";
+			close;
+		}
+		else if(.@cru_t == 90) {
+			CRUS_Q = 8;
+			changequest 3011,3013;
+			mes "Muito bem~ Agora, é hora de";
+			mes "você pegar seu proximo teste.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Vá para o Castelo de Prontera";
+			mes "e fale com Bliant Piyord.";
+			mes "Vou informa-lo que ele";
+			mes "fará seu proximo teste.";
+			close;
+		}
+		else if (.@cru_t == 80 && CRUS_Q == 7) {
+			CRUS_Q = 8;
+			changequest 3011,3013;
+			mes "Parece que você se preparou muito para o teste, então deixarei você passar desta vez.";
+			mes "Vá pegar seu proximo teste agora.";
+			next;
+			mes "[Gabriel Valentine]";
+			mes "Vá para o Castelo de Prontera e fale com Bliant Piyord.";
+			mes "Eu vou informa-lo para preparar seu proximo teste.";
+			close;
+		}
+		CRUS_Q = 7;
+		if (questprogress(3011)) {
+			changequest 3011,3012;
+		}
+		mes "Hmmm... Que pena.";
+		mes "Vá estudar mais e";
+		mes "faça este teste novamente, okay?";
+		next;
+		mes "[Gabriel Valentine]";
+		mes "Não se estresse, você precisa saber muito para passar neste teste. De qualquer forma, Eu estarei esperando bem aqui. Quando você achar que esta pronto, volte aqui, esta bem?";
+		close;
+	}
+	else if(CRUS_Q == 8 || CRUS_Q == 9) {
+		mes "Pensei ter dito para, você ir ao Castelo de Prontera e falar com Bliant Piyord para pegar seu proximo teste. Boa sorte, e torne-se um Templário logo, esta bem?";
+		close;
+	}
+	else if(CRUS_Q == 10) {
+		mes "O que você esta fazendo aqui? Você ja completou todos os testes. Vá falar com nosso lider, você está pronto para se tornar um Templário agora.";
+		next;
+		mes "[Gabriel Valentine]";
+		mes "Você logo estará pronto para se juntar a nós para preparar para a Guerra Santa. Continue vivendo com fé após se tornar um Templário.";
+		close;
+	}
+	mes "Mmm...?";
+	mes "Parece que você";
+	mes "esta se tornando um Templário...";
+	mes "Mas, não é minha vez";
+	mes "de testa-lo ainda.";
+	next;
+	mes "[Gabriel Valentine]";
+	mes "Vá e complete os outros testes,";
+	mes "e venha até mim após termina-los.";
+	mes "Então,";
+	mes "Vejo você mais tarde~";
+	close;
+}
+
+// Crusader: 4th Purification Test
+//============================================================
+prt_castle,35,151,5	script	Bliant Piyord	4_M_CRU,{
+	mes "[Bliant Piyord]";
+	mes "Bem Vindo.";
+	if(BaseJob != Job_Swordman) {
+		if(BaseJob == Job_Crusader) {
+			mes "Como vai";
+			mes "seu treinamento?";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Desenvolva sua fé. Através da fé nasce a força e a disciplina. Dia após dia, treine para se tornar um grande Templário.";
+			close;
+		}
+		else if(BaseJob == Job_Novice) {
+			mes "Nós somos Templário,";
+			mes "guerreiros sagrados preparados para a grande Guerra Santa que está vindo.";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Você esta interessado";
+			mes "em se tornar um Templário?";
+			mes "Nós estamos sempre esperando";
+			mes "por mais homem e mulheres";
+			mes "capazes de se juntar a nós.";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Treine como um Espadachim e fale com nós quando achar que está pronto. Se você for chamado por Odin para se tornar um Templário, você se tornará.";
+			close;
+		}
+		mes "Nós somos Templários,";
+		mes "guerreiros santos preparados para a grande Guerra Santa que está por vir.";
+		next;
+		mes "[Bliant Piyord]";
+		mes "Neste tempo relativamente quieto, nosso treinamento é incessante. Nós estamos prontos para o dia que as sombras aparecerem novamente...";
+		close;
+	}
+	else if(CRUS_Q == 0) {
+		mes "Nós somos Templários,";
+		mes "guerreiros santos preparados para a grande Guerra Santa que está por vir.";
+		next;
+		mes "[Bliant Piyord]";
+		mes "Você esta interessado";
+		mes "em se tornar um Templário?";
+		mes "Nós sempre estamos esperando";
+		mes "por mais homens e mulheres";
+		mes "capazes de se juntar a nós.";
+		next;
+		mes "[Bliant Piyord]";
+		mes "Para se tornar um Templário, você precisa estar no Nivel de Classe 40. Para mais detalhes, por favor fale com nosso lider.";
+		next;
+		mes "[Bliant Piyord]";
+		mes "Que Odin";
+		mes "esteja com você...";
+		close;
+	}
+	else if(CRUS_Q == 8 || CRUS_Q == 9) {
+		if (CRUS_Q == 8) {
+			mes "É bom";
+			mes "falar com você.";
+			mes "Agora é a hora";
+			mes "do seu teste final.";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Meu nome é Bliant Piyord e eu também, estou me preparando para a Guerra Santa. Deve ter sido muito dificil chegar até aqui";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Este teste, avalia suas habildiade em batalha. Apenas quem possui uma boa habilidade de luta pode se tornar um Templário.";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Para receber o teste de batalha, traga-me";
+			mes "1 ^3355FFAgua Benta^000000. Será usada para purificar seu interior para receber o teste.";
+			if (questprogress(3013)) {
+				changequest 3013,3014;
+			}
+			next;
+			mes "[Bliant Piyord]";
+			mes "Muito bem...";
+			mes "Diga-me";
+			mes "está tudo bem?";
+			mes "Ou você precisa de tempo";
+			mes "para se preparar?";
+		}
+		else {
+			mes "Você esta preparado";
+			mes "para seu teste agora?";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Você quer fazer agora, ou quer esperar para se preparar?";
+		}
+		next;
+		if (select("Eu quero começar.:Me de um tempo para me preparar.") == 1) {
+			if(getequipid(7) != 2608 && getequipid(8) != 2608) {
+				mes "[Bliant Piyord]";
+				mes "Espere um segundo, você não tem um Rosário equipado. Um Templário, sempre tem que ter um Rosário em sua pessoa.";
+				next;
+				mes "[Bliant Piyord]";
+				mes "Volte e pegue";
+				mes "seu teste quando tiver";
+				mes "um Rosário.";
+				close;
+			}
+			else if(countitem(523) < 1) {
+				mes "[Bliant Piyord]";
+				mes "Para o teste de batalha, por favor prepare uma ^3355FFAgua Sagrada^000000.";
+				mes "Eu purifico os candidatos.";
+				next;
+				mes "[Bliant Piyord]";
+				mes "Pegue os preparativos e volte.";
+				mes "Estarei esperando por você.";
+				close;
+			}
+			delitem 523, 1; //Holy Water
+			mes "[Bliant Piyord]";
+			mes "Bem, Vou iniciar";
+			mes "o teste. Você";
+			mes "está purificado com a";
+			mes "Agua Benta que preparou.";
+			next;
+			mes "[Bliant Piyord]";
+			mes "...............";
+			next;
+			mes "[Bliant Piyord]";
+			mes "Vamos la.";
+			mes "Vá e entre na sala";
+			mes "de espera.";
+			mes "Derrote os monstros";
+			mes "que aparecerem";
+			mes "nos 4 estágios.";
+			close2;
+			warp "job_cru",24,169;
+			end;
+		}
+		mes "[Bliant Piyord]";
+		mes "Prepare 1 ^3355FFAgua Benta^000000 para receber o teste de batalha. Ela vai ser usada para purificar seu interior para receber o teste.";
+		next;
+		mes "[Bliant Piyord]";
+		mes "Volte e pegue";
+		mes "o teste após";
+		mes "você ter preparado";
+		mes "1 Agua Benta.";
+		mes "Estarei aqui";
+		mes "esperando.";
+		close;
+	} 
+	else if(CRUS_Q == 10) {
+		mes "Muito Bem.";
+		mes "Você completou";
+		mes "todos os testes para";
+		mes "se tornar um Templário.";
+		next;
+		mes "[Bliant Piyord]";
+		mes "Vá e fale com nosso";
+		mes "lider.";
+		mes "Nós damos boas vindas para você";
+		mes "por se juntar a nos";
+		mes "para se preparar";
+		mes "para a Guerra Santa.";
+		close;
+	}
+	mes "Você não é o unico no teste para se tornar um Templário?";
+	next;
+	mes "[Bliant Piyord]";
+	mes "Esta não é sua vez";
+	mes "de pegar o meu teste.";
+	mes "Volte quando fazer todos";
+	mes "os outros testes.";
+	next;
+	mes "[Bliant Piyord]";
+	mes "Vejo você depois.";
+	mes "Que Odin abeçoe";
+	mes "você.";
+	close;
+}
+
+// Actual tests
+//============================================================
+
+//----------------------------------------------------------------------------
+// Endurance Test
+//----------------------------------------------------------------------------
+job_cru,1,1,1	script	Summoner#cr1	-1,{
+OnTimer300000:
+	donpcevent "Summoner#cr1::OnReset";
+	end;
+
+OnTimer300500:
+	donpcevent "Summoner#cr1::OnEnd";
+	end;
+
+OnTimer301000:
+	donpcevent "Summoner#cr1::OnStart";
+	stopnpctimer;
+	end;
+
+OnInit:
+	enablenpc "Summoner#cr1";
+	monster "job_cru",94,45,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,55,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,65,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,75,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,85,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,95,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,45,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,55,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,65,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,75,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,85,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,95,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	initnpctimer;
+	end;
+
+OnStart:
+	enablenpc "Summoner#cr1";
+	monster "job_cru",94,45,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,55,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,65,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,75,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,85,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",94,95,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,45,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,55,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,65,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,75,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,85,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	monster "job_cru",101,95,"Mandragora",1020,1,"Summoner#cr1::OnDead";
+	initnpctimer;
+	end;
+
+OnReset:
+	killmonster "job_cru","Summoner#cr1::OnDead";
+	end;
+
+OnEnd:
+	disablenpc "Summoner#cr1";
+	end;
+
+OnDead:
+	warp "prt_fild05",353,251;
+	end;
+}
+
+job_cru,1,2,1	script	Summoner#cr2	-1,{
+OnTimer345000:
+	donpcevent "Summoner#cr2::OnReset";
+	end;
+
+OnTimer345500:
+	donpcevent "Summoner#cr2::OnEnd";
+	end;
+
+OnTimer346000:
+	donpcevent "Summoner#cr2::OnStart";
+	stopnpctimer;
+	end;
+
+OnInit:
+	enablenpc "Summoner#cr2";
+	monster "job_cru",98,50,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",92,60,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",104,60,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",98,70,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",92,80,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",104,90,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",98,90,"Flora",1118,1,"Summoner#cr2::OnDead";
+	initnpctimer;
+	end;
+
+OnStart:
+	enablenpc "Summoner#cr2";
+	monster "job_cru",98,50,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",92,60,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",104,60,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",98,70,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",92,80,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",104,90,"Flora",1118,1,"Summoner#cr2::OnDead";
+	monster "job_cru",98,90,"Flora",1118,1,"Summoner#cr2::OnDead";
+	initnpctimer;
+	end;
+
+OnReset:
+	killmonster "job_cru","Summoner#cr2::OnDead";
+	end;
+
+OnEnd:
+	disablenpc "Summoner#cr2";
+	end;
+
+OnDead:
+	warp "prt_fild05",353,251;
+	end;
+}
+
+job_cru,1,3,1	script	Summoner#cr3	-1,{
+OnTimer345000:
+	donpcevent "Summoner#cr3::OnReset";
+	end;
+
+OnTimer345500:
+	donpcevent "Summoner#cr3::OnEnd";
+	end;
+
+OnTimer346000:
+	donpcevent "Summoner#cr3::OnStart";
+	stopnpctimer;
+	end;
+
+OnInit:
+	enablenpc "Summoner#cr3";
+	monster "job_cru",92,50,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",104,50,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,50,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",92,70,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",104,70,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,80,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",92,90,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",104,90,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	initnpctimer;
+	end;
+
+OnStart:
+	enablenpc "Summoner#cr3";
+	monster "job_cru",92,50,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",104,50,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,50,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",92,70,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",104,70,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,80,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",92,90,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	monster "job_cru",104,90,"Guardião da Floresta",1277,1,"Summoner#cr3::OnDead";
+	initnpctimer;
+	end;
+
+OnReset:
+	killmonster "job_cru","Summoner#cr3::OnDead";
+	end;
+
+OnEnd:
+	disablenpc "Summoner#cr3";
+	end;
+
+OnDead:
+	warp "prt_fild05",353,251;
+	end;
+}
+
+job_cru,1,4,1	script	Summoner#cr4	-1,{
+OnTimer345000:
+	donpcevent "Summoner#cr4::OnReset";
+	end;
+
+OnTimer345500:
+	donpcevent "Summoner#cr4::OnEnd";
+	end;
+
+OnTimer346000:
+	donpcevent "Summoner#cr4::OnStart";
+	stopnpctimer;
+	end;
+
+OnInit:
+	enablenpc "Summoner#cr4";
+	monster "job_cru",98,50,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,55,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,60,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,65,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,70,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,75,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,80,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,85,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,90,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",90,34,"Cogumelo",1182,1,"Summoner#cr3::OnDead";
+	monster "job_cru",105,34,"Cogumelo",1182,1,"Summoner#cr3::OnDead";
+	initnpctimer;
+	end;
+
+OnStart:
+	enablenpc "Summoner#cr4";
+	monster "job_cru",98,50,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,55,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,60,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,65,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,70,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,75,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,80,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,85,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",98,90,"Familiar",1005,1,"Summoner#cr3::OnDead";
+	monster "job_cru",90,34,"Cogumelo",1182,1,"Summoner#cr3::OnDead";
+	monster "job_cru",105,34,"Cogumelo",1182,1,"Summoner#cr3::OnDead";
+	initnpctimer;
+	end;
+
+OnReset:
+	killmonster "job_cru","Summoner#cr4::OnDead";
+	end;
+
+OnEnd:
+	disablenpc "Summoner#cr4";
+	end;
+
+OnDead:
+	warp "prt_fild05",353,251;
+	end;
+}
+
+job_cru,98,105,4	script	 Summoner#cr5	WARPNPC,3,3,{
+OnTouch:
+	CRUS_Q = 6;
+	changequest 3010,3011;
+	warp "prt_castle",164,28;
+	end;
+}
+
+//----------------------------------------------------------------------------
+// Purification Test
+//----------------------------------------------------------------------------
+job_cru,24,187,4	script	Bliant Piyord#2	4_M_CRU,{
+	mes "[Bliant Piyord]";
+	mes "Bem-vindo.";
+	mes "Você fará";
+	mes "o ultimo teste aqui.";
+	mes "Quando você estiver pronto para";
+	mes "o teste, entre";
+	mes "na sala de espera.";
+	next;
+	mes "[Bliant Piyord]";
+	mes "Apenas uma pessoa por vez pode fazer o teste. Se alguem ja estiver sendo testado, por favor espere até que a area de teste esteja liberada novamente.";
+	next;
+	mes "[Bliant Piyord]";
+	mes "Cada pessoa tem 4 minutos para completar o teste. Se você quizer sair no meio do teste, por favor desconecte do game.";
+	close;
+}
+
+job_cru,24,187,2	script	Sala de Espera#cr1	8_F_GIRL,{
+	end;
+
+OnInit:
+	disablenpc "Sala de Espera#cr1";
+	waitingroom "Sala de Espera",20,"Sala de Espera#cr1::OnStartArena",1;
+	enablewaitingroomevent;
+	end;
+
+OnStartArena:
+	warpwaitingpc "job_cru",168,21;
+	donpcevent "Monster Summon#cr0::OnStart";
+	disablewaitingroomevent;
+	end;
+
+OnStart:
+	enablewaitingroomevent;
+	end;
+}
+
+job_cru,168,17,0	script	Zombie Guide	-1,2,2,{
+OnTouch:
+	mes "[Bliant Piyord]";
+	mes "Vá em frente e derrote todos";
+	mes "os monstros que aparecerem.";
+	mes "Você nçao poderá continuar se ainda";
+	mes "tiver algum sobrando.";
+	next;
+	mes "[Bliant Piyord]";
+	mes "Você tem";
+	mes "4 minutos. Vá em frente";
+	mes "e de o seu melhor...";
+	close;
+}
+
+job_cru,2,1,1	script	Monster Summon#cr0	-1,{
+OnInit:
+	disablenpc "Monster Summon#cr0";
+	end;
+
+OnStart:
+	.MyMonsterCount = 0;
+	enablenpc "Monster Summon#cr0";
+	donpcevent "Monster Summon#cr1::OnStart";
+	donpcevent "Monster Summon#cr2::OnStart";
+	donpcevent "Monster Summon#cr3::OnStart";
+	donpcevent "Monster Summon#cr4::OnStart";
+	donpcevent "Monster Summon#cr6::OnStart";
+	end;
+
+OnMonster1:
+	monster "job_cru",168,45,"Zumbi",1015,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,45,"Zumbi",1015,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,45,"Zumbi",1015,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,45,"Zumbi",1015,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,45,"Zumbi",1015,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,45,"Zumbi",1015,1,"Monster Summon#cr0::OnDead";
+	end;
+
+OnMonster2:
+	monster "job_cru",168,80,"Esqueleto Soldado",1028,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,80,"Esqueleto Soldado",1028,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,80,"Esqueleto Soldado",1028,1,"Monster Summon#cr0::OnDead";
+	end;
+
+OnMonster3:
+	monster "job_cru",168,110,"Esqueleto Arqueiro",1016,1,"Monster Summon#cr0::OnDead";
+	monster "job_cru",168,115,"Múmia",1041,1,"Monster Summon#cr0::OnDead";
+	end;
+
+OnDead:
+	++.MyMonsterCount;
+	if (.MyMonsterCount >= 10) {
+		CRUS_Q = 10;
+		changequest 3014,3015;
+	}
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr0";
+	end;
+
+OnReset:
+	killmonster "job_cru","Monster Summon#cr0::OnDead";
+	end;
+}
+
+job_cru,168,45,0	script	Monster Summon#cr1	-1,15,1,{
+OnInit:
+	disablenpc "Monster Summon#cr1";
+	end;
+
+OnTouch:
+	donpcevent "Monster Summon#cr0::OnMonster1";
+	donpcevent "Monster Summon#cr1::OnEnd";
+	end;
+
+OnStart:
+	enablenpc "Monster Summon#cr1";
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr1";
+	end;
+}
+
+job_cru,168,80,0	script	Monster Summon#cr2	-1,15,1,{
+OnInit:
+	disablenpc "Monster Summon#cr2";
+	end;
+
+OnTouch:
+	donpcevent "Monster Summon#cr0::OnMonster2";
+	donpcevent "Monster Summon#cr2::OnEnd";
+	end;
+
+OnStart:
+	enablenpc "Monster Summon#cr2";
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr2";
+	end;
+}
+
+job_cru,165,115,0	script	Monster Summon#cr3	-1,15,1,{
+OnInit:
+	disablenpc "Monster Summon#cr3";
+	end;
+
+OnTouch:
+	donpcevent "Monster Summon#cr0::OnMonster3";
+	donpcevent "Monster Summon#cr3::OnEnd";
+	end;
+
+OnStart:
+	enablenpc "Monster Summon#cr3";
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr3";
+	end;
+}
+
+job_cru,168,150,0	script	Monster Summon#cr4	-1,15,1,{
+OnInit:
+	disablenpc "Monster Summon#cr4";
+	end;
+
+OnTouch:
+	monster "job_cru",168,150,strcharinfo(0),1036,1,"Monster Summon#cr4-a::OnDead";
+	donpcevent "Monster Summon#cr4::OnEnd";
+	end;
+
+OnDead:
+	donpcevent "Monster Summon#cr5::OnStart";
+	end;
+
+OnStart:
+	enablenpc "Monster Summon#cr4";
+	end;
+
+OnReset:
+	killmonster "job_cru","Monster Summon#cr4-a::OnDead";
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr4";
+	end;
+
+}
+
+job_cru,168,150,0	script	Monster Summon#cr4-a	-1,{
+OnDead:
+	donpcevent "Monster Summon#cr5::OnStart";
+	end;
+}
+
+job_cru,168,180,4	script	Monster Summon#cr5	WARPNPC,3,3,{
+OnInit:
+	disablenpc "Monster Summon#cr5";
+	end;
+
+OnTouch:
+	warp "prt_castle",35,147;
+	donpcevent "Monster Summon#cr0::OnReset";
+	donpcevent "Monster Summon#cr4::OnReset";
+	donpcevent "Monster Summon#cr0::OnEnd";
+	donpcevent "Monster Summon#cr4::OnEnd";
+	donpcevent "Monster Summon#cr5::OnEnd";
+	donpcevent "Monster Summon#cr6::OnStop";
+	donpcevent "Monster Summon#cr6::OnEnd";
+	donpcevent "Sala de Espera#cr1::OnStart";
+	end;
+
+OnStart:
+	enablenpc "Monster Summon#cr5";
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr5";
+	end;
+}
+
+job_cru,2,2,1	script	Monster Summon#cr6	-1,{
+OnTimer241000:
+	areawarp "job_cru",160,14,175,178,"job_cru",24,169;
+	donpcevent "Monster Summon#cr0::OnReset";
+	donpcevent "Monster Summon#cr4::OnReset";
+	donpcevent "Monster Summon#cr0::OnEnd";
+	donpcevent "Monster Summon#cr4::OnEnd";
+	donpcevent "Monster Summon#cr5::OnEnd";
+	donpcevent "Monster Summon#cr6::OnStop";
+	donpcevent "Monster Summon#cr6::OnEnd";
+	donpcevent "Sala de Espera#cr1::OnStart";
+	end;
+
+OnInit:
+	disablenpc "Monster Summon#cr6";
+	end;
+
+OnStart:
+	enablenpc "Monster Summon#cr6";
+	initnpctimer;
+	end;
+
+OnEnd:
+	disablenpc "Monster Summon#cr6";
+	end;
+
+OnStop:
+	stopnpctimer;
+	end;
+}
+
