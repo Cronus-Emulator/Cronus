@@ -2537,14 +2537,13 @@ int npc_parseview(const char* w4, const char* start, const char* buffer, const c
 	{
 		// Check if constant exists and get its value.
 		if(!script->get_constant(viewid, &val)) {
-			ShowWarning("npc_parseview: Constante de NPC especificada invalida '%s' no arquivo '%s', linha'%d'. Padronizando para INVISIBLE_CLASS. \n", viewid, filepath, strline(buffer,start-buffer));
+			ShowWarning("npc_parseview: Foi especificada uma constante de NPC invalida '%s' no arquivo '%s', linha'%d'. Padronizando para INVISIBLE_CLASS. \n", viewid, filepath, strline(buffer,start-buffer));
 			val = INVISIBLE_CLASS;
 		}
 	} else {
-		// NPC has an ID specified for view id.
+		//Leitura por IDs
 		val = atoi(w4);
-		if (val != -1)
-			ShowWarning("npc_parseview: Uso de visualizacao numerica em NPC esta ultrapassada e podera ser removido em uma futura atualizacao. Por favor, use constantes de visualizacao nos NPCs. ID '%d' no arquivo '%s', linha '%d'.\n", val, filepath, strline(buffer, start-buffer));
+			strline(buffer, start-buffer);
 	}
 
 	return val;
