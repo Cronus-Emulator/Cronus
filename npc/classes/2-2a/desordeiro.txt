@@ -15,78 +15,79 @@
 // - Adesão da Tradução [Spell Master]                           ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Mudança de Classe para Professor                            ||
+// - Mudança de Classe para Desordeiro                           ||
 //===============================================================//
 
-valkyrie,53,47,3	script	Professor#Valkyrie	2_M_SAGE_OLD,{
+valkyrie,53,58,3	script	Desordeiro#Valkyrie	4_F_ROGUE,{
 	if (ADVJOB == 0 || Upper != 1) {
 		.@karma_d = rand(1,10);
 		if (.@karma_d > 4) {
-			mes "[Professor]";
+			mes "[Desordeiro]";
 			mes "Parabéns.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
-		mes "[Professor]";
-		mes "Isso leva uma vida toda...";
-		mes "Literalmente uma vida toda";
-		mes "para acumular o conhecimento";
-		mes "necessário para se tornar";
-		mes "um Professor...";
+		mes "[Desordeiro]";
+		mes "Hehe...";
+		mes "É duro";
+		mes "se tornar um herói";
+		mes "sendo suspeito,";
+		mes "falso,";
+		mes "sorrateiro...";
 		next;
-		mes "[Professor]";
-		mes "Isso é esmagador.";
-		mes "Quanto mais você aprende,";
-		mes "mais você descobre";
-		mes "aquilo que ainda não sabe.";
-		mes "Não existe fim no";
-		mes "processo de aprendizagem...";
+		mes "[Desordeiro]";
+		mes "Mas quando a";
+		mes "coisa fica feia";
+		mes "meus amigos sabem que";
+		mes "podem contar comigo.";
+		mes "Eu preciso deles e";
+		mes "eles precisam de mim.";
 		close;
 	}
-	else if (ADVJOB == Job_Professor && Class == Job_Mage_High && JobLevel > 39) {
-		mes "[Professor]";
-		mes "Rune-Midgard não";
-		mes "tem Professores suficientes";
-		mes "para ajudar o povo nessa nova era";
-		mes "de prosperidade. O";
-		mes "mundo precisa de você...";
+	else if (ADVJOB == Job_Stalker && Class == Job_Thief_High && JobLevel > 39) {
+		mes "[Desordeiro]";
+		mes "Esse mundo precisa";
+		mes "de mais heróis que estão";
+		mes "dispostos a andar na linha";
+		mes "entre a ordem e a anarquia.";
 		next;
-		mes "[Professor]";
-		mes "Você aceitará essa";
-		mes "incrível responsabilidade?";
-		mes "Você servirá Rune-Midgard";
-		mes "como um Professor?";
+		mes "[Desordeiro]";
+		mes "Você está pronto";
+		mes "para fazer parte";
+		mes "dos mais furtivos dos";
+		mes "guerreiros? Está pronto";
+		mes "para se tornar um Desordeiro?";
 		next;
 		if (select("Não.:Sim.") == 1) {
-			mes "[Professor]";
+			mes "[Desordeiro]";
 			mes "Quando estiver pronto,";
 			mes "sinta-se livre para voltar.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
 		if (SkillPoint) {
-			mes "[Professor]";
-			mes "Você ainda tem pontos de habilidade. Por favor,";
-			mes "use todos os pontos de habilidade restantes.";
+			mes "[Desordeiro]";
+			mes "Você ainda tem pontos de habilidades. Por favor,";
+			mes "use todos os seus pontos de habilidade restantes, e depois volte aqui.";
 			close;
 		}
-		jobchange Job_Professor;
+		jobchange Job_Stalker;
 		ADVJOB = 0;
-		mes "[Professor]";
+		mes "[Desordeiro]";
 		mes "Parabéns!";
-		mes "Como Professor, eu espero";
-		mes "que você fará sua parte";
-		mes "ativa trazendo";
-		mes "a luz da sabedoria";
-		mes "onde há escuridão.";
+		mes "Como Desordeiro, eu espero";
+		mes "que você esfaqueie as pessoas certas";
+		mes "nas costas. Banir os";
+		mes "cruéis usando seus próprios";
+		mes "métodos covardes!";
 		close;
 	}
-	mes "[Professor]";
+	mes "[Desordeiro]";
 	mes "Bem-vindo";
 	mes "a Valhalla,";
 	mes "o Salão da Honra.";
 	next;
-	mes "[Professor]";
+	mes "[Desordeiro]";
 	mes "Por favor sinta-se";
 	mes "confortável enquanto";
 	mes "estiver aqui.";

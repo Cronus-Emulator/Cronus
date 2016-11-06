@@ -15,81 +15,75 @@
 // - Adesão da Tradução [Spell Master]                           ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Mudança de Classe para Professor                            ||
+// - Mudança de Classe para Mestre                               ||
 //===============================================================//
 
-valkyrie,53,47,3	script	Professor#Valkyrie	2_M_SAGE_OLD,{
+valkyrie,53,42,3	script	Mestre#Valkyrie	1_M_HOF,{
 	if (ADVJOB == 0 || Upper != 1) {
 		.@karma_d = rand(1,10);
 		if (.@karma_d > 4) {
-			mes "[Professor]";
+			mes "[Mestre]";
 			mes "Parabéns.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
-		mes "[Professor]";
-		mes "Isso leva uma vida toda...";
-		mes "Literalmente uma vida toda";
-		mes "para acumular o conhecimento";
-		mes "necessário para se tornar";
-		mes "um Professor...";
+		mes "[Mestre]";
+		mes "Habilidade.";
+		mes "Velocidade.";
+		mes "Força.";
+		mes "Agilidade.";
 		next;
-		mes "[Professor]";
-		mes "Isso é esmagador.";
-		mes "Quanto mais você aprende,";
-		mes "mais você descobre";
-		mes "aquilo que ainda não sabe.";
-		mes "Não existe fim no";
-		mes "processo de aprendizagem...";
+		mes "[Mestre]";
+		mes "Um Mestre pode";
+		mes "tirar proveito de todas";
+		mes "essas coisas. Mas um";
+		mes "só pode dominar";
+		mes "tanto na vida...";
 		close;
 	}
-	else if (ADVJOB == Job_Professor && Class == Job_Mage_High && JobLevel > 39) {
-		mes "[Professor]";
-		mes "Rune-Midgard não";
-		mes "tem Professores suficientes";
-		mes "para ajudar o povo nessa nova era";
-		mes "de prosperidade. O";
-		mes "mundo precisa de você...";
+	else if (ADVJOB == Job_Champion && Class == Job_Acolyte_High && JobLevel > 39) {
+		mes "[Mestre]";
+		mes "Este é o tempo.";
+		mes "Tempo de grandes heróis";
+		mes "para estar a frente contra as";
+		mes "forças do mal que pragueiam";
+		mes "o mundo de Rune-Midgard!";
 		next;
-		mes "[Professor]";
-		mes "Você aceitará essa";
-		mes "incrível responsabilidade?";
-		mes "Você servirá Rune-Midgard";
-		mes "como um Professor?";
+		mes "[Mestre]";
+		mes "Você gostaria de";
+		mes "transforma-se em um Mestre?";
 		next;
 		if (select("Não.:Sim.") == 1) {
-			mes "[Professor]";
-			mes "Quando estiver pronto,";
+			mes "[Mestre]";
+			mes "Quando você estiver pronto,";
 			mes "sinta-se livre para voltar.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
 		if (SkillPoint) {
-			mes "[Professor]";
-			mes "Você ainda tem pontos de habilidade. Por favor,";
-			mes "use todos os pontos de habilidade restantes.";
+			mes "[Mestre]";
+			mes "Você ainda tem pontos de habilidades. Por favor,";
+			mes "use todos os seus pontos de habilidade restantes, e depois volte aqui.";
 			close;
 		}
-		jobchange Job_Professor;
+		jobchange Job_Champion;
 		ADVJOB = 0;
-		mes "[Professor]";
+		mes "[Mestre]";
 		mes "Parabéns!";
-		mes "Como Professor, eu espero";
-		mes "que você fará sua parte";
-		mes "ativa trazendo";
-		mes "a luz da sabedoria";
-		mes "onde há escuridão.";
+		mes "Viva como um campeão,";
+		mes "e traga a luz no mundo com";
+		mes "a força de seus punhos.";
 		close;
 	}
-	mes "[Professor]";
+	mes "[Mestre]";
 	mes "Bem-vindo";
 	mes "a Valhalla,";
 	mes "o Salão da Honra.";
 	next;
-	mes "[Professor]";
-	mes "Por favor sinta-se";
-	mes "confortável enquanto";
-	mes "estiver aqui.";
+	mes "[Mestre]";
+	mes "Por favor";
+	mes "sinta-se confortável";
+	mes "enquanto estiver aqui.";
 	mes "Honra aos guerreiros!";
 	close;
 }

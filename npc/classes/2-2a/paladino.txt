@@ -15,81 +15,74 @@
 // - Adesão da Tradução [Spell Master]                           ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Mudança de Classe para Professor                            ||
+// - Mudança de Classe para Paladino                             ||
 //===============================================================//
 
-valkyrie,53,47,3	script	Professor#Valkyrie	2_M_SAGE_OLD,{
+valkyrie,53,39,3	script	Paladin#Valkyrie	4_M_CRU_OLD,{
 	if (ADVJOB == 0 || Upper != 1) {
 		.@karma_d = rand(1,10);
 		if (.@karma_d > 4) {
-			mes "[Professor]";
+			mes "[Paladino]";
 			mes "Parabéns.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
-		mes "[Professor]";
-		mes "Isso leva uma vida toda...";
-		mes "Literalmente uma vida toda";
-		mes "para acumular o conhecimento";
-		mes "necessário para se tornar";
-		mes "um Professor...";
-		next;
-		mes "[Professor]";
-		mes "Isso é esmagador.";
-		mes "Quanto mais você aprende,";
-		mes "mais você descobre";
-		mes "aquilo que ainda não sabe.";
-		mes "Não existe fim no";
-		mes "processo de aprendizagem...";
+		mes "[Paladino]";
+		mes "Nunca esqueça";
+		mes "que a Guerra Santa";
+		mes "está próxima!";
+		mes "Temos que estar prontos!";
+		mes "Que a luz da justiça";
+		mes "sempre ilumine nossos caminhos!";
 		close;
 	}
-	else if (ADVJOB == Job_Professor && Class == Job_Mage_High && JobLevel > 39) {
-		mes "[Professor]";
-		mes "Rune-Midgard não";
-		mes "tem Professores suficientes";
-		mes "para ajudar o povo nessa nova era";
-		mes "de prosperidade. O";
-		mes "mundo precisa de você...";
+	else if (ADVJOB == Job_Paladin && Class == Job_Swordman_High && JobLevel > 39) {
+		mes "[Paladino]";
+		mes "A Guerra Santa";
+		mes "será antes do que";
+		mes "esperavamos. Mais do que nunca,";
+		mes "precisamos de homens e mulheres";
+		mes "fortes para lutar";
+		mes "pelo bem e correto.";
 		next;
-		mes "[Professor]";
-		mes "Você aceitará essa";
-		mes "incrível responsabilidade?";
-		mes "Você servirá Rune-Midgard";
-		mes "como um Professor?";
+		mes "[Paladino]";
+		mes "Deseja lutar";
+		mes "ao lado da justiça";
+		mes "como um Paladino?";
 		next;
 		if (select("Não.:Sim.") == 1) {
-			mes "[Professor]";
+			mes "[Paladino]";
 			mes "Quando estiver pronto,";
-			mes "sinta-se livre para voltar.";
+			mes "fique a vontade para voltar.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
 		if (SkillPoint) {
-			mes "[Professor]";
+			mes "[Paladino]";
 			mes "Você ainda tem pontos de habilidade. Por favor,";
 			mes "use todos os pontos de habilidade restantes.";
 			close;
 		}
-		jobchange Job_Professor;
+		jobchange Job_Paladin;
 		ADVJOB = 0;
-		mes "[Professor]";
-		mes "Parabéns!";
-		mes "Como Professor, eu espero";
-		mes "que você fará sua parte";
-		mes "ativa trazendo";
-		mes "a luz da sabedoria";
-		mes "onde há escuridão.";
+		mes "[Paladino]";
+		mes "Parabéns.";
+		mes "Como um Paladino, espero";
+		mes "que você proteja os";
+		mes "mais fracos, e nos dê";
+		mes "a vitória na próxima";
+		mes "guerra entre o bem e o mal.";
 		close;
 	}
-	mes "[Professor]";
+	mes "[Paladino]";
 	mes "Bem-vindo";
 	mes "a Valhalla,";
 	mes "o Salão da Honra.";
 	next;
-	mes "[Professor]";
-	mes "Por favor sinta-se";
-	mes "confortável enquanto";
-	mes "estiver aqui.";
+	mes "[Paladino]";
+	mes "Por favor fique";
+	mes "a vontade";
+	mes "enquanto estiver aqui.";
 	mes "Honra aos guerreiros!";
 	close;
 }

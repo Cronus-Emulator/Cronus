@@ -1,0 +1,133 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.5                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revião Cronus]                                    ||
+// - Adesão da Tradução [Spell Master]                           ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Mudança de Classe para Criador                              ||
+//===============================================================//
+
+valkyrie,53,50,3	script	Criador#Valkyrie	2_M_DYEINGER,{
+	if (ADVJOB == 0 && Upper != 1) {
+		if (rand(1,10) > 4) {
+			mes "[Criador]";
+			mes "Parabéns.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		mes "[Criador]";
+		mes "É estranho que";
+		mes "alguém como eu esteja aqui.";
+		mes "Mas mesmo alguém hábil";
+		mes "em ciência poderia";
+		mes "torna-se um herói.";
+		next;
+		mes "[Criador]";
+		mes "Neste exemplo,";
+		mes "não são nescessariamente";
+		mes "os meios que eu usei, mas";
+		mes "os fins pelos quais eu lutei";
+		mes "que eu ganhei um";
+		mes "lugar em Valhalla...";
+		close;
+	} else if (ADVJOB == Job_Creator && Class == Job_Merchant_High && JobLevel > 39) {
+		mes "[Criador]";
+		mes "Sim...";
+		mes "É sobre o tempo.";
+		mes "Nós precisamos de mais gênios";
+		mes "como você em Rune-Midgard.";
+		next;
+		mes "[Criador]";
+		mes "Você gostaria de";
+		mes "tornar-se um Criador?";
+		next;
+		if (select("Não.:Sim.") == 1) {
+			mes "[Criador]";
+			mes "Quando estiver pronto,";
+			mes "sinta-se livre para voltar.";
+			mes "Honra aos guerreiros!";
+			close;
+		}
+		if (SkillPoint) {
+			mes "[Criador]";
+			mes "Você ainda tem pontos de habilidades. Por favor,";
+			mes "use todos os seus pontos de habilidade restantes, e depois volte aqui.";
+			close;
+		}
+		jobchange Job_Creator;
+		ADVJOB = 0;
+		mes "[Criador]";
+		mes "Parabéns!";
+		mes "Como Criador,";
+		mes "Eu espero que você use seu";
+		mes "vasto conhecimento para";
+		mes "as finalidades certas.";
+		close;
+	} else if (Class == Job_Creator && bioeth == 13 && getskilllv("AM_BIOETHICS") == 0) {
+		mes "[Criador]";
+		mes "Ah, você veio recuperar";
+		mes "as memórias";
+		mes "que você perdeu? Sim, você";
+		mes "deve estar aqui";
+		mes "pelos segredos da vida";
+		mes "que um dia foram seus...";
+		next;
+		if (select("Sim:Não") == 1) {
+			mes "[Criador]";
+			mes "Feche seus olhos e";
+			mes "Ponha sua mente em repouso.";
+			mes "Nós retornaremos ao seu";
+			mes "passado para recordar os";
+			mes "fragmentos perdidos";
+			mes "de sua memória.";
+			next;
+			mes "[Criador]";
+			mes "Quando você abrir seus olhos,";
+			mes "você recordará claramente";
+			mes "o segredo da vida. Você";
+			mes "igualmente recordará o peso";
+			mes "da responsabilidade em usar estes";
+			mes "segredos para os seus devidos fins...";
+			next;
+			skill "AM_BIOETHICS",1,0;
+			mes "[Criador]";
+			mes "Abra seus olhos…";
+			mes "Agora que você recordou";
+			mes "como criar";
+			mes "a vida artificial, eu peço";
+			mes "somente que você trate todas as suas";
+			mes "criações com respeito.";
+			close;
+		}
+		mes "[Criador]";
+		mes "Se você deseja recuperar";
+		mes "suas memórias";
+		mes "perdidas, por favor";
+		mes "volte aqui depois.";
+		mes "O segredo da criação da vida";
+		mes "não é nenhuma brincadeira...";
+		close;
+	}
+	mes "[Criador]";
+	mes "Bem-vindo";
+	mes "a Valhalla,";
+	mes "o Salão da Honra.";
+	next;
+	mes "[Criador]";
+	mes "Por favor,";
+	mes "sinta-se confortável";
+	mes "enquanto estiver aqui.";
+	mes "Honra aos guerreiros!";
+	close;
+}

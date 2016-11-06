@@ -15,78 +15,69 @@
 // - Adesão da Tradução [Spell Master]                           ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Mudança de Classe para Professor                            ||
+// - Mudança de Classe para Cigana                               ||
 //===============================================================//
 
-valkyrie,53,47,3	script	Professor#Valkyrie	2_M_SAGE_OLD,{
+valkyrie,53,56,3	script	Cigana#Valkyrie	4W_F_01,{
 	if (ADVJOB == 0 || Upper != 1) {
 		.@karma_d = rand(1,10);
 		if (.@karma_d > 4) {
-			mes "[Professor]";
+			mes "[Cigana]";
 			mes "Parabéns.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
-		mes "[Professor]";
-		mes "Isso leva uma vida toda...";
-		mes "Literalmente uma vida toda";
-		mes "para acumular o conhecimento";
-		mes "necessário para se tornar";
-		mes "um Professor...";
-		next;
-		mes "[Professor]";
-		mes "Isso é esmagador.";
-		mes "Quanto mais você aprende,";
-		mes "mais você descobre";
-		mes "aquilo que ainda não sabe.";
-		mes "Não existe fim no";
-		mes "processo de aprendizagem...";
+		mes "[Cigana]";
+		mes "Mover para a esquerda,";
+		mes "mover para a direita ~!";
+		mes "E dê um passo...!";
+		mes "Dançar pode ser";
+		mes "mais que um passatempo.";
+		mes "Para mim, isso é um modo de vida~";
 		close;
 	}
-	else if (ADVJOB == Job_Professor && Class == Job_Mage_High && JobLevel > 39) {
-		mes "[Professor]";
-		mes "Rune-Midgard não";
-		mes "tem Professores suficientes";
-		mes "para ajudar o povo nessa nova era";
-		mes "de prosperidade. O";
-		mes "mundo precisa de você...";
+	else if (ADVJOB == Job_Gypsy && Class == Job_Archer_High && JobLevel > 39) {
+		mes "[Cigana]";
+		mes "A terra de Rune-Midgard";
+		mes "está precisando de mulheres talentosas";
+		mes "para mudar sutilmente o balanço";
+		mes "nas batalhas entre o bem";
+		mes "e o mal.";
 		next;
-		mes "[Professor]";
-		mes "Você aceitará essa";
-		mes "incrível responsabilidade?";
-		mes "Você servirá Rune-Midgard";
-		mes "como um Professor?";
+		mes "[Cigana]";
+		mes "Você está pronta";
+		mes "para pegar esse cargo,";
+		mes "e se tornar uma Cigana?";
 		next;
 		if (select("Não.:Sim.") == 1) {
-			mes "[Professor]";
-			mes "Quando estiver pronto,";
+			mes "[Cigana]";
+			mes "Quando estiver pronta,";
 			mes "sinta-se livre para voltar.";
 			mes "Honra aos guerreiros!";
 			close;
 		}
 		if (SkillPoint) {
-			mes "[Professor]";
-			mes "Você ainda tem pontos de habilidade. Por favor,";
-			mes "use todos os pontos de habilidade restantes.";
+			mes "[Cigana]";
+			mes "Você ainda tem pontos de habilidades. Por favor,";
+			mes "use todos os seus pontos de habilidade restantes, e depois volte aqui.";
 			close;
 		}
-		jobchange Job_Professor;
+		jobchange Job_Gypsy;
 		ADVJOB = 0;
-		mes "[Professor]";
+		mes "[Cigana]";
 		mes "Parabéns!";
-		mes "Como Professor, eu espero";
-		mes "que você fará sua parte";
-		mes "ativa trazendo";
-		mes "a luz da sabedoria";
-		mes "onde há escuridão.";
+		mes "Como Cigana, eu sei";
+		mes "que suas performances";
+		mes "irão abalar os corações de todos";
+		mes "aqueles que estarão assistindo...";
 		close;
 	}
-	mes "[Professor]";
+	mes "[Cigana]";
 	mes "Bem-vindo";
 	mes "a Valhalla,";
 	mes "o Salão da Honra.";
 	next;
-	mes "[Professor]";
+	mes "[Cigana]";
 	mes "Por favor sinta-se";
 	mes "confortável enquanto";
 	mes "estiver aqui.";
