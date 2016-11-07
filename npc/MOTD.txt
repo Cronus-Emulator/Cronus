@@ -9,6 +9,6 @@
 // 
 // Envia uma mensagem a todos que se conectarem ao Cronus GIT
 -	script	CronusMOTD	-1,{
-	message strcharinfo(0),"Seja bem-vindo(a) à revisão do Cronus GIT! Divirta-se! Por favor reporte qualquer bug/erro que você encontrar em nosso site: www.cronus-emulator.com/forum";
+	message strcharinfo(0),"Olá";
 	end;
 }
