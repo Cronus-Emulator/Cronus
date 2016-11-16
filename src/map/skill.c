@@ -10,26 +10,26 @@
 // = Arquivo:                                                         ||
 // - skill.c                                                          ||
 //====================================================================||
-// = CÃ³digo Base:                                                     ||
+// = Código Base:                                                     ||
 // - eAthena/Hercules/Cronus                                          ||
 //====================================================================||
 // = Sobre:                                                           ||
-// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo   ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo   ||
 // sob os termos da GNU General Public License conforme publicada     ||
-// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou     ||
-// (a seu critÃ©rio) qualquer versÃ£o posterior.                        ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou     ||
+// (a seu critério) qualquer versão posterior.                        ||
 //                                                                    ||
-// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,    ||
-//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de       ||
-//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a          ||
-//Â GNU General Public License para mais detalhes.                     ||
+// Este programa é distribuído na esperança de que possa ser útil,    ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de       ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a          ||
+// GNU General Public License para mais detalhes.                     ||
 //                                                                    ||
-// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU      ||
-// juntamente com este programa. Se nÃ£o, veja:                        ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU      ||
+// juntamente com este programa. Se não, veja:                        ||
 // <http://www.gnu.org/licenses/>.                                    ||
 //====================================================================||
-// = DescriÃ§Ã£o:                                                       ||
-// FunÃ§Ãµes para skills (calcular skill_casttime, skill behaviours,    ||
+// = Descrição:                                                       ||
+// Funções para skills (calcular skill_casttime, skill behaviours,    ||
 // skill_chk_cast, checar o requirimento,processamento                ||
 // do 'db/skill_*.txt')                                               ||
 //====================================================================//
@@ -102,12 +102,12 @@ struct skill_interface *skill;
 static inline int splash_target(struct block_list* bl) {
 #ifndef RENEWAL
 	return ( bl->type == BL_MOB ) ? BL_SKILL|BL_CHAR : BL_CHAR;
-#else // Algumas habilidades agora podem atingir habilidades de chÃ£o (armadilhas, parede-de-gelo & etc.)
+#else // Algumas habilidades agora podem atingir habilidades de chão (armadilhas, parede-de-gelo & etc.)
 	return BL_SKILL|BL_CHAR;
 #endif
 }
 
-/// Retorna o id da habilidade, ou 0 se nÃ£o encontrado.
+/// Retorna o id da habilidade, ou 0 se não encontrado.
 int skill_name2id(const char* name) {
 	if( name == NULL )
 		return 0;
@@ -116,7 +116,7 @@ int skill_name2id(const char* name) {
 }
 
 /// Mapeia os ids de habilidade para os offsets do skilldb
-/// Retorna o Ã­ndice da array de habilidades, ou 0 (Habilidade desconhecida).
+/// Retorna o índice da array de habilidades, ou 0 (Habilidade desconhecida).
 int skill_get_index( uint16 skill_id ) {
 	// avoid ranges reserved for mapping guild/homun/mercenary skills
 	if( (skill_id >= GD_SKILLRANGEMIN && skill_id <= GD_SKILLRANGEMAX)
@@ -124,7 +124,7 @@ int skill_get_index( uint16 skill_id ) {
 	||  (skill_id >= MC_SKILLRANGEMIN && skill_id <= MC_SKILLRANGEMAX)
 	||  (skill_id >= EL_SKILLRANGEMIN && skill_id <= EL_SKILLRANGEMAX) )
 		return 0;
-	// Mapa do id da habilidade para o Ã­ndice do skill db
+	// Mapa do id da habilidade para o índice do skill db
 	if( skill_id >= GD_SKILLBASE )
 		skill_id = GD_SKILLRANGEMIN + skill_id - GD_SKILLBASE;
 	else if( skill_id >= EL_SKILLBASE )
@@ -135,13 +135,13 @@ int skill_get_index( uint16 skill_id ) {
 		skill_id = HM_SKILLRANGEMIN + skill_id - HM_SKILLBASE;
 	//[Ind/Hercules] GO GO GO LESS! - http://herc.ws/board/topic/512-skill-id-processing-overhaul/
 	else if( skill_id > 1019 && skill_id < 8001 ) {
-		if( skill_id < 2058 ) // 1020 - 2000 estÃ£o vazios
+		if( skill_id < 2058 ) // 1020 - 2000 estão vazios
 			skill_id = 1020 + skill_id - 2001;
-		else if( skill_id < 2549 ) // 2058 - 2200 estÃ£o vazios - 1020+57
+		else if( skill_id < 2549 ) // 2058 - 2200 estão vazios - 1020+57
 			skill_id = (1077) + skill_id - 2201;
-		else if ( skill_id < 3036 ) // 2549 - 3000 estÃ£o vazios - 1020+57+348
+		else if ( skill_id < 3036 ) // 2549 - 3000 estão vazios - 1020+57+348
 			skill_id = (1425) + skill_id - 3001;
-		else if ( skill_id < 5019 ) // 3036 - 5000 estÃ£o vazios - 1020+57+348+35
+		else if ( skill_id < 5019 ) // 3036 - 5000 estão vazios - 1020+57+348+35
 			skill_id = (1460) + skill_id - 5001;
 		else
 			ShowWarning("skill_get_index: id da skill '%d' nao esta sendo tratado!\n\n",skill_id);
@@ -162,7 +162,7 @@ const char* skill_get_desc( uint16 skill_id ) {
 	return skill->dbs->db[skill->get_index(skill_id)].desc;
 }
 
-// erro de verificaÃ§Ã£o de limites [celest]
+// erro de verificação de limites [celest]
 void skill_chk(uint16* skill_id) {
 	*skill_id = skill->get_index(*skill_id); // checks/ajustes de id
 }
@@ -272,7 +272,7 @@ int skill_get_casttype2 (uint16 index) {
 	return CAST_DAMAGE;
 }
 
-//Retorna o real alcanÃ§o da habilidade levando dentro do alcance de ataque da conta e AC_OWL [Skotlex]
+//Retorna o real alcanço da habilidade levando dentro do alcance de ataque da conta e AC_OWL [Skotlex]
 int skill_get_range2 (struct block_list *bl, uint16 skill_id, uint16 skill_lv) {
 	int range;
 	if( bl->type == BL_MOB && battle_config.mob_ai&0x400 )
@@ -306,7 +306,7 @@ int skill_get_range2 (struct block_list *bl, uint16 skill_id, uint16 skill_lv) {
 			if( bl->type == BL_PC )
 				range += pc->checkskill((TBL_PC*)bl, AC_VULTURE);
 			else
-				range += 10; //assume ser nÃ­vel 10?
+				range += 10; //assume ser nível 10?
 			break;
 		// adicionado para permitir GS skills para serem afetadas pelo o alcance de Olhos de Serpente [Reddozen]
 		case GS_RAPIDSHOWER:
@@ -317,7 +317,7 @@ int skill_get_range2 (struct block_list *bl, uint16 skill_id, uint16 skill_lv) {
 			if (bl->type == BL_PC)
 				range += pc->checkskill((TBL_PC*)bl, GS_SNAKEEYE);
 			else
-				range += 10; //assume ser nÃ­vel 10?
+				range += 10; //assume ser nível 10?
 			break;
 		case NJ_KIRIKAGE:
 			if (bl->type == BL_PC)
@@ -356,7 +356,7 @@ int skill_get_range2 (struct block_list *bl, uint16 skill_id, uint16 skill_lv) {
 	}
 
 	if( !range && bl->type != BL_PC )
-		return 9; // Habilita nÃ£o jogadores para usar habilidades prÃ³prias em outros. [Skotlex]
+		return 9; // Habilita não jogadores para usar habilidades próprias em outros. [Skotlex]
 	return range;
 }
 
@@ -371,10 +371,10 @@ int skill_calc_heal(struct block_list *src, struct block_list *target, uint16 sk
 	switch( skill_id ) {
 		case BA_APPLEIDUN:
 #ifdef RENEWAL
-			hp = 100+5*skill_lv+5*(status_get_vit(src)/10); // recuperaÃ§Ã£o de HP
-#else // nÃ£o RENOVAÃ‡ÃƒO
-			hp = 30+5*skill_lv+5*(status_get_vit(src)/10); // recuperaÃ§Ã£o de HP
-#endif // RENOVAÃ‡ÃƒO
+			hp = 100+5*skill_lv+5*(status_get_vit(src)/10); // recuperação de HP
+#else // não RENOVAÇÃO
+			hp = 30+5*skill_lv+5*(status_get_vit(src)/10); // recuperação de HP
+#endif // RENOVAÇÃO
 			if( sd )
 				hp += 5*pc->checkskill(sd,BA_MUSICALLESSON);
 			break;
@@ -389,13 +389,13 @@ int skill_calc_heal(struct block_list *src, struct block_list *target, uint16 sk
 				return battle_config.max_heal;
 #ifdef RENEWAL
 			/**
-			 * FÃ³rmula da Cura no RenevoaÃ§Ã£o
-			 * Formula: ( [(NÃ­vel de Base + INT) / 5] ? 30 ) ? (NÃ­vel da Cura / 10) ? (Modificadores) + MATK
+			 * Fórmula da Cura no Renevoação
+			 * Formula: ( [(Nível de Base + INT) / 5] ? 30 ) ? (Nível da Cura / 10) ? (Modificadores) + MATK
 			 **/
 			hp = (status->get_lv(src) + status_get_int(src)) / 5 * 30  * skill_lv / 10;
-#else // nÃ£o RENOVAÃ‡ÃƒO
+#else // não RENOVAÇÃO
 			hp = ( status->get_lv(src) + status_get_int(src) ) / 8 * (4 + ( skill_id == AB_HIGHNESSHEAL ? ( sd ? pc->checkskill(sd,AL_HEAL) : 10 ) : skill_lv ) * 8);
-#endif // RENOVAÃ‡ÃƒO
+#endif // RENOVAÇÃO
 			if (sd && (skill2_lv = pc->checkskill(sd, HP_MEDITATIO)) > 0)
 				hp += hp * skill2_lv * 2 / 100;
 			else if( src->type == BL_HOM && (skill2_lv = homun->checkskill(((TBL_HOM*)src), HLIF_BRAIN)) > 0 )
@@ -419,12 +419,12 @@ int skill_calc_heal(struct block_list *src, struct block_list *target, uint16 sk
 	}
 	sc = status->get_sc(target);
 	if (sc && sc->count) {
-		if(sc->data[SC_CRITICALWOUND] && heal) // Dano crÃ­tico nÃ£o tem efeito na Cura-ofenssiva. [Inkfish]
+		if(sc->data[SC_CRITICALWOUND] && heal) // Dano crítico não tem efeito na Cura-ofenssiva. [Inkfish]
 			hp -= hp * sc->data[SC_CRITICALWOUND]->val2/100;
 		if(sc->data[SC_DEATHHURT] && heal)
 			hp -= hp * 20/100;
 		if(sc->data[SC_HEALPLUS] && skill_id != NPC_EVILLAND && skill_id != BA_APPLEIDUN)
-			hp += hp * sc->data[SC_HEALPLUS]->val1/100; // Apenas afeta Cura, SantuÃ¡rio e Arremessar PoÃ§Ã£o. (igual bHealPower) [Inkfish]
+			hp += hp * sc->data[SC_HEALPLUS]->val1/100; // Apenas afeta Cura, Santuário e Arremessar Poção. (igual bHealPower) [Inkfish]
 		if(sc->data[SC_WATER_INSIGNIA] && sc->data[SC_WATER_INSIGNIA]->val1 == 2)
 			hp += hp / 10;
 		if (sc->data[SC_VITALITYACTIVATION])
@@ -3880,7 +3880,7 @@ int skill_castend_damage_id(struct block_list* src, struct block_list *bl, uint1
 					clif->slide(src, src->x, src->y);
 					clif->fixpos(src);
 					clif->spiritball(src);
-					clif->specialeffect(src, 328, AREA); //Fix it animaÃ§Ã£o do asura [SlexFire]
+					clif->specialeffect(src, 328, AREA); //Fix it animação do asura [SlexFire]
 				}
 			}
 			break;
@@ -16187,7 +16187,7 @@ int skill_delunitgroup(struct skill_unit_group *group, const char* file, int lin
 	int i,j;
 
 	if( group == NULL ) {
-		ShowDebug("skill_delunitgroup: grupo Ã© NULL (source=%s:%d, %s)! Favor reportar isso! (#3504)\n", file, line, func);
+		ShowDebug("skill_delunitgroup: grupo é NULL (source=%s:%d, %s)! Favor reportar isso! (#3504)\n", file, line, func);
 		return 0;
 	}
 
@@ -17965,7 +17965,7 @@ int skill_blockpc_start_(struct map_session_data *sd, uint16 skill_id, int tick)
 	}
 
 	if( cd->cursor == MAX_SKILL_TREE ) {
-		ShowError("skill_blockpc_start: '%s' superado '%d' cooldowns de habilidade, sem espaÃ§o para salvar!\n",sd->status.name,MAX_SKILL_TREE);
+		ShowError("skill_blockpc_start: '%s' superado '%d' cooldowns de habilidade, sem espaço para salvar!\n",sd->status.name,MAX_SKILL_TREE);
 		return -1;
 	}
 

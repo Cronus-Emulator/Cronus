@@ -10,26 +10,26 @@
 // = Arquivo:                                                         ||
 // - status.c                                                         ||
 //====================================================================||
-// = CÃ³digo Base:                                                     ||
+// = Código Base:                                                     ||
 // - eAthena/Hercules/Cronus                                          ||
 //====================================================================||
 // = Sobre:                                                           ||
-// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo   ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo   ||
 // sob os termos da GNU General Public License conforme publicada     ||
-// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou     ||
-// (a seu critÃ©rio) qualquer versÃ£o posterior.                        ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou     ||
+// (a seu critério) qualquer versão posterior.                        ||
 //                                                                    ||
-// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,    ||
-//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de       ||
-//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a          ||
-//Â GNU General Public License para mais detalhes.                     ||
+// Este programa é distribuído na esperança de que possa ser útil,    ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de       ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a          ||
+// GNU General Public License para mais detalhes.                     ||
 //                                                                    ||
-// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU      ||
-// juntamente com este programa. Se nÃ£o, veja:                        ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU      ||
+// juntamente com este programa. Se não, veja:                        ||
 // <http://www.gnu.org/licenses/>.                                    ||
 //====================================================================||
-// = DescriÃ§Ã£o:                                                       ||
-// FunÃ§Ãµes para status em um bl (adicionar, remover,                  ||
+// = Descrição:                                                       ||
+// Funções para status em um bl (adicionar, remover,                  ||
 // calcular os efeitos como um bonus temporario)                      ||
 //====================================================================//
 
@@ -2125,7 +2125,7 @@ int status_calc_pet_(struct pet_data *pd, enum e_status_calc_opt opt)
 	return 1;
 }
 
-/// FunÃ§Ã£o auxiliar para status_base_pc_maxhp(), usada para prÃ©-calcular o vetor hp_sigma_val[]
+/// Função auxiliar para status_base_pc_maxhp(), usada para pré-calcular o vetor hp_sigma_val[]
 void status_calc_sigma(void)
 {
 	int i, j;
@@ -2145,26 +2145,26 @@ void status_calc_sigma(void)
 	}
 }
 
-/// Calcula o valor da base MaxHP de acordo com o nÃ­vel de classe e base
-/// EquaÃ§Ã£o recursiva usada para calcular o nÃ­vel de bÃ´nus(OperaÃ§Ãµes feitas com nÃºmeros inteiros)
+/// Calcula o valor da base MaxHP de acordo com o nível de classe e base
+/// Equação recursiva usada para calcular o nível de bônus(Operações feitas com números inteiros)
 ///    f(0) = 35 | f(x+1) = f(x) + A + (x + B)*C/D
-/// Reduz algo prÃ³ximo de
+/// Reduz algo próximo de
 ///    f(x) = 35 + x*(A + B*C/D) + sum(i=2..x){ i*C/D }
 unsigned int status_base_pc_maxhp(struct map_session_data *sd, struct status_data *st) {
 	uint64 val = pc->class2idx(sd->status.class_);
 	val = 35 + sd->status.base_level*(int64)status->dbs->hp_coefficient2[val]/100 + status->dbs->hp_sigma_val[val][sd->status.base_level];
 
 	if((sd->class_&MAPID_UPPERMASK) == MAPID_NINJA || (sd->class_&MAPID_UPPERMASK) == MAPID_GUNSLINGER || (sd->class_&MAPID_UPPERMASK) == MAPID_REBELLION)
-		val += 100; // VocÃª nÃ£o poderÃ¡ ter um HP aproximado sem isso
+		val += 100; // Você não poderá ter um HP aproximado sem isso
 	if((sd->class_&MAPID_UPPERMASK) == MAPID_TAEKWON && sd->status.base_level >= 90 && pc->famerank(sd->status.char_id, MAPID_TAEKWON))
-		val *= 3; // Triplo de HP mÃ¡ximo para o top ranking de Taekwons acima do nÃ­vel 90.
+		val *= 3; // Triplo de HP máximo para o top ranking de Taekwons acima do nível 90.
 	if((sd->class_&MAPID_UPPERMASK) == MAPID_SUPER_NOVICE && sd->status.base_level >= 99)
-		val += 2000; // BÃ´nus de hp para Supernovice de nÃ­vel 99.
+		val += 2000; // Bônus de hp para Supernovice de nível 99.
 	
 	val += val * st->vit/100; // +1% por cada ponto de VIT
 	
 	if (sd->class_&JOBL_UPPER)
-		val += val * 25/100; // Transclasses pega 25% de bÃ´nus de hp
+		val += val * 25/100; // Transclasses pega 25% de bônus de hp
 	else if (sd->class_&JOBL_BABY)
 		val -= val * 30/100; // A classe Baby pega uma penalidade de 30% de hp
 	return (unsigned int)cap_value(val,0,UINT_MAX);
@@ -2183,7 +2183,7 @@ unsigned int status_base_pc_maxsp(struct map_session_data* sd, struct status_dat
 	else if (sd->class_&JOBL_BABY)
 		val -= val * 30/100;
 	if ((sd->class_&MAPID_UPPERMASK) == MAPID_TAEKWON && sd->status.base_level >= 90 && pc->famerank(sd->status.char_id, MAPID_TAEKWON))
-		val *= 3; // Triplo de SP mÃ¡ximo para o top ranking de Taekwons acima do nÃ­vel 90.
+		val *= 3; // Triplo de SP máximo para o top ranking de Taekwons acima do nível 90.
 
 	return (unsigned int)cap_value(val,0,UINT_MAX);
 }

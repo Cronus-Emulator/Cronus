@@ -10,26 +10,26 @@
 // = Arquivo:                                                         ||
 // - vending.c                                                        ||
 //====================================================================||
-// = CÃ³digo Base:                                                     ||
+// = Código Base:                                                     ||
 // - eAthena/Hercules/Cronus                                          ||
 //====================================================================||
 // = Sobre:                                                           ||
-// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo   ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo   ||
 // sob os termos da GNU General Public License conforme publicada     ||
-// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou     ||
-// (a seu critÃ©rio) qualquer versÃ£o posterior.                        ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou     ||
+// (a seu critério) qualquer versão posterior.                        ||
 //                                                                    ||
-// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,    ||
-//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de       ||
-//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a          ||
-//Â GNU General Public License para mais detalhes.                     ||
+// Este programa é distribuído na esperança de que possa ser útil,    ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de       ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a          ||
+// GNU General Public License para mais detalhes.                     ||
 //                                                                    ||
-// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU      ||
-// juntamente com este programa. Se nÃ£o, veja:                        ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU      ||
+// juntamente com este programa. Se não, veja:                        ||
 // <http://www.gnu.org/licenses/>.                                    ||
 //====================================================================||
-// = DescriÃ§Ã£o:                                                       ||
-// FunÃ§Ãµes para vendas de mercador(criaÃ§Ã£o, compras)                  ||
+// = Descrição:                                                       ||
+// Funções para vendas de mercador(criação, compras)                  ||
 //====================================================================//
 
 #define CRONUS_CORE
@@ -170,10 +170,10 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 		if( vend[j].amount > vsd->status.cart[idx].amount )
 			vend[j].amount = vsd->status.cart[idx].amount;
 
-		// se tentarem adicionar packets (exemplo: pega 2x ou mais 2 maÃ§Ã£s se o mercador tem apenas 3 maÃ§Ã£s)
+		// se tentarem adicionar packets (exemplo: pega 2x ou mais 2 maçãs se o mercador tem apenas 3 maçãs)
 		// aqui, checamos quantidade acumulativa
 		if( vend[j].amount < amount ) {
-			// enviar mais quantidade nÃ£o Ã© um hack (um outro jogador pode ter comprado os itens um pouco antes)
+			// enviar mais quantidade não é um hack (um outro jogador pode ter comprado os itens um pouco antes)
 			clif->buyvending(sd, idx, vsd->vending[j].amount, 4); // quantidade insuficiente
 			return;
 		}
@@ -186,7 +186,7 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 			case ADDITEM_NEW:
 				new_++;
 				if (new_ > blank)
-					return; //Comprador nÃ£o tem espaÃ§o no seu inventorio
+					return; //Comprador não tem espaço no seu inventorio
 				break;
 			case ADDITEM_OVERAMOUNT:
 				return; //muitos itens
@@ -232,18 +232,18 @@ void vending_purchasereq(struct map_session_data* sd, int aid, unsigned int uid,
 	}
 	vsd->vend_num = cursor;
 
-	//Sempre salva AMBOS: comprador e freguÃªs
+	//Sempre salva AMBOS: comprador e freguês
 	if( map->save_settings&2 ) {
 		chrif->save(sd,0);
 		chrif->save(vsd,0);
 	}
 
-	//check para usuÃ¡rios do @AUTOTRADE [durf]
+	//check para usuários do @AUTOTRADE [durf]
 	if( vsd->state.autotrade ) {
 		//olha se tem alguma coisa mais na venda
 		ARR_FIND( 0, vsd->vend_num, i, vsd->vending[i].amount > 0 );
 		if( i == vsd->vend_num ) {
-			//Fecha a Venda (isso Ã© automaticamente feito pelo client, temos que fazer isso manualmente para vededores de @autotrade) [Skotlex]
+			//Fecha a Venda (isso é automaticamente feito pelo client, temos que fazer isso manualmente para vededores de @autotrade) [Skotlex]
 			vending->close(vsd);
 			map->quit(vsd); //Eles nao tem motivo para ficarem por perto mais, tem?
 		} else
@@ -261,7 +261,7 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 	nullpo_retv(sd);
 
 	if ( pc_isdead(sd) || !sd->state.prevend || pc_istrading(sd))
-		return; // nao pode abrir vendas deitado morto || nÃ£o usou via habilidade (wpe/hack) || nÃ£o pode ter 2 lojas ao mesmo tempo
+		return; // nao pode abrir vendas deitado morto || não usou via habilidade (wpe/hack) || não pode ter 2 lojas ao mesmo tempo
 
 	vending_skill_lvl = pc->checkskill(sd, MC_VENDING);
 	// check de nivel de habilidade e carrinho
@@ -284,16 +284,16 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 		short amount       = *(uint16*)(data + 8*j + 2);
 		unsigned int value = *(uint32*)(data + 8*j + 4);
 
-		index -= 2; // ajuste de equilibrio (cliente diz que a posiÃ§Ã£o do primeiro carrinho Ã© 2)
+		index -= 2; // ajuste de equilibrio (cliente diz que a posição do primeiro carrinho é 2)
 
-		if( index < 0 || index >= MAX_CART // posiÃ§Ã£o invÃ¡lida
+		if( index < 0 || index >= MAX_CART // posição inválida
 		 || pc->cartitem_amount(sd, index, amount) < 0 // item invalido ou quantidade insuficiente
-		//NOT: servidores oficiais nÃ£o fazem nenhum dos checks abaixo!
-		 || !sd->status.cart[index].identify // item nÃ£o-identficado
+		//NOT: servidores oficiais não fazem nenhum dos checks abaixo!
+		 || !sd->status.cart[index].identify // item não-identficado
 		 || sd->status.cart[index].attribute == 1 // item quebrado
-		 || sd->status.cart[index].expire_time // Isso nÃ£o deveria estar no carrinho mas apenas no caso de estar
-		 || (sd->status.cart[index].bound && !pc_can_give_bound_items(sd)) // nÃ£o pode trocar itens de recompensa, permissÃ£o w/o
-		 || !itemdb_cantrade(&sd->status.cart[index], pc_get_group_level(sd), pc_get_group_level(sd)) ) // Itens nÃ£o-trocaveis
+		 || sd->status.cart[index].expire_time // Isso não deveria estar no carrinho mas apenas no caso de estar
+		 || (sd->status.cart[index].bound && !pc_can_give_bound_items(sd)) // não pode trocar itens de recompensa, permissão w/o
+		 || !itemdb_cantrade(&sd->status.cart[index], pc_get_group_level(sd), pc_get_group_level(sd)) ) // Itens não-trocaveis
 			continue;
 
 		sd->vending[i].index = index;
@@ -304,9 +304,9 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 	}
 
 	if( i != j )
-		clif->message (sd->fd, msg_sd(sd,266)); //"Alguns dos seus itens nÃ£o pode ser vendido e foram removidos da loja."
+		clif->message (sd->fd, msg_sd(sd,266)); //"Alguns dos seus itens não pode ser vendido e foram removidos da loja."
 
-	if( i == 0 ) { // nenhum item vÃ¡lido encontrado
+	if( i == 0 ) { // nenhum item válido encontrado
 		clif->skill_fail(sd, MC_VENDING, USESKILL_FAIL_LEVEL, 0); // packet de resposta personalizada
 		return;
 	}
@@ -327,12 +327,12 @@ void vending_openvending(struct map_session_data* sd, const char* message, const
 bool vending_search(struct map_session_data* sd, unsigned short nameid) {
 	int i;
 
-	if( !sd->state.vending ) { // nÃ£o vendendo
+	if( !sd->state.vending ) { // não vendendo
 		return false;
 	}
 
 	ARR_FIND( 0, sd->vend_num, i, sd->status.cart[sd->vending[i].index].nameid == (short)nameid );
-	if( i == sd->vend_num ) { // nÃ£o encontrado
+	if( i == sd->vend_num ) { // não encontrado
 		return false;
 	}
 
@@ -347,26 +347,26 @@ bool vending_searchall(struct map_session_data* sd, const struct s_search_store_
 	unsigned int idx, cidx;
 	struct item* it;
 
-	if( !sd->state.vending ) // nÃ£o vendendo
+	if( !sd->state.vending ) // não vendendo
 		return true;
 
 	for( idx = 0; idx < s->item_count; idx++ ) {
 		ARR_FIND( 0, sd->vend_num, i, sd->status.cart[sd->vending[i].index].nameid == (short)s->itemlist[idx] );
-		if( i == sd->vend_num ) {// nÃ£o econtrado
+		if( i == sd->vend_num ) {// não econtrado
 			continue;
 		}
 		it = &sd->status.cart[sd->vending[i].index];
 
-		if( s->min_price && s->min_price > sd->vending[i].value ) {// preÃ§o muito baixo
+		if( s->min_price && s->min_price > sd->vending[i].value ) {// preço muito baixo
 			continue;
 		}
 
-		if( s->max_price && s->max_price < sd->vending[i].value ) {// preÃ§o muito alto
+		if( s->max_price && s->max_price < sd->vending[i].value ) {// preço muito alto
 			continue;
 		}
 
 		if( s->card_count ) {// checa cartas
-			if( itemdb_isspecial(it->card[0]) ) {// alguma coisa, que nÃ£o Ã© uma carta
+			if( itemdb_isspecial(it->card[0]) ) {// alguma coisa, que não é uma carta
 				continue;
 			}
 			slot = itemdb_slot(it->nameid);

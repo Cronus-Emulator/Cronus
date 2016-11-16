@@ -10,28 +10,28 @@
 // = Arquivo:                                                         ||
 // - pc.c                                                             ||
 //====================================================================||
-// = CÃ³digo Base:                                                     ||
+// = Código Base:                                                     ||
 // - eAthena/Hercules/Cronus                                          ||
 //====================================================================||
 // = Sobre:                                                           ||
-// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo   ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo   ||
 // sob os termos da GNU General Public License conforme publicada     ||
-// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou     ||
-// (a seu critÃ©rio) qualquer versÃ£o posterior.                        ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou     ||
+// (a seu critério) qualquer versão posterior.                        ||
 //                                                                    ||
-// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,    ||
-//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de       ||
-//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a          ||
-//Â GNU General Public License para mais detalhes.                     ||
+// Este programa é distribuído na esperança de que possa ser útil,    ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de       ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a          ||
+// GNU General Public License para mais detalhes.                     ||
 //                                                                    ||
-// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU      ||
-// juntamente com este programa. Se nÃ£o, veja:                        ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU      ||
+// juntamente com este programa. Se não, veja:                        ||
 // <http://www.gnu.org/licenses/>.                                    ||
 //====================================================================||
-// = DescriÃ§Ã£o:                                                       ||
-// Muito importante, contÃ©m "o que um jogador pode fazer", como:      ||
-// soltar um item, receber um item, excluir um item,                  ||  
-// contÃªm dados de bÃ´nus tambem.                                      ||
+// = Descrição:                                                       ||
+// Muito importante, contém "o que um jogador pode fazer", como:      ||
+// soltar um item, receber um item, excluir um item,                  ||
+// contêm dados de bônus tambem.                                      ||
 //====================================================================//
 
 #define CRONUS_CORE
@@ -92,8 +92,8 @@
 struct pc_interface pc_s;
 struct pc_interface *pc;
 
-//Converte uma classe ao seu Ã­ndex da array da classe CLASS_COUNT definida na array.
-//Note que ele nao faz uma verificaÃ§Ã£o de validade para fins de velocidade, onde a analise
+//Converte uma classe ao seu índex da array da classe CLASS_COUNT definida na array.
+//Note que ele nao faz uma verificação de validade para fins de velocidade, onde a analise
 //Entrada do jogador certifique-se de usar um pc->db_checkid primeiro!
 int pc_class2idx(int class_) {
 	if (class_ >= JOB_NOVICE_HIGH)
@@ -103,9 +103,9 @@ int pc_class2idx(int class_) {
 
 /**
  * Cria um novo dummy  com dados da sessao do mapa.
- * Usado quando nao hÃ¡ um jogador verdadeiro em anexo, assim e
+ * Usado quando nao há um jogador verdadeiro em anexo, assim e
  * Requirido prover a sessao.
- * Caller devera liberar o dummy por conta prÃ³pria quando jÃ¡ nao for necessario.
+ * Caller devera liberar o dummy por conta própria quando já nao for necessario.
  */
 struct map_session_data* pc_get_dummy_sd(void)
 {
@@ -209,9 +209,9 @@ int pc_spiritball_timer(int tid, int64 tick, int id, intptr_t data) {
 }
 
 /**
-* Obtem o numero possÃ­vel das esferas espirituais que um jogador pode invocar.
+* Obtem o numero possível das esferas espirituais que um jogador pode invocar.
 * @param sd a estrutura do jogador que sera tratada
-* @paramo numero mÃ­nimo de esferas espirituais, que podem ser invocadas,
+* @paramo numero mínimo de esferas espirituais, que podem ser invocadas,
 * independente do nivel da skill MO_CALLSPIRITS.
 * @retval numero total de esferas espirituais.
 **/
@@ -345,7 +345,7 @@ int pc_banding(struct map_session_data *sd, uint16 skill_lv) {
 	if( c < 1 ) {
 		//Apenas o status recalc tem a necessidade de Recalc hp
 		if( (sc = status->get_sc(&sd->bl)) != NULL  && sc->data[SC_BANDING] ) {
-			//Quando nao tem mais Royal Guards encontrados na Ã¡rea.
+			//Quando nao tem mais Royal Guards encontrados na área.
 			sc->data[SC_BANDING]->val2 = 0; // Reset the counter
 			status_calc_bl(&sd->bl, status->sc2scb_flag(SC_BANDING));
 		}
@@ -367,7 +367,7 @@ int pc_banding(struct map_session_data *sd, uint16 skill_lv) {
 	hp = hp / i;
 
 	//  Se um Royal Guard esta com HP cheio, incrementar mais HP para os outros
-	//  que nao estÃ£o com o HP cheio.
+	//  que nao estão com o HP cheio.
 	for (j = 0; j < i; j++) {
 		int tmp_hp;
 		bsd = map->id2sd(b_sd[j]);
@@ -411,8 +411,8 @@ void pc_addfame(struct map_session_data *sd,int count)
 	chrif->updatefamelist(sd);
 }
 
-// Verifique se o ID do jogador estÃ¡ em uma lista de fama da sua classe,
-// retorna seu/sua posiÃ§Ã£o em caso afirmativo, 0 caso nao
+// Verifique se o ID do jogador está em uma lista de fama da sua classe,
+// retorna seu/sua posição em caso afirmativo, 0 caso nao
 unsigned char pc_famerank(int char_id, int job)
 {
 	int i;
@@ -449,8 +449,8 @@ int pc_setrestartvalue(struct map_session_data *sd,int type) {
 	st = &sd->battle_status;
 
 	if (type&1) {
-		//RessureiÃ§Ã£o Normal
-		st->hp = 1; //Caso contrÃ¡rio  status->heal pode falhar se morrer
+		//Ressureição Normal
+		st->hp = 1; //Caso contrário  status->heal pode falhar se morrer
 		status->heal(&sd->bl, bst->hp, 0, 1);
 		if( st->sp < bst->sp )
 			status->set_sp(&sd->bl, bst->sp, 1);
@@ -488,7 +488,7 @@ int pc_inventory_rental_clear(struct map_session_data *sd)
 
 	return 1;
 }
-/* assume se for vÃ¡lido (nas areas de padrao onde e chamado) */
+/* assume se for válido (nas areas de padrao onde e chamado) */
 void pc_rental_expire(struct map_session_data *sd, int i) {
 	short nameid = sd->status.inventory[i].nameid;
 
@@ -578,7 +578,7 @@ void pc_inventory_rentals(struct map_session_data *sd)
 		}
 	}
 
-	if( c > 0 ) // min (next_tick, 3600000) 1 hora de cada vez para manter anunciando para o proprietÃ¡rio,
+	if( c > 0 ) // min (next_tick, 3600000) 1 hora de cada vez para manter anunciando para o proprietário,
 						 // e para evitar um, mas com o tempo de aluguer> 15 dias
 		sd->rental_timer = timer->add(timer->gettick() + min(next_tick,3600000), pc->inventory_rental_end, sd->bl.id, 0);
 	else
@@ -597,7 +597,7 @@ void pc_inventory_rental_add(struct map_session_data *sd, int seconds)
 		const struct TimerData * td;
 		td = timer->get(sd->rental_timer);
 		if( DIFF_TICK(td->tick, timer->gettick()) > tick )
-		{ //Tempo de atualizaÃ§Ã£o para quando terminar, depois atualizar o atual
+		{ //Tempo de atualização para quando terminar, depois atualizar o atual
 			pc->inventory_rental_clear(sd);
 			sd->rental_timer = timer->add(timer->gettick() + tick, pc->inventory_rental_end, sd->bl.id, 0);
 		}
@@ -616,8 +616,8 @@ int pc_makesavestatus(struct map_session_data *sd)
 	if(!battle_config.save_clothcolor)
 		sd->status.clothes_color=0;
 
-	//Copiar apenas as opÃ§Ãµes Cart/Peco/Falcon, o resto sao tratados via
-	//mudanÃ§a de status de carga/inventario. [Skotlet]
+	//Copiar apenas as opções Cart/Peco/Falcon, o resto sao tratados via
+	//mudança de status de carga/inventario. [Skotlet]
 #ifdef NEW_CARTS
 	sd->status.option = sd->sc.option&(OPTION_INVISIBLE|OPTION_FALCON|OPTION_RIDING|OPTION_DRAGON|OPTION_WUG|OPTION_WUGRIDER|OPTION_MADOGEAR);
 #else
@@ -849,10 +849,10 @@ bool pc_can_Adopt(struct map_session_data *p1_sd, struct map_session_data *p2_sd
 		return false;
 
 	if( b_sd->status.father || b_sd->status.mother || b_sd->adopt_invite )
-		return false; // alterado a adoÃ§ao baby / pedido de adoÃ§ao
+		return false; // alterado a adoçao baby / pedido de adoçao
 
 	if( !p1_sd->status.partner_id || !p1_sd->status.party_id || p1_sd->status.party_id != b_sd->status.party_id )
-		return false; // VocÃª precisa se casar para poder adotar um Bebe
+		return false; // Você precisa se casar para poder adotar um Bebe
 
 	if( p1_sd->status.partner_id != p2_sd->status.char_id || p2_sd->status.partner_id != p1_sd->status.char_id )
 		return false; // nao esta casado, casamento falso
@@ -867,7 +867,7 @@ bool pc_can_Adopt(struct map_session_data *p1_sd, struct map_session_data *p2_sd
 	if( !pc->isequipped(p2_sd, WEDDING_RING_M) && !pc->isequipped(p2_sd, WEDDING_RING_F) )
 		return false;
 
-	// Alterado a adoÃ§ao do Bebe
+	// Alterado a adoçao do Bebe
 	if( p1_sd->status.child || p2_sd->status.child ) {
 		clif->adopt_reply(p1_sd, 0);
 		return false;
@@ -891,7 +891,7 @@ bool pc_can_Adopt(struct map_session_data *p1_sd, struct map_session_data *p2_sd
 }
 
 /*==========================================
- * Processo de adoÃ§ao
+ * Processo de adoçao
  *------------------------------------------*/
 bool pc_adoption(struct map_session_data *p1_sd, struct map_session_data *p2_sd, struct map_session_data *b_sd)
 {
@@ -1071,7 +1071,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 		sd->class_ = i;
 
 	// Cheque os status fixos da data, que sao requiridas
-	// em caso de alteraÃ§Ã£o ou configuraÃ§Ã£o  do material, que nao pode ocorrer
+	// em caso de alteração ou configuração  do material, que nao pode ocorrer
 	// cheque o char-server.
 	if( sd->status.hair < MIN_HAIR_STYLE || sd->status.hair > MAX_HAIR_STYLE ) {
 		sd->status.hair = MIN_HAIR_STYLE;
@@ -1083,7 +1083,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 		sd->status.clothes_color = MIN_CLOTH_COLOR;
 	}
 
-	//Inicializado como null/0 desnecessario desde map_session_data seja preenchido com 0 na alocaÃ§Ã£o.
+	//Inicializado como null/0 desnecessario desde map_session_data seja preenchido com 0 na alocação.
 	if(!sd->status.hp) pc_setdead(sd);
 	sd->state.connect_new = 1;
 
@@ -1094,7 +1094,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 	sd->fontcolor_tid = INVALID_TIMER;
 	sd->expiration_tid = INVALID_TIMER;
 	/**
-	 * Se a seguranÃ§a NPC Timeout opÃ§Ã£o (cheque config/Secure.h) [RR]
+	 * Se a segurança NPC Timeout opção (cheque config/Secure.h) [RR]
 	 **/
 #ifdef SECURE_NPCTIMEOUT
 	/**
@@ -1145,7 +1145,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 
 	sd->sc.option = sd->status.option; //Defina aqui porque precisamos de os dados de inventario para analise arma do sprite
 
-	//Defina aqui porque precisamos de os dados de inventÃ¡rio para analise arma do sprite
+	//Defina aqui porque precisamos de os dados de inventário para analise arma do sprite
 	status->set_viewdata(&sd->bl, sd->status.class_);
 	unit->dataset(&sd->bl);
 
@@ -1234,7 +1234,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 		}
 
 		/**
-		 * CorreÃ§oes login-sem-aura falha (a tela nao ira piscar neste momento, nao se preocupe: P)
+		 * Correçoes login-sem-aura falha (a tela nao ira piscar neste momento, nao se preocupe: P)
 		 **/
 		clif->changemap(sd,sd->bl.m,sd->bl.x,sd->bl.y);
 	}
@@ -1279,7 +1279,7 @@ int pc_set_hate_mob(struct map_session_data *sd, int pos, struct block_list *bl)
 	if (!sd || !bl || pos < 0 || pos >= MAX_PC_FEELHATE)
 		return 0;
 	if (sd->hate_mob[pos] != -1) {
-		//Nao e possÃ­vel mudar os alvos de odio.
+		//Nao e possível mudar os alvos de odio.
 		clif->hate_info(sd, pos, sd->hate_mob[pos], 0); //Display current
 		return 0;
 	}
@@ -4996,7 +4996,7 @@ int pc_useitem(struct map_session_data *sd,int n) {
 			if (!(nameid == ITEMID_REINS_OF_MOUNT && pc_hasmount(sd)))
 				sd->item_delay[i].tick = tick + sd->inventory_data[n]->delay;
 		} else {// should not happen
-			ShowError("pc_useitem: execedeu as posiÃ§Ãµes da array do item delay (nameid=%d, char_id=%d)\n", nameid, sd->status.char_id);
+			ShowError("pc_useitem: execedeu as posições da array do item delay (nameid=%d, char_id=%d)\n", nameid, sd->status.char_id);
 		}
 		//clean up used delays so we can give room for more
 		for(i = 0; i < MAX_ITEMDELAYS; i++) {
@@ -6932,7 +6932,7 @@ int pc_skillup(struct map_session_data *sd,uint16 skill_id) {
 		else if (sd->sktree.third)
 			clif->msgtable_num(sd, MSG_SKILL_POINTS_LEFT_JOB2, sd->sktree.third);
 		else if (pc->calc_skillpoint(sd) < 9) /* TODO: official response? */
-			clif->messagecolor_self(sd->fd, COLOR_RED, "VocÃª precisa das habilidades bÃ¡sicas");
+			clif->messagecolor_self(sd->fd, COLOR_RED, "Você precisa das habilidades básicas");
 	}
 	return 0;
 }

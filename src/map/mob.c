@@ -10,25 +10,25 @@
 // = Arquivo:                                                         ||
 // - mob.c                                                            ||
 //====================================================================||
-// = CÃ³digo Base:                                                     ||
+// = Código Base:                                                     ||
 // - eAthena/Hercules/Cronus                                          ||
 //====================================================================||
 // = Sobre:                                                           ||
-// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo   ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo   ||
 // sob os termos da GNU General Public License conforme publicada     ||
-// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou     ||
-// (a seu critÃ©rio) qualquer versÃ£o posterior.                        ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou     ||
+// (a seu critério) qualquer versão posterior.                        ||
 //                                                                    ||
-// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,    ||
-//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de       ||
-//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a          ||
-//Â GNU General Public License para mais detalhes.                     ||
+// Este programa é distribuído na esperança de que possa ser útil,    ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de       ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a          ||
+// GNU General Public License para mais detalhes.                     ||
 //                                                                    ||
-// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU      ||
-// juntamente com este programa. Se nÃ£o, veja:                        ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU      ||
+// juntamente com este programa. Se não, veja:                        ||
 // <http://www.gnu.org/licenses/>.                                    ||
 //====================================================================||
-// = DescriÃ§Ã£o:                                                       ||
+// = Descrição:                                                       ||
 // contem todos os dados sobre MOB, estruturas, rotinas               ||
 // de mob e relacionados.                                             ||
 //====================================================================//
@@ -1927,7 +1927,7 @@ int mob_timer_delete(int tid, int64 tick, int id, intptr_t data) {
 }
 
 /*============================================
-* FunÃ§Ã£o complementar para conversÃ£o de mobs
+* Função complementar para conversão de mobs
 * em auxiliares.
 * by: SlexFire
 *--------------------------------------------*/
@@ -1958,7 +1958,7 @@ int mob_convaux(struct mob_data *md)
 	map->foreachinmap(mob_convaux_sub, md->bl.m, BL_MOB, md);
 	return 0;
 }
-//---- Fim da funÃ§Ã£o complementar ---- //
+//---- Fim da função complementar ---- //
 
 /*==========================================
  *
@@ -3658,7 +3658,7 @@ int mob_clone_delete(struct mob_data *md)
 }
 
 /*==========================================================\
-- FunÃ§Ã£o de retorno para utilizaÃ§Ã£o de recursos adicionais  |
+- Função de retorno para utilização de recursos adicionais  |
 - [SlexFire]                                                |
 ===========================================================*/
 int mob_script_cb(struct mob_data *md, struct block_list *target, short action_type){
