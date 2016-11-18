@@ -10819,9 +10819,7 @@ int pc_readdb(void) {
 	// [ New DB ]
 	#ifdef RENEWAL
 		sprintf(line, "%s/Job_DB/Job_Exp_RE.txt", map->db_path);
-		sprintf(line, "%s/Job_DB/Job_Exp_RE.txt", map->db_path);
 	#else
-		sprintf(line, "%s/Job_DB/Job_Exp_PRE.txt", map->db_path);
 		sprintf(line, "%s/Job_DB/Job_Exp_PRE.txt", map->db_path);
 	#endif
 
