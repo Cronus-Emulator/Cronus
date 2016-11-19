@@ -171,7 +171,7 @@ int homunculus_dead(struct homun_data *hd) {
 
 //Vaporize a character's homun. If flag, HP needs to be 80% or above.
 int homunculus_vaporize(struct map_session_data *sd, enum homun_state flag) {
-	struct homun_data *hd;
+	struct homun_data *hd = NULL;
 
 	nullpo_ret(sd);
 
@@ -199,7 +199,7 @@ int homunculus_vaporize(struct map_session_data *sd, enum homun_state flag) {
 //delete a homunculus, completely "killing it".
 //Emote is the emotion the master should use, send negative to disable.
 int homunculus_delete(struct homun_data *hd, int emote) {
-	struct map_session_data *sd;
+	struct map_session_data *sd = NULL;
 	nullpo_ret(hd);
 	sd = hd->master;
 
@@ -274,8 +274,7 @@ int homunculus_calc_skilltree(struct homun_data *hd, int flag_evolve) {
 
 int homunculus_checkskill(struct homun_data *hd,uint16 skill_id) {
 	int i = skill_id - HM_SKILLBASE;
-	if(!hd)
-		return 0;
+	nullpo_ret(hd);
 
 	if(hd->homunculus.hskill[i].id == skill_id)
 		return (hd->homunculus.hskill[i].lv);
@@ -771,7 +770,7 @@ bool homunculus_create(struct map_session_data *sd, struct s_homunculus *hom) {
 		intif->homunculus_requestdelete(hom->hom_id);
 		return false;
 	}
-	sd->hd = hd = (struct homun_data*)aCalloc(1,sizeof(struct homun_data));
+	sd->hd = hd = aCalloc(1,sizeof(struct homun_data));
 	hd->bl.type = BL_HOM;
 	hd->bl.id = npc->get_new_npc_id();
 
@@ -825,7 +824,7 @@ bool homunculus_call(struct map_session_data *sd) {
 
 	homun->init_timers(hd);
 	hd->homunculus.vaporize = HOM_ST_ACTIVE;
-	if (hd->bl.prev == NULL) { //Spawn him
+	if (!hd->bl.prev) { //Spawn him
 		hd->bl.x = sd->bl.x;
 		hd->bl.y = sd->bl.y;
 		hd->bl.m = sd->bl.m;
