@@ -1,86 +1,86 @@
-//===== Hercules Documentation ===============================
-//= Hercules Script Commands
+//===== Cronus Documentation ===============================
+//= Cronus Script Commands
 //===== By: ==================================================
-//= Hercules Dev Team
+//= Cronus Dev Team
 //===== Description: =========================================
-//= A reference manual for the Hercules scripting language.
+//= A reference manual for the Cronus scripting language.
 //= Commands are sorted depending on their functionality.
 //============================================================
 
-This document is a reference manual for all the scripting commands and
-functions available in current Hercules GIT. It is not a simple tutorial.
-When people tell you to "Read The F***ing Manual", they mean this.
+Este documento é um manual de referência para todos os comandos de
+Funções disponíveis no atual Cronus GIT. Não é um simples tutorial.
+Quando as pessoas lhe dizem para "Leia a documentação", eles querem dizer isso.
 
-The information was mostly acquired through looking up how things actually
-work in the source code of the server, which was written by many people
-over time, and lots of them don't speak English and never left any notes -
-or are otherwise not available for comments. As such, anything written in
-here might not be correct, it is only correct to the best of our
-knowledge, which is limited.
+A informação foi adquirida principalmente através da análise de como as coisas
+Trabalho no código-fonte do servidor, que foi escrito por muitas pessoas
+Ao longo do tempo, e muitos deles não falam Inglês e nunca deixou quaisquer notas -
+Ou não estão disponíveis para comentários. Como tal, qualquer coisa escrita em
+Aqui pode não estar correto, é apenas correto para o melhor de nossos
+Conhecimento, que é limitado.
 
-This is not a place to teach you basic programming. This document will not
-teach you basic programming by itself. It's more of a reference for those
-who have at least a vague idea of what they want to do and want to know
-what tools they have available to do it. We've tried to keep it as simple
-as feasible, but if you don't understand it, getting a clear book on
-programming in general will help better than yelling around the forum for
-help.
+Este não é um lugar para te ensinar programação básica. Este documento não
+Ensinar programação básica por si só. É mais uma referência para aqueles
+Que têm pelo menos uma vaga idéia do que querem fazer e querem saber
+Que ferramentas eles têm disponível para fazê-lo. Tentamos mantê-lo tão simples
+Como viável, mas se você não entender, obter um livro claro sobre
+Programação em geral ajudará melhor do que gritar em torno do fórum para
+Socorro.
 
-A little learning never caused anyone's head to explode.
+Um pouco de aprendizagem nunca causou a cabeça de ninguém para explodir.
 
-Structure
+Estrutura
 ---------
 
-The commands and functions are listed in no particular order:
+Os comandos e funções são listados em nenhuma ordem específica:
 
-*Name of the command and how to call it.
+*Nome do comando e como chamá-lo.
 
-Descriptive text
+Texto descritivo
 
-    Small example if possible. Will usually be incomplete, it's there just
-    to give you an idea of how it works in practice.
+    Pequeno exemplo, se possível. Normalmente estará incompleto, está lá apenas
+    Para lhe dar uma idéia de como ele funciona na prática.
 
-To find a specific command, use Ctrl+F, (or whatever keys call up a search
-function in whatever you're reading this with) put an * followed by the
-command name, and it should find the command description for you.
+Para encontrar um comando específico, use Ctrl + F, (ou qualquer tecla chamar uma pesquisa
+Função no que você está lendo isso com) colocar um * seguido pelo
+Comando, e ele deve encontrar a descrição do comando para você.
 
-If you find anything omitted, please tell us. :)
+Se você encontrar alguma coisa omitida, por favor, informe-nos. :).
 
-Syntax
+Sintaxe
 ------
 
-Throughout this document, wherever a command wants an argument, it is
-given in <angle brackets>. This doesn't mean you should type the angle
-brackets. :) If an argument of a command is optional, it is given in
-{curly brackets}. You've doubtlessly seen this convention somewhere, if
-you didn't, get used to it, that's how big boys do it. If a command can
-optionally take an unspecified number of arguments, you'll see a list like
-this:
+Ao longo deste documento, sempre que um comando deseja um argumento, é
+Dado em <parênteses angulares>. Isso não significa que você deve digitar o ângulo
+Colchetes. :) Se um argumento de um comando é opcional, ele é dado em
+{Curly brackets}. Sem dúvida você viu esta convenção em algum lugar, se
+Você não, se acostumar, é assim que os garotos fazem isso. Se um comando
+Opcionalmente um número não especificado de argumentos, você verá uma lista como
+esta:
 
-command <argument>{,<argument>...<argument>}
+command <argumento>{,<argumento>...<argumento>}
 
-This still means they will want to be separated by commas.
+Isso ainda significa que eles vão querer ser separados por vírgulas.
 
-Where a command wants a string, it will be given in "quotes", if it's a
-number, it will be given without them. Normally, you can put an
-expression, like a bunch of functions or operators returning a value, in
-(round brackets) instead of most numbers. Round brackets will not always
-be required, but they're often a good idea.
+Onde um comando quer uma string, ela será dada em "citações", se for um
+Número, ele será dado sem eles. Normalmente, você pode
+Expressão, como um monte de funções ou operadores retornando um
+(Colchetes redondos) em vez da maioria dos números. Os colchetes não serão sempre
+Ser uma boa idéia.
 
-Wherever you refer to a map, use 'mapname' instead of 'mapname.gat'.
+Onde quer que você se refira a um mapa, use 'mapname' em vez de 'mapname.gat'.
 
 
 Script loading structure
 ------------------------
 
-Scripts are loaded by the map server as referenced in the
-'conf/map-server.conf' configuration file, but in the default
-configuration, it doesn't load any script files itself. Instead, it loads
-the file 'npc/scripts_main.conf' which itself contains references to other
-files. The actual scripts are loaded from txt files, which are linked up
-like this:
+Os scripts são carregados pelo servidor de mapas conforme
+'Conf / map-server.conf', mas no arquivo de configuração padrão
+Configuração, ele não carrega nenhum arquivo de script propriamente dito. Em vez disso, ele carrega
+O arquivo 'npc/scripts_main.conf' que contém referências a outros
+arquivos. Os scripts reais são carregados a partir de arquivos txt, que são ligados para cima
+como isso:
 
-npc: <path to a filename>
+npc: <Caminho para um nome de arquivo>
 
 Any line like this, invoked, ultimately, by 'map-server.conf' will load up
 the script contained in this file, which will make the script available.
@@ -88,256 +88,256 @@ No file will get loaded twice, to prevent possible errors.
 
 Another configuration file option of relevance is:
 
-delnpc: <path to a filename>
+delnpc: <Caminho para um nome de arquivo>
 
-This will unload a specified script filename from memory, which, while
-seemingly useless, may sometimes be required.
+Isso descarregará um nome de arquivo de script especificado da memória, que, enquanto
+Aparentemente inútil, às vezes pode ser necessário.
 
-Whenever '//' is encountered in a line upon reading, everything beyond
-this on that line is considered to be a comment and is ignored. This works
-wherever you place it.
+Sempre que '//' é encontrado em uma linha na leitura, tudo além
+Esta linha é considerada um comentário e é ignorada. Isso funciona
+Onde quer que você o coloque.
 
-// This line will be ignored when processing the script.
+// Esta linha será ignorada ao processar o script.
 
-Block comments can also be used, where you can place /* and */ between any
-text you wish Hercules to ignore.
+Bloquear comentários também podem ser usados, onde você pode colocar / * e * / entre qualquer
+Texto que você deseja que Cronus ignore.
 
-Example:
-/* This text,
- * no matter which new line you start
- * is ignored, until the following
- * symbol is encountered: */
+Exemplo:
+/* Esse texto,
+  * Não importa qual nova linha você começa
+  * É ignorado, até que o seguinte
+  * É encontrado: * /
 
-The asterisks (*) in front of each line is a personal preference, and is
-not required.
+Os asteriscos (*) na frente de cada linha são uma preferência pessoal, e é
+não requerido.
 
-Upon loading all the files, the server will execute all the top-level
-commands in them. No variables exist yet at this point, no commands can be
-called other than those given in this section. These commands set up the
-basic server script structure - create NPC objects, spawn monster objects,
-set map flags, etc. No code is actually executed at this point except
-them. The top-level commands the scripting are pretty confusing, since
-they aren't structured like you would expect commands, command name first,
-but rather, normally start with a map name.
+Ao carregar todos os arquivos, o servidor executará todos os
+Comandos neles. Ainda não existem variáveis neste momento, nenhum comando pode ser
+Chamados outros que não os indicados nesta seção. Esses comandos configuram o
+Estrutura básica do script do servidor - criar objetos NPC, spawn monster objects,
+Set map flags, etc. Nenhum código é realmente executado neste ponto, exceto
+eles. Os comandos de nível superior que os scripts são bastante confusos,
+Eles não são estruturados como você esperaria comandos, nome de comando primeiro,
+Mas sim, normalmente começam com um nome de mapa.
 
-What's more confusing about the top-level commands is that most of them
-use a tab symbol to divide their arguments.
+O que é mais confuso sobre os comandos de nível superior é que a maioria deles
+Use um símbolo de tabulação para dividir seus argumentos.
 
-To prevent problems and confusion, the tab symbols are written as '%TAB%'
-or '<TAB>' throughout this document, even though this makes the text a bit
-less readable. Using an invisible symbol to denote arguments is one of the
-bad things about this language, but we're stuck with it for now. :)
+Para evitar problemas e confusão, os símbolos de tabulação são escritos como '% TAB%'
+Ou '<TAB>' ao longo deste documento, mesmo que isso torne o texto um pouco
+Menos legível. Usar um símbolo invisível para denotar argumentos é um dos
+Coisas ruins sobre esse idioma, mas estamos presos com ele por enquanto. :)
 
-Here is a list of valid top-level commands:
+Aqui está uma lista de comandos de nível superior válidos:
 
-** Set a map flag:
+** Definir um map flag:
 
-<map name>%TAB%mapflag%TAB%<flag>
+<nome do mapa>%TAB%mapflag%TAB%<flag>
 
-This will, upon loading, set a specified map flag on a map you like. These
-are normally in files inside 'npc/mapflag' and are loaded first, so by the
-time the server's up, all the maps have the flags they should have. Map
-flags determine the behavior of the map regarding various common problems,
-for a better explanation, see 'setmapflag'.
+Isto irá, ao carregar, definir uma bandeira de mapa especificada em um mapa que você gosta. Estes
+Normalmente dentro de arquivos dentro do 'npc/mapflag' e são carregados primeiro, então pelo
+Tempo o servidor é para cima, todos os mapas têm as bandeiras que devem ter. Mapa
+As bandeiras determinam o comportamento do mapa em relação a vários problemas comuns,
+Para uma explicação melhor, veja 'setmapflag'.
 
-** Create a permanent monster spawn:
+** Criar um spawn de monstros permanentes:
 
-<map name>,<x>,<y>,<xs>,<ys>%TAB%monster%TAB%<monster name>%TAB%<mob id>,<amount>,<delay1>,<delay2>,<event>{,<mob size>,<mob ai>}
+<nome do mapa>,<x>,<y>,<xs>,<ys>%TAB%monster%TAB%<monstro nome>%TAB%<monstro id>,<quantidade>,<delay1>,<delay2>,<event>{,<tamanho>,<mob ai>}
 
-Map name is the name of the map the monsters will spawn on. X,Y are the
-coordinates where the mob should spawn. If X's and Y's are non-zero, they
-specify the 'radius' of a spawn-rectangle area centered at x,y. Putting
-zeros instead of these coordinates will spawn the monsters randomly. Note
-this is only the initial spawn zone, as mobs random-walk, they are free to
-move away from their specified spawn region.
+Nome do mapa é o nome do mapa que os monstros irão desovar. X, Y são os
+Coordena onde o mob deve spawn. Se X e Y são não-zero, eles
+Especifique o "raio" de uma área de retângulo de spawn centrada em x, y. Colocação
+Zeros em vez destas coordenadas gerarão os monstros aleatoriamente. Nota
+Esta é apenas a zona de desova inicial, como mobs random-walk, eles são livres para
+Afastar-se de sua região especificada spawn.
 
-Monster name is the name the monsters will have on screen, and has no
-relation whatsoever to their names anywhere else. It's the mob id that
-counts, which identifies monster record in 'mob_db.txt' database of
-monsters. If the mob name is given as "--ja--", the 'japanese name' field
-from the monster database is used, (which, in Hercules, actually contains
-an English name) if it's "--en--", it's the 'english name' from the
-monster database (which contains an uppercase name used to summon the
-monster with a GM command).
+Nome do monstro é o nome que os monstros terão na tela e não tem
+Relação a seus nomes em qualquer outro lugar. É o identificador da turma que
+, Que identifica o registro de monstros no banco de dados "mob_db.txt"
+Monstros Se o nome do mob é dado como "--ja--", o campo "nome japonês"
+Do banco de dados de monstro é usado, (que, em Cronus, realmente contém
+Um nome em inglês) se for "--en--", é o "nome inglês" do
+Monstro (que contém um nome maiúsculo usado para invocar o
+Monstro com um comando GM).
 
-Amount is the amount of monsters that will be spawned when this command is
-executed, it is affected by spawn rates in 'battle.conf'.
+Quantidade é a quantidade de monstros que serão gerados quando este comando é
+Executada, ela é afetada pelas taxas de spawn em 'battle.conf'.
 
-Delay1 and delay2 control monster respawn delays - the first one is the
-fixed base respawn time, and the second is random variance on top of the
-base time. Both values are given in milliseconds (1000 = 1 second). Note
-that the server also enforces a minimum respawn delay of 5 seconds.
+Delay1 e delay2 controlam os atrasos do respawn do monstro - o primeiro é o
+Tempo de respawn da base fixa, ea segunda é variância aleatória em cima da
+Base. Ambos os valores são dados em milissegundos (1000 = 1 segundo). Nota
+Que o servidor também impõe um mínimo respawn atraso de 5 segundos.
 
-You can specify a custom level to use for the mob different from the one
-of the database by adjoining the level after the name with a comma. eg:
-"Poring,50" for a name will spawn a monster with name Poring and level 50.
+Você pode especificar um nível personalizado para usar para o mob diferente do
+Do banco de dados adjacente ao nível após o nome com uma vírgula. por exemplo:
+"Poring, 50" para um nome irá gerar um monstro com o nome Poring e nível 50.
 
-Event is a script event to be executed when the mob is killed. The event
-must be in the form "NPCName::OnEventName" to execute, and the event name
-label should start with "On". As with all events, if the NPC is an
-on-touch NPC, the player who triggers the script must be within 'trigger'
-range for the event to work.
+Evento é um evento de script a ser executado quando a máfia é morta. O evento
+Deve estar na forma "NPCName::OnEventName" para executar e o nome do evento
+Deve começar com "On". Como com todos os eventos, se o NPC é um
+On-touch NPC, o jogador que aciona o script deve estar dentro de 'trigger'
+Para que o evento funcione.
 
-There are two optional fields for monster size and AI. Size can be 0
-(medium), 1 (small), or 2 (big). AI can be 0 (default), 1
-(attack/friendly), 2 (sphere), 3 (flora), or 4 (zanzou).
+Existem dois campos opcionais para tamanho de monstro e AI. O tamanho pode ser 0
+(Médio), 1 (pequeno) ou 2 (grande). AI pode ser 0 (padrão), 1
+(Ataque / amigável), 2 (esfera), 3 (flora), ou 4 (zanzou).
 
-Alternately, a monster spawned using 'boss_monster' instead of 'monster' is able to be
-detected on the map with the SC_CASH_BOSS_ALARM status (used by Convex Mirror, item ID# 12214).
+Alternativamente, um monstro gerado usando 'boss_monster' em vez de 'monster' pode ser
+Detectado no mapa com o status SC_CASH_BOSS_ALARM (usado pelo Espelho Convexo, item ID # 12214).
 
-** NPC names
+** Nomes NPC
 
-/!\ WARNING: this applies to warps, NPCs, duplicates and shops /!\
+/!\ AVISO: isto aplica-se a warps, NPCs, duplicatas e lojas /!\
 
-NPC names are kinda special and are formatted this way:
+Nomes de NPC são um pouco especiais e são formatados desta forma:
 
-<Display name>{::<Unique name>}
+<Nome de exibição>{::<Nome exclusivo>}
 
-All NPCs need to have a unique name that is used for identification
-purposes. When you have to identify a NPC by it's name, you should use
-<Unique name>. If <Unique name> is not provided, use <Display name>
-instead.
+Todos os NPCs precisam ter um nome exclusivo que seja usado para identificação
+Finalidades. Quando você tem que identificar um NPC pelo seu nome, você deve usar
+<Nome exclusivo>. Se <Nome exclusivo> não for fornecido, use <Nome de exibição>
+ao invés.
 
-The client has a special feature when displaying names: if the display
-name contains a '#' character, it hides that part of the name.
-Ex: if your NPC is named 'Hunter#hunter1', it will be displayed as 'Hunter'
+O cliente tem uma característica especial ao exibir nomes: se o
+Nome contém um caractere '#', oculta essa parte do nome.
+Ex: se o seu NPC é nomeado 'Hunter#hunter1', ele será exibido como 'Hunter'
 
-<Display name> must be at most 24 characters in length.
-<Unique name> must be at most 24 characters in length.
+<Nome de exibição> deve ter no máximo 36 caracteres.
+<Nome exclusivo> deve ter no máximo 36 caracteres.
 
-** Define a warp point
+** Criar um portal
 
-<from map name>,<fromX>,<fromY>{,<facing>}%TAB%warp%TAB%<warp name>%TAB%<spanx>,<spany>,<to map name>,<toX>,<toY>
+<from nome do mapa>,<X>,<Y>{,<direção>}%TAB%warp%TAB%<nome>%TAB%<spanx>,<spany>,<para o mapa>,<X>,<Y>
 
-This will define a warp NPC that will warp a player between maps, and
-while most arguments of that are obvious, some deserve special mention.
+Isto irá definir um warp NPC que irá deformar um jogador entre mapas, e
+Enquanto a maioria dos argumentos disso são óbvios, alguns merecem menção especial.
 
-SpanX and SpanY will make the warp sensitive to a character who didn't
-step directly on it, but walked into a zone which is centered on the warp
-from coordinates and is SpanX in each direction across the X axis and
-SpanY in each direction across the Y axis.
+SpanX e SpanY tornarão a deformação sensível a um personagem que não
+Passo diretamente sobre ele, mas entrou em uma zona que é centrada na urdidura
+A partir de coordenadas e é SpanX em cada direção ao longo do eixo X e
+SpanY em cada sentido através do eixo Y.
 
-Warp NPC objects also have a name, because you can use it to refer to them
-later with 'enablenpc'/'disablenpc'.
+Warp NPC objetos também têm um nome, porque você pode usá-lo para se referir a eles
+Mais tarde com 'enablenpc' / 'disablenpc'.
 
-Facing of a warp object is irrelevant, it is not used in the code and all
-current scripts have a zero in there.
+Enfrentar um objeto warp é irrelevante, não é usado no código e todos
+Os scripts atuais têm um zero lá.
 
-** Define an NPC object.
+** Defina um objeto NPC.
 
-<map name>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Name>%TAB%<sprite>,{<code>}
-<map name>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>,{<code>}
+<nome do mapa>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Nome>%TAB%<sprite>,{<code>}
+<nome do mapa>,<x>,<y>,<facing>%TAB%script%TAB%<NPC Nome>%TAB%<sprite>,<triggerX>,<triggerY>,{<code>}
 
-This will place an NPC object on a specified map at the specified
-location, and is a top-level command you will use the most in your custom
-scripting. The NPCs are triggered by clicking on them, and/or by walking
-in their trigger area, if defined. See that below.
+Isso colocará um objeto NPC em um mapa especificado na
+Local, e é um comando de nível superior que você usará mais no seu
+Scripting Os NPCs são acionados clicando neles, e / ou caminhando
+Na sua área de disparo, se definido. Veja abaixo.
 
-Facing is a direction the NPC sprite will face in. Not all NPC sprites
-have different images depending on the direction you look from, so for
-some facing will be meaningless. Facings are counted counterclockwise in
-increments of 45 degrees, where 0 means facing towards the top of the map.
-(So to turn the sprite towards the bottom of the map, you use facing 4,
-and to make it look southeast it's facing 5.)
+Enfrentar é uma direção que o sprite NPC enfrentará. Nem todos os sprites NPC
+Imagens diferentes dependendo da direção em que você olha, então para
+Alguns enfrentamentos não terão sentido. Os revestimentos são contados no sentido anti-horário em
+Incrementos de 45 graus, onde 0 significa virado para o topo do mapa.
+(Então, para transformar o sprite na parte inferior do mapa, você usa o rosto 4,
+E para fazê-la olhar para o sudeste está enfrentando 5.)
 
-Sprite is the sprite identifier used to display this particular NPC. For a
-full list of sprite numbers see http://kalen.s79.xrea.com/npc/npce.shtml as
-well as db/const.txt.
-You may also use a monster's ID constant instead to display a monster sprite
-for this NPC, in npcs that have view ids of mobs it's encouraged to use
-OnTouch events with a 2,2 range and with an 'end' after the header to avoid
-bugs (for more info on why see npc_click@map/npc.c). It is possible to use a job
-sprite as well, but you must first define it as a monster sprite in 'mob_avail.txt',
-a full description on how to do this is not in the scope of this manual.
-A '-1' sprite will make the NPC invisible (and unclickable).
-A 'HIDDEN_NPC' sprite will make an NPC which does not have a sprite, but is
-still clickable, which is useful if you want to make a clickable object of
-the 3D terrain.
+Sprite é o identificador de sprite usado para exibir esse NPC específico. Para um
+Lista completa de números de sprite veja http://kalen.s79.xrea.com/npc/npce.shtml como
+Bem como db / const.txt.
+Você também pode usar a constante de identificação de um monstro em vez disso para exibir um sprite monstro
+Para este NPC, em npcs que têm ids de vista de mobs é encorajado a usar
+OnTouch eventos com um intervalo de 2,2 e com um 'fim' após o cabeçalho para evitar
+Bugs (para mais informações sobre porquê ver npc_click@map/npc.c). É possível usar um trabalho
+Sprite também, mas você deve primeiro defini-lo como um sprite monstro em 'mob_avail.txt',
+Uma descrição completa sobre como fazer isso não está no escopo deste manual.
+Um '-1' sprite fará o NPC invisível (e unchickable).
+Um sprite 'HIDDEN_NPC' fará um NPC que não tenha um sprite, mas é
+Ainda é clicável, o que é útil se você quiser fazer um objeto clicável de
+O terreno 3D.
 
-TriggerX and triggerY, if given, will define an area, centered on NPC and
-spanning triggerX cells in every direction across X and triggerY in every
-direction across Y. Walking into that area will trigger the NPC. If no
-'OnTouch:' special label is present in the NPC code, the execution will
-start from the beginning of the script, otherwise, it will start from the
-'OnTouch:' label. Monsters can also trigger the NPC, though the label
-'OnTouchNPC:' is used in this case. If player left area npc will called
-if present label 'OnUnTouch'.
+TriggerX e triggerY, se for dado, definirão uma área, centrada em NPC e
+Abrangendo células triggerX em todas as direções em X e triggerY em
+Direção em Y. Andando em que área irá acionar o NPC. Se não
+'OnTouch:' etiqueta especial está presente no código NPC, a execução será
+Início do script, caso contrário, ele será iniciado a partir do
+Etiqueta 'OnTouch:'. Monstros também podem acionar o NPC, embora o rótulo
+'OnTouchNPC:' é usado neste caso. Se a área esquerda do jogador npc for chamada
+Se presente etiqueta 'OnUnTouch'.
 
-The code part is the script code that will execute whenever the NPC is
-triggered. It may contain commands and function calls, descriptions of
-which compose most of this document. It has to be in curly brackets,
-unlike elsewhere where we use curly brackets, these do NOT signify an
-optional parameter.
+A parte de código é o código de script que será executado sempre que o NPC for
+Disparado. Pode conter comandos e chamadas de função, descrições de
+Que compõem a maior parte deste documento. Tem de ser em colchetes,
+Diferentemente de outros lugares onde usamos chaves, estes NÃO significam
+Parâmetro opcional.
 
-** Define a 'floating' NPC object.
+** Defina um objeto NPC 'flutuante'.
 
 -%TAB%script%TAB%<NPC Name>%TAB%-1,{<code>}
 
-This will define an NPC object not triggerable by normal means. This would
-normally mean it's pointless since it can't do anything, but there are
-exceptions, mostly related to running scripts at specified time, which is
-what these floating NPC objects are for. More on that below.
+Isso irá definir um objeto NPC não disparável por meios normais. Isso seria
+Normalmente significa que é inútil uma vez que não pode fazer nada, mas há
+Exceções, principalmente relacionadas à execução de scripts em horários
+Para que esses objetos NPC flutuantes são. Mais sobre isso abaixo.
 
-** Define a shop/cashshop NPC.
+** Defina um NPC loja / cashshop.
 
 -%TAB%shop%TAB%<NPC Name>%TAB%<sprite>,<itemid>:<price>{,<itemid>:<price>...}
-<map name>,<x>,<y>,<facing>%TAB%shop%TAB%<NPC Name>%TAB%<sprite>,<itemid>:<price>{,<itemid>:<price>...}
+<nome do mapa>,<x>,<y>,<facing>%TAB%shop%TAB%<NPC Name>%TAB%<sprite>,<itemid>:<price>{,<itemid>:<price>...}
 
-This will define a shop NPC, which, when triggered (which can only be done
-by clicking) will cause a shop window to come up. No code whatsoever runs
-in shop NPCs and you can't change the prices otherwise than by editing the
-script itself (no variables even exist at this point of scripting, so
-don't even bother trying to use them).
+Isso definirá um NPC de loja, que, quando acionado (que só pode ser feito
+Clicando) fará com que uma vitrine apareça. Nenhum código funciona
+Na loja NPCs e você não pode alterar os preços de outra forma do que editando o
+Próprio script (não existem variáveis mesmo neste ponto de scripting, por isso
+Nem sequer se preocupar em tentar usá-los).
 
-The item id is the number of item in the 'item_db.txt' database. If Price
-is set to -1, the 'buy price' given in the item database will be used.
-Otherwise, the price you gave will be used for this item, which is how you
-create differing prices for items in different shops.
+O item id é o número de item no banco de dados. Se Preço
+É definido como -1, o 'preço de compra' dado no banco de dados do item será usado.
+Caso contrário, o preço que você deu será usado para este item, que é como você
+Criar diferentes preços para os itens em lojas diferentes.
 
-You can alternatively use "cashshop" in place of "shop" to use the Cash
-Shop interface, allowing you to buy items with special points (Currently
-stored as account vars in #CASHPOINTS and #KAFRAPOINTS). This
-type of shop will not allow you to sell items at it, you may only purchase
-items here. The layout used to define sale items still count, and
-"<price>" refers to how many points will be spent purchasing the them.
+Você pode alternativamente usar "cashshop" no lugar de "shop" para usar o Cash
+Shop, permitindo que você compre itens com pontos especiais (atualmente
+Armazenados como vars de contas em #CASHPOINTS e #KAFRAPOINTS). este
+Tipo de loja não lhe permitirá vender itens, você só pode comprar
+Itens aqui. O layout usado para definir itens de venda ainda conta, e
+"<Preço>" refere-se a quantos pontos serão gastos comprando-os.
 
-** Define a trader NPC
-<map name>,<x>,<y>,<facing>%TAB%trader%TAB%<NPC Name>%TAB%<sprite>,{<code>}
+** Defina um trader NPC
+<nome do mapa>,<x>,<y>,<facing>%TAB%trader%TAB%<NPC Name>%TAB%<sprite>,{<code>}
 -%TAB%trader%TAB%<NPC Name>%TAB%-1,{<code>}
 
-All the standards that are valid to script objects are also valid for trader objects
-(see ** Define an NPC object for more information).
-This will define a trader NPC, which can cause a shop, cashshop or market window
-to come up when clicked or called by other means. Unlike shop/cashshop NPCs this
-type will run a code and can change the items that are being sold over time without
-other NPC objects.
-The types that a trader object can have are the following:
-- NST_ZENY	(0) Normal Zeny Shop (shop)
-- NST_CASH	(1) Normal Cash Shop (cashshop)
-- NST_MARKET	(2) Normal NPC Market Shop (where items have limited availability
-		    and need to be refurbished)
-- NST_CUSTOM	(3) Custom Shop (any currency, item/var/etca, check sample)
-Unless otherwise specified via *tradertype an trader object will be defined as
+Todos os padrões que são válidos para objetos de script também são válidos para objetos do comerciante
+(Veja ** Definir um objeto NPC para obter mais informações).
+Isso definirá um NPC negociador, que pode causar uma loja, cashshop ou janela de mercado
+Para aparecer quando clicado ou chamado por outros meios. Ao contrário da loja / cashshop NPCs esta
+Tipo irá executar um código e pode alterar os itens que estão sendo vendidos ao longo do tempo sem
+Outros objetos NPC.
+Os tipos que um objeto trader podem ter são os seguintes:
+- NST_ZENY (0) Normal Zeny Loja (loja)
+- NST_CASH (1) Loja de dinheiro normal (cashshop)
+- NST_MARKET (2) Normal NPC Market Shop (onde os itens têm disponibilidade limitada
+E precisam ser reformados)
+- NST_CUSTOM (3) Custom Shop (qualquer moeda, item / var / etca, amostra de verificação)
+Salvo especificação em contrário via * tradertype, um objeto trader será definido como
 NST_ZENY.
 
-Note: NST_MARKET is only available with PACKETVER 20131223 or newer.
-See '12 - NPC Trader-Related Commands' and /doc/sample/npc_trader_sample.txt for
-more information regarding how to use this NPC type.
+Nota: NST_MARKET só está disponível com PACKETVER 20131223 ou mais recente.
+Consulte '12 - Comandos relacionados ao NPC Trader 'e /doc/sample/npc_trader_sample.txt para
+Mais informações sobre como usar este tipo de NPC.
 
-** Define an warp/shop/cashshop/NPC duplicate.
+** Defina um warp / shop / cashshop / duplicado NPC.
 
-warp: <map name>,<x>,<y>{,<facing>}%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<spanx>,<spany>
+warp: <nome do mapa>,<x>,<y>{,<facing>}%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<spanx>,<spany>
 shop/cashshop/npc: -%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>
-shop/cashshop/npc: <map name>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>
+shop/cashshop/npc: <nome do mapa>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>
 npc: -%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>
-npc: <map name>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>
+npc: <nome do mapa>,<x>,<y>,<facing>%TAB%duplicate(<label>)%TAB%<NPC Name>%TAB%<sprite>,<triggerX>,<triggerY>
 
-This will duplicate an warp/shop/cashshop/NPC referred to by 'label'.
-Warp duplicates inherit the target location.
-Shop/cashshop duplicates inherit the item list.
-NPC duplicates inherit the script code.
-The rest (name, location, facing, sprite, span/trigger area) is
-obtained from the definition of the duplicate (not inherited).
+Isto duplicará uma warp / shop / cashshop / NPC referida por 'label'.
+As duplicatas de distorção herdam a localização de destino.
+Os duplicados da loja / caixa de pagamento herdam a lista de itens.
+Os duplicados de NPC herdam o código de script.
+O restante (nome, localização, face, sprite, área span / trigger) é
+Obtido a partir da definição do duplicado (não herdado).
 
 ** Define a function object
 
@@ -441,7 +441,7 @@ Variables
 The meat of every programming language is variables - places where you
 store data.
 
-In Hercules scripting language, variable names are case sensitive. Even though
+In Cronus scripting language, variable names are case sensitive. Even though
 at the current time the script engine accepts them even with the incorrect
 case, it is not advised to rely on this behavior, as it may change at any
 time.
@@ -647,7 +647,7 @@ quote symbol (") "in a string you need to escape it with a blackslash:
 Arrays
 ------
 
-Arrays (in Hercules at least) are essentially a set of variables going
+Arrays (in Cronus at least) are essentially a set of variables going
 under the same name. You can tell between the specific variables of an
 array with an 'array index', a number of a variable in that array:
 
@@ -792,7 +792,7 @@ Logical bitwise operators work only on numbers, and they are the following:
  |  - Or.
 	The bitwise operator AND (&) is used to test two values against each
     other, and results in setting bits which are active in both arguments.
-    This can be used for a few things, but in Hercules this operator is
+    This can be used for a few things, but in Cronus this operator is
     usually used to create bit-masks in scripts.
 
 	The bitwise operator OR (|) sets to 1 a binary position if the binary
@@ -2160,7 +2160,7 @@ need. Disabling (0) may warn you if an infinite loop is detected if your
 script is looping too many times.
 
 Please note, once again, that this isn't a solution to all problems, and by
-disabling this protection your Hercules server may become laggy or
+disabling this protection your Cronus server may become laggy or
 unresponsive if the script it is used in is performing lenghty loop
 operations.
 
@@ -2171,7 +2171,7 @@ Example:
 	for (.@i = 0; .@i < .@bigloop; ++.@i) {
 		dothis;
 		// will sleep the script for 1ms when detect an infinity loop to
-		// let Hercules do what it need to do (socket, timer, process,
+		// let Cronus do what it need to do (socket, timer, process,
 		// etc.)
 	}
 
@@ -2621,7 +2621,7 @@ name. Possible types are:
 	1: Leader account id
 	2: Leader character id
 	3: Leader's class
-	4: Leader's current map name
+	4: Leader's current nome do mapa
 	5: Leader's current level as stored on the party structure (may not be
 	   current level if leader leveled up recently).
 
@@ -2647,7 +2647,7 @@ This function will return information about the invoking character's save
 point. You can use it to let a character swap between several recorded
 save points. Available information types are:
 
- 0 - Map name (a string)
+ 0 - nome do mapa (a string)
  1 - X coordinate
  2 - Y coordinate
 
@@ -2769,7 +2769,7 @@ See 'getequipid' for a full list of valid equipment slots.
 *getitemname(<item id>)
 
 Given the database ID number of an item, this function will return the
-text stored in the 'japanese name' field (which, in Hercules, stores an
+text stored in the 'japanese name' field (which, in Cronus, stores an
 English name the players would normally see on screen).
 
 ---------------------------------------
@@ -2907,7 +2907,7 @@ with it (which is what the official NPC refinery scripts use it for).
 
 ---------------------------------------
 
-*getareadropitem("<map name>",<x1>,<y1>,<x2>,<y2>,<item>)
+*getareadropitem("<nome do mapa>",<x1>,<y1>,<x2>,<y2>,<item>)
 
 This function will count all the items with the specified ID number lying
 on the ground on the specified map within the x1/y1-x2/y2 square on it and
@@ -3090,7 +3090,7 @@ cards or if it's signed.
 //=====================================
 ---------------------------------------
 
-*getmapxy("<variable for map name>",<variable for x>,<variable for y>,<type>{,"<search string>"})
+*getmapxy("<variable for nome do mapa>",<variable for x>,<variable for y>,<type>{,"<search string>"})
 
 This function will locate a character object, NPC object or pet's
 coordinates and place their coordinates into the variables specified when
@@ -3209,7 +3209,7 @@ characters. For a full description see, for example, the description of
 All the format characters given in there should properly work.
 Max length is the maximum length of a time string to generate.
 
-The example given in Hercules sample scripts works like this:
+The example given in Cronus sample scripts works like this:
 
 	mes gettimestr("%Y-%m/%d %H:%M:%S",21);
 
@@ -3231,7 +3231,7 @@ Type can be one of the following values, which control what is returned:
 
 ---------------------------------------
 
-*getmapusers("<map name>")
+*getmapusers("<nome do mapa>")
 
 This function will return the number of users currently located on the
 specified map.
@@ -3242,12 +3242,12 @@ let you enter.
 
 ---------------------------------------
 
-*getareausers({"<map name>",}{<x1>,<y1>,<x2>,<y2>})
-*getareausers({"<map name>",}{<radius>})
+*getareausers({"<nome do mapa>",}{<x1>,<y1>,<x2>,<y2>})
+*getareausers({"<nome do mapa>",}{<radius>})
 
 This function will return the count of connected characters which are
 located within the specified area. Area can be x1/y1-x2/y2 square,
-or radius from npc position. If map name missing, used attached player map.
+or radius from npc position. If nome do mapa missing, used attached player map.
 
 This is useful for maps that are split into many buildings, such as all
 the "*_in" maps, due to all the shops and houses.
@@ -3326,18 +3326,18 @@ any guild.
 
 ---------------------------------------
 
-*getcastlename("<map name>")
+*getcastlename("<nome do mapa>")
 
-This function returns the name of the castle when given the map name for
+This function returns the name of the castle when given the nome do mapa for
 that castle. The data is read from 'db/castle_db.txt'.
 
 ---------------------------------------
 
-*getcastledata("<map name>",<type of data>)
-*setcastledata "<map name>",<type of data>,<value>;
+*getcastledata("<nome do mapa>",<type of data>)
+*setcastledata "<nome do mapa>",<type of data>,<value>;
 
 This function returns the castle ownership information for the castle
-referred to by its map name. Castle information is stored in
+referred to by its nome do mapa. Castle information is stored in
 `guild_castle` SQL table.
 
 Types of data correspond to `guild_castle` table columns:
@@ -4104,7 +4104,7 @@ will be seen to everyone around but not in chat window.
 
 ---------------------------------------
 
-*warp "<map name>",<x>,<y>{,<flag>};
+*warp "<nome do mapa>",<x>,<y>{,<flag>};
 
 This command will take the invoking character to the specified map, and if
 wanted, specified coordinates too, but these can be random.
@@ -4133,7 +4133,7 @@ Gravity client if warp to other maps.
 
 ---------------------------------------
 
-*areawarp "<from map name>",<x1>,<y1>,<x2>,<y2>,"<to map name>",<x3>,<y3>{,<x4>,<y4>};
+*areawarp "<from nome do mapa>",<x1>,<y1>,<x2>,<y2>,"<to nome do mapa>",<x3>,<y3>{,<x4>,<y4>};
 
 This command is similar to 'warp', however, it will not refer to the
 invoking character, but instead, all characters within a specified area,
@@ -4159,7 +4159,7 @@ By using the optional x4 and y4 parameters, the destination coordinates
 will be a random place within the defined x3/y3-x4/y4 square.
 
 Like 'warp', areawarp will also explicitly warp characters randomly into
-the current map if you give the 'to map name' as "Random".
+the current map if you give the 'to nome do mapa' as "Random".
 
 See also 'warp'.
 
@@ -4229,7 +4229,7 @@ warpguild "prontera",x,y,Guild_ID;
 
 ---------------------------------------
 
-*warppartner("<map name>",<x>,<y>);
+*warppartner("<nome do mapa>",<x>,<y>);
 
 This function will find the invoking character's marriage partner, if any,
 and warp them to the map and coordinates given. Go kidnap that spouse. :)
@@ -4239,11 +4239,11 @@ character is not married, or if there's no invoking character (no RID).
 
 ---------------------------------------
 
-*savepoint "<map name>",<x>,<y>;
+*savepoint "<nome do mapa>",<x>,<y>;
 
 This command saves where the invoking character will return to upon
 'return to save point', if dead or in some other cases. The two versions
-are equivalent. Map name, X coordinate and Y coordinate should be
+are equivalent. nome do mapa, X coordinate and Y coordinate should be
 perfectly obvious. This ignores any and all map flags, and can make a
 character respawn where no teleportation is otherwise possible.
 
@@ -4542,7 +4542,7 @@ sprites, which is essential for making custom headgear.
 
 Since a lot of people have different palettes for hair and clothes, it's
 impossible to tell you what all the color numbers are. If you want a
-serious example, there is a Stylist script inside the default Hercules
+serious example, there is a Stylist script inside the default Cronus
 installation that you can look at: 'npc/custom/stylist.txt'
 
 ---------------------------------------
@@ -4568,10 +4568,10 @@ due to a wall), the character is pushed only up to the obstacle.
 
 This command will return the SVN revision number or Git SHA-1 hash the
 server is currently running on (depends on whether you used a SVN or Git
-client for getting Hercules).
+client for getting Cronus).
 
 	if ( get_version() >= 15000 )
-		mes "Welcome to Hercules!";
+		mes "Welcome to Cronus!";
 
 ---------------------------------------
 
@@ -4880,28 +4880,28 @@ Note: 'delitem' in an NPC script can still remove rental items.
 
 ---------------------------------------
 
-*makeitem <item id>,<amount>,"<map name>",<X>,<Y>;
-*makeitem "<item name>",<amount>,"<map name>",<X>,<Y>;
+*makeitem <item id>,<amount>,"<nome do mapa>",<X>,<Y>;
+*makeitem "<item name>",<amount>,"<nome do mapa>",<X>,<Y>;
 
 This command will create an item lying around on a specified map in the
 specified location.
 
 	itemid   - Found in 'db/(pre-)re/item_db.txt'
 	amount   - Amount you want produced
-	map name - The map name
+	nome do mapa - The nome do mapa
 	X        - The X coordinate
 	Y        - The Y coordinate.
 
 This item will still disappear just like any other dropped item. Like
 'getitem', it also accepts an 'english name' field from the database and
 creates apples if the name isn't found.
-If the map name is given as "this", the map the invoking character is on
+If the nome do mapa is given as "this", the map the invoking character is on
 will be used.
 
 ---------------------------------------
 
-*cleanarea "<map name>",<x1>,<y1>,<x2>,<y2>;
-*cleanmap "<map name>";
+*cleanarea "<nome do mapa>",<x1>,<y1>,<x2>,<y2>;
+*cleanmap "<nome do mapa>";
 
 These commands will clear all items lying on the ground on the specified
 map, either within the x1/y1-x2/y2 rectangle or across the entire map.
@@ -5869,8 +5869,8 @@ Examples:
 //=====================================
 ---------------------------------------
 
-*monster     "<map name>",<x>,<y>,"<name to show>",<mob id>,<amount>{,"<event label>"{,<size>{,<ai>}}};
-*areamonster "<map name>",<x1>,<y1>,<x2>,<y2>,"<name to show>",<mob id>,<amount>{,"<event label>"{,<size>{,<ai>}}};
+*monster     "<nome do mapa>",<x>,<y>,"<name to show>",<mob id>,<amount>{,"<event label>"{,<size>{,<ai>}}};
+*areamonster "<nome do mapa>",<x1>,<y1>,<x2>,<y2>,"<name to show>",<mob id>,<amount>{,"<event label>"{,<size>{,<ai>}}};
 
 This command will spawn a monster on the specified coordinates on the
 specified map. If the script is invoked by a character, a special map
@@ -5962,11 +5962,11 @@ For more examples see just about any official 2-1 or 2-2 job quest script.
 
 ---------------------------------------
 
-*areamobuseskill "<map name>",<x>,<y>,<range>,<mob id>,<skill id>,<skill level>,<cast time>,<cancelable>,<emotion>,<target type>;
-*areamobuseskill "<map name>",<x>,<y>,<range>,<mob id>,"<skill name>",<skill level>,<cast time>,<cancelable>,<emotion>,<target type>;
+*areamobuseskill "<nome do mapa>",<x>,<y>,<range>,<mob id>,<skill id>,<skill level>,<cast time>,<cancelable>,<emotion>,<target type>;
+*areamobuseskill "<nome do mapa>",<x>,<y>,<range>,<mob id>,"<skill name>",<skill level>,<cast time>,<cancelable>,<emotion>,<target type>;
 
 This command will make all monsters of the specified mob ID in the
-specified area use the specified skill. Map name, x, and y define the
+specified area use the specified skill. nome do mapa, x, and y define the
 center of the area, which extending <range> cells in each direction (ex: a
 range of 3 would create a 7x7 square). The skill can be specified by skill
 ID or name. <cast time> is in milliseconds (1000 = 1 second), and the rest
@@ -5987,7 +5987,7 @@ Example:
 
 ---------------------------------------
 
-*killmonster "<map name>","<event label>"{,<type>};
+*killmonster "<nome do mapa>","<event label>"{,<type>};
 
 This command will kill all monsters that were spawned with 'monster' or
 'addmonster' and have a specified event label attached to them. Commonly
@@ -6005,9 +6005,9 @@ result of this command.
 
 ---------------------------------------
 
-*killmonsterall "<map name>"{,<type>};
+*killmonsterall "<nome do mapa>"{,<type>};
 
-This command will kill all monsters on a specified map name, regardless of
+This command will kill all monsters on a specified nome do mapa, regardless of
 how they were spawned or what they are without triggering any event label
 attached to them, unless you specify 1 for type parameter. In this case,
 mob death labels will be allowed totrigger when there is no player. Any
@@ -6032,7 +6032,7 @@ returned. Valid types are:
 
 ---------------------------------------
 
-*mobcount("<map name>","<event label>")
+*mobcount("<nome do mapa>","<event label>")
 
 This function will count all the monsters on the specified map that have a
 given event label and return the number or 0 if it can't find any.
@@ -6049,13 +6049,13 @@ any such map.
 If the event label is given as "all", all monsters will be counted,
 regardless of having any event label attached.
 
-If the map name is given as "this", the map the invoking character is on
+If the nome do mapa is given as "this", the map the invoking character is on
 will be used. If the map is not found, or the invoker is not a character
 while the map is "this", it will return -1.
 
 ---------------------------------------
 
-*clone "<map name>",<x>,<y>,"<event>",<char id>{,<master_id>{,<mode>{,<flag>,<duration>}}}
+*clone "<nome do mapa>",<x>,<y>,"<event>",<char id>{,<master_id>{,<mode>{,<flag>,<duration>}}}
 
 This command creates a monster which is a copy of another player. The
 first four arguments serve the same purpose as in the monster script
@@ -6612,7 +6612,7 @@ idea, but it can be used instead in NPCs to "preview" an announce.
 
 ---------------------------------------
 
-*mapannounce "<map name>","<text>",<flag>{,<fontColor>{,<fontType>{,<fontSize>{,<fontAlign>{,<fontY>}}}}}};
+*mapannounce "<nome do mapa>","<text>",<flag>{,<fontColor>{,<fontType>{,<fontSize>{,<fontAlign>{,<fontY>}}}}}};
 
 This command will work like 'announce' but will only broadcast to
 characters currently residing on the specified map. The flag and optional
@@ -6621,7 +6621,7 @@ flags are ignored.
 
 ---------------------------------------
 
-*areaannounce "<map name>",<x1>,<y1>,<x2>,<y2>,"<text>",<flag>{,<fontColor>{,<fontType>{,<fontSize>{,<fontAlign>{,<fontY>}}}}}};
+*areaannounce "<nome do mapa>",<x1>,<y1>,<x2>,<y2>,"<text>",<flag>{,<fontColor>{,<fontType>{,<fontSize>{,<fontAlign>{,<fontY>}}}}}};
 
 This command works like 'announce' but will only broadcast to characters
 residing in the specified x1/y1-x2/y2 rectangle on the map given. The
@@ -6660,7 +6660,7 @@ In the OnBuyItem, two arrays are set (@bought_nameid and
 and the amount sold of it. Same goes for the OnSellItem label, only the
 variables are named different (@sold_nameid, @sold_quantity, @sold_refine,
 @sold_attribute, @sold_identify, @sold_card1, @sold_card2, @sold_card3,
-@sold_card4). An example on a shop comes with Hercules, and can be found
+@sold_card4). An example on a shop comes with Cronus, and can be found
 in the doc/sample/npc_dynamic_shop.txt file.
 
 This example shows how to use the labels and their set variables to create
@@ -6827,13 +6827,13 @@ The valid information types are:
 
 ---------------------------------------
 
-*warpwaitingpc "<map name>",<x>,<y>{,<number of people>};
+*warpwaitingpc "<nome do mapa>",<x>,<y>{,<number of people>};
 
 This command will warp the amount of characters equal to the trigger
 number of the waiting room chat attached to the NPC object running this
 command to the specified map and coordinates, kicking them out of the
 chat. Those waiting the longest will get warped first. It can also do a
-random warp on the same map ("Random" instead of map name) and warp to the
+random warp on the same map ("Random" instead of nome do mapa) and warp to the
 save point ("SavePoint").
 
 The list of characters to warp is taken from the list of the chat room
@@ -6862,7 +6862,7 @@ This command kicks everybody out of a specified waiting room chat.
 
 ---------------------------------------
 
-*setmapflagnosave "<map name>","<alternate map name>",<x>,<y>;
+*setmapflagnosave "<nome do mapa>","<alternate nome do mapa>",<x>,<y>;
 
 This command sets the 'nosave' flag for the specified map and also gives
 an alternate respawn-upon-relogin point.
@@ -6874,7 +6874,7 @@ to the coordinates specified.
 
 ---------------------------------------
 
-*setmapflag "<map name>",<flag>{,<val>};
+*setmapflag "<nome do mapa>",<flag>{,<val>};
 
 This command marks a specified map with a map flag given. Map flags alter
 the behavior of the map, you can see the list of the available ones in
@@ -6895,14 +6895,14 @@ may be a number or a string depending on the mapflag in question.
 
 ---------------------------------------
 
-*removemapflag "<map name>",<flag>;
+*removemapflag "<nome do mapa>",<flag>;
 
 This command removes a mapflag from a specified map.
 See 'setmapflag' for a list of mapflags.
 
 ---------------------------------------
 
-*getmapflag("<map name>",<flag>)
+*getmapflag("<nome do mapa>",<flag>)
 
 This command checks the status of a given mapflag and returns the
 mapflag's state.
@@ -6947,7 +6947,7 @@ Examples:
 This command will collect all characters located on the From map and warp
 them wholesale to the same point on the To map, or randomly distribute
 them there if the coordinates are zero. "Random" is understood as a
-special To map name and will mean randomly shuffling everyone on the same
+special To nome do mapa and will mean randomly shuffling everyone on the same
 map.
 
 Optionally, a type and ID can be specified. Available types are:
@@ -6967,7 +6967,7 @@ Example:
 //=====================================
 ---------------------------------------
 
-*maprespawnguildid "<map name>",<guild id>,<flag>;
+*maprespawnguildid "<nome do mapa>",<guild id>,<flag>;
 
 This command goes through the specified map and for each player and
 monster found there does stuff.
@@ -7006,8 +7006,8 @@ time-triggering label.
 
 ---------------------------------------
 
-*gvgon "<map name>";
-*gvgoff "<map name>";
+*gvgon "<nome do mapa>";
+*gvgoff "<nome do mapa>";
 
 These commands will turn GVG mode for the specified maps on and off,
 setting up appropriate map flags. In GVG mode, maps behave as if during
@@ -7035,7 +7035,7 @@ which returns a guild id:
 
 ---------------------------------------
 
-*guardian "<map name>",<x>,<y>,"<name to show>",<mob id>{,"<event label>"{,<guardian index>}};
+*guardian "<nome do mapa>",<x>,<y>,"<name to show>",<mob id>{,"<event label>"{,<guardian index>}};
 
 This command is roughly equivalent to 'monster', but is meant to be used
 with castle guardian monsters and will only work with them. It will set
@@ -7049,13 +7049,13 @@ guardianinfo.
 
 ---------------------------------------
 
-*guardianinfo("<map name>", <guardian number>, <type>);
+*guardianinfo("<nome do mapa>", <guardian number>, <type>);
 
 This function will return various info about the specified guardian, or -1
 if it fails for some reason. It is primarily used in the castle manager
 NPC.
 
-Map name and guardian number (value between 0 and 7) define the target.
+nome do mapa and guardian number (value between 0 and 7) define the target.
 Type indicates what information to return:
  0 - visibility (whether the guardian is installed or not)
  1 - max. hp
@@ -7295,7 +7295,7 @@ of those that actually work may differ greatly between client versions.
 ---------------------------------------
 
 *soundeffect "<effect filename>",<type>;
-*soundeffectall "<effect filename>",<type>{,"<map name>"}{,<x0>,<y0>,<x1>,<y1>};
+*soundeffectall "<effect filename>",<type>{,"<nome do mapa>"}{,<x0>,<y0>,<x1>,<y1>};
 
 These two commands will play a sound effect to either the invoking
 character only ('soundeffect') or multiple characters ('soundeffectall').
@@ -7323,7 +7323,7 @@ You can add your own effects this way, naturally.
 ---------------------------------------
 
 *playbgm "<BGM filename>";
-*playbgmall "<BGM filename>"{,"<map name>"{,<x0>,<y0>,<x1>,<y1>}};
+*playbgmall "<BGM filename>"{,"<nome do mapa>"{,<x0>,<y0>,<x1>,<y1>}};
 
 These two commands will play a Background Music to either the invoking
 character only ('playbgm') or multiple characters ('playbgmall').
@@ -7332,14 +7332,14 @@ BGM filename is the filename in /BGM/ folder. It has to be in .mp3
 extension, but it's not required to specify the extension in the script.
 
 If coordinates are omitted, BGM will be broadcasted on the entire map. If
-the map name is also omitted the BGM will be played for the entire server.
+the nome do mapa is also omitted the BGM will be played for the entire server.
 
 You can add your own BGMs this way, naturally.
 
 ---------------------------------------
 
-*pvpon "<map name>";
-*pvpoff "<map name>";
+*pvpon "<nome do mapa>";
+*pvpoff "<nome do mapa>";
 
 These commands will turn PVP mode for the specified maps on and off.
 Beside setting the flags referred to in 'setmapflag', 'pvpon' will also
@@ -7688,7 +7688,7 @@ Example:
 
 Returns distance between 2 points.
 
-Note: When Hercules is configured to use circular areas, the Euclidean distance
+Note: When Cronus is configured to use circular areas, the Euclidean distance
 is returned, otherwise the Chebyshev distance. The value is truncated to
 integer.
 
@@ -7937,7 +7937,7 @@ Characters not of the alphabelt will return 0.
 
 Example:
 
-	charisupper("Hercules", 0); //returns 1
+	charisupper("Cronus", 0); //returns 1
 
 ---------------------------------------
 
@@ -7990,7 +7990,7 @@ Example:
 C style sprintf. The resulting string is returned same as in PHP. All C
 format specifiers are supported except %n. For more info check sprintf
 function at www.cplusplus.com
-Number of params is only limited by Hercules' script engine.
+Number of params is only limited by Cronus' script engine.
 
 Example:
 	.@format$ = "The %s contains %d monkeys";
@@ -8006,7 +8006,7 @@ Example:
 
 C style sscanf. All C format specifiers are supported.
 More info: sscanf @ www.cplusplus.com. The number of params is only
-limited by Hercules' script engine.
+limited by Cronus' script engine.
 
 Example:
 	sscanf("This is a test: 42 foobar", "This is a test: %d %s", .@num, .@str$);
@@ -8204,7 +8204,7 @@ current invoking character.
 
 ---------------------------------------
 
-*setcell "<map name>",<x1>,<y1>,<x2>,<y2>,<type>,<flag>;
+*setcell "<nome do mapa>",<x1>,<y1>,<x2>,<y2>,<type>,<flag>;
 
 Each map cell has several 'flags' that specify the properties of that cell.
 These include terrain properties (walkability, shootability, presence of
@@ -8247,7 +8247,7 @@ remove a nonwalkable row of cells after the barricade mobs.
 
 ---------------------------------------
 
-*checkcell ("<map name>",<x>,<y>,<type>);
+*checkcell ("<nome do mapa>",<x>,<y>,<type>);
 
 This command will return 1 or 0, depending on whether the specified cell
 has the 'type' flag set or not. There are various types to check, all
@@ -8286,7 +8286,7 @@ Example:
 
 ---------------------------------------
 
-*setwall "<map name>",<x>,<y>,<size>,<dir>,<shootable>,"<name>";
+*setwall "<nome do mapa>",<x>,<y>,<size>,<dir>,<shootable>,"<name>";
 *delwall "<name>";
 
 Creates an invisible wall, an array of "setcell" starting from x,y and
@@ -8342,15 +8342,15 @@ is found the command halts the script execution.
 
 ---------------------------------------
 
-*instance_attachmap("<map name>",<instance id>{,<use base name>{,"<new map name>"}});
+*instance_attachmap("<nome do mapa>",<instance id>{,<use base name>{,"<new nome do mapa>"}});
 
-Attaches the map "<map name>" to the instance specified with
+Attaches the map "<nome do mapa>" to the instance specified with
 <instance id>. The optional parameter specifies, whether a map requires
 emulation for instancing (1) or not (0 = default). if use base name is specified,
-and "<new map name>" too the server will instance the map under the "<new map name>",
+and "<new nome do mapa>" too the server will instance the map under the "<new nome do mapa>",
 name.
 
-Returns the resulting map name on success or an empty string on failure.
+Returns the resulting nome do mapa on success or an empty string on failure.
 
 Example:
 	instance_attachmap("prontera", .@instance_id,1,"via");
@@ -8358,9 +8358,9 @@ Example:
 
 ---------------------------------------
 
-*instance_detachmap "<map name>"{,<instance id>};
+*instance_detachmap "<nome do mapa>"{,<instance id>};
 
-Detach the map "<map name>" to the instance with the <instance id>. If no
+Detach the map "<nome do mapa>" to the instance with the <instance id>. If no
 ID is specified, the instance the script is attached to is used. If in the
 end no instance_id is found the command halts the script execution.
 
@@ -8396,20 +8396,20 @@ is found the command halts the script execution.
 
 ---------------------------------------
 
-*has_instance("<map name>"{,<instance id>});
+*has_instance("<nome do mapa>"{,<instance id>});
 
 Checks whether or not the given map belongs to specified instance. If no
 ID is specified, the instance the script is attached to is used. If the
 script is not attached to an instance, it'll try to check whether the,
 player attached to the script possesses an instance with a map matching
-"<map name>". If in the end no instance_id is found the command halts the,
+"<nome do mapa>". If in the end no instance_id is found the command halts the,
 script execution.
 
 Returns name of the instanced map on success, otherwise an empty string.
 
 ---------------------------------------
 
-*has_instance2("<map name>");
+*has_instance2("<nome do mapa>");
 
 Same as has_instance, with exception it returns the instance id of the map,
 as long as the user is assigned to a instance containing that map.
@@ -8423,9 +8423,9 @@ Retrieves the instance id of the script it is being run on.
 
 ---------------------------------------
 
-*instance_warpall "<map name>",<x>,<y>{,<instance id>};
+*instance_warpall "<nome do mapa>",<x>,<y>{,<instance id>};
 
-Warps all players in the instance <instance id> to <map name> at given
+Warps all players in the instance <instance id> to <nome do mapa> at given
 coordinates. If no ID is specified, the instance the script is attached to
 is used. If in the end no instance_id is found the command halts the,
 script execution.
@@ -8504,7 +8504,7 @@ it will use the player's warp destination as the initial respawn point,
 it can of course be modified by using this script command at any point.
 
 ---------------------------------------
-*instance_mapname("<map name>"{,<instance id>})
+*instance_mapname("<nome do mapa>"{,<instance id>})
 
 Returns the unique name of the instanced map. If no instance ID is specified,
 the instance the script is attached to is used. If the script is not attached to
@@ -8725,8 +8725,8 @@ Example:
 
 ----------------------------------------
 
-*bg_monster <Battle Group>,"<map name>",<x>,<y>,"<name to show>",<mob id>,"<event label>";
-*bg_monster(<Battle Group>,"<map name>",<x>,<y>,"<name to show>",<mob id>,"<event label>");
+*bg_monster <Battle Group>,"<nome do mapa>",<x>,<y>,"<name to show>",<mob id>,"<event label>";
+*bg_monster(<Battle Group>,"<nome do mapa>",<x>,<y>,"<name to show>",<mob id>,"<event label>");
 
 Similar to monster script command.
 Spawn a monster with allegiance to the given battle group.
@@ -8801,7 +8801,7 @@ following:
 
 ----------------------------------------
 
-*bg_getareausers(<battle group>,<map name>,<x0>,<y0>,<x1>,<y1>);
+*bg_getareausers(<battle group>,<nome do mapa>,<x0>,<y0>,<x1>,<y1>);
 
 Retrieves amount of players belonging to given battle group on given map
 within an specified rectangular area.
