@@ -1192,9 +1192,9 @@ int pet_skill_support_timer(int tid, int64 tick, int id, intptr_t data) {
 int read_petdb()
 {
 	#ifdef RENEWAL // ** New DB **
-		const char *filename[] = {"Summon_DB/Pet_RE.txt","Summon_DB/PetDB2.txt"};
+		const char *filename[] = {"Summon_DB/Pet_RE.txt","Summon_DB/Pet_DB2.txt"};
 	#else
-		const char *filename[] = {"Summon_DB/Pet_PRE.txt","Summon_DB/PetDB2.txt"};
+		const char *filename[] = {"Summon_DB/Pet_PRE.txt","Summon_DB/Pet_DB2.txt"};
 	#endif
 	int i,j;
 

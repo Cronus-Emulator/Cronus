@@ -1,0 +1,62 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     DB -> Pets Adicionais                     ||
+//===============================================================||
+// - Banco de Dados dos Bichinhos de Estimação Adicionais		 ||
+//===============================================================||
+// - Estrutura do banco de dados:								 ||
+//===============================================================//
+// MobID,Name,JName,LureID,EggID,EquipID,FoodID,Fullness,HungryDelay,R_Hungry,R_Full,Intimate,Die,Capture,Speed,S_Performance,talk_convert_class,attack_rate,defence_attack_rate,change_target_rate,pet_script,loyal_script
+//
+// 01. MobID			ID do bicho de estimação.
+// 02. Name				Nome do bichinho a ser definido no banco de dados.
+// 03. JName			O nome de exibição após o ovo ser chocado.
+// 04. LureID			ID do Item de Captura.
+// 05. EggID			ID do Ovo de Estimação.
+// 06. EquipID			ID do Acessório do Bichinho.
+// 07. FoodID			ID da Comida.
+// 08. Fullness			A quantidade de Fome decrescida a cada [HungryDelay] segundos.
+// 09. HungryDelay		Tempo para que a Fome seja reduzida em [Fullness] após alimentar o bichinho. (Padrão: 60s)
+// 10. R_Hungry			Quantidade de Lealdade acrescida após alimentar.
+// 11. R_Full			Quantidade de Lealdade descrescida após alimentar exageradamente.
+// 12. Intimate			Quantidade de Lealdade inicial do bichinho.
+// 13. Die				Quantidade de Lealdade decrescida quando o dono morre.
+// 14. Capture			Chance de captura (10000 = 100%).
+// 15. Speed			Velocidade de movimento. (Padrão: 150)
+// 16. S_Performance		Performance Especial. (Sim = 1, Não = 0)
+// 17. talk_convert_class	Desabilita fala do animal (invés de falar eles usam o emotion /!.)
+// 18. attack_rate			Chance de que o bichinho ataque (exige pelo menos lealdade de [pet_support_min_friendly (definido na battle)].
+// 19. defence_attack_rate	Chance de que o bichinho revide quando o dono esteje sendo atacado (exige pelo menos lealdade de [pet_support_min_friendly (definido na battle)].
+// 20. change_target_rate	Chance de que o bichinho mude seu alvo de ataque.
+// 21. pet_script			Script ao ser executado quando o ovo do bichinho é chocado.
+// 22. loyal_script			Script ao ser executado quando o bichinho atinge certo nível de lealdade (exige pelo menos lealdade de [pet_support_min_friendly (definido na battle)]).
+//NOTA: O valor máximo (100%) de attack_rate, defense_rate & change_target_rate é 10000.
+
+//In theory you can use any valid script, but it is run only once upon pet
+//loading, so it is recommended you use the specific pet scripts:
+
+//petskillattack skillid, skilllv, hits, rate, bonusrate
+//Skill attack that triggers while the pet is attacking. Rate is the base
+//chance of execution per attack. Bonusrate is an additional success rate when
+//intimacy reaches max. If hits is specified and different than 0, it will make
+//the pet cast the skill with a fixed amount of damage inflicted and the
+//specified number of hits. A value of zero uses the skill's defaults.
+
+//petskillsupport skillid, skilllv, delay, hp%, sp%
+//Casts a support skill when the health levels are below the specified hp% and
+//sp%. Delay is the minimum time in seconds before the skill can be cast again
+
+//petrecovery type, delay: Cures the "type" status effect after "delay" seconds
+
+//petskillbonus type, value, duration, delay
+//Gives bonus stats. Type is the stat to increase (bStr, bLuk), value is the
+//amount by which it is increased, duration signals how long the bonus lasts
+//delay is the time elapsed after the bonus ends and before it starts again.
+
+//A single pet can have petloot, petskillbonus, petskillattack and
+//petskillsupport at the same time, but only one of each.
