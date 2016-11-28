@@ -4367,13 +4367,13 @@ bool mob_get_const(const config_setting_t *it, int *value)
 }
 
 /*==========================================
- * mob_db.txt reading
+ * Leitura mob_db.conf
  *------------------------------------------*/
 void mob_readdb(void) {
 	#ifdef RENEWAL // [ New DB ]
-		const char *filename[] = { "Mob_DB/Mob_RE.conf", "MobDB2.conf", };
+		const char *filename[] = { "Mob_DB/Mob_RE.conf", "Mob_DB/Mob_DB2.conf", };
 	#else
-		const char *filename[] = { "Mob_DB/Mob_PRE.conf", "MobDB2.conf", };
+		const char *filename[] = { "Mob_DB/Mob_PRE.conf", "Mob_DB/Mob_DB2.conf", };
 	#endif
 	int i;
 
