@@ -62,7 +62,6 @@
 	#include <sys/time.h>
 #endif
 
-struct script_interface script_s;
 struct script_interface *script;
 
 static inline int GETVALUE(const unsigned char* buf, int i) {
@@ -74,28 +73,7 @@ static inline void SETVALUE(unsigned char* buf, int i, int n) {
 	buf[i+2] = GetByte(n, 2);
 }
 
-static inline void script_string_buf_ensure(struct script_string_buf *buf, size_t ensure) {
-	if( buf->pos+ensure >= buf->size ) {
-		do {
-			buf->size += 512;
-		} while ( buf->pos+ensure >= buf->size );
-		RECREATE(buf->ptr, char, buf->size);
-	}
-}
-
-static inline void script_string_buf_addb(struct script_string_buf *buf,uint8 b) {
-	if( buf->pos+1 >= buf->size ) {
-		buf->size += 512;
-		RECREATE(buf->ptr, char, buf->size);
-	}
-	buf->ptr[buf->pos++] = b;
-}
-
-static inline void script_string_buf_destroy(struct script_string_buf *buf) {
-	if( buf->ptr )
-		aFree(buf->ptr);
-	memset(buf,0,sizeof(struct script_string_buf));
-}
+struct script_interface script_s;
 
 const char* script_op2name(int op) {
 #define RETURN_OP_NAME(type) case type: return #type
@@ -115,7 +93,6 @@ const char* script_op2name(int op) {
 	RETURN_OP_NAME(C_USERFUNC_POS);
 
 	RETURN_OP_NAME(C_REF);
-	RETURN_OP_NAME(C_LSTR);
 
 	// operadores
 	RETURN_OP_NAME(C_OP3);
@@ -792,30 +769,15 @@ const char* parse_callfunc(const char* p, int require_paren, int is_custom)
 	char *arg = NULL;
 	char null_arg = '\0';
 	int func;
-	bool nested_call = false, macro = false;
 
 	// is need add check for arg null pointer below?
 	func = script->add_word(p);
 	if( script->str_data[func].type == C_FUNC ) {
-		/** only when unset (-1), valid values are >= 0 **/
-		if( script->syntax.last_func == -1 )
-			script->syntax.last_func = script->str_data[func].val;
-		else { //Nested function call
-			script->syntax.nested_call++;
-			nested_call = true;
-
-			if( script->str_data[func].val == script->buildin_lang_macro_offset ) {
-				script->syntax.lang_macro_active = true;
-				macro = true;
-			}
-		}
-
-		if( !macro ) {
+			
 			// buildin function
 			script->addl(func);
 			script->addc(C_ARG);
-		}
-
+		
 		arg = script->buildin[script->str_data[func].val];
 		if (script->str_data[func].deprecated)
 			DeprecationWarning(p);
@@ -899,19 +861,10 @@ const char* parse_callfunc(const char* p, int require_paren, int is_custom)
 		if( *p != ')' )
 			disp_error_message("parse_callfunc: esperado ')' para fechar lista de argumentos",p);
 		++p;
-
-		if( script->str_data[func].val == script->buildin_lang_macro_offset )
-			script->syntax.lang_macro_active = false;
 	}
-
-	if( nested_call )
-		script->syntax.nested_call--;
-
-	if( !script->syntax.nested_call )
-		script->syntax.last_func = -1;
-
-	if( !macro )
-		script->addc(C_FUNC);
+	
+	script->addc(C_FUNC);
+	
 	return p;
 }
 
@@ -1139,24 +1092,6 @@ bool is_number(const char *p) {
 	return false;
 }
 
-/**
- *
- **/
-int script_string_dup(char *str) {
-	size_t len = strlen(str);
-	int pos = script->string_list_pos;
-
-	while( pos+len+1 >= script->string_list_size ) {
-		script->string_list_size += (1024*1024)/2;
-		RECREATE(script->string_list,char,script->string_list_size);
-	}
-
-	safestrncpy(script->string_list+pos, str, len+1);
-	script->string_list_pos += len+1;
-
-	return pos;
-}
-
 /*==========================================
  * Analysis section
  *------------------------------------------*/
@@ -1200,10 +1135,8 @@ const char* parse_simpleexpr(const char *p)
 		script->addi((int)lli); // Cast is safe, as it's already been checked for overflows
 		p=np;
 	} else if(*p=='"') {
+		script->addc(C_STR);
 		struct string_translation *st = NULL;
-		const char *start_point = p;
-		bool duplicate = true;
-		struct script_string_buf *sbuf = &script->parse_simpleexpr_str;
 
 		do {
 			p++;
@@ -1215,127 +1148,19 @@ const char* parse_simpleexpr(const char *p)
 					if( n != 1 )
 						ShowDebug("parse_simpleexpr: cumprimento inesperado %d apos unescape (\"%.*s\" -> %.*s)\n", (int)n, (int)len, p, (int)n, buf);
 					p += len;
-					script_string_buf_addb(sbuf, *buf);
+					script->addb(*buf);
 					continue;
 				} else if( *p == '\n' ) {
 					disp_error_message("parse_simpleexpr: nova linha inesperada @ string",p);
 				}
-				script_string_buf_addb(sbuf, *p++);
+				script->addb(*p++);
 			}
 			if(!*p)
 				disp_error_message("parse_simpleexpr: fim de arquivo inesperado @ string",p);
 			p++; //'"'
 			p = script->skip_space(p);
 		} while( *p && *p == '"' );
-
-		script_string_buf_addb(sbuf, 0);
-
-		if (!(script->syntax.translation_db && (st = strdb_get(script->syntax.translation_db, sbuf->ptr)) != NULL)) {
-			script->addc(C_STR);
-
-			if( script->pos+sbuf->pos >= script->size ) {
-				do {
-					script->size += SCRIPT_BLOCK_SIZE;
-				} while( script->pos+sbuf->pos >= script->size );
-				RECREATE(script->buf,unsigned char,script->size);
-			}
-
-			memcpy(script->buf+script->pos, sbuf->ptr, sbuf->pos);
-			script->pos += sbuf->pos;
-
-		} else {
-			int expand = sizeof(int) + sizeof(uint8);
-			unsigned char j;
-			unsigned int st_cursor = 0;
-
-			script->addc(C_LSTR);
-
-			expand += (sizeof(char*) + sizeof(uint8)) * st->translations;
-
-			while( script->pos+expand >= script->size ) {
-				script->size += SCRIPT_BLOCK_SIZE;
-				RECREATE(script->buf,unsigned char,script->size);
-			}
-
-			*((int *)(&script->buf[script->pos])) = st->string_id;
-			*((uint8 *)(&script->buf[script->pos + sizeof(int)])) = st->translations;
-
-			script->pos += sizeof(int) + sizeof(uint8);
-
-			for(j = 0; j < st->translations; j++) {
-				*((uint8 *)(&script->buf[script->pos])) = RBUFB(st->buf, st_cursor);
-				*((char **)(&script->buf[script->pos+sizeof(uint8)])) = &st->buf[st_cursor + sizeof(uint8)];
-				script->pos += sizeof(char*) + sizeof(uint8);
-				st_cursor += sizeof(uint8);
-				while(st->buf[st_cursor++]);
-				st_cursor += sizeof(uint8);
-			}
-		}
-
-		/* When exporting we don't know what is a translation and what isn't */
-		if( script->lang_export_fp && sbuf->pos > 1 ) {//sbuf->pos will always be at least 1 because of the '\0'
-			if( !script->syntax.strings ) {
-				script->syntax.strings = strdb_alloc(DB_OPT_DUP_KEY|DB_OPT_ALLOW_NULL_DATA, 0);
-			}
-
-			if( !strdb_exists(script->syntax.strings,sbuf->ptr) ) {
-				strdb_put(script->syntax.strings, sbuf->ptr, NULL);
-				duplicate = false;
-			}
-		}
-
-		if( script->lang_export_fp && !duplicate &&
-			( ( ( script->syntax.last_func == script->buildin_mes_offset ||
-				 script->syntax.last_func == script->buildin_select_offset ) && !script->syntax.nested_call
-				) || script->syntax.lang_macro_active ) ) {
-			const char *line_start = start_point;
-			const char *line_end = start_point;
-			struct script_string_buf *lbuf = &script->lang_export_line_buf;
-			struct script_string_buf *ubuf = &script->lang_export_unescaped_buf;
-			size_t line_length, cursor;
-
-			while( line_start > script->parser_current_src ) {
-				if( *line_start != '\n' )
-					line_start--;
-				else
-					break;
-			}
-
-			while( *line_end != '\n' && *line_end != '\0' )
-				line_end++;
-
-			line_length = (size_t)(line_end - line_start);
-			if( line_length > 0 ) {
-				script_string_buf_ensure(lbuf,line_length + 1);
-
-				memcpy(lbuf->ptr, line_start, line_length);
-				lbuf->pos = line_length;
-				script_string_buf_addb(lbuf, 0);
-
-				normalize_name(lbuf->ptr, "\r\n\t ");
-			}
-
-			for(cursor = 0; cursor < sbuf->pos; cursor++) {
-				if( sbuf->ptr[cursor] == '"' )
-					script_string_buf_addb(ubuf, '\\');
-				script_string_buf_addb(ubuf, sbuf->ptr[cursor]);
-			}
-			script_string_buf_addb(ubuf, 0);
-
-			fprintf(script->lang_export_fp, "#: %s\n"
-					"# %s\n"
-					"msgctxt \"%s\"\n"
-					"msgid \"%s\"\n"
-					"msgstr \"\"\n",
-					script->parser_current_file ? script->parser_current_file : "Arquivo Desconhecido",
-					lbuf->ptr,
-					script->parser_current_npc_name ? script->parser_current_npc_name : "NPC Desconhecido",
-					ubuf->ptr
-			);
-			lbuf->pos = 0;
-			ubuf->pos = 0;
-		}
-		sbuf->pos = 0;
+			script->addb(0);
 	} else {
 		int l;
 		const char* pv;
@@ -2413,21 +2238,7 @@ struct script_code* parse_script(const char *src,const char *file,int line,int o
 	if( src == NULL )
 		return NULL;// empty script
 
-	if( script->parse_cleanup_timer_id == INVALID_TIMER ) {
-		script->parse_cleanup_timer_id = timer->add(timer->gettick() + 10, script->parse_cleanup_timer, 0, 0);
-	}
-
-	if( script->syntax.strings ) /* used only when generating translation file */
-		db_destroy(script->syntax.strings);
-
 	memset(&script->syntax,0,sizeof(script->syntax));
-	script->syntax.last_func = -1;/* as valid values are >= 0 */
-	if( script->parser_current_npc_name ) {
-		if( !script->translation_db )
-			script->load_translations();
-		if( script->translation_db )
-			script->syntax.translation_db = strdb_get(script->translation_db, script->parser_current_npc_name);
-	}
 
 	if( !script->buf ) {
 		script->buf = (unsigned char *)aMalloc(SCRIPT_BLOCK_SIZE*sizeof(unsigned char));
@@ -4225,33 +4036,6 @@ void run_script_main(struct script_state *st) {
 				script->push_str(stack,C_CONSTSTR,(char*)(st->script->script_buf+st->pos));
 				while(st->script->script_buf[st->pos++]);
 				break;
-			case C_LSTR:
-			{
-				int string_id = *((int *)(&st->script->script_buf[st->pos]));
-				uint8 translations = *((uint8 *)(&st->script->script_buf[st->pos+sizeof(int)]));
-				struct map_session_data *lsd = NULL;
-
-				st->pos += sizeof(int) + sizeof(uint8);
-
-				if( (!st->rid || !(lsd = map->id2sd(st->rid)) || !lsd->lang_id) && !map->default_lang_id )
-					script->push_str(stack,C_CONSTSTR,script->string_list+string_id);
-				else {
-					uint8 k, wlang_id = lsd ? lsd->lang_id : map->default_lang_id;
-					int offset = st->pos;
-
-					for(k = 0; k < translations; k++) {
-						uint8 lang_id = *(uint8 *)(&st->script->script_buf[offset]);
-						offset += sizeof(uint8);
-						if( lang_id == wlang_id )
-							break;
-						offset += sizeof(char*);
-					}
-					script->push_str(stack,C_CONSTSTR,
-							( k == translations ) ? script->string_list+string_id : *(char**)(&st->script->script_buf[offset]) );
-				}
-				st->pos += ( ( sizeof(char*) + sizeof(uint8) ) * translations );
-			}
-				break;
 			case C_FUNC:
 				script->run_func(st);
 				if(st->state==GOTO) {
@@ -4664,351 +4448,12 @@ void do_final_script(void) {
 
 	if( script->generic_ui_array )
 		aFree(script->generic_ui_array);
-
-	script->clear_translations(false);
-	script->parser_clean_leftovers();
-
-	if( script->lang_export_file )
-		aFree(script->lang_export_file);
-}
-
-/**
- *
- **/
-uint8 script_add_language(const char *name) {
-	uint8 lang_id = script->max_lang_id;
-
-	RECREATE(script->languages, char *, ++script->max_lang_id);
-	script->languages[lang_id] = aStrdup(name);
-
-	return lang_id;
-}
-/**
- * Goes thru db/translations.conf file
- **/
-void script_load_translations(void) {
-	config_t translations_conf;
-	const char *config_filename = "db/Language/translations.conf"; // **** APLICAÇÃO A REMOVER ****
-	config_setting_t *translations = NULL;
-	int i, size;
-	uint32 total = 0;
-	uint8 lang_id = 0, k;
-
-	if (map->minimal) // No translations in minimal mode
-		return;
-
-	script->translation_db = strdb_alloc(DB_OPT_DUP_KEY, NAME_LENGTH*2+1);
-
-	if( script->languages ) {
-		for(i = 0; i < script->max_lang_id; i++)
-			aFree(script->languages[i]);
-		aFree(script->languages);
-	}
-	script->languages = NULL;
-	script->max_lang_id = 0;
-
-	script->add_language("English");/* 0 is default, which is whatever is in the npc files hardcoded (in our case, English) */
-
-	if (libconfig->read_file(&translations_conf, config_filename)) {
-		ShowError("load_translations: nao pode ler '%s'\n", config_filename);
-		return;
-	}
-
-	if( !(translations = libconfig->lookup(&translations_conf, "translations")) ) {
-		ShowError("load_translations: formato invalido em '%s'\n",config_filename);
-		return;
-	}
-
-	if( script->string_list )
-		aFree(script->string_list);
-
-	script->string_list = NULL;
-	script->string_list_pos = 0;
-	script->string_list_size = 0;
-
-	size = libconfig->setting_length(translations);
-
-	for(i = 0; i < size; i++) {
-		const char *translation_file = libconfig->setting_get_string_elem(translations, i);
-		script->load_translation(translation_file, ++lang_id, &total);
-	}
-	libconfig->destroy(&translations_conf);
-
-	if( total ) {
-		DBIterator *main_iter;
-		DBIterator *sub_iter;
-		DBMap *string_db;
-		struct string_translation *st = NULL;
-		uint32 j = 0;
-
-		CREATE(script->translation_buf, char *, total);
-		script->translation_buf_size = total;
-
-		main_iter = db_iterator(script->translation_db);
-		for( string_db = dbi_first(main_iter); dbi_exists(main_iter); string_db = dbi_next(main_iter) ) {
-			sub_iter = db_iterator(string_db);
-			for( st = dbi_first(sub_iter); dbi_exists(sub_iter); st = dbi_next(sub_iter) ) {
-				script->translation_buf[j++] = st->buf;
-			}
-			dbi_destroy(sub_iter);
-		}
-		dbi_destroy(main_iter);
-	}
-
-	for(k = 0; k < script->max_lang_id; k++) {
-		if( !strcmpi(script->languages[k],map->default_lang_str) ) {
-			break;
-		}
-	}
-
-	if( k == script->max_lang_id ) {
-		ShowError("load_translations: map server default_language configurada como '%s' nao existe uma linguagem carregada\n",map->default_lang_str);
-		map->default_lang_id = 0;
-	} else {
-		map->default_lang_id = k;
-	}
-}
-
-/**
- *
- **/
-const char * script_get_translation_file_name(const char *file) {
-	static char file_name[200];
-	int i, len = (int)strlen(file), last_bar = -1, last_dot = -1;
-
-	for(i = 0; i < len; i++) {
-		if( file[i] == '/' || file[i] == '\\' )
-			last_bar = i;
-		else if ( file[i] == '.' )
-			last_dot = i;
-	}
-
-	if( last_bar != -1 || last_dot != -1 ) {
-		if( last_bar != -1 && last_dot < last_bar )
-			last_dot = -1;
-		safestrncpy(file_name, file+(last_bar >= 0 ? last_bar+1 : 0), ( last_dot >= 0 ? ( last_bar >= 0 ? last_dot - last_bar : last_dot ) : sizeof(file_name) ));
-		return file_name;
-	}
-
-	return file;
-}
-
-/**
- * Parses a individual translation file
- **/
-void script_load_translation(const char *file, uint8 lang_id, uint32 *total) {
-	uint32 translations = 0;
-	char line[1024];
-	char msgctxt[NAME_LENGTH*2+1] = { 0 };
-	DBMap *string_db;
-	size_t i;
-	FILE *fp;
-	struct script_string_buf msgid = { 0 }, msgstr = { 0 };
-
-	if( !(fp = fopen(file,"rb")) ) {
-		ShowError("load_translation: falha ao abrir '%s' para leitura\n",file);
-		return;
-	}
-
-	script->add_language(script->get_translation_file_name(file));
-	if( lang_id >= atcommand->max_message_table )
-		atcommand->expand_message_table();
-
-	while(fgets(line, sizeof(line), fp)) {
-		size_t len = strlen(line), cursor = 0;
-
-		if( len <= 1 )
-			continue;
-
-		if( line[0] == '#' )
-			continue;
-
-		if( strncasecmp(line,"msgctxt \"", 9) == 0 ) {
-			msgctxt[0] = '\0';
-			for(i = 9; i < len - 2; i++) {
-				if( line[i] == '\\' && line[i+1] == '"' ) {
-					msgctxt[cursor] = '"';
-					i++;
-				} else
-					msgctxt[cursor] = line[i];
-				if( ++cursor >= sizeof(msgctxt) - 1 )
-					break;
-			}
-			msgctxt[cursor] = '\0';
-		} else if ( strncasecmp(line, "msgid \"", 7) == 0 ) {
-			msgid.pos = 0;
-			for(i = 7; i < len - 2; i++) {
-				if( line[i] == '\\' && line[i+1] == '"' ) {
-					script_string_buf_addb(&msgid, '"');
-					i++;
-				} else
-					script_string_buf_addb(&msgid, line[i]);
-			}
-			script_string_buf_addb(&msgid,0);
-		} else if ( len > 9 && line[9] != '"' && strncasecmp(line, "msgstr \"",8) == 0 ) {
-			msgstr.pos = 0;
-			for(i = 8; i < len - 2; i++) {
-				if( line[i] == '\\' && line[i+1] == '"' ) {
-					script_string_buf_addb(&msgstr, '"');
-					i++;
-				} else
-					script_string_buf_addb(&msgstr, line[i]);
-			}
-			script_string_buf_addb(&msgstr,0);
-		}
-
-		if( msgctxt[0] && msgid.pos > 1 && msgstr.pos > 1 ) {
-			size_t msgstr_len = msgstr.pos;
-			unsigned int inner_len = 1 + (uint32)msgstr_len + 1; //uint8 lang_id + msgstr_len + '\0'
-
-			if( strcasecmp(msgctxt, "messages.conf") == 0 ) {
-				int k;
-
-				for(k = 0; k < MAX_MSG; k++) {
-					if( atcommand->msg_table[0][k] && strcmpi(atcommand->msg_table[0][k],msgid.ptr) == 0 ) {
-						if( atcommand->msg_table[lang_id][k] )
-							aFree(atcommand->msg_table[lang_id][k]);
-						atcommand->msg_table[lang_id][k] = aStrdup(msgstr.ptr);
-						break;
-					}
-				}
-			} else {
-				struct string_translation *st = NULL;
-
-				if( !( string_db = strdb_get(script->translation_db, msgctxt) ) ) {
-					string_db = strdb_alloc(DB_OPT_DUP_KEY, 0);
-					strdb_put(script->translation_db, msgctxt, string_db);
-				}
-
-				if( !(st = strdb_get(string_db, msgid.ptr) ) ) {
-					CREATE(st, struct string_translation, 1);
-					st->string_id = script->string_dup(msgid.ptr);
-					strdb_put(string_db, msgid.ptr, st);
-				}
-				RECREATE(st->buf, char, st->len + inner_len);
-
-				WBUFB(st->buf, st->len) = lang_id;
-				safestrncpy((char*)WBUFP(st->buf, st->len + 1), msgstr.ptr, msgstr_len + 1);
-
-				st->translations++;
-				st->len += inner_len;
-			}
-			msgctxt[0] = '\0';
-			msgid.pos = msgstr.pos = 0;
-			translations++;
-		}
-	}
-
-	*total += translations;
-
-	fclose(fp);
-
-	script_string_buf_destroy(&msgid);
-	script_string_buf_destroy(&msgstr);
-
-	ShowStatus("Realizada leitura de '"CL_WHITE"%u"CL_RESET"' traducoes em '"CL_WHITE"%s"CL_RESET"'.\n", translations, file);
-}
-
-/**
- *
- **/
-void script_clear_translations(bool reload) {
-	uint32 i;
-
-	if( script->string_list )
-		aFree(script->string_list);
-
-	script->string_list = NULL;
-	script->string_list_pos = 0;
-	script->string_list_size = 0;
-
-	if( script->translation_buf ) {
-		for(i = 0; i < script->translation_buf_size; i++) {
-			aFree(script->translation_buf[i]);
-		}
-		aFree(script->translation_buf);
-	}
-
-	script->translation_buf = NULL;
-	script->translation_buf_size = 0;
-
-	if( script->languages ) {
-		for(i = 0; i < script->max_lang_id; i++)
-			aFree(script->languages[i]);
-		aFree(script->languages);
-	}
-	script->languages = NULL;
-	script->max_lang_id = 0;
-
-	if( script->translation_db ) {
-		script->translation_db->clear(script->translation_db,script->translation_db_destroyer);
-	}
-
-	if( reload )
-		script->load_translations();
-}
-
-/**
- *
- **/
-int script_translation_db_destroyer(DBKey key, DBData *data, va_list ap) {
-	DBMap *string_db = DB->data2ptr(data);
-
-	if( db_size(string_db) ) {
-		struct string_translation *st = NULL;
-		DBIterator *iter = db_iterator(string_db);
-
-		for( st = dbi_first(iter); dbi_exists(iter); st = dbi_next(iter) ) {
-			aFree(st);
-		}
-		dbi_destroy(iter);
-	}
-
-	db_destroy(string_db);
-	return 0;
-}
-
-/**
- *
- **/
-void script_parser_clean_leftovers(void) {
-	if( script->buf )
-		aFree(script->buf);
-
-	script->buf = NULL;
-	script->size = 0;
-
-	if( script->translation_db ) {
-		script->translation_db->destroy(script->translation_db,script->translation_db_destroyer);
-		script->translation_db = NULL;
-	}
-
-	if( script->syntax.strings ) { /* used only when generating translation file */
-		db_destroy(script->syntax.strings);
-		script->syntax.strings = NULL;
-	}
-
-	script_string_buf_destroy(&script->parse_simpleexpr_str);
-	script_string_buf_destroy(&script->lang_export_line_buf);
-	script_string_buf_destroy(&script->lang_export_unescaped_buf);
-}
-
-/**
- * Performs cleanup after all parsing is processed
- **/
-int script_parse_cleanup_timer(int tid, int64 tick, int id, intptr_t data) {
-	script->parser_clean_leftovers();
-
-	script->parse_cleanup_timer_id = INVALID_TIMER;
-
-	return 0;
 }
 
 /*==========================================
  * Initialization
  *------------------------------------------*/
 void do_init_script(bool minimal) {
-	script->parse_cleanup_timer_id = INVALID_TIMER;
 
 	script->st_db = idb_alloc(DB_OPT_BASE);
 	script->userfunc_db = strdb_alloc(DB_OPT_DUP_KEY,0);
@@ -5029,7 +4474,6 @@ void do_init_script(bool minimal) {
 		return;
 
 	mapreg->init();
-	script->load_translations();
 }
 
 int script_reload(void) {
@@ -5062,13 +4506,6 @@ int script_reload(void) {
 	atcommand->binding_count = 0;
 
 	db_clear(script->st_db);
-
-	script->clear_translations(true);
-
-	if( script->parse_cleanup_timer_id != INVALID_TIMER ) {
-		timer->delete(script->parse_cleanup_timer_id,script->parse_cleanup_timer);
-		script->parse_cleanup_timer_id = INVALID_TIMER;
-	}
 
 	mapreg->reload();
 
@@ -13741,7 +13178,7 @@ BUILDIN(recovery)
 			status->revive(&sd->bl, 100, 100);
 		else
 			status_percent_heal(&sd->bl, 100, 100);
-		clif->message(sd->fd,msg_sd(sd,880)); // "You have been recovered!"
+		clif->message(sd->fd,msg_txt(880)); // "You have been recovered!"
 	}
 	mapit->free(iter);
 	return true;
@@ -19134,16 +18571,16 @@ BUILDIN(montransform) {
 			return true;
 
 		if( battle_config.mon_trans_disable_in_gvg && map_flag_gvg2(sd->bl.m) ) {
-			clif->message(sd->fd, msg_sd(sd,1488)); // Transforming into monster is not allowed in Guild Wars.
+			clif->message(sd->fd, msg_txt(1488)); // Transforming into monster is not allowed in Guild Wars.
 			return true;
 		}
 
 		if( sd->disguise != -1 ) {
-			clif->message(sd->fd, msg_sd(sd,1486)); // Cannot transform into monster while in disguise.
+			clif->message(sd->fd, msg_txt(1486)); // Cannot transform into monster while in disguise.
 			return true;
 		}
 
-		sprintf(msg, msg_sd(sd,1485), monster->name); // Traaaansformation-!! %s form!!
+		sprintf(msg, msg_txt(1485), monster->name); // Traaaansformation-!! %s form!!
 		clif->ShowScript(&sd->bl, msg);
 		status_change_end(bl, SC_MONSTER_TRANSFORM, INVALID_TIMER); // Clear previous
 		sc_start2(NULL, bl, SC_MONSTER_TRANSFORM, 100, mob_id, type, tick);
@@ -20085,11 +19522,6 @@ BUILDIN(mergeitem)
 	return true;
 }
 
-/** place holder for the translation macro **/
-BUILDIN(_) {
-	return true;
-}
-
 // declarations that were supposed to be exported from npc_chat.c
 #ifdef PCRE_SUPPORT
 BUILDIN(defpattern);
@@ -20165,9 +19597,6 @@ bool script_add_builtin(const struct script_function *buildin, bool override) {
 		else if( strcmp(buildin->name, "callsub") == 0 ) script->buildin_callsub_ref = n;
 		else if( strcmp(buildin->name, "callfunc") == 0 ) script->buildin_callfunc_ref = n;
 		else if( strcmp(buildin->name, "getelementofarray") == 0 ) script->buildin_getelementofarray_ref = n;
-		else if( strcmp(buildin->name, "mes") == 0 ) script->buildin_mes_offset = script->buildin_count;
-		else if( strcmp(buildin->name, "select") == 0 ) script->buildin_select_offset = script->buildin_count;
-		else if( strcmp(buildin->name, "_") == 0 ) script->buildin_lang_macro_offset = script->buildin_count;
 
 		offset = script->buildin_count;
 
@@ -20781,7 +20210,6 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(channelmes, "ss"),
 		BUILDIN_DEF(showscript, "s?"),
 		BUILDIN_DEF(mergeitem,""),
-		BUILDIN_DEF(_,"s"),
 	};
 	int i, len = ARRAYLENGTH(BUILDIN);
 	RECREATE(script->buildin, char *, script->buildin_count + len); // Pre-alocação para aumento de velocidade
@@ -21216,15 +20644,6 @@ void script_defaults(void) {
 	/* */
 	script->hardcoded_constants = script_hardcoded_constants;
 	script->mapindexname2id = script_mapindexname2id;
-	script->string_dup = script_string_dup;
-	script->load_translations = script_load_translations;
-	script->load_translation = script_load_translation;
-	script->translation_db_destroyer = script_translation_db_destroyer;
-	script->clear_translations = script_clear_translations;
-	script->parse_cleanup_timer = script_parse_cleanup_timer;
-	script->add_language = script_add_language;
-	script->get_translation_file_name = script_get_translation_file_name;
-	script->parser_clean_leftovers = script_parser_clean_leftovers;
 
 	script->run_use_script = script_run_use_script;
 	script->run_item_equip_script = script_run_item_equip_script;

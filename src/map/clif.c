@@ -6482,7 +6482,7 @@ void clif_party_inviteack(struct map_session_data* sd, const char* nick, int res
 
 #if PACKETVER < 20070904
 	if( result == 7 ) {
-		clif->message(fd, msg_sd(sd,3));
+		clif->message(fd, msg_txt(3));
 		return;
 	}
 #endif
@@ -6783,7 +6783,7 @@ void clif_sendegg(struct map_session_data *sd)
 
 	fd=sd->fd;
 	if (battle_config.pet_no_gvg && map_flag_gvg2(sd->bl.m)) { //Disable pet hatching in GvG grounds during Guild Wars [Skotlex]
-		clif->message(fd, msg_sd(sd,866)); // "Pets are not allowed in Guild Wars."
+		clif->message(fd, msg_txt(866)); // "Pets are not allowed in Guild Wars."
 		return;
 	}
 	WFIFOHEAD(fd, MAX_INVENTORY * 2 + 4);
@@ -7267,7 +7267,7 @@ void clif_guild_basicinfo(struct map_session_data *sd) {
 	memcpy(WFIFOP(fd,46),g->name, NAME_LENGTH);
 	memcpy(WFIFOP(fd,70),g->master, NAME_LENGTH);
 
-	safestrncpy((char*)WFIFOP(fd,94),msg_sd(sd,300+guild->checkcastles(g)),16); // "'N' castles"
+	safestrncpy((char*)WFIFOP(fd,94),msg_txt(300+guild->checkcastles(g)),16); // "'N' castles"
 	WFIFOL(fd,110) = 0;  // zeny
 
 	WFIFOSET(fd,packet_len(0x1b6));
@@ -9210,7 +9210,7 @@ void clif_parse_LoadEndAck(int fd, struct map_session_data *sd) {
 	// pet
 	if( sd->pd ) {
 		if( battle_config.pet_no_gvg && map_flag_gvg2(sd->bl.m) ) { //Return the pet to egg. [Skotlex]
-			clif->message(sd->fd, msg_sd(sd,866)); // "Pets are not allowed in Guild Wars."
+			clif->message(sd->fd, msg_txt(866)); // "Pets are not allowed in Guild Wars."
 			pet->menu(sd, 3); //Option 3 is return to egg.
 		} else {
 			map->addblock(&sd->pd->bl);
@@ -9399,7 +9399,7 @@ void clif_parse_LoadEndAck(int fd, struct map_session_data *sd) {
 
 	if( sd->sc.data[SC_MONSTER_TRANSFORM] && battle_config.mon_trans_disable_in_gvg && map_flag_gvg2(sd->bl.m) ){
 		status_change_end(&sd->bl, SC_MONSTER_TRANSFORM, INVALID_TIMER);
-		clif->message(sd->fd, msg_sd(sd,1488)); // Transforming into monster is not allowed in Guild Wars.
+		clif->message(sd->fd, msg_txt(1488)); // Transforming into monster is not allowed in Guild Wars.
 	}
 
 	clif->weather_check(sd);
@@ -10183,11 +10183,11 @@ void clif_parse_WisMessage(int fd, struct map_session_data* sd)
 			if (k < sd->channel_count || channel->join(chan, sd, "", true) == HCS_STATUS_OK) {
 				channel->send(chan,sd,message);
 			} else {
-				clif->message(fd, msg_fd(fd,1402));
+				clif->message(fd, msg_txt(1402));
 			}
 			return;
 		} else if (strcmpi(&chname[1], channel->config->ally_name) == 0) {
-			clif->message(fd, msg_fd(fd,1294)); // You're not allowed to talk on this channel
+			clif->message(fd, msg_txt(1294)); // You're not allowed to talk on this channel
 			return;
 		}
 	}
@@ -10679,10 +10679,10 @@ void clif_noask_sub(struct map_session_data *src, struct map_session_data *targe
 	char output[256];
 	nullpo_retv(src);
 	// Your request has been rejected by autoreject option.
-	msg = msg_sd(src,392);
+	msg = msg_txt(392);
 	clif_disp_onlyself(src, msg, strlen(msg));
 	//Notice that a request was rejected.
-	snprintf(output, 256, msg_sd(target,393+type), src->status.name, 256);
+	snprintf(output, 256, msg_txt(393+type), src->status.name, 256);
 	clif_disp_onlyself(target, output, strlen(output));
 }
 
@@ -11708,7 +11708,7 @@ void clif_parse_CreateParty(int fd, struct map_session_data *sd) {
 
 	if( map->list[sd->bl.m].flag.partylock ) {
 		// Party locked.
-		clif->message(fd, msg_fd(fd,227));
+		clif->message(fd, msg_txt(227));
 		return;
 	}
 	if( battle_config.basic_skill_check && pc->checkskill(sd,NV_BASIC) < 7 ) {
@@ -11728,7 +11728,7 @@ void clif_parse_CreateParty2(int fd, struct map_session_data *sd) {
 
 	if( map->list[sd->bl.m].flag.partylock ) {
 		// Party locked.
-		clif->message(fd, msg_fd(fd,227));
+		clif->message(fd, msg_txt(227));
 		return;
 	}
 	if( battle_config.basic_skill_check && pc->checkskill(sd,NV_BASIC) < 7 ) {
@@ -11748,7 +11748,7 @@ void clif_parse_PartyInvite(int fd, struct map_session_data *sd) {
 
 	if(map->list[sd->bl.m].flag.partylock) {
 		// Party locked.
-		clif->message(fd, msg_fd(fd,227));
+		clif->message(fd, msg_txt(227));
 		return;
 	}
 
@@ -11770,7 +11770,7 @@ void clif_parse_PartyInvite2(int fd, struct map_session_data *sd) {
 
 	if(map->list[sd->bl.m].flag.partylock) {
 		// Party locked.
-		clif->message(fd, msg_fd(fd,227));
+		clif->message(fd, msg_txt(227));
 		return;
 	}
 
@@ -11808,7 +11808,7 @@ void clif_parse_LeaveParty(int fd, struct map_session_data *sd) __attribute__((n
 void clif_parse_LeaveParty(int fd, struct map_session_data *sd) {
 	if(map->list[sd->bl.m].flag.partylock) {
 		// Party locked.
-		clif->message(fd, msg_fd(fd,227));
+		clif->message(fd, msg_txt(227));
 		return;
 	}
 	party->leave(sd);
@@ -11820,7 +11820,7 @@ void clif_parse_RemovePartyMember(int fd, struct map_session_data *sd) __attribu
 void clif_parse_RemovePartyMember(int fd, struct map_session_data *sd) {
 	if(map->list[sd->bl.m].flag.partylock) {
 		// Party locked.
-		clif->message(fd, msg_fd(fd,227));
+		clif->message(fd, msg_txt(227));
 		return;
 	}
 	party->removemember(sd,RFIFOL(fd,2),(char*)RFIFOP(fd,6));
@@ -12591,11 +12591,11 @@ void clif_parse_OpenVending(int fd, struct map_session_data* sd) {
 	if( sd->sc.data[SC_NOCHAT] && sd->sc.data[SC_NOCHAT]->val1&MANNER_NOROOM )
 		return;
 	if( map->list[sd->bl.m].flag.novending ) {
-		clif->message (sd->fd, msg_sd(sd,276)); // "You can't open a shop on this map"
+		clif->message (sd->fd, msg_txt(276)); // "You can't open a shop on this map"
 		return;
 	}
 	if (map->getcell(sd->bl.m, &sd->bl, sd->bl.x, sd->bl.y, CELL_CHKNOVENDING)) {
-		clif->message (sd->fd, msg_sd(sd,204)); // "You can't open a shop on this cell."
+		clif->message (sd->fd, msg_txt(204)); // "You can't open a shop on this cell."
 		return;
 	}
 
@@ -12614,7 +12614,7 @@ void clif_parse_CreateGuild(int fd,struct map_session_data *sd) {
 
 	if(map->list[sd->bl.m].flag.guildlock) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 
@@ -12886,7 +12886,7 @@ bool clif_sub_guild_invite(int fd, struct map_session_data *sd, struct map_sessi
 	nullpo_retr(false, t_sd);
 	if ( map->list[sd->bl.m].flag.guildlock ) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return false;
 	}
 
@@ -12939,11 +12939,11 @@ void clif_parse_GuildLeave(int fd,struct map_session_data *sd) __attribute__((no
 void clif_parse_GuildLeave(int fd,struct map_session_data *sd) {
 	if(map->list[sd->bl.m].flag.guildlock) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 	if( sd->bg_id ) {
-		clif->message(fd, msg_fd(fd,870)); //"You can't leave battleground guilds."
+		clif->message(fd, msg_txt(870)); //"You can't leave battleground guilds."
 		return;
 	}
 
@@ -12956,7 +12956,7 @@ void clif_parse_GuildExpulsion(int fd,struct map_session_data *sd) __attribute__
 void clif_parse_GuildExpulsion(int fd,struct map_session_data *sd) {
 	if( map->list[sd->bl.m].flag.guildlock || sd->bg_id ) {
 		// Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 	guild->expulsion(sd,RFIFOL(fd,2),RFIFOL(fd,6),RFIFOL(fd,10),(char*)RFIFOP(fd,14));
@@ -13009,7 +13009,7 @@ void clif_parse_GuildRequestAlliance(int fd, struct map_session_data *sd) {
 
 	if(map->list[sd->bl.m].flag.guildlock) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 
@@ -13047,7 +13047,7 @@ void clif_parse_GuildDelAlliance(int fd, struct map_session_data *sd) {
 
 	if(map->list[sd->bl.m].flag.guildlock) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 	guild->delalliance(sd,RFIFOL(fd,2),RFIFOL(fd,6));
@@ -13064,7 +13064,7 @@ void clif_parse_GuildOpposition(int fd, struct map_session_data *sd) {
 
 	if(map->list[sd->bl.m].flag.guildlock) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 
@@ -13088,7 +13088,7 @@ void clif_parse_GuildBreak(int fd, struct map_session_data *sd) __attribute__((n
 void clif_parse_GuildBreak(int fd, struct map_session_data *sd) {
 	if( map->list[sd->bl.m].flag.guildlock ) {
 		//Guild locked.
-		clif->message(fd, msg_fd(fd,228));
+		clif->message(fd, msg_txt(228));
 		return;
 	}
 	guild->dobreak(sd,(char*)RFIFOP(fd,2));
@@ -13798,7 +13798,7 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd) {
 
 	// Friend doesn't exist (no player with this name)
 	if (f_sd == NULL) {
-		clif->message(fd, msg_fd(fd,3));
+		clif->message(fd, msg_txt(3));
 		return;
 	}
 
@@ -13815,7 +13815,7 @@ void clif_parse_FriendsListAdd(int fd, struct map_session_data *sd) {
 	// Friend already exists
 	for (i = 0; i < MAX_FRIENDS && sd->status.friends[i].char_id != 0; i++) {
 		if (sd->status.friends[i].char_id == f_sd->status.char_id) {
-			clif->message(fd, msg_fd(fd,871)); //"Friend already exists."
+			clif->message(fd, msg_txt(871)); //"Friend already exists."
 			return;
 		}
 	}
@@ -13911,7 +13911,7 @@ void clif_parse_FriendsListRemove(int fd, struct map_session_data *sd)
 		(sd->status.friends[i].char_id != char_id || sd->status.friends[i].account_id != account_id); i++);
 
 	if (i == MAX_FRIENDS) {
-		clif->message(fd, msg_fd(fd,872)); //"Name not found in list."
+		clif->message(fd, msg_txt(872)); //"Name not found in list."
 		return;
 	}
 
@@ -13936,7 +13936,7 @@ void clif_parse_FriendsListRemove(int fd, struct map_session_data *sd)
 
 	} else { //friend not online -- ask char server to delete from his friendlist
 		if(!chrif->removefriend(char_id,sd->status.char_id)) { // char-server offline, abort
-			clif->message(fd, msg_fd(fd,873)); //"This action can't be performed at the moment. Please try again later."
+			clif->message(fd, msg_txt(873)); //"This action can't be performed at the moment. Please try again later."
 			return;
 		}
 	}
@@ -13949,7 +13949,7 @@ void clif_parse_FriendsListRemove(int fd, struct map_session_data *sd)
 		memcpy(&sd->status.friends[j-1], &sd->status.friends[j], sizeof(sd->status.friends[0]));
 
 	memset(&sd->status.friends[MAX_FRIENDS-1], 0, sizeof(sd->status.friends[MAX_FRIENDS-1]));
-	clif->message(fd, msg_fd(fd,874)); //"Friend removed"
+	clif->message(fd, msg_txt(874)); //"Friend removed"
 
 	WFIFOHEAD(fd,packet_len(0x20a));
 	WFIFOW(fd,0) = 0x20a;
@@ -14846,7 +14846,7 @@ void clif_parse_Mail_send(int fd, struct map_session_data *sd)
 	}
 
 	if( DIFF_TICK(sd->cansendmail_tick, timer->gettick()) > 0 ) {
-		clif->message(sd->fd,msg_sd(sd,875)); //"Cannot send mails too fast!!."
+		clif->message(sd->fd,msg_txt(875)); //"Cannot send mails too fast!!."
 		clif->mail_send(fd, true); // fail
 		return;
 	}
@@ -15137,7 +15137,7 @@ void clif_parse_Auction_register(int fd, struct map_session_data *sd)
 
 	// Auction checks...
 	if( sd->status.inventory[sd->auction.index].bound && !pc_can_give_bound_items(sd) ) {
-		clif->message(sd->fd, msg_sd(sd,293));
+		clif->message(sd->fd, msg_txt(293));
 		clif->auction_message(fd, 2); // The auction has been canceled
 		return;
 	}
@@ -15190,7 +15190,7 @@ void clif_parse_Auction_bid(int fd, struct map_session_data *sd)
 	int bid = RFIFOL(fd,6);
 
 	if( !pc_can_give_items(sd) ) { //They aren't supposed to give zeny [Inkfish]
-		clif->message(sd->fd, msg_sd(sd,246));
+		clif->message(sd->fd, msg_txt(246));
 		return;
 	}
 
@@ -17369,7 +17369,7 @@ void clif_parse_CashShopOpen(int fd, struct map_session_data *sd) __attribute__(
 void clif_parse_CashShopOpen(int fd, struct map_session_data *sd) {
 
 	if (map->list[sd->bl.m].flag.nocashshop) {
-		clif->messagecolor_self(fd, COLOR_RED, msg_fd(fd,1489)); //Cash Shop is disabled in this map
+		clif->messagecolor_self(fd, COLOR_RED, msg_txt(1489)); //Cash Shop is disabled in this map
 		return;
 	}
 
@@ -17414,7 +17414,7 @@ void clif_parse_CashShopBuy(int fd, struct map_session_data *sd) {
 	unsigned int kafra_pay = RFIFOL(fd, 6);// [Ryuuzaki] - These are free cash points (strangely #CASH = main cash currently for us, confusing)
 
 	if (map->list[sd->bl.m].flag.nocashshop) {
-		clif->messagecolor_self(fd, COLOR_RED, msg_fd(fd,1489)); //Cash Shop is disabled in this map
+		clif->messagecolor_self(fd, COLOR_RED, msg_txt(1489)); //Cash Shop is disabled in this map
 		return;
 	}
 
@@ -17844,7 +17844,7 @@ void clif_parse_BankDeposit(int fd, struct map_session_data* sd) {
 	int money;
 
 	if (!battle_config.feature_banking) {
-		clif->messagecolor_self(fd, COLOR_RED, msg_fd(fd,1483));
+		clif->messagecolor_self(fd, COLOR_RED, msg_txt(1483));
 		return;
 	}
 
@@ -17859,7 +17859,7 @@ void clif_parse_BankWithdraw(int fd, struct map_session_data* sd) {
 	int money;
 
 	if (!battle_config.feature_banking) {
-		clif->messagecolor_self(fd, COLOR_RED, msg_fd(fd,1483));
+		clif->messagecolor_self(fd, COLOR_RED, msg_txt(1483));
 		return;
 	}
 
@@ -17873,7 +17873,7 @@ void clif_parse_BankCheck(int fd, struct map_session_data* sd) {
 	struct packet_banking_check p;
 
 	if (!battle_config.feature_banking) {
-		clif->messagecolor_self(fd, COLOR_RED, msg_fd(fd,1483));
+		clif->messagecolor_self(fd, COLOR_RED, msg_txt(1483));
 		return;
 	}
 

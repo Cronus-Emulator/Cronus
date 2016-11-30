@@ -1192,8 +1192,6 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 	sd->vars_ok = false;
 	sd->vars_received = 0x0;
 
-	sd->lang_id = map->default_lang_id;
-
 	//mapa do player
 	if ((i=pc->setpos(sd,sd->status.last_point.map, sd->status.last_point.x, sd->status.last_point.y, CLR_OUTSIGHT)) != 0) {
 		ShowError ("Last_point_map %s - id %d nao encontrado (codigo do erro %d)\n", mapindex_id2name(sd->status.last_point.map), sd->status.last_point.map, i);
@@ -1225,7 +1223,7 @@ bool pc_authok(struct map_session_data *sd, int login_id2, time_t expiration_tim
 
 		if (battle_config.display_version == 1) {
 			char buf[256];
-			sprintf(buf, msg_sd(sd,1295), sysinfo->vcstype(), sysinfo->vcsrevision_src(), sysinfo->vcsrevision_scripts()); // %s revisao '%s' (src) / '%s' (scripts)
+			sprintf(buf, msg_txt(1295), sysinfo->vcstype(), sysinfo->vcsrevision_src(), sysinfo->vcsrevision_scripts()); // %s revisao '%s' (src) / '%s' (scripts)
 			clif->message(sd->fd, buf);
 		}
 
@@ -1401,7 +1399,7 @@ int pc_reg_received(struct map_session_data *sd)
 
 	if (pc_isinvisible(sd)) {
 		sd->vd.class_ = INVISIBLE_CLASS;
-		clif->message(sd->fd, msg_sd(sd,11)); // Invisible: On
+		clif->message(sd->fd, msg_txt(11)); // Invisible: On
 		// decrement the number of pvp players on the map
 		map->list[sd->bl.m].users_pvp--;
 
@@ -4343,7 +4341,7 @@ int pc_paycash(struct map_session_data *sd, int price, int points)
 	if( battle_config.cashshop_show_points )
 	{
 		char output[128];
-		sprintf(output, msg_sd(sd,504), points, cash, sd->kafraPoints, sd->cashPoints);
+		sprintf(output, msg_txt(504), points, cash, sd->kafraPoints, sd->cashPoints);
 		clif_disp_onlyself(sd, output, strlen(output));
 	}
 	return cash+points;
@@ -4368,7 +4366,7 @@ int pc_getcash(struct map_session_data *sd, int cash, int points)
 
 		if( battle_config.cashshop_show_points )
 		{
-			sprintf(output, msg_sd(sd,505), cash, sd->cashPoints);
+			sprintf(output, msg_txt(505), cash, sd->cashPoints);
 			clif_disp_onlyself(sd, output, strlen(output));
 		}
 		return cash;
@@ -4391,7 +4389,7 @@ int pc_getcash(struct map_session_data *sd, int cash, int points)
 
 		if( battle_config.cashshop_show_points )
 		{
-			sprintf(output, msg_sd(sd,506), points, sd->kafraPoints);
+			sprintf(output, msg_txt(506), points, sd->kafraPoints);
 			clif_disp_onlyself(sd, output, strlen(output));
 		}
 		return points;
@@ -4636,13 +4634,13 @@ int pc_dropitem(struct map_session_data *sd,int n,int amount)
 		return 0;
 
 	if( map->list[sd->bl.m].flag.nodrop ) {
-		clif->message (sd->fd, msg_sd(sd,271));
+		clif->message (sd->fd, msg_txt(271));
 		return 0; //Can't drop items in nodrop mapflag maps.
 	}
 
 	if( !pc->candrop(sd,&sd->status.inventory[n]) )
 	{
-		clif->message (sd->fd, msg_sd(sd,263));
+		clif->message (sd->fd, msg_txt(263));
 		return 0;
 	}
 
@@ -4753,7 +4751,7 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 	}
 
 	if (sd->state.storage_flag != STORAGE_FLAG_CLOSED && item->type != IT_CASH) {
-		clif->messagecolor_self(sd->fd, COLOR_RED, msg_sd(sd,1475));
+		clif->messagecolor_self(sd->fd, COLOR_RED, msg_txt(1475));
 		return 0; // You cannot use this item while storage is open.
 	}
 
@@ -4782,7 +4780,7 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 		case ITEMID_WOB_LOCAL:    // Blue Butterfly Wing
 		case ITEMID_SIEGE_TELEPORT_SCROLL:
 			if( sd->duel_group && !battle_config.duel_allow_teleport ) {
-				clif->message(sd->fd, msg_sd(sd,863)); // "Duel: Can't use this item in duel."
+				clif->message(sd->fd, msg_txt(863)); // "Duel: Can't use this item in duel."
 				return 0;
 			}
 			if( nameid != ITEMID_WING_OF_FLY && nameid != ITEMID_GIANT_FLY_WING && map->list[sd->bl.m].flag.noreturn )
@@ -4857,7 +4855,7 @@ int pc_isUseitem(struct map_session_data *sd,int n)
 			return 0;
 		}
 		if (!pc->inventoryblank(sd)) {
-			clif->messagecolor_self(sd->fd, COLOR_RED, msg_sd(sd,1477));
+			clif->messagecolor_self(sd->fd, COLOR_RED, msg_txt(1477));
 			return 0;
 		}
 	}
@@ -5087,7 +5085,7 @@ int pc_cart_additem(struct map_session_data *sd,struct item *item_data,int amoun
 
 	if (!itemdb_cancartstore(item_data, pc_get_group_level(sd)) || (item_data->bound > IBT_ACCOUNT && !pc_can_give_bound_items(sd))) {
 		// Check item trade restrictions
-		clif->message (sd->fd, msg_sd(sd,264));
+		clif->message (sd->fd, msg_txt(264));
 		return 1;/* TODO: there is no official response to this? */
 	}
 
@@ -5534,7 +5532,7 @@ int pc_setpos(struct map_session_data* sd, unsigned short map_index, int x, int 
 			sd->regen.state.gc = 0;
 		// make sure vending is allowed here
 		if (sd->state.vending && map->list[m].flag.novending) {
-			clif->message (sd->fd, msg_sd(sd,276)); // "You can't open a shop on this map"
+			clif->message (sd->fd, msg_txt(276)); // "You can't open a shop on this map"
 			vending->close(sd);
 		}
 
@@ -5581,7 +5579,7 @@ int pc_setpos(struct map_session_data* sd, unsigned short map_index, int x, int 
 	}
 
 	if (sd->state.vending && map->getcell(m, &sd->bl, x, y, CELL_CHKNOVENDING)) {
-		clif->message (sd->fd, msg_sd(sd,204)); // "You can't open a shop on this cell."
+		clif->message (sd->fd, msg_txt(204)); // "You can't open a shop on this cell."
 		vending->close(sd);
 	}
 
@@ -11093,7 +11091,7 @@ void pc_bank_withdraw(struct map_session_data *sd, int money) {
 		return;
 	} else if (limit_check > MAX_ZENY) {
 		/* no official response for this scenario exists. */
-		clif->messagecolor_self(sd->fd, COLOR_RED, msg_sd(sd,1482));
+		clif->messagecolor_self(sd->fd, COLOR_RED, msg_txt(1482));
 		return;
 	}
 
@@ -11114,7 +11112,7 @@ void pc_scdata_received(struct map_session_data *sd) {
 	if (sd->expiration_time != 0) { // don't display if it's unlimited or unknow value
 		time_t exp_time = sd->expiration_time;
 		char tmpstr[1024];
-		strftime(tmpstr, sizeof(tmpstr) - 1, msg_sd(sd,501), localtime(&exp_time)); // "Your account time limit is: %d-%m-%Y %H:%M:%S."
+		strftime(tmpstr, sizeof(tmpstr) - 1, msg_txt(501), localtime(&exp_time)); // "Your account time limit is: %d-%m-%Y %H:%M:%S."
 		clif->wis_message(sd->fd, map->wisp_server_name, tmpstr, strlen(tmpstr)+1);
 
 		pc->expire_check(sd);

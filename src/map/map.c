@@ -3616,8 +3616,6 @@ int map_config_read(char *cfgName) {
 			map->enable_grf = config_switch(w2);
 		else if (strcmpi(w1, "console_msg_log") == 0)
 			showmsg->console_log = atoi(w2);//[Ind]
-		else if (strcmpi(w1, "default_language") == 0)
-			safestrncpy(map->default_lang_str, w2, sizeof(map->default_lang_str));
 		else if (strcmpi(w1, "import") == 0)
 			map->config_read(w2);
 		else
@@ -5755,22 +5753,6 @@ static CMDLINEARG(loadscript)
 }
 
 /**
- * --generate-translations
- *
- * Creates "./generated_translations.pot"
- * @see cmdline->exec
- **/
-static CMDLINEARG(generatetranslations) {
-	script->lang_export_file = aStrdup("./generated_translations.pot");
-
-	if( !(script->lang_export_fp = fopen(script->lang_export_file,"wb")) ) {
-		ShowError("export-dialog: falha ao abrir '%s' para gravar\n",script->lang_export_file);
-	}
-	core->runflag = CORE_ST_STOP;
-	return true;
-}
-
-/**
  * Defines the local command line arguments
  */
 void cmdline_args_init_local(void)
@@ -5786,7 +5768,6 @@ void cmdline_args_init_local(void)
 	CMDLINEARG_DEF2(log-config, logconfig, "Alternative logging configuration.", CMDLINE_OPT_NORMAL|CMDLINE_OPT_PARAM);
 	CMDLINEARG_DEF2(script-check, scriptcheck, "Doesn't run the server, only tests the scripts passed through --load-script.", CMDLINE_OPT_SILENT);
 	CMDLINEARG_DEF2(load-script, loadscript, "Loads an additional script (can be repeated).", CMDLINE_OPT_NORMAL|CMDLINE_OPT_PARAM);
-	CMDLINEARG_DEF2(generate-translations, generatetranslations, "Creates './generated_translations.pot' file with all translateable strings from scripts, server terminates afterwards.", CMDLINE_OPT_NORMAL);
 }
 
 int do_init(int argc, char *argv[])
@@ -6023,7 +6004,6 @@ void map_defaults(void) {
 	sprintf(map->server_pw,"ragnarok");
 	sprintf(map->server_db,"ragnarok");
 	map->mysql_handle = NULL;
-	map->default_lang_str[0] = '\0';
 
 	map->cpsd_active = false;
 

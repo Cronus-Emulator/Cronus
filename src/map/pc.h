@@ -565,8 +565,6 @@ END_ZEROED_BLOCK;
 		bool claimPrize;
 	} roulette;
 
-	uint8 lang_id;
-
 	// temporary debugging of bug #3504
 	const char* delunit_prevfile;
 	int delunit_prevline;
