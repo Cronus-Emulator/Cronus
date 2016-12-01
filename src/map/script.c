@@ -1136,8 +1136,6 @@ const char* parse_simpleexpr(const char *p)
 		p=np;
 	} else if(*p=='"') {
 		script->addc(C_STR);
-		struct string_translation *st = NULL;
-
 		do {
 			p++;
 			while( *p && *p != '"' ) {
