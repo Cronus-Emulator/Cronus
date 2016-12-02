@@ -8,7 +8,7 @@
 //                     DB Bloody Branch            
 //===============================================================
 // = Banco de Dados de monstros invocados pelo Galho Sangrento.
-// = Tradu√ß√£o: Spell Master
+// = TraduÁ„o: Spell Master
 //===============================================================
 // = Estrutura do banco de dados:
 //
@@ -18,20 +18,20 @@
 // 03. Rate                 Chance
 //===============================================================
 
-0,Bafom√©,1039
-1038,Os√≠ris,1000000
-1039,Bafom√©,1000000
+0,BafomÈ,1039
+1038,OsÌris,1000000
+1039,BafomÈ,1000000
 1046,Doppelganger,1000000
 1059,Abelha-Rainha,1000000
-1086,Besouro-Ladr√£o Dourado,1000000
-1087,Orc Her√≥i,1000000
+1086,Besouro-Ladr„o Dourado,1000000
+1087,Orc HerÛi,1000000
 1096,Angeling,1000000
 1112,Drake,1000000
 1115,Eddga,1000000
 1120,Ghostring,1000000
 1147,Maya,1000000
 1150,Flor do Luar,1000000
-1157,Fara√≥,1000000
+1157,FaraÛ,1000000
 1159,Freeoni,1000000
 1190,Senhor dos Orcs,1000000
 1251,Cavaleiro da Tempestade,1000000
@@ -40,7 +40,7 @@
 1312,General Tartaruga,1000000
 1373,Senhor dos Mortos,1000000
 1388,ArchAngeling,1000000
-1389,Dr√°cula,1000000
+1389,Dr·cula,1000000
 1418,Serpente Suprema,1000000
 1492,Samurai Encarnado,1000000
 1511,Amon Ra,1000000
@@ -51,7 +51,7 @@
 1658,Egnigem Cenia,1000000
 1685,Vesper,1000000
 1688,Lady Tanee,1000000
-1708,Mem√≥ria de Thanatos,1000000
+1708,MemÛria de Thanatos,1000000
 1719,Detardeurus,1000000
 1734,Kiel D-01,1000000
 1751,Valkyrie Randgris,1000000

@@ -54,12 +54,12 @@
 1002,PORING,Poring,619,9001,10013,531,80,60,50,100,250,20,2000,150,1,0,350,400,800,{ petloot 10; },{ bonus bLuk,2; bonus bCritical,1; }
 1113,DROPS,Drops,620,9002,10013,508,80,60,40,100,250,20,1500,150,1,0,300,400,500,{ petloot 10; },{ bonus bHit,3; bonus bAtk,3; }
 1031,POPORING,Poporing,621,9003,10013,511,80,60,30,100,250,20,1000,150,1,0,300,500,400,{ petloot 15; },{ bonus bLuk,2; bonus2 bSubEle,Ele_Poison,10; }
-1063,LUNATIC,LunÃ¡tico,622,9004,10007,534,80,60,40,100,250,20,1500,150,0,0,300,300,1000,{ petskillbonus bLuk,3,10,50; },{ bonus bCritical,2; bonus bAtk,2; }
+1063,LUNATIC,Lunático,622,9004,10007,534,80,60,40,100,250,20,1500,150,0,0,300,300,1000,{ petskillbonus bLuk,3,10,50; },{ bonus bCritical,2; bonus bAtk,2; }
 1049,PICKY,Picky,623,9005,10012,507,80,60,40,100,250,20,2000,150,1,0,500,600,50,{ petskillbonus bStr,3,10,50;},{ bonus bStr,1; bonus bAtk,5; }
 1011,CHONCHON,ChonChon,624,9006,10002,537,80,60,30,100,250,20,1500,150,1,0,500,500,250,{ petskillbonus bAgi,4,10,50; },{ bonus bAgi,1; bonus bFlee,2; }
-1042,STEEL_CHONCHON,Chonchon de AÃ§o,625,9007,10002,1002,80,60,20,100,250,20,1000,150,1,0,500,500,200,{ petskillbonus bAgiVit,4,20,40; },{ bonus bFlee,6; bonus bAgi,-1; }
-1035,HUNTER_FLY,Mosca CaÃ§adora,626,9008,10002,716,80,60,10,100,250,20,500,150,1,0,500,500,200,{ petskillattack "NPC_WINDATTACK",888,2,0,10; },{ bonus bFlee,-5; bonus bFlee2,2; }
-1167,SAVAGE_BABE,BebÃª Selvagem,627,9009,10015,537,80,60,40,100,250,20,1500,150,0,0,500,500,200,{ petskillbonus bVit,4,10,50; },{ bonus bVit,1; bonus bMaxHP,50; }
+1042,STEEL_CHONCHON,Chonchon de Aço,625,9007,10002,1002,80,60,20,100,250,20,1000,150,1,0,500,500,200,{ petskillbonus bAgiVit,4,20,40; },{ bonus bFlee,6; bonus bAgi,-1; }
+1035,HUNTER_FLY,Mosca Caçadora,626,9008,10002,716,80,60,10,100,250,20,500,150,1,0,500,500,200,{ petskillattack "NPC_WINDATTACK",888,2,0,10; },{ bonus bFlee,-5; bonus bFlee2,2; }
+1167,SAVAGE_BABE,Bebê Selvagem,627,9009,10015,537,80,60,40,100,250,20,1500,150,0,0,500,500,200,{ petskillbonus bVit,4,10,50; },{ bonus bVit,1; bonus bMaxHP,50; }
 1107,DESERT_WOLF_B,Filhote de Lobo do Deserto,628,9010,10003,537,80,60,40,100,250,20,1000,150,0,0,400,400,400,{ petskillattack "SM_PROVOKE",1,0,0,5;},{ bonus bInt,1; bonus bMaxSP,50; }
 1052,ROCKER,Rocker,629,9011,10014,537,80,60,30,100,250,20,1500,150,0,0,350,350,600,{ petskillbonus bAllStats,1,10,50; },{ bonus bHPrecovRate,5; bonus bMaxHP,25; }
 1014,SPORE,Esporo,630,9012,10017,537,80,60,30,100,250,20,1500,150,0,0,350,500,500,{ petrecovery SC_POISON,60; },{ bonus bHit,5; bonus bAtk,-2; }
@@ -74,7 +74,7 @@
 1029,ISIS,Isis,639,9021,10006,537,80,60,10,100,250,20,500,150,0,0,650,450,150,{ petskillsupport "PR_MAGNIFICAT",2,60,50,50; },{ bonus bMatkRate,-1; bonus bAtkRate,1; }
 1155,PETIT,Petite,640,9022,10011,537,80,60,20,100,250,20,500,150,0,0,800,400,100,{ petskillattack "WZ_HEAVENDRIVE",500,1,0,10; },{ bonus bDef,-2; bonus bMdef,-2; bonus bAspdRate,1; }
 1109,DEVIRUCHI,Deviruchi,641,9023,10004,711,80,60,10,100,250,20,500,150,0,0,800,200,100,{ petskillbonus bAgiDexStr,6,20,40; },{ bonus bMatkRate,1; bonus bAtkRate,1; bonus bMaxHPrate,-3; bonus bMaxSPrate,-3; }
-1101,BAPHOMET_,BafomÃ© Jr.,642,9024,10001,518,80,60,10,100,250,20,200,150,0,0,1000,100,200,{ petskillattack "NPC_DARKNESSATTACK",1776,4,0,5; },{ bonus bDef,1; bonus bMdef,1; bonus2 bResEff,Eff_Stun,-100; }
+1101,BAPHOMET_,Bafomé Jr.,642,9024,10001,518,80,60,10,100,250,20,200,150,0,0,1000,100,200,{ petskillattack "NPC_DARKNESSATTACK",1776,4,0,5; },{ bonus bDef,1; bonus bMdef,1; bonus2 bResEff,Eff_Stun,-100; }
 1188,BON_GUN,Bongun,659,9025,10020,537,80,60,30,100,250,20,500,150,1,0,600,200,400,{ petskillattack "NPC_DARKNESSATTACK",555,1,1,1; },{ bonus bVit,1; bonus2 bResEff,Eff_Stun,100; }
 1200,ZHERLTHSH,Jirtas,660,9026,0,929,80,60,10,100,250,20,300,150,0,0,1000,100,500,{ petskillattack "AS_SONICBLOW",1,0,0,3; },{ bonus2 bAddRace,RC_DemiPlayer,2; bonus2 bMagicAddRace,RC_DemiPlayer,2; }
 1275,ALICE,Alice,661,9027,0,504,80,60,20,100,250,20,800,150,0,0,100,1000,200,{ petskillsupport "AL_HEAL",5,60,25,100; },{ bonus bMdef,1; if (RENEWAL) { bonus2 bAddRaceTolerance,RC_DemiPlayer,1; } else { bonus2 bSubRace,RC_DemiPlayer,1; } }
@@ -87,8 +87,8 @@
 1122,GOBLIN_1,Goblin,14569,9032,0,7821,80,60,50,100,250,20,800,150,0,0,300,300,800,{ petskillattack "NPC_WINDATTACK",5,0,5,5; },{}
 1123,GOBLIN_2,Goblin,14570,9033,0,7821,80,60,50,100,250,20,800,150,0,0,300,300,800,{ petskillattack "NPC_FIREATTACK",5,0,5,5; },{}
 1125,GOBLIN_4,Goblin,14571,9034,0,7821,80,60,50,100,250,20,800,150,0,0,300,300,800,{ petskillattack "NPC_GROUNDATTACK",5,0,5,5; },{}
-1385,DELETER_,DeletÃ©rio,14572,9035,0,7822,80,60,20,100,250,20,800,150,0,0,300,300,800,{ petskillattack "SM_MAGNUM",5,0,5,5; },{}
-1382,DIABOLIC,DiabÃ³lico,14573,9036,0,7823,80,60,10,100,250,20,800,150,0,0,300,300,800,{ petskillattack "WZ_METEOR",2,0,5,5; },{}
+1385,DELETER_,Deletério,14572,9035,0,7822,80,60,20,100,250,20,800,150,0,0,300,300,800,{ petskillattack "SM_MAGNUM",5,0,5,5; },{}
+1382,DIABOLIC,Diabólico,14573,9036,0,7823,80,60,10,100,250,20,800,150,0,0,300,300,800,{ petskillattack "WZ_METEOR",2,0,5,5; },{}
 1208,WANDER_MAN,Andarilho,14574,9037,0,7824,80,60,20,100,250,20,800,150,0,0,300,300,800,{ petskillattack "NPC_UNDEADATTACK",5,0,5,5; },{}
 
 1963,P_CHUNG_E,Boneca do Ano Novo,0,9038,0,554,80,60,30,100,250,20,800,150,0,0,300,300,800,{ petskillattack "CR_SHIELDCHARGE",5,0,5,5; },{}
@@ -98,7 +98,7 @@
 1143,MARIONETTE,Marionete,12361,9043,10025,6098,80,60,10,100,250,20,500,150,0,0,300,300,800,{},{ bonus bSPrecovRate,3; }
 1148,MEDUSA,Medusa,12368,9050,10032,6108,80,60,10,100,250,20,200,150,0,0,300,300,800,{},{ bonus bVit,1; bonus2 bResEff,Eff_Stone,500; }
 1179,WHISPER,Sussurro,12363,9045,10027,6100,80,60,20,100,250,20,500,150,0,0,300,300,800,{},{ bonus bFlee,7; bonus bDef,-3; }
-1299,GOBLIN_LEADER,LÃ­der Goblin,12364,9046,10028,6104,80,60,10,100,250,20,50,150,0,0,300,300,800,{},{ bonus2 bAddRace,RC_DemiPlayer,3; }
+1299,GOBLIN_LEADER,Líder Goblin,12364,9046,10028,6104,80,60,10,100,250,20,50,150,0,0,300,300,800,{},{ bonus2 bAddRace,RC_DemiPlayer,3; }
 1370,SUCCUBUS,Succubus,12373,9055,10037,6113,80,60,10,100,250,20,200,150,0,0,300,300,800,{},{ bonus2 bHPDrainRate,50,5; }
 1374,INCUBUS,Incubus,12370,9052,10034,6110,80,60,10,100,250,20,50,150,0,0,300,300,800,{},{ bonus bMaxSPrate,3; }
 1379,NIGHTMARE_TERROR,Pesadelo Sombrio,12372,9054,10036,6112,80,60,10,100,250,20,200,150,0,0,300,300,800,{},{ bonus2 bResEff,Eff_Sleep,10000; }
@@ -114,7 +114,7 @@
 1837,IMP,Imp,12374,9056,10038,6114,80,60,10,100,250,20,200,150,0,0,300,300,800,{},{ bonus2 bSubEle,Ele_Fire,2; bonus2 bAddEle,Ele_Fire,2; }
 
 // Brasilis Quest - Suspicious Beach [UNHATCHABLE]
-2057,E_CRAMP,CÃ£ibra,12408,6221,0,0,0,0,0,0,0,0,50,0,0,0,350,400,800,{},{} // kRO version
+2057,E_CRAMP,Cãibra,12408,6221,0,0,0,0,0,0,0,0,50,0,0,0,350,400,800,{},{} // kRO version
 2081,E_HYDRA,Hydra,12408,6221,0,0,0,0,0,0,0,0,50,0,0,0,350,400,800,{},{} // iRO/cRO version
 
 // 14.2 Academy
