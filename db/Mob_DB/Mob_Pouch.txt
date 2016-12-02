@@ -1,7 +1,22 @@
-// Red Pouch of Surprise Summonable Monsters Database
+//===============================================================
+//                _____
+//               /  __ \
+//               | /  \/_ __ ___  _ __  _   _ ___
+//               | |   | '__/ _ \| '_ \| | | / __|
+//               | \__/\ | | (_) | | | | |_| \__ \
+//                \____/_|  \___/|_| |_|\__,_|___/
+//                     DB Mob Pouch            
+//===============================================================
+// = Banco de Dados de monstros invocados pela Bolsa vermelha.
+// = Tradução: Spell Master
+//===============================================================
+// = Estrutura do banco de dados:
 //
-// Structure of Database:
 // MobID,DummyName,Rate
+// 01. MobID                Id do monstro.
+// 02. DummyName            Nome para ser exibido.
+// 03. Rate                 Chance
+//===============================================================
 
 0,Poring,1002
 1001,Scorpion,214285

@@ -1,72 +1,87 @@
-// Dead Branch Summonable Monsters Database
+//===============================================================
+//                _____
+//               /  __ \
+//               | /  \/_ __ ___  _ __  _   _ ___
+//               | |   | '__/ _ \| '_ \| | | / __|
+//               | \__/\ | | (_) | | | | |_| \__ \
+//                \____/_|  \___/|_| |_|\__,_|___/
+//                     DB Branch            
+//===============================================================
+// = Banco de Dados de monstros invocados por Galho Seco
+// = TraduÁ„o: Spell Master
+//===============================================================
+// = Estrutura do banco de dados:
 //
-// Structure of Database:
 // MobID,DummyName,Rate
+// 01. MobID                    Id da Habilidade para ser invocado.
+// 02. DummyName                Nome do monstro para ser exibido.
+// 03. Rate                     Chance de se invocado (1 = 0.01%, 10000 = 100%).
+//===============================================================
 
-0,Escorpi√£o,1001
-1001,Escorpi√£o,214285
+0,Escorpi„o,1001
+1001,Escorpi„o,214285
 1002,Poring,1000000
-1004,Zang√£o,357142
+1004,Zang„o,357142
 1005,Familiar,357142
 1007,Fabre,428571
 1008,Pupa,71428
 1009,Condor,357142
 1010,Salgueiro,357142
-1011,ChonChon,357142
-1012,Sapo de Roda,357142
+1011,Chonchon,357142
+1012,Sapo de Rodda,357142
 1013,Lobo,357142
-1014,Esporo,357142
-1015,Zumbi,357142
+1014,Eporo,357142
+1015,Zombi,357142
 1016,Esqueleto Arqueiro,214285
 1018,Creamy,357142
 1019,Peco Peco,357142
-1020,Mandr√°gora,357142
+1020,Mandragora,357142
 1023,Guerreiro Orc,214285
 1024,Rabo de Verme,357142
-1025,Jib√≥ia,357142
+1025,JibÛia,357142
 1026,Munak,214285
 1028,Esqueleto Soldado,214285
 1029,Isis,71428
 1030,Anaconda,214285
 1031,Poporing,357142
 1032,Verit,214285
-1033,Salgueiro Anci√£o,214285
+1033,Salgueiro Anci„o,214285
 1034,Sapo de Thara,214285
-1035,Mosca Ca√ßadora,71428
-1036,Carni√ßal,214285
+1035,Mosca CaÁadora,71428
+1036,CarniÁal,214285
 1037,Sorrateiro,71428
 1040,Golem,214285
-1041,M√∫mia,214285
-1042,Chonchon de A√ßo,357142
+1041,Mumia,214285
+1042,ChonChon de AÁo,357142
 1044,Obeaune,214285
-1045,Cavalo-Marinho,214285
-1047,Ovo de Peco Peco,71428
-1048,Ovo de Besouro-Ladr√£o,71428
-1049,Picky com Casca,357142
-1050,Picky com Casca,357142
-1051,Besouro-Ladr√£o,357142
+1045,Cavalo Marinho,214285
+1047,Ovo de Peco-Peco,71428
+1048,Ovo de AndrÈ,71428
+1049,Picky,357142
+1050,Picky,357142
+1051,Beouro-Ladr„o,357142
 1052,Rocker,357142
-1053,Besouro-Ladr√£o F√™mea,357142
-1054,Besouro-Ladr√£o Macho,357142
+1053,Beouro-Ladr„o FÍmea,357142
+1054,Beouro-Ladr„o Macho,357142
 1055,Muka,357142
 1056,Fumacento,357142
 1057,Yoyo,357142
 1058,Metaller,214285
-1060,P√© Grande,214285
+1060,PÈ Grande,214285
 1061,Pesadelo,71428
 1062,Poring Noel,357142
-1063,Lun√°tico,357142
+1063,Lunatic,357142
 1064,Megalodon,214285
 1065,Strouf,214285
 1066,Vadon,357142
 1067,Cornutus,214285
-1068,Hidra,357142
-1069,Peixe-Espada,214285
+1068,Hydra,357142
+1069,Peixe Espada,214285
 1070,Kukre,357142
 1071,Esqueleto Pirata,214285
 1072,Kaho,71428
-1073,Caranguejo,214285
-1074,Molusco,357142
+1073,Crab,214285
+1074,Mosculoso,357142
 1076,Esqueleto,357142
 1077,Esporo Venenoso,357142
 1078,Planta Vermelha,71428
@@ -80,23 +95,23 @@
 1088,Vocal,71428
 1089,Sapo-Cururu,71428
 1090,Mastering,71428
-1091,Lib√©lula,71428
+1091,Mosca CaÁadora,71428
 1092,Lobo Errante,71428
 1093,Eclipse,71428
 1094,Ambernite,357142
 1095,Andre,357142
 1096,Angeling,71428
-1097,Ovo de Andre,71428
+1097,Ovo de AndrÈ,71428
 1098,Anubis,71428
 1099,Argiope,71428
 1100,Argos,214285
-1101,Bafom√© Jr.,71428
+1101,BaphomÈ Jr.,71428
 1102,Bathory,71428
 1103,Caramelo,214285
-1104,Koko,357142
+1104,Coco,357142
 1105,Deniro,357142
 1106,Lobo do Deserto,214285
-1107,Filhote de Lobo do Deserto,71428
+1107,Filhore de Lobo,71428
 1108,Deviace,71428
 1109,Deviruchi,71428
 1110,Dokebi,214285
@@ -104,7 +119,7 @@
 1113,Drops,357142
 1114,Poeira,214285
 1116,Eggyra,214285
-1117,Druida Maligno,71428
+1117,Druida MalÌgno,71428
 1118,Flora,214285
 1119,Frilldora,214285
 1120,Ghostring,71428
@@ -115,31 +130,31 @@
 1125,Goblin,214285
 1126,Goblin,214285
 1127,Hode,214285
-1128,Besouro-Chifre,357142
+1128,Horn,357142
 1129,Horong,214285
 1130,Jakk,214285
-1131,Coringa,71428
+1131,Joker,71428
 1132,Khalitzburg,71428
-1133,Cobold,214285
-1134,Cobold,214285
-1135,Cobold,214285
-1138,Magn√≥lia,214285
+1133,Kobold,214285
+1134,Kobold,214285
+1135,Kobold,214285
+1138,Magnolia,214285
 1139,Louva-a-Deus,214285
 1140,Marduk,214285
 1141,Marina,214285
 1142,Esfera Marinha,214285
-1143,Marionete,71428
+1143,Marionette,71428
 1144,Marte,214285
 1145,Martin,357142
 1146,Matyr,214285
 1148,Medusa,71428
 1149,Minorous,71428
-1151,N√©voa,214285
+1151,NÈvoa,214285
 1152,Orc Esqueleto,214285
-1153,Orc Zumbi,214285
+1153,Orc Zombi,214285
 1154,Pasana,71428
-1155,Petite Voador,71428
-1156,Petite Voador,71428
+1155,Petite,71428
+1156,Petite,71428
 1158,Fen,214285
 1160,Piere,357142
 1161,Plankton,357142
@@ -147,8 +162,8 @@
 1164,Requiem,214285
 1165,Arenoso,214285
 1166,Selvagem,214285
-1167,Beb√™ Selvagem,357142
-1169,Esqueleto Oper√°rio,214285
+1167,Babe Selvagem,357142
+1169,Esqueleto Oper·rio,214285
 1170,Sohee,214285
 1174,Percevejo,357142
 1175,Tarou,357142
@@ -162,87 +177,87 @@
 1186,Cochicho,71428
 1188,Bongun,214285
 1189,Orc Arqueiro,71428
-1191,M√≠mico,71428
-1192,Alma Penada,71428
+1191,Mimico,71428
+1192,ApariÁ„o,71428
 1193,Alarme,71428
-1194,Arclouse,71428
+1194,Arclouze,71428
 1195,Rideword,71428
 1196,Esqueleto Prisioneiro,71428
 1197,Zumbi Prisioneiro,71428
 1199,Punk,71428
 1200,Jirtas,71428
 1201,Rybio,71428
-1202,Fendark,71428
+1202,Phendark,71428
 1203,Mysteltainn,71428
 1204,Tirfing,71428
-1205,Executor,71428
+1205,Executioner,71428
 1206,Anolian,71428
 1207,Sting,71428
 1208,Andarilho,71428
-1209,C√£ibra,71428
+1209,C„ibra,71428
 1211,Escaravelho,71428
-1212,M√£o de Ferro,71428
-1213,Grande Orc,71428
+1212,M„o de Ferro,71428
+1213,Grand Orc,71428
 1214,Choco,71428
-1215,Talo de Verme,214285
+1215,Verme S·bio,214285
 1216,Penomena,71428
 1219,Cavaleiro do Abismo,71428
 1242,Marin,357142
 1243,Sasquatch,214285
 1245,Goblin Natalino,71428
-1246,Cookie Natalino,214285
+1246,Cookie,214285
 1248,Soldadinho de Chumbo,214285
 1249,Presente,214285
 1250,Chepet,71428
-1253,G√°rgula,71428
+1253,Gragola,71428
 1254,Raggler,214285
 1255,Nereida,214285
 1256,Peste,214285
-1257,Injusti√ßado,71428
+1257,InjustiÁado,71428
 1258,Goblin Arqueiro,214285
 1259,Grifo,71428
 1260,Moldura Maldita,71428
 1261,Rosa Selvagem,214285
-1262,Drag√£o Mutante,71428
-1263,Xam√£ do Vento,71428
-1264,Trit√£o,71428
+1262,Drag„o Mutante,71428
+1263,Xam„ de Vento,71428
+1264,Trit„o,71428
 1265,Cookie,214285
 1266,Estrela do Mar,357142
 1267,Carat,71428
-1268,Cavaleiro Sanguin√°rio,71428
-1269,Rel√≥gio,71428
+1268,Cavaleiro Sanguin·rio,71428
+1269,RelÛgio,71428
 1270,Gerente,71428
 1271,Crocodilo,71428
 1273,Senhora Orc,214285
 1274,Megalith,71428
 1275,Alice,71428
-1276,Raydric Arqueiro,71428
-1277,Guardi√£o da Floresta,214285
-1278,Golem Estalactitico,71428
+1276,Raydric Aruqeiro,71428
+1277,Guardi„o da Floresta,214285
+1278,Golem EstalactÌtico,71428
 1279,Trilobita,214285
 1280,Goblin a Vapor,214285
-1281,Verme S√°bio,71428
-1282,Cobold Arqueiro,214285
-1283,Quimera,71428
+1281,Verme S·bio,71428
+1282,Kobold Arqueiro,214285
+1283,Chimera,71428
 1289,Maya Macho,71428
-1290,Skeleton General,71428
-1291,Apari√ß√£o,71428
+1290,Esqueleto General,71428
+1291,ApariÁ„o,71428
 1292,Diabinho,71428
-1293,Creamy Amea√ßador,71428
+1293,Creamy AmeaÁador,71428
 1294,Mantis Assassino,71428
-1295,Bar√£o Coruja,71428
-1296,L√≠der Cobold,71428
-1297,M√∫mia Anci√£,71428
-1298,Zumbi Mestre,71428
-1299,L√≠der Goblin,71428
+1295,Bar„o Curuja,71428
+1296,LÌder Kobold,71428
+1297,M˙mia Anci„,71428
+1298,Zombie Master,71428
+1299,Goblin LÌder,71428
 1300,Lagarta,71428
 1301,Am Mut,71428
-1302,Ilus√£o das Trevas,71428
-1303,Zang√£o Gigante,71428
+1302,Ilus„o das Trevas,71428
+1303,Zang„o Gigante,71428
 1304,Aranha Gigante,71428
-1305,Verme Anci√£o,71428
+1305,Verme Anci„o,71428
 1306,Leib Olmai,71428
-1307,Gato de Nove Caudas,71428
+1307,Gatode Nove Caudas,71428
 1308,Panzer Goblin,71428
 1309,Gajomart,71428
 1310,Majoruros,71428
@@ -254,58 +269,58 @@
 1317,Foca,71428
 1318,Aquecedor,71428
 1319,Congelador,71428
-1320,Duque Coruja,71428
+1320,Duuqe Curuja,71428
 1321,Lavadeira,71428
 1322,Coelho,71428
 1323,Lontra,71428
-1365,Apocalipse,71428
-1366,Golem de Lava,71428
-1367,Labareda,71428
-1368,Planta Carn√≠vora,71428
+1365,Apocalypse,71428
+1366,Golem de Larva,71428
+1367,Labareta,71428
+1368,Planta CarnÌvora,71428
 1369,Grand Peco,71428
 1370,Succubus,71428
-1371,Anjo Fajuto,71428
+1371,Anjo Frajuto,71428
 1372,Bode,71428
 1374,Incubus,71428
 1375,Papel,71428
 1376,Harpia,71428
-1377,Anci√£o,71428
+1377,Anci„o,71428
 1378,Pungus,71428
 1379,Pesadelo Sombrio,71428
 1380,Furador,71428
 1381,Grizzly,71428
-1382,Diab√≥lico,71428
+1382,Diabolic,71428
 1383,Estrondo,71428
 1384,Exterminador,71428
-1385,Exterminador,71428
+1385,Deleter,71428
 1386,Rochoso,71428
-1387,Ferr√£o,71428
-1390,Violi,71428
-1391,Pingu,71428
-1392,Giro-Goblin,214285
+1387,Ferr„o,71428
+1390,Violy,71428
+1391,Galapago,71428
+1392,Rotar Zairo,214285
 1400,Karakasa,214285
 1401,Shinobi,71428
 1402,Sapo Venenoso,71428
-1403,Soldado Atirador,71428
-1404,Boneco de Miyabi,214285
+1403,Zumbi Atirador,71428
+1404,Boneca de Miyabi,214285
 1405,Tengu,71428
 1406,Kapha,71428
-1408,Borboleta Sangrenta,71428
+1408,Borboleta Sanguin·ria,71428
 1409,Pirralho,214285
-1410,Pessegueira Encantada,71428
-1412,Ermit√£o Maligno,71428
-1413,Ermit√£o Selvagem,71428
+1410,Persegueira Encantada,71428
+1412,Ermit„o Maligno,71428
+1413,Ginseng Selvagem,71428
 1415,Filhote de Leopardo,214285
 1416,Ninfa Perversa,71428
 1417,Zipper,214285
-1493,Dr√≠ade,71428
-1494,Besouro-Rei,214285
+1493,Dryad,71428
+1494,EncouraÁado,214285
 1495,Atirador de Pedras,71428
 1497,Golem de Madeira,71428
-1498,Atirador Wootan,214285
+1498,Artilheiro Wootan,214285
 1499,Guerreiro Wootan,71428
 1500,Parasita,214285
-1503,√Årvore Maldita,71428
+1503,¡rvore Maldita,71428
 1504,Dullahan,71428
 1505,Loli Ruri,71428
 1506,Mascarado,71428
@@ -319,26 +334,24 @@
 1515,Filhote de Hatii,71428
 1516,Mi Gao,71428
 1517,Jing Guai,71428
-1519,Chung E,71428
-1520,Bolinho de Massa,71428
+1519,Donzela Verde,71428
 1582,Deviling,71428
 1584,Tamruan,71428
 1586,Gato de Folha,71428
 1587,Kraben,71428
 1613,Metaling,71428
 1614,Mineral,71428
-1615,Obsidiana,71428
-1616,Mineiros,71428
+1615,Obsidian,71428
+1616,MinÈrios,71428
 1617,Fornalha Velha,71428
 1618,Ungoliant,71428
 1619,Porcellio,71428
-1620,Nuvem T√≥xica,71428
+1620,Nuvem TÛxica,71428
 1621,Nuvem Venenosa,71428
 1622,Ursinho,71428
 1627,Anopheles,71428
 1628,Holden,71428
 1629,Vento da Colina,71428
-1631,Chung E,71428
 1632,Gremlin,71428
 1633,Beholder,71428
 1634,Seyren Windsor,71428
@@ -353,10 +366,10 @@
 1655,Errende Ebecee,71428
 1656,Kavach Icarus,71428
 1657,Laurell Weinder,71428
-1664,Canh√£o de F√≥ton,71428
-1665,Canh√£o de F√≥ton,71428
-1666,Canh√£o de F√≥ton,71428
-1667,Canh√£o de F√≥ton,71428
+1664,Canh„o de FÛton,71428
+1665,Canh„o de FÛton,71428
+1666,Canh„o de FÛton,71428
+1667,Canh„o de FÛton,71428
 1668,Archdam,71428
 1669,Dimik,71428
 1670,Dimik,71428
@@ -370,7 +383,7 @@
 1679,Venatu,71428
 1680,Vento da Colina,71428
 1681,Gemini-S58,71428
-1682,Exterminador,71428
+1682,Removedor,71428
 1686,Filhote de Orc,71428
 1687,Grove,71428
 1692,Breeze,71428
@@ -378,8 +391,8 @@
 1694,Plasma,71428
 1695,Plasma,71428
 1696,Plasma,71428
-1699,M√≠mico Antigo,71428
-1703,Lady Solace,71428
+1699,M˙mia Anci„,71428
+1703,Senhora do Conforto,71428
 1704,Odium de Thanatos,71428
 1705,Despero de Thanatos,71428
 1706,Maero de Thanatos,71428
@@ -390,7 +403,7 @@
 1717,Ferus,71428
 1718,Novus,71428
 1720,Hydrolancer,71428
-1721,Ovo de Drag√£o,71428
+1721,Ovo de Drag„o,71428
 1736,Aliot,71428
 1737,Aliza,71428
 1738,Constante,71428
@@ -406,79 +419,78 @@
 1774,Rastreador,71428
 1775,Yeti,71428
 1776,Siroma,71428
-1777,Tit√£ de Gelo,71428
+1777,Tit„ de Gelo,71428
 1778,Gazeti,71428
 1780,Muscipular,71428
 1781,Drosera,71428
 1782,Roween,71428
 1783,Galion,71428
 1784,Stapo,142857
-1789,Estalactitico,71428
+1789,Estalactite,71428
 1796,Aunoe,142857
 1797,Fanat,142857
-1829,Espadachim Guardi√£o,71428
-1830,Arqueiro Guardi√£o,71428
+1829,Guardi„o Espadachim,71428
+1830,Guardi„o Arqueiro,71428
 1831,Salamandra,71428
 1833,Kasa,71428
 1836,Magmaring,214285
 1837,Imp,71428
 1838,Golpeador,71428
-1839,Byorgue,71428
+1839,Byrogue,71428
 1864,Massacre,71428
 1865,Zumbi Dilacerado,71428
-1866,C√£o Infernal,71428
+1866,C„o Infernal,71428
 1867,Banshee,71428
-1869,Cr√¢nio Flamejante,71428
-1870,Necromante,71428
-1872,Mosca Infernal,71428
+1869,Cr‚nio Flamejante,71428
+1870,Necromancer,71428
 1880,Leshij,71428
 1881,Les,71428
 1882,Baba-Yaga,71428
-1883,Kikimora,71428
+1883,Uzhas,71428
 1884,Mavka,71428
 1918,Sombra da Inveja,71428
-1919,Sombra da Inveja,71428
-1920,Sombra da Inveja,71428
-1921,Sombra da Inveja,71428
-1974,Senhora das Banshees,71428
-1975,Mestre Beholder,71428
+1919,Sombra da Gula,71428
+1920,Sombra da Vaidade,71428
+1921,Sombra da Ira,71428
+1974,Mestra Banshee,71428
+1975,Beholder Mastre,71428
 1976,Cobalto,71428
 1977,Metaling Pesado,71428
 1978,Apocalipse Infernal,71428
 1979,Zakudam,71428
 1986,Tatacho,71428
-1987,Centop√©ia,71428
+1987,Centipede,71428
 1988,Nepenthes,71428
-1989,Le√£o da Montanha,71428
-1990,Mamute Rochoso,71428
-1991,Le√£o de Vinhas,71428
+1989,Hillthrion,71428
+1990,Mammoth Rochoso,71428
+1991,Tendrillion,71428
 1992,Cornus,71428
 1993,Naga,71428
-1994,Vespa Vagalume,71428
+1994,Luciola Vespa,71428
 1995,Pinguicula,71428
-1999,Larva de Centop√©ia,71428
+1999,Larva de Centopeia,71428
 2013,Draco,71428
 2015,Pinguicula Sombria,71428
-2016,Elemental da √Ågua,71428
-2017,Ratatosk,71428
+2016,Aqua Elemental,71428
+2017,Rata,71428
 2018,Duneyrr,71428
-2019,√Årvore Anci√£,71428
-2020,Ryncho,71428
+2019,¡rvore Anci„,71428
+2020,Rhyncho,71428
 2021,Phylla,71428
 2023,Sombra Obscura,71428
 2024,Golem de Bradium,71428
 2069,Iara,71428
 2070,Piranha,71428
-2071,Headless Mule,71428
-2072,Jaguar,71428
-2073,Toucan,71428
+2071,Mula Sem CabeÁa,71428
+2072,OnÁa,71428
+2073,Toucano,71428
 2074,Curupira,71428
 2083,Scaraba Chifre,71428
 2084,Chifres Duplos,71428
 2085,Scaraba Galhado,71428
 2086,Scaraba Ancinho,71428
 2088,Ovo de Scaraba Chifre,71428
-2089,Ovo de Scaraba Chifre,71428
+2089,Ovo de Chifres Duplos,71428
 2090,Ovo de Scaraba Galhado,71428
 2091,Ovo de Scaraba Ancinho,71428
 2092,Dolomedes,71428
