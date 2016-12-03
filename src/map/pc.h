@@ -1063,6 +1063,8 @@ END_ZEROED_BLOCK; /* End */
 	void (*autotrade_prepare) (struct map_session_data *sd);
 	void (*autotrade_populate) (struct map_session_data *sd);
 	int (*autotrade_final) (DBKey key, DBData *data, va_list ap);
+	
+	int (*have_magnifier) (struct map_session_data *sd);
 };
 
 #ifdef CRONUS_CORE

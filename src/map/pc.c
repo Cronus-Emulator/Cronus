@@ -11412,6 +11412,20 @@ bool pc_db_checkid(unsigned int class_)
 		|| (class_ >= JOB_REBELLION      && class_ <  JOB_MAX            );
 }
 
+/**
+ * Função que verifica se o jogador tem alguma lupa no inventário
+ * @param sd map_session_data do Player(Jogador)
+ * @return index da lupa, INDEX_NOT_FOUND <- se não for encontrado
+ */
+int pc_have_magnifier(struct map_session_data *sd)
+{
+	int n;
+	n = pc->search_inventory(sd, ITEMID_SPECTACLES);
+	if (n == INDEX_NOT_FOUND)
+		n = pc->search_inventory(sd, ITEMID_N_MAGNIFIER);
+	return n;
+}
+
 void do_final_pc(void) {
 	db_destroy(pc->itemcd_db);
 	pc->at_db->destroy(pc->at_db,pc->autotrade_final);
@@ -11773,4 +11787,6 @@ void pc_defaults(void) {
 	pc->autotrade_prepare = pc_autotrade_prepare;
 	pc->autotrade_populate = pc_autotrade_populate;
 	pc->autotrade_final = pc_autotrade_final;
+	
+	pc->have_magnifier = pc_have_magnifier;
 }

@@ -69,6 +69,10 @@ enum packet_headers {
 	idle_unitType = 0x7f9,
 #elif PACKETVER < 20150000 //actual 20120221
 	idle_unitType = 0x857,
+#elif PACKETVER < 20131223
+	idle_unitType = 0x915,
+#elif PACKETVER < 20150513
+	idle_unitType = 0x9dd,
 #else
 	idle_unitType = 0x915,
 #endif
@@ -87,6 +91,8 @@ enum packet_headers {
 #endif
 #if PACKETVER < 20071113
 	damageType = 0x8a,
+#elif PACKETVER < 20131223
+	damageType = 0x2e1,
 #else
 	damageType = 0x2e1,
 #endif
@@ -102,6 +108,10 @@ enum packet_headers {
 	spawn_unitType = 0x7f8,
 #elif PACKETVER < 20150000 //actual 20120221
 	spawn_unitType = 0x858,
+#elif PACKETVER < 20131223
+	spawn_unitType = 0x90f,
+#elif PACKETVER < 20150513
+	spawn_unitType = 0x9dc,
 #else
 	spawn_unitType = 0x90f,
 #endif
@@ -127,6 +137,10 @@ enum packet_headers {
 	unit_walkingType = 0x7f7,
 #elif PACKETVER < 20150000 //actual 20120221
 	unit_walkingType = 0x856,
+#elif PACKETVER < 20131223
+	unit_walkingType = 0x914,
+#elif PACKETVER < 20150513
+	unit_walkingType = 0x9db,
 #else
 	unit_walkingType = 0x914,
 #endif
@@ -546,6 +560,10 @@ struct packet_spawn_unit {
 	int HP;
 	unsigned char isBoss;
 #endif
+#if PACKETVER >= 20150513
+	int16 body;
+	char name[NAME_LENGTH];
+#endif
 } __attribute__((packed));
 
 struct packet_unit_walking {
@@ -607,6 +625,10 @@ struct packet_unit_walking {
 	int HP;
 	unsigned char isBoss;
 #endif
+#if PACKETVER >= 20150513
+	int16 body;
+	char name[NAME_LENGTH];
+#endif
 } __attribute__((packed));
 
 struct packet_idle_unit {
@@ -665,6 +687,10 @@ struct packet_idle_unit {
 	int maxHP;
 	int HP;
 	unsigned char isBoss;
+#endif
+#if PACKETVER >= 20150513
+	int16 body;
+	char name[NAME_LENGTH];
 #endif
 } __attribute__((packed));
 

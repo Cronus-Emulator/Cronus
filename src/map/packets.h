@@ -2885,16 +2885,20 @@ packet(0x96e,-1,clif->ackmergeitems);
 	packet(0x022D,2,clif->pReqCloseBuyingStore,0);
 	packet(0x0815,-1,clif->pReqOpenBuyingStore,2,4,8,9,89);
 	packet(0x0883,18,clif->pPartyBookingRegisterReq,2,4);
-	packet(0x02C4,8); // CZ_JOIN_BATTLE_FIELD
+	packet(0x02C4,8,clif->pDull); // CZ_JOIN_BATTLE_FIELD
 	packet(0x0960,-1,clif->pItemListWindowSelected,2,4,8);
 	packet(0x0363,19,clif->pWantToConnection,2,6,10,14,18);
 	packet(0x094A,26,clif->pPartyInvite2,2);
-	packet(0x0927,4); // CZ_GANGSI_RANK
+	packet(0x0927,4,clif->pDull); // CZ_GANGSI_RANK
 	packet(0x08A8,26,clif->pFriendsListAdd,2);
 	packet(0x0817,5,clif->pHomMenu,2,4);
 	packet(0x0923,36,clif->pStoragePassword,0);
-	packet(0x09e8,11,clif->pDull);	//CZ_OPEN_MAILBOX
-	packet(0x0a2e,6,clif->pDull);	//TITLE
+	packet(0x09E8,11,clif->pDull); // CZ_OPEN_MAILBOX
+	packet(0x0A2E,6,clif->pDull); // TITLE
+	packet(0x0A02,4); // ZC_DRESSROOM_OPEN
+	packet(0x0A35,4,clif->pOneClick_ItemIdentify,2);
+	packet(0x0a27,8); // ZC_RECOVERY2
+	packet(0x09f7,75); // ZC_PROPERTY_HOMUN_2
 #endif
 
 /* PacketKeys: http://herc.ws/board/topic/1105-hercules-wpe-free-june-14th-patch/ */

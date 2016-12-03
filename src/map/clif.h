@@ -1321,6 +1321,7 @@ struct clif_interface {
 	/* */
 	void (*add_random_options) (unsigned char* buf, struct item* item);
 	void (*pHotkeyRowShift) (int fd, struct map_session_data *sd);
+	void (*pOneClick_ItemIdentify) (int fd,struct map_session_data *sd);
 	/* */
 	int (*dispbcfunc) (struct map_session_data *sd, const char* msg, unsigned int cor); //[SlexFire]
 };
