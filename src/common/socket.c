@@ -1744,8 +1744,8 @@ void socket_net_config_read(const char *filename)
 	}
 	ARR_FIND(0, VECTOR_LENGTH(sockt->allowed_ips), i, SUBNET_MATCH(0, VECTOR_INDEX(sockt->allowed_ips, i).ip, VECTOR_INDEX(sockt->allowed_ips, i).mask));
 	if (i != VECTOR_LENGTH(sockt->allowed_ips)) {
-		ShowWarning("Usar uma faixa de IP curinga na faixa de IP de servidores confiaveis NAO E RECOMENDADO.\n");
-		ShowNotice("FAvor edite seu '%s' lista de confiaveis para caber sua configuracao de rede.\n", filename);
+		ShowStatus("Network usando faixa de IP curinga na faixa de IP para servidores confiaveis. Aceitando todos IPs.\n");
+		ShowNotice("Para maior seguranca edite seu '%s' lista de confiaveis de acordo com sua sua configuracao de rede.\n", filename);
 	}
 	libconfig->destroy(&network_config);
 	return;
