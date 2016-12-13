@@ -1926,7 +1926,7 @@ void itemdb_read(bool minimal) {
 		#else
 			"Item_DB/Item_PRE.conf",
 		#endif
-		"Item_DB/ItemDB2.conf",
+		"Item_DB/Item_DB2.conf",
 	};
 
 

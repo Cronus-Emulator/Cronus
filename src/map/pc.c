@@ -10514,9 +10514,9 @@ void pc_read_skill_tree(void) {
 	config_t skill_tree_conf;
 	config_setting_t *skt = NULL, *inherit = NULL, *skills = NULL, *sk = NULL;
 #ifdef RENEWAL
-	const char *config_filename = "db/Job_DB/Job_Skill_Tree_RE.conf"; // [ New DB ]
+	const char *config_filename = "db/Skill_DB/Skill_Tree_RE.conf";
 #else
-	const char *config_filename = "db/Job_DB/Job_Skill_Tree_PRE.conf"; // [ New DB ]
+	const char *config_filename = "db/Skill_DB/Skill_Tree_PRE.conf";
 #endif
 	int i = 0, jnamelen = 0;
 	struct s_mapiterator *iter;
