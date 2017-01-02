@@ -928,177 +928,188 @@
 2253,3,6,2,3,0x42,2,5,1,no,0,0x80,2,misc,0,	RA_FIRINGTRAP,Armadilha Incendiária
 2254,3,6,2,1,0x42,2,5,1,no,0,0x80,2,misc,0,	RA_ICEBOUNDTRAP,Armadilha Glacial
 
-//****
-// NC Mechanic
-2255,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		NC_MADOLICENCE,Mado License
-2256,11,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	NC_BOOSTKNUCKLE,Boost Knuckle
-2257,3,6,1,-1,0,0,3,1,no,0,0,0,weapon,0,	NC_PILEBUNKER,Pile Bunker
-2258,13,6,1,-1,0x2,1,3,1,no,0,0,0,weapon,0,	NC_VULCANARM,Vulcan Arm
-2259,7,6,1,3,0,2,3,1,no,0,0,5,weapon,0,		NC_FLAMELAUNCHER,Flame Launcher
-2260,7,6,2,1,0x2,2:3:4,3,1,no,0,0,0,weapon,0,	NC_COLDSLOWER,Cold Slower
-2261,9:11:13,6,1,-1,0x42,3:2:1,3,1,no,0,0,0,weapon,0,	NC_ARMSCANNON,Arm Cannon
-2262,0,6,4,0,0x1,0,3,1,no,0,0,0,none,0,		NC_ACCELERATION,Acceleration
-2263,0,6,4,0,0x1,0,1,1,no,0,0,0,none,0,		NC_HOVERING,Hovering
-2264,0,6,4,0,0x1,0,1,1,no,0,0,0,none,7,		NC_F_SIDESLIDE,Front-Side Slide
-2265,0,6,4,0,0x1,0,1,1,no,0,0,0,none,7,		NC_B_SIDESLIDE,Back-Side Slide
-2266,0,0,0,0,0,0,4,0,no,0,0,0,none,0,		NC_MAINFRAME,Mainframe Restructure // Check me. Part of the code notes translated to "The amount of fuel have".
-2267,0,6,4,-1,0xC2,2:3:4,3,1,no,0,0,0,misc,5,	NC_SELFDESTRUCTION,Self Destruction
-2268,0,6,4,0,0x1,0,4,1,yes,0,0,0,none,0,	NC_SHAPESHIFT,Shape Shift
-2269,0,6,4,0,0x1,0,1,1,no,0,0,0,none,0,		NC_EMERGENCYCOOL,Emergency Cool
-2270,0,6,4,0,0x3,7,1,1,yes,0,0,0,none,0,	NC_INFRAREDSCAN,Infrared Scan
-2271,9,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	NC_ANALYZE,Analyze
-2272,0,6,4,0,0x3,2,3,1,yes,0,0,0,none,0,	NC_MAGNETICFIELD,Magnetic Field
-2273,0,6,4,0,0x1,0,3,1,yes,0,0,0,none,0,	NC_NEUTRALBARRIER,Neutral Barrier
-2274,0,6,4,0,0x1,0,3,1,yes,0,0,0,none,0,	NC_STEALTHFIELD,Stealth Field
-2275,5:6:7:8:9,6,16,0,0x1,0,5,1,yes,0,0,0,magic,0,	NC_REPAIR,Repair
-2276,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		NC_TRAININGAXE,Axe Training
-2277,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		NC_RESEARCHFE,Research Fire/Earth
-2278,5:6:7:8:9,6,1,-1,0,0,5,1,no,0,0,0,weapon,2:3:4:5:6,	NC_AXEBOOMERANG,Axe Boomerang
-2279,1,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	NC_POWERSWING,Power Swing
-2280,0,8,4,-1,0x2,2:2:3:3:3,5,-3,no,0,0,0,weapon,0,	NC_AXETORNADO,Axe Tornado // Check me. Takes 20 * Skill LV amount of HP each use.
-2281,2,6,2,0,0x1,0,5,1,yes,0,0,2,none,0,	NC_SILVERSNIPER,FAW - Silver Sniper
-2282,2,6,2,0,0x1,0,5,1,yes,0,0,2,none,0,	NC_MAGICDECOY,FAW - Magic Decoy
-2283,2,6,1,0,0x1,0,1,1,no,0,0,0,none,0,		NC_DISJOINT,FAW Removal
+//========================\\
+// - Mecânico              ||
+//========================//
+2255,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		NC_MADOLICENCE,Licença de Pilotagem
+2256,11,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	NC_BOOSTKNUCKLE,Punho Foguete
+2257,3,6,1,-1,0,0,3,1,no,0,0,0,weapon,0,	NC_PILEBUNKER,Bate Estaca
+2258,13,6,1,-1,0x2,1,3,1,no,0,0,0,weapon,0,	NC_VULCANARM,Metralhadora
+2259,7,6,1,3,0,2,3,1,no,0,0,5,weapon,0,		NC_FLAMELAUNCHER,Lança Chamas
+2260,7,6,2,1,0x2,2:3:4,3,1,no,0,0,0,weapon,0,	NC_COLDSLOWER,Gás Criogênico
+2261,9:11:13,6,1,-1,0x42,3:2:1,3,1,no,0,0,0,weapon,0,	NC_ARMSCANNON,Canhão
+2262,0,6,4,0,0x1,0,3,1,no,0,0,0,none,0,		NC_ACCELERATION,Aceleração
+2263,0,6,4,0,0x1,0,1,1,no,0,0,0,none,0,		NC_HOVERING,Planar
+2264,0,6,4,0,0x1,0,1,1,no,0,0,0,none,7,		NC_F_SIDESLIDE,Propulsão Traseira
+2265,0,6,4,0,0x1,0,1,1,no,0,0,0,none,7,		NC_B_SIDESLIDE,Propulsão Dianteira
+2266,0,0,0,0,0,0,4,0,no,0,0,0,none,0,		NC_MAINFRAME,Reforçar Estrutura // Check me. Part of the code notes translated to "The amount of fuel have".
+2267,0,6,4,-1,0xC2,2:3:4,3,1,no,0,0,0,misc,5,	NC_SELFDESTRUCTION,Autodestruição
+2268,0,6,4,0,0x1,0,4,1,yes,0,0,0,none,0,	NC_SHAPESHIFT,Reconfigurar Elemento
+2269,0,6,4,0,0x1,0,1,1,no,0,0,0,none,0,		NC_EMERGENCYCOOL,Resfriamento
+2270,0,6,4,0,0x3,7,1,1,yes,0,0,0,none,0,	NC_INFRAREDSCAN,Sensor Infravermelho
+2271,9,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	NC_ANALYZE,Analisar
+2272,0,6,4,0,0x3,2,3,1,yes,0,0,0,none,0,	NC_MAGNETICFIELD,Campo Magnético
+2273,0,6,4,0,0x1,0,3,1,yes,0,0,0,none,0,	NC_NEUTRALBARRIER,Campo Protetor
+2274,0,6,4,0,0x1,0,3,1,yes,0,0,0,none,0,	NC_STEALTHFIELD,Campo de Invisibilidade
+2275,5:6:7:8:9,6,16,0,0x1,0,5,1,yes,0,0,0,magic,0,	NC_REPAIR,Reparar
+2276,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		NC_TRAININGAXE,Maestria com Machados
+2277,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		NC_RESEARCHFE,Sabedoria de Hefesto
+2278,5:6:7:8:9,6,1,-1,0,0,5,1,no,0,0,0,weapon,2:3:4:5:6,	NC_AXEBOOMERANG,Arremesso de Machado
+2279,1,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	NC_POWERSWING,Brandir Machado
+2280,0,8,4,-1,0x2,2:2:3:3:3,5,-3,no,0,0,0,weapon,0,	NC_AXETORNADO,Fúria do Furacão // Check me. Takes 20 * Skill LV amount of HP each use.
+2281,2,6,2,0,0x1,0,5,1,yes,0,0,2,none,0,	NC_SILVERSNIPER,Artilharia Caçadora
+2282,2,6,2,0,0x1,0,5,1,yes,0,0,2,none,0,	NC_MAGICDECOY,Artilharia Arcana
+2283,2,6,1,0,0x1,0,1,1,no,0,0,0,none,0,		NC_DISJOINT,Remover Artilharia
 
-//****
-// SC Shadow Chaser
-2284,1,6,1,-1,0x2,1,5,1,no,0,0,0,weapon,0,	SC_FATALMENACE,Fatal Menace
-2285,0,6,4,0,0x1,0,10,1,no,0,0,0,none,0,	SC_REPRODUCE,Reproduce
-2286,0,6,4,0,0x1,0,10,1,yes,0,0,0,none,0,	SC_AUTOSHADOWSPELL,Auto Shadow Spell
-2287,5,6,1,0,0x1,0,5,1,no,0,0,0,none,0,		SC_SHADOWFORM,Shadow Form
-2288,7:7:7:9:9:9:9:11:11:11,8,1,-1,0,0,10,-3,yes,0,0,0,weapon,3,	SC_TRIANGLESHOT,Triangle Shot
-2289,0,6,4,0,0x3,2,5,1,no,0,0,0,none,0,		SC_BODYPAINT,Body Painting
-2290,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	SC_INVISIBILITY,Invisibility
-2291,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SC_DEADLYINFECT,Deadly Infect
-2292,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_ENERVATION,Masquerade - Enervation
-2293,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_GROOMY,Masquerade - Gloomy
-2294,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_IGNORANCE,Masquerade - Ignorance
-2295,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_LAZINESS,Masquerade - Laziness
-2296,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_UNLUCKY,Masquerade - Unlucky
-2297,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_WEAKNESS,Masquerade - Weakness
-2298,3,6,1,0,0x1,0,5,1,yes,0,0,0,weapon,0,	SC_STRIPACCESSARY,Strip Accessory //CHECK Is weapon attack type needed?
-2299,7,6,2,0,0x1,0,3,1,yes,0,0,3,magic,0,	SC_MANHOLE,Man Hole
-2300,7,6,2,0,0x1,0,3,1,yes,0,0,1,magic,0,	SC_DIMENSIONDOOR,Dimension Door
-2301,7,6,2,0,0x1,2,3,1,yes,0,0,1,magic,0,	SC_CHAOSPANIC,Chaos Panic
-2302,7,6,2,0,0x1,2,3,1,yes,0,0,1,magic,0,	SC_MAELSTROM,Maelstrom
-2303,7,6,2,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_BLOODYLUST,Bloody Lust
-2304,0,6,4,-1,0,0,3,1,no,0,0,0,weapon,0,	SC_FEINTBOMB,Feint Bomb
+//========================\\
+// - Renegado              ||
+//========================//
+2284,1,6,1,-1,0x2,1,5,1,no,0,0,0,weapon,0,	SC_FATALMENACE,Acerto de Contas
+2285,0,6,4,0,0x1,0,10,1,no,0,0,0,none,0,	SC_REPRODUCE,Mimetismo
+2286,0,6,4,0,0x1,0,10,1,yes,0,0,0,none,0,	SC_AUTOSHADOWSPELL,Desejo das Sombras
+2287,5,6,1,0,0x1,0,5,1,no,0,0,0,none,0,		SC_SHADOWFORM,Vínculo Sombrio
+2288,7:7:7:9:9:9:9:11:11:11,8,1,-1,0,0,10,-3,yes,0,0,0,weapon,3,	SC_TRIANGLESHOT,Disparo Triplo
+2289,0,6,4,0,0x3,2,5,1,no,0,0,0,none,0,		SC_BODYPAINT,Borrifar Tinta
+2290,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	SC_INVISIBILITY,Forma Etérea
+2291,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SC_DEADLYINFECT,Pestilência
+2292,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_ENERVATION,Máscara da Fraqueza
+2293,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_GROOMY,Máscara da Melancolia
+2294,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_IGNORANCE,Máscara da Tolice
+2295,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_LAZINESS,Máscara da Ociosidade
+2296,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_UNLUCKY,Máscara do Infortúnio
+2297,3,6,1,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_WEAKNESS,Máscara da Vulnerabilidade
+2298,3,6,1,0,0x1,0,5,1,yes,0,0,0,weapon,0,	SC_STRIPACCESSARY,Remover Acessório //CHECK Is weapon attack type needed?
+2299,7,6,2,0,0x1,0,3,1,yes,0,0,3,magic,0,	SC_MANHOLE,Pintar Armadilha
+2300,7,6,2,0,0x1,0,3,1,yes,0,0,1,magic,0,	SC_DIMENSIONDOOR,Portal Dimensional
+2301,7,6,2,0,0x1,2,3,1,yes,0,0,1,magic,0,	SC_CHAOSPANIC,Símbolo do Caos
+2302,7,6,2,0,0x1,2,3,1,yes,0,0,1,magic,0,	SC_MAELSTROM,Redemoinho de Absorção
+2303,7,6,2,0,0x1,0,3,1,yes,0,0,0,none,0,	SC_BLOODYLUST,Sede de Sangue
+2304,0,6,4,-1,0,0,3,1,no,0,0,0,weapon,0,	SC_FEINTBOMB,Cópia Explosiva
 
-//****
-// LG Royal Guard
-2307,11,8,1,-1,0,2,5,1,no,0,0,10,weapon,0,	LG_CANNONSPEAR,Cannon Spear
-2308,7,6,1,-1,0,0,10,1,no,0,0,0,weapon,0,	LG_BANISHINGPOINT,Banishing Point
-2309,0,6,4,0,0x3,2,3,1,no,0,0,0,none,0,		LG_TRAMPLE,Trample
-2310,1,6,1,0,0,0,5,1,no,0,0,0,weapon,0,		LG_SHIELDPRESS,Shield Press
-2311,0,6,4,0,0x3,3,5,1,no,0,0,0,none,0,	LG_REFLECTDAMAGE,Reflect Damage
-2312,5,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	LG_PINPOINTATTACK,Pinpoint Attack
-2313,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_FORCEOFVANGUARD,Force of Vanguard
-2314,1,6,1,-1,0,0,1,1,no,0,0,0,weapon,0,	LG_RAGEBURST,Rage Burst
-2315,0,6,4,0:6:0,0x2,0,3,1,yes,0,0,0,none,2:0:0,LG_SHIELDSPELL,Shield Spell
-2316,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_EXEEDBREAK,Exceed Break
-2317,2,6,2,-1,0x2,0,5,1,yes,0,0,0,weapon,0, LG_OVERBRAND,Over Brand
-2318,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_PRESTIGE,Prestige
-2319,0,6,4,0,0x1,3,5,1,no,0,0,0,weapon,0,	LG_BANDING,Banding //CHECK Splash isnt needed right? Banding has its own UNIT ID.
-2320,0,6,4,-1,0x2,3,5,1,yes,0,0,0,weapon,0,	LG_MOONSLASHER,Moon Slasher
-2321,1,8,2,6,0x2,5,5,-7,yes,0,0,0,weapon,0,	LG_RAYOFGENESIS,Ray of Genesis
-2322,0,6,16,0,0x3,1,5,1,yes,0,0,0,none,0,	LG_PIETY,Piety
-2323,0,8,4,2,0x2,1:1:2:2:3,5,-5,yes,0,0,0,weapon,0,	LG_EARTHDRIVE,Earth Drive
-2324,3,8,1,-1,0,0,5,3,yes,0,0,0,weapon,0,	LG_HESPERUSLIT,Hesperus Lit
-2325,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_INSPIRATION,Inspiration
+//========================\\
+// - Guardião Real         ||
+//========================//
+2307,11,8,1,-1,0,2,5,1,no,0,0,10,weapon,0,	LG_CANNONSPEAR,Disparo Perfurante
+2308,7,6,1,-1,0,0,10,1,no,0,0,0,weapon,0,	LG_BANISHINGPOINT,Toque do Oblívio
+2309,0,6,4,0,0x3,2,3,1,no,0,0,0,none,0,		LG_TRAMPLE,Pisotear Armadilha
+2310,1,6,1,0,0,0,5,1,no,0,0,0,weapon,0,		LG_SHIELDPRESS,Escudo Compressor
+2311,0,6,4,0,0x3,3,5,1,no,0,0,0,none,0,	LG_REFLECTDAMAGE,Reflexão Amplificada
+2312,5,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	LG_PINPOINTATTACK,Estocada Precisa
+2313,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_FORCEOFVANGUARD,Proteção da Vanguarda
+2314,1,6,1,-1,0,0,1,1,no,0,0,0,weapon,0,	LG_RAGEBURST,Retribuição da Vanguarda
+2315,0,6,4,0:6:0,0x2,0,3,1,yes,0,0,0,none,2:0:0,LG_SHIELDSPELL,Aegis Domini
+2316,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_EXEEDBREAK,Exceder Limite
+2317,2,6,2,-1,0x2,0,5,1,yes,0,0,0,weapon,0, LG_OVERBRAND,Lança do Destino
+2318,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_PRESTIGE,Prestígio Divino
+2319,0,6,4,0,0x1,3,5,1,no,0,0,0,weapon,0,	LG_BANDING,Formação Real //CHECK Splash isnt needed right? Banding has its own UNIT ID.
+2320,0,6,4,-1,0x2,3,5,1,yes,0,0,0,weapon,0,	LG_MOONSLASHER,Espiral Lunar
+2321,1,8,2,6,0x2,5,5,-7,yes,0,0,0,weapon,0,	LG_RAYOFGENESIS,Luz da Criação
+2322,0,6,16,0,0x3,1,5,1,yes,0,0,0,none,0,	LG_PIETY,Devoção
+2323,0,8,4,2,0x2,1:1:2:2:3,5,-5,yes,0,0,0,weapon,0,	LG_EARTHDRIVE,Aegis Inferi
+2324,3,8,1,-1,0,0,5,3,yes,0,0,0,weapon,0,	LG_HESPERUSLIT,Trindade
+2325,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	LG_INSPIRATION,Consagração
 2519,1,6,1,-1,0x2,0,5,1,yes,0,0,0,weapon,3:4:5:6:7, LG_OVERBRAND_BRANDISH,Over Brand
 
-//****
-// SR Sura
-2326,-2,8,1,-1,0,0,10,-2,no,0,0,0,weapon,0,	SR_DRAGONCOMBO,Dragon Combo
-2327,0,8,4,-1,0x2,2,5,-3,no,0,0,0,weapon,3,	SR_SKYNETBLOW,Sky Net Blow
-2328,0,6,4,-1,0x2,1:2:3:4:5,5,1,no,0,0,0,weapon,0,	SR_EARTHSHAKER,Earth Shaker //CHECK Must add a check in battle.c to triple damage if hitting a hidden target.
-2329,-2,8,4,-1,0,0,5,-2,no,0,0x200,0,weapon,0,	SR_FALLENEMPIRE,Fallen Empire //CHECK Video shows 2 hits. Is it sub hits? Yes its divided between 2 hits.
-2330,-2,6,1,-1,0x42,1:1:1:1:1:2:2:2:2:2,10,1,yes,0,0,0,weapon,0,	SR_TIGERCANNON,Tiger Cannon //CHECK Need to fix to be enemy targeted and also combo after Fallen Empire.
+//========================\\
+// - Shura                 ||
+//========================//
+2326,-2,8,1,-1,0,0,10,-2,no,0,0,0,weapon,0,	SR_DRAGONCOMBO,Punho do Dragão
+2327,0,8,4,-1,0x2,2,5,-3,no,0,0,0,weapon,3,	SR_SKYNETBLOW,Soco Furação
+2328,0,6,4,-1,0x2,1:2:3:4:5,5,1,no,0,0,0,weapon,0,	SR_EARTHSHAKER,Impacto Sísmico //CHECK Must add a check in battle.c to triple damage if hitting a hidden target.
+2329,-2,8,4,-1,0,0,5,-2,no,0,0x200,0,weapon,0,	SR_FALLENEMPIRE,Ruína //CHECK Video shows 2 hits. Is it sub hits? Yes its divided between 2 hits.
+2330,-2,6,1,-1,0x42,1:1:1:1:1:2:2:2:2:2,10,1,yes,0,0,0,weapon,0,	SR_TIGERCANNON,Garra de Tigre //CHECK Need to fix to be enemy targeted and also combo after Fallen Empire.
 2331,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SR_HELLGATE,Hell Gate
-2332,5,6,4,-1,0x2,3,5,1,no,0,0,0,weapon,0,	SR_RAMPAGEBLASTER,Rampage Blaster
-2333,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SR_CRESCENTELBOW,Crescent Elbow //CHECK Check the autospell ID.
-2334,0,6,4,0,0x3,1:1:2:2:3,5,1,no,0,0,0,none,0,	SR_CURSEDCIRCLE,Cursed Circle
-2335,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SR_LIGHTNINGWALK,Lightning Walk
-2336,7:8:9:10:11,6,1,-1,0,0,5,1,no,0,0,0,weapon,2:3:4:5:6,	SR_KNUCKLEARROW,Knuckle Arrow
-2337,0,6,4,-1,0x2,2,1,1,yes,0,0,0,weapon,0,	SR_WINDMILL,Windmill
-2338,0,6,4,0,0x1,0,10,1,no,0,0,0,none,0,	SR_RAISINGDRAGON,Raising Dragon
+2332,5,6,4,-1,0x2,3,5,1,no,0,0,0,weapon,0,	SR_RAMPAGEBLASTER,Explosão Espiritual
+2333,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SR_CRESCENTELBOW,Cotovelada Ascendente //CHECK Check the autospell ID.
+2334,0,6,4,0,0x3,1:1:2:2:3,5,1,no,0,0,0,none,0,	SR_CURSEDCIRCLE,Campo Amaldiçoado
+2335,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SR_LIGHTNINGWALK,Salto Relâmpago
+2336,7:8:9:10:11,6,1,-1,0,0,5,1,no,0,0,0,weapon,2:3:4:5:6,	SR_KNUCKLEARROW,Investida de Shura
+2337,0,6,4,-1,0x2,2,1,1,yes,0,0,0,weapon,0,	SR_WINDMILL,Rasteira
+2338,0,6,4,0,0x1,0,10,1,no,0,0,0,none,0,	SR_RAISINGDRAGON,Dragão Ascendente
 2339,0,0,0,0,0,0,5,1,no,0,0,0,none,0,		SR_GENTLETOUCH,Gentle Touch
-2340,0,6,4,0,0x3,2,1,1,no,0,0,0,none,0,	SR_ASSIMILATEPOWER,Assimilate Power
-2341,3,6,16,0,0x1,0,1,1,yes,0,0x200,0,none,0,	SR_POWERVELOCITY,Power Velocity
+2340,0,6,4,0,0x3,2,1,1,no,0,0,0,none,0,	SR_ASSIMILATEPOWER,Absorção Espiritual
+2341,3,6,16,0,0x1,0,1,1,yes,0,0x200,0,none,0,	SR_POWERVELOCITY,Renúncia Espiritual
 2342,1,6,1,-1,0x20,0,5,1,no,0,0,0,weapon,7,	SR_CRESCENTELBOW_AUTOSPELL,Crescent Elbow Autospell //CHECK Does this ignore defense?
-2343,1:2:3:3:4:4:5:5:6:7,8,1,0,0,0,10,-7,yes,0,0,0,weapon,0,	SR_GATEOFHELL,Gate of Hell //CHECK Need to fix to be enemy targeted and also combo after Fallen Empire
-2344,2,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	SR_GENTLETOUCH_QUIET,Gentle Touch - Quiet
-2345,2,6,16,0,0x1,0,5,1,no,0,0,0,magic,0,	SR_GENTLETOUCH_CURE,Gentle Touch - Cure //CHECK Its a healing skill. Guessing it has to be magic type? Healing isnt working.
-2346,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	SR_GENTLETOUCH_ENERGYGAIN,Gentle Touch - Energy Gain
-2347,2,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	SR_GENTLETOUCH_CHANGE,Gentle Touch - Change
-2348,2,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	SR_GENTLETOUCH_REVITALIZE,Gentle Touch - Revitalize
+2343,1:2:3:3:4:4:5:5:6:7,8,1,0,0,0,10,-7,yes,0,0,0,weapon,0,	SR_GATEOFHELL,Portões do Inferno //CHECK Need to fix to be enemy targeted and also combo after Fallen Empire
+2344,2,6,1,-1,0,0,5,1,no,0,0,0,weapon,0,	SR_GENTLETOUCH_QUIET,Chakra do Silêncio
+2345,2,6,16,0,0x1,0,5,1,no,0,0,0,magic,0,	SR_GENTLETOUCH_CURE,Chakra da Cura //CHECK Its a healing skill. Guessing it has to be magic type? Healing isnt working.
+2346,0,6,4,0,0x1,0,5,1,yes,0,0,0,none,0,	SR_GENTLETOUCH_ENERGYGAIN,Chakra da Energia
+2347,2,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	SR_GENTLETOUCH_CHANGE,Chakra da Fúria
+2348,2,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	SR_GENTLETOUCH_REVITALIZE,Chakra do Vigor
+//Skills de Shura, porém fora da faixa de ids.
+2517,0,6,4,-1,0x2,3:4:5:6:7,5,1,no,0,0,0,weapon,0,	SR_HOWLINGOFLION,Rugido do Leão
+2518,11,6,2,-1,0x2,2:2:3:3:4,5,1,no,0,0,0,weapon,0,	SR_RIDEINLIGHTNING,Tempestade Espiritual
 
-//****
-// WA Wanderer
-2350,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	WA_SWING_DANCE,Swing Dance
-2351,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	WA_SYMPHONY_OF_LOVER,Symphony of Lovers
-2352,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	WA_MOONLIT_SERENADE,Moonlit Serenade
+//========================\\
+// - Musa                  ||
+//========================//
+2350,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	WA_SWING_DANCE,Ritmo Contagiante
+2351,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	WA_SYMPHONY_OF_LOVER,Balada Sinfônica
+2352,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	WA_MOONLIT_SERENADE,Serenata ao Luar
 
-//****
-// MI Minstrel
-2381,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	MI_RUSH_WINDMILL,Windmill Rush Attack
-2382,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	MI_ECHOSONG,Echo Song
-2383,9,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	MI_HARMONIZE,Harmonize
+//========================\\
+// - Trovador              ||
+//========================//
+2381,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	MI_RUSH_WINDMILL,Sinfonia dos Ventos
+2382,0,6,4,0,0x3,7:8:9:10:11,5,1,yes,0,0,0,none,0,	MI_ECHOSONG,Canção de Balder
+2383,9,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	MI_HARMONIZE,Harmonizar
 
-//****
-// WM Wanderer/Minstrel
-2412,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		WM_LESSON,Lesson
-2413,9,8,1,-1,0,0,5,-2:-2:-3:-3:-4,yes,0,0,0,magic,0,	WM_METALICSOUND,Metallic Sound
-2414,9,6,2,-1,0x1,1,5,1,yes,0,0x80,0,none,0,	WM_REVERBERATION,Reverberation //CHECK May need to recode. Testing needed. Also need to test AoE size.
+//========================\\
+// - Musa/Trovador         ||
+//========================//
+2412,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		WM_LESSON,Domínio Musical
+2413,9,8,1,-1,0,0,5,-2:-2:-3:-3:-4,yes,0,0,0,magic,0,	WM_METALICSOUND,Ruído Estridente
+2414,9,6,2,-1,0x1,1,5,1,yes,0,0x80,0,none,0,	WM_REVERBERATION,Ressonância //CHECK May need to recode. Testing needed. Also need to test AoE size.
 2415,0,0,0,-1,0,0,5,1,no,0,0,0,weapon,0,	WM_REVERBERATION_MELEE,Reverberation Melee
 2416,0,0,0,-1,0,0,5,1,no,0,0,0,magic,0,		WM_REVERBERATION_MAGIC,Reverberation Magic
-2417,11,6,2,0,0x3,5,1,1,no,0,0,0,none,0,	WM_DOMINION_IMPULSE,Dominion Impulse
-2418,9,6,2,0,0x1,0,5,1,yes,0,0,0,none,0,	WM_SEVERE_RAINSTORM,Severe Rainstorm
-2419,9,6,2,0,0x3,1,5,1,yes,0,0x80,5,none,0,	WM_POEMOFNETHERWORLD,Poem of The Netherworld //CHECK May need to recode too.
-2420,0,6,4,0,0x2,2:3:4:5:6,5,1,yes,0,0,0,none,0,WM_VOICEOFSIREN,Voice of Siren
-2421,7,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	WM_DEADHILLHERE,Valley of Death//Enemy targeted magic skill in official. Really? WTF???
-2422,0,6,4,0,0x3,5:6:7:8:9,5,1,yes,0,0,0,none,0,WM_LULLABY_DEEPSLEEP,Deep Sleep Lullaby
-2423,0,6,4,0,0x3,3:4:5:6:7,5,1,yes,0,0,0,none,0,WM_SIRCLEOFNATURE,Circle of Nature's Sound
-2424,9,6,4,0,0x1,0,5,1,yes,0,0,0,magic,0,	WM_RANDOMIZESPELL,Improvised Song
-2425,9,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	WM_GLOOMYDAY,Gloomy Day
-2426,9,6,2,0,0x2,2:3:3:4:4,5,1,yes,0,0x4000,0,weapon,0,	WM_GREAT_ECHO,Great Echo//Skill type in official is set to none. Why?
-2427,0,6,4,0,0x3,5:6:7:8:9,5,1,yes,0,0x4000,0,none,0,	WM_SONG_OF_MANA,Song of Mana
-2428,0,6,4,0,0x3,5:6:7:8:9,5,1,yes,0,0x4000,0,none,0,	WM_DANCE_WITH_WUG,Dance With A Warg
-2429,9,6,2,0,0x42,4:4:5:5:6,5,1,yes,0,0x4000,0,none,0,	WM_SOUND_OF_DESTRUCTION,Sound of Destruction//Using clif damage to deal the fixed damage for now. Testing needed to see how it dealed.
-2430,0,6,4,0,0x3,3:4:5:6:7,5,1,yes,0,0x4000,0,none,0,	WM_SATURDAY_NIGHT_FEVER,Saturday Night Fever//Info for above skill. Type in official is magic. Has damage changed since 2011? Recheck AoE.
-2431,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_LERADS_DEW,Lerad's Dew
-2432,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_MELODYOFSINK,Melody of Sink
-2433,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_BEYOND_OF_WARCRY,Warcry of Beyond
-2434,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_UNLIMITED_HUMMING_VOICE,Unlimited Humming Voice
+2417,11,6,2,0,0x3,5,1,1,no,0,0,0,none,0,	WM_DOMINION_IMPULSE,Ativar Ressonância
+2418,9,6,2,0,0x1,0,5,1,yes,0,0,0,none,0,	WM_SEVERE_RAINSTORM,Temporal de Mil Flechas
+2419,9,6,2,0,0x3,1,5,1,yes,0,0x80,5,none,0,	WM_POEMOFNETHERWORLD,Poema de Nifflheim //CHECK May need to recode too.
+2420,0,6,4,0,0x2,2:3:4:5:6,5,1,yes,0,0,0,none,0,WM_VOICEOFSIREN,Canto da Sereia
+2421,7,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	WM_DEADHILLHERE,Réquiem de Orfeu //Enemy targeted magic skill in official. Really? WTF???
+2422,0,6,4,0,0x3,5:6:7:8:9,5,1,yes,0,0,0,none,0,WM_LULLABY_DEEPSLEEP,Melodia de Morfeu
+2423,0,6,4,0,0x3,3:4:5:6:7,5,1,yes,0,0,0,none,0,WM_SIRCLEOFNATURE,Sibilo de Eir
+2424,9,6,4,0,0x1,0,5,1,yes,0,0,0,magic,0,	WM_RANDOMIZESPELL,Improviso
+2425,9,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	WM_GLOOMYDAY,Ode a Hela
+2426,9,6,2,0,0x2,2:3:3:4:4,5,1,yes,0,0x4000,0,weapon,0,	WM_GREAT_ECHO,Brado de Odin //Skill type in official is set to none. Why?
+2427,0,6,4,0,0x3,5:6:7:8:9,5,1,yes,0,0x4000,0,none,0,	WM_SONG_OF_MANA,Canção de Alfheim
+2428,0,6,4,0,0x3,5:6:7:8:9,5,1,yes,0,0x4000,0,none,0,	WM_DANCE_WITH_WUG,Dança com Lobos
+2429,9,6,2,0,0x42,4:4:5:5:6,5,1,yes,0,0x4000,0,none,0,	WM_SOUND_OF_DESTRUCTION,Prelúdio do Ragnarök //Using clif damage to deal the fixed damage for now. Testing needed to see how it dealed.
+2430,0,6,4,0,0x3,3:4:5:6:7,5,1,yes,0,0x4000,0,none,0,	WM_SATURDAY_NIGHT_FEVER,Embalos de Sábado a Noite //Info for above skill. Type in official is magic. Has damage changed since 2011? Recheck AoE.
+2431,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_LERADS_DEW,Orvalho de Idun
+2432,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_MELODYOFSINK,Cântico da Iluminação
+2433,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_BEYOND_OF_WARCRY,Clamor de Batalha
+2434,0,6,4,0,0x3,5:5:6:6:7,5,1,yes,0,0x4000,0,none,0,	WM_UNLIMITED_HUMMING_VOICE,Murmúrio Perene
 
-//****
-// SO Sorcerer
-2443,0,6,4,3,0,0,5,1,yes,0,0,8:10:12:14:16,magic,0,	SO_FIREWALK,Fire Walk //CHECK Video and data shows each cell only hits once.
-2444,0,6,4,4,0,0,5,1,yes,0,0,8:10:12:14:16,magic,0,	SO_ELECTRICWALK,Electric Walk
-2445,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SO_SPELLFIST,Spell Fist
-2446,9,6,2,2,0,0,5,-3,yes,0,0,0,magic,0,	SO_EARTHGRAVE,Earth Grave
-2447,9,6,2,1,0,0,5,-5,yes,0,0,0,magic,0,	SO_DIAMONDDUST,Diamond Dust
-2448,9,6,1,5,0x2,1:1:1:1:2,5,1,yes,0,0,0,magic,0,	SO_POISON_BUSTER,Poison Buster
-2449,9,6,2,0,0,0,5,1,yes,0,0,0,magic,0,		SO_PSYCHIC_WAVE,Psychic Wave
-2450,9,6,2,5,0,0,5,1,yes,0,0,0,magic,0,		SO_CLOUD_KILL,Cloud Kill
-2451,9,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	SO_STRIKING,Striking //CHECK Data shows a % for increased successful refine rate. Is this true?
-2452,9,6,2,3,0x1,0,5,1,yes,0,0,0,magic,0,	SO_WARMER,Warmer
-2453,9,6,2,0,0x1,0,5,1,yes,0,0,0,magic,0,	SO_VACUUM_EXTREME,Vacuum Extreme
-2454,9,6,1,4,0x2,1:1:2:2:3,5,1,yes,0,0,0,magic,0,	SO_VARETYR_SPEAR,Varetyr Spear
-2455,9,6,2,0,0x3,1:1:2:2:3,5,1,yes,0,0,0,magic,0,	SO_ARRULLO,Arrullo
-2456,0,6,4,0,0x1,0,4,1,yes,0,0,0,none,0,	SO_EL_CONTROL,Spirit Control
-2457,0,6,4,3,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_AGNI,Summon Fire Spirit Agni
-2458,0,6,4,1,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_AQUA,Summon Water Spirit Aqua
-2459,0,6,4,4,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_VENTUS,Summon Wind Spirit Ventus
-2460,0,6,4,2,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_TERA,Summon Earth Spirit Tera
-2461,5,6,1,0,0x1,0,1,1,no,0,0,0,none,0,	SO_EL_ACTION,Elemental Action
-2462,0,6,4,0,0x1,0,2,1,yes,0,0,0,none,0,	SO_EL_ANALYSIS,Four Spirit Analysis
-2463,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		SO_EL_SYMPATHY,Spirit Sympathy
-2464,0,6,4,0,0x1,0,1,1,yes,0,0,0,none,0,	SO_EL_CURE,Spirit Recovery
-2465,9,6,2,3,0x1,0,3,1,yes,0,0,1,magic,0,	SO_FIRE_INSIGNIA,Fire Insignia //CHECK All 4 insignia skills can be targeted and animations work
-2466,9,6,2,1,0x1,0,3,1,yes,0,0,1,magic,0,	SO_WATER_INSIGNIA,Water Insignia // but its effects havent been coded yet.
-2467,9,6,2,4,0x1,0,3,1,yes,0,0,1,magic,0,	SO_WIND_INSIGNIA,Wind Insignia
-2468,9,6,2,2,0x1,0,3,1,yes,0,0,1,magic,0,	SO_EARTH_INSIGNIA,Earth Insignia
+//========================\\
+// - Feiticeiro            ||
+//========================//
+2443,0,6,4,3,0,0,5,1,yes,0,0,8:10:12:14:16,magic,0,	SO_FIREWALK,Passos da Salamandra //CHECK Video and data shows each cell only hits once.
+2444,0,6,4,4,0,0,5,1,yes,0,0,8:10:12:14:16,magic,0,	SO_ELECTRICWALK,Passos da Sílfide
+2445,0,6,4,0,0x1,0,5,1,no,0,0,0,none,0,		SO_SPELLFIST,Punho Arcano
+2446,9,6,2,2,0,0,5,-3,yes,0,0,0,magic,0,	SO_EARTHGRAVE,Castigo de Nerthus
+2447,9,6,2,1,0,0,5,-5,yes,0,0,0,magic,0,	SO_DIAMONDDUST,Pó de Diamante
+2448,9,6,1,5,0x2,1:1:1:1:2,5,1,yes,0,0,0,magic,0,	SO_POISON_BUSTER,Implosão Tóxica
+2449,9,6,2,0,0,0,5,1,yes,0,0,0,magic,0,		SO_PSYCHIC_WAVE,Onda Psíquica
+2450,9,6,2,5,0,0,5,1,yes,0,0,0,magic,0,		SO_CLOUD_KILL,Maldição de Jormungand
+2451,9,6,16,0,0x1,0,5,1,yes,0,0,0,none,0,	SO_STRIKING,Encanto de Órion //CHECK Data shows a % for increased successful refine rate. Is this true?
+2452,9,6,2,3,0x1,0,5,1,yes,0,0,0,magic,0,	SO_WARMER,Aquecer Terreno
+2453,9,6,2,0,0x1,0,5,1,yes,0,0,0,magic,0,	SO_VACUUM_EXTREME,Tornado
+2454,9,6,1,4,0x2,1:1:2:2:3,5,1,yes,0,0,0,magic,0,	SO_VARETYR_SPEAR,Lanças dos Aesir
+2455,9,6,2,0,0x3,1:1:2:2:3,5,1,yes,0,0,0,magic,0,	SO_ARRULLO,Onda Hipnótica
+2456,0,6,4,0,0x1,0,4,1,yes,0,0,0,none,0,	SO_EL_CONTROL,Domínio Elemental
+2457,0,6,4,3,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_AGNI,Invocar Agni
+2458,0,6,4,1,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_AQUA,Invocar Varuna
+2459,0,6,4,4,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_VENTUS,Invocar Vayu
+2460,0,6,4,2,0x1,0,3,1,yes,0,0,0,none,0,	SO_SUMMON_TERA,Invocar Chandra
+2461,5,6,1,0,0x1,0,1,1,no,0,0,0,none,0,	SO_EL_ACTION,Incitar Elemental
+2462,0,6,4,0,0x1,0,2,1,yes,0,0,0,none,0,	SO_EL_ANALYSIS,Análise Elemental
+2463,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		SO_EL_SYMPATHY,Empatia Elemental
+2464,0,6,4,0,0x1,0,1,1,yes,0,0,0,none,0,	SO_EL_CURE,Troca Espiritual
+2465,9,6,2,3,0x1,0,3,1,yes,0,0,1,magic,0,	SO_FIRE_INSIGNIA,Insígnia do Fogo //CHECK All 4 insignia skills can be targeted and animations work
+2466,9,6,2,1,0x1,0,3,1,yes,0,0,1,magic,0,	SO_WATER_INSIGNIA,Insígnia da Água // but its effects havent been coded yet.
+2467,9,6,2,4,0x1,0,3,1,yes,0,0,1,magic,0,	SO_WIND_INSIGNIA,Insígnia do Vento
+2468,9,6,2,2,0x1,0,3,1,yes,0,0,1,magic,0,	SO_EARTH_INSIGNIA,Insígnia da Terra
 
 //****
 // GN Genetic
@@ -1130,8 +1141,6 @@
 
 2515,11,6,16,0,0x1,0,5,1,yes,0,0,0,magic,0,	AB_SECRAMENT,Secrament
 2516,11,6,1,-1,0x2,5,5,1,no,0,0,0,weapon,0,	WM_SEVERE_RAINSTORM_MELEE,Severe Rainstorm Melee
-2517,0,6,4,-1,0x2,3:4:5:6:7,5,1,no,0,0,0,weapon,0,	SR_HOWLINGOFLION,Howling of Lion
-2518,11,6,2,-1,0x2,2:2:3:3:4,5,1,no,0,0,0,weapon,0,	SR_RIDEINLIGHTNING,Ride In Lightening
 
 // Episode 13.3
 //2533,0,0,4,0,0x1,0,1,0,no,0,0,0,none,0,	ALL_ODINS_RECALL,Odin's Recall
