@@ -540,7 +540,7 @@
 370,-2,6,1,-1,0,0,5,1,yes,0,0,0,weapon,3,	CH_PALMSTRIKE,Raging Palm Strike
 371,-2,8,4,-1,0,0,5,1,no,0,0x200,0,weapon,0,CH_TIGERFIST,Glacier Fist
 372,-2,8,4,-1,0,0,10,-1:-1:-2:-2:-3:-3:-4:-4:-5:-5,no,0,0x200,0,weapon,0, CH_CHAINCRUSH,Chain Crush Combo
-373,0,6,4,0,0x1,0,5,1,no,0,0,0,magic,0,	PF_HPCONVERSION,Indulge
+373,0,6,4,0,0x1,0,5,1,no,0,0,0,magic,0,		PF_HPCONVERSION,Indulge
 374,9,6,1,0,0x1,0,1,1,yes,0,0xE00,0,none,0,	PF_SOULCHANGE,Soul Exhale
 375,9,6,1,0,0x98,0,5,1,yes,0,0,0,magic,0,	PF_SOULBURN,Soul Siphon
 376,0,0,0,0,0x1,0,5,1,no,0,0,0,weapon,0,	ASC_KATAR,Advanced Katar Mastery
@@ -807,7 +807,7 @@
 2006,0,6,4,-1,0x2,5,5,1,no,0,0,0,weapon,0,	RK_IGNITIONBREAK,Impacto Flamejante
 2007,0,0,0,0,0,0,5,0,no,0,0,0,weapon,0,		RK_DRAGONTRAINING,Adestrar Dragão
 2008,9,6,2,3,0x2,1:1:1:2:2:2:3:3:4:4,10,1,no,0,0,0,weapon,0,RK_DRAGONBREATH,Sopro do Dragão
-2009,0,6,4,0,0x3,3:4:5:6:7,5,1,yes,0,0,0,none,0,			RK_DRAGONHOWLING,Rugido do Dragão
+2009,0,6,4,0,0x3,3:4:5:6:7,5,1,yes,0,0,0,none,0, RK_DRAGONHOWLING,Rugido do Dragão
 2010,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		RK_RUNEMASTERY,Perícia em Runas
 2011,0,6,4,0,0x1,0,1,1,yes,0,0,0,none,0,	RK_MILLENNIUMSHIELD,Millenium Shield
 2012,1,6,4,-1,0,0x8,1,1,yes,0,0,0,weapon,0,	RK_CRUSHSTRIKE,Golpe Titânico
@@ -1200,9 +1200,9 @@
 3007,0,6,4,-1,0x42,4:4:4:4:5,5,0,no,0,0,0,misc,0,	KO_HAPPOKUNAI,Turbilhão de Kunais
 3008,9,8,2,0,0x12,2,10,-10,no,0,0,0,misc,0,			KO_MUCHANAGE,Explosão de Moedas
 3009,9:10:11:12:13,8,2,-1,0x2,3,5,-5,no,0,0,0,weapon,0,	KO_HUUMARANKA,Turbilhão de Pétalas
-3010,3,6,4,0,0x42,0,5,1,no,0,0x80,0,weapon,0,		KO_MAKIBISHI,Estrepes
-3011,0,6,4,0,0x1,0,5,0,yes,0,0,0,none,0,			KO_MEIKYOUSISUI,Purificação da Alma
-3012,0,6,4,0,0x1,0,5,0,no,0,0,1,none,3:4:5:6:7,		KO_ZANZOU,Genjutsu Clone das Sombras
+3010,3,6,4,0,0x42,0,5,1,no,0,0x80,0,weapon,0,	 KO_MAKIBISHI,Estrepes
+3011,0,6,4,0,0x1,0,5,0,yes,0,0,0,none,0,		 KO_MEIKYOUSISUI,Purificação da Alma
+3012,0,6,4,0,0x1,0,5,0,no,0,0,1,none,3:4:5:6:7,	 KO_ZANZOU,Genjutsu Clone das Sombras
 3013,5,6,1,0,0x1,0,5,0,no,0,0,0,none,0,			 KO_KYOUGAKU,Genjutsu Assalto das Sombras
 3014,5,6,1,0,0x1,0,5,0,no,0,0,0,none,0,			 KO_JYUSATSU,Genjutsu Chamado da Morte
 3015,0,6,4,3,0x1,0,1,1,no,0,0,0,none,0,			 KO_KAHU_ENTEN,Amuleto Espiritual Fogo
@@ -1272,8 +1272,8 @@
 8022,0,6,4,0,0,0x1,5,1,no,0,0,0,none,0,			MH_LIGHT_OF_REGENE,Light of Regene
 8023,0,6,4,0,0,0x1,5,1,no,0,0,0,none,0,			MH_OVERED_BOOST,Overed Boost
 8024,7,8,1,4:0:4:0:4,0,0,5,-6,yes,0,0,0,magic,0,MH_ERASER_CUTTER,Eraser Cutter
-8025,7,8,2,4:0:4:0:4,0x2,2:2:3:3:4,5,-6,no,0,0,0,magic,0,	MH_XENO_SLASHER,Xeno Slasher
-8026,5:5:7:7:9,6,16,0,0x1,0,5,1,no,0,0,0,magic,0,			MH_SILENT_BREEZE,Silent Breeze
+8025,7,8,2,4:0:4:0:4,0x2,2:2:3:3:4,5,-6,no,0,0,0,magic,0, MH_XENO_SLASHER,Xeno Slasher
+8026,5:5:7:7:9,6,16,0,0x1,0,5,1,no,0,0,0,magic,0,MH_SILENT_BREEZE,Silent Breeze
 8027,0,6,4,0,0x1,0,1,1,no,0,0,0,none,0,			 MH_STYLE_CHANGE,Style Change
 8028,1,8,1,0,0,0,5,1,no,0,0,0,weapon,0,			 MH_SONIC_CRAW,Sonic Claw
 8029,1,6,4,0,0,0,5,1,no,0,0x200,0,weapon,0,		 MH_SILVERVEIN_RUSH,Silver Bain Rush
