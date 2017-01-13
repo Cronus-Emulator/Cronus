@@ -57,7 +57,7 @@
 //---------------------------------------------------------
 
 //========================\\
-// - Básicas               ||
+// - Habilidades Básicas   ||
 //========================//
 1,0,0,0,0,0,0,9,0,no,0,0,0,none,0,		NV_BASIC,Habilidade Básicas
 
@@ -142,7 +142,6 @@
 //========================\\
 // - Cavaleiro             ||
 //========================//
-
 55,0,0,0,0,0,0,10,0,no,0,0,0,weapon,0,			KN_SPEARMASTERY,Perícia com Lança
 56,-2,8,1,-1,0,0,10,3,no,0,0,0,weapon,0,		KN_PIERCE,Perfurar
 57,-2,6,1,-1,0x1,0,10,1,no,0,0,0,weapon,3,		KN_BRANDISHSPEAR,Brandir Lança
