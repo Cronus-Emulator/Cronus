@@ -59,7 +59,7 @@
 //========================\\
 // - Habilidades Básicas   ||
 //========================//
-1,0,0,0,0,0,0,9,0,no,0,0,0,none,0,		NV_BASIC,Habilidade Básicas
+1,0,0,0,0,0,0,9,0,no,0,0,0,none,0,		NV_BASIC,Habilidades Básicas
 
 //========================\\
 // - Espadachim            ||
@@ -116,7 +116,7 @@
 39,1,0,0,0,0,0,10,0,no,0,0,0,none,0,	 MC_PUSHCART,Usar Carrinho
 40,1,6,4,0,0x1,0,1,1,no,0,0,0,none,0,	 MC_IDENTIFY,Identificar Item
 41,1,6,4,0,0x1,0,10,1,no,0,0,0,none,0,	 MC_VENDING,Comércio
-42,-1,6,1,-1,0,0,10,1,no,0,0,0,weapon,0, MC_MAMMONITE,Mammonite
+42,-1,6,1,-1,0,0,10,1,no,0,0,0,weapon,0, MC_MAMMONITE,Mammonita
 
 //========================\\
 // - Arqueiro              ||
@@ -1384,16 +1384,16 @@
 10000,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_APPROVAL,Autorização Oficial
 10001,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_KAFRACONTRACT,Contrato com Kafra
 10002,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_GUARDRESEARCH,Comandar Guardiões
-10003,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_GUARDUP,Carisma
+10003,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_GUARDUP,Fortalecer Guardiões
 10004,0,0,0,0,0,0,10,0,no,0,0x10,0,none,0,	  GD_EXTENSION,Expandir Clã
 10005,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_GLORYGUILD,Glória do Clã
 10006,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_LEADERSHIP,Grande Liderança
-10007,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_GLORYWOUNDS,Feridas da Glória
-10008,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_SOULCOLD,Alma Fria
-10009,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_HAWKEYES,Olhos Afiados
-10010,0,0,4,0,0x3,15,1,0,yes,0,0x10,0,none,0, GD_BATTLEORDER,Ordens de Batalha
+10007,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_GLORYWOUNDS,Ferimentos de Glória
+10008,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_SOULCOLD,Coração Frio
+10009,0,0,0,0,0,2,1,0,no,0,0x10,0,none,0,	  GD_HAWKEYES,Olhar Apurado
+10010,0,0,4,0,0x3,15,1,0,yes,0,0x10,0,none,0, GD_BATTLEORDER,Comando de Batalha
 10011,0,0,4,0,0x3,15,3,0,yes,0,0x10,0,none,0, GD_REGENERATION,Regeneração
-10012,0,0,4,0,0x3,15,1,0,yes,0,0x10,0,none,0, GD_RESTORE,Restaurar
-10013,0,0,4,0,0x3,0,1,0,yes,0,0x10,0,none,0,  GD_EMERGENCYCALL,Reunir Clã
-10014,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_DEVELOPMENT,Estender Clã
+10012,0,0,4,0,0x3,15,1,0,yes,0,0x10,0,none,0, GD_RESTORE,Restauração
+10013,0,0,4,0,0x3,0,1,0,yes,0,0x10,0,none,0,  GD_EMERGENCYCALL,Chamado Urgente
+10014,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_DEVELOPMENT,Desenvolvimento Permanente
 //10015,0,0,0,0,0,0,1,0,no,0,0x10,0,none,0,	  GD_ITEMEMERGENCYCALL,Unknown Skill
