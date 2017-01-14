@@ -683,24 +683,24 @@
 //========================\\
 // - Mestre Taekwon        ||
 //========================//
-427,0,6,4,0,0x1,0,3,1,yes,0,0,0,magic,0,	SG_FEEL,Percepção Solar, Lunar e Estelar
+427,0,6,4,0,0x1,0,3,1,yes,0,0,0,magic,0,	SG_FEEL,Percepção Solar Lunar e Estelar
 428,1,6,4,-1,0x2,1,3,1,yes,0,0,0,weapon,2,	SG_SUN_WARM,Calor Solar
 429,1,6,4,-1,0x2,1,3,1,yes,0,0,0,weapon,2,	SG_MOON_WARM,Calor Lunar
 430,1,6,4,-1,0x2,1,3,1,yes,0,0,0,weapon,2,	SG_STAR_WARM,Calor Estelar
 431,0,0,4,0,0x1,0,4,1,yes,0,0,0,magic,0,	SG_SUN_COMFORT,Proteção Solar
 432,0,0,4,0,0x1,0,4,1,yes,0,0,0,magic,0,	SG_MOON_COMFORT,Proteção Lunar
 433,0,0,4,0,0x1,0,4,1,yes,0,0,0,magic,0,	SG_STAR_COMFORT,Proteção Estelar
-434,10,6,1,0,0x1,0,3,1,yes,0,0,0,magic,0,	SG_HATE,Oposição Solar, Lunar e Estelar
+434,10,6,1,0,0x1,0,3,1,yes,0,0,0,magic,0,	SG_HATE,Oposição Solar Lunar e Estelar
 435,0,0,0,0,0,0,3,0,no,0,0,0,none,0,		SG_SUN_ANGER,Fúria Solar
 436,0,0,0,0,0,0,3,0,no,0,0,0,none,0,		SG_MOON_ANGER,Fúria Lunar
 437,0,0,0,0,0,0,3,0,no,0,0,0,none,0,		SG_STAR_ANGER,Fúria Estelar
 438,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		SG_SUN_BLESS,Bênção Solar
 439,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		SG_MOON_BLESS,Bênção Lunar
 440,0,0,0,0,0,0,5,0,no,0,0,0,none,0,		SG_STAR_BLESS,Bênção Estelar
-441,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SG_DEVIL,Sombra Solar, Lunar e Estelar
-442,0,0,0,0,0,0,3,0,no,0,0,0,none,0,		SG_FRIEND,Auxílio Solar, Lunar e Estelar
-443,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SG_KNOWLEDGE,Transmissão Solar, Lunar e Estelar
-444,0,6,4,0,0x1,0,1,1,no,0,0,0,misc,0,		SG_FUSION,União Solar, Lunar e Estelar
+441,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SG_DEVIL,Sombra Solar Lunar e Estelar
+442,0,0,0,0,0,0,3,0,no,0,0,0,none,0,		SG_FRIEND,Auxílio Solar Lunar e Estelar
+443,0,0,0,0,0,0,10,0,no,0,0,0,none,0,		SG_KNOWLEDGE,Transmissão Solar Lunar e Estelar
+444,0,6,4,0,0x1,0,1,1,no,0,0,0,misc,0,		SG_FUSION,União Solar Lunar e Estelar
 
 //========================\\
 // - Espiritualista       ||
