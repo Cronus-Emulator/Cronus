@@ -1364,7 +1364,7 @@ void login_auth_failed(struct login_session_data* sd, int result)
 		case 101: error = "Verificacao contra hacking."; break; // 101 = Account has been locked for a hacking investigation. Please contact the GM Team for more information
 		case 102: error = "Verificacao de bug."; break; // 102 = This account has been temporarily prohibited from login due to a bug-related investigation
 		case 103: error = "Deletando char."; break; // 103 = This character is being deleted. Login is temporarily unavailable for the time being
-		case 104: error = "Deletando o(a) cônjuje."; break; // 104 = This character is being deleted. Login is temporarily unavailable for the time being
+		case 104: error = "Deletando o(a) conjuje."; break; // 104 = This character is being deleted. Login is temporarily unavailable for the time being
 		default : error = "Erro desconhecido."; break;
 		}
 

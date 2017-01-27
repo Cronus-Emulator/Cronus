@@ -6607,9 +6607,9 @@ ACMD(mail)
  *------------------------------------------*/
 ACMD(mobinfo)
 {
-	unsigned char msize[3][7] = {"Pequeno", "Médio", "Grande"};
-	unsigned char mrace[12][11] = {"Amorfo", "Morto-Vivo", "Bruto", "Planta", "Inseto", "Peixe", "Demônio", "Humanóide", "Anjo", "Dragão", "Chefe", "Mini-Boss"};
-	unsigned char melement[10][11] = {"Neutro", "Água", "Terra", "Fogo", "Vento", "Veneno", "Sagrado", "Sombra", "Fantasma", "Morto-Vivo"};
+	unsigned char msize[3][7] = {"Pequeno", "Medio", "Grande"};
+	unsigned char mrace[12][11] = {"Amorfo", "Morto-Vivo", "Bruto", "Planta", "Inseto", "Peixe", "Demonio", "Humanoide", "Anjo", "Dragao", "Chefe", "Mini-Boss"};
+	unsigned char melement[10][11] = {"Neutro", "Agua", "Terra", "Fogo", "Vento", "Veneno", "Sagrado", "Sombra", "Fantasma", "Morto-Vivo"};
 	char atcmd_output2[CHAT_SIZE_MAX];
 	struct item_data *item_data;
 	struct mob_db *monster, *mob_array[MAX_SEARCH];
@@ -8071,7 +8071,7 @@ ACMD(whosell)
 	if ((item_data = itemdb->search_name(item_name)) == NULL &&
 		(item_data = itemdb->exists(atoi(item_name))) == NULL)
 	{
-			clif->messagecolor_self(fd, COLOR_RED, "ID/Nome Inválido!");
+			clif->messagecolor_self(fd, COLOR_RED, "ID/Nome Invalido!");
 			false;
 	}
 
@@ -8085,7 +8085,7 @@ ACMD(whosell)
 		{
 			for (j = 0; j < csd->vend_num; j++) {
 				if(csd->status.cart[csd->vending[j].index].nameid == item_id) {
-					sprintf(output, "Comerciante: %s | Quant: %d | Preço: %d | Loja: %s | Mapa: %s[%d,%d]", csd->status.name, csd->vending[j].amount, csd->vending[j].value,csd->message,mapindex_id2name(csd->mapindex),csd->bl.x,csd->bl.y);
+					sprintf(output, "Comerciante: %s | Quant: %d | Preco: %d | Loja: %s | Mapa: %s[%d,%d]", csd->status.name, csd->vending[j].amount, csd->vending[j].value,csd->message,mapindex_id2name(csd->mapindex),csd->bl.x,csd->bl.y);
 					
 					clif->viewpoint(sd, 1, 1, csd->bl.x, csd->bl.y, count+1, 0xFFFFFF);
 					if(csd->vending[j].value < MinPrize) MinPrize = csd->vending[j].value;
@@ -8099,10 +8099,10 @@ ACMD(whosell)
 	mapit->free(iter);
 
 	if(count > 0) {
-		sprintf(output, "Encontrado(s) %d. Média de preço: %d ~ %d.", count, MinPrize, MaxPrize);
+		sprintf(output, "Encontrado(s) %d. Media de preco: %d ~ %d.", count, MinPrize, MaxPrize);
 		clif->message(fd, output);
 	} else
-		clif->messagecolor_self(fd, COLOR_RED, "Item não encontrado.");
+		clif->messagecolor_self(fd, COLOR_RED, "Item nao encontrado.");
 
 	return true;
 }

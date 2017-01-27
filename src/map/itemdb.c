@@ -324,7 +324,7 @@ const char* itemdb_typename(int type)
 {
 	switch(type)
 	{
-		case IT_HEALING:        return "Poção/Comida";
+		case IT_HEALING:        return "Pocao/Comida";
 		case IT_USABLE:         return "Usavel";
 		case IT_ETC:            return "Etc.";
 		case IT_WEAPON:         return "Arma";

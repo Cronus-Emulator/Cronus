@@ -4986,7 +4986,7 @@ int pc_useitem(struct map_session_data *sd,int n) {
 			if (!(nameid == ITEMID_REINS_OF_MOUNT && pc_hasmount(sd)))
 				sd->item_delay[i].tick = tick + sd->inventory_data[n]->delay;
 		} else {// should not happen
-			ShowError("pc_useitem: execedeu as posições da array do item delay (nameid=%d, char_id=%d)\n", nameid, sd->status.char_id);
+			ShowError("pc_useitem: Execedeu as posicoes no array do item delay (nameid=%d, char_id=%d)\n", nameid, sd->status.char_id);
 		}
 		//clean up used delays so we can give room for more
 		for(i = 0; i < MAX_ITEMDELAYS; i++) {
@@ -6922,7 +6922,7 @@ int pc_skillup(struct map_session_data *sd,uint16 skill_id) {
 		else if (sd->sktree.third)
 			clif->msgtable_num(sd, MSG_SKILL_POINTS_LEFT_JOB2, sd->sktree.third);
 		else if (pc->calc_skillpoint(sd) < 9) /* TODO: official response? */
-			clif->messagecolor_self(sd->fd, COLOR_RED, "Você precisa das habilidades básicas");
+			clif->messagecolor_self(sd->fd, COLOR_RED, "Voce precisa das habilidades basicas");
 	}
 	return 0;
 }

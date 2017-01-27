@@ -392,7 +392,7 @@ bool chat_createnpcchat(struct npc_data* nd, const char* title, int limit, bool 
 	}
 
 	if( zeny > MAX_ZENY || maxLvl > MAX_LEVEL ) {
-		ShowError("chat_createnpcchat: npc '%s' tem um lvl exigido ou quantidade de zeny acima do limite máximo!\n", nd->exname);
+		ShowError("chat_createnpcchat: npc '%s' tem um lvl exigido ou quantidade de zeny acima do limite maximo!\n", nd->exname);
 		return false;
 	}
 

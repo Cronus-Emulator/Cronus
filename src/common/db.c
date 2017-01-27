@@ -2418,7 +2418,7 @@ DBOptions db_fix_options(DBType type, DBOptions options)
 			return (DBOptions)(options&~(DB_OPT_DUP_KEY|DB_OPT_RELEASE_KEY));
 
 		default:
-			ShowError("db_fix_options: Tipo de database desconhecida %u com as opções %x\n", type, options);
+			ShowError("db_fix_options: Tipo de database desconhecida %u com as opcoes %x\n", type, options);
 		case DB_STRING:
 		case DB_ISTRING: // String databases, no fix required
 			return options;

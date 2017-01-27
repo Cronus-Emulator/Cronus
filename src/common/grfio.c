@@ -555,7 +555,7 @@ static int grfio_entryread(const char *grfname, int gentry)
 	fseek(fp,0,SEEK_SET);
 
 	if (fread(grf_header,1,0x2e,fp) != 0x2e) {
-		ShowError("Nao foi possível ler todos os grf_header elemento de %s \n", grfname);
+		ShowError("Nao foi possivel ler todos os grf_header elemento de %s \n", grfname);
 		fclose(fp);
 		return 2; // 2:file format error
 	}
@@ -573,7 +573,7 @@ static int grfio_entryread(const char *grfname, int gentry)
 		list_size = grf_size - ftell(fp);
 		grf_filelist = (unsigned char *)aMalloc(list_size);
 		if (fread(grf_filelist,1,list_size,fp) != (size_t)list_size) {
-			ShowError("Nao foi possível ler todos os grf_filelist elementos de %s \n", grfname);
+			ShowError("Nao foi possivel ler todos os grf_filelist elementos de %s \n", grfname);
 			aFree(grf_filelist);
 			fclose(fp);
 			return 2; // 2:file format error
@@ -592,7 +592,7 @@ static int grfio_entryread(const char *grfname, int gentry)
 				int srclen = getlong(grf_filelist+ofs2+0) - getlong(grf_filelist+ofs2+8) - 715;
 
 				if (strlen(fname) > sizeof(aentry.fn) - 1) {
-					ShowFatalError("O nome da GRF %s e muito longo\n", fname);
+					ShowFatalError("Nome muito longo da GRF %s \n", fname);
 					aFree(grf_filelist);
 					return 5; // 5: file name too long
 				}
@@ -634,7 +634,7 @@ static int grfio_entryread(const char *grfname, int gentry)
 
 		if ((long)rSize > grf_size-ftell(fp)) {
 			fclose(fp);
-			ShowError("Formato da data ilegal: Comprimir o tamanho de entrada da GRF\n");
+			ShowError("Formato de data ilegal: Comprimir o tamanho de entrada da GRF\n");
 			return 4;
 		}
 
