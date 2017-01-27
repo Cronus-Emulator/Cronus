@@ -1,6 +1,3 @@
-# Copyright (c) Hercules Dev Team, licensed under GNU GPL.
-# See the LICENSE file
-
 # @configure_input@
 
 CONFIG_D = ../config
