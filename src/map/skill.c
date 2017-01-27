@@ -16179,14 +16179,14 @@ int skill_delunitgroup(struct skill_unit_group *group, const char* file, int lin
 	int i,j;
 
 	if( group == NULL ) {
-		ShowDebug("skill_delunitgroup: grupo é NULL (source=%s:%d, %s)! Favor reportar isso! (#3504)\n", file, line, func);
+		ShowDebug("skill_delunitgroup: Grupo NULL (source=%s:%d, %s)! Favor reportar! (#3504)\n", file, line, func);
 		return 0;
 	}
 
 	src=map->id2bl(group->src_id);
 	ud = unit->bl2ud(src);
 	if(!src || !ud) {
-		ShowError("skill_delunitgroup: Grupo de source nao encontrado! (src_id: %d skill_id: %d)\n", group->src_id, group->skill_id);
+		ShowError("skill_delunitgroup: Grupo source nao encontrado! (src_id: %d skill_id: %d)\n", group->src_id, group->skill_id);
 		return 0;
 	}
 
@@ -17957,7 +17957,7 @@ int skill_blockpc_start_(struct map_session_data *sd, uint16 skill_id, int tick)
 	}
 
 	if( cd->cursor == MAX_SKILL_TREE ) {
-		ShowError("skill_blockpc_start: '%s' superado '%d' cooldowns de habilidade, sem espaço para salvar!\n",sd->status.name,MAX_SKILL_TREE);
+		ShowError("skill_blockpc_start: '%s' superado '%d' cooldowns de habilidade, sem espaco para salvar!\n",sd->status.name,MAX_SKILL_TREE);
 		return -1;
 	}
 
