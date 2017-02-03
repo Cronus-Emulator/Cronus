@@ -8069,11 +8069,10 @@ ACMD(whosell)
 		return false;
 	}
 
-	if ((item_data = itemdb->search_name(item_name)) == NULL &&
-		(item_data = itemdb->exists(atoi(item_name))) == NULL)
+	if ((item_data = itemdb->search_name(item_name)) == NULL && (item_data = itemdb->exists(atoi(item_name))) == NULL)
 	{
 			clif->messagecolor_self(fd, COLOR_RED, "ID/Nome Invalido!");
-			false;
+			return false;
 	}
 
 	item_id = item_data->nameid;
