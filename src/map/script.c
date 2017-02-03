@@ -6555,21 +6555,23 @@ BUILDIN(getitem) {
 	if( script_isstringtype(st, 2) ) {
 		// "<item name>"
 		const char *name = script_getstr(st, 2);
-		if( (item_data = itemdb->search_name(name)) == NULL ) {
-			ShowError("buildin_%s: Item nao existente %s requerido.\n", script->getfuncname(st), name);
+		if( (item_data = itemdb->search_name(name)) == NULL ) 
+		{
+			ShowError("buildin_%s: Item requerido %s nao existente.\n", script->getfuncname(st), name);
 			return false; //No item created.
 		}
-		nameid=item_data->nameid;
+		nameid = item_data->nameid;
 	} else {
 		// <item id>
 		nameid = script_getnum(st, 2);
 		//Violet Box, Blue Box, etc - random item pick
-		if( nameid < 0 ) {
+		if( nameid < 0 ) 
+		{
 			nameid = -nameid;
 			flag = 1;
 		}
 		if( nameid <= 0 || !(item_data = itemdb->exists(nameid)) ) {
-			ShowError("buildin_%s: Item nao existente %s requerido.\n", script->getfuncname(st), nameid);
+			ShowError("buildin_%s: Item requerido %d nao existente.\n", script->getfuncname(st), nameid);
 			return false; //No item created.
 		}
 	}
@@ -6589,11 +6591,11 @@ BUILDIN(getitem) {
 	if( !strcmp(script->getfuncname(st),"getitembound") ) {
 		int bound = script_getnum(st,4);
 		if( bound < IBT_MIN || bound > IBT_MAX ) { //Not a correct bound type
-			ShowError("script_getitembound: Nao e uma tipo de ligacao correto! Ttipo=%d\n",bound);
+			ShowError("script_getitembound: Nao e um tipo de ligacao correta! Tipo = %d\n", bound);
 			return false;
 		}
 		if( item_data->type == IT_PETEGG || item_data->type == IT_PETARMOR ) {
-			ShowError("script_getitembound: nao e permitido ligar um ovo/armadura de um pet! Tipo=%d\n",bound);
+			ShowError("script_getitembound: Nao e permitido ligar um ovo/armadura de um pet! Tipo = %d\n",bound);
 			return false;
 		}
 		it.bound = (unsigned char)bound;
@@ -6640,7 +6642,7 @@ BUILDIN(getitem2)
 	if( !strcmp(script->getfuncname(st),"getitembound2") ) {
 		bound = script_getnum(st,11);
 		if( bound < IBT_MIN || bound > IBT_MAX ) { //Not a correct bound type
-			ShowError("script_getitembound2: Nao e um tipo de ligacao correto! Tipo=%d\n",bound);
+			ShowError("script_getitembound2: Nao e um tipo de ligacao correto! Tipo = %d\n", bound);
 			return false;
 		}
 		offset += 1;
@@ -6675,7 +6677,7 @@ BUILDIN(getitem2)
 	c4=(short)script_getnum(st,10);
 
 	if (bound && (itemdb_type(nameid) == IT_PETEGG || itemdb_type(nameid) == IT_PETARMOR)) {
-		ShowError("script_getitembound2: nao e permitido ligar um ovo/armadura de um pet! Tipo=%d\n",bound);
+		ShowError("script_getitembound2: Nao e permitido ligar um ovo/armadura de um pet! Tipo = %d\n", bound);
 		return false;
 	}
 
@@ -6755,14 +6757,14 @@ BUILDIN(rentitem) {
 		struct item_data *itd = itemdb->search_name(name);
 		if( itd == NULL )
 		{
-			ShowError("buildin_rentitem: Item nao existente %s requisitado.\n", name);
+			ShowError("buildin_rentitem: Item requerido %s nao existente.\n", name);
 			return false;
 		}
 		nameid = itd->nameid;
 	} else {
 		nameid = script_getnum(st, 2);
 		if( nameid <= 0 || !itemdb->exists(nameid) ) {
-			ShowError("buildin_rentitem: Item nao existente %s requisitado.\n", nameid);
+			ShowError("buildin_rentitem: Item requerido %d nao existente.\n", nameid);
 			return false;
 		}
 	}
@@ -6857,16 +6859,16 @@ BUILDIN(grouprandomitem) {
 	else if ( script->current_item_id )
 		nameid = script->current_item_id;
 	else {
-		ShowWarning("buildin_grouprandomitem: nenhum id de item providenciado e nenhum item anexado\n");
+		ShowWarning("buildin_grouprandomitem: Nenhum id de item providenciado e nenhum item anexado\n");
 		script_pushint(st, 0);
 		return true;
 	}
 
 	if( !(data = itemdb->exists(nameid)) ) {
-		ShowWarning("buildin_grouprandomitem: id de item desconhecido %d\n",nameid);
+		ShowWarning("buildin_grouprandomitem: Id de item desconhecido %d\n",nameid);
 		script_pushint(st, 0);
 	} else if ( !data->group ) {
-		ShowWarning("buildin_grouprandomitem: item '%s' (%d) nao e agrupavel!\n",data->name,nameid);
+		ShowWarning("buildin_grouprandomitem: Item '%s' (%d) nao e agrupavel!\n",data->name,nameid);
 		script_pushint(st, 0);
 	} else {
 		script_pushint(st, itemdb->group_item(data->group));
@@ -6895,7 +6897,7 @@ BUILDIN(makeitem)
 	} else {
 		nameid = script_getnum(st, 2);
 		if( nameid <= 0 || !itemdb->exists(nameid)) {
-			ShowError("makeitem: Item nao existente %d requisitado.\n", nameid);
+			ShowError("makeitem: Item requerido %d nao existente.\n", nameid);
 			return false; //No item created.
 		}
 	}
@@ -6913,7 +6915,7 @@ BUILDIN(makeitem)
 		m=map->mapname2mapid(mapname);
 
 	if( m == -1 ) {
-		ShowError("makeitem: criando em um mapa nao existente '%s'!\n", mapname);
+		ShowError("makeitem: Criando mapa a partir de um mapa nao existente '%s'!\n", mapname);
 		return false;
 	}
 
