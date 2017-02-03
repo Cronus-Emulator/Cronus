@@ -1064,9 +1064,9 @@ ACMD(kami)
 
 		sscanf(message, "%199[^\n]", atcmd_output);
 		if (stristr(info->command, "l") != NULL)
-			clif->broadcast(&sd->bl, atcmd_output, strlen(atcmd_output) + 1, BC_DEFAULT, ALL_SAMEMAP);
+			clif->broadcast(&sd->bl, atcmd_output, (uint32_t)strlen(atcmd_output) + 1, BC_DEFAULT, ALL_SAMEMAP);
 		else
-			intif->broadcast(atcmd_output, strlen(atcmd_output) + 1, (*(info->command + 4) == 'b' || *(info->command + 4) == 'B') ? BC_BLUE : BC_YELLOW);
+			intif->broadcast(atcmd_output, (uint32_t)strlen(atcmd_output) + 1, (*(info->command + 4) == 'b' || *(info->command + 4) == 'B') ? BC_BLUE : BC_YELLOW);
 	} else {
 		if(!*message || (sscanf(message, "%10u %199[^\n]", &color, atcmd_output) < 2)) {
 			clif->message(fd, msg_txt(981)); // Please enter color and message (usage: @kamic <color> <message>).
@@ -1077,7 +1077,7 @@ ACMD(kami)
 			clif->message(fd, msg_txt(982)); // Invalid color.
 			return false;
 		}
-		intif->broadcast2(atcmd_output, strlen(atcmd_output) + 1, color, 0x190, 12, 0, 0);
+		intif->broadcast2(atcmd_output, (uint32_t)strlen(atcmd_output) + 1, color, 0x190, 12, 0, 0);
 	}
 	return true;
 }
@@ -4862,7 +4862,7 @@ ACMD(broadcast)
 	}
 
 	safesnprintf(atcmd_output, sizeof(atcmd_output), "%s: %s", sd->status.name, message);
-	intif->broadcast(atcmd_output, strlen(atcmd_output) + 1, BC_DEFAULT);
+	intif->broadcast(atcmd_output, (uint32_t)strlen(atcmd_output) + 1, BC_DEFAULT);
 
 	return true;
 }
@@ -4881,7 +4881,7 @@ ACMD(localbroadcast)
 
 	safesnprintf(atcmd_output, sizeof(atcmd_output), "%s: %s", sd->status.name, message);
 
-	clif->broadcast(&sd->bl, atcmd_output, strlen(atcmd_output) + 1, BC_DEFAULT, ALL_SAMEMAP);
+	clif->broadcast(&sd->bl, atcmd_output, (uint32_t)strlen(atcmd_output) + 1, BC_DEFAULT, ALL_SAMEMAP);
 
 	return true;
 }
@@ -7856,7 +7856,7 @@ ACMD(cash)
 				// If this option is set, the message is already sent by pc function
 				if( !battle_config.cashshop_show_points ){
 					sprintf(output, msg_txt(505), ret, sd->cashPoints);
-					clif_disp_onlyself(sd, output, strlen(output));
+					clif_disp_onlyself(sd, output, (uint32_t)strlen(output));
 					clif->message(fd, output);
 				}
 			} else
@@ -7864,7 +7864,7 @@ ACMD(cash)
 		} else {
 			if( (ret=pc->paycash(sd, -value, 0)) >= 0){
 			    sprintf(output, msg_txt(410), ret, sd->cashPoints);
-				clif_disp_onlyself(sd, output, strlen(output));
+				clif_disp_onlyself(sd, output, (uint32_t)strlen(output));
 				clif->message(fd, output);
 			} else
 				clif->message(fd, msg_txt(41)); // Unable to decrease the number/value.
@@ -7875,7 +7875,7 @@ ACMD(cash)
 				// If this option is set, the message is already sent by pc function
 				if( !battle_config.cashshop_show_points ){
 					sprintf(output, msg_txt(506), ret, sd->kafraPoints);
-					clif_disp_onlyself(sd, output, strlen(output));
+					clif_disp_onlyself(sd, output, (uint32_t)strlen(output));
 					clif->message(fd, output);
 				}
 			} else
@@ -7883,7 +7883,7 @@ ACMD(cash)
 		} else {
 			if( (ret=pc->paycash(sd, -value, -value)) >= 0){
 			    sprintf(output, msg_txt(411), ret, sd->kafraPoints);
-				clif_disp_onlyself(sd, output, strlen(output));
+				clif_disp_onlyself(sd, output, (uint32_t)strlen(output));
 				clif->message(fd, output);
 			} else
 				clif->message(fd, msg_txt(41)); // Unable to decrease the number/value.
@@ -7978,7 +7978,7 @@ ACMD(request)
 
 	safesnprintf(atcmd_output, sizeof(atcmd_output), msg_txt(278), message); // (@request): %s
 	intif->wis_message_to_gm(sd->status.name, PC_PERM_RECEIVE_REQUESTS, atcmd_output);
-	clif_disp_onlyself(sd, atcmd_output, strlen(atcmd_output));
+	clif_disp_onlyself(sd, atcmd_output, (uint32_t)strlen(atcmd_output));
 	clif->message(sd->fd,msg_txt(279)); // @request sent.
 	return true;
 }
@@ -8046,17 +8046,18 @@ ACMD(allowks)
 	return true;
 }
 
-/*=======================================================
+/*======================================================\
 Autor - [zephyrus_cr]						            |
 Adaptação e pequenas modificações - [SlexFire]		    |
 Informações:										    |
 - Procura por um item nas lojas de jogadores.           |
+Obs: Verificar Funcionalidade!                          | 
 =======================================================*/
 ACMD(whosell)
 {
 	char item_name[100], output[255];
 	struct s_mapiterator* iter;
-	int item_id, map_id = 0, j, count = 0;
+	int item_id, j, count = 0;
 	struct map_session_data *csd;
 	unsigned int MinPrize = battle_config.vending_max_value, MaxPrize = 0;
 	struct item_data *item_data;
@@ -8076,7 +8077,6 @@ ACMD(whosell)
 	}
 
 	item_id = item_data->nameid;
-	map_id = sd->bl.m;
 
 	iter = mapit_getallusers();
 	for( csd = (TBL_PC*)mapit->first(iter); mapit->exists(iter); csd = (TBL_PC*)mapit->next(iter))

@@ -423,7 +423,7 @@ bool mob_ksprotected(struct block_list *src, struct block_list *target) {
 		if( DIFF_TICK(sd->ks_floodprotect_tick, tick) <= 0 )
 		{
 			sprintf(output, "[Aviso de KS!! - Jogador : %s]", pl_sd->status.name);
-			clif_disp_onlyself(sd, output, strlen(output));
+			clif_disp_onlyself(sd, output, (int)strlen(output));
 
 			sd->ks_floodprotect_tick = tick + 2000;
 		}
@@ -432,7 +432,7 @@ bool mob_ksprotected(struct block_list *src, struct block_list *target) {
 		if( DIFF_TICK(pl_sd->ks_floodprotect_tick, tick) <= 0 )
 		{
 			sprintf(output, "[Cuidado! %s esta tentando dar KS em voce!]", sd->status.name);
-			clif_disp_onlyself(pl_sd, output, strlen(output));
+			clif_disp_onlyself(pl_sd, output, (int)strlen(output));
 
 			pl_sd->ks_floodprotect_tick = tick + 2000;
 		}
@@ -1747,10 +1747,10 @@ int mob_ai_sub_lazy(struct mob_data *md, va_list args) {
 
 	tick = va_arg(args, int64);
 
-	if (md->nd || battle_config.mob_ai&0x20 && map->list[md->bl.m].users > 0)
+	if (battle_config.mob_ai&0x20 && map->list[md->bl.m].users > 0)
 		return (int)mob->ai_sub_hard(md, tick);
 
-	if (md->bl.prev==NULL || md->status.hp == 0)
+	if (md->bl.prev == NULL || md->status.hp == 0)
 		return 1;
 
 	if (battle_config.mob_active_time
@@ -2459,7 +2459,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type) {
 				char message[128];
 				sprintf (message, msg_txt(541), mvp_sd->status.name, md->name, it->jname, (float)drop_rate/100);
 				//MSG: "'%s' won %s's %s (chance: %0.02f%%)"
-				intif->broadcast(message, strlen(message)+1, BC_DEFAULT);
+				intif->broadcast(message, (int)strlen(message)+1, BC_DEFAULT);
 			}
 
 			/* heres the thing we got the feature set up however we're still discussing how to best define the ids,
@@ -2609,7 +2609,7 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type) {
 					char message[128];
 					sprintf (message, msg_txt(541), mvp_sd->status.name, md->name, data->jname, temp/100.);
 					//MSG: "'%s' won %s's %s (chance: %0.02f%%)"
-					intif->broadcast(message, strlen(message)+1, BC_DEFAULT);
+					intif->broadcast(message, (int)strlen(message)+1, BC_DEFAULT);
 				}
 
 				if((temp = pc->additem(mvp_sd,&item,1,LOG_TYPE_PICKDROP_PLAYER)) != 0) {

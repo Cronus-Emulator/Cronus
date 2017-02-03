@@ -4026,7 +4026,7 @@ const char* npc_parse_mapflag(char* w1, char* w2, char* w3, char* w4, const char
 			ShowWarning("npc_parse_mapflag: Habilidade desconhecida (%s) para a flag 'adjust_skill_damage'! removendo flag de %s no arquivo '%s', linha '%d'.\n", skill_name, map->list[m].name, filepath, strline(buffer,start-buffer));
 			if (retval) *retval = EXIT_FAILURE;
 		} else if ( atoi(modifier) < 1 || atoi(modifier) > USHRT_MAX ) {
-			ShowWarning("npc_parse_mapflag: Modificador invalido '%d' para skill '%s' da flag 'adjust_skill_damage'! removendo flag de %s no arquivo '%s', linha '%s', line '%d'.\n", atoi(modifier), skill_name, map->list[m].name, filepath, strline(buffer,start-buffer));
+			ShowWarning("npc_parse_mapflag: Modificador invalido '%d' para habilidade '%s' da flag 'adjust_skill_damage'! removendo flag de %s no arquivo '%s', linha '%d'.\n", atoi(modifier), skill_name, map->list[m].name, filepath, strline(buffer,start-buffer));
 			if (retval) *retval = EXIT_FAILURE;
 		} else {
 			int idx = map->list[m].skill_count;

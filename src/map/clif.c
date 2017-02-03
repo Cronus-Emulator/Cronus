@@ -1908,7 +1908,7 @@ void clif_scriptmes(struct map_session_data *sd, int npcid, const char *mes) {
 
 	nullpo_retv(sd);
 	nullpo_retv(mes);
-	slen = strlen(mes) + 9;
+	slen = (unsigned int)strlen(mes) + 9;
 
 	sd->state.dialog = 1;
 
@@ -2025,7 +2025,7 @@ void clif_scriptmenu(struct map_session_data* sd, int npcid, const char* mes) {
 	nullpo_retv(sd);
 	nullpo_retv(mes);
 	fd = sd->fd;
-	slen = strlen(mes) + 9;
+	slen = (unsigned int)strlen(mes) + 9;
 	if (!sd->state.using_fake_npc && (npcid == npc->fake_nd->bl.id || ((bl = map->id2bl(npcid)) != NULL && (bl->m!=sd->bl.m ||
 						bl->x<sd->bl.x-AREA_SIZE-1 || bl->x>sd->bl.x+AREA_SIZE+1 ||
 						bl->y<sd->bl.y-AREA_SIZE-1 || bl->y>sd->bl.y+AREA_SIZE+1))))
@@ -4917,8 +4917,7 @@ void clif_skill_cooldown(struct map_session_data *sd, uint16 skill_id, unsigned 
 int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick, int sdelay, int ddelay, int64 in_damage, int div, uint16 skill_id, uint16 skill_lv, int type) {
 	unsigned char buf[64];
 	struct status_change *sc;
-	struct map_session_data *sd;    //[Alukas - RedX]
-    struct map_session_data *sddst; //[Alukas - RedX]
+	struct map_session_data *sd;  //[Alukas - RedX]
 	int damage;
 
 	nullpo_ret(src);
@@ -5007,7 +5006,7 @@ int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick
 ==================================================*/
   	sd = BL_CAST(BL_PC, src);
   		if(dst->type == BL_PC)  //Checa se o alvo é um personagem
-        sddst = BL_CAST(BL_PC, dst);
+        sd = BL_CAST(BL_PC, dst);
 
     if(sd && damage != 0)
     {
@@ -5015,7 +5014,7 @@ int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick
 
 				if(dst->type == BL_PC)
         {
-            pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sddst->status.name);  //Variável que recebe o "nome" da última skill usada no alvo (na tabela global) = lskilldest$ 
+            pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sd->status.name);  //Variável que recebe o "nome" da última skill usada no alvo (na tabela global) = lskilldest$ 
            	npc->script_event(sd, NPCE_USESKILL);
         }
 
@@ -5100,7 +5099,6 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 {
 	unsigned char buf[32];
 	struct map_session_data *sd; //[Alukas - Redx]
- 	struct map_session_data *sddst; //[Alukas - Redx]
 
 	nullpo_ret(dst);
 
@@ -5133,7 +5131,7 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 
 	sd = BL_CAST(BL_PC, src);
 	if(dst->type == BL_PC)
-		sddst = BL_CAST(BL_PC, dst);
+		sd = BL_CAST(BL_PC, dst);
 
 	if(sd && skill_id != SM_MAGNUM)
 	{
@@ -5141,7 +5139,7 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 
 			if(dst->type == BL_PC)
 			{
-				pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sddst->status.name);
+				pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sd->status.name);
 				npc->script_event(sd, NPCE_USESKILL);
 			}
 
@@ -5520,7 +5518,7 @@ void clif_displaymessage2(const int fd, const char* mes) {
 		line = strtok(message, "\n");
 		while(line != NULL) {
 			// Limit message to 255+1 characters (otherwise it causes a buffer overflow in the client)
-			unsigned int len = strnlen(line, 255);
+			unsigned int len = (uint16)strnlen(line, 255);
 
 			if (len > 0) { // don't send a void message (it's not displaying on the client chat). @help can send void line.
 				if( map->cpsd_active && fd == 0 ) {
@@ -5600,13 +5598,13 @@ void clif_broadcast(struct block_list *bl, const char *mes, uint32_t len, int ty
  *------------------------------------------*/
 void clif_GlobalMessage(struct block_list* bl, const char* message) {
 	char buf[256];
-	unsigned int len;
+	size_t len;
 	nullpo_retv(bl);
 
 	if(!message)
 		return;
 
-	len = strlen(message)+1;
+	len = (unsigned int)strlen(message)+1;
 
 	if (len > sizeof(buf)-8) {
 		ShowWarning("clif_GlobalMessage: Truncamento de mensagem muito longa '%s' (len=%"PRIuS").\n", message, len);
@@ -5614,7 +5612,7 @@ void clif_GlobalMessage(struct block_list* bl, const char* message) {
 	}
 
 	WBUFW(buf,0)=0x8d;
-	WBUFW(buf,2)=len+8;
+	WBUFW(buf,2)=(uint16)len+8;
 	WBUFL(buf,4)=bl->id;
 	safestrncpy((char *) WBUFP(buf,8),message,len);
 	clif->send((unsigned char *) buf,WBUFW(buf,2),bl,ALL_CLIENT);
@@ -5795,7 +5793,7 @@ void clif_upgrademessage(int fd, int result, int item_id)
 /// Whisper is transmitted to the destination player (ZC_WHISPER).
 /// 0097 <packet len>.W <nick>.24B <message>.?B
 /// 0097 <packet len>.W <nick>.24B <isAdmin>.L <message>.?B (PACKETVER >= 20091104)
-void clif_wis_message(int fd, const char *nick, const char *mes, unsigned int mes_len)
+void clif_wis_message(int fd, const char *nick, const char *mes, int mes_len)
 {
 #if PACKETVER >= 20091104
 	struct map_session_data *ssd = NULL;
@@ -7938,7 +7936,7 @@ void clif_marriage_proposal(int fd, struct map_session_data *sd, struct map_sess
 /*==========================================
  * Displays a message using the guild-chat colors to the specified targets. [Skotlex]
  *------------------------------------------*/
-void clif_disp_message(struct block_list* src, const char* mes, uint32_t len, enum send_target target)
+void clif_disp_message(struct block_list* src, const char* mes, size_t len, enum send_target target)
 {
 	unsigned char buf[256];
 
@@ -7954,7 +7952,7 @@ void clif_disp_message(struct block_list* src, const char* mes, uint32_t len, en
 	}
 
 	WBUFW(buf, 0) = 0x17f;
-	WBUFW(buf, 2) = len + 5;
+	WBUFW(buf, 2) = (uint16)len + 5;
 	safestrncpy((char*)WBUFP(buf,4), mes, len+1);
 	clif->send(buf, WBUFW(buf,2), src, target);
 }
@@ -8207,7 +8205,7 @@ void clif_messagecolor_self(int fd, uint32 color, const char *msg)
 	unsigned int msg_len;
 
 	nullpo_retv(msg);
-	msg_len = strlen(msg) + 1;
+	msg_len = (unsigned int)strlen(msg) + 1;
 
 	WFIFOHEAD(fd,msg_len + 12);
 	WFIFOW(fd,0) = 0x2C1;
@@ -8227,9 +8225,9 @@ void clif_messagecolor_self(int fd, uint32 color, const char *msg)
  * @param color Message color (RGB format: 0xRRGGBB)
  * @param msg   Message text
  */
-void clif_messagecolor(struct block_list* bl, uint32 color, const char *msg)
+void clif_messagecolor(struct block_list* bl, size_t color, const char *msg)
 {
-	unsigned int msg_len = strlen(msg) + 1;
+	size_t msg_len = (unsigned int)strlen(msg) + 1;
 	uint8 buf[256];
 
 	nullpo_retv(bl);
@@ -8241,7 +8239,7 @@ void clif_messagecolor(struct block_list* bl, uint32 color, const char *msg)
 	}
 
 	WBUFW(buf,0) = 0x2C1;
-	WBUFW(buf,2) = msg_len + 12;
+	WBUFW(buf,2) = (uint16)msg_len + 12;
 	WBUFL(buf,4) = bl->id;
 	WBUFL(buf,8) = RGB2BGR(color);
 	memcpy(WBUFP(buf,12), msg, msg_len);
@@ -8562,11 +8560,11 @@ void clif_slide(struct block_list *bl, int x, int y)
 void clif_disp_overhead(struct block_list *bl, const char* mes)
 {
 	unsigned char buf[256]; //This should be more than sufficient, the theoretical max is CHAT_SIZE + 8 (pads and extra inserted crap)
-	unsigned int len_mes;
+	size_t len_mes;
 
 	nullpo_retv(bl);
 	nullpo_retv(mes);
-	len_mes = strlen(mes)+1; //Account for \0
+	len_mes = (unsigned int)strlen(mes)+1; //Account for \0
 
 	if (len_mes > sizeof(buf)-8) {
 		ShowError("clif_disp_overhead: Message too long (length %"PRIuS")\n", len_mes);
@@ -8574,7 +8572,7 @@ void clif_disp_overhead(struct block_list *bl, const char* mes)
 	}
 	// send message to others
 	WBUFW(buf,0) = 0x8d;
-	WBUFW(buf,2) = len_mes + 8; // len of message + 8 (command+len+id)
+	WBUFW(buf,2) = (uint16)len_mes + 8; // len of message + 8 (command+len+id)
 	WBUFL(buf,4) = bl->id;
 	safestrncpy((char*)WBUFP(buf,8), mes, len_mes);
 	clif->send(buf, WBUFW(buf,2), bl, AREA_CHAT_WOC);
@@ -8582,7 +8580,7 @@ void clif_disp_overhead(struct block_list *bl, const char* mes)
 	// send back message to the speaker
 	if( bl->type == BL_PC ) {
 		WBUFW(buf,0) = 0x8e;
-		WBUFW(buf, 2) = len_mes + 4;
+		WBUFW(buf, 2) = (uint16)len_mes + 4;
 		safestrncpy((char*)WBUFP(buf,4), mes, len_mes);
 		clif->send(buf, WBUFW(buf,2), bl, SELF);
 	}
@@ -8982,7 +8980,7 @@ void clif_channel_msg(struct channel_data *chan, struct map_session_data *sd, ch
 	nullpo_retv(sd);
 	nullpo_retv(msg);
 	iter = db_iterator(chan->users);
-	msg_len = strlen(msg) + 1;
+	msg_len = (unsigned int)strlen(msg) + 1;
 	color = channel->config->colors[chan->color];
 
 	WFIFOHEAD(sd->fd,msg_len + 12);
@@ -9016,7 +9014,7 @@ void clif_channel_msg2(struct channel_data *chan, char *msg)
 	nullpo_retv(chan);
 	nullpo_retv(msg);
 	iter = db_iterator(chan->users);
-	msg_len = strlen(msg) + 1;
+	msg_len = (unsigned int)strlen(msg) + 1;
 	color = channel->config->colors[chan->color];
 
 	WBUFW(buf,0) = 0x2C1;
@@ -9380,7 +9378,7 @@ void clif_parse_LoadEndAck(int fd, struct map_session_data *sd) {
 		if( map->list[sd->bl.m].flag.allowks && !map_flag_ks(sd->bl.m) ) {
 			char output[128];
 			sprintf(output, "[ Protecao KS desabilitada. O KS esta permitido neste mapa ]");
-			clif->broadcast(&sd->bl, output, strlen(output) + 1, BC_BLUE, SELF);
+			clif->broadcast(&sd->bl, output, (uint32_t)strlen(output) + 1, BC_BLUE, SELF);
 		}
 
 		map->iwall_get(sd); // Updates Walls Info on this Map to Client
@@ -9823,7 +9821,7 @@ void clif_parse_GlobalMessage(int fd, struct map_session_data* sd)
 		strcpy(fakename, sd->fakename);
 		strcat(fakename, " : ");
 		strcat(fakename, message);
-		textlen = strlen(fakename) + 1;
+		textlen = (unsigned int)strlen(fakename) + 1;
 	}
 	// send message to others (using the send buffer for temp. storage)
 	WFIFOHEAD(fd, 8 + textlen);
@@ -10704,10 +10702,10 @@ void clif_noask_sub(struct map_session_data *src, struct map_session_data *targe
 	nullpo_retv(src);
 	// Your request has been rejected by autoreject option.
 	msg = msg_txt(392);
-	clif_disp_onlyself(src, msg, strlen(msg));
+	clif_disp_onlyself(src, msg, (uint32_t)strlen(msg));
 	//Notice that a request was rejected.
 	snprintf(output, 256, msg_txt(393+type), src->status.name, 256);
-	clif_disp_onlyself(target, output, strlen(output));
+	clif_disp_onlyself(target, output, (uint32_t)strlen(output));
 }
 
 void clif_parse_TradeRequest(int fd,struct map_session_data *sd) __attribute__((nonnull (2)));
@@ -14612,7 +14610,7 @@ void clif_Mail_refreshinbox(struct map_session_data *sd)
 	if( md->full ) {// TODO: is this official?
 		char output[100];
 		sprintf(output, "A caixa de entrada esta cheia (Max %d). Delete alguns emails.", MAIL_MAX_INBOX);
-		clif_disp_onlyself(sd, output, strlen(output));
+		clif_disp_onlyself(sd, output, (uint32_t)strlen(output));
 	}
 }
 
@@ -14650,11 +14648,11 @@ void clif_Mail_read(struct map_session_data *sd, int mail_id)
 		struct mail_message *msg = &sd->mail.inbox.msg[i];
 		struct item *item = &msg->item;
 		struct item_data *data;
-		unsigned int msg_len = strlen(msg->body), len;
+		unsigned int msg_len = (unsigned int)strlen(msg->body), len;
 
 		if( msg_len == 0 ) {
 			strcpy(msg->body, "(nenhuma mensagem)");
-			msg_len = strlen(msg->body);
+			msg_len = (unsigned int)strlen(msg->body);
 		}
 
 		len = 101 + msg_len;
@@ -16077,7 +16075,7 @@ void clif_bg_xy_remove(struct map_session_data *sd)
 
 /// Notifies clients of a battleground message (ZC_BATTLEFIELD_CHAT).
 /// 02dc <packet len>.W <account id>.L <name>.24B <message>.?B
-void clif_bg_message(struct battleground_data *bgd, int src_id, const char *name, const char *mes, unsigned int len)
+void clif_bg_message(struct battleground_data *bgd, int src_id, const char *name, const char *mes, int len)
 {
 	struct map_session_data *sd;
 	unsigned char *buf;
@@ -17613,13 +17611,13 @@ void clif_partytickack(struct map_session_data* sd, bool flag) {
 
 void clif_ShowScript(struct block_list* bl, const char* message) {
 	char buf[256];
-	uint32_t len;
+	size_t len;
 	nullpo_retv(bl);
 
 	if(!message)
 		return;
 
-	len = strlen(message)+1;
+	len = (uint32_t)strlen(message)+1;
 
 	if (len > sizeof(buf)-8) {
 		ShowWarning("clif_ShowScript: Truncamento de mensagem muito longa '%s' (len=%"PRIuS").\n", message, len);
@@ -17627,7 +17625,7 @@ void clif_ShowScript(struct block_list* bl, const char* message) {
 	}
 
 	WBUFW(buf,0)=0x8b3;
-	WBUFW(buf,2)=len+8;
+	WBUFW(buf,2)=(uint16)len+8;
 	WBUFL(buf,4)=bl->id;
 	safestrncpy((char *) WBUFP(buf,8),message,len);
 	clif->send((unsigned char *) buf,WBUFW(buf,2),bl,ALL_CLIENT);
@@ -17968,7 +17966,7 @@ void clif_show_modifiers (struct map_session_data *sd) {
 
 		snprintf(output,128,"EXP : %d%% | Drop: %d%% | Penalidade de Morte: %d%%",
 				sd->status.mod_exp,sd->status.mod_drop,sd->status.mod_death);
-		clif->broadcast2(&sd->bl,output, strlen(output) + 1, 0xffbc90, 0x190, 12, 0, 0, SELF);
+		clif->broadcast2(&sd->bl,output, (uint32_t)strlen(output) + 1, 0xffbc90, 0x190, 12, 0, 0, SELF);
 	}
 
 }
@@ -18934,7 +18932,7 @@ Função: dipbottom color - [Slexfire] |
 ====================================*/
 int clif_dispbcfunc(struct map_session_data *sd, const char* msg, unsigned int cor) {   	 
 
-unsigned int msg_len = strlen(msg) +1;
+unsigned int msg_len = (unsigned int)strlen(msg) +1;
 int codcor = RGB2BGR(cor);
 
 	WFIFOHEAD( sd->fd, msg_len + 12 );
