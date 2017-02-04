@@ -16293,22 +16293,22 @@ BUILDIN(unitgetdatamob) {
 	
 	num = st->stack->stack_data[st->start+3].u.num;
 	name = (char *)(script->str_buf + script->str_data[num&0x00ffffff].str);
-	setd_sub(st,sd,name,0,(void *)(int)md->class_,script_getref(st,3));
-	setd_sub(st,sd,name,1,(void *)(int)md->level,script_getref(st,3));
-	setd_sub(st,sd,name,2,(void *)(int)md->status.hp,script_getref(st,3));
-	setd_sub(st,sd,name,3,(void *)(int)md->status.max_hp,script_getref(st,3));
-	setd_sub(st,sd,name,4,(void *)(int)md->master_id,script_getref(st,3));
-	setd_sub(st,sd,name,5,(void *)(int)md->bl.m,script_getref(st,3));
-	setd_sub(st,sd,name,6,(void *)(int)md->bl.x,script_getref(st,3));
-	setd_sub(st,sd,name,7,(void *)(int)md->bl.y,script_getref(st,3));
-	setd_sub(st,sd,name,8,(void *)(int)md->status.speed,script_getref(st,3));
-	setd_sub(st,sd,name,9,(void *)(int)md->status.mode,script_getref(st,3));
-	setd_sub(st,sd,name,10,(void *)(int)md->special_state.ai,script_getref(st,3));
-	setd_sub(st,sd,name,11,(void *)(int)md->sc.option,script_getref(st,3));
-	setd_sub(st,sd,name,12,(void *)(int)md->ud.dir,script_getref(st,3));
-	setd_sub(st,sd,name,13,(void *)(int)md->state.killer,script_getref(st,3));
-	setd_sub(st,sd,name,14,(void *)(int)md->cb_flag,script_getref(st,3));
-	setd_sub(st,sd,name,15,(void *)(int)md->state.no_rand_walk,script_getref(st,3));
+	setd_sub(st,sd,name,0,(void *)(intptr_t)md->class_,script_getref(st,3));
+	setd_sub(st,sd,name,1,(void *)(intptr_t)md->level,script_getref(st,3));
+	setd_sub(st,sd,name,2,(void *)(intptr_t)md->status.hp,script_getref(st,3));
+	setd_sub(st,sd,name,3,(void *)(intptr_t)md->status.max_hp,script_getref(st,3));
+	setd_sub(st,sd,name,4,(void *)(intptr_t)md->master_id,script_getref(st,3));
+	setd_sub(st,sd,name,5,(void *)(intptr_t)md->bl.m,script_getref(st,3));
+	setd_sub(st,sd,name,6,(void *)(intptr_t)md->bl.x,script_getref(st,3));
+	setd_sub(st,sd,name,7,(void *)(intptr_t)md->bl.y,script_getref(st,3));
+	setd_sub(st,sd,name,8,(void *)(intptr_t)md->status.speed,script_getref(st,3));
+	setd_sub(st,sd,name,9,(void *)(intptr_t)md->status.mode,script_getref(st,3));
+	setd_sub(st,sd,name,10,(void *)(intptr_t)md->special_state.ai,script_getref(st,3));
+	setd_sub(st,sd,name,11,(void *)(intptr_t)md->sc.option,script_getref(st,3));
+	setd_sub(st,sd,name,12,(void *)(intptr_t)md->ud.dir,script_getref(st,3));
+	setd_sub(st,sd,name,13,(void *)(intptr_t)md->state.killer,script_getref(st,3));
+	setd_sub(st,sd,name,14,(void *)(intptr_t)md->cb_flag,script_getref(st,3));
+	setd_sub(st,sd,name,15,(void *)(intptr_t)md->state.no_rand_walk,script_getref(st,3));
 	
 	return true;
 }
