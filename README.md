@@ -27,12 +27,12 @@ Qualquer bug encontrado deve ser postado em: https://github.com/Cronus-Emulator/
 
 ###### Linux
  - Compilador gcc (4.8v++) ou clang (3.1v++) 
- - make (Padrão)
- - mysql-client (Arquivos base para o mysql)
- - mysql-devel (Cabeçalhos/Bibliotecas)
- - mysql-server (Servidor para a base de dados)
- - pcre-devel (Dependência 3rdparty)
- - zlib-devel (Dependência 3rdparty)
+ - make           (Padrão)
+ - mysql-client   (Arquivos base para o mysql)
+ - mysql-devel    (Cabeçalhos/Bibliotecas)
+ - mysql-server   (Servidor para a base de dados)
+ - pcre-devel     (Dependência 3rdparty)
+ - zlib-devel     (Dependência 3rdparty)
  
 PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura correta na sua distribuição linux.
 
@@ -40,9 +40,16 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 #### Equipe Atual
 
 ###### Administradores
-- Roberto	   - Roberto Oliveira
-- SlexFire   - Junior Melo
+
+- Omminous Slex
+
+###### Coordenadores
+
+- Kyuke
+
+###### Moderadores
+
+- Weed0
+- Spellmaster
 
 ###### Desenvolvedores
-- Nerdz (Script/Core Developer)
-- Spellmaster (Script)
