@@ -41,7 +41,7 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Administradores
 
-- Omminous Slex
+- Ominous Slex
 
 ###### Coordenadores
 
@@ -49,7 +49,4 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Moderadores
 
-- Weed0
-- Spellmaster
-
-###### Desenvolvedores
+- Spell Master
