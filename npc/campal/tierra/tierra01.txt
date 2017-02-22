@@ -162,7 +162,7 @@ OnTimer10000:
 
 bat_a01,15,16,3	script	OBJ#bat_a01_a	CLEAR_NPC,{
 OnEnable:
-	bg_monster $@TierraBG1_id1,"bat_a01",177,345,"Suprimentos",1909,"OBJ#bat_a01_a::OnMyMobDead";
+	bg_monster $@TierraBG1_id1,"bat_a01",176,345,"Suprimentos",1909,"OBJ#bat_a01_a::OnMyMobDead";
 	end;
 
 OnKill:
