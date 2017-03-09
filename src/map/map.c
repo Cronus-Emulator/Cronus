@@ -3693,24 +3693,30 @@ void map_reloadnpc_sub(char *cfgName) {
 	fclose(fp);
 }
 
-/**
- * Reloads all the scripts.
+/******************************************************************
+ * Carregamento dos Scripts de Npcs [By: Spell Master]
  *
- * @param clear whether to clear the script list before reloading.
- */
+ * @param clear: Limpar dados dos scripts ao recarregar.
+ *****************************************************************/
 void map_reloadnpc(bool clear) {
 	int i;
-	if (clear)
-		npc->addsrcfile("clear"); // this will clear the current script list
-
-#ifdef RENEWAL
-	map->reloadnpc_sub("npc/re/scripts_main.conf");
-#else
-	map->reloadnpc_sub("npc/pre-re/scripts_main.conf");
-#endif
-
-	// Append extra scripts
-	for( i = 0; i < map->extra_scripts_count; i++ ) {
+	// @Arr: Lista quais arquivos devem ser carregados
+	char *filename[] = {
+			"npc/Scripts_Main.conf",
+			#ifdef RENEWAL
+				"npc/Scripts_RE.conf",
+			#else
+				"npc/Scripts_PRE.conf",
+			#endif
+			"npc/Scripts_Custom.conf",
+	};
+	if (clear) {
+		npc->addsrcfile("clear");
+	}
+	for(i = 0; i < ARRAYLENGTH(filename); i++) {
+		map->reloadnpc_sub(filename[i]);
+	}
+	for(i = 0; i < map->extra_scripts_count; i++) {
 		npc->addsrcfile(map->extra_scripts[i]);
 	}
 }
