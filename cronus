@@ -26,9 +26,9 @@ case $1 in
 		echo "A versao atual do cronus-commander eh $versao"
 	;;
 	'ligar')
-		nohup ./login-server > /var/log/login-server.txt &
-		nohup ./char-server > /var/log/char-server.txt &
-		nohup ./map-server > /var/log/map-server.txt &
+		exec ./login-server > /var/log/login-server.txt &
+		exec ./char-server > /var/log/char-server.txt &
+		exec ./map-server > /var/log/map-server.txt &
 	;;
 	'desligar')
 		killall -9 map-server char-server login-server
