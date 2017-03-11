@@ -7,13 +7,18 @@ versao="2.1"
 case $1 in
 	recompilar|compilar) 
 		if [[ $arch == "x86_64" ]]; then
-		echo $arch
-		sh configure --enable-64bit
+			echo $arch
+			sh configure --enable-64bit
 		else
-		sh configure --disable-64bit
+			sh configure --disable-64bit
 		fi
+		cpu=`grep -c ^processor /proc/cpuinfo`
 		make clean
-		make all
+		if [ $cpu -lt 0 ]; then
+			make -j$cpu all
+		else
+			make all
+		fi
 	;;
 	'mapcache') 
 		if [ ! -f Makefile ]; then
@@ -82,14 +87,14 @@ case $1 in
 	;;
 	'tutorial')
 		echo "As funcoes existentes atualmente neste script sao unicamente para ajudar o usuario na utilizacao de 
-	comandos via shell. Para utilizar este script, basta que atraves do ssh acesse seu emulador e digite:
-	./cronus PARAMETRO_DE_USO
-	Para ver os parametros disponiveis digite:
-	./cronus comandos
-	Caso tenha qualquer duvida sobre este sistema, abra um topico de suporte em http://forum.cronus-emulator.com/"
+		comandos via shell. Para utilizar este script, basta que atraves do ssh acesse seu emulador e digite:
+		./cronus PARAMETRO_DE_USO
+		Para ver os parametros disponiveis digite:
+		./cronus comandos
+		Caso tenha qualquer duvida sobre este sistema, abra um topico de suporte em http://forum.cronus-emulator.com/"
 	;;
 	*) 
-	echo "Os parametros disponiveis sao:
-	ligar|desligar|reiniciar|compilar|recompilar|versao|mapcache|charlog|maplog|loginlog|tutorial|auto"
+		echo "Os parametros disponiveis sao:
+		ligar|desligar|reiniciar|compilar|recompilar|versao|mapcache|charlog|maplog|loginlog|tutorial|auto"
 	;;
 esac
