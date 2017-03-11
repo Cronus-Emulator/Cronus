@@ -3,7 +3,7 @@
 # Otimizacoes [Roberto]
 # Modificacao de funcoes, adicao de funcoes e mudanca do nome para Cronus [Raizen]
 arch=`/bin/arch`
-versao="2.0"
+versao="2.1"
 case $1 in
 	recompilar|compilar) 
 		if [[ $arch == "x86_64" ]]; then
@@ -29,26 +29,29 @@ case $1 in
 		exec ./login-server > /var/log/login-server.txt &
 		exec ./char-server > /var/log/char-server.txt &
 		exec ./map-server > /var/log/map-server.txt &
+		sleep 5
+		if [ $(ps aux | grep -v grep | grep -c map-server) -eq 1 ]; then
+			echo "Map-server inicializado com sucesso!"
+		fi
+		if [ $(ps aux | grep -v grep | grep -c char-server) -eq 1 ]; then
+			echo "Char-server inicializado com sucesso!"
+		fi
+		if [ $(ps aux | grep -v grep | grep -c login-server) -eq 1 ]; then
+			echo "Login-server inicializado com sucesso!"
+		fi
 	;;
 	'desligar')
 		killall -9 map-server char-server login-server
-		map=`ps aux | grep -v grep | grep -c map-server`
-		login=`ps aux | grep -v grep | grep -c login-server`
-		char=`ps aux | grep -v grep | grep -c char-server`
-		sleep 10
-		if [ $map -lt 1 ] 
-		then
+		sleep 5
+		if [ $(ps aux | grep -v grep | grep -c map-server) -lt 1 ]; then
 			echo "Map-server finalizado com sucesso!"
 		fi
-		if [ $char -lt 1 ] 
-		then
+		if [ $(ps aux | grep -v grep | grep -c char-server) -lt 1 ]; then
 			echo "Char-server finalizado com sucesso!"
 		fi
-		if [ $login -lt 1 ] 
-		then
+		if [ $(ps aux | grep -v grep | grep -c login-server) -lt 1 ]; then
 			echo "Login-server finalizado com sucesso!"
 		fi
-
 	;;
 	'reiniciar')
 		$0 desligar
@@ -65,7 +68,7 @@ case $1 in
 	;;
 	'auto')
 		echo "Inicializando script para autoinicializacao, verificacao a cada 120 segundos"
-		nohup ./auto.sh &
+		exec ./auto.sh &
 	;;
 	'tutorial')
 		echo "As funcoes existentes atualmente neste script sao unicamente para ajudar o usuario na utilizacao de 
@@ -77,7 +80,6 @@ case $1 in
 	;;
 	*) 
 	echo "Os parametros disponiveis sao:
-	ligar|desligar|reiniciar|compilar|recompilar|versao|mapcache|charlog|maplog|loginlog|tutorial|auto."
+	ligar|desligar|reiniciar|compilar|recompilar|versao|mapcache|charlog|maplog|loginlog|tutorial|auto"
 	;;
 esac
-
