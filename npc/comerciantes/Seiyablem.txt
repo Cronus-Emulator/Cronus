@@ -326,7 +326,7 @@ morocc,51,41,4	duplicate(SocketEnchant)	Seiyablem#moc	4_M_02
 	close;
 }
 
-prt_in,31,57,1	duplicate(SocketMan)	Jovem#prt	4W_M_01
-payon,143,143,7	duplicate(SocketMan)	Jovem#pay	4W_M_01
-morocc,60,42,3	duplicate(SocketMan)	Jovem#moc	4W_M_01
-lhz_in02,269,33,5	duplicate(SocketMan)	Jovem#lhz	4W_M_01
+prt_in,31,57,1	duplicate(SocketMan)	Jovem#prt-sm	4W_M_01
+payon,143,143,7	duplicate(SocketMan)	Jovem#pay-sm	4W_M_01
+morocc,60,42,3	duplicate(SocketMan)	Jovem#moc-sm	4W_M_01
+lhz_in02,269,33,5	duplicate(SocketMan)	Jovem#lhz-sm	4W_M_01

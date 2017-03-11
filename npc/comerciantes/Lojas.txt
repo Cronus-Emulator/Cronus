@@ -1015,7 +1015,7 @@ OnInit:
 	sellitem Witherless_Rose;
 }
 
-lighthalzen,124,129,0	trader	Feirante#lhz	4_F_02,{
+lighthalzen,124,129,0	trader	Feirante#lhz2	4_F_02,{
 OnInit:
 	sellitem Carrot;
 	sellitem Sweet_Potato;
@@ -1097,14 +1097,14 @@ OnInit:
 	sellitem Diamond_Ring;
 }
 
-lhz_in02,17,220,5	trader	Feirante#lhz2	4_F_02,{
+lhz_in02,17,220,5	trader	Feirante#lhz3	4_F_02,{
 OnInit:
 	sellitem Carrot;
 	sellitem Sweet_Potato;
 	sellitem Pumpkin;
 }
 
-lhz_in02,21,220,5	trader	Feirante#lhz2	8_F,{
+lhz_in02,21,220,5	trader	Feirante#lhz4	8_F,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
@@ -1712,7 +1712,7 @@ OnInit:
 	sellitem Bunch_Of_Flowers;
 }
 
-prontera,113,42,0	trader	Florista#prt	4_F_01,{
+prontera,113,42,0	trader	Florista#prt2	4_F_01,{
 OnInit:
 	sellitem Flower;
 	sellitem Bunch_Of_Flowers;
@@ -1758,7 +1758,7 @@ OnInit:
 	sellitem Chonchon_Doll;
 }
 
-prontera,48,58,0	trader	Feirante#prt	4_F_02,{
+prontera,48,58,0	trader	Feirante#prt2	4_F_02,{
 OnInit:
 	sellitem Carrot;
 	sellitem Sweet_Potato;
@@ -1948,7 +1948,7 @@ OnInit:
 	sellitem Banana;
 }
 
-rachel,65,80,1	trader	Feirante#ra	4_F_SHABBY,{
+rachel,65,80,1	trader	Feirante#ra2	4_F_SHABBY,{
 OnInit:
 	sellitem Carrot;
 	sellitem Pumpkin;
