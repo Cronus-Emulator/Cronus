@@ -23,34 +23,44 @@ case $1 in
 		echo "Map_Cache compilado com sucesso!"
 	;;
 	'versao')
-		echo "A versao atual do cronus-commander eh $versao"
+		echo "Cronus-Commander v$versao"
 	;;
 	'ligar')
-		exec ./login-server > /var/log/login-server.txt &
-		exec ./char-server > /var/log/char-server.txt &
-		exec ./map-server > /var/log/map-server.txt &
-		sleep 5
-		if [ $(ps aux | grep -v grep | grep -c map-server) -eq 1 ]; then
-			echo "Map-server inicializado com sucesso!"
-		fi
-		if [ $(ps aux | grep -v grep | grep -c char-server) -eq 1 ]; then
-			echo "Char-server inicializado com sucesso!"
-		fi
-		if [ $(ps aux | grep -v grep | grep -c login-server) -eq 1 ]; then
-			echo "Login-server inicializado com sucesso!"
+		services=`ps aux | grep -v grep | grep -cE "map-server|login-server|char-server"`
+		if [ $services -eq 0 ]; then
+			exec ./login-server > /var/log/login-server.txt &
+			exec ./char-server > /var/log/char-server.txt &
+			exec ./map-server > /var/log/map-server.txt &
+			sleep 5
+			if [ $(ps aux | grep -v grep | grep -c map-server) -eq 1 ]; then
+				echo "Map-server inicializado com sucesso!"
+			fi
+			if [ $(ps aux | grep -v grep | grep -c char-server) -eq 1 ]; then
+				echo "Char-server inicializado com sucesso!"
+			fi
+			if [ $(ps aux | grep -v grep | grep -c login-server) -eq 1 ]; then
+				echo "Login-server inicializado com sucesso!"
+			fi
+		else
+			echo "O emulador ja foi iniciado!"
 		fi
 	;;
 	'desligar')
-		killall -9 map-server char-server login-server
-		sleep 5
-		if [ $(ps aux | grep -v grep | grep -c map-server) -lt 1 ]; then
-			echo "Map-server finalizado com sucesso!"
-		fi
-		if [ $(ps aux | grep -v grep | grep -c char-server) -lt 1 ]; then
-			echo "Char-server finalizado com sucesso!"
-		fi
-		if [ $(ps aux | grep -v grep | grep -c login-server) -lt 1 ]; then
-			echo "Login-server finalizado com sucesso!"
+		services=`ps aux | grep -v grep | grep -cE "map-server|login-server|char-server"`
+		if [ $services -ge 3 ]; then
+			killall -9 map-server char-server login-server
+			sleep 5
+			if [ $(ps aux | grep -v grep | grep -c map-server) -lt 1 ]; then
+				echo "Map-server finalizado com sucesso!"
+			fi
+			if [ $(ps aux | grep -v grep | grep -c char-server) -lt 1 ]; then
+				echo "Char-server finalizado com sucesso!"
+			fi
+			if [ $(ps aux | grep -v grep | grep -c login-server) -lt 1 ]; then
+				echo "Login-server finalizado com sucesso!"
+			fi
+		else
+			echo "O emulador ja foi desligado!"
 		fi
 	;;
 	'reiniciar')
