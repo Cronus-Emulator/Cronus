@@ -1,46 +1,26 @@
-//===== Hercules Script ======================================
-//= Shops
-//===== Current Version: =====================================
-//= 3.5
-//===== Description: =========================================
-//= Town shop NPCs.
-//===== Additional Comments: =================================
-//= For earlier update notes see the bottom.
-//= 2.0 updated several shop npcs. [L0ne_W0lf]
-//=     Added proper Venom Knife dealer, and consiquently removed wenom Knives from weapon dealers.
-//=     Moved all Cooking related NPCs to their own section.
-//=     Re-alphabetized sections. Some of them were out of place.
-//=     Removed commented out shops.
-//= 2.0b Einbech tool dealer got lost somewhere along the way, re-added. [L0ne_W0lf]
-//= 2.1 Fixed missing item from "Fresh Fish" from cooking addition shops. [L0ne_W0lf]
-//= 2.1a Fixed the second "Line" selling in Comodo Weapon shop. (Should have been Whip) [L0ne_W0lf]
-//= 2.2 Added Veins shops. [L0ne_W0lf]
-//= 2.3 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
-//= 2.4 Fixed Jawaii Ice cream salesman. [L0ne_W0lf]
-//= 2.5 Updated Morroc shops to episode 12.1. [L0ne_W0lf]
-//= 2.6 Added Brasilis shops. [L0ne_W0lf]
-//=     Updated Pet Groomers with four new pet feeds.
-//= 2.7 Added Trading merchants, (ninja& gunslinger) to Izlude and Alberta. [L0ne_W0lf]
-//=     Made Brasilis shop names unique, and uncommented.
-//=     Changed the whip sold in comodo weapon shop. (1956 ->1960)
-//=     Added Fire and Silver arrow to Einbroch tool dealer.
-//=     Re-added Bill of Birds to Morroc Item Collectors.
-//= 2.7a Actually applied the right update to the comodo weapon shop. [L0ne_W0lf]
-//= 2.7b Corrected Brasilis Fruit Merchant. (bugreport:4278) [L0ne_W0lf]
-//= 2.8 Updates to Brasilis Merchants. [L0ne_W0lf]
-//= 2.9 Added missing Cooking Items for Material Seller. [tr0n]
-//= 3.0 Added all new Shops which were available in the latest available official files. [Masao]
-//= 3.1 Moved some merchants to a separate renewal file. [Kenpachi]
-//= 3.2 Added Missing Items to the pet Groomers in prontera, payon, and yuno. BugReport:6680[Spre]
-//= 3.3 Moved more shops to Renewal file. [Euphy]
-//= 3.4 Moved Izlude shops to pre-re/re paths. [Streusel]
-//= 3.5 Converted to trader format [Yommy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 3.5                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Lojas variadas.                                             ||
+//===============================================================//
 
 //=======================================================
 // Alberta
 //=======================================================
-alb2trea,87,65,5	trader	Tool Dealer#alb	4_M_01,{
+alb2trea,87,65,5	trader	Loja de Utilidades#alb	4_M_01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -54,13 +34,13 @@ OnInit:
 	sellitem Awakening_Potion;
 }
 
-alberta_in,165,96,0	trader	Item Collector#alb	1_F_MERCHANT_02,{
+alberta_in,165,96,0	trader	Coletor de Itens#alb	1_F_MERCHANT_02,{
 OnInit:
 	sellitem Scell;
 	sellitem Monster's_Feed;
 }
 
-alberta_in,182,97,0	trader	Tool Dealer#alb2	1_F_MERCHANT_01,{
+alberta_in,182,97,0	trader	Loja de Utilidades#alb2	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -76,7 +56,7 @@ OnInit:
 	sellitem Spinning_Eyes;
 }
 
-alberta_in,180,15,0	trader	Armor Dealer#alb	4W_F_01,{
+alberta_in,180,15,0	trader	Loja de Armaduras#alb	4W_F_01,{
 OnInit:
 	sellitem Guard;
 	sellitem Buckler;
@@ -103,7 +83,7 @@ OnInit:
 	sellitem Novice_Armlet;
 }
 
-alberta_in,188,21,0	trader	Weapon Dealer#alb	1_M_03,{
+alberta_in,188,21,0	trader	Loja de Armas#alb	1_M_03,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -122,13 +102,13 @@ OnInit:
 	sellitem Two_Handed_Axe;
 }
 
-alberta_in,175,97,4	trader	Weapon Dealer#alb2	4_KID01,{
+alberta_in,175,97,4	trader	Loja de Armas#alb2	4_KID01,{
 OnInit:
 	sellitem Town_Sword;
 	sellitem Cinquedea;
 }
 
-alberta_in,176,81,3	trader	Trading Merchant#alb	4_M_HUMERCHANT,{
+alberta_in,176,81,3	trader	Mercador#alb	4_M_HUMERCHANT,{
 OnInit:
 	sellitem Bullet;
 	sellitem Silver_Bullet;
@@ -147,7 +127,7 @@ OnInit:
 //=======================================================
 // Al De Baran
 //=======================================================
-aldeba_in,20,60,0	trader	Armor Dealer#alde	4W_F_01,{
+aldeba_in,20,60,0	trader	Loja de Armaduras#alde	4W_F_01,{
 OnInit:
 	sellitem Helm;
 	sellitem Buckler;
@@ -163,7 +143,7 @@ OnInit:
 	sellitem Belt;
 }
 
-aldeba_in,28,54,0	trader	Weapon Dealer#alde	1_M_03,{
+aldeba_in,28,54,0	trader	Loja de Armas#alde	1_M_03,{
 OnInit:
 	sellitem Knife;
 	sellitem Cutter;
@@ -175,13 +155,13 @@ OnInit:
 	sellitem Damascus;
 }
 
-aldeba_in,22,47,4	trader	Weapon Dealer#alde2	4_M_06,{
+aldeba_in,22,47,4	trader	Loja de Armas#alde2	4_M_06,{
 OnInit:
 	sellitem Town_Sword;
 	sellitem Cinquedea;
 }
 
-aldeba_in,94,56,5	trader	Tool Dealer#alde	4_M_01,{
+aldeba_in,94,56,5	trader	Loja de Utilidades#alde	4_M_01,{
 OnInit:
 	sellitem Red_Potion;
 	sellitem Orange_Potion;
@@ -196,7 +176,7 @@ OnInit:
 	sellitem Leaf_Of_Yggdrasil;
 }
 
-alde_alche,38,184,3	trader	Material Seller#alche	4_M_SAGE_C,{
+alde_alche,38,184,3	trader	Loja de Materiais#alche	4_M_SAGE_C,{
 OnInit:
 	sellitem Life_Force_Pot;
 	sellitem Yggdrasilberry_Dew;
@@ -214,7 +194,7 @@ OnInit:
 //=======================================================
 // Amatsu
 //=======================================================
-ama_in01,89,28,5	trader	Armor Dealer#ama	4_F_JPN2,{
+ama_in01,89,28,5	trader	Loja de Armaduras#ama	4_F_JPN2,{
 OnInit:
 	sellitem Bandana;
 	sellitem Sandals;
@@ -230,7 +210,7 @@ OnInit:
 	sellitem Belt;
 }
 
-ama_in01,102,28,3	trader	Weapon Dealer#ama	4_M_JPNOJI,{
+ama_in01,102,28,3	trader	Loja de Armas#ama	4_M_JPNOJI,{
 OnInit:
 	sellitem Main_Gauche;
 	sellitem Stiletto;
@@ -244,7 +224,7 @@ OnInit:
 	sellitem Chain;
 }
 
-ama_in01,24,30,5	trader	Tool Dealer#ama	4_M_JPN,{
+ama_in01,24,30,5	trader	Loja de Utilidades#ama	4_M_JPN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Iron_Arrow;
@@ -296,7 +276,7 @@ OnInit:
 //=======================================================
 // Ayothaya
 //=======================================================
-ayo_in01,18,182,1	trader	Tool Dealer#ayo	4_F_THAISHAMAN,{
+ayo_in01,18,182,1	trader	Loja de Utilidades#ayo	4_F_THAISHAMAN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Iron_Arrow;
@@ -313,7 +293,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-ayo_in01,90,192,3	trader	Weapon Dealer#ayo	4_M_THAIONGBAK,{
+ayo_in01,90,192,3	trader	Loja de Armas#ayo	4_M_THAIONGBAK,{
 OnInit:
 	sellitem Main_Gauche;
 	sellitem Stiletto;
@@ -327,7 +307,7 @@ OnInit:
 	sellitem Chain;
 }
 
-ayo_in01,90,160,1	trader	Armor Dealer#ayo	4_M_THAIOLD,{
+ayo_in01,90,160,1	trader	Loja de Armaduras#ayo	4_M_THAIOLD,{
 OnInit:
 	sellitem Bandana;
 	sellitem Sandals;
@@ -347,7 +327,7 @@ OnInit:
 //=======================================================
 // Brasilis
 //=======================================================
-brasilis,252,257,3	trader	Tool Dealer#bra	4_F_BRZ_WOMAN,{
+brasilis,252,257,3	trader	Loja de Utilidades#bra	4_F_BRZ_WOMAN,{
 OnInit:
 	sellitem Center_Potion;
 	sellitem Awakening_Potion;
@@ -358,7 +338,7 @@ OnInit:
 	sellitem Leaf_Of_Yggdrasil;
 }
 
-brasilis,244,243,3	trader	Weapon Dealer#bra	4_M_BRZ_MAN2,{
+brasilis,244,243,3	trader	Loja de Armas#bra	4_M_BRZ_MAN2,{
 OnInit:
 	sellitem Pike;
 	sellitem Partizan;
@@ -367,13 +347,13 @@ OnInit:
 	sellitem Coward;
 }
 
-brasilis,201,309,3	trader	Pet Groomer#bra	4_M_BRZ_MAN1,{
+brasilis,201,309,3	trader	Loja de Bichinhos#bra	4_M_BRZ_MAN1,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
 }
 
-brasilis,221,128,3	trader	Fruit Gardener#bra	4_M_BRZ_MAN2,{
+brasilis,221,128,3	trader	Feirante#bra	4_M_BRZ_MAN2,{
 OnInit:
 	sellitem Coconut;
 	sellitem Banana;
@@ -384,7 +364,7 @@ OnInit:
 //=======================================================
 // Comodo
 //=======================================================
-cmd_in01,117,165,4	trader	Armor Dealer#cmd	4W_F_01,{
+cmd_in01,117,165,4	trader	Loja de Armaduras#cmd	4W_F_01,{
 OnInit:
 	sellitem Cap;
 	sellitem Helm;
@@ -403,7 +383,7 @@ OnInit:
 	sellitem Plate_Armor;
 }
 
-cmd_in01,128,165,2	trader	Weapon Dealer#cmd	1_M_03,{
+cmd_in01,128,165,2	trader	Loja de Armas#cmd	1_M_03,{
 OnInit:
 	sellitem Violin;
 	sellitem Mandolin;
@@ -419,7 +399,7 @@ OnInit:
 	sellitem Rante;
 }
 
-cmd_in01,79,182,5	trader	Tool Dealer#cmd	4_M_01,{
+cmd_in01,79,182,5	trader	Loja de Utilidades#cmd	4_M_01,{
 OnInit:
 	sellitem Iron_Arrow;
 	sellitem Red_Potion;
@@ -435,13 +415,13 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-comodo,296,125,4	trader	Souvenir Vendor#cmd	4W_F_01,{
+comodo,296,125,4	trader	Loja de Souvenir#cmd	4W_F_01,{
 OnInit:
 	sellitem Clam_Shell;
 	sellitem Crap_Shell;
 }
 
-cmd_fild07,257,126,5	trader	Tool Dealer#cmd2	4_M_01,{
+cmd_fild07,257,126,5	trader	Loja de Utilidades#cmd2	4_M_01,{
 OnInit:
 	sellitem Iron_Arrow;
 	sellitem Red_Potion;
@@ -456,7 +436,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-cmd_fild07,250,98,2	trader	Weapon Dealer#cmd2	1_M_03,{
+cmd_fild07,250,98,2	trader	Loja de Armas#cmd2	1_M_03,{
 OnInit:
 	sellitem Javelin;
 	sellitem Spear;
@@ -469,7 +449,7 @@ OnInit:
 	sellitem Lance;
 }
 
-cmd_fild07,277,85,4	trader	Armor Dealer#cmd2	4W_F_01,{
+cmd_fild07,277,85,4	trader	Loja de Armaduras#cmd2	4W_F_01,{
 OnInit:
 	sellitem Cap;
 	sellitem Helm;
@@ -492,7 +472,7 @@ OnInit:
 //=======================================================
 // Einbroch
 //=======================================================
-ein_in01,106,27,4	trader	One Hand Weapon Dealer	4_F_EINWOMAN,{
+ein_in01,106,27,4	trader	Espadas de Uma Mão	4_F_EINWOMAN,{
 OnInit:
 	sellitem Sword;
 	sellitem Falchion;
@@ -532,7 +512,7 @@ OnInit:
 	sellitem Finger;
 }
 
-ein_in01,109,27,4	trader	Two Hand Weapon Dealer	4_F_EINWOMAN,{
+ein_in01,109,27,4	trader	Espadas de Duas Mãos	4_F_EINWOMAN,{
 OnInit:
 	sellitem Katana;
 	sellitem Slayer;
@@ -554,7 +534,7 @@ OnInit:
 	sellitem Jamadhar;
 }
 
-ein_in01,119,26,4	trader	Weapon Dealer#ein	4_M_EINMAN,{
+ein_in01,119,26,4	trader	Loja de Armas#ein	4_M_EINMAN,{
 OnInit:
 	sellitem Kindling_Dagger;
 	sellitem Obsidian_Dagger;
@@ -562,7 +542,7 @@ OnInit:
 	sellitem Jujube_Dagger;
 }
 
-ein_in01,189,15,1	trader	Tool Dealer#ein	4_F_EINWOMAN,{
+ein_in01,189,15,1	trader	Loja de Utilidades#ein	4_F_EINWOMAN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Fire_Arrow;
@@ -580,7 +560,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-einbroch,138,66,4	trader	Flu Mask Dealer#ein	4_F_EINWOMAN,{
+einbroch,138,66,4	trader	Loja de Máscaras#ein	4_F_EINWOMAN,{
 OnInit:
 	sellitem Fedora;
 	sellitem Flu_Mask;
@@ -618,7 +598,7 @@ OnInit:
 //=======================================================
 // Geffen
 //=======================================================
-geffen_in,26,178,4	trader	Armor Dealer#gef	1_F_01,{
+geffen_in,26,178,4	trader	Loja de Armaduras#gef	1_F_01,{
 OnInit:
 	sellitem Novice_Armlet;
 	sellitem Guard;
@@ -633,7 +613,7 @@ OnInit:
 	sellitem Silver_Robe;
 }
 
-geffen_in,30,178,4	trader	Weapon Dealer#gef2	1_M_01,{
+geffen_in,30,178,4	trader	Loja de Armas#gef2	1_M_01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -651,20 +631,20 @@ OnInit:
 	sellitem Arc_Wand;
 }
 
-geffen_in,22,171,7	trader	Weapon Dealer#gef	4_M_02,{
+geffen_in,22,171,7	trader	Loja de Armas#gef	4_M_02,{
 OnInit:
 	sellitem Town_Sword;
 	sellitem Cinquedea;
 }
 
-geffen_in,74,144,0	trader	Trader#gef	1_F_01,{
+geffen_in,74,144,0	trader	Negociante#gef	1_F_01,{
 OnInit:
 	sellitem Scell;
 	sellitem Garlet;
 	sellitem Zargon;
 }
 
-geffen_in,77,167,0	trader	Tool Dealer#gef	1_F_03,{
+geffen_in,77,167,0	trader	Loja de Utilidades#gef	1_F_03,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -680,7 +660,7 @@ OnInit:
 	sellitem Granpa_Beard;
 }
 
-geffen_in,77,173,0	trader	Magical Item Seller#gef	1_M_WIZARD,{
+geffen_in,77,173,0	trader	Artigos Mágicos#gef	1_M_WIZARD,{
 OnInit:
 	sellitem Blue_Gemstone;
 	sellitem Rod;
@@ -692,13 +672,13 @@ OnInit:
 	sellitem Silver_Robe;
 }
 
-geffen_in,171,123,4	trader	Tool Dealer#gef2	1_M_WIZARD,{
+geffen_in,171,123,4	trader	Loja de Utilidades#gef2	1_M_WIZARD,{
 OnInit:
 	sellitem Empty_Cylinder;
 	sellitem Empty_Potion;
 }
 
-geffen,193,152,4	trader	Pet Groomer#gef	4_F_TELEPORTER,{
+geffen,193,152,4	trader	Loja de Bichinhos#gef	4_F_TELEPORTER,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
@@ -714,7 +694,7 @@ OnInit:
 //=======================================================
 // Gonryun
 //=======================================================
-gonryun,147,84,5	trader	Tool Dealer#gon	4_M_TWOLDMAN,{
+gonryun,147,84,5	trader	Loja de Utilidades#gon	4_M_TWOLDMAN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Iron_Arrow;
@@ -731,7 +711,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-gonryun,174,101,3	trader	Weapon Dealer#gon	4_M_TWBOY,{
+gonryun,174,101,3	trader	Loja de Armas#gon	4_M_TWBOY,{
 OnInit:
 	sellitem Main_Gauche;
 	sellitem Stiletto;
@@ -745,7 +725,7 @@ OnInit:
 	sellitem Chain;
 }
 
-gonryun,173,84,3	trader	Armor Dealer#gon	4_F_TWGIRL,{
+gonryun,173,84,3	trader	Loja de Armaduras#gon	4_F_TWGIRL,{
 OnInit:
 	sellitem Bandana;
 	sellitem Sandals;
@@ -765,12 +745,12 @@ OnInit:
 //=======================================================
 // Hugel
 //=======================================================
-hugel,105,169,5	trader	Vendor from Milk Ranch#h	4_F_01,{
+hugel,105,169,5	trader	Leiteira#h	4_F_01,{
 OnInit:
 	sellitem Milk;
 }
 
-hugel,77,167,3	trader	Vegetable Gardener#hu	4_F_HUGRANMA,{
+hugel,77,167,3	trader	Feirante#hu	4_F_HUGRANMA,{
 OnInit:
 	sellitem Fruit_Of_Mastela;
 	sellitem Apple;
@@ -780,7 +760,7 @@ OnInit:
 	sellitem Pumpkin;
 }
 
-hu_in01,241,368,2	trader	Tool Dealer#hu	1_M_INNKEEPER,{
+hu_in01,241,368,2	trader	Loja de Utilidades#hu	1_M_INNKEEPER,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -796,7 +776,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-hu_in01,252,368,3	trader	Tool Dealer#hu2	4_F_01,{
+hu_in01,252,368,3	trader	Loja de Utilidades#hu2	4_F_01,{
 OnInit:
 	sellitem Blue_Gemstone;
 	sellitem Sunglasses;
@@ -804,7 +784,7 @@ OnInit:
 	sellitem Monster's_Feed;
 }
 
-hu_in01,100,390,3	trader	Bow Dealer#hu	4_M_04,{
+hu_in01,100,390,3	trader	Loja de Arcos#hu	4_M_04,{
 OnInit:
 	sellitem Bow;
 	sellitem Great_Bow;
@@ -812,7 +792,7 @@ OnInit:
 	sellitem Kakkung;
 }
 
-hu_in01,94,390,3	trader	Weapon Dealer#hu	4_M_HUMAN_01,{
+hu_in01,94,390,3	trader	Loja de Armas#hu	4_M_HUMAN_01,{
 OnInit:
 	sellitem Katana;
 	sellitem Bastard_Sword;
@@ -820,7 +800,7 @@ OnInit:
 	sellitem Knife;
 }
 
-hu_in01,94,313,3	trader	Armor Dealer#hu	4_M_04,{
+hu_in01,94,313,3	trader	Loja de Armaduras#hu	4_M_04,{
 OnInit:
 	sellitem Goggle;
 	sellitem Circlet;
@@ -837,7 +817,7 @@ OnInit:
 //=======================================================
 // Izlude
 //=======================================================
-izlude_in,60,127,4	trader	Weapon Dealer#iz	1_F_MARIA,{
+izlude_in,60,127,4	trader	Loja de Armas#iz	1_F_MARIA,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -857,7 +837,7 @@ OnInit:
 	sellitem Axe;
 }
 
-izlude_in,70,127,4	trader	Armor Dealer#iz	1_M_SIZ,{
+izlude_in,70,127,4	trader	Loja de Armaduras#iz	1_M_SIZ,{
 OnInit:
 	sellitem Buckler;
 	sellitem Shield;
@@ -882,7 +862,7 @@ OnInit:
 //=======================================================
 // Jawaii
 //=======================================================
-jawaii,186,174,3	trader	Ice Cream Guy#ja	4_M_03,{
+jawaii,186,174,3	trader	Sorveteiro#ja	4_M_03,{
 OnInit:
 	sellitem Ice_Cream;
 	sellitem Ice_Cream;
@@ -897,7 +877,7 @@ OnInit:
 //=======================================================
 // Juno
 //=======================================================
-yuno,218,97,5	trader	Tool Dealer#yuno	4_M_02,{
+yuno,218,97,5	trader	Loja de Utilidades#yuno	4_M_02,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -912,14 +892,14 @@ OnInit:
 	sellitem Wing_Of_Butterfly;
 }
 
-yuno,226,107,5	trader	Tool Dealer#yuno1	4_M_01,{
+yuno,226,107,5	trader	Loja de Utilidades#yuno1	4_M_01,{
 OnInit:
 	sellitem Scell;
 	sellitem Garlet;
 	sellitem Zargon;
 }
 
-yuno,197,114,4	trader	Pet Groomer#yuno	4_F_TELEPORTER,{
+yuno,197,114,4	trader	Loja de Bichinhos#yuno	4_F_TELEPORTER,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
@@ -943,7 +923,7 @@ OnInit:
 	sellitem Pumpkin_Pie_;
 }
 
-yuno,205,103,4	trader	Mr. King's Shop#yuno	4_M_TELEPORTER,{
+yuno,205,103,4	trader	Loja do Senhor King#yuno	4_M_TELEPORTER,{
 OnInit:
 	sellitem Novice_Breast;
 	sellitem Full_Plate_Armor;
@@ -953,7 +933,7 @@ OnInit:
 	sellitem Repeting_CrossBow;
 }
 
-yuno,163,187,5	trader	Magical Item Seller#yuno	4_F_01,{
+yuno,163,187,5	trader	Artigos Mágicos#yuno	4_F_01,{
 OnInit:
 	sellitem Blue_Gemstone;
 	sellitem Rod;
@@ -965,7 +945,7 @@ OnInit:
 	sellitem Silver_Robe;
 }
 
-yuno_in01,25,34,5	trader	Tool Dealer#yuno2	4_M_01,{
+yuno_in01,25,34,5	trader	Loja de Utilidades#yuno2	4_M_01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -980,7 +960,7 @@ OnInit:
 	sellitem Wing_Of_Butterfly;
 }
 
-yuno_in01,103,35,2	trader	Weapon Dealer#yuno	1_M_03,{
+yuno_in01,103,35,2	trader	Loja de Armas#yuno	1_M_03,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -998,7 +978,7 @@ OnInit:
 	sellitem Arc_Wand;
 }
 
-yuno_in01,112,26,4	trader	Armor Dealer#yuno	4W_F_01,{
+yuno_in01,112,26,4	trader	Loja de Armaduras#yuno	4W_F_01,{
 OnInit:
 	sellitem Novice_Armlet;
 	sellitem Guard;
@@ -1013,7 +993,7 @@ OnInit:
 	sellitem Silver_Robe;
 }
 
-yuno_in03,176,22,3	trader	Scroll Merchant#yuno03	4_M_ORIENT02,{
+yuno_in03,176,22,3	trader	Loja de Pergaminhos#yuno03	4_M_ORIENT02,{
 OnInit:
 	sellitem Scroll; //Temp shop in Yuno that sells Blank Scrolls
 }
@@ -1022,32 +1002,32 @@ OnInit:
 //=======================================================
 // Lighthalzen
 //=======================================================
-lighthalzen,69,75,5	trader	Fruit Gardener#lhz	8_F,{
+lighthalzen,69,75,5	trader	Feirante#lhz	8_F,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
 }
 
-lighthalzen,112,44,0	trader	Flower Girl#lhz	4_F_01,{
+lighthalzen,112,44,0	trader	Florista#lhz	4_F_01,{
 OnInit:
 	sellitem Flower;
 	sellitem Bunch_Of_Flowers;
 	sellitem Witherless_Rose;
 }
 
-lighthalzen,124,129,0	trader	Vegetable Gardener#lhz	4_F_02,{
+lighthalzen,124,129,0	trader	Feirante#lhz	4_F_02,{
 OnInit:
 	sellitem Carrot;
 	sellitem Sweet_Potato;
 	sellitem Pumpkin;
 }
 
-lighthalzen,220,122,3	trader	Vendor from Milk Ranch#l	4_F_01,{
+lighthalzen,220,122,3	trader	Leiteira#l	4_F_01,{
 OnInit:
 	sellitem Milk;
 }
 
-lighthalzen,222,191,4	trader	Pet Groomer#lhz	4_M_TELEPORTER,{
+lighthalzen,222,191,4	trader	Loja de Bichinhos#lhz	4_M_TELEPORTER,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
@@ -1059,7 +1039,7 @@ OnInit:
 	sellitem Bun_;
 }
 
-lhz_in02,286,95,4	trader	Beginner's Merchant#lhz	1_M_SIZ,{
+lhz_in02,286,95,4	trader	Comerciante#lhz	1_M_SIZ,{
 OnInit:
 	sellitem Super_Novice_Hat;
 	sellitem Novice_Shoes;
@@ -1067,7 +1047,7 @@ OnInit:
 	sellitem Novice_Manteau;
 }
 
-lhz_in02,271,99,5	trader	Armor Dealer#lhz	4_M_REPAIR,{
+lhz_in02,271,99,5	trader	Loja de Armaduras#lhz	4_M_REPAIR,{
 OnInit:
 	sellitem Guard;
 	sellitem Buckler;
@@ -1081,7 +1061,7 @@ OnInit:
 	sellitem Novice_Armlet;
 }
 
-lhz_in02,276,99,4	trader	Weapon Dealer#lhz	4_M_REPAIR,{
+lhz_in02,276,99,4	trader	Loja de Armas#lhz	4_M_REPAIR,{
 OnInit:
 	sellitem Knife;
 	sellitem Main_Gauche;
@@ -1097,7 +1077,7 @@ OnInit:
 	sellitem Coward;
 }
 
-lhz_in02,273,35,4	trader	Wand Dealer#lhz	4_M_EINMAN2,{
+lhz_in02,273,35,4	trader	Loja de Cajados#lhz	4_M_EINMAN2,{
 OnInit:
 	sellitem Rod;
 	sellitem Wand;
@@ -1106,7 +1086,7 @@ OnInit:
 	sellitem Survival_Rod2;
 }
 
-lhz_in02,105,21,3	trader	Jeweler#lhz	4_F_02,{
+lhz_in02,105,21,3	trader	Joalheria#lhz	4_F_02,{
 OnInit:
 	sellitem Azure_Jewel;
 	sellitem Cardinal_Jewel;
@@ -1117,25 +1097,25 @@ OnInit:
 	sellitem Diamond_Ring;
 }
 
-lhz_in02,17,220,5	trader	Vegetable Gardener#lhz2	4_F_02,{
+lhz_in02,17,220,5	trader	Feirante#lhz2	4_F_02,{
 OnInit:
 	sellitem Carrot;
 	sellitem Sweet_Potato;
 	sellitem Pumpkin;
 }
 
-lhz_in02,21,220,5	trader	Fruit Gardener#lhz2	8_F,{
+lhz_in02,21,220,5	trader	Feirante#lhz2	8_F,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
 }
 
-lhz_in02,32,219,5	trader	Butcher#lhz	1_M_JOBGUIDER,{
+lhz_in02,32,219,5	trader	Açougueiro#lhz	1_M_JOBGUIDER,{
 OnInit:
 	sellitem Meat;
 }
 
-lhz_in02,38,145,5	trader	Gift Merchant#lhz	4_F_02,{
+lhz_in02,38,145,5	trader	Loja de Presentes#lhz	4_F_02,{
 OnInit:
 	sellitem Red_Frame;
 	sellitem Blue_Porcelain;
@@ -1144,7 +1124,7 @@ OnInit:
 	sellitem Glass_Bead;
 }
 
-lhz_in02,47,148,3	trader	Wedding Shop Dealer#lhz	1_F_LIBRARYGIRL,{
+lhz_in02,47,148,3	trader	Vendedora de Vestidos#lhz	1_F_LIBRARYGIRL,{
 OnInit:
 	sellitem Bunch_Of_Flowers;
 	sellitem Wedding_Bouquet;
@@ -1153,7 +1133,7 @@ OnInit:
 	sellitem Tuxedo;
 }
 
-lhz_in02,31,145,4	trader	Tool Dealer#lhz	4_F_01,{
+lhz_in02,31,145,4	trader	Loja de Utilidades#lhz	4_F_01,{
 OnInit:
 	sellitem Spectacles;
 	sellitem Yellow_Potion;
@@ -1168,14 +1148,14 @@ OnInit:
 	sellitem Iron_Arrow;
 }
 
-lhz_in02,85,216,5	trader	Doll Supplier#lhz	4_F_LGTGIRL,{
+lhz_in02,85,216,5	trader	Loja de Bonecos#lhz	4_F_LGTGIRL,{
 OnInit:
 	sellitem Stuffed_Doll;
 	sellitem Poring_Doll;
 	sellitem Chonchon_Doll;
 }
 
-lhz_in02,87,208,3	trader	Toy Supplier#lhz	4_M_PIERROT,{
+lhz_in02,87,208,3	trader	Loja de Brinquedos#lhz	4_M_PIERROT,{
 OnInit:
 	sellitem Spinning_Eyes;
 	sellitem Eye_Bandage;
@@ -1183,7 +1163,7 @@ OnInit:
 	sellitem Granpa_Beard;
 }
 
-lhz_in03,239,106,5	trader	Tool Dealer#lhz2	4_F_EINWOMAN,{
+lhz_in03,239,106,5	trader	Loja de Utilidades#lhz2	4_F_EINWOMAN,{
 OnInit:
 	sellitem Red_Potion;
 	sellitem Orange_Potion;
@@ -1196,7 +1176,7 @@ OnInit:
 	sellitem Spectacles;
 }
 
-lhz_in03,258,101,3	trader	Arrow Merchant#lhz	4_M_EINMAN,{
+lhz_in03,258,101,3	trader	Loja de Flechas#lhz	4_M_EINMAN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Iron_Arrow;
@@ -1204,7 +1184,7 @@ OnInit:
 	sellitem Silver_Arrow;
 }
 
-lhz_in03,249,24,4	trader	Merchant#lhz	4_M_EINMAN,{
+lhz_in03,249,24,4	trader	Mercador#lhz	4_M_EINMAN,{
 OnInit:
 	sellitem Scell;
 	sellitem Garlet;
@@ -1216,7 +1196,7 @@ OnInit:
 //=======================================================
 // Louyang
 //=======================================================
-lou_in02,121,182,5	trader	Armor Dealer#lou	4_F_CHNWOMAN,{
+lou_in02,121,182,5	trader	Loja de Armaduras#lou	4_F_CHNWOMAN,{
 OnInit:
 	sellitem Bandana;
 	sellitem Sandals;
@@ -1232,7 +1212,7 @@ OnInit:
 	sellitem Belt;
 }
 
-lou_in02,130,182,5	trader	Weapon Dealer#lou	4_M_CHNMAN,{
+lou_in02,130,182,5	trader	Loja de Armas#lou	4_M_CHNMAN,{
 OnInit:
 	sellitem Main_Gauche;
 	sellitem Stiletto;
@@ -1246,7 +1226,7 @@ OnInit:
 	sellitem Chain;
 }
 
-lou_in02,239,176,5	trader	Tool Dealer#lou	4_F_CHNWOMAN,{
+lou_in02,239,176,5	trader	Loja de Utilidades#lou	4_F_CHNWOMAN,{
 OnInit:
 	sellitem Arrow;
 	sellitem Iron_Arrow;
@@ -1267,7 +1247,7 @@ OnInit:
 //=======================================================
 // Lutie
 //=======================================================
-xmas_in,40,38,5	trader	Tool Dealer#xmas	4_M_01,{
+xmas_in,40,38,5	trader	Loja de Utilidades#xmas	4_M_01,{
 OnInit:
 	sellitem Red_Potion;
 	sellitem Orange_Potion;
@@ -1282,7 +1262,7 @@ OnInit:
 	sellitem Leaf_Of_Yggdrasil;
 }
 
-xmas_in,168,104,4	trader	Armor Dealer#xmas	4W_F_01,{
+xmas_in,168,104,4	trader	Loja de Armaduras#xmas	4W_F_01,{
 OnInit:
 	sellitem Helm;
 	sellitem Buckler;
@@ -1296,7 +1276,7 @@ OnInit:
 	sellitem Boots;
 }
 
-xmas_in,169,34,2	trader	Gift Seller#xmas	4_F_GON,{
+xmas_in,169,34,2	trader	Loja de Presentes#xmas	4_F_GON,{
 OnInit:
 	sellitem Flower_Ring;
 	sellitem Bunch_Of_Flowers;
@@ -1307,7 +1287,7 @@ OnInit:
 	sellitem Diamond_Ring;
 }
 
-xmas_in,174,98,2	trader	Weapon Dealer#xmas	1_M_03,{
+xmas_in,174,98,2	trader	Loja de Armas#xmas	1_M_03,{
 OnInit:
 	sellitem Knife;
 	sellitem Cutter;
@@ -1323,12 +1303,12 @@ OnInit:
 //=======================================================
 // Morroc - Post Ep. 12.1
 //=======================================================
-in_moc_16,22,20,7	trader	Sepulchral Merchant#moc	4_M_MASKMAN,{
+in_moc_16,22,20,7	trader	Mercador Sepulchral#moc	4_M_MASKMAN,{
 OnInit:
 	sellitem Venom_Knife;
 }
 
-moc_ruins,91,128,4	trader	Tool Dealer#moc1	4_F_04,{
+moc_ruins,91,128,4	trader	Loja de Utilidades#moc1	4_F_04,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -1344,7 +1324,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-moc_ruins,114,63,6	trader	Tool Dealer#moc2	4W_M_03,{
+moc_ruins,114,63,6	trader	Loja de Utilidades#moc2	4W_M_03,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -1361,7 +1341,7 @@ OnInit:
 	sellitem Luxury_Sunglasses;
 }
 
-moc_ruins,93,53,2	trader	Item Collector#moc1	4_M_03,{
+moc_ruins,93,53,2	trader	Coletor de Itens#moc1	4_M_03,{
 OnInit:
 	sellitem Scell;
 	sellitem Monster's_Feed;
@@ -1369,7 +1349,7 @@ OnInit:
 	sellitem Bill_Of_Birds;
 }
 
-moc_ruins,81,113,0	trader	Item Collector#moc2	4_M_03,{
+moc_ruins,81,113,0	trader	Coletor de Itens#moc2	4_M_03,{
 OnInit:
 	sellitem Scell;
 	sellitem Monster's_Feed;
@@ -1377,7 +1357,7 @@ OnInit:
 	sellitem Bill_Of_Birds;
 }
 
-moc_ruins,110,105,2	trader	Jeweler#moc1	8_F,{
+moc_ruins,110,105,2	trader	Joalheria#moc1	8_F,{
 OnInit:
 	sellitem Azure_Jewel;
 	sellitem Cardinal_Jewel;
@@ -1386,40 +1366,40 @@ OnInit:
 	sellitem Bluish_Green_Jewel;
 }
 
-moc_ruins,52,85,6	trader	Jeweler#moc2	4W_M_03,{
+moc_ruins,52,85,6	trader	Joalheria#moc2	4W_M_03,{
 OnInit:
 	sellitem Crystal_Jewel;
 	sellitem Diamond_Ring;
 }
 
-moc_ruins,113,126,4	trader	Trader#moc1	4W_M_03,{
+moc_ruins,113,126,4	trader	Comerciante#moc1	4W_M_03,{
 OnInit:
 	sellitem Crystal_Mirror;
 }
 
-moc_ruins,131,138,0	trader	Trader#moc2	4_F_04,{
+moc_ruins,131,138,0	trader	Comerciante#moc2	4_F_04,{
 OnInit:
 	sellitem Witherless_Rose;
 }
 
-moc_ruins,71,139,5	trader	Trader#moc3	4_F_04,{
+moc_ruins,71,139,5	trader	Comerciante#moc3	4_F_04,{
 OnInit:
 	sellitem Flower_Ring;
 }
 
-moc_ruins,125,135,6	trader	Trader#moc4	4_M_ORIENT02,{
+moc_ruins,125,135,6	trader	Comerciante#moc4	4_M_ORIENT02,{
 OnInit:
 	sellitem Skul_Ring;
 	sellitem Sword_Mace;
 	sellitem Stunner;
 }
 
-moc_ruins,87,109,0	trader	Butcher#moc	1_M_MERCHANT,{
+moc_ruins,87,109,0	trader	Açougueiro#moc	1_M_MERCHANT,{
 OnInit:
 	sellitem Meat;
 }
 
-moc_ruins,90,149,6	trader	Trader#moc5	4W_M_03,{
+moc_ruins,90,149,6	trader	Comerciante#moc5	4W_M_03,{
 OnInit:
 	sellitem Banana;
 	sellitem Banana;
@@ -1429,7 +1409,7 @@ OnInit:
 	sellitem Banana;
 }
 
-moc_ruins,118,170,4	trader	Pet Groomer#moc	4_M_TELEPORTER,{
+moc_ruins,118,170,4	trader	Loja de Bichinhos#moc	4_M_TELEPORTER,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
@@ -1441,7 +1421,7 @@ OnInit:
 	sellitem Bun_;
 }
 
-morocc_in,141,67,0	trader	Weapon Dealer#moc1	1_M_MERCHANT,{
+morocc_in,141,67,0	trader	Loja de Armas#moc1	1_M_MERCHANT,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -1460,7 +1440,7 @@ OnInit:
 	sellitem Jamadhar;
 }
 
-morocc_in,141,60,0	trader	Armor Dealer#moc	1_M_MERCHANT,{
+morocc_in,141,60,0	trader	Loja de Armaduras#moc	1_M_MERCHANT,{
 OnInit:
 	sellitem Guard;
 	sellitem Buckler;
@@ -1482,7 +1462,7 @@ OnInit:
 	sellitem Novice_Armlet;
 }
 
-morocc_in,132,57,0	trader	Weapon Dealer#moc2	4W_M_03,{
+morocc_in,132,57,0	trader	Loja de Armas#moc2	4W_M_03,{
 OnInit:
 	sellitem Town_Sword;
 	sellitem Cinquedea;
@@ -1492,7 +1472,7 @@ OnInit:
 //=======================================================
 // Moscovia
 //=======================================================
-mosk_in,21,254,5	trader	Tool Dealer#mosk	4_M_RUSMAN2,{
+mosk_in,21,254,5	trader	Loja de Utilidades#mosk	4_M_RUSMAN2,{
 OnInit:
 	sellitem Spectacles;
 	sellitem Red_Potion;
@@ -1508,7 +1488,7 @@ OnInit:
 	sellitem Arrow;
 }
 
-mosk_in,31,180,3	trader	Weapon Dealer#mosk	4_M_RUSMAN2,{
+mosk_in,31,180,3	trader	Loja de Armas#mosk	4_M_RUSMAN2,{
 OnInit:
 	sellitem Main_Gauche;
 	sellitem Stiletto;
@@ -1522,7 +1502,7 @@ OnInit:
 	sellitem Chain;
 }
 
-mosk_in,79,178,1	trader	Armor Dealer#mosk	4_F_RUSWOMAN3,{
+mosk_in,79,178,1	trader	Loja de Armaduras#mosk	4_F_RUSWOMAN3,{
 OnInit:
 	sellitem Bandana;
 	sellitem Sandals;
@@ -1538,7 +1518,7 @@ OnInit:
 	sellitem Belt;
 }
 
-moscovia,152,71,4	trader	Fruit Gardener#mosk	4_M_RUSMAN2,{
+moscovia,152,71,4	trader	Feirante#mosk	4_M_RUSMAN2,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
@@ -1546,7 +1526,7 @@ OnInit:
 	sellitem Sweet_Potato;
 }
 
-moscovia,199,110,3	trader	Vendor from Milk Ranch#m	4_F_RUSWOMAN1,{
+moscovia,199,110,3	trader	Leiteira#m	4_F_RUSWOMAN1,{
 OnInit:
 	sellitem Milk;
 }
@@ -1555,7 +1535,7 @@ OnInit:
 //=======================================================
 // Niflheim
 //=======================================================
-nif_in,37,93,1	trader	Axe Dealer#nif	4_NFCOFFIN,{
+nif_in,37,93,1	trader	Loja de Machados#nif	4_NFCOFFIN,{
 OnInit:
 	sellitem Axe;
 	sellitem Battle_Axe;
@@ -1564,7 +1544,7 @@ OnInit:
 	sellitem Two_Handed_Axe;
 }
 
-nif_in,37,84,1	trader	Armor Dealer#nif	4_NFCOFFIN,{
+nif_in,37,84,1	trader	Loja de Armaduras#nif	4_NFCOFFIN,{
 OnInit:
 	sellitem Hood;
 	sellitem Hood;
@@ -1574,7 +1554,7 @@ OnInit:
 	sellitem Manteau;
 }
 
-nif_in,145,23,1	trader	Tool Dealer#nif	4_NFCOFFIN,{
+nif_in,145,23,1	trader	Loja de Utilidades#nif	4_NFCOFFIN,{
 OnInit:
 	sellitem Pumpkin;
 	sellitem Pumpkin_Head;
@@ -1590,7 +1570,7 @@ OnInit:
 //=======================================================
 // Payon
 //=======================================================
-payon_in01,15,119,0	trader	Weapon Dealer#pay	1_F_ORIENT_03,{
+payon_in01,15,119,0	trader	Loja de Armas#pay	1_F_ORIENT_03,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -1610,13 +1590,13 @@ OnInit:
 	sellitem Hunter_Bow;
 }
 
-payon_in01,5,129,7	trader	Weapon Dealer#pay2	4_F_KID2,{
+payon_in01,5,129,7	trader	Loja de Armas#pay2	4_F_KID2,{
 OnInit:
 	sellitem Town_Sword;
 	sellitem Cinquedea;
 }
 
-payon_in01,7,119,2	trader	Armor Dealer#pay	1_F_ORIENT_02,{
+payon_in01,7,119,2	trader	Loja de Armaduras#pay	1_F_ORIENT_02,{
 OnInit:
 	sellitem Sandals;
 	sellitem Shoes;
@@ -1639,7 +1619,7 @@ OnInit:
 	sellitem Novice_Armlet;
 }
 
-payon_in01,5,49,7	trader	Tool Dealer#pay	4_M_ORIENT01,{
+payon_in01,5,49,7	trader	Loja de Utilidades#pay	4_M_ORIENT01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -1655,7 +1635,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-payon_in02,87,34,0	trader	Tool Dealer#pay2	1_F_ORIENT_01,{
+payon_in02,87,34,0	trader	Loja de Utilidades#pay2	1_F_ORIENT_01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -1672,7 +1652,7 @@ OnInit:
 	sellitem Booby_Trap;
 }
 
-payon,159,96,4	trader	Tool Dealer#pay3	4_M_ORIENT01,{
+payon,159,96,4	trader	Loja de Utilidades#pay3	4_M_ORIENT01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Red_Potion;
@@ -1681,7 +1661,7 @@ OnInit:
 	sellitem Wing_Of_Butterfly;
 }
 
-payon,177,131,4	trader	Pet Groomer#pay	4_F_TELEPORTER,{
+payon,177,131,4	trader	Loja de Bichinhos#pay	4_F_TELEPORTER,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
@@ -1709,36 +1689,36 @@ OnInit:
 //=======================================================
 // Prontera
 //=======================================================
-prontera,73,134,0	trader	Vendor from Milk Ranch#p	4_F_01,{
+prontera,73,134,0	trader	Leiteira#p	4_F_01,{
 OnInit:
 	sellitem Milk;
 }
 
-prontera,104,49,0	trader	Fruit Gardener#prt	8_F,{
+prontera,104,49,0	trader	Feirante#prt	8_F,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
 }
 
-prontera,64,125,0	trader	Butcher#prt	4_M_BARBER,{
+prontera,64,125,0	trader	Açougueiro#prt	4_M_BARBER,{
 OnInit:
 	sellitem Meat;
 	sellitem Monster's_Feed;
 }
 
-prontera,58,182,0	trader	Flower Girl#prt	4W_KID,{
+prontera,58,182,0	trader	Florista#prt	4W_KID,{
 OnInit:
 	sellitem Flower;
 	sellitem Bunch_Of_Flowers;
 }
 
-prontera,113,42,0	trader	Flower Lady#prt	4_F_01,{
+prontera,113,42,0	trader	Florista#prt	4_F_01,{
 OnInit:
 	sellitem Flower;
 	sellitem Bunch_Of_Flowers;
 }
 
-prontera,105,87,0	trader	Gift Merchant#prt	4_F_02,{
+prontera,105,87,0	trader	Loja de Presentes#prt	4_F_02,{
 OnInit:
 	sellitem Red_Frame;
 	sellitem Blue_Porcelain;
@@ -1747,7 +1727,7 @@ OnInit:
 	sellitem Glass_Bead;
 }
 
-prontera,218,211,4	trader	Pet Groomer#prt	4_M_TELEPORTER,{
+prontera,218,211,4	trader	Loja de Bichinhos#prt	4_M_TELEPORTER,{
 OnInit:
 	sellitem Pet_Food;
 	sellitem Pet_Incubator;
@@ -1771,14 +1751,14 @@ OnInit:
 	sellitem Traditional_Cookie;
 }
 
-prontera,248,153,0	trader	Doll Supplier#prt	4_M_03,{
+prontera,248,153,0	trader	Loja de Bonecos#prt	4_M_03,{
 OnInit:
 	sellitem Stuffed_Doll;
 	sellitem Poring_Doll;
 	sellitem Chonchon_Doll;
 }
 
-prontera,48,58,0	trader	Vegetable Gardener#prt	4_F_02,{
+prontera,48,58,0	trader	Feirante#prt	4_F_02,{
 OnInit:
 	sellitem Carrot;
 	sellitem Sweet_Potato;
@@ -1800,7 +1780,7 @@ OnInit:
 	sellitem Chain;
 }
 
-prt_fild05,290,221,2	trader	Tool Dealer#prt	4_M_01,{
+prt_fild05,290,221,2	trader	Loja de Utilidades#prt	4_M_01,{
 OnInit:
 	sellitem Arrow;
 	sellitem Spectacles;
@@ -1812,7 +1792,7 @@ OnInit:
 	sellitem Wing_Of_Butterfly;
 }
 
-prt_in,211,169,0	trader	Wedding Shop Dealer#prt	1_F_LIBRARYGIRL,{
+prt_in,211,169,0	trader	Vendedora de Vestidos#prt	1_F_LIBRARYGIRL,{
 OnInit:
 	sellitem Bunch_Of_Flowers;
 	sellitem Wedding_Bouquet;
@@ -1821,7 +1801,7 @@ OnInit:
 	sellitem Tuxedo;
 }
 
-prt_in,126,76,0	trader	Tool Dealer#prt1	1_M_INNKEEPER,{
+prt_in,126,76,0	trader	Loja de Utilidades#prt1	1_M_INNKEEPER,{
 OnInit:
 	sellitem Spectacles;
 	sellitem Arrow;
@@ -1838,7 +1818,7 @@ OnInit:
 	sellitem One_Eyed_Glass;
 }
 
-prt_in,172,130,0	trader	Weapon Dealer#prt	1_M_JOBGUIDER,{
+prt_in,172,130,0	trader	Loja de Armas#prt	1_M_JOBGUIDER,{
 OnInit:
 	sellitem Arrow;
 	sellitem Silver_Arrow;
@@ -1861,7 +1841,7 @@ OnInit:
 	sellitem Axe;
 }
 
-prt_in,172,132,0	trader	Armor Dealer#prt	1_M_02,{
+prt_in,172,132,0	trader	Loja de Armaduras#prt	1_M_02,{
 OnInit:
 	sellitem Guard;
 	sellitem Buckler;
@@ -1883,7 +1863,7 @@ OnInit:
 	sellitem Belt;
 }
 
-prt_in,171,140,0	trader	Weapon Dealer#prt2	1_M_01,{
+prt_in,171,140,0	trader	Loja de Armas#prt2	1_M_01,{
 OnInit:
 	sellitem Javelin;
 	sellitem Spear;
@@ -1896,13 +1876,13 @@ OnInit:
 	sellitem Lance;
 }
 
-prt_in,165,140,4	trader	Weapon Dealer#prt3	1_F_01,{
+prt_in,165,140,4	trader	Loja de Armas#prt3	1_F_01,{
 OnInit:
 	sellitem Town_Sword;
 	sellitem Cinquedea;
 }
 
-prt_monk,135,263,5	trader	Weapon Dealer#prt4	4_F_JOB_BLACKSMITH,{
+prt_monk,135,263,5	trader	Loja de Armas#prt4	4_F_JOB_BLACKSMITH,{
 OnInit:
 	sellitem Waghnakh;
 	sellitem Knuckle_Duster;
@@ -1913,7 +1893,7 @@ OnInit:
 //=======================================================
 // Rachel
 //=======================================================
-ra_in01,175,364,3	trader	Armor Dealer#ra	4_F_SHABBY,{
+ra_in01,175,364,3	trader	Loja de Armaduras#ra	4_F_SHABBY,{
 OnInit:
 	sellitem Guard;
 	sellitem Buckler;
@@ -1927,7 +1907,7 @@ OnInit:
 	sellitem Novice_Armlet;
 }
 
-ra_in01,257,269,3	trader	Tool Dealer#ra	4_F_SHABBY,{
+ra_in01,257,269,3	trader	Loja de Utilidades#ra	4_F_SHABBY,{
 OnInit:
 	sellitem Red_Potion;
 	sellitem Orange_Potion;
@@ -1943,7 +1923,7 @@ OnInit:
 	sellitem Leaf_Of_Yggdrasil;
 }
 
-ra_in01,176,389,3	trader	Weapon Dealer#ra	4_M_RACHMAN1,{
+ra_in01,176,389,3	trader	Loja de Armas#ra	4_M_RACHMAN1,{
 OnInit:
 	sellitem Knife;
 	sellitem Main_Gauche;
@@ -1962,13 +1942,13 @@ OnInit:
 	sellitem Staff;
 }
 
-ra_in01,254,300,3	trader	Fruit Gardener#ra	4_M_RACHMAN1,{
+ra_in01,254,300,3	trader	Feirante#ra	4_M_RACHMAN1,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
 }
 
-rachel,65,80,1	trader	Vegetable Gardener#ra	4_F_SHABBY,{
+rachel,65,80,1	trader	Feirante#ra	4_F_SHABBY,{
 OnInit:
 	sellitem Carrot;
 	sellitem Pumpkin;
@@ -1979,7 +1959,7 @@ OnInit:
 //=======================================================
 // Turtle Island
 //=======================================================
-tur_dun01,158,54,6	trader	Tool Dealer#tu	4W_M_03,{
+tur_dun01,158,54,6	trader	Loja de Utilidades#tu	4W_M_03,{
 OnInit:
 	sellitem Arrow;
 	sellitem Red_Potion;
@@ -1998,7 +1978,7 @@ OnInit:
 //=======================================================
 // Umbala
 //=======================================================
-um_in,104,124,3	trader	Tool Dealer#um	4_M_UMOLDMAN,{
+um_in,104,124,3	trader	Loja de Utilidades#um	4_M_UMOLDMAN,{
 OnInit:
 	sellitem Apple;
 	sellitem Carrot;
@@ -2015,7 +1995,7 @@ OnInit:
 	sellitem Leaf_Of_Yggdrasil;
 }
 
-um_in,160,125,3	trader	Weapon Dealer#um	4_M_UMSOLDIER,{
+um_in,160,125,3	trader	Loja de Armas#um	4_M_UMSOLDIER,{
 OnInit:
 	sellitem Club;
 	sellitem Mace;
@@ -2032,7 +2012,7 @@ OnInit:
 //=======================================================
 // Veins
 //=======================================================
-ve_in,386,245,3	trader	Weapon Dealer#ve	4_M_RACHMAN1,{
+ve_in,386,245,3	trader	Loja de Armas#ve	4_M_RACHMAN1,{
 OnInit:
 	sellitem Knife;
 	sellitem Main_Gauche;
@@ -2043,7 +2023,7 @@ OnInit:
 	sellitem Bastard_Sword;
 }
 
-ve_in,336,243,3	trader	Weapon Dealer#ve2	4_M_RACHMAN1,{
+ve_in,336,243,3	trader	Loja de Armas#ve2	4_M_RACHMAN1,{
 OnInit:
 	sellitem Pike;
 	sellitem Partizan;
@@ -2052,7 +2032,7 @@ OnInit:
 	sellitem Coward;
 }
 
-ve_in,374,230,3	trader	Armor Dealer#ve	4_F_SHABBY,{
+ve_in,374,230,3	trader	Loja de Armaduras#ve	4_F_SHABBY,{
 OnInit:
 	sellitem Guard;
 	sellitem Buckler;
@@ -2066,7 +2046,7 @@ OnInit:
 	sellitem Novice_Armlet;
 }
 
-ve_in,243,303,5	trader	Tool Dealer#ve	4_M_DESERT,{
+ve_in,243,303,5	trader	Loja de Utilidades#ve	4_M_DESERT,{
 OnInit:
 	sellitem Red_Potion;
 	sellitem Orange_Potion;
@@ -2082,13 +2062,13 @@ OnInit:
 	sellitem Leaf_Of_Yggdrasil;
 }
 
-ve_in,253,304,5	trader	Fruit Gardener#ve	4_F_DST_CHILD,{
+ve_in,253,304,5	trader	Feirante#ve	4_F_DST_CHILD,{
 OnInit:
 	sellitem Apple;
 	sellitem Banana;
 }
 
-ve_in,252,313,0	trader	Magical Item Seller#ve	4_F_DST_GRAND,{
+ve_in,252,313,0	trader	Artigos Mágicos#ve	4_F_DST_GRAND,{
 OnInit:
 	sellitem Blue_Gemstone;
 	sellitem Rod;
@@ -2104,7 +2084,7 @@ OnInit:
 //=======================================================
 // Cooking Addition
 //=======================================================
-prontera,156,212,1	trader	Chef Assistant#prt	8_F_GIRL,{
+prontera,156,212,1	trader	Cozinheiro#prt	8_F_GIRL,{
 OnInit:
 	sellitem Plain_Sauce;
 	sellitem Red_Spice;
@@ -2112,12 +2092,12 @@ OnInit:
 	sellitem Bread;
 }
 
-payon,206,119,5	trader	Chef Assistant#pay	4_M_ORIENT02,{
+payon,206,119,5	trader	Cozinheiro#pay	4_M_ORIENT02,{
 OnInit:
 	sellitem Hot_Sauce;
 }
 
-moc_ruins,115,123,5	trader	Chef Assistant#moc	4_M_04,{
+moc_ruins,115,123,5	trader	Cozinheiro#moc	4_M_04,{
 OnInit:
 	sellitem Hot_Sauce;
 	sellitem Sweet_Sauce;
@@ -2126,24 +2106,24 @@ OnInit:
 	sellitem Yellow_Spice;
 }
 
-geffen,196,111,3	trader	Chef Assistant#gef	4_M_03,{
+geffen,196,111,3	trader	Cozinheiro#gef	4_M_03,{
 OnInit:
 	sellitem Pot;
 }
 
-alberta,167,135,5	trader	Chef Assistant#alb	4_M_05,{
+alberta,167,135,5	trader	Cozinheiro#alb	4_M_05,{
 OnInit:
 	sellitem Delicious_Fish;
 }
 
-aldebaran,165,107,2	trader	Chef Assistant#alde	4W_M_01,{
+aldebaran,165,107,2	trader	Cozinheiro#alde	4W_M_01,{
 OnInit:
 	sellitem Red_Spice;
 	sellitem Yellow_Spice;
 	sellitem Bread;
 }
 
-comodo,225,164,3	trader	Chef Assistant#cmd	4_M_01,{
+comodo,225,164,3	trader	Cozinheiro#cmd	4_M_01,{
 OnInit:
 	sellitem Hot_Sauce;
 	sellitem Sweet_Sauce;
@@ -2151,105 +2131,60 @@ OnInit:
 	sellitem Delicious_Fish;
 }
 
-umbala,102,154,3	trader	Chef Assistant#um	4_M_01,{
+umbala,102,154,3	trader	Cozinheiro#um	4_M_01,{
 OnInit:
 	sellitem Red_Spice;
 	sellitem Grain;
 }
 
-yuno,130,173,3	trader	Chef Assistant#yuno	4_M_01,{
+yuno,130,173,3	trader	Cozinheiro#yuno	4_M_01,{
 OnInit:
 	sellitem Cooking_Oil;
 	sellitem Pot;
 }
 
-einbroch,224,207,5	trader	Chef Assistant#ein	4_M_01,{
+einbroch,224,207,5	trader	Cozinheiro#ein	4_M_01,{
 OnInit:
 	sellitem Cooking_Oil;
 }
 
-lighthalzen,126,126,3	trader	Chef Assistant#lhz	4_M_01,{
+lighthalzen,126,126,3	trader	Cozinheiro#lhz	4_M_01,{
 OnInit:
 	sellitem Red_Spice;
 	sellitem Yellow_Spice;
 }
 
-amatsu,206,150,3	trader	Chef Assistant#ama	4_M_01,{
+amatsu,206,150,3	trader	Cozinheiro#ama	4_M_01,{
 OnInit:
 	sellitem Sweet_Sauce;
 	sellitem Delicious_Fish;
 }
 
-louyang,256,123,5	trader	Chef Assistant#lou	4_M_CHNCOOK,{
+louyang,256,123,5	trader	Cozinheiro#lou	4_M_CHNCOOK,{
 OnInit:
 	sellitem Plain_Sauce;
 	sellitem Grain;
 }
 
-gonryun,147,101,5	trader	Chef Assistant#gon	4_M_01,{
+gonryun,147,101,5	trader	Cozinheiro#gon	4_M_01,{
 OnInit:
 	sellitem Yellow_Spice;
 	sellitem Bread;
 }
 
-ayothaya,203,178,3	trader	Chef Assistant#ayo	4_M_01,{
+ayothaya,203,178,3	trader	Cozinheiro#ayo	4_M_01,{
 OnInit:
 	sellitem Hot_Sauce;
 	sellitem Grain;
 }
 
-xmas,152,137,5	trader	Chef Assistant#xmas	4_M_01,{
+xmas,152,137,5	trader	Cozinheiro#xmas	4_M_01,{
 OnInit:
 	sellitem Cooking_Oil;
 	sellitem Grain;
 }
 
-niflheim,209,180,5	trader	Chef Assistant#nif	4_M_01,{
+niflheim,209,180,5	trader	Cozinheiro#nif	4_M_01,{
 OnInit:
 	sellitem Mushroom;
 }
-
-
-//===== Additional Comments(old): =================================
-//= swapped shop titles in GONRYUN, thanks to Kashy
-//= 1.3a Fixed Louyang map name. Added additional shops in Yuno. [kobra_k88]
-//= 1.4 Added Niflheim Shops
-//= 1.5 New Payon Locations [Darkchild]
-//=     Moved shops in Umbala.txt here. Commented out the duplicate ones.[kobra_k88]
-//= 1.6 Removed GRAPE ID 514 from shops (caused exploits)
-//= 1.7 Removed juices from custom amatsu shops (it's a quest item + levelup exploit)
-//= 1.8 Corrected Niflheim Shops and Morroc Jewel Merchant [celest]
-//= 1.9 Updated Louyang shops thanks to MasterOfMuppets
-//= 1.10 Lutie Tools coords [Yor]
-//= 1.11 Added Belts to Prontera/Aldebaran shops, thanks to reddozen [Lupus]
-//= 1.12 official Ayothaya Shops, thanks to MasterOfMuppets [Lupus]
-//= 1.13 Added 5092 Coif into Prontera Church shop [Lupus]
-//= 1.14 Added Lighthalzen,Einbroch,Einbech shops. Updated Prontera,Morroc,Payon shops [Lupus]
-//= 1.15 Added Venom Knives into every Weapon Shop (that sells Knife[3]) [Lupus]
-//= 1.15a Fixed a small typo in alberta's weapon shop, thanks to reddozen for the fix [MasterOfMuppets]
-//= 1.16 Added a temp shop in Yuno to sell Blank scrolls, thanks to reddozen [MasterOfMuppets]
-//= 1.17 Added wand of hypnotist to the Lighthalzen weapon shop [MasterOfMuppets]
-//= 1.18 Fixed some shops based on kRO shots [Poki#3]
-//= 1.19 Added Hugel and fixed Payon shops based on kRO shots [Poki#3]
-//= 1.19a Added Food Seller selling Mastela Fruit in Hugel (Update item_db for the correct price!) [Poki#3]
-//= 1.20 Added 3 weapons shops, thx2 Muad_Dib [Lupus]
-//= 1.21 Added another weapon dealer to Einbroch, thanks to Muad_Dib [MasterOfMuppets]
-//=    - Fixed up the missing sprites for you Lupus :)
-//=   -  Guys, I suggest we crop these comments and put them at the bottom soon
-//= 1.22 Thx8) Removed Berserk Potions from all shops but Comodo [Lupus]
-//= 1.3 Added Gunslinger shops. Credits goes to RockmanEXE for the info [erKURITA]
-//=     Added Bucket Hat to Flu Mask dealer and modified it's name to a more logical one :P [erKURITA]
-//= 1.4 Added an ingredient seller to Morroc, thanks to Muad_Dib [MasterOfMuppets]
-//= a Removed doubled Morocc Ing.Seller, arranged the rest Ing.Sellers according to the city names [Lupus]
-//= 1.4b Commented out temp Gunslinger shops. [Lupus]
-//= 1.5 Removed Temp gunslinger shops and moved up the official ones. [erKURITA]
-//=     Added Official Ninja shops in their correct location and commented a few
-//=     shops. Thanks to RockmanEXE and Muad_Dib [erKURITA]
-//= 1.6 Implemented a missing Tool Shop in Lighthalzen [MasterOfMuppets]
-//= 1.7 Added some missing iRO - Lighthalzen NPCs [Musashiden]
-//= 1.8 Added Rachel Official shops. Special Thanks to RockmanEXE. [erKURITA]
-//= 1.9 Uncommented Homunculus shop, since Homunculus is working on trunk now. [Evera]
-//= 1.9a Pet Merchant -> Lighthalzen [erKURITA]
-//= 1.9b Added items to Chivas Regal
-//= 1.9c Slight update for Rachel shop: Tool Dealer -> Fruit Gardener [L0ne_W0lf]
-//============================================================

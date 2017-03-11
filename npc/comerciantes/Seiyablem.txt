@@ -1,0 +1,332 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.0a                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Adiciona Slots a armas e armaduras.                         ||
+//===============================================================//
+
+-	script	Seiyablem#dummy::SocketEnchant	-1,{
+	if (checkweight(Knife,1) == 0) {
+		mes "Espere um minuto !!";
+		mes "Atualmente você está carregando muitos itens com você.";
+		mes "Por favor, tente novamente depois de perder algum peso.";
+		close;
+	}
+	mes "[Seiyablem]";
+	mes "Eu sou um engenheiro que se especializa em adicionar slots em armas e armaduras normais.";
+	mes "Minha taxa de serviço, os materiais necessários e as chances de sucesso dependem do item específico que estou trabalhando.";
+	next;
+	mes "[Seiyablem]";
+	mes "Adicionar slots pode parecer simples, mas é muito mais complicado do que parece.";
+	mes "Se você estiver interessado em meu serviço, me avise.";
+	next;
+	switch(select("Adicionar Slot na Arma","Adicionar Slot na Armadura","Informações sobre Encantamento","Cancelar")) {
+		case 1:
+		mes "[Seiyablem]";
+		mes "Você quer adicionar um slot em uma arma?";
+		mes "Eu categorizo armas por sua dificuldade em adicionar um slot, Classe C ser a mais fácil e Classe S a mais difícil.";
+		mes "Qual a classe que você gostaria de tentar?";
+		next;
+		switch(select("Classe C","Classe B","Classe A","Classe S")) {
+			case 1:
+			mes "[Seiyablem]";
+			mes "Classe C, certo?";
+			mes "Agora, eu só posso encantar alguns equipamentos dessa classe, por isso, escolha um dos itens a seguir, para que possamos tentar adicionar um slot para ele.";
+			next;
+			switch(select("Tridente","Cordel","Violino")) {
+				case 1: callfunc "Func_Socket",1460,1461,40,66,200,1010,10;
+				case 2: callfunc "Func_Socket",1950,1951,40,66,200,1010,10;
+				case 3: callfunc "Func_Socket",1901,1902,40,66,200,1010,10;
+			}
+			case 2:
+			mes "[Seiyablem]";
+			mes "Classe B";
+			mes "Tudo bem, esta é a categoria de equipamentos intermédiarios.";
+			mes "Por favor, escolha a arma que você gostaria que eu tente adicionar um slot.";
+			next;
+			switch(select("Mangual Pesado","Gladius","Gakkung","Pique","Haedonggum","Alaúde","Açoite","Waghnak","Arco Arbaleste")) {
+				case 1: callfunc "Func_Socket",1519,1520,40,61,300,1010,10;
+				case 2: callfunc "Func_Socket",1219,1220,40,61,300, 984, 1,999,5;
+				case 3: callfunc "Func_Socket",1714,1716,40,61,300, 984, 2,999,5;
+				case 4: callfunc "Func_Socket",1407,1408,40,61,200,1010,10;
+				case 5: callfunc "Func_Socket",1123,1128,40,61,300, 984, 2,999,5;
+				case 6: callfunc "Func_Socket",1905,1906,40,61,300,1011,10;
+				case 7: callfunc "Func_Socket",1954,1955,40,61,300,1011,10;
+				case 8: callfunc "Func_Socket",1801,1802,40,61,300,1010,10;
+				case 9: callfunc "Func_Socket",1713,1715,40,61,300, 984, 2,999,5;
+			}
+			case 3:
+			mes "[Seiyablem]";
+			mes "Hmmm, Classe A.";
+			mes "Este é um território de alto risco!";
+			mes "Muito bem, qual a arma que você quer que eu tente adicionar um slot?";
+			next;
+			switch(select("Arco de Caça","Bastão do Sobrevivente(INT)","Zweihander","Flamberge","Infiltrador","Balista","Atordoador","Fúria Insana","Claymore")) {
+				case 1: callfunc "Func_Socket",1718,1726,40,61,500,984,2,999,10;
+				case 2: callfunc "Func_Socket",1619,1620,40,61,500,984,5,999,10;
+				case 3: callfunc "Func_Socket",1168,1171,40,61,800,984,5,999,10;
+				case 4: callfunc "Func_Socket",1129,1149,40,61,500,984,2,999,10;
+				case 5: callfunc "Func_Socket",1261,1266,40,61,700,984,5,999,10;
+				case 6: callfunc "Func_Socket",1722,1727,40,61,500,984,5,999,10;
+				case 7: callfunc "Func_Socket",1522,1532,40,61,500,984,2,999,10;
+				case 8: callfunc "Func_Socket",1814,1816,40,61,500,984,5,999,10;
+				case 9: callfunc "Func_Socket",1163,1172,40,61,500,984,2,999,10; // NPC says "5 Oridecon" (Aegis) but takes only 2
+			}
+			case 4:
+			mes "[Seiyablem]";
+			mes "Uau! *Nossa*";
+			mes "Classe S? Certo...";
+			mes "Seria quase um milagre se eu posso realmente puxar esta off.";
+			mes "Ok... Que arma vamos tentar adicionar um slot?";
+			next;
+			switch(select("Gungnir","Adaga Venenosa","Rondel","Sucsamad","Ginnungagap","Cutelo","Foice","Bastão do Sobrevivente(DEX)")) {
+				case 1: callfunc "Func_Socket", 1413, 1418,40,51,1000,984,5,999,10;
+				case 2: callfunc "Func_Socket", 1239,13016,40,51,1000,984,5,999,10;
+				case 3: callfunc "Func_Socket", 1230,13017,40,51,2000,984,5,999,10;
+				case 4: callfunc "Func_Socket", 1236,13018,40,51,1000,984,5,999,10;
+				case 5: callfunc "Func_Socket",13002,13019,40,51,1000,984,5,999,10;
+				case 6: callfunc "Func_Socket", 1135,13400,40,51,1000,984,5,999,10;
+				case 7: callfunc "Func_Socket", 1466, 1476,40,51,1000,984,5,999,10;
+				case 8: callfunc "Func_Socket", 1617, 1618,40,51,2000,984,5,999,10;
+			}
+		}
+		case 2:
+		mes "[Seiyablem]";
+		mes "Você disse Armadura?";
+		mes "Certo, sem problema.";
+		mes "Armaduras são divididas em 4 classes diferentes, dependendo da dificuldade do trabalho.";
+		mes "Classe C é a mais fácil, e a Classe S a mais difícil.";
+		mes "Qual a classe que você gostaria de tentar?";
+		next;
+		switch(select("Classe C","Classe B","Classe A","Classe S")) {
+			case 1:
+			mes "[Seiyablem]";
+			mes "Armadura de Classe C, certo?";
+			mes "São razoáveis.";
+			mes "Qual a armadura que você gostaria de tentar adicionar um slot?";
+			next;
+			switch(select("Capote","Casaco","Tiara","Bireta")) {
+				case 1: callfunc "Func_Socket",2307,2308,40,66,200,999,3;
+				case 2: callfunc "Func_Socket",2309,2310,40,66,200,999,3;
+				case 3: callfunc "Func_Socket",2232,2233,40,66,200,999,3;
+				case 4: callfunc "Func_Socket",2216,2217,40,66,200,999,3;
+			}
+			case 2:
+			mes "[Seiyablem]";
+			mes "Escolheu a Classe B, intermédiaria.";
+			mes "Então, que tipo de armadura que você tem?";
+			next;
+			switch(select("Escudo Espelhado","Cota de Malha","Manto Sagrado","Manto de Seda","Botas","Sapatos","Sobrepeliz","Vembrassa","Broquel","Escudo","Chapéu de Bongun")) {
+				case 1:  callfunc "Func_Socket",2107,2108,40,61,250,999,5;
+				case 2:  callfunc "Func_Socket",2314,2315,40,61,250,999,5;
+				case 3:  callfunc "Func_Socket",2325,2326,40,61,300,999,5;
+				case 4:  callfunc "Func_Socket",2321,2322,40,61,300,999,5;
+				case 5:  callfunc "Func_Socket",2405,2406,40,61,300,999,5;
+				case 6:  callfunc "Func_Socket",2403,2404,40,61,300,999,5;
+				case 7:  callfunc "Func_Socket",2503,2504,40,61,300,999,5;
+				case 8:  callfunc "Func_Socket",2101,2102,40,61,300,999,5;
+				case 9:  callfunc "Func_Socket",2103,2104,40,61,300,999,5;
+				case 10: callfunc "Func_Socket",2105,2106,40,61,250,999,5;
+				case 11: callfunc "Func_Socket",5046,5168,40,61,250,999,5;
+			}
+			case 3:
+			mes "[Seiyablem]";
+			mes "Classe A.";
+			mes "Este é um território de alto risco!";
+			mes "Tudo bem, qual a armadura que você gostaria que eu tentasse adicionar um slot?";
+			next;
+			switch(select("Capacete de Schallern","Chapéu de Balde","Grimório","Malha","Armadura Legionária","Armadura Metálica","Traje de Gatuno","Grevas","Chapéu de Freira","Manteau","Elmo","Indumentária Ninja","Capacete de Orc","Capa do Marquês","Chapéu de Monge","Peça Dourada","Broche","Chapéu de Munak")) {
+				case 1:  callfunc "Func_Socket",2230,2231,40,61,400,985,1;
+				case 2:  callfunc "Func_Socket",5114,5120,40,61,400,985,1;
+				case 3:  callfunc "Func_Socket",2109,2121,40,61,400,985,1;
+				case 4:  callfunc "Func_Socket",2330,2331,40,61,400,985,1;
+				case 5:  callfunc "Func_Socket",2341,2342,40,61,400,985,1;
+				case 6:  callfunc "Func_Socket",2316,2317,40,61,400,985,1;
+				case 7:  callfunc "Func_Socket",2335,2336,40,61,400,985,1;
+				case 8:  callfunc "Func_Socket",2411,2412,40,61,400,985,1;
+				case 9:  callfunc "Func_Socket",5092,5093,40,61,400,985,1;
+				case 10: callfunc "Func_Socket",2505,2506,40,61,400,985,1;
+				case 11: callfunc "Func_Socket",2228,2229,40,61,400,985,1;
+				case 12: callfunc "Func_Socket",2337,2359,40,61,400,985,1;
+				case 13: callfunc "Func_Socket",2299,5157,40,61,400,985,1;
+				case 14: callfunc "Func_Socket",2507,2525,40,61,400,985,1;
+				case 15: callfunc "Func_Socket",2251,5158,40,61,400,985,1;
+				case 16: callfunc "Func_Socket",2246,5159,40,61,400,985,1;
+				case 17: callfunc "Func_Socket",2605,2625,40,61,400,985,1;
+				case 18: callfunc "Func_Socket",2264,5167,40,61,300,985,1;
+			}
+			case 4:
+			mes "[Seiyablem]";
+			mes "Um... Classe S?";
+			mes "Você tem certeza disso?";
+			mes "Certo...";
+			mes "Deixe-me saber se a armadura para a qual você quer adicionar um slot, e eu tentarei.";
+			next;
+			switch(select("Chifres Majestosos","Chifes Pontudos","Elmo de Osso","Corsário","Coroa","Diadema","Coroa do Faraó","Manto da Conjuração","Brinco","Anel","Luva de Puxada")) {
+				case 1:  callfunc "Func_Socket",2256,5160,40,51,2000,985,2;
+				case 2:  callfunc "Func_Socket",2258,5161,40,51,2000,985,2;
+				case 3:  callfunc "Func_Socket",5017,5162,40,51,2000,985,2;
+				case 4:  callfunc "Func_Socket",5019,5163,40,51,2000,985,2;
+				case 5:  callfunc "Func_Socket",2235,5165,40,51,2000,985,2;
+				case 6:  callfunc "Func_Socket",2234,5164,40,51,2000,985,2;
+				case 7:  callfunc "Func_Socket",5053,5166,40,51,1000,985,2;
+				case 8:  callfunc "Func_Socket",2343,2360,40,51,1000,985,2;
+				case 9:  callfunc "Func_Socket",2602,2622,40,51,1000,985,2;
+				case 10: callfunc "Func_Socket",2601,2621,40,51,1000,985,2;
+				case 11: callfunc "Func_Socket",2619,2671,40,51,1000,985,2;
+			}
+		}
+		case 3:
+		mes "[Seiyablem]";
+		mes "Bem, eu realmente não tenho a arte refinada de Adicionar Slot";
+		mes "É tão complicado que eu estaria mentindo se eu lhe disser que conheço todos os fatores que afetaram o processo.";
+		mes "Ainda assim, vou contar-lhe algumas tendências...";
+		next;
+		mes "[Seiyablem]";
+		mes "Em algumas cidades, adicionar slot é bem mais fácil, isso em equipamentos com poucas melhoras.";
+		mes "Em outras cidades, o oposto acontece.";
+		mes "Isso não é realmente peculiar?";
+		next;
+		mes "[Seiyablem]";
+		mes "Oh, há também algo muito importante que você deve saber.";
+		mes "Se você me pedir para adicionar um slot em algum equipamento, certifique-se que você não tem vários dele em seu inventário.";
+		next;
+		mes "[Seiyablem]";
+		mes "Aqui está um exemplo";
+		mes "Se você tiver um Manteau +7 e um Manteau normal em seu inventário, então eu vou escolher aleatoriamente em um deles para a minha tentativa de Adição Slot.";
+		mes "Apenas lembre-se de ser cuidadoso.";
+		next;
+		mes "[Seiyablem]";
+		mes "Novamente, ^FF0000lembre-se de carregar apenas um equipamento no qual você quer que eu adicione um slot^000000.";
+		mes "Todos os outros equipamentos com o mesmo nome deve ser colocado em seu armazém, entendeu?";
+		close;
+		case 4:
+		mes "[Seiyablem]";
+		mes "Tudo bem aventureiro.";
+		mes "Se você quiser tentar adicionar um slot em seu equipamento, volte e me avise.";
+		mes "Te vejo em breve.";
+		close;
+	}
+}
+
+function	script	Func_Socket	{
+	disable_items;
+	mes "[Seiyablem]";
+	mes "Você quer adicionar um slot para um "+ getitemname(getarg(0))+"?";
+	mes "Tudo bem, por favor, traga-me ^FF0000"+getarg(6)+" "+getitemname(getarg(5)) + (getarg(6) > 1 && getarg(5) != 999 ? "s":"") + "^000000, " + (getarg(7,0) != 0 && getarg(8,0) != 0 ? ("^FF0000" + getarg(8,0) + " " + getitemname(getarg(7,0)) + (getarg(8,0) > 1 && getarg(7,0) != 999 ? "s":"") + "^000000 ") : "") + "e meus ^FF0000" + (getarg(4) >= 1000 ? (getarg(4)/1000 + ",000") : getarg(4)) + ",000 zeny^000000 para a taxa de serviço.";
+	mes "Ah, e não se esqueça de trazer essa " + getitemname(getarg(0)) + "!";
+	next;
+	mes "[Seiyablem]";
+	if (getiteminfo(getarg(0),5)&2) {
+		mes "Eu posso tentar adicionar um slot agora, se você tiver os itens e zeny necessários.";
+		mes "No entanto, você deve saber que há uma chance de que eu possa falhar.";
+		mes "Por isso, eu preciso lhe dar um aviso justo...";
+		next;
+		mes "[Seiyablem]";
+		mes "Se essa tentativa de adicionar um slot a sua arma falhar, então a ^FF0000arma^000000, ^FF0000e qualquer carta combinada a ela será destruida.^000000.";
+	}
+	else {
+		mes "Se você tiver todos os materiais necessários, a armadura e o zeny referente a minha taxa de serviço, então poderemos seguir em frente com a tentativa de Adição de Slot.";
+		mes "Mas antes disso, devo adverti-lo do risco.";
+		next;
+		mes "[Seiyablem]";
+		mes "Se essa tentativa de adicionar um slot para sua armadura falhar, então a ^FF0000amadura^000000, ^FF0000as melhoreas^000000 ^FF0000e qualquer carta combinada a ela será destruida.^000000.";
+	}
+	mes "Você ainda quer tentar adicionar um slot?";
+	next;
+	switch (select("Tentar Adicionar Slot","Cancelar") == 1) {
+		case 1:
+		if ((Zeny >= getarg(4)*1000) && (countitem(getarg(5)) >= getarg(6)) && (countitem(getarg(7,512)) >= getarg(8,0)) && (countitem(getarg(0)) > 0)) {
+			mes "[Seiyablem]";
+			mes "Certo, então, que o trabalho comece!";
+			mes "É melhor você rezar para obter um bom resultado.";
+			next;
+			.@a = rand(1,100);
+			if ((.@a > getarg(2)) && (.@a < getarg(3))) {
+				specialeffect getarg(3) == 51 ? EF_LORD : EF_SANCTUARY;
+				mes "[Seiyablem]";
+				mes "Ótimo, parece ter dado certo.";
+				mes "Está muito bem feito. Parabéns!";
+				delitem getarg(0),1;
+				delitem getarg(5),getarg(6);
+				if (getarg(7,0) != 0 && getarg(8,0) != 0)
+					delitem getarg(7),getarg(8);
+				Zeny -= getarg(4)*1000;
+				getitem getarg(1),1;
+				next;
+				mes "[Seiyablem]";
+				mes "Vejo você de novo, por aí!";
+				close;
+			}
+			else {
+				specialeffect EF_SUI_EXPLOSION;
+				mes "[Seiyablem]";
+				mes "NÃO! ...Eu sinto muito, ele falhou.";
+				mes "No entanto, sou completamente inocente.";
+				mes "Isto é a sua sorte, e é destinada por Deus, ok?";
+				mes "Não fique tão desapontado, tente novamente.";
+				delitem getarg(0),1;
+				delitem getarg(5),getarg(6);
+				if (getarg(7,0) != 0 && getarg(8,0) != 0) {
+					delitem getarg(7),getarg(8);
+				}
+				Zeny -= getarg(4)*1000;
+				next;
+				mes "[Seiyablem]";
+				mes "Desejo-lhe boa sorte na próxima vez!";
+				close;
+			}
+		}
+		else {
+			mes "[Seiyablem]";
+			mes "Eu gostaria de ir em frente com essa tentativa de Adição de Slot, mas está faltando algumas coisas.";
+			mes "Tem certeza que você tem os equipamentos, materiais e os zeny necessários?";
+			close;
+		}
+		case 2:
+		mes "[Seiyablem]";
+		mes "Necessita de algum tempo para pensar sobre isso?";
+		mes "Tudo bem, eu posso entender.";
+		mes "Apenas lembre-se que a vida não é divertida se você sempre joga com segurança.";
+		close;
+	}
+}
+
+payon,140,151,5	duplicate(SocketEnchant)	Seiyablem#pay	4_M_02
+lhz_in02,281,35,5	duplicate(SocketEnchant)	Seiyablem#lhz	4_M_02
+prt_in,33,70,5	duplicate(SocketEnchant)	Seiyablem#prt	4_M_02
+morocc,51,41,4	duplicate(SocketEnchant)	Seiyablem#moc	4_M_02
+
+-	script	Young Man#dummy::SocketMan	-1,{
+	mes "[Jovem Homem]";
+	mes "Estou pensando em se tornar um engenheiro de alocação.";
+	mes "É um novo campo onde você pode adicionar Slots para equipamentos, e seria legal se eu pudesse trabalhar em uma carreira lucrativa.";
+	next;
+	mes "[Jovem Homem]";
+	mes "Pelo que eu entendi, há um elemento enorme de sorte envolvido no sucesso ao adicionar Slots";
+	mes "Você pode falhar algumas vezes, mas se você estiver com muita sorte, você pode adicionar dois slots.";
+	mes "Louco, não acha?";
+	next;
+	mes "[Young Man]";
+	mes "Mas não fique muito animado.";
+	mes "Apenas alguns equipamentos podem segurar o acréscimo de dois slots extras.";
+	mes "Há muito mais para aprender antes que eu me torne um aprendiz...";
+	close;
+}
+
+prt_in,31,57,1	duplicate(SocketMan)	Jovem#prt	4W_M_01
+payon,143,143,7	duplicate(SocketMan)	Jovem#pay	4W_M_01
+morocc,60,42,3	duplicate(SocketMan)	Jovem#moc	4W_M_01
+lhz_in02,269,33,5	duplicate(SocketMan)	Jovem#lhz	4W_M_01

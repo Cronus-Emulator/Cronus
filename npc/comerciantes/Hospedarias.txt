@@ -1,0 +1,164 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.9a                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Revisões Cronus] / [Spell Master]                 ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Hospedarias. Restaura HP/SP e Salva ponto de Retorno        ||
+//===============================================================//
+
+//== Prontera ==============================================
+//- West Side Inn -
+prt_in,244,135,2	script	Funcionária da Estalagem#Sammy	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Funcionária Sammy]","Estalagem do Oeste","prt_in",238,130;
+	warp "prt_in",247,104; end;
+}
+
+//- East Side Inn -
+prt_in,61,141,2	script	Funcionária da Estalagem#Ahlma	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Funcionária Ahlma]","Estalagem do Leste","prt_in",64,136;
+	warp "prt_in",60,166; end;
+}
+
+//== Alberta ===============================================
+alberta_in,32,142,3	script	Funcionária da Estalagem#Jennie	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Funcionária Jennie]","'Estalagem do Pescador'!","alberta_in",26,142;
+	warp "alberta_in",18,188; end;
+}
+
+//== Geffen ================================================
+geffen_in,70,64,5	script	Funcionária da Estalagem#Cena	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Funcionária Cena]","'Ifrit,' a única estalagem na cidade de Geffen.","geffen_in",70,59;
+	warp "geffen_in",31,31; end;
+}
+
+//== Payon =================================================
+payon_in01,132,62,5	script	Funcionária da Estalagem#Ahee	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Funcionária Ahee]","Estalagem de Payon","payon_in01",136,61;
+	warp "payon_in01",132,11; end;
+}
+
+//== Aldebaran =============================================
+aldeba_in,92,58,5	script	Funcionária da Estalagem#Rilim	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Rilim]","Estalagem de Al De Baran","aldeba_in",92,50;
+	warp "aldeba_in",92,112; end;
+}
+
+//== Rachel ================================================
+ra_in01,376,69,4	script	Funcionária da Estalagem#Annie	4_M_RACHMAN1,{
+	callfunc "F_InnMaid","[Annie]","Estalagem de Rachel","ra_in01",375,58;
+	warp "ra_in01",384,128; end;
+}
+
+//== Hugel =================================================
+hu_in01,246,107,3	script	Inn Maid#Receptionist	1_M_INNKEEPER,{
+	callfunc "F_InnMaid","[Recepcionista]","Estalagem de Hugel","hu_in01",263,95;
+	warp "hu_in01",267,5; end;
+}
+
+//== Lighthalzen ===========================================
+lhz_in02,230,284,4	script	Funcionário do Hotel#01	4_M_04,{
+	mes "[Funcionário do Hotel]";
+	mes "Bem-vindo ao Royal Dragon.";
+	mes "Onde você vai encontrar as melhores acomodações e os melhores serviços.";
+	next;
+	switch(select("Salvar Retorno","Descançar - 5,000 zeny","Cancelar")) {
+		case 1:
+		savepoint "lhz_in02",209,275;
+		mes "[Funcionário do Hotel]";
+		mes "Muito obrigado, seu Ponto de Retorno foi salvo aqui, no Royal Dragon.";
+		close;
+		case 2:
+		if(Zeny < 5000) {
+		mes "[Funcionário do Hotel]";
+			mes "Me desculpe, mas a taxa de hospedagem é de 5,000 zenys.";
+			close;
+		}
+		Zeny -= 5000;
+		mes "[Funcionário do Hotel]";
+		mes "Muito obrigado.";
+		mes "Espero que você aproveite sua estadia aqui no Royal Dragon.";
+		close2;
+		warp "lhz_in02",219,150;
+		percentheal 100,100;
+		npcskill "AL_BLESSING",10,99,99;
+		end;
+		case 3:
+		mes "[Funcionário do Hotel]";
+		mes "Muito obrigado e tenha um ótimo dia.";
+		close;
+	}
+}
+
+//== Veins =================================================
+ve_in,157,219,5	script	Chefe da Estalagem#veinmad	4_M_SEAMAN,{
+	mes "[Chefe da Estalagem]";
+	mes "Bom dia.";
+	mes "Bem-vindo à mais confortável Estalagem aqui em Veins.";
+	next;
+	switch(select("Salvar Retorno","Descançar -> 5000 zeny","Cancelar")) {
+		case 1:
+		mes "[Chefe da Estalagem]";
+		mes "Seu Ponto de Retorno foi salvo em Veins.";
+		mes "Curta sua estadia na cidade.";
+		savepoint "ve_in",157,209;
+		close;
+		case 2:
+		mes "[Chefe da Estalagem]";
+		if(Zeny < 5000){
+			mes "Me desculpe mas a taxa para descanso é de 5.000 zenys.";
+			close;
+		}
+		mes "Curta sua estadia.";
+		close2;
+		Zeny -= 5000;
+		percentheal 100,100;
+		warp "ve_in",184,228;
+		end;
+		case 3:
+		mes "[Chefe da Estalagem]";
+		mes "Volte sempre.";
+		close;
+	}
+}
+
+//== Inn Function ==========================================
+function	script	F_InnMaid	{
+	mes getarg(0);
+	mes "Bem vindo a"+getarg(1)+".";
+	mes "Em que posso ajudar?";
+	next;
+	switch(select("Salvar","Descançar -> 5000 zeny", "Cancelar")) {
+		case 1:
+		mes getarg(0);
+		mes "Seu Ponto de Retorno foi salvo.";
+		mes "Obrigado e volte sempre.";
+		savepoint getarg(2),getarg(3),getarg(4);
+		close;
+		case 2:
+		mes getarg(0);
+		if(Zeny < 5000){
+			mes "A taxa de serviço é 5.000 zeny.";
+			mes "Por favor, tenha certeza de que tem a quantidade necessária de zeny para o serviço.";
+			close;
+		}
+		mes "Obrigado.";
+		mes "Eu espero que você aproveite sua estadia.";
+		close2;
+		Zeny -= 5000;
+		percentheal 100,100;
+		return;
+		case 3:
+		close;
+	}
+}

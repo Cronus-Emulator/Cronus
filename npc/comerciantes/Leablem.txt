@@ -1,0 +1,421 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.1a                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Adiciona Slots a armas e armaduras.                         ||
+//===============================================================//
+
+-	script	Leablem#dummy::SocketEnchant2	-1,{
+	if (checkweight(Knife,1) == 0){
+		mes "Espere um segundo !!";
+		mes "Você está muito pesado, assim, você não pode obter mais itens.";
+		mes "Deixe alguns itens no depósito e tente fale comigo novamente.";
+		close;
+	}
+	mes "[Leablem]";
+	mes "Bom dia.";
+	mes "Meu nome é Leablem, eu sou um técnico que se especializou em adicionar slots para armas e armaduras.";
+	mes "Pode ser muito difícil, mas eu gosto do que eu faço, e tenho orgulho.";
+	next;
+	mes "[Leablem]";
+	mes "Eu aprendi muitas coisas com meu irmão, Seyablem, mas acho que ainda tenho muitas coisas a aprender.";
+	mes "Então, por favor, entenda que meus serviços de slot's são limitados, ao contrário do meu irmão Seyableam.";
+	next;
+	mes "[Leablem]";
+	mes "Meu irmão estava tão feliz me ensinando suas habilidades, pois ele estava preocupado que as suas habilidades não seriam as únicas sempre.";
+	mes "Ele fez, no entanto, o seu melhor para me ensinar.";
+	next;
+	mes "[Leablem]";
+	mes "Graças a ele, eu aprendi muitas coisas.";
+	mes "Eu não estou muito confiante na tentativa de adicionar slot's em coisas diferentes.";
+	mes "Mas é isso que eu faço, então vou fazer agora.";
+	next;
+	mes "[Leablem]";
+	mes "De fato, há uma coisa que meu irmão não quer que eu faça.";
+	mes "Eu não quero magoá-lo, então...";
+	mes "Vamos pular apenas essa parte.";
+	mes "Não vou falar mais nada sobre ele!";
+	next;
+	mes "[Leablem]";
+	mes "De qualquer forma, você tem algum equipamento que você gostaria de adicionar slot's?";
+	mes "Minha taxa de serviço, os materiais, e a chance de sucesso depende do item específico que estou trabalhando.";
+	next;
+	switch(select("Arma","Armadura","Sobre a coisa que você pulou","Mais informações","Sair")) {
+		case 1:
+		mes "[Leablem]";
+		mes "Arma, é isso?";
+		mes "Certo, sem problemas.";
+		mes "As armas são divididas em 4 classes diferentes dependendo da dificuldade do trabalho.";
+		mes "A classe C é mais fácil, e a classe S é a mais difícil.";
+		mes "Qual classe você gostaria de tentar?";
+		next;
+		switch(select("C","B","A","S")) {
+			case 1:
+			mes "[Leablem]";
+			mes "Classe C, tudo bem.";
+			mes "Então, que tipo de arma você tem?";
+			next;
+			switch(select("Livro da Mãe Terra","Livro das Ondas","Livro de Golpe de Vento","Livro de Sol Ardente")) {
+				case 1: callfunc "Func_Socket2",1554,1569,40,66,200,1010,10;
+				case 2: callfunc "Func_Socket2",1553,1568,40,66,200,1010,10;
+				case 3: callfunc "Func_Socket2",1556,1571,40,66,200,1010,10;
+				case 4: callfunc "Func_Socket2",1555,1570,40,66,200,1010,10;
+			}
+			case 2:
+			mes "[Leablem]";
+			mes "Você escolheu a classe B - Média.";
+			mes "Então, que tipo de arma você tem?";
+			next;
+			switch(select("Machado dos Orcs","Cimitarra","Clava com Espetos")) {
+				case 1: callfunc "Func_Socket2",1304,1309,40,66,200,984,1;
+				case 2: callfunc "Func_Socket2",1113,1114,40,66,200,984,1;
+				case 3: callfunc "Func_Socket2",1523,1538,40,61,300,984,1;
+			}
+			case 3:
+			mes "[Leablem]";
+			mes "Classe A? Você está querendo demais. Mas, sem problemas.";
+			mes "Então, que tipo de arma você tem?";
+			next;
+			switch(select("Matadora de Dragão","Katar da Espinheira Empoeirada","Katar da Chama Impetuosa","Katar Gélida","Katar do Vento Perfurante","Maça de Ouro","Alaúde Oriental","Chicote da Rainha","Lança Espectral","Gae Bolg","Schweizersabel")) {
+				case 1:  callfunc "Func_Socket2",13001,13030,40,61,500,984,2;
+				case 2:  callfunc "Func_Socket2", 1257, 1276,40,66,500,984,2;
+				case 3:  callfunc "Func_Socket2", 1258, 1277,40,66,500,984,2;
+				case 4:  callfunc "Func_Socket2", 1256, 1275,40,66,500,984,2;
+				case 5:  callfunc "Func_Socket2", 1259, 1278,40,66,500,984,2;
+				case 6:  callfunc "Func_Socket2", 1524, 1539,40,61,500,984,2;
+				case 7:  callfunc "Func_Socket2", 1918, 1922,40,61,500,984,2;
+				case 8:  callfunc "Func_Socket2", 1970, 1976,40,61,500,984,2;
+				case 9:  callfunc "Func_Socket2", 1477, 1479,40,56,500,984,2;
+				case 10: callfunc "Func_Socket2", 1474, 1480,40,56,500,984,2;
+				case 11: callfunc "Func_Socket2", 1167, 1178,40,61,500,984,2;
+			}
+			case 4:
+			mes "[Leablem]";
+			mes "Hm, Classe S?!";
+			mes "Você está falando sério?";
+			mes "Então...";
+			mes "Qual arma classe S você gostaria de fazer um slot?!";
+			next;
+			switch(select("Zéfiro","Destruidora de Malhas","Caçadora de Dragões","Destruidor de Espadas","Adaga Assasina","Grande Cruz","Executora")) {
+				case 1: callfunc "Func_Socket2",1468, 1481,40,51,1000,984,5,999,10;
+				case 2: callfunc "Func_Socket2",1225,13032,40,51,1000,984,5,999,10;
+				case 3: callfunc "Func_Socket2",1166, 1180,40,51,1000,984,5,999,10;
+				case 4: callfunc "Func_Socket2",1224,13031,40,51,1000,984,5,999,10;
+				case 5: callfunc "Func_Socket2",1232,13033,40,51,1000,984,5,999,10;
+				case 6: callfunc "Func_Socket2",1528, 1540,40,51,1000,984,5,999,10;
+				case 7: callfunc "Func_Socket2",1169, 1179,40,51,1000,984,5,999,10;
+			}
+		}
+		case 2:
+		mes "[Leablem]";
+		mes "Armadura, é isso? Certo, sem problemas.";
+		mes "As armaduras são divididas em 4 classes diferentes dependendo da dificuldade do trabalho.";
+		mes "A classe C é a mais fácil, e a classe S é a mais dificil.";
+		mes "Qual classe você gostaria de tentar?";
+		next;
+		switch(select("C","B","A","S")) {
+			case 1:
+			mes "[Leablem]";
+			mes "Classe C, tudo bem.";
+			mes "Então, que tipo de armadura que você tem?";
+			next;
+			switch(select("Presilha de Girassol","Barrete","Laço Grande","Quepe")) {
+				case 1: callfunc "Func_Socket2",2253,5351,40,66,100,999,3;
+				case 2: callfunc "Func_Socket2",5012,5347,40,66,100,999,3;
+				case 3: callfunc "Func_Socket2",2244,5348,40,66,100,999,5;
+				case 4: callfunc "Func_Socket2",5016,5349,40,66,100,999,5;
+			}
+			case 2:
+			mes "[Leablem]";
+			mes "Você escolheu a classe B - Média.";
+			mes "Então, que tipo de armadura você tem?";
+			next;
+			switch(select("Anel de Caveira","Salto Alto")) {
+				case 1: callfunc "Func_Socket2",2609,2715,40,61,300,999,5;
+				case 2: callfunc "Func_Socket2",2409,2432,40,61,300,999,5;
+			}
+			case 3:
+			mes "[Leablem]";
+			mes "Classe A?";
+			mes "Você está querendo demais.";
+			mes "Mas, sem problemas.";
+			mes "Então, que tipo de armadura você tem?";
+			next;
+			switch(select("Bandana Pirata","Botas Pretas de Couro")) {
+				case 1: callfunc "Func_Socket2",2287,5350,50,61,500,985,1;
+				case 2: callfunc "Func_Socket2",2425,2434,40,51,500,985,1;
+				case 3: callfunc "Func_Socket2",15053,15056,50,61,500,985,1;
+			}
+			case 4:
+			mes "[Leablem]";
+			mes "Hm, Classe S?!";
+			mes "Você está falando sério?";
+			mes "Então...";
+			mes "Qual armadura de classe S você gostaria de fazer um slot?";
+			next;
+			switch(select("Vestimenta Arcana","Batina","Spiritus Sancti","Camiseta","Roupa de Baixo")) {
+				case 1: callfunc "Func_Socket2",2334,2372,40,51,1000,985,1;
+				case 2: callfunc "Func_Socket2",2327,2373,45,51,1000,985,1;
+				case 3: callfunc "Func_Socket2",2111,2128,45,51,1000,985,1;
+				case 4: callfunc "Func_Socket2",2522,2523,45,51,1000,985,1;
+				case 5: callfunc "Func_Socket2",2339,2371,45,51,1000,985,1;
+			}
+		}
+		case 3:
+		mes "[Leablem]";
+		mes "Oh, não é nada de especial, mas ele acha que não é algo para se meter com os seres humanos.";
+		mes "Eu não quero perturbar meu irmão, então é melhor esquecê-lo.";
+		next;
+		mes "[Leablem]";
+		mes "O própio serviço tem uma chance de sucesso muito alta, mas exige de uma grande quantidade de materiais e uma alta taxa de serviço.";
+		mes "Eu dúvido que alguém realmente queira usar o serviço, mesmo se eu abri-lo.";
+		next;
+		mes "[Leablem]";
+		mes "...Ummm...";
+		next;
+		mes "[Leablem]";
+		mes ".............";
+		next;
+		mes "[Leablem]";
+		mes ".............";
+		next;
+		mes "[Leablem]";
+		mes "Você parece interessado em usar o serviço.";
+		mes "Se você quiser, eu posso pelo menos falar sobre isso.";
+		mes "Mas você deve prometer guardar segredo.";
+		mes "Se meu irmão decobre que eu estou dizendo, ele vai me dar uma surra!";
+		next;
+		mes "[Leablem]";
+		mes "Esse serviço especial tem uma chance de sucesso de 90%, mas requer 2 Ouros e 200 milhões de zeny.";
+		mes "Eu posso acrescentar slots para o Chapéu do Deus-Sol.";
+		next;
+		mes "[Leablem]";
+		mes "Meu irmão disse que, desde os tempos antigos, é proibido modificar esse chapéu.";
+		mes "Mas eu acredito que os seres humanos são muitos curiosos para não experimentar, especialmente quando é proibido.";
+		mes "Eu só não quero que meu irmão grite comigo.";
+		next;
+		switch(select("Usar o serviço","Sair")) {
+			case 1:
+			mes "[Leablem]";
+			mes ".................";
+			next;
+			mes "[Leablem]";
+			mes ".................";
+			next;
+			mes "[Leablem]";
+			mes "...Oq... Oque?";
+			mes "Não!";
+			mes "Olhando desse jeito não vai me obrigar a fazer isso!";
+			mes "Não, Eu disse que não! Não e não! Não!";
+			next;
+			mes "[Leablem]";
+			mes "Não, eu não vou! Não!";
+			next;
+			mes "[Leablem]";
+			mes "Não, eu não vou! Não!";
+			next;
+			mes "[Leablem]";
+			mes "Não, eu não vou! Não!";
+			next;
+			mes "[Leablem]";
+			mes ".................";
+			next;
+			mes "[Leablem]";
+			mes "Umm...";
+			next;
+			mes "[Leablem]";
+			mes "Você é tão persistente.";
+			mes "Ok, eu vou te fazer uma exceção.";
+			mes "Só não conte a ninguém, especialmente meu irmão. Você promete?";
+			next;
+			mes "[Leablem]";
+			mes "Ok, então, por favor, traga-me ^FF00002 Ouros, 200 Milhões de Zenys -- A taxa de serviço --,";
+			mes "^FF0000e um Chapéu do Deus-Sol.";
+			mes "^FF0000Você sabe que sua chance de sucesso é de 90%, não sabe?^000000";
+			mes "Nós não temos tempo a perder, assim que trazer vamos fazer imediatamente.";
+			next;
+			if ((Zeny > 199999999) && (countitem(Gold) > 1) && (countitem(Helm_Of_Sun) > 0)) {
+				mes "[Leablem]";
+				mes "Vamos começar agora?";
+				mes "Reze para seus deuses de boa sorte.";
+				next;
+				.@a = rand(1,100);
+				if ((.@a > 4) && (.@a < 95)) {
+					specialeffect EF_LORD;
+					mes "[Leablem]";
+					mes "Excelente! Uau, eu acho que a chance de sucesso de 90% é verdade!";
+					mes "Olhe, o slot foi inserido no lugar certo.";
+					mes "Parabéns.";
+					delitem Helm_Of_Sun,1;
+					delitem Gold,2;
+					Zeny -= 200000000;
+					getitem Helm_Of_Sun_,1;
+					next;
+					mes "[Leablem]";
+					mes "Esta é a primeira e última vez que eu vou fazer isso por você.";
+					mes "Nunca diga a ninguém sobre isso.";
+					mes "Está bem?";
+					close;
+				}
+				else {
+					specialeffect EF_SUI_EXPLOSION;
+					mes "[Leablem]";
+					mes "Ah não, falhou!";
+					mes "Acho que tivemos o pior tipo de sorte.";
+					mes "O que vamos fazer?";
+					mes "Está é a razão porque não queria fazer isso, desculpe!";
+					delitem Helm_Of_Sun,1;
+					delitem Gold,2;
+					Zeny -= 200000000;
+					next;
+					mes "[Leablem]";
+					mes "Não, nunca mais me peça uma coisa arriscada dessas de novo!";
+					mes "Bah!";
+					close;
+				}
+			}
+			else {
+				mes "[Leablem]";
+				mes "Umm...";
+				next;
+				mes "[Leablem]";
+				mes "Você não tem material suficiente.";
+				mes "Rapaz, por que você ainda não me pede para tentar?";
+				mes "Eu não vou fazer isso denovo para você, mesmo se você levar material suficiente.";
+				close;
+			}
+			case 2:
+			mes "[Leablem]";
+			mes "Nunca diga a ninguém sobre o que eu te disse.";
+			mes "Esttá bem?";
+			close;
+		}
+		case 4:
+		mes "[Leablem]";
+		mes "Você quer saber mais informações?";
+		mes "Bem, eu não acho que há algo que você especificamente precisa saber.";
+		mes "Mais eu posso pelo menos dar uma dica.";
+		next;
+		mes "[Leablem]";
+		mes "Os técnicos de slot em cada cidade proporcionam diferentes possibilidades de sucesso de slot dependendo do nível de seu equipamento.";
+		mes "Eu não sei se isso é verdade, mas eu posso ver a diferença em cada cidade.";
+		next;
+		mes "[Leablem]";
+		mes "Por exemplo, um técnico de entalhe em uma cidade proporciona uma maior chance de sucesso itens de equipamentos em níveis mais elevados de armas/armaduras.";
+		mes "Enquanto um técnico em outra cidade tem maior sucesso em níveis mais baixos de armas/armaduras.";
+		next;
+		mes "[Leablem]";
+		mes "Quando não for possível adicionar um slot, o equipamento será quebrado e desaparece.";
+		mes "Eu tento o meu melhor para ter êxito, mas é dificil trabalhar com slot's.";
+		next;
+		mes "[Leablem]";
+		mes "Oh, há uma coisa importante que você precisa ter em mente.";
+		mes "^FF0000Tente não carregar dois equipamentos/itens idênticos ^FF0000quando você adicionar slots.";
+		mes "^FF0000Caso contrário, as faixas podem ser adicionados a um dos itens escolhidos aleatoriamente,";
+		mes "^FF0000e na pior das hipóteses, você pode perder um item que é mais valioso para você.^000000";
+		next;
+		mes "[Leablem]";
+		mes "Espero que esta informação seja útil para você.";
+		mes "Obrigado.";
+		close;
+		case 5:
+		mes "[Leablem]";
+		mes "Tudo bem então.";
+		close;
+	}
+}
+
+payon,236,199,3	duplicate(SocketEnchant2)	Leablem#pay	4_M_04
+lighthalzen,96,137,3	duplicate(SocketEnchant2)	Leablem#lhz	4_M_04
+prt_in,22,60,6	duplicate(SocketEnchant2)	Leablem#prt	4_M_04
+moc_ruins,154,86,3	duplicate(SocketEnchant2)	Leablem#moc	4_M_04
+
+function	script	Func_Socket2	{
+	disable_items;
+	mes "[Leablem]";
+	if(getarg(7,0) != 0 && getarg(8,0) != 0) {
+		mes getitemname(getarg(0))+"...";
+		mes "Ok, então você precisa me trazer ^FF0000"+(getarg(4) >= 1000 ? (getarg(4)/1000+",000") : getarg(4))+",000 Zeny como taxa de serviço.";
+		mes "^FF0000"+getarg(6)+" para "+getitemname(getarg(5))+" e "+getarg(8)+" para "+getitemname(getarg(7))+".";
+		mes "^FF0000Claro, você precisa de um "+getitemname(getarg(0))+".^000000";
+	}
+	else {
+		mes getitemname(getarg(0))+"? Ok, então você precisa para trazer-me:";
+		mes "^FF0000"+(getarg(4) >= 1000 ? (getarg(4)/1000 + ",000") : getarg(4))+",000 zenys como taxa de serviço e "+getarg(6)+" "+getitemname(getarg(5)) + (getarg(6) > 1 && getarg(5) != 999 ? "s":"") + " como exigência.";
+		mes "^FF0000Claro, você precisa de um "+getitemname(getarg(0))+".";
+		mes "^FF0000Você deve ter todos os itens.^000000";
+	}
+	next;
+	mes "[Leablem]";
+	mes "Você trouxe todos os itens?";
+	mes "Para sua informação, se você não conseguir criar um slot você perderá todos os requisitos do item, bem como a "+(getiteminfo(getarg(0),5)&2 ? "arma":"armadura")+".";
+	mes "Also remember, if the " + (getiteminfo(getarg(0),5)&2 ? "weapon" : "armor") + " has been upgraded, and has been inserted with a card,";
+	mes "você vai perdê-las, mesmo se você tiver sucesso na criação de um slot.";
+	next;
+	switch(select("Pedir o encantamento de slot.","Talvez na próxima vez.")) {
+		case 1:
+		if ((Zeny >= getarg(4)*1000) && (countitem(getarg(5)) >= getarg(6)) && (countitem(getarg(7,512)) >= getarg(8,0)) && (countitem(getarg(0)) > 0)) {
+			mes "[Leablem]";
+			mes "Tudo bem então, vamos começar o trabalho!";
+			mes "É melhor rezar por um resultado bem sucedido.";
+			next;
+			.@a = rand(1,100);
+			if ((.@a > getarg(2)) && (.@a < getarg(3))) {
+				specialeffect EF_LORD;
+				mes "[Leablem]";
+				mes "Ótimo, parece ter tido sucesso.";
+				mes "Parece muito bem feito. Parabéns!";
+				delitem getarg(0),1;
+				delitem getarg(5),getarg(6);
+				if (getarg(7,0) != 0 && getarg(8,0) != 0) {
+					delitem getarg(7),getarg(8);
+				}
+				Zeny -= getarg(4)*1000;
+				getitem getarg(1),1;
+				next;
+				mes "[Leablem]";
+				mes "Te vejo por aí!";
+				close;
+			}
+			else {
+				specialeffect EF_SUI_EXPLOSION;
+				mes "[Leablem]";
+				mes "Wah! ...Me desculpe, ele falhou.";
+				mes "No entanto, você pode vir denovo.";
+				mes "Não fique triste, tente na próxima vez.";
+				delitem getarg(0),1;
+				delitem getarg(5),getarg(6);
+				if (getarg(7,0) != 0 && getarg(8,0) != 0) {
+					delitem getarg(7),getarg(8);
+				}
+				Zeny -= getarg(4)*1000;
+				next;
+				mes "[Leablem]";
+				mes "Vejo você na próxima vez.";
+				close;
+			}
+		}
+		else {
+			mes "[Leablem]";
+			mes "Você não trouxe todos os itens necessários!";
+			mes "Venha logo com isso, rápido!";
+			close;
+		}
+		case 2:
+		mes "[Leablem]";
+		mes "Vejo você na próxima vez.";
+		close;
+	}
+}

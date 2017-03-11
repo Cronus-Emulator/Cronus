@@ -1,0 +1,80 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.3a                                                        ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Troca Shurikens & pedras por Kunai Elemental para Ninjas    ||
+//===============================================================//
+
+que_ng,72,29,3	script	Mercador de Kunais#KunaiTrade	4_M_01,{
+	if(BaseClass == Job_Ninja) {
+		mes "[Kashin]";
+		mes "Eu sou Kashin, o distributor de Kuanis para Ninjas.";
+		mes "Dê uma olhada e veja está interessado em quaisquer de minhas mercadorias.";
+		next;
+		switch(select("Kunai Veneno Mortal","Kunai Nevasca","Kunai Sopro do Vento","Kunai Terra Negra","Kunai Onda de Calor","Cancelar")) {
+			case 1: callfunc "Kunai_Trade",13250,20,7524,1,13259; break;
+			case 2: callfunc "Kunai_Trade",13251,8,7522,2,13255; break;
+			case 3: callfunc "Kunai_Trade",13252,4,7523,2,13257; break;
+			case 4: callfunc "Kunai_Trade",13253,2,7524,1,13256; break;
+			case 5: callfunc "Kunai_Trade",13254,1,7521,2,13258; break;
+			case 6:
+			mes "[Kashin]";
+			mes "Bem então, obrigado por visitar minha loja.";
+			mes "Por favor, volte quando precisar de algumas Kunais.";
+			mes "Até breve.";
+			close;
+		}
+	}
+	mes "[Kashin]";
+	mes "Eu sou Kashin, o distributor de Kuanis para Ninjas.";
+	mes "Se você possui algum amigo da Ninja conte a ele sobre mim peça que venha falar comigo.";
+	close;
+}
+
+function	script	Kunai_Trade	{
+	mes "[Kashin]";
+	mes "Você pode trocar "+getarg(1)+" "+getitemname(getarg(0))+" e "+getarg(3)+" "+getitemname(getarg(2))+" por 10 "+getitemname(getarg(4))+".";
+	next;
+	mes "[Kashin]";
+	mes "Eu posso só lhe dar de cada vez um máximo de 500 Kunais.";
+	mes "Se quiser cancelar a troca basta que digite 0.";
+	mes "Quantas Kunais você gostaria?";
+	next;
+	input .@amount;
+	if(.@amount < 1 || .@amount > 500) {
+		mes "[Kashin]";
+		mes "Ahn? Eu sinto muito, mas eu não o posso dar uma quantidade acima de 500 unidades.";
+		close;
+	}
+	if(countitem(getarg(0)) < .@amount*getarg(1) || countitem(getarg(2)) < .@amount*getarg(3)) {
+		mes "[Kashin]";
+		mes "Parece que você não tem a quantidade de itens necessários para a troca.";
+		mes "Por favor, verifique seus itens e tente novamente.";
+		close;
+	}
+	if(checkweight(getarg(4), .@amount*10) == 0) {
+		mes "[Kashin]";
+		mes "Parece que não vai poder carregar todas os itens.";
+		mes "Por favor, verifique a quantidade de peso que carrega e tente novamente.";
+		close;
+	}
+	mes "[Kashin]";
+	mes "Ótimo, tudo está em ordem, assim prossigamos com a troca.";
+	mes "Espero que faça bom proveito com suas novas Kuanis.";
+	delitem getarg(0),getarg(1)*.@amount;
+	delitem getarg(2),getarg(3)*.@amount;
+	getitem getarg(4),10*.@amount;
+	close;
+}

@@ -1,0 +1,144 @@
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.8                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [Spell Master]                                     ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Venda de materiais e manuais de Criação para alquimistas    ||
+//===============================================================//
+
+alde_alche,24,188,3	script	Comerciante da Guilda	2_M_ALCHE,{
+	if (checkweight(Knife,1) == 0) {
+		mes "Espere um pouco!";
+		mes "Você está carregando muitos itens com você.";
+		mes "Por favor, volte novamente depois que você guardar alguns itens no Armazém da Kafra.";
+		close;
+	}
+	mes "[Gever Al Sharp]";
+	mes "Bem-vindo à União dos Alquimistas.";
+	mes "Como posso ajudá-lo hoje?";
+	next;
+	switch (select("Comprar materiais.","Comprar manuais de produção.","Cancelar.")) {
+		case 1:
+		mes "[Gever Al Sharp]";	
+		mes "O que você gostaria de comprar?";
+		next;
+		if (select("Vasilha de Mistura - 250 Zeny","Cancelar.") == 1) {
+			mes "[Gever Al Sharp]";
+			mes "De quantas você precisa?";
+			mes "Digite '0' se você deseja cancelar.";
+			next;
+			while(1) {
+				input .@input, 0, 2001;
+				if (.@input == 0) {
+					mes "A negociação foi cancelada.";
+					mes "Volte sempre.";
+					close;
+				}
+				else if (.@input < 1 || .@input > 2000) {
+					mes "O número deve ser menor que 2000.";
+					next;
+				}
+				else {
+					break;
+				}
+			}
+			if (RENEWAL) {
+				.@sell = .@input * 250;
+			} else {
+				.@sell = .@input * 8;
+			}
+			.@item_weight = .@input * 10;
+			if (Zeny < .@sell) {
+				mes "Você não possui zeny o suficiente.";
+				mes "Cheque quanto de Zeny você possui primeiramente.";
+				close;
+			}
+			if ((MaxWeight - Weight) < .@item_weight) {
+				mes "Me parece que você não pode carregar tudo.";
+				mes "Por favor, verifique o espaço em seu inventário.";
+				close;
+			}
+			Zeny -= .@sell;
+			getitem Medicine_Bowl,.@input;
+			mes "Obrigado.";
+			mes "Volte Sempre.";
+			close;
+		}
+		mes "[Gever Al Sharp]";
+		mes "Pois bem, volte novamente quando precisar comprar mais materiais relacionados a Alquimia, certo?";
+		close;
+		case 2:
+		mes "[Gever Al Sharp]";
+		mes "Do que você precisa?";
+		mes "Os manuais custam geralmente 100.000 zeny. Mas há alguns outros manuais que custarão bem mais caro.";
+		next;
+		switch (select("Manual de Criação de Poções","Manual de Criação de Álcool","Manual de Criação de Fogo Grego","Manual de Criação de Frasco de Ácido","Manual de Criação de Plantas","Manual de Criação de Esferas-Marinhas","Manual de Criação de Revestimentos","Manual de Criação de Poções Condensadas","Cancelar Negociação.")) {
+			case 1:
+			callsub S_SellManual, Normal_Potion_Book, 100000;
+			break;
+			case 2:
+			callsub S_SellManual, Alcol_Create_Book, 100000;
+			break;
+			case 3:
+			callsub S_SellManual, FireBottle_Create_Book, 100000;
+			break;
+			case 4:
+			callsub S_SellManual, Acid_Create_Book, 100000;
+			break;
+			case 5:
+			callsub S_SellManual, Plant_Create_Book, 100000;
+			break;
+			case 6:
+			callsub S_SellManual, Mine_Create_Book, 100000;
+			break;
+			case 7:
+			callsub S_SellManual, Coating_Create_Book, 100000;
+			break;
+			case 8:
+			callsub S_SellManual, Slim_Potion_Create_Book, 240000;
+			break;
+			case 9:
+			mes "[Gever Al Sharp]";
+			mes "Pois bem...";
+			mes "Volte caso você tenha nescessidade de comprar um manual de produção.";
+			close;
+			close;
+		}
+		case 3:
+		mes "[Gever Al Sharp]";
+		mes "Certo, então tenha um bom dia.";
+		close;
+	}
+
+	S_SellManual:
+	if (Zeny < getarg(1)) {
+		mes "Você não possui zeny o suficiente.";
+		mes "Cheque quanto de zeny você possui primeiramente.";
+		close;
+	}
+	mes "[Gever Al Sharp]";
+	mes getitemname(getarg(0)) +"?";
+	mes "Isso vai lhe custar "+ getarg(1) +" zenys.";
+	next;
+	if (select("Comprar.","Cancelar.") == 1) {
+		Zeny -= getarg(1);
+		getitem getarg(0),1;
+		mes "[Gever Al Sharp]";
+		mes "Obrigado pela sua fidelidade.";
+		close;
+	}
+	mes "[Gever Al Sharp]";
+	mes "Volte Sempre!";
+	close;
+}
