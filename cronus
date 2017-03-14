@@ -8,7 +8,7 @@ case $1 in
 	recompilar|compilar) 
 		if [[ $arch == "x86_64" ]]; then
 			echo $arch
-			sh configure --enable-64bit
+			sh configure --enable-64bit --with-MYSQL_LIBS=/usr/lib64/libmysqlclient.so
 		else
 			sh configure --disable-64bit
 		fi
