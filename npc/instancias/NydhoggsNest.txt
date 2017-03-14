@@ -1,46 +1,61 @@
-//===== Hercules Script ======================================
+//================= Hercules Script =======================================
+//=       _   _                     _
+//=      | | | |                   | |
+//=      | |_| | ___ _ __ ___ _   _| | ___  ___
+//=      |  _  |/ _ \ '__/ __| | | | |/ _ \/ __|
+//=      | | | |  __/ | | (__| |_| | |  __/\__ \
+//=      \_| |_/\___|_|  \___|\__,_|_|\___||___/
+//================= License ===============================================
+//= This file is part of Hercules.
+//= http://herc.ws - http://github.com/HerculesWS/Hercules
+//=
+//= Copyright (C) 2012-2015  Hercules Dev Team
+//= Copyright (C)  Euphy
+//= Copyright (C)  L0ne_W0lf
+//=
+//= Hercules is free software: you can redistribute it and/or modify
+//= it under the terms of the GNU General Public License as published by
+//= the Free Software Foundation, either version 3 of the License, or
+//= (at your option) any later version.
+//=
+//= This program is distributed in the hope that it will be useful,
+//= but WITHOUT ANY WARRANTY; without even the implied warranty of
+//= MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//= GNU General Public License for more details.
+//=
+//= You should have received a copy of the GNU General Public License
+//= along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//=========================================================================
 //= Nidhoggr's Nest
-//===== By: ==================================================
-//= L0ne_W0lf, various sources
-//===== Current Version: =====================================
-//= 1.6
-//===== Description: =========================================
-//= [Official Conversion]
+//================= Description ===========================================
 //= Nidhoggr's Nest Instance
-//===== Additional Comments: =================================
-//= 1.0 First version.
-//= 1.1 Minor dialog updates.
-//= 1.2 No longer glitches when anyone but party leader talks to the first NPC.
-//= 1.3 Added 'instance_check_party' command to the script for proper checking if
-//=     the invoking party meets the requirements to join the Memorial Dungeon.
-//= 1.4 Cleaning. [Euphy]
-//= 1.5 Instance system rewrite. [Euphy]
-//= 1.6 Added GM management NPCs. [Euphy]
-//============================================================
+//================= Current Version =======================================
+//= 1.6
+//=========================================================================
 
 1@nyd	mapflag	src4instance
 2@nyd	mapflag	src4instance
-//============================================================
+
 nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 	if (ins_nyd == 0) {
-		mes "A great stone gate stands before you. The sculpture of a terrible dragon spreads its powerful looking wings.";
+		mes "Um grande portão de pedra está diante de ti. Você olha a escultura de um dragão terrível com suas asas abertas.";
 		next;
-		mes "Near the bottom of the gate, Laphine tribeswomen have been turned to stone and now look like they are part of the great door.";
+		mes "Perto do fundo do portão, as mulheres da tribo Laphine que foram transformadas em pedra e agora parecem que fazem parte da grande porta.";
 		next;
-		switch(select("Move closer to look more carefully.:Step back.")) {
+		switch(select("Aproxime-se mais para olhar com mais cuidado.", "Retroceda.")) {
 		case 1:
 			specialeffect2 EF_HOLYHIT;
 			pushpc 3,3;
 			if (ep13_1_edq == 14)
 				ep13_1_edq = 15;
-			mes "A mysterious power prevents you from getting too close. It looks like there is something strong beyond the door...";
+			mes "Um poder misterioso impede que você fique muito perto. Parece que há alguma força o impedindo de ir perto da porta ...";
 			next;
-			mes "Perhaps there's a great hidden secret beyond the gate, beyond expectation.";
+			mes "Talvez haja um grande segredo escondido além do portão, além das expectativas.";
 			next;
-			mes "It would be better to go back to camp and inform the others and ask for help.";
+			mes "Seria melhor voltar para o acampamento para informar aos outros e pedir ajuda.";
 			if (ep13_1_edq != 15) {
 				next;
-				mes "You'll have to obtain the others trust in the expendition camp by working hard.";
+				mes "Você vai ter que obter a confiança dos outros no acampamento de expedição com trabalho duro.";
 			}
 			ins_nyd = 1;
 			close;
@@ -48,77 +63,77 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 			close;
 		}
 	} else if (ins_nyd == 1) {
-		mes "A mysterious power prevents you from getting too close. It looks like there is something strong beyond the door...";
+		mes "Um poder misterioso impede que você fique muito perto. Parece que há alguma força o impedindo de ir perto da porta ...";
 		next;
-		mes "Perhaps there's a great hidden secret beyond the gate, beyond expectation.";
+		mes "Talvez haja um grande segredo escondido além do portão, além das expectativas.";
 		next;
-		mes "It would be better to go back to camp and inform the others and ask for help.";
+		mes "Seria melhor voltar para o acampamento para informar aos outros e pedir ajuda.";
 		if (ep13_1_edq == 14 || ep13_1_edq == 15) {
 			ep13_1_edq = 15;
 			close;
 		}
 		next;
-		mes "You'll have to obtain the others trust in the expendition camp by working hard.";
+		mes "Você vai ter que obter a confiança dos outros no acampamento de expedição com trabalho duro.";
 		close;
 	} else if (ins_nyd == 111 || ins_nyd == 112) {
 		specialeffect2 EF_CHANGECOLD;
-		mes "The strange sensation surrounding your body has disappeared";
+		mes "A estranha sensação em volta do seu corpo está desaparecendo";
 		next;
-		mes "When you touch the stone gate, you hear a commanding voice.";
+		mes "Quando você tocou no portão de pedra, ouviu uma voz de comandando.";
 		next;
 		mes "[??????]";
-		mes "Wingless one... Our promised words...";
+		mes "Sem asas... Por nossas promessas ditas...";
 		next;
-		switch(select("'Guardian's spell'!:Take a step back.")) {
+		switch(select("'Feitiço do Guardião'!", "Recuar")) {
 		case 1:
 			mes "[??????]";
-			mes "Promised words... Guardian's spell... proof of their existence.";
+			mes "Por nossas promessas ditas... Feitiço Guardião... A prova de sua existência.";
 			next;
-			mes "[Yggdrasil Gatekeeper]";
-			mes "In the name of Yggdrasiliad, I will accept you as a servant of the Guardian.";
+			mes "[Portão de Yggdrasil]";
+			mes "Em nome de Yggdrasiliad, posso aceitá-lo como um servo do Guardião.";
 			next;
 			specialeffect2 EF_CHANGECOLD;
 			ins_nyd = 200;
-			mes "[Yggdrasil Gatekeeper]";
-			mes "I accept your entrance through the Guardian's gate. You are now considered a faithful servant of the Guardian Nidhoggur.";
+			mes "[Portão de Yggdrasil]";
+			mes "Eu aceito sua entrada pelo portão Guardião. Agora você é considerado um fiel servo do Guardião de Nidhoggur.";
 			next;
-			mes "The voice has disappeared, and the dark power is calming down from behind the stone gate.";
+			mes "A voz desapareceu, e o poder obscuro está se acalmando por detrás do portão de pedra.";
 			close;
 		case 2:
 			close;
 		}
 	} else if (ins_nyd == 131 || ins_nyd == 132 || ins_nyd > 199) {
 
-		.@party_id = getcharid(1);
+		.@party_id = getcharid(CHAR_ID_PARTY);
 		.@md_name$ = "Nidhoggur's Nest";
 
 		.@ins_nyd_check = questprogress(3135,PLAYTIME); // 3 Day cooldown
 		.@ins_nyd_check2 = questprogress(3136,PLAYTIME); // 4 Hour play limit
 
-		mes "As I put my hands on the stone gate, a voice sounded from the depth of my heart.";
+		mes "Quando coloquei minhas mãos no portão de pedra, uma voz resoou no fundo do meu coração.";
 		next;
 		if (!.@ins_nyd_check && !.@ins_nyd_check2) {
 			if (!instance_check_party(.@party_id,2,70)) {
-				mes "[Yggdrasil Gatekeeper]";
-				mes "Where are the other servants, so you can work together? Each servant cannot be admitted here individually...";
+				mes "[Portão de Yggdrasil]";
+				mes "Onde estão os outros membros, para que vocês possam trabalhar juntos? Grupos não podem ser admitidos aqui individualmente...";
 				next;
-				mes "[Yggdrasil Gatekeeper]";
-				mes "Come with at least 1 more servant... Only party leaders can accept admission to Nidhoggur's Nest.";
+				mes "[Portão de Yggdrasil]";
+				mes "Venha com pelo menos mais 1 membro... Só os líderes de grupos podem aceitar a admissão no Nidhoggur's Nest.";
 				next;
-				mes "[Yggdrasil Gatekeeper]";
-				mes "And only 1 representative of you needs to talk to me, so don't annoy me...";
+				mes "[Portão de Yggdrasil]";
+				mes "E apenas 1 representante de vocês precisa falar comigo, então não me aborreça...";
 				close;
 			}
-			if (getcharid(0) == getpartyleader(.@party_id,2)) {
-				mes "[Yggdrasil Gatekeeper]";
-				mes "The loyal servants of the Guardian... what can I do for you?";
+			if (getcharid(CHAR_ID_CHAR) == getpartyleader(.@party_id,2)) {
+				mes "[Portão de Yggdrasil]";
+				mes "Fiéis servos do Guardião ... o que posso fazer por vocês?";
 				next;
-				switch(select("Please allow me to enter.:I want to go in.:I want to leave.")) {
+				switch(select("Por favor, permita-me entrar.","Quero entrar","Quero ir embora.")) {
 				case 1:
 					.@instance = instance_create(.@md_name$, .@party_id);
 					if (.@instance < 0) {
-						mes "[Yggdrasil Gatekeeper]";
-						mes "The Guardian seems to wish to be alone. I will go in and check, please wait out here.";
+						mes "[Portão de Yggdrasil]";
+						mes "O Guardião parece querer ficar sozinho. Vou entrar e verificar, por favor, espere aqui.";
 						close;
 					}
 					for (.@i = 1; .@i <= 2; ++.@i) {
@@ -131,11 +146,11 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 					}
 					instance_set_timeout 144000,300,.@instance;
 					instance_init(.@instance);
-					mes "[Yggdrasil Gatekeeper]";
-					mes "I've recorded your request, are you ready to go inside?";
+					mes "[Portão de Yggdrasil]";
+					mes "Eu registrei a sua requisição, você está pronto para entrar?";
 					next;
-					mes "[Yggdrasil Gatekeeper]";
-					mes "If you are ready, I will allow you to enter.";
+					mes "[Portão de Yggdrasil]";
+					mes "Se você estiver pronto, eu poderei permitir que entre.";
 					close;
 				case 2:
 					goto L_Enter;
@@ -143,39 +158,39 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 					close;
 				}
 			}
-			mes "[Yggdrasil Gatekeeper]";
-			mes "If you have the dungeon generated already, you can enter it.";
+			mes "[Portão de Yggdrasil]";
+			mes "Se você já tiver os requisitos do calabouço pronto, você pode entrar nele.";
 			next;
-			if(select("I want to go in.:I want to leave.") == 2)
+			if(select("Eu quero entrar.", "Eu quero deixar.") == 2)
 				close;
 			goto L_Enter;
 		} else {
 			if (.@ins_nyd_check == 1) {
 				if ('ins_nyd2 == 3 || 'ins_nyd2 == 4) {
-					mes "[Yggdrasil Gatekeeper]";
-					mes "With the defeat of Nidhoggur's Shadow, the roots of the World Tree Yggdrasil are also affected.";
+					mes "[Portão de Yggdrasil]";
+					mes "Com a derrota da Sombra de Nidhogg, as raízes da Árvore de Yggdrasil talvez sejam afetadas.";
 					next;
-					mes "[Yggdrasil Gatekeeper]";
-					mes "After Nidhoggur's Shadow disappears, at least 3 days is needed for stabilizing.";
+					mes "[Portão de Yggdrasil]";
+					mes "Depois que a Sombra de Nidhogg desaparece, pelo menos 3 dias são necessários para se estabilizar.";
 					close;
 				}
-				mes "[Yggdrasil Gatekeeper]";
-				mes "If you have the dungeon generated already, you can enter it.";
+				mes "[Portão de Yggdrasil]";
+				mes "Se você já tiver os requisitos do calabouço pronto, você pode entrar nele.";
 				next;
-				if(select("I want to go in.:I want to leave.") == 2)
+				if(select("Eu quero entrar.", "Eu quero deixar.") == 2)
 					close;
 				goto L_Enter;
 			} else if (.@ins_nyd_check == 2) {
 				if (.@ins_nyd_check2 == 1) {
-					mes "[Yggdrasil Gatekeeper]";
-					mes "The time limit to enter the dungeon has expired. You must wait for the World Tree to stabilize its power before trying to re-enter.";
+					mes "[Portão de Yggdrasil]";
+					mes "O limite de tempo para entrar no calabouço expirou. Você deve esperar que a Árvore de Yggdrasil estabilize seu poder antes de tentar voltar a entrar.";
 					close;
 				} else if (.@ins_nyd_check2 == 2) {
-					mes "[Yggdrasil Gatekeeper]";
-					mes "The World Tree Yggdrasil has stabilized. Would you like to enter Nidhoggur's Nest again?";
+					mes "[Portão de Yggdrasil]";
+					mes "A Árvore do Mundo Yggdrasil estabilizou. Deseja entrar novamente no Nidhoggur's Nest?";
 					next;
-					mes "[Yggdrasil Gatekeeper]";
-					mes "If you would like to enter again, please register with me.";
+					mes "[Portão de Yggdrasil]";
+					mes "Se você quiser entrar novamente, registre-se comigo.";
 					erasequest 3135;
 					erasequest 3136;
 					'ins_nyd2 = 0;
@@ -185,17 +200,17 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 		}
 		close;
 	} else {
-		mes "A great stone gate stands before you. The sculpture of a terrible dragon spreads its powerful looking wings.";
+		mes "Um grande portão de pedra está diante de ti. Você olha a escultura de um dragão terrível com suas asas abertas.";
 		next;
-		mes "Near the bottom of the gate, Laphine tribeswomen have been turned to stone and now look like they are part of the great door.";
+		mes "Perto do fundo do portão, as mulheres da tribo Laphine que foram transformadas em pedra e agora parecem que fazem parte da grande porta.";
 		next;
-		switch(select("Move closer to look more carefully.:Step back.")) {
+		switch(select("Aproxime-se mais para olhar com mais cuidado.", "Retroceda.")) {
 		case 1:
 			specialeffect2 EF_HOLYHIT;
 			pushpc 3,3;
-			mes "A mysterious power prevents you from getting too close. It looks like there is something strong beyond the door...";
+			mes "Um poder misterioso impede que você fique muito perto. Parece que há alguma força o impedindo de ir perto da porta ...";
 			next;
-			mes "Perhaps there's a great hidden secret beyond the gate, beyond expectation.";
+			mes "Talvez haja um grande segredo escondido além do portão, além das expectativas.";
 			close;
 		case 2:
 			close;
@@ -205,11 +220,11 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 
 L_Enter:
 	if (has_instance("1@nyd") == "") {
-		mes "[Yggdrasil Gatekeeper]";
-		mes "You did not request for entrance. Please let your leader request entrance.";
+		mes "[Portão de Yggdrasil]";
+		mes "Você não registrou sua entrada. Por favor fale ao seu líder para requerer sua entrada.";
 		close;
 	} else {
-		mapannounce "nyd_dun02", getpartyname(getcharid(1))+"'s party member "+strcharinfo(0)+" has entered Nidhoggur's Nest.",bc_map,"0x00ff99";
+		mapannounce "nyd_dun02", getpartyname(getcharid(CHAR_ID_PARTY))+"'s party member "+strcharinfo(PC_NAME)+" has entered Nidhoggur's Nest.",bc_map,"0x00ff99";
 		if (!questprogress(3135)) setquest 3135;
 		if (!questprogress(3136)) setquest 3136;
 		warp "1@nyd",32,37;
@@ -225,373 +240,375 @@ OnTouch_:
 }
 
 mid_camp,271,299,3	script	Historian Magnifier#edq	4_M_SAGE_C,3,3,{
-	mes "[Historian Magniffer]";
+	mes "[Historiador Magnifíco]";
 	if (ins_nyd == 1) {
-		mes "Sure, the mainland also has lots of interesting adventures... Hello, I am Magnifier, a historian dispatched from the Prontera royal court.";
+		mes "[Historiador Magnifíco]";
+		mes "Certo, no continente existem muitas aventuras interessantes... Olá, eu sou Magnifier, um historiador enviado pela corte real de Prontera.";
 		next;
-		mes "[Historian Magniffer]";
-		mes "Finding another line of work might make for a really worthy job, but only a historian gets to know the world over..";
+		mes "[Historiador Magnifíco]";
+		mes "Encontrar outra linha de trabalho pode fazer um trabalho realmente digno, mas apenas um historiador pode conhecer o mundo...";
 		next;
-		mes "[Historian Magniffer]";
-		mes "How this world is organized... and the way of the future! With our studies of the past and present we can predict what is to come.";
+		mes "[Historiador Magnifíco]";
+		mes "Como este mundo é organizado... caminhando para o futuro! Com nossos estudos do passado e do presente podemos prever o que está por vir.";
 		next;
-		mes "[Historian Magniffer]";
-		mes "We are expecting a lot from you, expert adventurer. So, if you find anything... just tell me.";
+		mes "[Historiador Magnifíco]";
+		mes "Estamos esperando muito de você, seu especialista em aventureiras. Então, se você encontrar alguma coisa... apenas me diga.";
 		close;
 	} else if (ins_nyd == 2) {
-		mes "Does Commander Agip want to talk to me? Let's listen to his story.";
+		mes "O Comandante Agip quer falar comigo? Vou ouvir a sua história.";
 		next;
-		mes "[Historian Magniffer]";
-		mes "Did you find the cave that the fairy tribes treat as a holy place? You are a really tough cookie. What did you find?";
+		mes "[Historiador Magnifíco]";
+		mes "Você encontrou a caverna que as fadas da tribos tratam como um lugar santo? Você é realmente um osso duro de roer. O que você achou?";
 		next;
-		mes "[Historian Magnifier]";
+		mes "[Historiador Magnifíco]";
 		mes "...";
 		next;
 		mes "... ...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Wait a second... I have a brilliant idea.";
+		mes "[Historiador Magnifíco]";
+		mes "Espera um segundo... Tive uma idéia brilhante.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Let's see... This book... No... this one...? Hmm... Maybe this...";
+		mes "[Historiador Magnifíco]";
+		mes "Vamos ver... Este livro... Não... este outro...? Hmm... Talvez este...";
 		next;
-		mes "[Historian Magnifier]";
+		mes "[Historiador Magnifíco]";
 		mes "...";
 		next;
-		mes "[Historian Magnifier]";
+		mes "[Historiador Magnifíco]";
 		mes "... ...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Oh, here it is! World Tree Yggdrasil and God's tribes... This is their book!";
+		mes "[Historiador Magnifíco]";
+		mes "Oh, Aqui está! A Árvore do Mundo de Yggdrasil e os Deuses das Tribos... Este é o seu livro!";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Maybe you found the central line to enter into the World Tree Yggdrasil!";
+		mes "[Historiador Magnifíco]";
+		mes "Talvez você tenha encontrado uma passagem para entrar no Mundo de Yggdrasil";
 		next;
-		mes "[Historian Magnifier]";
-		mes "If that's true, you've found the greatest discovery since the harnessing of mana. Isn't this exciting?";
+		mes "[Historiador Magnifíco]";
+		mes "Se isso for verdade, Você encontrou a maior descoberta desde o aproveitamento de mana. Isso não é excitante?";
 		next;
-		mes "[Historian Magnifier]";
-		mes "But we need a lot more information... Are they refusing you admission?";
+		mes "[Historiador Magnifíco]";
+		mes "Mais nós precissamos de mais informações... Estão recusando sua admissão?";
 		next;
-		mes "[Historian Magnifier]";
-		mes "I will send a message to my assistant who is in the Prontera Library. So, help her find more information.";
+		mes "[Historiador Magnifíco]";
+		mes "Leve uma menssagem para meu asssistente que está na Bibliotéca de Prontera. Talvez, a ajuda dele dê mais informações.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "I will definitely help you find a way to enter the World Tree directly so, just believe in me! Okay~!!";
+		mes "[Historiador Magnifíco]";
+		mes "Definitivamente vou ajudá-lo a encontrar uma maneira de entrar na Árvore do Mundo, basta acreditar em mim! Ok ~!";
 		ins_nyd = 3;
 		close;
 	} else if (ins_nyd == 3) {
-		mes "Why are you standing there? Go to my assistant in the Prontera Library!";
+		mes "Porque está parado aqui? Vá até meu assistente na Bibliotéca de Prontera!";
 		close;
 	} else if (ins_nyd == 4) {
-		mes "You've come back... Good, how's Naomi? Actually, I don't need to worry about her. She is always cheerful. Haha.";
+		mes "Você voltou ... Bom, como está Naomi? Na verdade, eu não preciso me preocupar com ela. Ela é sempre alegre. Haha.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "You look like you have a lot on your mind... Your face is full of curiosity and questions.";
+		mes "[Historiador Magnifíco]";
+		mes "Você parece ter muitas coisas na cabeça... Seu rosto me diz que está cheio de curiosidade e perguntas.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "So, did you read the whole story that I have prepared?";
+		mes "[Historiador Magnifíco]";
+		mes "Então, você leu toda a história que eu preparei?";
 		next;
-		switch(select("Not yet.:I read all the stories.")) {
+		switch(select("Not yet.", "I read all the stories.")) {
 		case 1:
-			mes "[Historian Magnifier]";
-			mes "Sheesh~ I prepared these stories for you carefully, but you didn't bother to check anything out did you?";
+			mes "[Historiador Magnifíco]";
+			mes "Sheesh ~ Eu preparei essa história para você com cuidado, mas você não se incomodou em olhar qualquer coisa o que você fez?";
 			next;
-			mes "[Historian Magnifier]";
-			mes "It would be better if you returned after reading all of them. That's very basic data of what we should do for the future.";
+			mes "[Historiador Magnifíco]";
+			mes "Seria melhor que você retornasse depois de ler todo ele. São dados muito básicos do que devemos fazer no futuro.";
 			close;
 		case 2:
-			mes "[Historian Magnifier]";
-			mes "Hm, good job. Maybe I don't need to check anything else, right?";
+			mes "[Historiador Magnifíco]";
+			mes "Hm, bom trabalho. Talvez eu não precise verificar mais nada, certo?";
 			next;
-			mes "[Historian Magnifier]";
-			mes "I sent you to figure out which basic materials will be needed for the jobs ahead of us. You should bring research reports...";
+			mes "[Historiador Magnifíco]";
+			mes "Enviei-lhe para descobrir quais materiais básicos serão necessários para os trabalhos à nossa frente. Você deve trazer relatórios de pesquisa ...";
 			next;
-			mes "[Historian Magnifier]";
-			mes "You might complain about why I didn't bring any myself... That's because I trust your abilities, don't ever take anything for granted.";
+			mes "[Historiador Magnifíco]";
+			mes "Você pode reclamar por que eu não trouxe comigo mesmo... Mas é porque eu confio em suas habilidades, nunca tenha nada como garantido.";
 			next;
-			mes "[Historian Magnifier]";
-			mes "But a while ago, while you were tranferring reports from Commander Agip to the mainland, you lost those reports... remember?";
+			mes "[Historiador Magnifíco]";
+			mes "Mas há algum tempo, enquanto voce estava carregando relatórios do Comandante Agip para o continente, voce perdeu alguns relatórios ... lembra?";
 			next;
-			mes "[Historian Magnifier]";
-			mes "So far, nothing's come up... Was it that somebody attacked you?";
+			mes "[Historiador Magnifíco]";
+			mes "Até agora, nada aconteceu... Alguém que te atacou?";
 			next;
-			mes "[Historian Magnifier]";
-			mes "Somehow, the truth will come out, but we should be careful of shocking the natives if we go there unannounced and they're not prepared for our arrival.";
+			mes "[Historiador Magnifíco]";
+			mes "De toda forma, a verdade vai aparecer, mas devemos ter cuidado com os nativos para não assusta-los ao ir lá sem aviso prévio e eles não são preparados para a nossa chegada.";
 			next;
-			mes "[Historian Magnifier]";
-			mes "I've talked too much... Anyway, as you know through my report, you've found a great thing!";
+			mes "[Historiador Magnifíco]";
+			mes "Eu já falei demais ... De qualquer forma, como você sabe com meu relatório, é encontrada uma boa coisa!";
 			next;
-			mes "[Historian Magnifier]";
-			mes "Firstly, we should find out more about the place. I expect we can, but... we can't do much without help from others.";
+			mes "[Historiador Magnifíco]";
+			mes "Primeiramente, devemos descobrir mais sobre o lugar. Espero que possamos... Mas, não podemos fazer muito sem a ajuda dos outros.";
 			next;
-			mes "[Historian Magnifier]";
-			mes "I have heard about recent expeditions of adventurers that have tried to contact the tribes... Have you heard anything about this?";
+			mes "[Historiador Magnifíco]";
+			mes "Ouvi falar de expedições recentes de aventureiros que tentaram entrar em contato com as tribos... Você já ouviu alguma coisa sobre isso?";
 			next;
-			mes "[Historian Magnifier]";
-			mes "Anyway, let's try to contact them first, to be clear about any caves or treasures.";
+			mes "[Historiador Magnifíco]";
+			mes "Enfim, vamos tentar acha-los, para ficar esclarecidos sobre algumas cavernas ou tesouros.";
 			next;
-			mes "[Historian Magnifier]";
-			mes "For now, you try to contact the Sapha and Laphine tribes, and try to extract information from them.";
+			mes "[Historiador Magnifíco]";
+			mes "Por agora, você deve tentar contato com as tribos Sapha e Laphine, para conseguir informações deles.";
 			next;
-			mes "[Historian Magnifier]";
-			mes "I'll also keep searching here. If you find anything, come back and let me know.";
+			mes "[Historiador Magnifíco]";
+			mes "Continuarei procurando aqui. Se você encontrar alguma coisa, volte e me avise.";
 			ins_nyd = 5;
 			close;
 		}
 	} else if ((ins_nyd == 5) || (ins_nyd == 51) || (ins_nyd == 52)) {
-		mes "Okay, let's try to contact them first, to be clear about any caves or treasures.";
+		mes "Enfim, vamos tentar acha-los, para ficar esclarecidos sobre algumas cavernas ou tesouros.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "For now, you try to contact the Sapha and Laphine tribes, and try to extract more information.";
+		mes "[Historiador Magnifíco]";
+		mes "Por agora, você deve tentar contato com as tribos Sapha e Laphine, para conseguir informações deles.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "I'll also keep searching here. If you find anything, come back and let me know.";
+		mes "[Historiador Magnifíco]";
+		mes "Continuarei procurando aqui. Se você encontrar alguma coisa, volte e me avise.";
 		close;
 	} else if ((ins_nyd == 61) || (ins_nyd == 62)) {
-		mes "Ah, you've come at a proper time. I found a curious thing while looking for reports from Arunafeltz.";
+		mes "Ah, você chegou a uma hora certa. Eu encontrei uma coisa curiosa enquanto olhava nos relatórios de Arunafeltz.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Right now, we are standing on part of one of the roots of the World Tree Yggdrasil.";
+		mes "[Historiador Magnifíco]";
+		mes "Bem agora, estamos em cima de uma parte de uma das raízes da Árvore de Yggdrasil.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "This spot is connected to World Tree by the root. I think we can expect confrontations between the Sapha and Laphine here eventually, don't you think?";
+		mes "[Historiador Magnifíco]";
+		mes "Este ponto está ligado à Árvore de Yggdrasil pela raiz. Acho que podemos esperar confrontos entre o Sapha e Laphine aqui, eventualmente, você não acha?";
 		next;
-		mes "[Historian Magnifier]";
-		mes "As I expected, the cave is the entrance to go to one of Yggdrasil's roots...";
+		mes "[Historiador Magnifíco]";
+		mes "Como eu esperava, a caverna é a entrada para ir para dentro de uma das raízes de Yggdrasil ...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Did you find anything about the Sapha and Laphine?";
+		mes "[Historiador Magnifíco]";
+		mes "Você encontrou alguma coisa de Sapha e Laphine?";
 		next;
 		mes "...";
 		next;
 		mes "... ...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Both sides act ambiguously, so... I'm getting worried...";
+		mes "[Historiador Magnifíco]";
+		mes "Ambos os lados agem de forma ambígua, então... Estou ficando preocupado...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "The two tribes have some trouble amongst their top leaders. It's not anything official, but...";
+		mes "[Historiador Magnifíco]";
+		mes "As duas tribos têm algum problema entre seus líderes. Não é nada oficial, mas ...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Let's report to Commander Agip about the situation so far. Then, we wait on his decision.";
+		mes "[Historiador Magnifíco]";
+		mes "Vamos informar ao comandante Agip sobre a situação até agora. Então, veremos a sua decisão.";
 		ins_nyd = 7;
 		close;
 	} else if ((ins_nyd == 7) || (ins_nyd == 8)) {
-		mes "Report to Commander Hibba Agip about what we have discovered, since time is dependent on his decision.";
+		mes "Informe ao Comandante Hibba Agip sobre o que descobrimos, já que no momento dependemos de sua decisão.";
 		close;
 	} else if ((ins_nyd == 121) || (ins_nyd == 122) || (ins_nyd == 131) || (ins_nyd == 132) || (ins_nyd ==14)) {
-		mes "So that's how it is... we were right about some parts of it... it's called the Guardian's Nest.";
+		mes "Então é assim que é ... estávamos certos sobre algumas partes disto ... é chamado de Ninho do Guardião.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "We have gained a large amount of knowledge today, but...";
+		mes "[Historiador Magnifíco]";
+		mes "Nós ganhamos uma grande quantidade de conhecimento hoje, mas...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "What we have figured out... how is it going to influence mankind? It's so unpredictable...";
+		mes "[Historiador Magnifíco]";
+		mes "O que descobrimos... como isso vai influenciar a humanidade? É tão imprevisível...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "This is only the beginning...we will be quite busy from now on.";
+		mes "[Historiador Magnifíco]";
+		mes "Este é apenas o começo... ficaremos muito ocupados a partir de agora.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "First, report to Commander Agip, then act according to the situation. Let me organize my research findings...";
+		mes "[Historiador Magnifíco]";
+		mes "Em primeiro lugar, informe ao Comandante Agip, em seguida, agiremos de acordo com a situação. Deixe-me organizar os resultados da minha pesquisa ...";
 		close;
 	} else {
-		mes "Sure, the mainland also has lots of interesting adventures... Hello, I am Magnifier, a historian dispatched from the Prontera royal court.";
+		mes "[Historiador Magnifíco]";
+		mes "Certo, no continente existem muitas aventuras interessantes... Olá, eu sou Magnifier, um historiador enviado pela corte real de Prontera.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "Finding another line of work might make for a really worthy job, but only a historian gets to know the world over..";
+		mes "[Historiador Magnifíco]";
+		mes "Encontrar outra linha de trabalho pode fazer um trabalho realmente digno, mas apenas um historiador pode conhecer o mundo...";
 		next;
-		mes "[Historian Magnifier]";
-		mes "How this world is organized... and the way of the future! With our studies of the past and present we can predict what is to come.";
+		mes "[Historiador Magnifíco]";
+		mes "Como este mundo é organizado... caminhando para o futuro! Com nossos estudos do passado e do presente podemos prever o que está por vir.";
 		next;
-		mes "[Historian Magnifier]";
-		mes "We are expecting a lot from you, expert adventurer. So, if you find anything... just tell me.";
+		mes "[Historiador Magnifíco]";
+		mes "Estamos esperando muito de você, seu especialista em aventureiras. Então, se você encontrar alguma coisa... apenas me diga.";
 		close;
 	}
 }
 
-prt_in,171,94,3	script	Assistant Naomi#edq	4_F_HUWOMAN,3,3,{
-	mes "[Assistant Naomi]";
-	.@name$ = strcharinfo(0);
+prt_in,171,94,3	script	Assistente Naomi#edq	4_F_HUWOMAN,3,3,{
+	mes "[Assistente Naomi]";
+	.@name$ = strcharinfo(PC_NAME);
 	if (ins_nyd == 3) {
-		mes "The doctor never ever tries to come back, and there're too many things to do... How can I do it all...";
+		mes "O Doutor nunca volta, e há muitas coisas por fazer... Como posso eu fazer tudo...";
 		next;
-		mes "[Assistant Naomi]";
-		mes "Hey, you. Please move these books. Put them into shelf 3 row B.";
+		mes "[Assistente Naomi]";
+		mes "Ei você. Por favor, mova esses livros. Coloque-os na prateleira 3 linha B.";
 		next;
 		mes "["+.@name$+"]";
-		mes "Ah...um..I...am...";
+		mes "Ah...um..Eu...sou...";
 		next;
-		mes "[Assistant Naomi]";
-		mes "Don't you see I am too busy? Don't hesitate. Just do it.";
+		mes "[Assistente Naomi]";
+		mes "Você não vê que estou muito ocupada? Não hesite. Apenas faça isso.";
 		next;
-		switch(select("Look busy, and take a step back.:Help her just this once.")) {
+		switch(select("Olhar, e recuar. "," Ajudá-la de vez.")) {
 		case 1:
-			mes "[Assistant Naomi]";
-			mes "Gosh! Where is-? Where did-? Ugh! It's so difficult!";
+			mes "[Assistente Naomi]";
+			mes "Poxa! Onde? Como? Ugh! É tão difícil!";
 			close;
 		case 2:
-			mes "[Assistant Naomi]";
-			mes "Ah... if you're done moving those, then these should go in shelf 3 row B.";
+			mes "[Assistente Naomi]";
+			mes "Ah ... se você acabou de mover aqueles, então estes devem ir na prateleira 3 linha B.";
 			next;
 			mes "["+.@name$+"]";
-			mes "Ah...I...see...";
+			mes "Ah...Eu...vejo...";
 			next;
-			mes "[Assistant Naomi]";
-			mes "Now, I am almost done... Who are you? Are you a new assistant to Dr. Magnifier?";
-			next;
-			mes "["+.@name$+"]";
-			mes "He asked me to bring some reports. Didn't he say anything?";
-			next;
-			mes "[Assistant Naomi]";
-			mes "Hmm... I haven't seen him in over a year! What's he doing now?";
+			mes "[Assistente Naomi]";
+			mes "Agora, quase acabo ... Quem é você? Você é um novo assistente do Dr. Magnifier?";
 			next;
 			mes "["+.@name$+"]";
-			mes "He said that he would send a message to you... didn't you get it?";
+			mes "Ele me pediu para trazer alguns relatórios. Ele não disse nada?";
 			next;
-			mes "[Assistant Naomi]";
-			mes "Message? ...Let's see... I never expected him to write a message...";
+			mes "[Assistente Naomi]";
+			mes "Hmm ... Eu não o vejo tem mais de um ano! O que ele esta fazendo agora?";
 			next;
-			mes "[Assistant Naomi]";
-			mes "I will check the mailbox, wait a minute. If you get bored read those books.";
+			mes "["+.@name$+"]";
+			mes "Ele disse que ele enviou uma mensagem para você... você não entendeu?";
+			next;
+			mes "[Assistente Naomi]";
+			mes "Mensagem?... Vamos ver... Nunca esperei que ele me escrevesse uma mensagem...";
+			next;
+			mes "[Assistente Naomi]";
+			mes "Vou verificar o email, espere um minuto. Se você ficar entediado leia esses livros.";
 			next;
 			mes "...";
 			next;
 			mes "... ...";
 			next;
-			mes "It's too messy due to lots of stacked books and files. Dr. Magnifier looks like he has a ton of reports.";
+			mes "É muito confuso devido a lotes de livros e arquivos empilhados. Dr. Magnifier parece que ele tem uma tonelada de relatórios.";
 			next;
 			mes "["+.@name$+"]";
-			mes "'Birth of the World', 'The Fiction of Odin's Myth', 'God's Battle Then After', 'Dreams of the Tribes'. There are a variety of books...";
+			mes "'Nascimento do Mundo', 'A Ficção do Mito de Odin', 'A Batalha Depois de Deus', 'Sonhos das Tribos'. Há uma variedade de livros ...";
 			next;
 			mes "...";
 			next;
-			mes "[Assistant Naomi]";
-			mes "Oh, sorry I took so long. There was too much mail, so it took me a while to find stuff.";
+			mes "[Assistente Naomi]";
+			mes "Desculpe,se demorei tanto. Havia muito spam, por isso demorei um pouco para encontrar no meio dos outros.";
 			next;
-			mes "[Assistant Naomi]";
-			mes "He has sent me mail over 20 times. I did not know that...";
+			mes "[Assistente Naomi]";
+			mes "Ele enviou-me menssagens de email mais de 20 vezes. Eu não sabia disso...";
 			next;
-			mes "[Assistant Naomi]";
-			mes "Ah, here's the message about you. He's said to share the information on research and reports.";
-			next;
-			mes "["+.@name$+"]";
-			mes "What is the Doctor's area of expertise?";
-			next;
-			mes "[Assistant Naomi]";
-			mes "Ever since 5 years ago, he has been curious about how the world started, and so he began his search for the God of creation.";
-			next;
-			mes "[Assistant Naomi]";
-			mes "He researches combat between Odin and the Gods, and about the Gods' origins and life.";
+			mes "[Assistente Naomi]";
+			mes "Ah, aqui está a mensagem sobre você. Ele disse para compartilhar as informações sobre as nossas pesquisas e os relatórios.";
 			next;
 			mes "["+.@name$+"]";
-			mes "So, did he already know that the Rebirth of Satan Morocc has occured before?";
+			mes "Qual é a área de especialização do Doutor?";
 			next;
-			mes "[Assistant Naomi]";
-			mes "I can't be sure, but he thought someday it would occur. It broke out earlier than he expected though.";
+			mes "[Assistente Naomi]";
+			mes "Desde 5 anos atrás, ele tem sido curioso sobre como o mundo começou, e assim ele começou sua busca sobre a criação de Deus.";
 			next;
-			mes "["+.@name$+"]";
-			mes "But Rune-Midgarts approved this research?";
-			next;
-			mes "[Assistant Naomi]";
-			mes "Our academics are not a religion. And they too have curiosity about this world's history.";
-			next;
-			mes "[Assistant Naomi]";
-			mes "The combat of Odin vs. the Gods, and the God's sons and their purpose... The Doctor has researched this his whole life.";
+			mes "[Assistente Naomi]";
+			mes "Ele pesquisa o combate entre Odin e os Deuses, e sobre as origens e a vida dos Deuses.";
 			next;
 			mes "["+.@name$+"]";
-			mes "But those reports haven't come out yet. Have they?";
+			mes "Então, ele já sabia que o Renascimento de Satan Morroc que ocorreria?";
 			next;
-			mes "[Assistant Naomi]";
-			mes "That's why he sent you here. By the way, this isn't the first time I've heard this.";
-			next;
-			mes "[Assistant Naomi]";
-			mes "After the establishment of the Rune-Midgarts Kingdom and Arunafeltz, the rumors have spread in secret about their tribes, myths, etc.";
-			next;
-			mes "[Assistant Naomi]";
-			mes "Anyway, I should make sure that you read all these books, and I'll just keep doing my work.";
+			mes "[Assistente Naomi]";
+			mes "Eu não tenho certeza, mas ele pensou que algum dia isso aconteceria. Ele surgiu mais cedo do que ele esperava embora.";
 			next;
 			mes "["+.@name$+"]";
-			mes "Shouldn't I have filed the books?";
+			mes "Mas Rune-Midgarts aprovou esta pesquisa?";
 			next;
-			mes "[Assistant Naomi]";
-			mes "The Doctor said he will pick up the books through another person. Besides, don't you need the basic information on what to do?";
+			mes "[Assistente Naomi]";
+			mes "Nossos acadêmicos não são de uma religião. E eles também têm curiosidade sobre a história deste mundo.";
 			next;
-			mes "[Assistant Naomi]";
-			mes "Before you go back to the Doctor, you had better read these books. So, I will go back to work.";
+			mes "[Assistente Naomi]";
+			mes "O combate de Odin contra os Deuses, e os filhos de Deus e seu propósito ... O Doutor pesquisou isso durante toda sua vida.";
+			next;
+			mes "["+.@name$+"]";
+			mes "Mas esses relatórios ainda não apareceram. Eles existem?";
+			next;
+			mes "[Assistente Naomi]";
+			mes "Foi por isso que ele o mandou aqui. Tenha calma, esta não é a primeira vez que eu escuto isso.";
+			next;
+			mes "[Assistente Naomi]";
+			mes "Após o estabelecimento do reino de Rune-Midgarts e de Arunafeltz, os boatos se espalharam em segredo sobre suas tribos, mitos, etc.";
+			next;
+			mes "[Assistente Naomi]";
+			mes "De qualquer forma, eu deveria ter certeza de que você leu todos esses livros, e eu vou continuar fazendo o meu trabalho.";
+			next;
+			mes "["+.@name$+"]";
+			mes "Eu não deveria empacotar os livros?";
+			next;
+			mes "[Assistente Naomi]";
+			mes "O Doutor disse que vai pegar os livros através de outra pessoa. Além disso, você não precisa das informações básicas sobre o que fazer?";
+			next;
+			mes "[Assistente Naomi]";
+			mes "Antes de voltar para o Doutor, é melhor você ler esses livros. Então, vou voltar ao meu trabalho.";
 			ins_nyd = 4;
 			close;
 		}
 	} else if (ins_nyd == 4) {
-		mes "Browse around, to take a look at the books.";
+		mes "Ande por aí, para dar uma olhada nos livros.";
 		next;
-		switch(select("Discovery of Heterogeneity:Report of Indigenous Tribes")) {
+		switch(select("Descoberta da heterogênese "," Relatório das Tribos de Indígenas")) {
 		case 1:
-			mes "Satan Morocc has known that he didn't resurrect normally or by himself.";
+			mes "Sábia-se que o Satan Morroc não ressuscitaria normalmente ou sozinho.";
 			next;
-			mes "Continuously, adventurers from Rune-Midgarts have attacked him and he is slowly losing his power. He would need more time to resurrect completely.";
+			mes "Continuamente, os aventureiros de Rune-Midgarts o atacam e ele está lentamente perdendo seu poder. Ele precisaria de mais tempo para ressuscitar completamente.";
 			next;
-			mes "Satan Morroc stopped to destroy the city of Morroc, turning it into a ruined desert, then started to rip the world apart.";
+			mes "Satan Morroc parou para destruir a cidade de Morroc, transformando-a em um deserto em ruínas, então começou a destruir uma parte do mundo.";
 			next;
-			mes "Satan Morroc was worried about those who would give chase, so he created Morocc clones to keep watch behind him.";
+			mes "Satan Morroc estava preocupado com aqueles que iriam lhe perseguir, então ele criou clones Morroc de si mesmo para vigiar os que o fossem atrás dele.";
 			next;
-			mes "Modeled after Morocc, their appearance made it difficult to go around the time-space gap.";
+			mes "Modelado após o Morroc, sua aparência fez com que fosse difícil contornar a lacuna tempo-espaço.";
 			next;
-			mes "Still the adventurers gave chase. They came from all over the world, trying to approach the Dimensional Gorge.";
+			mes "Ainda assim os aventureiros perseguem. Eles vieram de todo o mundo, tentando se aproximar da Garganta Dimensional.";
 			next;
-			mes "The reports of these adventurers have been sent to representatives of all kingdoms, and an expedition team has been created to find out more information.";
+			mes "Os relatos desses aventureiros foram enviados a representantes de todos os reinos, e uma equipe de expedição foi criada para descobrir mais informações.";
 			next;
-			mes "The scientists of Schwartzwalt created a combination metal, using fragments of metals found in the dimensional gorge.";
+			mes "Os cientistas de Schwartzwalt criaram uma combinação de metal, usando fragmentos de metais encontrados na garganta dimensional.";
 			next;
-			mes "The Schwaltzvalt Republic requested approval to find the source of the new metal, and since Rune-Midgart couldn't complete the test themselves, they finally accepted.";
+			mes "A República de Schwaltzvalt solicitou a aprovação para encontrar a fonte do novo metal, e como Rune-Midgart não conseguiu concluir o teste, eles finalmente aceitaram.";
 			next;
-			mes "They associated together to gather volunteers. The Assassin Guild was the first to volunteer.";
+			mes "Eles se associaram para reunir voluntários. A Guild de Assassinos foi a primeira a se voluntariar.";
 			next;
-			mes "The Assassins have a terrible past with Satan Morroc, so they gathered 18 members to chase him down.";
+			mes "Os Assassinos têm um passado terrível com Satan Morroc, então eles reuniram 18 membros para persegui-lo.";
 			next;
-			mes "About 3 hours later, all 18 members returned without any problem, and each man and woman shared the information that they had collected.";
+			mes "Cerca de 3 horas depois, todos os 18 membros retornaram sem qualquer problema, e cada homem e mulher compartilhou as informações que tinham coletado.";
 			next;
-			mes "They had discovered another world with a definitively different nature and environment. And indeed, people could also live there.";
+			mes "Haviam descoberto outro mundo com uma natureza e um ambiente definitivamente diferentes. E, na verdade, também era habitável pessoas poderiam viver lá.";
 			next;
-			mes "The most surprising thing is the flow of time. The 18 assassins had stayed for about 2 weeks in there, yet they returned within 3 hours after departing.";
+			mes "A coisa mais surpreendente é o fluxo de tempo. Os 18 assassinos tinham permanecido por aproximadamente 2 semanas lá, contudo retornaram dentro de 3 horas após ter partido.";
 			next;
-			mes "The last thing to be tested... was to send adventurers who volunteered to explore the new world.";
+			mes "A última coisa a ser testada ... era enviar aventureiros que se voluntariassem para explorar o novo mundo.";
 			next;
-			mes "There was a flood of adventurer applications. Lots of volunteers disappeared over the dimensional gorge, and they brought back new data.";
+			mes "Houve uma avalanche de requisições de aventureiros. Muitos voluntários desapareceram sobre o desfiladeiro dimensional e trouxeram novos dados.";
 			next;
-			mes "The new world could support 3 completely different eco-systems dependant upon the race of people that lived there.";
+			mes "O novo mundo poderia apoiar 3 ecossistemas completamente diferentes dependendo das raças que lá viviam.";
 			next;
-			mes "The heterogenous phenomenon needed to be studied thoroughly and carefully in order to under the relationship between thair world and ours.";
+			mes "O fenômeno heterogêneo precisava ser estudado minuciosamente e com cuidado, a fim de saber a relação entre os mundos.";
 			next;
-			mes "Just when it was expected to be impossible to travel into a different world, the first page of a new chapter was opened.";
+			mes "Quando já se esperava que fosse impossível viajar para um mundo diferente, a primeira página de um novo capítulo foi aberta.";
 			close;
 		case 2:
-			mes "Long ago, there wasn't a sun, moon, or stars; just empty earth... and Ymir was born. Then, by making sons, Ymir grew.";
+			mes "Há muito tempo, não havia sol, lua ou estrelas; Apenas terra vazia ... e Ymir nasceu. Então, fazendo filhos, Ymir cresceu.";
 			next;
-			mes "But, his sons grew as well and he was killed by Odin, Vili, and Ve; 3 brothers, Gods, that attacked from different sides.";
+			mes "Mas seus filhos também cresceram e ele foi morto por Odin, Vili e Ve; 3 irmãos, Deuses, que atacaram de diferentes lados.";
 			next;
-			mes "At that time of Ymir's fall his blood flooded the world... killing all in it's path.";
+			mes "Naquela época da queda de Ymir seu sangue inundou o mundo... matando tudo no seu caminho.";
 			next;
-			mes "Only Hvergelmir of the Sapha tribe escaped from this flooding of blood. And he swore vengeance in Jotunheim, which is covered with foggy snow.";
+			mes "Somente Hvergelmir da tribo Sapha escapou desta inundação de sangue. E jurou vingança em Jotunheim, soterrado pela neve.";
 			next;
-			mes "Currently, one of the Sapha tribe has been discovered from beyond the Dimensional Gorge.";
+			mes "Atualmente, uma das tribos Sapha foi descoberta além do Desfiladeiro Dimensional.";
 			next;
-			mes "Other than the Sapha tribe, there was another tribe beyond the time-space gap, known as the Laphine.";
+			mes "Diferente das tribos de Sapha, havia outra tribo além do intervalo tempo-espaço, conhecido como o Laphine.";
 			next;
-			mes "The Laphine tribes gathered as well for an expedition to explore the time-space gap and figure out the World Tree's strange symptoms and perharps a cure method.";
+			mes "As tribos de Laphine se reuniram também em uma expedição para explorar a lacuna tempo-espaço e descobrir os sintomas estranhos da árvore do mundo e descobrir um método de cura.";
 			next;
-			mes "The Laphine tribe was charged with the management of Yggdrasil, to establish their lands close to Asgard, and to protect the balance of Yggdrasil's magic power.";
+			mes "As tribos de Laphine foram encarregadas da administração de Yggdrasil, estabelecer suas terras perto de Asgard, e proteger o equilíbrio do poder mágico de Yggdrasil.";
 			next;
-			mes "The Laphine tribe has never contacted anyone outside of Asgard. But since they found that Yggdrasil's power if weakening...";
+			mes "A tribo Laphine nunca falou com ninguém fora de Asgard. Mas desde que eles descobriram que o poder de Yggdrasil está se enfraquecendo...";
 			next;
-			mes "They have declared they will attend to the high courts for the first time in 1000 human years, since the end of the battles of Gods vs. Magicians.";
+			mes "Eles declararam que irão aos tribunais superiores pela primeira vez em 1000 anos humanos, desde o fim das batalhas de Deuses vs. Magos.";
 			close;
 		}
 	} else {
-		mes "The doctor never ever tries to come back, and there're too many things to do... How can I do it all...";
+		mes "O Doutor nunca tenta voltar, e há muitas coisas para fazer... Como eu tenho de fazer tudo...";
 		next;
-		mes "[Assistant Naomi]";
-		mes "Don't you see that I'm too busy? Don't dawdle, just go!";
+		mes "[Assistente Naomi]";
+		mes "Você não vê que eu estou muito ocupada? Não atrapalhe, apenas vá!";
 		close;
 	}
 }
