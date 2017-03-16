@@ -1,40 +1,23 @@
-//===== Hercules Script ======================================
-//= Endless Tower
-//===== By: ==================================================
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 2.4
-//===== Description: =========================================
-//= [Official Conversion]
-//= Endless Tower Memorial Dungeon.
-//= Consists of 101 floors.
-//===== Additional Comments: =================================
-//= 1.0 First version.
-//= 1.1 Removed a disablenpc from #102FShadowDust1. (bugreport:4415)
-//= 1.2 Added ends to several NPCs which would allow you to restart timers.
-//=     Added some missing stopnpctimers to npcs. (bugreport:4418)
-//= 1.3 Fixed a couple copy/paste errors :D I fail. [L0ne_W0lf]
-//      Timer no longer resets when re-entering.
-//= 1.4 Added quest log entries based on iRO. [L0ne_W0lf]
-//=     You may need to update your questid2display.
-//=     Changed White lady spawn to MVP White Lady. (bugreport:4601)
-//= 1.5 Corrected some grammar and typos.
-//= 1.6 Corrected the tower re-entry blocked condition. (bugreport:4677) [L0ne_W0lf]
-//=     Corrected floor 75 warp disabling the wrong NPC. (bugreport:4711)
-//= 1.7 Added missing end's to prevent accidental disabling of
-//=     warps between floors. (bugreport:4623)
-//=     Added missing end's to prevent infinite mobspawn (bugreport:4540)
-//=     Commented out remaining GM-only NPCs. [Gepard]
-//= 1.8 Adjusted Instance Attach Map to Validate ALL Maps, instead of
-//=     only 1@tower -> 5@tower (bugreport:4983)
-//= 1.9 Added 'instance_check_party' command to the script for proper checking if
-//=     the invoking party meets the requirements to join the Memorial Dungeon.
-//= 2.0 Fixed broken else/if chaining. [Joseph]
-//= 2.1 Updated to match latest official script. [Euphy]
-//= 2.2 Instance system rewrite. [Euphy]
-//= 2.3 Added some missing announcements. [Euphy]
-//= 2.4 Added GM management function. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 2.4                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Instância da Torre sem Fim.                                 ||
+//===============================================================//
 
 1@tower	mapflag	src4instance
 2@tower	mapflag	src4instance

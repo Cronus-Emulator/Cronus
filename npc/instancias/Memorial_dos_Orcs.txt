@@ -1,83 +1,72 @@
-//===== Hercules Script ======================================
-//= Orc's Memory
-//===== By: ==================================================
-//= L0ne_W0lf
-//===== Current Version: =====================================
-//= 1.7
-//===== Description: =========================================
-//= [Official Conversion]
-//= Relive the memory of an orc.
-//===== Description: =========================================
-//= [Official Conversion]
-//= Relive the memory of an orc.
-//===== Additional Comments: =================================
-//= 1.0 First version. [L0ne_W0lf]
-//= 1.1 First round of bugfixes. (bugreport:3928) [L0ne_W0lf]
-//=     Fixed some npcs calling wrong events.
-//=     Fixed Depraved Orc Spirit spawn point
-//=     Fixed an NPC that was never being enabled.
-//= 1.1a Second round from bugreport. (bugreport:3928) [L0ne_W0lf]
-//=     Fixed first warp never enabling, issue not seen
-//=     because of a local source mod.
-//=     Corrected the IDs for the Vengeful Orc Spirit and
-//=     Shaman Cargalache, copy/paste fail.
-//=     Changed spawn point for dungeon according to spawn
-//=     point on iRO.
-//= 1.2 More bugfixes, mostly typos. :O (bugreport:3944) [L0ne_W0lf]
-//=     Fixed some varaibles (types/values) as well.
-//= 1.3 Disabled an exploit related to the orc hero spawn. [L0ne_W0lf]
-//=     Corrected the variable type for party leader name.
-//= 1.4 Fixed donpcevent calling non-existant npc. (bugreport:4039) [L0ne_W0lf]
-//= 1.5 Fixed a checkquest condition never setting quest. [L0ne_W0lf]
-//= 1.6 Added 'instance_check_party' command to the script for proper checking if
-//=     the invoking party meets the requirements to join the Memorial Dungeon.
-//= 1.7 Instance system rewrite. [Euphy]
-//============================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.7                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [SlexFIre - Revisões Cronus]                       ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Instância do Memorial dos Orcs.                             ||
+//===============================================================||
+// = Observações                                                 ||
+// - Tradução Parcial                                            ||
+//===============================================================//
 
 1@orcs	mapflag	src4instance
 2@orcs	mapflag	src4instance
 //============================================================
 
-// Entrance
+// Entrada
 //============================================================
-gef_fild10,242,202,0	script	Dimensional Gorge Piece	2_MONEMUS,{
+gef_fild10,242,202,0	script	Memorial Orc	2_MONEMUS,{
 
 	.@party_id = getcharid(1);
 	.@p_name$ = getpartyname(.@party_id);
-	.@md_name$ = "Orc's Memory";
+	.@md_name$ = "Memorial dos Orcs";
 
 	if (!instance_check_party(.@party_id,2,30,80)) {
-		mes "Only users between Levels ^ff000030 ~ 80^000000 can enter this Dungeon.";
+		mes "Apenas jogadores entre os níveis ^ff000030 ~ 80^000000 podem acessar esse calabouço.";
 		close;
 	}
 
 	.@orctime = questprogress(12059,PLAYTIME);
 	if (.@orctime == 2) {
-		mes "^0000ffAll records and after-effects related to the Orc's Memory Dungeon are deleted. You can now regenerate or re-enter the dungeon.^000000";
+		mes "^0000ffTodos os registros e efeitos secundários relacionados com o calabouço do memorial dos orcs são deletados. Agora você pode se regenerar ou entrar novamente no calabouço.^000000";
 		erasequest 12059;
 		close;
 	}
 
 	if (.@orctime == 1) {
-		mes "You can enter the Dungeon if it has been generated.";
+		mes "Você pode entrar no calabouço se ele tiver sido criado.";
 		next;
-		if(select("Enter the Dungeon "+.@md_name$+":Cancel") == 2)
+		if(select("Entrar no calabouço "+.@md_name$+":Cancelar") == 2)
 			close;
 		// Fall through to access the dungeon
 	} else { // !.@orctime
 		if (getcharid(0) == getpartyleader(.@party_id,2)) {
-			mes "Party status confirmed. Would you like to book entrance to the "+.@md_name$+"?";
+			mes "Criação de grupo confirmada. Gostaria de agendar a entrada no "+.@md_name$+"?";
 			next;
-			switch(select("Reserve the "+.@md_name$+":Enter the Dungeon:Cancel")) {
+			switch(select("Reservar o "+.@md_name$+":Entrar no calabouço:Cancelar")) {
 			case 1:
 				.@instance = instance_create(.@md_name$,.@party_id);
 				if (.@instance < 0) {
-					mes "Party Name: "+.@p_name$;
-					mes "Party Leader: "+strcharinfo(0);
-					mes "^0000ff"+.@md_name$+" ^000000 - Reservation Failed.";
+					mes "Nome do Grupo: "+.@p_name$;
+					mes "Líder do Grupo: "+strcharinfo(0);
+					mes "^0000ff"+.@md_name$+" ^000000 - Falha ao reservar.";
 					close;
 				}
-				mes "^0000ff"+.@md_name$+"^000000- Attempting to book an entrance";
+				mes "^0000ff"+.@md_name$+"^000000- Tentando reservar uma entrada";
 				for (.@i = 1; .@i <= 2; ++.@i) {
 					if( instance_attachmap(.@i + "@orcs", .@instance) == "" )
 						break;
@@ -88,87 +77,87 @@ gef_fild10,242,202,0	script	Dimensional Gorge Piece	2_MONEMUS,{
 				}
 				instance_set_timeout 7200,300,.@instance;
 				instance_init(.@instance);
-				mes "After making a reservation, you have to select 'Enter the Dungeon' from the menu if you wish to enter the "+.@md_name$+".";
+				mes "Após fazer a reserva, você deve selecionar no menu a opção 'Entrar no Calabouço' caso deseje entrar no "+.@md_name$+".";
 				close;
 			case 2:
 				break; // Fall through to access the dungeon (after the else)
 			case 3:
 				close;
 			}
-		} else if (select(.@md_name$ + " Enter the Memorial Dungeon:Cancel") == 2)
+		} else if (select(.@md_name$ + " Entrar no calabouço Memorial:Cancelar") == 2)
 			end;
 		// Else access the dungeon
 	}
 
-	// Dungeon access
+	// Acesso ao calabouço
 
 	if (has_instance("1@orcs") == "") {
-		mes "Memorial Dungeon "+.@md_name$+" does not exist.";
-		mes "The party leader has not reserved entrance to the dungeon yet.";
+		mes "O Calabouço "+.@md_name$+" não existe.";
+		mes "O líder do grupo não reservou a entrada no calabouço.";
 		next;
-		mes "Once the reservation is complete, the dungeon will be generated.";
-		mes "If your dungeon has been destroyed you must wait 7 days before re-entering.";
+		mes "Após a reserva ser concluída, o calabouço será criado.";
+		mes "Caso o seu calabouço tenha sido destruído deverá esperar 7 dias para entrar novamente.";
 		close;
 	}
 
-	mapannounce "gef_fild10", strcharinfo(0) + " of the party, " + .@p_name$ + " is entering the "+.@md_name$+".",bc_map,"0x00ff99";
+	mapannounce "gef_fild10", "O membro ["+strcharinfo(0)+"] do grupo ["+.@p_name$+"] está entrando no "+.@md_name$+".",bc_map,"0x00ff99";
 	if (!questprogress(12059)) setquest 12059;
 	warp "1@orcs",179,15;
 	end;
 }
 
-gef_fild10,238,202,6	script	Mad Scientist#orc	4_LGTSCIENCE,{
+gef_fild10,238,202,6	script	Cientista Maluco#orc	4_LGTSCIENCE,{
 	if (BaseLevel < 50) {
-		mes "The Mad Scientist doesn't seem to notice you and keeps mumbling to himself...";
+		mes "O cientista parece não perceber a sua entrada e continua a resmungar para si mesmo...";
 		close;
 	}
 	if (mad == 0) {
-		mes "[Mad Scientist]";
-		mes "Haha, no Orcs are coming near me!";
-		mes "The power of the Dimensional Gorge is undefeatable!!";
+		mes "[Cientista Maluco]";
+		mes "Haha, nenhum orc está vindo me atacar!";
+		mes "O poder da Máquina do Tempo é invencível!!";
 		next;
-		switch(select("Orcs don't attack you?:You wish!")) {
+		switch(select("Os orcs não te atacam?:Você só deseja isso!")) {
 		case 1:
-			mes "[Mad Scientist]";
-			mes "Yeah, yeah.. I know it's hard to belive. I don't blame ya.";
-			mes "I used to study the Dimensional Gorge discovered near Morroc.";
-			mes "According to my research, the minerals found there have enormous power inside them!";
+			mes "[Cientista Maluco]";
+			mes "Pois é.. sei que é difícil de acreditar. Mas eu não te culpo.";
+			mes "Eu comecei a estudar uma Máquina do Tempo, descoberta próximo de Morroc.";
+			mes "De acordo com a minha pesquisa, os minerais encontrados dentro dela contém extremo poder!";
 			next;
 			break;
 		case 2:
-			mes "[Mad Scientist]";
-			mes "You are a pretty distrustful person, huh?";
+			mes "[Cientista Maluco]";
+			mes "Você é uma pessoa bem desconfiada, né?";
 			next;
 			break;
 		}
-		select("Oh? Like what, travel to alternate space?");
-		mes "[Mad Scientist]";
-		mes "Very smart! I have actually just done that! See that statue over there? It's not your normal Monolith!";
+		select("Nossa! Como... viagens para outras dimensões!?");
+		mes "[Cientista Maluco]";
+		mes "Muito esperto! Na verdade eu só fiz isso! Consegue ver aquela estátua ali? Não é seu monolito natural!";
 		next;
-		mes "[Mad Scientist]";
-		mes "I have created it with a combination of our technology and the unlimited energy I discovered from the Gorge! Want to try it?";
+		mes "[Cientista Maluco]";
+		mes "Eu a criei a partir de uma junção da nossa tecnologia com a energia ilimitada que encontrei! Gostaria de tentar?";
 		next;
-		select("...Um, that doesn't sound legal?");
-		mes "[Mad Scientist]";
-		mes "Hey, since when did something so interesting have to be legal!? How about it! You can talk to the Orcs! C'mon!";
+		select("...Um, isso não seria ilegal?");
+		mes "[Cientista Maluco]";
+		mes "Como que algo tão interessante assim pode ser ilegal!? Você pode falar com os orcs!! Vamos lá!";
 		next;
-		mes "[Mad Scientist]";
-		mes "Chances are they'll just give you lots of instructions once they see you, so just wing it! They're always saying the same thing, to the point where I memorized them!";
+		mes "[Cientista Maluco]";
+		mes "Provavelmente eles irão lhe dar milhões de instruções, e uma vez que eles o verem vão sempre repetir a mesma coisa!";
 		next;
-		switch(select("Alright... What do I do?:Umm, maybe not.")) {
+		switch(select("Certo... O que faço?:Hmm, acho que não.")) {
 		case 1:
-			mes "[Mad Scientist]";
-			mes "Very good! Just sit in the hands of this statue! And try to act natural when you're in there!";
+			mes "[Cientista Maluco]";
+			mes "Muito bom! Apenas coloque suas mãos na estátua e tente agir naturalmente enquanto estiver lá!";
 			mad = 1;
 			close;
 		case 2:
-			mes "[Mad Scientist]";
-			mes "Oh fine, be that way!";
+			mes "[Cientista Maluco]";
+			mes "Tudo bem... então que assim seja!";
 			close;
 		}
 	} else if (mad == 1) {
-		mes "[Mad Scientist]";
-		mes "Hmm? Put your hand on that Monemus Statue if you want to experience traveling through dimensions!";
+		mes "[Cientista Maluco]";
+		mes "Hmm? Ponha suas mãos na Estátua de Monemus se você quiser experimentar a viagem através das dimensões!";
 		close;
 	} else {
 		mad = 1;
@@ -176,7 +165,7 @@ gef_fild10,238,202,6	script	Mad Scientist#orc	4_LGTSCIENCE,{
 	}
 }
 
-// Orc's Memory Floor 1
+// Memorial Orc Primeiro Piso
 //============================================================
 1@orcs,180,30,0	script	#Resurrect Monsters1	CLEAR_NPC,{
 	end;
@@ -201,24 +190,24 @@ OnMyMobDead:
 	if (.@mob_dead_num > 0) {
 		.@mob_ran = rand(1,30);
 		if (.@mob_ran > 29) {
-			monster .@map$,0,0,"Orc Warrior",1023,.@mob_dead_num,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
+			monster .@map$,0,0,"Guerreiro Orc",1023,.@mob_dead_num,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
 		}
 		else if ((.@mob_ran > 28) && (.@mob_ran < 30)) {
-			monster .@map$,0,0,"High Orc",1213,.@mob_dead_num,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
+			monster .@map$,0,0,"Grand Orc",1213,.@mob_dead_num,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
 			if (rand(1,10) == 9) {
-				mapannounce .@map$, "High Orc: We need more defenses! Get more people here!",bc_map,"0xff4444";
+				mapannounce .@map$, "Grand Orc: Precisamos de mais defesa! Arranje mais guerreiros para cá!",bc_map,"0xff4444";
 			}
 		}
 		else if ((.@mob_ran > 26) && (.@mob_ran < 29)) {
 			areamonster .@map$,41,91,51,81,"High Orc",1213,.@mob_dead_num,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
 			if (rand(1,10) == 9) {
-				mapannounce .@map$, "Where are the High Orcs!? Get them to stop the enemies!",bc_map,"0xff4444";
+				mapannounce .@map$, "Onde estão os Grand Orc's!? Precisamos deles para deter os inimigos!",bc_map,"0xff4444";
 			}
 		}
 		else {
 			areamonster .@map$,17,187,27,177,"High Orc",1213,.@mob_dead_num,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
 			if (rand(1,5) == 3) {
-				mapannounce .@map$, "Caution: The army's starting to concentrate at Zone No. 4.",bc_map,"0x77ff77";
+				mapannounce .@map$, "Cuidado: O exército está se concentrando na zona No. 4.",bc_map,"0x77ff77";
 			}
 			if (rand(1,100) == 50) {
 				initnpctimer;
@@ -228,13 +217,13 @@ OnMyMobDead:
 	end;
 
 OnTimer10:
-	mapannounce instance_mapname("1@orcs"), "Shouts of the Chief Orc of Safeguards: Looks like this will take longer than expected. Summon the Stalactic Golems!",bc_map,"0xff4444";
+	mapannounce instance_mapname("1@orcs"), "Mensagem do Guarda de Elite Orc: Acho que isso levará mais tempo que o estimado. Convoquem os Golem Estalactíticos!",bc_map,"0xff4444";
 	end;
 
 OnTimer4010:
 	.@map$ = instance_mapname("1@orcs");
-	mapannounce .@map$, "Stalactic Golems are digging out of the deep underground.",bc_map,"0x77ff77";
-	areamonster .@map$,17,187,27,177,"Stalactic Golem",1278,20,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
+	mapannounce .@map$, "Golem Estalactíticos estão cavando profundamente o subsolo.",bc_map,"0x77ff77";
+	areamonster .@map$,17,187,27,177,"Golem Estalactítico",1278,20,instance_npcname("#Resurrect Monsters1")+"::OnMyMobDead";
 	stopnpctimer;
 	end;
 }
@@ -252,7 +241,7 @@ OnDisable:
 
 OnEnable:
 	enablenpc instance_npcname("#Resurrect Monsters2");
-	monster instance_mapname("1@orcs"),0,0,"Trained Wolf",1106,15,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead";
+	monster instance_mapname("1@orcs"),0,0,"Lobo Treinado",1106,15,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
@@ -260,12 +249,12 @@ OnMyMobDead:
 	.@mob_dead_num = 15 - mobcount(.@map$,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead");
 	if (rand(1,30) > 15) {
 		if (.@mob_dead_num > 0) {
-			monster .@map$,0,0,"Trained Wolf",1106,.@mob_dead_num,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead";
+			monster .@map$,0,0,"Lobo Treinado",1106,.@mob_dead_num,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead";
 		}
 	}
 	else {
 		if (.@mob_dead_num > 0) {
-			areamonster .@map$,17,187,27,177,"Trained Wolf",1106,.@mob_dead_num,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead";
+			areamonster .@map$,17,187,27,177,"Lobo Treinado",1106,.@mob_dead_num,instance_npcname("#Resurrect Monsters2")+"::OnMyMobDead";
 		}
 	}
 	end;
@@ -284,7 +273,7 @@ OnDisable:
 
 OnEnable:
 	enablenpc instance_npcname("#Resurrect Monsters3");
-	monster instance_mapname("1@orcs"),0,0,"Orc Archer",1189,15,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
+	monster instance_mapname("1@orcs"),0,0,"Orc Arqueiro",1189,15,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
@@ -293,20 +282,20 @@ OnMyMobDead:
 	.@mob_ran = rand(1,30);
 	if (.@mob_ran > 29) {
 		if (.@mob_dead_num > 0) {
-			monster .@map$,0,0,"Orc Archer",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
+			monster .@map$,0,0,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
 		}
 	}
 	else if ((.@mob_ran > 26) && (.@mob_ran < 30)) {
 		if (.@mob_dead_num > 0) {
-			areamonster .@map$,43,155,47,159,"Orc Archer",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
+			areamonster .@map$,43,155,47,159,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
 			if (rand(1,3) == 3) {
-				mapannounce .@map$, "High Orc: Attack them from behind! Cut off their support!",bc_map,"0xff4444";
+				mapannounce .@map$, ""Grand Orc: Ataquem eles pelas costas! Acabem com os seus reforços!",bc_map,"0xff4444";
 			}
 		}
 	}
 	else {
 		if (.@mob_dead_num > 0) {
-			areamonster .@map$,17,187,27,177,"Orc Archer",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
+			areamonster .@map$,17,187,27,177,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
 		}
 	}
 	end;
