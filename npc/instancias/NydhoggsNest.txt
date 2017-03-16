@@ -1,37 +1,30 @@
-//================= Hercules Script =======================================
-//=       _   _                     _
-//=      | | | |                   | |
-//=      | |_| | ___ _ __ ___ _   _| | ___  ___
-//=      |  _  |/ _ \ '__/ __| | | | |/ _ \/ __|
-//=      | | | |  __/ | | (__| |_| | |  __/\__ \
-//=      \_| |_/\___|_|  \___|\__,_|_|\___||___/
-//================= License ===============================================
-//= This file is part of Hercules.
-//= http://herc.ws - http://github.com/HerculesWS/Hercules
-//=
-//= Copyright (C) 2012-2015  Hercules Dev Team
-//= Copyright (C)  Euphy
-//= Copyright (C)  L0ne_W0lf
-//=
-//= Hercules is free software: you can redistribute it and/or modify
-//= it under the terms of the GNU General Public License as published by
-//= the Free Software Foundation, either version 3 of the License, or
-//= (at your option) any later version.
-//=
-//= This program is distributed in the hope that it will be useful,
-//= but WITHOUT ANY WARRANTY; without even the implied warranty of
-//= MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//= GNU General Public License for more details.
-//=
-//= You should have received a copy of the GNU General Public License
-//= along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//=========================================================================
-//= Nidhoggr's Nest
-//================= Description ===========================================
-//= Nidhoggr's Nest Instance
-//================= Current Version =======================================
-//= 1.6
-//=========================================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     Scripts                                   ||
+//===============================================================||
+// = Criação:                                                    ||
+// - eA/Herc/Cronus                                              ||
+//===============================================================||
+// = Versão:                                                     ||
+// - 1.3                                                         ||
+//===============================================================||
+// = Alterações:                                                 ||
+// - Tradução [julinhobrow]                                      ||
+// - Remoção e ajustes em usdo de constants não utilizadas pelo  ||
+// cronus [Spell Master]                                         ||
+//===============================================================||
+// = Descrição:                                                  ||
+// - Instância do Ninho de Nidhogg.                              ||
+//===============================================================||
+// = Observeções: A tradução não está completa feita de forma    ||
+// parcial até linha: 605.                                       ||
+// - Requer testes detalhados de execução dos script's envolvidos||
+//===============================================================//
 
 1@nyd	mapflag	src4instance
 2@nyd	mapflag	src4instance
@@ -124,7 +117,7 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 				mes "E apenas 1 representante de vocês precisa falar comigo, então não me aborreça...";
 				close;
 			}
-			if (getcharid(CHAR_ID_CHAR) == getpartyleader(.@party_id,2)) {
+			if (getcharid(0) == getpartyleader(.@party_id,2)) {
 				mes "[Portão de Yggdrasil]";
 				mes "Fiéis servos do Guardião ... o que posso fazer por vocês?";
 				next;
@@ -429,7 +422,7 @@ mid_camp,271,299,3	script	Historian Magnifier#edq	4_M_SAGE_C,3,3,{
 
 prt_in,171,94,3	script	Assistente Naomi#edq	4_F_HUWOMAN,3,3,{
 	mes "[Assistente Naomi]";
-	.@name$ = strcharinfo(PC_NAME);
+	.@name$ = strcharinfo(0);
 	if (ins_nyd == 3) {
 		mes "O Doutor nunca volta, e há muitas coisas por fazer... Como posso eu fazer tudo...";
 		next;
