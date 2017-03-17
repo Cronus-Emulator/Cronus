@@ -189,4 +189,5 @@ hu_in01,26,77,4	script	Assistente Temporário#2	1_M_04,{
 	mes "completamente desgostoso";
 	mes "com essa tarefa de organizar";
 	mes "livros e arquivos.^000000";
+	close;
 }
