@@ -14,13 +14,11 @@
 // - 1.7                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
-// - Tradução [SlexFIre - Revisões Cronus]                       ||
+// - Tradução [Revisões Cronus]			                         ||
+// - Ajustes [SlexFire]       			                         ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Instância do Memorial dos Orcs.                             ||
-//===============================================================||
-// = Observações                                                 ||
-// - Tradução Parcial                                            ||
 //===============================================================//
 
 1@orcs	mapflag	src4instance
@@ -29,7 +27,7 @@
 
 // Entrada
 //============================================================
-gef_fild10,242,202,0	script	Memorial Orc	2_MONEMUS,{
+gef_fild10,242,202,0	script	Altar Dimensional	2_MONEMUS,{
 
 	.@party_id = getcharid(1);
 	.@p_name$ = getpartyname(.@party_id);
@@ -217,7 +215,7 @@ OnMyMobDead:
 	end;
 
 OnTimer10:
-	mapannounce instance_mapname("1@orcs"), "Mensagem do Guarda de Elite Orc: Acho que isso levará mais tempo que o estimado. Convoquem os Golem Estalactíticos!",bc_map,"0xff4444";
+	mapannounce instance_mapname("1@orcs"), "Mensagem do Soldado Orc: Acho que isso levará mais tempo que o estimado. Convoquem os Golem Estalactíticos!",bc_map,"0xff4444";
 	end;
 
 OnTimer4010:
@@ -289,7 +287,7 @@ OnMyMobDead:
 		if (.@mob_dead_num > 0) {
 			areamonster .@map$,43,155,47,159,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#Resurrect Monsters3")+"::OnMyMobDead";
 			if (rand(1,3) == 3) {
-				mapannounce .@map$, ""Grand Orc: Ataquem eles pelas costas! Acabem com os seus reforços!",bc_map,"0xff4444";
+				mapannounce .@map$, "Grand Orc: Ataquem eles pelas costas! Acabem com os seus reforços!",bc_map,"0xff4444";
 			}
 		}
 	}
@@ -341,39 +339,39 @@ OnEnable:
 	end;
 
 OnTimer10:
-	mapannounce instance_mapname("1@orcs"), "Kruger: Damn... What took you so long!! I don't have all day!!",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: Droga... Por que demora tanto!? Não tenho o dia todo!!",bc_map,"0xffff00";
 	end;
 
 OnTimer5710:
-	mapannounce instance_mapname("1@orcs"), "Kruger: My plan was to let our comrades open the gate, but it's all ruined since I got busted by the Orc Shaman.",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: Meu plano era deixar que nossos camaradas abrissem o portão, mas o plano foi arruinado desde que fui buscar o Orc Xamã.",bc_map,"0xffff00";
 	end;
 
 OnTimer14610:
-	mapannounce instance_mapname("1@orcs"), "Shouts of the Chief Orc of Safeguards: I smell a rat.. Send some patrols to the entrance!!",bc_map,"0xff4444";
+	mapannounce instance_mapname("1@orcs"), "Mensagem do Soldado Orc: Sinto cheiro de rato.. Mande alguns reforços para a entrada!!",bc_map,"0xff4444";
 	end;
 
 OnTimer20210:
-	mapannounce instance_mapname("1@orcs"), "Kruger: Darn it.. They'll be here any minute. Ok. Listen to me now.",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: Mas que droga.. Eles podem chegar à qualquer minuto. Ok. Escutem agora!",bc_map,"0xffff00";
 	end;
 
 OnTimer24910:
-	mapannounce instance_mapname("1@orcs"), "Kruger: The Orc Shaman has sealed the 1st basement by dividing it into 4 zones. Each zone has one Enchanted Orc who has the power to unseal the next zone.",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: O Orc Xamã selou a caverna, dividindo ela em 4 zonas. Em cada zona tem um Orc encantado que pode abrir passagem para a próxima zona.",bc_map,"0xffff00";
 	end;
 
 OnTimer34310:
-	mapannounce instance_mapname("1@orcs"), "Kruger: Find those Enchanted Orcs and get rid of them to move to the next zone.",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: Encontrem os Orcs Encantados e livrem-se deles para ir para a próxima zona.",bc_map,"0xffff00";
 	end;
 
 OnTimer39710:
-	mapannounce instance_mapname("1@orcs"), "Kruger: Try to avoid encountering Orcs other then the Enchanted ones. Everytime you kill a normal Orc, High Orcs will gather at the last path to the 2nd floor.",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: Tente evitar atacar os Orcs Encatandos. Toda vez que você matar um Orc normal, Grand Orcs se reunirão no caminho para o 2º andar.",bc_map,"0xffff00";
 	end;
 
 OnTimer49210:
-	mapannounce instance_mapname("1@orcs"), "Kruger: In the worst case, the path to the 2nd floor could be completely blocked. For your own sake, you should be as sneaky as possible.",bc_map,"0xffff00";
+	mapannounce instance_mapname("1@orcs"), "Kruger: Na pior das hipóteses, o caminho para o 2º andar poderia ser completamente bloqueado. Para seu próprio bem, tente estar o mais escondido possível.",bc_map,"0xffff00";
 	end;
 
 OnTimer56310:
-	mapannounce instance_mapname("1@orcs"), "Mission: Sneak in and get rid of the 'Enchanted Orcs'. Avoiding battles with other Orcs is the best way of getting into the 2nd floor.",bc_map,"0x44ffff";
+	mapannounce instance_mapname("1@orcs"), "Missão: Sempre desvie dos 'Orcs Encantandos'. Evitar batalhas com os Orcs pode ser uam boa estratégia para chegar no 2º andar.",bc_map,"0x44ffff";
 	donpcevent instance_npcname("#Resurrect Monsters1")+"::OnEnable";
 	donpcevent instance_npcname("#Resurrect Monsters2")+"::OnEnable";
 	donpcevent instance_npcname("#Resurrect Monsters3")+"::OnEnable";
@@ -381,7 +379,7 @@ OnTimer56310:
 	end;
 
 OnTimer60000:
-	areamonster instance_mapname("1@orcs"),137,83,143,89,"Enchanted Orc",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead";
+	areamonster instance_mapname("1@orcs"),137,83,143,89,"Orc Encantado",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead";
 	stopnpctimer;
 	end;
 
@@ -394,7 +392,7 @@ OnInstanceInit:
 
 OnEnable:
 	enablenpc instance_npcname("B1 Area 1");
-	areamonster instance_mapname("1@orcs"),103,105,109,111,"Enchanted Orc",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead1";
+	areamonster instance_mapname("1@orcs"),103,105,109,111,"Orc Encantado",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead1";
 	end;
 
 OnTouch:
@@ -407,11 +405,11 @@ OnContinue:
 	end;
 
 OnTimer10300:
-	mapannounce instance_mapname("1@orcs"), "Kruger's Whisper: The Orcs here used to be my companions. They just lost their will ever since the Orc Shaman started to control them with her magic.",bc_map,"0xff4499";
+	mapannounce instance_mapname("1@orcs"), "Sussuro do Kruger: Os Orcs aqui costumavam ser meus amigos. Mas tudo mudou desde que os Orcs Xamãs dominaram eles com as magias.",bc_map,"0xff4499";
 	end;
 
 OnTimer18700:
-	mapannounce instance_mapname("1@orcs"), "Kruger's Whisper: There's nothing we can do but to defeat the Orc Shaman if we want to save the remaining tribes.",bc_map,"0xff4499";
+	mapannounce instance_mapname("1@orcs"), "Sussuro do Kruger: Não temos muito o que fazer, mas se quisermos derrotar os Orcs Xamãs, temos que salvar as outras tribos.",bc_map,"0xff4499";
 	stopnpctimer;
 	end;
 }
@@ -423,7 +421,7 @@ OnInstanceInit:
 
 OnEnable:
 	enablenpc instance_npcname("B1 Area 2");
-	areamonster instance_mapname("1@orcs"),32,40,38,46,"Enchanted Orc",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead2";
+	areamonster instance_mapname("1@orcs"),32,40,38,46,"Orc Encantado",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead2";
 	end;
 
 OnTouch:
@@ -436,11 +434,11 @@ OnContinue:
 	end;
 
 OnTimer30300:
-	mapannounce instance_mapname("1@orcs"), "Kruger's Whisper: I saw the bodies of our tribe. It seems that the Orc Shaman used those Orcs for her rituals.",bc_map,"0xff4499";
+	mapannounce instance_mapname("1@orcs"), "Sussuro do Kruger: Eu vi alguns corpos de nossa tribo. Parece que o Orc Xamã está usando eles para seus rituais.",bc_map,"0xff4499";
 	end;
 
 OnTimer37600:
-	mapannounce instance_mapname("1@orcs"), "Kruger's Whisper: ... It all has to do with me. I am responsible for this evil.",bc_map,"0xff4499";
+	mapannounce instance_mapname("1@orcs"), "Sussuro do Kruger: ... Tudo por causa de mim. Eu sou o responsável por toda essa maldade.",bc_map,"0xff4499";
 	stopnpctimer;
 	end;
 }
@@ -452,7 +450,7 @@ OnInstanceInit:
 
 OnEnable:
 	enablenpc instance_npcname("B1 Area 3");
-	areamonster instance_mapname("1@orcs"),19,177,25,183,"Enchanted Orc",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead3";
+	areamonster instance_mapname("1@orcs"),19,177,25,183,"Orc Encantado",1023,1,instance_npcname("B1 Area Mobs")+"::OnMyMobDead3";
 	end;
 
 OnTouch:
@@ -465,11 +463,11 @@ OnContinue:
 	end;
 
 OnTimer30300:
-	mapannounce instance_mapname("1@orcs"), "Please, hang in there!",bc_map,"0xff4499";
+	mapannounce instance_mapname("1@orcs"), "Por favor, aguenta por aí!",bc_map,"0xff4499";
 	end;
 
 OnTimer32700:
-	mapannounce instance_mapname("1@orcs"), "We'll get some rest when we get to the 2nd basement after passing through here.",bc_map,"0xff4499";
+	mapannounce instance_mapname("1@orcs"), "Vamos chegar ao segundo porão após passarmos por aqui.",bc_map,"0xff4499";
 	stopnpctimer;
 	end;
 }
@@ -512,7 +510,7 @@ OnMyMobDead3:
 	end;
 }
 
-// Orc's Memory Floor 2
+// Memorial Orc Segundo Piso
 //============================================================
 2@orcs,36,171,0	script	#2Resurrect Monsters1	CLEAR_NPC,{
 	end;
@@ -523,7 +521,7 @@ OnInstanceInit:
 
 OnEnable:
 	enablenpc instance_npcname("#2Resurrect Monsters1");
-	monster instance_mapname("2@orcs"),0,0,"Vengeful Orc",1152,30,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
+	monster instance_mapname("2@orcs"),0,0,"Orc Vingativo",1152,30,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
 	end;
 
 OnDisable:
@@ -537,21 +535,21 @@ OnMyMobDead:
 	if (.@mob_dead_num > 0) {
 		.@mob_ran = rand(1,30);
 		if (.@mob_ran > 29) {
-			monster .@map$,0,0,"Vengeful Orc",1152,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
+			monster .@map$,0,0,"Orc Vingativo",1152,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
 		}
 		else if ((.@mob_ran > 28) && (.@mob_ran < 30)) {
-			monster .@map$,0,0,"High Orc",1213,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
+			monster .@map$,0,0,"Grand Orc",1213,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
 		}
 		else if ((.@mob_ran > 26) && (.@mob_ran < 29)) {
-			areamonster .@map$,157,112,167,122,"High Orc",1213,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
+			areamonster .@map$,157,112,167,122,"Grand Orc",1213,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
 			if (rand(1,10) == 9) {
-				mapannounce .@map$, "Warning: High Orcs are gathering near area 3.",bc_map,"0xff4444";
+				mapannounce .@map$, "Aviso: Grand Orcs estão reunidos perto da Área 3.",bc_map,"0xff4444";
 			}
 		}
 		else {
-			areamonster .@map$,173,13,183,23,"High Orc",1213,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
+			areamonster .@map$,173,13,183,23,"Grand Orc",1213,.@mob_dead_num,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
 			if (rand(1,5) == 3) {
-				mapannounce .@map$, "Caution: The Forces have started to concentrate at the Shaman's Altar.",bc_map,"0x77ff77";
+				mapannounce .@map$, "Cuidado: As forças começaram a se concentrar no altar do Orc Xamã.",bc_map,"0x77ff77";
 			}
 			if (rand(1,70) == 50) {
 				initnpctimer;
@@ -561,13 +559,13 @@ OnMyMobDead:
 	end;
 
 OnTimer10:
-	mapannounce instance_mapname("2@orcs"), "Voice from somewhere: Foolish... Do you really think the altar would fall like that?",bc_map,"0xff4444";
+	mapannounce instance_mapname("2@orcs"), "Voz de algum lugar: Tolo... Você realmente acha que o altar cairia assim?",bc_map,"0xff4444";
 	end;
 
 OnTimer4010:
 	.@map$ = instance_mapname("2@orcs");
-	mapannounce .@map$, "[ Wraiths were summoned by an unknown power ]",bc_map,"0x77ff77";
-	areamonster .@map$,167,25,177,35,"Wraith",1475,30,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
+	mapannounce .@map$, "[ Alguns espectros foram sumonados por forças desconehcidas ]",bc_map,"0x77ff77";
+	areamonster .@map$,167,25,177,35,"Espectro",1475,30,instance_npcname("#2Resurrect Monsters1")+"::OnMyMobDead";
 	stopnpctimer;
 	end;
 }
@@ -581,7 +579,7 @@ OnInstanceInit:
 
 OnEnable:
 	enablenpc instance_npcname("#2Resurrect Monsters3");
-	monster instance_mapname("2@orcs"),0,0,"Orc Zombie",1153,15,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
+	monster instance_mapname("2@orcs"),0,0,"Orc Zumbi",1153,15,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
@@ -590,20 +588,20 @@ OnMyMobDead:
 	.@mob_ran = rand(1,30);
 	if (.@mob_ran > 29) {
 		if (.@mob_dead_num > 0) {
-			monster .@map$,0,0,"Orc Archer",1189,.@mob_dead_num,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
+			monster .@map$,0,0,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
 		}
 	}
 	else if ((.@mob_ran > 6) && (.@mob_ran < 30)) {
 		if (.@mob_dead_num > 0) {
-			areamonster .@map$,168,10,184,26,"Orc Archer",1189,.@mob_dead_num,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
+			areamonster .@map$,168,10,184,26,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
 			if (rand(1,15) == 3) {
-				mapannounce .@map$, "Warning: Orc Archer teams are gathering near the altar.",bc_map,"0xff4444";
+				mapannounce .@map$, "Aviso: As equipes de Orcs Arqueiros estão se juntando próximo ao altar.",bc_map,"0xff4444";
 			}
 		}
 	}
 	else {
 		if (.@mob_dead_num > 0) {
-			areamonster .@map$,168,21,184,21,"Orc Archer",1189,.@mob_dead_num,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
+			areamonster .@map$,168,21,184,21,"Orc Arqueiro",1189,.@mob_dead_num,instance_npcname("#2Resurrect Monsters3")+"::OnMyMobDead";
 		}
 	}
 	end;
@@ -649,27 +647,27 @@ OnEnable:
 	end;
 
 OnTimer10:
-	mapannounce instance_mapname("2@orcs"), "Kruger's Whisper: I'll tell you how to get to the Shaman's altar.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Sussuro do Kruger: Vou te dizer como chegar ao altar do Xamã.",bc_map,"0xffff00";
 	end;
 
 OnTimer3510:
-	mapannounce instance_mapname("2@orcs"), "Kruger's Whisper: Do you see the braziers that light the path? Unseal the next zone by strengthening their flames.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Sussuro do Kruger: Consegue ver os braseiros iluminando o caminho? Para liberar a próxima zona, reforce o fogo neles.",bc_map,"0xffff00";
 	end;
 
 OnTimer10710:
-	mapannounce instance_mapname("2@orcs"), "Kruger's Whisper: Of course those monsters won't let you touch the braziers that easily.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Sussuro do Kruger: É fato que os monstros não permitirão que você toque nos braseiros facilmente.",bc_map,"0xffff00";
 	end;
 
 OnTimer16310:
-	mapannounce instance_mapname("2@orcs"), "Kruger's Whisper: But still, try keep the battles not too noticable so the Shaman won't guard the altar with her army squad.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Sussuro do Kruger: Mas tente manter as batalhas não-visíveis, caso contrário o Xamã enviará tropas de proteção.",bc_map,"0xffff00";
 	end;
 
 OnTimer21910:
-	mapannounce instance_mapname("2@orcs"), "Kruger's Whisper: Only the Party Leader can strengthen the flames, so protect your leader.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Sussuro do Kruger: Apenas o Líder do Grupo poderá reforçar as chamas, então protejam ele.",bc_map,"0xffff00";
 	end;
 
 OnTimer23910:
-	mapannounce instance_mapname("2@orcs"), "Mission: Unseal the zone by lighting the braziers. They can only be lit in a certain order, so be careful.",bc_map,"0x4444ff";
+	mapannounce instance_mapname("2@orcs"), "Missão: Liberada a zona de iluminação dos braseiros. Eles só podem ser ascendidos em uma certa ordem, portanto, cuidado.",bc_map,"0x4444ff";
 	donpcevent instance_npcname("#2Resurrect Monsters1")+"::OnEnable";
 	donpcevent instance_npcname("#2Resurrect Monsters3")+"::OnEnable";
 	donpcevent instance_npcname("Torch#1-1")+"::OnEnable";
@@ -718,8 +716,8 @@ OnInstanceInit:
 
 OnEnable:
 	.@map$ = instance_mapname("2@orcs");
-	monster .@map$,109,156,"Safeguard Chief",1981,1,instance_npcname("#Mobs Control")+"::OnMyMobDead1";
-	mapannounce .@map$, "The Chief Orc of Safeguards: Oh!! Looks like I have company. Defeat me if you can!!",bc_map,"0xff8888";
+	monster .@map$,109,156,"Soldado Orc",1981,1,instance_npcname("#Mobs Control")+"::OnMyMobDead1";
+	mapannounce .@map$, "Soldado Orc: Oh! Eu tenho companhia. Me derrotem se puderem!!",bc_map,"0xff8888";
 	end;
 
 OnContinue:
@@ -728,7 +726,7 @@ OnContinue:
 	end;
 
 OnTimer10000:
-	areamonster instance_mapname("2@orcs"),28,158,40,170,"Safeguard Chief",1981,1,instance_npcname("#Mobs Control")+"::OnMyMobDead1";
+	areamonster instance_mapname("2@orcs"),28,158,40,170,"Soldado Orc",1981,1,instance_npcname("#Mobs Control")+"::OnMyMobDead1";
 	stopnpctimer;
 	end;
 
@@ -749,8 +747,8 @@ OnInstanceInit:
 
 OnEnable:
 	.@map$ = instance_mapname("2@orcs");
-	monster .@map$,67,64,"Orc Sniper",1982,1,instance_npcname("#Mobs Control")+"::OnMyMobDead2";
-	mapannounce .@map$, "Orc Sniper: Hah! Pretty impressive that you made it this far, but your foolish little trip ends here...",bc_map,"0xff8888";
+	monster .@map$,67,64,"Orc Caçador",1982,1,instance_npcname("#Mobs Control")+"::OnMyMobDead2";
+	mapannounce .@map$, "Orc Caçador: Haha! Impressionante o que você fez, mas sua viagem tola acabam por aqui...",bc_map,"0xff8888";
 	end;
 
 OnContinue:
@@ -759,7 +757,7 @@ OnContinue:
 	end;
 
 OnTimer10000:
-	areamonster instance_mapname("2@orcs"),40,91,52,103,"Orc Sniper",1982,1,instance_npcname("#Mobs Control")+"::OnMyMobDead2";
+	areamonster instance_mapname("2@orcs"),40,91,52,103,"Orc Caçador",1982,1,instance_npcname("#Mobs Control")+"::OnMyMobDead2";
 	stopnpctimer;
 	end;
 
@@ -780,31 +778,31 @@ OnInstanceInit:
 
 OnEnable:
 	.@map$ = instance_mapname("2@orcs");
-	monster .@map$,152,147,"Depraved Orc Spirit",1983,1,instance_npcname("#Mobs Control")+"::OnMyMobDead3";
-	mapannounce .@map$, "Depraved Orc Spirit: I smell flesh! Hungry! Wanna try some human meat!!",bc_map,"0xff8888";
+	monster .@map$,152,147,"Orc Morto-Vivo",1983,1,instance_npcname("#Mobs Control")+"::OnMyMobDead3";
+	mapannounce .@map$, "Orc Morto-Vivo: Sinto cheiro de carne... Estou faminto! Quero comer um pouco de carne humana!!",bc_map,"0xff8888";
 	end;
 
 OnContinue:
-	areamonster instance_mapname("2@orcs"),117,61,129,73,"Depraved Orc Spirit",1983,1;
+	areamonster instance_mapname("2@orcs"),117,61,129,73,"Orc Morto-Vivo",1983,1;
 	donpcevent instance_npcname("#Boss Control")+"::OnEnable";
 	enablenpc instance_npcname("#Warp2-3");
 	initnpctimer;
 	end;
 
 OnTimer10:
-	mapannounce instance_mapname("2@orcs"), "Shaman Cargalache: Hahaha!! So, you finally made it here. The assassin you sent was just terrible. That stupid Orc is getting cold under my feet.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Xamã Cargalache: Hahaha! Então você finalmente chegou aqui... O assasino que você enviou foi totalmente inútil. Aquele Orc estúpido está morrendo agora, sob meus pés.",bc_map,"0xffff00";
 	end;
 
 OnTimer6810:
-	mapannounce instance_mapname("2@orcs"), "Shaman Cargalache: My loyal slave, go get those intruders!",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@orcs"), "Xamã Cargalache: Meu querido servo, vá pegar os intrusos!",bc_map,"0xffff00";
 	end;
 
 OnTimer10310:
-	mapannounce instance_mapname("2@orcs"), "Depraved Orc Hero: Whatever you say, my lord.",bc_map,"0xff7777";
+	mapannounce instance_mapname("2@orcs"), "Orc Herói: Ao seu dispor, meu senhor.",bc_map,"0xff7777";
 	end;
 
 OnTimer13110:
-	mapannounce instance_mapname("2@orcs"), "Caution: You have been discovered by Shaman Cargalache. Kruger's plan to assassinate the Shaman has failed. You must defeat Cargalache and find traces of Kruger.",bc_map,"0x8888ff";
+	mapannounce instance_mapname("2@orcs"), "Cuidado: Você foi descoberto pelo Xamã Cargalache. O plano de Kruger, de assasinar o xamã falhou. Você agora deve derrotar o Xamã e achar vestígios de Kruger.",bc_map,"0x8888ff";
 	stopnpctimer;
 	end;
 
@@ -822,8 +820,8 @@ OnInstanceInit:
 
 OnEnable:
 	.@map$ = instance_mapname("2@orcs");
-	monster .@map$,185,8,"Shaman Cargalache",1984,1,instance_npcname("#Boss Control")+"::OnMyMobDead";
-	monster .@map$,179,15,"Depraved Orc Hero",1087,1;
+	monster .@map$,185,8,"Xamã Cargalache",1984,1,instance_npcname("#Boss Control")+"::OnMyMobDead";
+	monster .@map$,179,15,"Orc Herói",1087,1;
 	enablenpc instance_npcname("#Boss Control");
 	end;
 
@@ -832,19 +830,19 @@ OnMyMobDead:
 	.@map$ = instance_mapname("2@orcs");
 	.@mob_ran = rand(1,5);
 	if (.@mob_ran == 1) {
-		mapannounce .@map$, "Shaman Cargalache: How... How could this be... How could someone like you...!!",bc_map,"0xffff00";
+		mapannounce .@map$, "Xamã Cargalache: Como... Como poderia acontecer... Como poderia alguém como você...!!",bc_map,"0xffff00";
 	}
 	else if (.@mob_ran == 2) {
-		mapannounce .@map$, "Shaman Cargalache: How is it that I've been overpowered by mere humans!",bc_map,"0xffff00";
+		mapannounce .@map$, "Xamã Cargalache: Como fui dominado por meros humanos!?",bc_map,"0xffff00";
 	}
 	else if (.@mob_ran == 3) {
-		mapannounce .@map$, "Shaman Cargalache: This... This can't be the end...",bc_map,"0xffff00";
+		mapannounce .@map$, "Xamã Cargalache: Isso... Isso não pode ser o fim...!",bc_map,"0xffff00";
 	}
 	else if (.@mob_ran == 4) {
-		mapannounce .@map$, "Shaman Cargalache: I... Can't die... Yet...!",bc_map,"0xffff00";
+		mapannounce .@map$, "Xamã Cargalache: Eu... não posso morrer... ainda...!",bc_map,"0xffff00";
 	}
 	else {
-		mapannounce .@map$, "Shaman Cargalache: Defeated by these fools... It can't be happening...!",bc_map,"0xffff00";
+		mapannounce .@map$, "Xamã Cargalache: Derrotado por um bando de imbecis... Isso não pode estar acontecendo...!",bc_map,"0xffff00";
 	}
 	donpcevent instance_npcname("#2Resurrect Monsters1")+"::OnDisable";
 	donpcevent instance_npcname("#2Resurrect Monsters3")+"::OnDisable";
@@ -869,32 +867,32 @@ OnTouch:
 2@orcs,172,13,0	script	Kruger#	4_ORCWARRIOR2,{
 	if (yong_odun < 2) {
 		mes "[Kruger]";
-		mes "*Coughing*";
-		mes ""+strcharinfo(0)+", it's you...";
+		mes "*Tossindo*";
+		mes strcharinfo(0)+", é você...";
 		next;
 		mes "["+strcharinfo(0)+"] ";
-		mes "Don't move! You are wounded!";
+		mes "Não se mexa!! Você está muito ferido!";
 		next;
 		mes "[Kruger]";
-		mes "It's... all right.. I'm dying...";
+		mes "Está... tudo bem.. Estou morrendo...";
 		mes "....";
-		mes "The Shaman? What about the Shaman?";
+		mes "E o Xamã? O que aconteceu com ele?";
 		next;
 		mes "["+strcharinfo(0)+"] ";
-		mes "The Shaman's dead now. Who was that Shaman really?";
+		mes "O Xamã está morto agora. Quem na verdade era o Xamã?";
 		next;
-		mes "Kruger seemed to be relieved as he hears of the death of the Shaman, but you notice the bitter expression on his face.";
+		mes "*Kruger parecia estar aliviado quando ouviu falar da morte do Xamã, porém você percebe uma expressão triste no rosto dele.*";
 		next;
 		mes "[Kruger]";
-		mes "I.. I just couldn't kill my own daughter...";
-		mes "Thank you, I'm sure she's finally free from the nightmare that used to choke her soul.";
+		mes "Eu... Eu não conseguia matar minha própria filha...";
+		mes "Obrigado, tenho certeza absoluta que agora ela está livre do pesadelo que assombrava a alma dela.";
 		next;
-		mes "Kruger was about to say something more, but he breathed his last breath before he could...";
+		mes "*Kruger gostaria de dizer mais alguma coisa, porém deu seu último suspiro e se foi...*";
 		yong_odun = 2;
 		close;
 	}
 	else {
-		mes "You can see the dead body of Kruger, peacefully lying on the ground.";
+		mes "*Você vê o corpo de Kruger estirado no chão, pacificamente*.";
 		close;
 	}
 
