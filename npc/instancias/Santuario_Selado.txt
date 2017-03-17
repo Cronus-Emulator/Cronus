@@ -14,77 +14,83 @@
 // - 2.3                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
+// - Tradução [Revisões Cronus]			                         ||
+// - Ajustes [SlexFire]       			                         ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Instância do Santuário Selado.                              ||
+//===============================================================||
+// = Observação:                                                 ||
+// - O nome correto seria "Altar Selado"?                        ||
+// - Tradução Parcial                                            ||
 //===============================================================//
 
 1@cata	mapflag	src4instance
 2@cata	mapflag	src4instance
 //============================================================
 
-// Sealed Catacomb Entrance
+// Entrada da catacumba selada
 //============================================================
-monk_test,309,146,3	script	Friar Patrick#edq	4_M_OLDFRIAR,{
+monk_test,309,146,3	script	Frei Patrick#edq	4_M_OLDFRIAR,{
 	cutin "ins_cata_pri_n",2;
-	mes "[Friar Patrick]";
-	mes "The peace of this world cannot last forever... The hands of Evil are reaching into the world again...";
+	mes "[Frei Patrick]";
+	mes "A paz do mundo jamais pode durar para sempre... As mãos do Mal estão chegando ao mundo novamente...";
 	next;
-	mes "[Friar Patrick]";
-	mes "What brought you to this place?";
+	mes "[Frei Patrick]";
+	mes "O que te leva a este lugar?";
 	next;
 	if (countitem(6004) > 0) {
 		.@doll = 1;
-		.@selection = select("What is this place?:I want to enter.:About the Cursed Baphomet Doll.:Cancel.");
+		.@selection = select("Que lugar é este?:Quero entrar.:Sobre o Boneco de Baphomet Amaldiçoado.:Cancelar.");
 	}
 	else {
-		.@selection = select("What is this place?:I want to enter.:Cancel.");
+		.@selection = select("Que lugar é este?:Quero entrar.:Cancelar.");
 	}
 	switch(.@selection) {
 	case 1:
-		mes "[Friar Patrick]";
-		mes "Huh... Don't you know? This is St. Capitolina Monastery where the Brothers who wish to become monks train and pray.";
+		mes "[Frei Patrick]";
+		mes "Huh... Você não sabe? Este é o Monastério de St. Capitolina onde os irmãos treinam e oram para virarem monjes.";
 		next;
-		mes "[Friar Patrick]";
-		mes "And this place is... What can I say... Yes. It's the grave of the Devil. Grave...";
+		mes "[Frei Patrick]";
+		mes "E esse lugar é... Como eu posso falar... Sim. É o túmulo do Demônio. Túmulo...";
 		next;
-		mes "[Friar Patrick]";
-		mes "The very place where the great Devil who once demolished this world is sleeping.";
+		mes "[Frei Patrick]";
+		mes "É o lugar onde o grande Demônio que demoliu esse mundo uma vez se encontra dormindo.";
 		next;
-		switch(select("Tell me more.:Stop talking.")) {
+		switch(select("Me conte mais.:Terminar a conversa.")) {
 		case 1:
 			cutin "ins_cata_pri_n",2;
-			mes "[Friar Patrick]";
-			mes "Baphomet... is the name of the Devil... I think you have heard of his name.";
+			mes "[Frei Patrick]";
+			mes "Baphomet... é o nome do Demônio... Eu acho que você já tenha escutado o nome dele.";
 			next;
-			mes "[Friar Patrick]";
-			mes "Numerous brave men and brothers have trained in this monastery...";
+			mes "[Frei Patrick]";
+			mes "Vários homens bravos e irmãos treinaram nesse monastério...";
 			next;
-			mes "[Friar Patrick]";
-			mes "Under this gravestone in front of you... Baphomet is sealed.";
+			mes "[Frei Patrick]";
+			mes "Abaixo desse túmulo na sua frente... Baphomet se encontra selado.";
 			next;
-			mes "[Friar Patrick]";
-			mes "But... As we speak Satan Morocc is marshalling his powerful magic in order to affect all life on this continent.";
+			mes "[Frei Patrick]";
+			mes "Porém... Como foi dito, o Imperador Morroc está manipulando suas magias poderosas para afetar toda vida nesse continente.";
 			next;
-			mes "[Friar Patrick]";
-			mes "Baphomet also... has awakened and is preparing for his revival, into this world, by weakening the power of the seal through the power of Satan Morocc...";
+			mes "[Frei Patrick]";
+			mes "Baphomet também... tem despertado e está se preparando para sua ressurreição, dentro desse mundo, com o enfraquecimento do selo devido ao poder do Imperador Morroc...";
 			next;
-			mes "[Friar Patrick]";
-			mes "Now... I'm looking for someone brave enough to reseal Baphomet in its shrine... as we once did many years ago...";
+			mes "[Frei Patrick]";
+			mes "Agora... Estou procurando por pessoas bravas o suficiente para selar Baphomet em seu santuário... como nós fizemos muitos anos atrás...";
 			next;
-			mes "[Friar Patrick]";
-			mes "Anyone who fights for good will know, deep inside, that evil is threatening to conquer this world...";
+			mes "[Frei Patrick]";
+			mes "Todos que lutam pelo bem, devem saber, que o mal ameaça a conquistar esse mundo...";
 			next;
-			mes "[Friar Patrick]";
-			mes "Train more and use your skills to protect the world from evil's looming presence...";
+			mes "[Frei Patrick]";
+			mes "Treine mais e use suas habilidades para proteger o mundo da eminente presença do mal...";
 			break;
 		case 2:
 			cutin "ins_cata_pri_n",2;
-			mes "[Friar Patrick]";
-			mes "Anyone who fights for good will know, deep inside, that evil is threatening to conquer this world...";
+			mes "[Frei Patrick]";
+			mes "Todos que lutam pelo bem, devem saber, que o mal ameaça conquistar esse mundo...";
 			next;
-			mes "[Friar Patrick]";
-			mes "Train more and use your skills to protect the world from evil's looming presence...";
+			mes "[Frei Patrick]";
+			mes "Treine mais e use suas habilidades para proteger o mundo da eminente presença do mal...";
 			break;
 		}
 		break;
@@ -93,8 +99,8 @@ monk_test,309,146,3	script	Friar Patrick#edq	4_M_OLDFRIAR,{
 
 			.@party_id = getcharid(1);
 
-			mes "[Friar Patrick]";
-			mes "Do you mean you'll go to the shrine and reseal Baphomet?";
+			mes "[Frei Patrick]";
+			mes "Está certo que você irá ao santuário e selar Baphomet novamente?";
 			next;
 
 			// 12 hour cooldown
@@ -104,17 +110,17 @@ monk_test,309,146,3	script	Friar Patrick#edq	4_M_OLDFRIAR,{
 
 			if (!.@ins_bapho_check) {
 				if (getpartyleader(.@party_id,2) == getcharid(0) && instance_check_party(.@party_id,2,75)) {
-					mes "[Friar Patrick]";
-					mes "Party name is "+getpartyname(.@party_id)+"...";
-					mes "Name of the leader is "+strcharinfo(0)+"...";
+					mes "[Frei Patrick]";
+					mes "O nome do grupo é "+getpartyname(.@party_id)+"...";
+					mes "O nome do líder é "+strcharinfo(0)+"...";
 					.@instance = instance_create("Sealed Catacomb",.@party_id);
 					if (.@instance < 0) {
-						mes "Umm... But it seems that there is a problem here... I'll check quickly. Please wait.";
+						mes "Umm... Mas parece que temos um problema aqui... Irei checar rapidamente. Por favor aguarde.";
 					}
 					else {
 						for (.@i = 1; .@i <= 2; .@i++) {
 							if( instance_attachmap(.@i + "@cata", .@instance) == "" ) {
-								mes "Failed to attach "+.@i+"@cata as a map!";
+								mes "Falha ao vincular "+.@i+"@cata como um mapa!";
 								instance_destroy(.@instance);
 								close;
 							}
@@ -123,83 +129,83 @@ monk_test,309,146,3	script	Friar Patrick#edq	4_M_OLDFRIAR,{
 						instance_set_timeout 7200,300,.@instance;
 						instance_init(.@instance);
 
-						mes "Okay... I'll adjust the shrine's seal so that you and your group can enter.";
+						mes "Ok... Irei ajustar o selo do santuário para você e seu grupo possam entrar..";
 						next;
-						mes "[Friar Patrick]";
-						mes "You will see a sign when the seal has broken. Please wait until the sign appears...";
+						mes "[Frei Patrick]";
+						mes "Você verá um sinal quando o selo for destruído. Aguarde até o sinal aparecer...";
 						next;
-						mes "[Friar Patrick]";
-						mes "When you see the sign, put your hands on the gravestone... Then you can move inside.";
+						mes "[Frei Patrick]";
+						mes "Quando você ver o sinal, coloque suas mãos sobre o túmulo... E então você pode empurrá-lo.";
 						next;
-						mes "[Friar Patrick]";
-						mes "One thing that you should remember is... Anyone who enters this shrine will be cursed by Baphomet and cannot enter or leave while they are cursed.";
+						mes "[Frei Patrick]";
+						mes "Uma coisa que você deve lembrar é... Todos aqueles que entrarem no santuário serão amaldiçoados por Baphomet e não poderam entrar ou sair enquando estiverem amaldioçoados.";
 						next;
-						mes "[Friar Patrick]";
-						mes "And one more thing... In this cursed area, some skills, which are protected by outer physical power are prohibited by the effect of the seal.";
+						mes "[Frei Patrick]";
+						mes "E mais uma coisa... Nessa área amaldiçoada, certas habilidades, que são protegidas por uma força exterior, são proibidas pelo efeito do selo.";
 						next;
-						mes "[Friar Patrick]";
-						mes "For example, the skills like ^0000FFSafety Wall and Assumptio^000000... So you'd better prepare before entering the shrine.";
+						mes "[Frei Patrick]";
+						mes "Por exemplo, habilidades como ^0000FFEscudo Mágico e Assumptio^000000... Então é melhor você estar preparado entes de entrar no santuário.";
 					}
 				}
 				else {
-					mes "[Friar Patrick]";
-					mes "Umm... I recognize your courage, but... I can't permit anyone to enter this place. I can only permit the leader of a party to enter first.";
+					mes "[Frei Patrick]";
+					mes "Umm... Eu reconheço usa coragem, porém... Não posso permitir qualquer um entrar nesse lugar. Eu só permito o líder do grupo a entrar primeiro.";
 					next;
-					mes "[Friar Patrick]";
-					mes "Once the party leader is permitted, the rest of the party can enter. This is a rule of this monastery, so please understand.";
+					mes "[Frei Patrick]";
+					mes "Uma vez que o líder grupo foi permitido, o resto do grupo pode entrar. Isto é uma regra deste monastério, por favor a entenda.";
 				}
 			}
 			else if (.@ins_bapho_check == 1) {
-				mes "[Friar Patrick]";
-				mes "It seems you have entered this shrine recently... You cannot reenter because Baphomet's Curse still remains. Baphomet's Curse disappears only after a certain amount of time has passed.";
+				mes "[Frei Patrick]";
+				mes "Parece que você entrou no santuário recentemente... Você não pode entrar novamente pois a Maldição de Baphomet ainda continua. A maldição de Baphomet só desaparece quando um certo período de tempo se passa.";
 			}
 			else if (.@ins_bapho_check == 2) {
-				mes "[Friar Patrick]";
-				mes "Umm... It seems that Baphomet's Curse has weakened. I can remove it now.";
+				mes "[Frei Patrick]";
+				mes "Umm... Parece que a Maldição de Baphomet se enfraqueceu. Eu posso retira-la agora.";
 				next;
-				mes "[Friar Patrick]";
+				mes "[Frei Patrick]";
 				mes "Haaaaaaap... Hocus Pocus Wingardium Abracadabra!!!!!";
 				next;
 				erasequest 3040;
 				if (questprogress(3041)) erasequest 3041;
 				if (questprogress(3045)) erasequest 3045;
-				mes "[Friar Patrick]";
-				mes "Huu... It's over. Now that I've released Baphomet's Curse, you can enter again.";
+				mes "[Frei Patrick]";
+				mes "Huu... Acabou. Agora que retirei a Maldição de Baphomet, você pode entrar novamente.";
 			}
 		}
 		else {
-			mes "[Friar Patrick]";
-			mes "Umm... You should train more to enter this dangerous place... You should reach at least Lv 75 to enter here.";
+			mes "[Frei Patrick]";
+			mes "Umm... Você precisa treinar mais para entrar nesse lugar perigoso... Você tem que estar no mínimo no nível 75 para poder entrar aqui.";
 			next;
-			mes "[Friar Patrick]";
-			mes "Please train more and come again.";
+			mes "[Frei Patrick]";
+			mes "Treine mais e volte novamente.";
 		}
 		break;
 	case 3:
 		if (.@doll == 1) {
-			mes "[Friar Patrick]";
-			mes "That is... the villainous doll that you are holding... Let me see it.";
+			mes "[Frei Patrick]";
+			mes "O que é... esse boneco que está segurando?... Deixe me ver.";
 			next;
-			mes "[Friar Patrick]";
+			mes "[Frei Patrick]";
 			mes "... ... ...";
 			next;
-			mes "[Friar Patrick]";
-			mes "That's correct... I can feel Baphomet's evil inside... So, what will you do with the doll?";
+			mes "[Frei Patrick]";
+			mes "Correto... Posso sentir os sentimentos de Baphomet... O que eu farei com esse boneco?";
 			next;
-			mes "[Friar Patrick]";
-			mes "It is just a dangerous and useless thing if you do nothing with it... I'll introduce someone who can help you... Do you want to see him?";
+			mes "[Frei Patrick]";
+			mes "É muito perigoso que alguém perca esse objeto... Conheço alguem que pode te ajudar... Deseja falar com ele?";
 			next;
-			mes "[Friar Patrick]";
-			mes "Go to see ^0000FFRust Blackhand^000000 who is near the main building of the monastery... He will make this doll helpful to you.";
+			mes "[Frei Patrick]";
+			mes "Fale com ^0000FFRust Blackhand^000000 que está proximo a uma contrução do monastério... Ele pode fazer com que este boneco seja útil para você.";
 			setquest 3042;
 			break;
 		}
 	case 4:
-		mes "[Friar Patrick]";
-		mes "Anyone who fights for good will know, deep inside, that evil is threatening to conquer this world...";
+		mes "[Frei Patrick]";
+		mes "Todos que lutam pelo bem, devem saber, que o mal ameaça a conquistar esse mundo...";
 		next;
-		mes "[Friar Patrick]";
-		mes "Train more and use your skills to protect the world from evil's looming presence...";
+		mes "[Frei Patrick]";
+		mes "Treine mais e use suas habilidades para proteger o mundo da eminente presença do mal...";
 		break;
 	}
 	close2;
@@ -230,22 +236,22 @@ monk_test,306,151,3	script	Grave of Baphomet#edq	HIDDEN_NPC,{
 			end;
 		}
 	} else if (.@ins_bapho_check == 1) {
-		mes "[Friar Patrick]";
+		mes "[Frei Patrick]";
 		mes "It seems you have entered this shrine recently... You cannot reenter because the curse of Baphomet still remains.";
 		mes "The curse of Baphomet disappears after a certain amount of time after you entered.";
 		close;
 	} else if (.@ins_bapho_check == 2) {
-		mes "[Friar Patrick]";
+		mes "[Frei Patrick]";
 		mes "Umm... It seems the curse of Baphomet weakened. I'll clear the bad curse.";
 		next;
-		mes "[Friar Patrick]";
+		mes "[Frei Patrick]";
 		mes "Haaaaaaap... Wingardium Leviosa Expecto Patronum !!!!!";
 		specialeffect2 EF_HOLYHIT;
 		erasequest 3040;
 		if (questprogress(3041)) erasequest 3041;
 		if (questprogress(3045)) erasequest 3045;
 		next;
-		mes "[Friar Patrick]";
+		mes "[Frei Patrick]";
 		mes "Huu... It's over. Now I released all of the curses on you. You can enter again.";
 		close;
 	}
