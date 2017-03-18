@@ -18,11 +18,7 @@
 // - Ajustes [SlexFire]       			                         ||
 //===============================================================||
 // = Descrição:                                                  ||
-// - Instância do Santuário Selado.                              ||
-//===============================================================||
-// = Observação:                                                 ||
-// - O nome correto seria "Altar Selado"?                        ||
-// - Tradução Parcial                                            ||
+// - Instância do Altar do Selo                                  ||
 //===============================================================//
 
 1@cata	mapflag	src4instance
@@ -435,7 +431,7 @@ OnInstanceInit:
 	// Pick one "true" Gravestone and 12 "false" Gravestones.
 	.@true = rand(1,13);
 	for (.@i = 1; .@i<13; ++.@i) {
-		disablenpc instance_npcname("Gravestone#1F_1"+((.@i == .@true)?"F":"T"));
+		disablenpc instance_npcname("Túmulo#1F_1"+((.@i == .@true)?"F":"T"));
 	}
 	disablenpc instance_npcname("ins_baphomet_lotto");
 	end;
@@ -444,7 +440,7 @@ OnInstanceInit:
 1@cata,3,2,0	script	ins_baphomet_lotto2	-1,{
 OnEnable:
 	for (.@i = 1; .@i < 12; ++.@i)
-		enablenpc instance_npcname("Bobbing Torch#"+.@i);
+		enablenpc instance_npcname("Tocha#"+.@i);
 	end;
 }
 
@@ -763,7 +759,7 @@ OnInstanceInit: // Temporary fix for @reloadscript.
 	else if (('ins_baphomet == 4) && (getpartyleader(.@party_id,2) == getcharid(0))) {
 		cutin "ins_cata_champ_n",2;
 		mes "[Alma do Herói]";
-		mes "Está pronto? Abri o portão selado neste momento. Para passar pelo portão, você deve levar o ^0000FFSímbolo do Apóstolo^000000.";
+		mes "Você está pronto? Abri o portão selado neste momento. Para passar pelo portão, você deve levar o ^0000FFSímbolo do Apóstolo^000000.";
 		next;
 		'ins_baphomet = 5;
 		specialeffect EF_TELEPORTATION;
@@ -783,30 +779,30 @@ OnInstanceInit: // Temporary fix for @reloadscript.
 	else if ('ins_baphomet == 4) {
 		cutin "ins_cata_champ_n",2;
 		mes "[Alma do Herói]";
-		mes "Are you ready? I opened the sealed gate. To pass the gate, you should carry a ^0000FFToken of Apostle^000000.";
+		mes "Você está pronto? Abri o portão selado neste momento. Para passar pelo portão, você deve levar o ^0000FFSímbolo do Apóstolo^000000.";
 		next;
 		mes "[Alma do Herói]";
-		mes "I'll complete opening the sealed gate when your representative tells me that you're ready.";
+		mes "Só irei completar a abertura do portão selado, quando seu representante me disser que você está pronto.";
 		cutin "",255;
 		close;
 	}
 	else if ('ins_baphomet == 5) {
 		cutin "ins_cata_champ_n",2;
 		mes "[Alma do Herói]";
-		mes "What are you doing? The entrance of the main altar is opened now, go and fight! The entrance is near the bottom right side of this floor.";
+		mes "O que está fazendo? A entrada para o Altar está aberta, vá e lute! A entrada se encontra no sudeste deste andar.";
 		cutin "",255;
 		close;
 	}
 	else {
 		cutin "ins_cata_champ_n",2;
-		mes "[Ancient Hero's Soul]";
-		mes "I have nothing to say to you...";
+		mes "[Alma do Herói]";
+		mes "Não tenho nada a falar com você...";
 		cutin "",255;
 		close;
 	}
 
 OnInstanceInit:
-	disablenpc instance_npcname("Ancient Hero's Soul#1F");
+	disablenpc instance_npcname("Alma do Herói#1F");
 	end;
 }
 
@@ -822,7 +818,7 @@ OnTouch:
 	}
 	else {
 		mes "[Alma do Herói]";
-		mes "Where is your Token of Apostle? I said you should carry the Token of Apostle to pass this gate.";
+		mes "Cadê seu Símbolo do Apóstolo? Eu disse que precisava dele para passar pelo portão.";
 		close;
 	}
 
@@ -831,85 +827,85 @@ OnInstanceInit:
 	end;
 }
 
-// Gravestones
+// Túmulos
 //============================================================
--	script	Gravestone#SS1	-1,{
+-	script	Túmulo#SS1	-1,{
 	if ('ins_baphomet == 1) {
 		getitem 6003,1; //Soul_Pendant
 		'ins_baphomet = 2;
-		mes "A small object is shining under a leaning grave.";
+		mes "Um pequeno objeto está brilhando abaixo do antigo túmulo.";
 		next;
 		mes "[" + strcharinfo(0) + "]";
-		mes "I think this is the pendant...";
+		mes "Acho que é o pingente...";
 		close;
 	}
 	else {
-		mes "I can only feel gloom from this Gravestone.";
+		mes "Posso sentir a tristeza vinda desse túmulo.";
 		close;
 	}
 }
-1@cata,86,214,0	duplicate(Gravestone#SS1)	Gravestone#1F_1T	CLEAR_NPC
-1@cata,200,209,0	duplicate(Gravestone#SS1)	Gravestone#1F_2T	CLEAR_NPC
-1@cata,230,195,0	duplicate(Gravestone#SS1)	Gravestone#1F_3T	CLEAR_NPC
-1@cata,118,182,0	duplicate(Gravestone#SS1)	Gravestone#1F_4T	CLEAR_NPC
-1@cata,193,182,0	duplicate(Gravestone#SS1)	Gravestone#1F_5T	CLEAR_NPC
-1@cata,253,156,0	duplicate(Gravestone#SS1)	Gravestone#1F_6T	CLEAR_NPC
-1@cata,88,154,0	duplicate(Gravestone#SS1)	Gravestone#1F_7T	CLEAR_NPC
-1@cata,127,116,0	duplicate(Gravestone#SS1)	Gravestone#1F_8T	CLEAR_NPC
-1@cata,90,98,0	duplicate(Gravestone#SS1)	Gravestone#1F_9T	CLEAR_NPC
-1@cata,188,84,0	duplicate(Gravestone#SS1)	Gravestone#1F_10T	CLEAR_NPC
-1@cata,244,42,0	duplicate(Gravestone#SS1)	Gravestone#1F_11T	CLEAR_NPC
-1@cata,127,32,0	duplicate(Gravestone#SS1)	Gravestone#1F_12T	CLEAR_NPC
-1@cata,267,30,0	duplicate(Gravestone#SS1)	Gravestone#1F_13T	CLEAR_NPC
+1@cata,86,214,0	duplicate(Túmulo#SS1)	Túmulo#1F_1T	CLEAR_NPC
+1@cata,200,209,0	duplicate(Túmulo#SS1)	Túmulo#1F_2T	CLEAR_NPC
+1@cata,230,195,0	duplicate(Túmulo#SS1)	Túmulo#1F_3T	CLEAR_NPC
+1@cata,118,182,0	duplicate(Túmulo#SS1)	Túmulo#1F_4T	CLEAR_NPC
+1@cata,193,182,0	duplicate(Túmulo#SS1)	Túmulo#1F_5T	CLEAR_NPC
+1@cata,253,156,0	duplicate(Túmulo#SS1)	Túmulo#1F_6T	CLEAR_NPC
+1@cata,88,154,0	duplicate(Túmulo#SS1)	Túmulo#1F_7T	CLEAR_NPC
+1@cata,127,116,0	duplicate(Túmulo#SS1)	Túmulo#1F_8T	CLEAR_NPC
+1@cata,90,98,0	duplicate(Túmulo#SS1)	Túmulo#1F_9T	CLEAR_NPC
+1@cata,188,84,0	duplicate(Túmulo#SS1)	Túmulo#1F_10T	CLEAR_NPC
+1@cata,244,42,0	duplicate(Túmulo#SS1)	Túmulo#1F_11T	CLEAR_NPC
+1@cata,127,32,0	duplicate(Túmulo#SS1)	Túmulo#1F_12T	CLEAR_NPC
+1@cata,267,30,0	duplicate(Túmulo#SS1)	Túmulo#1F_13T	CLEAR_NPC
 
--	script	Gravestone#SS2	-1,{
-	mes "I can only feel gloom from this Gravestone.";
+-	script	Túmulo#SS2	-1,{
+	mes "Posso sentir a tristeza vinda desse túmulo.";
 	close;
 }
-1@cata,86,214,0	duplicate(Gravestone#SS2)	Gravestone#1F_1F	CLEAR_NPC
-1@cata,200,209,0	duplicate(Gravestone#SS2)	Gravestone#1F_2F	CLEAR_NPC
-1@cata,230,195,0	duplicate(Gravestone#SS2)	Gravestone#1F_3F	CLEAR_NPC
-1@cata,118,182,0	duplicate(Gravestone#SS2)	Gravestone#1F_4F	CLEAR_NPC
-1@cata,193,182,0	duplicate(Gravestone#SS2)	Gravestone#1F_5F	CLEAR_NPC
-1@cata,253,156,0	duplicate(Gravestone#SS2)	Gravestone#1F_6F	CLEAR_NPC
-1@cata,88,154,0	duplicate(Gravestone#SS2)	Gravestone#1F_7F	CLEAR_NPC
-1@cata,127,116,0	duplicate(Gravestone#SS2)	Gravestone#1F_8F	CLEAR_NPC
-1@cata,90,98,0	duplicate(Gravestone#SS2)	Gravestone#1F_9F	CLEAR_NPC
-1@cata,188,84,0	duplicate(Gravestone#SS2)	Gravestone#1F_10F	CLEAR_NPC
-1@cata,244,42,0	duplicate(Gravestone#SS2)	Gravestone#1F_11F	CLEAR_NPC
-1@cata,127,32,0	duplicate(Gravestone#SS2)	Gravestone#1F_12F	CLEAR_NPC
-1@cata,267,30,0	duplicate(Gravestone#SS2)	Gravestone#1F_13F	CLEAR_NPC
+1@cata,86,214,0	duplicate(Túmulo#SS2)	Túmulo#1F_1F	CLEAR_NPC
+1@cata,200,209,0	duplicate(Túmulo#SS2)	Túmulo#1F_2F	CLEAR_NPC
+1@cata,230,195,0	duplicate(Túmulo#SS2)	Túmulo#1F_3F	CLEAR_NPC
+1@cata,118,182,0	duplicate(Túmulo#SS2)	Túmulo#1F_4F	CLEAR_NPC
+1@cata,193,182,0	duplicate(Túmulo#SS2)	Túmulo#1F_5F	CLEAR_NPC
+1@cata,253,156,0	duplicate(Túmulo#SS2)	Túmulo#1F_6F	CLEAR_NPC
+1@cata,88,154,0	duplicate(Túmulo#SS2)	Túmulo#1F_7F	CLEAR_NPC
+1@cata,127,116,0	duplicate(Túmulo#SS2)	Túmulo#1F_8F	CLEAR_NPC
+1@cata,90,98,0	duplicate(Túmulo#SS2)	Túmulo#1F_9F	CLEAR_NPC
+1@cata,188,84,0	duplicate(Túmulo#SS2)	Túmulo#1F_10F	CLEAR_NPC
+1@cata,244,42,0	duplicate(Túmulo#SS2)	Túmulo#1F_11F	CLEAR_NPC
+1@cata,127,32,0	duplicate(Túmulo#SS2)	Túmulo#1F_12F	CLEAR_NPC
+1@cata,267,30,0	duplicate(Túmulo#SS2)	Túmulo#1F_13F	CLEAR_NPC
 
-// Bobbing Torches
+// Tochas
 //============================================================
--	script	Bobbing Torch#SS	-1,{
+-	script	Tocha#SS	-1,{
 	.@party_id = getcharid(1);
 	if (getpartyleader(.@party_id,2) == getcharid(0)) {
 		if (('ins_baphomet == 3) && (countitem(6001) < 11)) {
-			mes "A huge torch appearing as if it can burn everything is bobbing up and down in front of me.";
+			mes "Uma antiga tocha parece que pode queimar tudo que está a minha volta.";
 			next;
-			mes "The grand appearance and heat of the fire makes me step back... But I pluck up my courage and reach out to pick up the torch.";
+			mes "Sua grande aparência e o calor de suas chamas me faz voltar... Porém tive coragem e estiquei o braço para segurá-la.";
 			next;
 			specialeffect2 EF_HOLYHIT;
 			getitem 6001,1; //Essence_Of_Fire
-			mes "The symbol of inheritor shines. Then a small crystal falls into my hand from the torch.";
+			mes "O símbolo do herdeiro brilha. Nisso um pequeno cristal cai da tocha.";
 			disablenpc instance_npcname(strnpcinfo(0));
 			close;
 		}
 		else if (('ins_baphomet == 3) && (countitem(6001) > 10)) {
-			mes "You have 10 Essence of Fire already, so you don't need to collect any more.";
+			mes "Você já tem 10 Essências de Fogo. Você não precisa pegar mais nenhuma.";
 			close;
 		}
 		else {
-			mes "You don't need to collect Essence of Fire anymore.";
+			mes "Você não precisa mais pegar as Essências de Fogo.";
 			close;
 		}
 	}
 	else {
-		mes "A huge torch appearing as if it can burn everything is bobbing up and down in front of me..";
+		mes "Uma antiga tocha parece que pode queimar tudo que está a minha volta.";
 		next;
 		mes "[Unknown Voice]";
-		mes "You are not a inheritor of faith. Do not desecrate the Essence of Fire with your disrespectful hands.";
+		mes "Você não é o Herdeiro da Fé. Não coloque essas mãos imundas nas Essências do Fogo.";
 		specialeffect2 EF_FIRESPLASHHIT;
 		percentheal -50,0;
 		close;
@@ -919,18 +915,18 @@ OnInstanceInit:
 	disablenpc instance_npcname(strnpcinfo(0));
 	end;
 }
-1@cata,267,210,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#1	CLEAR_NPC
-1@cata,85,182,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#2	CLEAR_NPC
-1@cata,267,154,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#3	CLEAR_NPC
-1@cata,157,139,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#4	CLEAR_NPC
-1@cata,193,138,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#5	CLEAR_NPC
-1@cata,193,102,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#6	CLEAR_NPC
-1@cata,157,102,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#7	CLEAR_NPC
-1@cata,113,112,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#8	CLEAR_NPC
-1@cata,253,56,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#9	CLEAR_NPC
-1@cata,239,56,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#10	CLEAR_NPC
-1@cata,71,42,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#11	CLEAR_NPC
-1@cata,155,14,0	duplicate(Bobbing Torch#SS)	Bobbing Torch#12	CLEAR_NPC
+1@cata,267,210,0	duplicate(Tocha#SS)	Tocha#1	CLEAR_NPC
+1@cata,85,182,0	duplicate(Tocha#SS)	Tocha#2	CLEAR_NPC
+1@cata,267,154,0	duplicate(Tocha#SS)	Tocha#3	CLEAR_NPC
+1@cata,157,139,0	duplicate(Tocha#SS)	Tocha#4	CLEAR_NPC
+1@cata,193,138,0	duplicate(Tocha#SS)	Tocha#5	CLEAR_NPC
+1@cata,193,102,0	duplicate(Tocha#SS)	Tocha#6	CLEAR_NPC
+1@cata,157,102,0	duplicate(Tocha#SS)	Tocha#7	CLEAR_NPC
+1@cata,113,112,0	duplicate(Tocha#SS)	Tocha#8	CLEAR_NPC
+1@cata,253,56,0	duplicate(Tocha#SS)	Tocha#9	CLEAR_NPC
+1@cata,239,56,0	duplicate(Tocha#SS)	Tocha#10	CLEAR_NPC
+1@cata,71,42,0	duplicate(Tocha#SS)	Tocha#11	CLEAR_NPC
+1@cata,155,14,0	duplicate(Tocha#SS)	Tocha#12	CLEAR_NPC
 
 1@cata,1,1,0	script	ins_baphomet_1f_timer	-1,{
 OnInstanceInit:
@@ -948,23 +944,23 @@ OnDisable:
 	end;
 
 OnTimer1800000:
-	mapannounce instance_mapname("1@cata"), "Ancient Hero's Soul : We don't have enough time! Hurry up!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("1@cata"), "Alma do Herói: Não temos tempo suficiente. Apressem-se!",bc_map,"0xFFFF00";
 	end;
 
 OnTimer2400000:
-	mapannounce instance_mapname("1@cata"), "Ancient Hero's Soul : My body is disappearing... Hurry up!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("1@cata"), "Alma do Herói: Meu corpo está desaparecendo... Apressem-se!",bc_map,"0xFFFF00";
 	end;
 
 OnTimer3000000:
-	mapannounce instance_mapname("1@cata"), "Ancient Hero's Soul : Everything is over... There is no other way but to wait for the next chance...",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("1@cata"), "Alma do Herói: Everything is over... There is no other way but to wait for the next chance...",bc_map,"0xFFFF00";
 	end;
 
 OnTimer3050000:
-	mapannounce instance_mapname("1@cata"), "Ancient Hero's Soul : We failed... However... We still have a chance. I hope you will train yourselves until the time comes.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("1@cata"), "Alma do Herói: Nós falhamos... Contudo... Ainda temos uma chance. Espero que treinem mais até a hora chegar.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer3100000:
-	mapannounce instance_mapname("1@cata"), "You've failed to open the seal of main altar.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("1@cata"), "Você falhou em abrir o selo no Altar Principal.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer3500000:
@@ -992,19 +988,19 @@ OnEnable:
 	end;
 
 OnTimer10000:
-	mapannounce instance_mapname("2@cata"), "Baphomet : Humans... interfering again...",bc_map,"0xdb7093";
+	mapannounce instance_mapname("2@cata"), "Baphomet: Humanos... interferindo novamente...",bc_map,"0xdb7093";
 	end;
 
 OnTimer13000:
-	mapannounce instance_mapname("2@cata"), "Apostle of Baphomet : Humans! Humans have invaded our sanctum!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Apóstolo de Baphomet: Humanos! Humanos invadiram nosso santuário!",bc_map,"0xFFFF00";
 	end;
 
 OnTimer16000:
-	mapannounce instance_mapname("2@cata"), "Apostle of Baphomet : Kill the humans! Do not stop the revival of our Master!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Apóstolo de Baphomet: Matem-nos! Não deixem parar a ressurreição de nosso mestre!",bc_map,"0xFFFF00";
 	end;
 
 OnTimer18000:
-	mapannounce instance_mapname("2@cata"), "Apostle of Baphomet : Hurry up and release the seals of the altars! Our Master's return is upon us!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Apóstolo de Baphomet: Apressem-se em liberar os selos dos altares! O retorno de nosso mestre está sobre nós.",bc_map,"0xFFFF00";
 	stopnpctimer;
 	disablenpc instance_npcname("ins_2f_enter_broad");
 	end;
@@ -1013,23 +1009,23 @@ OnTimer18000:
 2@cata,50,67,0	script	slave_left	-1,5,5,{
 OnTouch:
 	.@map$ = instance_mapname("2@cata");
-	mapannounce .@map$, "Apostle of Baphomet : Kill the humans! Don't let them interrupt the revival of our Master!",bc_map,"0xFFFF00";
-	monster .@map$,55,67,"Apostle of Baphomet",1869,1;
-	monster .@map$,51,67,"Apostle of Baphomet",1291,1;
-	monster .@map$,58,67,"Apostle of Baphomet",1292,1;
-	monster .@map$,53,67,"Apostle of Baphomet",1291,1;
-	monster .@map$,54,67,"Apostle of Baphomet",1869,1;
-	monster .@map$,55,67,"Apostle of Baphomet",1291,1;
-	monster .@map$,56,67,"Apostle of Baphomet",1117,1;
-	monster .@map$,58,66,"Apostle of Baphomet",1869,1;
-	monster .@map$,56,66,"Apostle of Baphomet",1117,1;
-	monster .@map$,60,66,"Apostle of Baphomet",1132,1;
-	monster .@map$,59,66,"Apostle of Baphomet",1117,1;
-	monster .@map$,54,66,"Apostle of Baphomet",1132,1;
-	monster .@map$,55,66,"Apostle of Baphomet",1292,1;
-	monster .@map$,56,66,"Apostle of Baphomet",1132,1;
-	monster .@map$,50,65,"Apostle of Baphomet",1867,1;
-	monster .@map$,61,65,"Apostle of Baphomet",1292,1;
+	mapannounce .@map$, "Apóstolo de Baphomet: Matem os Humanos! Não os deixem interromper o renascimento de nosso Mestre!",bc_map,"0xFFFF00";
+	monster .@map$,55,67,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,51,67,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,58,67,"Apóstolo de Baphomet",1292,1;
+	monster .@map$,53,67,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,54,67,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,55,67,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,56,67,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,58,66,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,56,66,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,60,66,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,59,66,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,54,66,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,55,66,"Apóstolo de Baphomet",1292,1;
+	monster .@map$,56,66,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,50,65,"Apóstolo de Baphomet",1867,1;
+	monster .@map$,61,65,"Apóstolo de Baphomet",1292,1;
 	disablenpc instance_npcname("slave_left");
 	end;
 }
@@ -1037,23 +1033,23 @@ OnTouch:
 2@cata,109,67,0	script	slave_right	-1,5,5,{
 OnTouch:
 	.@map$ = instance_mapname("2@cata");
-	mapannounce .@map$, "Apostle of Baphomet : Kill the humans! Don't let them interrupt the revival of our Master!",bc_map,"0xFFFF00";
-	monster .@map$,105,67,"Apostle of Baphomet",1869,1;
-	monster .@map$,104,67,"Apostle of Baphomet",1291,1;
-	monster .@map$,107,67,"Apostle of Baphomet",1869,1;
-	monster .@map$,106,67,"Apostle of Baphomet",1291,1;
-	monster .@map$,102,67,"Apostle of Baphomet",1869,1;
-	monster .@map$,103,67,"Apostle of Baphomet",1291,1;
-	monster .@map$,103,67,"Apostle of Baphomet",1117,1;
-	monster .@map$,109,66,"Apostle of Baphomet",1117,1;
-	monster .@map$,108,66,"Apostle of Baphomet",1132,1;
-	monster .@map$,101,66,"Apostle of Baphomet",1117,1;
-	monster .@map$,106,66,"Apostle of Baphomet",1292,1;
-	monster .@map$,102,66,"Apostle of Baphomet",1132,1;
-	monster .@map$,104,66,"Apostle of Baphomet",1292,1;
-	monster .@map$,103,66,"Apostle of Baphomet",1132,1;
-	monster .@map$,109,65,"Apostle of Baphomet",1867,1;
-	monster .@map$,108,65,"Apostle of Baphomet",1292,1;
+	mapannounce .@map$, "Apóstolo de Baphomet: Matem os Humanos! Não os deixem interromper o renascimento de nosso Mestre!",bc_map,"0xFFFF00";
+	monster .@map$,105,67,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,104,67,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,107,67,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,106,67,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,102,67,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,103,67,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,103,67,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,109,66,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,108,66,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,101,66,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,106,66,"Apóstolo de Baphomet",1292,1;
+	monster .@map$,102,66,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,104,66,"Apóstolo de Baphomet",1292,1;
+	monster .@map$,103,66,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,109,65,"Apóstolo de Baphomet",1867,1;
+	monster .@map$,108,65,"Apóstolo de Baphomet",1292,1;
 	disablenpc instance_npcname("slave_right");
 	end;
 }
@@ -1061,36 +1057,36 @@ OnTouch:
 2@cata,79,39,0	script	slave_down	-1,5,5,{
 OnTouch:
 	.@map$ = instance_mapname("2@cata");
-	mapannounce .@map$, "Apostle of Baphomet : Kill the humans! Don't let them interrupt the revival of our Master!",bc_map,"0xFFFF00";
-	monster .@map$,78,41,"Apostle of Baphomet",1869,1;
-	monster .@map$,79,42,"Apostle of Baphomet",1291,1;
-	monster .@map$,78,46,"Apostle of Baphomet",1869,1;
-	monster .@map$,81,41,"Apostle of Baphomet",1291,1;
-	monster .@map$,81,42,"Apostle of Baphomet",1869,1;
-	monster .@map$,79,43,"Apostle of Baphomet",1291,1;
-	monster .@map$,77,40,"Apostle of Baphomet",1117,1;
-	monster .@map$,79,41,"Apostle of Baphomet",1132,1;
-	monster .@map$,79,42,"Apostle of Baphomet",1117,1;
-	monster .@map$,79,43,"Apostle of Baphomet",1132,1;
-	monster .@map$,79,48,"Apostle of Baphomet",1117,1;
-	monster .@map$,78,49,"Apostle of Baphomet",1132,1;
-	monster .@map$,78,41,"Apostle of Baphomet",1292,1;
-	monster .@map$,74,42,"Apostle of Baphomet",1292,1;
-	monster .@map$,72,48,"Apostle of Baphomet",1867,1;
-	monster .@map$,72,38,"Apostle of Baphomet",1292,1;
+	mapannounce .@map$, "Apóstolo de Baphomet: Matem os Humanos! Não os deixem interromper o renascimento de nosso Mestre!",bc_map,"0xFFFF00";
+	monster .@map$,78,41,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,79,42,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,78,46,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,81,41,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,81,42,"Apóstolo de Baphomet",1869,1;
+	monster .@map$,79,43,"Apóstolo de Baphomet",1291,1;
+	monster .@map$,77,40,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,79,41,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,79,42,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,79,43,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,79,48,"Apóstolo de Baphomet",1117,1;
+	monster .@map$,78,49,"Apóstolo de Baphomet",1132,1;
+	monster .@map$,78,41,"Apóstolo de Baphomet",1292,1;
+	monster .@map$,74,42,"Apóstolo de Baphomet",1292,1;
+	monster .@map$,72,48,"Apóstolo de Baphomet",1867,1;
+	monster .@map$,72,38,"Apóstolo de Baphomet",1292,1;
 	disablenpc instance_npcname("slave_down");
 	end;
 }
 
-// Magical Seals
+// Selo Mágico
 //============================================================
--	script	Magical Seal#SS	-1,{
+-	script	Selo Mágico#SS	-1,{
 	.@seal_check = questprogress(3041,PLAYTIME);
 	if (.@seal_check == 1) {
 		specialeffect2 EF_SILENCEATTACK;
 		percentheal -50,0;
 		sc_start Eff_Stone,30000,0;
-		mes "Your SP has not recovered yet. You lost your SP on the altar, but it seems the power of the seal has returned.";
+		mes "Seu SP não esta cheio ainda. Você perdeu seu SP no altar, mas parece que o poder do selo ainda não voltou.";
 		close;
 	}
 	if (.@seal_check == 2) erasequest 3041;
@@ -1105,82 +1101,82 @@ OnTouch:
 	percentheal -50,0;
 	sc_start Eff_Stone,20000,0;
 	setquest 3041;
-	mapannounce .@map$, "The seal activated by putting magical power into the altar.",bc_map,"0x87ceeb";
-	mes "I can feel the power of the altar came back by adding magical power.";
+	mapannounce .@map$, "O selo é ativado colocando o poder mágico sobre o altar.",bc_map,"0x87ceeb";
+	mes "Eu posso sentir o poder voltando ao altar colocando seu poder mágico.";
 	next;
-	mes "But you can't use your magic for 3 minutes because you used your SP on the altar.";
+	mes "Você não pode colocar o selo novamente durante 3 minutos, pois perdeu seu SP com isso.";
 	close;
 
 OnInstanceInit:
 	disablenpc instance_npcname(strnpcinfo(0));
 	end;
 }
-2@cata,79,81,0	duplicate(Magical Seal#SS)	Magical Seal#0	CLEAR_NPC
-2@cata,123,109,0	duplicate(Magical Seal#SS)	Magical Seal#2	CLEAR_NPC
-2@cata,123,22,0	duplicate(Magical Seal#SS)	Magical Seal#4	CLEAR_NPC
-2@cata,35,21,0	duplicate(Magical Seal#SS)	Magical Seal#8	CLEAR_NPC
-2@cata,35,109,0	duplicate(Magical Seal#SS)	Magical Seal#10	CLEAR_NPC
+2@cata,79,81,0	duplicate(Selo Mágico#SS)	Selo Mágico#0	CLEAR_NPC
+2@cata,123,109,0	duplicate(Selo Mágico#SS)	Selo Mágico#2	CLEAR_NPC
+2@cata,123,22,0	duplicate(Selo Mágico#SS)	Selo Mágico#4	CLEAR_NPC
+2@cata,35,21,0	duplicate(Selo Mágico#SS)	Selo Mágico#8	CLEAR_NPC
+2@cata,35,109,0	duplicate(Selo Mágico#SS)	Selo Mágico#10	CLEAR_NPC
 
-2@cata,79,65,0	script	The Main Altar#ss	CLEAR_NPC,{
+2@cata,79,65,0	script	Altar Principal#ss	CLEAR_NPC,{
 	.@party_id = getcharid(1);
 	if (('ins_baphomet == 5) && (getpartyleader(.@party_id,2) == getcharid(0))) {
-		mes "An evil power, too terrible to describe, lies under the great altar radiating a violet color.";
+		mes "Um poder malígno, terrível demais para descrever, passa pelo altar irradiando uma cor violeta.";
 		next;
-		mes "Complicated Magical Rune letters blink rapidly, attempting to suppress the dreadful power within.";
+		mes "Pergaminhos Mágicos piscam rapidamente, na tentativa de suprimir esse poder terrível.";
 		next;
-		mes "The bottom of the Main Altar trembles furiously.";
+		mes "O fundo do Altar Principal treme furiosamente.";
 		next;
 		specialeffect EF_METEORSTORM;
 		specialeffect EF_METEORSTORM;
 		mes "[" + strcharinfo(0) + "]";
-		mes "Watch out! Something... Something is coming.";
+		mes "Olhem! Algo... Algo está vindo!";
 		'ins_baphomet = 6;
 		donpcevent instance_npcname("ins_2f_hero_broad")+"::OnEnable";
-		disablenpc instance_npcname("The Main Altar#ss");
+		disablenpc instance_npcname("Altar Principal#ss");
 		close;
 	}
 	else {
-		mes "An evil power, too terrible to describe, lies under the great altar radiating a violet color.";
+		mes "Um poder malígno, terrível demais para descrever, passa pelo altar irradiando uma cor violeta.";
 		next;
-		mes "Complicated Magical Rune letters blink rapidly, attempting to suppress the dreadful power within.";
+		mes "Pergaminhos Mágicos piscam rapidamente, na tentativa de suprimir esse poder terrível.";
 		close;
 	}
 	end;
 }
 
-2@cata,80,63,4	script	Ancient Hero's Soul#2F	4_M_CHAMPSOUL,{
+2@cata,80,63,4	script	Alma do Herói#2F	4_M_CHAMPSOUL,{
 	cutin "ins_cata_champ_s",2;
 	if (questprogress(3041)) erasequest 3041;
-	mes "[Ancient Hero's Soul]";
-	mes "Good job, my descendants... You've finished the long-cherished task that me and my bretheren could not complete.";
+	mes "[Alma do Herói]";
+	mes "Bom trablaho, meus descendentes... Vocês realizaram meu desejo que muitos não cumprem faz tempo.";
 	next;
-	mes "[Ancient Hero's Soul]";
-	mes "I really appreciate your help.";
-	mes "Our souls can finally rest in peace...";
+	mes "[Alma do Herói]";
+	mes "Realmente aprecio sua ajuda.";
+	mes "Suas almas finalmente podem descansar em paz...";
 	next;
-	mes "[Ancient Hero's Soul]";
-	mes "The struggle for peace on this world will never end. But... my role here is finally over because there are brave heroes like you.";
+	mes "[Alma do Herói]";
+	mes "A luta pela paz neste mundo nunca vai acabar. Mas ... o meu papel aqui finalmente chega ao fim, porque há bravos heróis como você.";
 	next;
-	switch(select("Let me leave the shrine.:Stop talking.")) {
+	switch(select("Leve-me ao Santuário:Terminar conversa.")) {
 	case 1:
-		mes "[Ancient Hero's Soul]";
-		mes "Okay. I'll let you and your group leave here safely.";
+		mes "[Alma do Herói]";
+		mes "Ok. Tirarei seu grupo daqui com segurança.";
 		next;
-		mes "[Ancient Hero's Soul]";
-		mes "If you leave, please say hello to Patrick for me.";
+		mes "[Alma do Herói]";
+		mes "Quando sair, diga um oi ao Patrick.";
 		cutin "",255;
 		'ins_baphomet = 0;
 		warp "monk_test",310,150;
 		close;
 	case 2:
-		mes "[Ancient Hero's Soul]";
-		mes "Do you still have something to do here? If you're done I'll let you leave safely...";
+		mes "[Alma do Herói]";
+		mes "Ainda tem algo para fazer aqui? Quando estiver pronto para sair, fale comigo...";
 		cutin "",255;
 		close;
 	}
 
 OnInstanceInit:
-	disablenpc instance_npcname("Ancient Hero's Soul#2F");
+	disablenpc instance_npcname("Alma do Herói#2F");
 	end;
 }
 
@@ -1195,27 +1191,27 @@ OnDisable:
 	end;
 
 OnTimer3000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : My God! The seal of the Main Altar is weakening!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Meu deus! O selo do Altar Principal está enfraquecendo.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer6000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : My descendants... Listen carefully to what I'm going to say.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Meus decendentes... Escutem com atenção o que irei dizer.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer9000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The altars that control the Main Altar's power are located in the Northeast, Southeast, Southwest and Northwest corners of this room.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Os altares que controlam o poder do Altar Principal estão localizados no Nordeste, Sudeste, Sudoeste e Noroeste desta sala.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer12000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : Find these altars and activate their seals before Baphomet revives.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Encontre estes altares e ative os seus selos antes que Baphomet reviva.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer15000:
-	mapannounce instance_mapname("2@cata"), "Baphomet : It's too late, weaklings... Now, you'll feel the despair of death!",bc_map,"0xdb7093";
+	mapannounce instance_mapname("2@cata"), "Baphomet: Tarde demais, fracos... Agora, vocês irão sentir o desespero da morte!",bc_map,"0xdb7093";
 	end;
 
 OnTimer17000:
-	mapannounce instance_mapname("2@cata"), "Baphomet : No one can harm me here. You will be my first sacrifice.",bc_map,"0xdb7093";
+	mapannounce instance_mapname("2@cata"), "Baphomet: Ninguém pode me prejudicar aqui. Você será o meu primeiro sacrifício.",bc_map,"0xdb7093";
 	donpcevent instance_npcname("control_baphomet")+"::OnEnable";
 	donpcevent instance_npcname("ins_2f_hero_broad2")+"::OnEnable";
 	stopnpctimer;
@@ -1240,8 +1236,8 @@ OnMyMobDead:
 	if (mobcount(.@map$,instance_npcname("control_baphomet")+"::OnMyMobDead") < 1) {
 		'ins_baphomet = 7;
 		erasequest 3041;
-		mapannounce .@map$, "Baphomet : No! Nonono! How dare these weaklings defeat me!... No!!...",bc_map,"0xdb7093";
-		enablenpc instance_npcname("Ancient Hero's Soul#2F");
+		mapannounce .@map$, "Baphomet: Não! Nãoooo!Levarei isso como insulto, seus insetos!... Não...",bc_map,"0xdb7093";
+		enablenpc instance_npcname("Alma do Herói#2F");
 		disablenpc instance_npcname("slave_down");
 		disablenpc instance_npcname("slave_left");
 		disablenpc instance_npcname("slave_right");
@@ -1270,36 +1266,36 @@ OnEnable:
 	end;
 
 OnTimer8000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : Don't be discouraged, Baphomet can still be defeated!",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Não se preocupem, o Baphomet ainda pode ser derrotado!",bc_map,"0xFFFF00";
 	end;
 
 OnTimer11000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : Go to the altars and activate their seals.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Vá para os alteres e ativem os selos.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer13000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : Once the seals recover their power, Baphomet will be vulnerable.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Quando os selos se recuperarem, Baphomet ficará vulnerável.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer16000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : You should lure Baphomet to the unsealed Altars. Otherwise, your efforts will be futile.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Você deve atrair Baphomet aos altares não selados. Caso contrário, seu esforço será inútil.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer19000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : We have only 1 hour to stop Baphomet. If time runs out, the power of the seals will be useless.",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Temos apenas 1 hora para parar Baphomet. Se o tempo acabar, o poder dos selos será inútil.",bc_map,"0xFFFF00";
 	end;
 
 OnTimer22000:
-	mapannounce instance_mapname("2@cata"), "Baphomet : It's useless. Make more seals. I'll crush them all. None of you will survive!",bc_map,"0xdb7093";
+	mapannounce instance_mapname("2@cata"), "Baphomet: É inútil. Faça mais selos. Vou esmagá-los. Nenhum de vocês sobreviverão!",bc_map,"0xdb7093";
 	end;
 
 OnTimer26000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The magical power of the central seal is running out. Go to the central seal and put the magical power.",bc_map,"0xFFFF00";
-	enablenpc instance_npcname("Magical Seal#0");
-	disablenpc instance_npcname("Magical Seal#2");
-	disablenpc instance_npcname("Magical Seal#4");
-	disablenpc instance_npcname("Magical Seal#8");
-	disablenpc instance_npcname("Magical Seal#10");
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: O poder mágico do selo central está se esgotando. Vá para o selo central e coloque o poder mágico.",bc_map,"0xFFFF00";
+	enablenpc instance_npcname("Selo Mágico#0");
+	disablenpc instance_npcname("Selo Mágico#2");
+	disablenpc instance_npcname("Selo Mágico#4");
+	disablenpc instance_npcname("Selo Mágico#8");
+	disablenpc instance_npcname("Selo Mágico#10");
 	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::OnEnable";
 	stopnpctimer;
 	disablenpc instance_npcname("ins_2f_hero_broad2");
@@ -1372,21 +1368,21 @@ OnGo:
 
 OnDisable:
 	stopnpctimer;
-	disablenpc instance_npcname("Magical Seal#0");
-	disablenpc instance_npcname("Magical Seal#2");
-	disablenpc instance_npcname("Magical Seal#4");
-	disablenpc instance_npcname("Magical Seal#8");
-	disablenpc instance_npcname("Magical Seal#10");
+	disablenpc instance_npcname("Selo Mágico#0");
+	disablenpc instance_npcname("Selo Mágico#2");
+	disablenpc instance_npcname("Selo Mágico#4");
+	disablenpc instance_npcname("Selo Mágico#8");
+	disablenpc instance_npcname("Selo Mágico#10");
 	donpcevent instance_npcname("ins_2f_hero_pattern")+"::OnDisable";
 	disablenpc instance_npcname("ins_2f_hero_pattern_c");
 	end;
 
 OnTimer3600000:
-	mapannounce instance_mapname("2@cata"), "Baphomet : krrrr... Now you can't stop me with the seals. All you can do is wait for death!",bc_map,"0xdb7093";
+	mapannounce instance_mapname("2@cata"), "Baphomet: krrrr... Agora você não pode me parar por causa de um selo. Basta esperar pela sua morte!",bc_map,"0xdb7093";
 	end;
 
 OnTimer3605000:
-	mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : We can't stop Baphomet with the magical power of the seals anymore. Now everything depends on God...",bc_map,"0xFFFF00";
+	mapannounce instance_mapname("2@cata"), "Alma do Herói: Você não pode mais parar o Baphomet com os selos. Tudo agora depende de deus ...",bc_map,"0xFFFF00";
 	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::OnDisable";
 	end;
 }
@@ -1409,44 +1405,44 @@ OnDisable:
 OnTimer70000:
 	switch(rand(1,5)) {
 	case 1:
-		mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The seal of the Main Altar is running out. Strengthen the Main Altar's seal!",bc_map,"0xFFFF00";
-		enablenpc instance_npcname("Magical Seal#0");
-		disablenpc instance_npcname("Magical Seal#2");
-		disablenpc instance_npcname("Magical Seal#4");
-		disablenpc instance_npcname("Magical Seal#8");
-		disablenpc instance_npcname("Magical Seal#10");
+		mapannounce instance_mapname("2@cata"), "Alma do Herói: O selo do Altar Principal está enfraquecendo. Fortaleça o selo do Altar Principal!",bc_map,"0xFFFF00";
+		enablenpc instance_npcname("Selo Mágico#0");
+		disablenpc instance_npcname("Selo Mágico#2");
+		disablenpc instance_npcname("Selo Mágico#4");
+		disablenpc instance_npcname("Selo Mágico#8");
+		disablenpc instance_npcname("Selo Mágico#10");
 		break;
 	case 2:
-		mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The magical power of the seal at 2 o'clock is running out. Go to 2 o'clock and put the magical power in the seal.",bc_map,"0xFFFF00";
-		disablenpc instance_npcname("Magical Seal#0");
-		enablenpc instance_npcname("Magical Seal#2");
-		disablenpc instance_npcname("Magical Seal#4");
-		disablenpc instance_npcname("Magical Seal#8");
-		disablenpc instance_npcname("Magical Seal#10");
+		mapannounce instance_mapname("2@cata"), "Alma do Herói: O poder do altar das 2 horas está enfraquecendo. Vá para o altar das 2 horas e reative-o.",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("Selo Mágico#0");
+		enablenpc instance_npcname("Selo Mágico#2");
+		disablenpc instance_npcname("Selo Mágico#4");
+		disablenpc instance_npcname("Selo Mágico#8");
+		disablenpc instance_npcname("Selo Mágico#10");
 		break;
 	case 3:
-		mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The magical power of the seal at 4 o'clock is running out. Go to 4 o'clock and put the magical power in the seal.",bc_map,"0xFFFF00";
-		disablenpc instance_npcname("Magical Seal#0");
-		disablenpc instance_npcname("Magical Seal#2");
-		enablenpc instance_npcname("Magical Seal#4");
-		disablenpc instance_npcname("Magical Seal#8");
-		disablenpc instance_npcname("Magical Seal#10");
+		mapannounce instance_mapname("2@cata"), "Alma do Herói: O poder do altar das 4 horas está enfraquecendo. Vá para o altar das 4 horas e reative-o.",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("Selo Mágico#0");
+		disablenpc instance_npcname("Selo Mágico#2");
+		enablenpc instance_npcname("Selo Mágico#4");
+		disablenpc instance_npcname("Selo Mágico#8");
+		disablenpc instance_npcname("Selo Mágico#10");
 		break;
 	case 4:
-		mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The magical power of the seal at 8 o'clock is running out. Go to 8 o'clock and put the magical power in the seal.",bc_map,"0xFFFF00";
-		disablenpc instance_npcname("Magical Seal#0");
-		disablenpc instance_npcname("Magical Seal#2");
-		disablenpc instance_npcname("Magical Seal#4");
-		enablenpc instance_npcname("Magical Seal#8");
-		disablenpc instance_npcname("Magical Seal#10");
+		mapannounce instance_mapname("2@cata"), "Alma do Herói: O poder do altar das 8 horas está enfraquecendo. Vá para o altar das 8 horas e reative-o.",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("Selo Mágico#0");
+		disablenpc instance_npcname("Selo Mágico#2");
+		disablenpc instance_npcname("Selo Mágico#4");
+		enablenpc instance_npcname("Selo Mágico#8");
+		disablenpc instance_npcname("Selo Mágico#10");
 		break;
 	case 5:
-		mapannounce instance_mapname("2@cata"), "Ancient Hero's Soul : The magical power of the seal at 10 o'clock is running out. Go to 10 o'clock and put the magical power in the seal.",bc_map,"0xFFFF00";
-		disablenpc instance_npcname("Magical Seal#0");
-		disablenpc instance_npcname("Magical Seal#2");
-		disablenpc instance_npcname("Magical Seal#4");
-		disablenpc instance_npcname("Magical Seal#8");
-		enablenpc instance_npcname("Magical Seal#10");
+		mapannounce instance_mapname("2@cata"), "Alma do Herói: O poder do altar das 10 horas está enfraquecendo. Vá para o altar das 10 horas e reative-o.",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("Selo Mágico#0");
+		disablenpc instance_npcname("Selo Mágico#2");
+		disablenpc instance_npcname("Selo Mágico#4");
+		disablenpc instance_npcname("Selo Mágico#8");
+		enablenpc instance_npcname("Selo Mágico#10");
 	}
 	stopnpctimer;
 	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::OnGo";
@@ -1456,37 +1452,37 @@ OnTimer70000:
 1@cata,1,1,0	script	ins_1f_spawn_mobs	-1,{
 OnInstanceInit:
 	.@map$ = instance_mapname("1@cata");
-	monster .@map$,0,0,"Zombie Master",1298,10;
-	monster .@map$,0,0,"Wraith Dead",1291,10;
-	//monster .@map$,0,0,"Ancient Mimic",1699,10;
-	monster .@map$,0,0,"Flame Skull",1869,10;
-	monster .@map$,0,0,"Skeleton General",1290,10;
-	monster .@map$,0,0,"Zombie Master",1298,10;
-	monster .@map$,0,0,"Skeleton General",1290,10;
-	monster .@map$,0,0,"Flame Skull",1869,10;
-	monster .@map$,0,0,"Wraith Dead",1291,10;
-	monster .@map$,0,0,"Wraith Dead",1291,10;
+	monster .@map$,0,0,"Zumbi Mestre",1298,10;
+	monster .@map$,0,0,"Aparição",1291,10;
+	//monster .@map$,0,0,"Mímico Antigo",1699,10;
+	monster .@map$,0,0,"Crânio Flamejante",1869,10;
+	monster .@map$,0,0,"Esqueleto General",1290,10;
+	monster .@map$,0,0,"Zumbi Mestre",1298,10;
+	monster .@map$,0,0,"Esqueleto General",1290,10;
+	monster .@map$,0,0,"Crânio Flamejante",1869,10;
+	monster .@map$,0,0,"Aparição",1291,10;
+	monster .@map$,0,0,"Aparição",1291,10;
 	monster .@map$,0,0,"Khalitzburg",1132,10;
 	monster .@map$,0,0,"Khalitzburg",1132,10;
-	monster .@map$,0,0,"Flame Skull",1869,10;
-	monster .@map$,0,0,"Flame Skull",1869,10;
-	monster .@map$,0,0,"Ancient Mimic",1699,10;
-	monster .@map$,0,0,"Zombie Master",1298,10;
-	monster .@map$,0,0,"Ancient Mimic",1699,10;
-	monster .@map$,0,0,"Zombie Master",1298,10;
-	monster .@map$,0,0,"Wraith Dead",1291,10;
-	monster .@map$,0,0,"Skeleton General",1290,10;
-	monster .@map$,0,0,"Skeleton General",1290,10;
-	monster .@map$,0,0,"Wind Ghost",1263,10;
-	monster .@map$,0,0,"Wind Ghost",1263,10;
-	monster .@map$,0,0,"Wind Ghost",1263,10;
+	monster .@map$,0,0,"Crânio Flamejante",1869,10;
+	monster .@map$,0,0,"Crânio Flamejante",1869,10;
+	monster .@map$,0,0,"Mímico Antigo",1699,10;
+	monster .@map$,0,0,"Zumbi Mestre",1298,10;
+	monster .@map$,0,0,"Mímico Antigo",1699,10;
+	monster .@map$,0,0,"Zumbi Mestre",1298,10;
+	monster .@map$,0,0,"Aparição",1291,10;
+	monster .@map$,0,0,"Esqueleto General",1290,10;
+	monster .@map$,0,0,"Esqueleto General",1290,10;
+	monster .@map$,0,0,"Xamã do Vento",1263,10;
+	monster .@map$,0,0,"Xamã do Vento",1263,10;
+	monster .@map$,0,0,"Xamã do Vento",1263,10;
 	monster .@map$,0,0,"Lude",1509,10;
 	monster .@map$,0,0,"Lude",1509,10;
-	monster .@map$,0,0,"Evil Druid",1117,10;
-	monster .@map$,0,0,"Evil Druid",1117,10;
-	monster .@map$,0,0,"Evil Druid",1117,10;
+	monster .@map$,0,0,"Druida Malígno",1117,10;
+	monster .@map$,0,0,"Druida Malígno",1117,10;
+	monster .@map$,0,0,"Druida Malígno",1117,10;
 	monster .@map$,0,0,"Banshee",1867,10;
-	monster .@map$,0,0,"Dark Illusion",1302,1;
+	monster .@map$,0,0,"Ilusão das Trevas",1302,1;
 	disablenpc instance_npcname("ins_1f_spawn_mobs");
 	end;
 }
