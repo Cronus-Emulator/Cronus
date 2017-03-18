@@ -14,9 +14,14 @@
 // - 2.4                                                         ||
 //===============================================================||
 // = Alterações:                                                 ||
+// - Tradução [Revisões Cronus]			                         ||
+// - Ajustes [SlexFire]       			                         ||
 //===============================================================||
 // = Descrição:                                                  ||
 // - Instância da Torre sem Fim.                                 ||
+//===============================================================||
+// = Observação:                                                 ||
+// - Tradução Parcial.                                           ||
 //===============================================================//
 
 1@tower	mapflag	src4instance
@@ -26,122 +31,122 @@
 5@tower	mapflag	src4instance
 6@tower	mapflag	src4instance
 //============================================================
-alberta,214,77,6	script	Captain Janssen	4_M_SEAMAN,{
+alberta,214,77,6	script	Capitão Janssen	4_M_SEAMAN,{
 	if (checkweight(1201,1) == 0) {
-		mes "^008800Wait here!!";
-		mes "You're carrying too much stuff. Why don't you put some of it away, and then come back.^000000";
+		mes "^008800Espere aí!!";
+		mes "Você está carregando muitos equipamentos. Porque não joga alguns fora e depois retorna.^000000";
 		close;
 	}
 	if (BaseLevel < 50) {
-		mes "[Captain Janssen]";
-		mes "Sigh... I don't know if I can ever go back to sailing the sea...";
+		mes "[Capitão Janssen]";
+		mes "*Suspiro*... Eu não sei se posso sempre voltar a velejar no mar...";
 		close;
 	}
 	.@name$ = strcharinfo(0);
 	if (in_102tower == 1) {
-		mes "^0000ffLooking incredibly excited, the old man ran into the marine shop hurriedly ordering goods. You don't have anything better to do, so you decide to ask him why he is in such a rush.^000000";
+		mes "^0000ff*Olhando incrivelmente animado, o velho correu as pressas para loja da marinha encomendar coisas. Você não tem nada melhor pra fazer, então você decide perguntar por que ele está em uma correria dessas.*^000000";
 		next;
-		mes "^0000ffThe old man, after finishing his orders, walks towards you.^000000";
+		mes "^0000ff*O velho, depois de ter feito suas encomendas, anda em sua direção.*^000000";
 		next;
-		mes "[Captain Janssen]";
-		mes "I was touched when you accepted a request from me, a stranger, so easily. You must truly be one of those good, heroic adventurers. Are you interested in setting out on an ocean voyage?";
+		mes "[Capitão Janssen]";
+		mes "Fiquei comovido quando você aceitou um pedido meu, um estranho, tão facilmente. Você deve ser realmente um dos bons, herói aventureiro. Você está interessado em sair numa viagem oceânica?";
 		next;
 		mes "["+.@name$+"]";
-		mes "I've sailed a few times... But now that I think about it, I've never gone across the continent.";
+		mes "Já naveguei algumas vezes... Mas agora penso sobre isto, e vejo que nunca cruzei todo o continente";
 		next;
-		mes "[Captain Janssen]";
-		mes "No, that's good enough. I may just have one small fishing vessel, but I used to be a captain that commanded a fleet.";
+		mes "[Capitão Janssen]";
+		mes "Não, isso é bom o suficiente. Talvez eu só tenha uma pequena embarcação de pesca, mas eu costumava ser um capitão que comandou uma frota";
 		next;
-		mes "[Captain Janssen]";
-		mes "As you may know after a few sea voyages, not many people have gone across the ocean beyond the continent. I too have failed to conquer the ocean.";
+		mes "[Capitão Janssen]";
+		mes "Como você deve saber após algumas viagens marítimas, talvez muitas pessoas não tenham atravessado o oceano além do continente. Eu também falhei na conquista do oceano.";
 		next;
-		mes "^0000ffMr. Janssen talked about his perilous ocean journeys for quite a while. You have enough time on your hands, so you sit down, quietly listening to his story.^000000";
+		mes "^0000ff*Sr. Janssen falou sobre suas perigosas viagens oceânicas durante um bom tempo. Você tem bastante tempo livre, então você senta, e em silêncio ouve a sua história.*^000000";
 		next;
-		mes "^0000ffAt least half of his story sounded grossly exaggerated, but something caught your ear: he insists that a humongous tower exists on the ocean, and that it's so tall, it scrapes across the sky.^000000";
+		mes "^0000ff*Pelo menos metade de sua história soou muito exagerada, mas algo chamou sua atenção: ele insiste que uma torre monstruosa existe no oceano, e que é tão alta, que raspa no céu.*^000000";
 		in_102tower = 2;
 		close;
 	} else if (in_102tower == 2) {
-		mes "[Captain Janssen]";
-		mes "So all I could do was cast anchor at that humongous tower after my fleet was wrecked. At first, we were only going to stay there until the rainstorm was over, but it didn't end as soon as we had hoped.";
+		mes "[Capitão Janssen]";
+		mes "Então tudo que eu podia fazer era lançar a âncora naquela torre monstruosa depois que minha frota foi destruída. No início, éramos para ficar lá somente até que a tempestade acabasse, mas não chegou a acabar tão cedo quanto esperávamos.";
 		next;
-		mes "[Captain Janssen]";
-		mes "My crew was starving, and a few of them walked into the tower in order to find food... They never came back.";
-		next;
-		mes "["+.@name$+"]";
-		mes "Why didn't you go in there with them?";
-		next;
-		mes "[Captain Janssen]";
-		mes "My instincts told me that tower was dangerous. I was curious, but I wasn't going to risk my life. We waited for them to come back for 7 days until the rainstorm was finally over, but no one returned.";
-		next;
-		mes "[Captain Janssen]";
-		mes "In our desperation to survive, we abandoned all our goods, and left the tower only with a little bit of the water and edible plants we'd found around the tower. When we finally reached land, I was the only one alive...";
-		next;
-		mes "^0000ffYou could imagine the heartwretching scene of the dying fleet on their last voyage, even if he didn't explain it any further. A look of somber regret swept over his face as he remained silent a while, and then he said:^000000";
-		next;
-		mes "[Captain Janssen]";
-		mes "I have something I must do before I die. I must retrieve the remains of my crew that died in the tower, and give them a proper burial.";
-		next;
-		mes "[Captain Janssen]";
-		mes "I feel so lucky to meet a warm-hearted adventurer like you. With the money you've given me, I can finally go sailing to the tower again.";
+		mes "[Capitão Janssen]";
+		mes "Minha equipe estava com fome, e alguns entraram na torre a fim de encontrar alimento... Eles nunca mais voltaram.";
 		next;
 		mes "["+.@name$+"]";
-		mes "How about hiring me as your first mate?";
+		mes "Por que você não foi lá com eles?";
 		next;
-		mes "[Captain Janssen]";
-		mes "Thank you, but it is an extremely dangerous place. I have my duty to fulfill, but you don't have any obligation to me or them. I don't wish to sacrifice someone as young as you to such a dangerous place.";
+		mes "[Capitão Janssen]";
+		mes "Meus instintos me disseram que a torre era perigosa. Fiquei curioso, mas eu não iria arriscar a minha vida. Nós esperamos que eles retornassem por 7 dias até que a tempestade finalmente acabou, mas ninguém retornou.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Em nosso desespero para sobreviver, abandonamos todos os nossos bens, e deixamos a torre somente com um pouco de água e plantas comestíveis que haviamos encontrado ao redor da torre. Quando finalmente em terra firme, eu era o único vivo...";
+		next;
+		mes "^0000ff*Você pôde imaginar a cena desesperadora da frota morrendo em sua última viagem, mesmo que ele não explicasse mais nada. Um olhar de lamento sombrio varreu seu rosto enquanto ele permaneceu em silêncio, e então ele disse:*^000000";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Tenho algo que devo fazer antes de morrer. Preciso recuperar os restos mortais da minha tripulação que morreu na torre, e dar-lhes um enterro apropriado.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Me sinto tão afortunado por receber um aventureiro caloroso como você. Com o dinheiro que você me deu, finalmente posso velejar até a torre novamente.";
 		next;
 		mes "["+.@name$+"]";
-		mes "No...";
-		mes ".";
-		mes ".";
-		mes "As an adventurer, there's my obligation to those in need. I'm also very curious about that place...";
+		mes "Que tal me contratar como seu primeiro marujo?";
 		next;
-		mes "[Captain Janssen]";
-		mes "I was going to leave right away, but since you've joined me, I should give you time to prepare. I'll be waiting here until you're ready to go.";
+		mes "[Capitão Janssen]";
+		mes "Obrigado, mas é um lugar extremamente perigoso. Tenho deveres à cumprir e você não tem nenhuma obrigação comigo ou com eles. Não quero sacrificar alguém tão jovem como você para ir a um lugar tão perigoso.";
 		next;
-		mes "[Captain Janssen]";
-		mes "...Okay then...";
-		mes "Welcome aboard, first mate.";
+		mes "["+.@name$+"]";
+		mes "Não...";
+		mes "...";
+		mes "...";
+		mes "Como um aventureiro, é minha obrigação ajudar aqueles que precisam. Também estou muito curioso sobre esse lugar...";
+		next;
+		mes "[Capitão Janssen]";
+		mes "Eu já ia sair imediatamente, mas desde que você se juntou a mim, devo dar-lhe tempo para se preparar. Estarei aqui esperando até que você esteja pronto para ir.";
+		next;
+		mes "[Capitão Janssen]";
+		mes "...então ok...";
+		mes "Bem vindo à bordo, primeiro marujo.";
 		in_102tower = 3;
 		close;
 	} else if (in_102tower == 3) {
-		mes "[Captain Janssen]";
-		mes "Shall we leave now?";
+		mes "[Capitão Janssen]";
+		mes "Vamos partir agora?";
 		next;
-		switch(select("Yes, let's go!:No, I'm not quite ready...")) {
+		switch(select("Sim, vamos!:Não, ainda não estou pronto...")) {
 		case 1:
-			mes "[Captain Janssen]";
-			mes "Then pull up the anchor, first mate!";
+			mes "[Capitão Janssen]";
+			mes "Em seguida puxe a âncora, primeiro marujo!";
 			close2;
 			in_102tower = 4;
 			warp "e_tower",70,114;
 			end;
 		case 2:
-			mes "[Captain Janssen]";
-			mes "Sure, no problem. Come back when you're ready.";
+			mes "[Capitão Janssen]";
+			mes "Claro, sem problemas. Volte quando estiver pronto.";
 			close;
 		}
 	} else if (in_102tower > 3) {
-		mes "[Captain Janssen]";
-		mes "Well, to travel the ocean again, we need to restock on goods. If you give me 10,000 Zeny, I'll take care of the rest.";
+		mes "[Capitão Janssen]";
+		mes "Bem, para viajar pelo oceano novamente, precisamos repor os suprimentos. Se você me der 10.000 zenys, eu cuido do resto.";
 		next;
-		switch(select("I'll come back later.:Let's go, now!")) {
+		switch(select("Voltarei depois.:Vamos, agora!")) {
 		case 1:
 			mes "["+.@name$+"]";
-			mes "I'm sorry, but I don't have that much money. I'll come back when I save enough.";
+			mes "Me desculpe, mas não tenho muito dinheiro. Vou voltar quando economizar o suficiente.";
 			next;
-			mes "[Captain Janssen]";
-			mes "Sure, no problem. I'll be waiting for your return.";
+			mes "[Capitão Janssen]";
+			mes "Claro, sem problemas. Estarei esperando pelo seu retorno.";
 			close;
 		case 2:
 			if (Zeny < 10000) {
-				mes "[Captain Janssen]";
-				mes "I'm sorry, but you don't have enough money. I need at least 10,000 Zeny to restock our supplies...";
+				mes "[Capitão Janssen]";
+				mes "Me desculpe, mas você não tem dinheiro suficiente. Preciso de pelo menos 10.000 zenys para reabastecer os nossos suprimentos...";
 				close;
 			}
 			else {
-				mes "[Captain Janssen]";
-				mes "Excellent! Now we're good to go. Let's pull up the anchor again!";
+				mes "[Capitão Janssen]";
+				mes "Excelente! Agora estamos prontos para ir. Vamos levantar a âncora de novo!";
 				Zeny -= 10000;
 				close2;
 				warp "e_tower",70,114;
@@ -149,39 +154,39 @@ alberta,214,77,6	script	Captain Janssen	4_M_SEAMAN,{
 			}
 		}
 	} else {
-		mes "[Captain Janssen]";
-		mes "Excuse me, are you an adventurer?";
+		mes "[Capitão Janssen]";
+		mes "Desculpe-me, você é um aventureiro?";
 		next;
-		mes "[Captain Janssen]";
-		mes "I'm sorry to ask you this, especially when this is the first time we've ever met, but can you do me a favor? I'll make it short.";
+		mes "[Capitão Janssen]";
+		mes "Desculpe perguntar isso, principalmente quando esta é a primeira vez que nos vemos, mas você pode me fazer um favor? Serei breve.";
 		next;
-		mes "[Captain Janssen]";
-		mes "Can you donate ^0000ff10,000 Zeny^000000 to me? It's for a cause that's important to me...";
+		mes "[Capitão Janssen]";
+		mes "Você pode me doar ^0000ff10.000^000000 zenys? É por uma causa importante...";
 		next;
 		switch(select("No!:Sure thing.")) {
 		case 1:
 			mes "["+.@name$+"]";
-			mes "I'm sorry, but you've got the wrong person to ask that.";
+			mes "Me desculpe, mas você perguntou isso a pessoa errada.";
 			next;
-			mes "[Captain Janssen]";
-			mes "I see... Sorry to bother you. I understand it was too rude to ask something like that to begin with.";
+			mes "[Capitão Janssen]";
+			mes "Entendo... Desculpe incomodá-lo. Entendo que seria muito rude perguntar algo assim.";
 			close;
 		case 2:
-			mes "[Captain Janssen]";
-			mes "Huh? Are you sure that you don't mind giving me that much money? Wow, thank you so much!";
+			mes "[Capitão Janssen]";
+			mes "Hã? Tem certeza que você não se importa em me dar tanto dinheiro? Uau, muito obrigado!";
 			next;
 			if (Zeny < 10000) {
-				mes "[Captain Janssen]";
-				mes "...I'm sorry, but I don't think you have 10,000 Zeny. Thank you for your kindness, but I need more than that.";
+				mes "[Capitão Janssen]";
+				mes "...Sinto muito, mas eu não acho que você tenha 10.000 zenys. Obrigado pela sua gentileza, mas eu preciso mais do que isso.";
 				close;
 			} else {
 				mes "["+.@name$+"]";
-				mes "I don't know why you'd need so much money, but here. You can take it.";
+				mes "Eu não sei porque você precisa de tanto dinheiro, mas aqui está. Pode pegar.";
 				next;
-				mes "^0000ffYou have donated 10,000 Zeny to Captain Janssen^000000.";
+				mes "^0000ff*Você doou 10.000 zenys para o Capitão Janssen*^000000.";
 				next;
-				mes "[Captain Janssen]";
-				mes "Thank you so much! Now I can stock up on food and materials for my ship. You're kind, very kind!";
+				mes "[Capitão Janssen]";
+				mes "Muito obrigado! Agora posso estocar alimentos e materiais para o meu navio. Você é gentil e muito amável!";
 				Zeny -= 10000;
 				in_102tower = 1;
 				close;
@@ -190,17 +195,17 @@ alberta,214,77,6	script	Captain Janssen	4_M_SEAMAN,{
 	}
 }
 
-e_tower,81,105,0	script	Tower Protection Stone	2_MONEMUS,{
+e_tower,81,105,0	script	Pedra de Proteção da Torre	2_MONEMUS,{
 
 	.@party_id = getcharid(1);
 	.@p_name$ = getpartyname(.@party_id);
-	.@md_name$ = "Endless Tower";
+	.@md_name$ = "Torre sem Fim";
 
-	.@etower_timer = questprogress(60200,PLAYTIME); // 1 week
-	.@etower_timer2 = questprogress(60201,PLAYTIME); // 4 hours
+	.@etower_timer = questprogress(60200,PLAYTIME); // 1 Semana
+	.@etower_timer2 = questprogress(60201,PLAYTIME); // 4 horas
 
 	if (!instance_check_party(.@party_id,2)) {
-		mes "Make or join a party with more than 1 member and try again.";
+		mes "Crie ou participe de um grupo com mais de 1 membro e tente novamente.";
 		close;
 	}
 	if (!.@etower_timer) {
