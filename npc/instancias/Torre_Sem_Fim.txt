@@ -451,23 +451,23 @@ function	script	F_Tower_Monster	{
 		areamonster .@map$,181,267,191,303,"Soldadinho de Chumbo",1248,15,.@label$;
 		break;
 	case 9:
-		areamonster .@map$,267,267,277,303,"Obsidian",1615,15,.@label$;
+		areamonster .@map$,267,267,277,303,"Obsidiana",1615,15,.@label$;
 		areamonster .@map$,267,267,277,303,"Golem",1040,15,.@label$;
 		areamonster .@map$,267,267,277,303,"Stapo",1784,10,.@label$;
 		break;
 	case 10:
-		areamonster .@map$,352,267,362,303,"Mistress",1059,1,.@label$;
-		areamonster .@map$,352,267,362,303,"Giant Hornet",1303,25,.@label$;
-		areamonster .@map$,352,267,362,303,"Hornet",1004,20,.@label$;
+		areamonster .@map$,352,267,362,303,"Abelha-Rainha",1059,1,.@label$;
+		areamonster .@map$,352,267,362,303,"Zangão Gigante",1303,25,.@label$;
+		areamonster .@map$,352,267,362,303,"Zangão",1004,20,.@label$;
 		break;
 	case 11:
-		areamonster .@map$,9,180,19,216,"Dryad",1493,15,.@label$;
-		areamonster .@map$,9,180,19,216,"Parasite",1500,15,.@label$;
-		areamonster .@map$,9,180,19,216,"Hermit Plant",1413,15,.@label$;
+		areamonster .@map$,9,180,19,216,"Dríade",1493,15,.@label$;
+		areamonster .@map$,9,180,19,216,"Parasita",1500,15,.@label$;
+		areamonster .@map$,9,180,19,216,"Ermitão Plant",1413,15,.@label$;
 		areamonster .@map$,9,180,19,216,"Rafflesia",1162,5,.@label$;
 		break;
 	case 12:
-		areamonster .@map$,93,180,103,216,"Demon Pungus",1378,25,.@label$;
+		areamonster .@map$,93,180,103,216,"Fungus",1378,25,.@label$;
 		areamonster .@map$,93,180,103,216,"Punk",1199,25,.@label$;
 		break;
 	case 13:
@@ -476,45 +476,45 @@ function	script	F_Tower_Monster	{
 		areamonster .@map$,181,180,191,216,"Munak",1026,10,.@label$;
 		break;
 	case 14:
-		areamonster .@map$,267,180,277,216,"High Orc",1213,15,.@label$;
-		areamonster .@map$,267,180,277,216,"Orc Archer",1189,10,.@label$;
-		areamonster .@map$,267,180,277,216,"Orc Lady",1273,10,.@label$;
-		areamonster .@map$,267,180,277,216,"Orc Warrior",1023,5,.@label$;
-		areamonster .@map$,267,180,277,216,"Orc Baby",1686,5,.@label$;
+		areamonster .@map$,267,180,277,216,"Grand Orc",1213,15,.@label$;
+		areamonster .@map$,267,180,277,216,"Orc Arqueiro",1189,10,.@label$;
+		areamonster .@map$,267,180,277,216,"Senhora Orc",1273,10,.@label$;
+		areamonster .@map$,267,180,277,216,"Guerreiro Orc",1023,5,.@label$;
+		areamonster .@map$,267,180,277,216,"Filhote de Orc",1686,5,.@label$;
 		break;
 	case 15:
 		areamonster .@map$,352,180,362,216,"Maya",1147,1,.@label$;
-		areamonster .@map$,352,180,362,216,"Phreeoni",1159,1,.@label$;
+		areamonster .@map$,352,180,362,216,"Freeoni",1159,1,.@label$;
 		areamonster .@map$,352,180,362,216,"Deniro",1105,15,.@label$;
 		areamonster .@map$,352,180,362,216,"Pierre",1160,15,.@label$;
 		areamonster .@map$,352,180,362,216,"Andre",1095,15,.@label$;
-		areamonster .@map$,352,180,362,216,"Ant Egg",1097,5,.@label$;
+		areamonster .@map$,352,180,362,216,"Ovo de Andre",1097,5,.@label$;
 		break;
 	case 16:
-		areamonster .@map$,9,96,19,132,"Raydric Archer",1276,10,.@label$;
-		areamonster .@map$,9,96,19,132,"Orc Archer",1189,10,.@label$;
-		areamonster .@map$,9,96,19,132,"Gargoyle",1253,10,.@label$;
-		areamonster .@map$,9,96,19,132,"Archer Skeleton",1016,10,.@label$;
+		areamonster .@map$,9,96,19,132,"Raydric Arqueiro",1276,10,.@label$;
+		areamonster .@map$,9,96,19,132,"Orc Arqueiro",1189,10,.@label$;
+		areamonster .@map$,9,96,19,132,"Gárgula",1253,10,.@label$;
+		areamonster .@map$,9,96,19,132,"Esqueleto Arqueiro",1016,10,.@label$;
 		break;
 	case 17:
-		areamonster .@map$,93,96,103,132,"Merman",1264,10,.@label$;
-		areamonster .@map$,93,96,103,132,"Baphomet Jr.",1101,10,.@label$;
+		areamonster .@map$,93,96,103,132,"Tritão",1264,10,.@label$;
+		areamonster .@map$,93,96,103,132,"Bafomé Jr.",1101,10,.@label$;
 		areamonster .@map$,93,96,103,132,"Strouf",1065,15,.@label$;
-		areamonster .@map$,93,96,103,132,"Hill Wind",1629,5,.@label$;
+		areamonster .@map$,93,96,103,132,"Vento da Colina",1629,5,.@label$;
 		break;
 	case 18:
-		areamonster .@map$,181,96,191,132,"Cramp",1209,25,.@label$;
+		areamonster .@map$,181,96,191,132,"Cãibra",1209,25,.@label$;
 		areamonster .@map$,181,96,191,132,"Tarou",1175,15,.@label$;
 		break;
 	case 19:
 		areamonster .@map$,267,96,277,132,"Deviace",1108,10,.@label$;
 		areamonster .@map$,267,96,277,132,"Megalodon",1064,10,.@label$;
-		areamonster .@map$,267,96,277,132,"Swordfish",1069,10,.@label$;
-		areamonster .@map$,267,96,277,132,"Phen",1158,10,.@label$;
+		areamonster .@map$,267,96,277,132,"Peixe-Espada",1069,10,.@label$;
+		areamonster .@map$,267,96,277,132,"Fen",1158,10,.@label$;
 		break;
 	case 20:
 		areamonster .@map$,352,96,362,132,"Drake",1112,1,.@label$;
-		areamonster .@map$,352,96,362,132,"Pirate Skeleton",1071,50,.@label$;
+		areamonster .@map$,352,96,362,132,"Esqueleto Pirata",1071,50,.@label$;
 		break;
 	case 21:
 		areamonster .@map$,9,9,19,45,"Plasma",1693,10,.@label$;
@@ -527,16 +527,16 @@ function	script	F_Tower_Monster	{
 		areamonster .@map$,93,9,103,45,"Muscipular",1780,15,.@label$;
 		areamonster .@map$,93,9,103,45,"Drosera",1781,15,.@label$;
 		areamonster .@map$,93,9,103,45,"Flora",1118,15,.@label$;
-		areamonster .@map$,93,9,103,45,"Hydra",1068,15,.@label$;
+		areamonster .@map$,93,9,103,45,"Hidra",1068,15,.@label$;
 		areamonster .@map$,93,9,103,45,"Mandragora",1020,10,.@label$;
 		areamonster .@map$,93,9,103,45,"Rafflesia",1162,10,.@label$;
 		break;
 	case 23:
 		areamonster .@map$,181,9,191,45,"Penomena",1216,15,.@label$;
 		areamonster .@map$,181,9,191,45,"Obeaune",1044,10,.@label$;
-		areamonster .@map$,181,9,191,45,"Marse",1144,10,.@label$;
-		areamonster .@map$,181,9,191,45,"Swordfish",1069,10,.@label$;
-		areamonster .@map$,181,9,191,45,"Hydra",1068,5,.@label$;
+		areamonster .@map$,181,9,191,45,"Marte",1144,10,.@label$;
+		areamonster .@map$,181,9,191,45,"Peixe-Espada",1069,10,.@label$;
+		areamonster .@map$,181,9,191,45,"Hidra",1068,5,.@label$;
 		break;
 	case 24:
 		areamonster .@map$,267,9,277,45,"Joker",1131,15,.@label$;
