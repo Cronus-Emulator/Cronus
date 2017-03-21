@@ -1360,10 +1360,10 @@ OnInstanceInit:
 
 OnTimer15000:
 OnTimer60000:
-	mapannounce instance_mapname("1@tower"), "Notice : In any abnormal situation where you defeat a monster, you can't advance to the next level!",bc_map,"0xff0000";
+	mapannounce instance_mapname("1@tower"), "Aviso: Em situações anormais quando você derrota um monstro, você não pode avançar para o próximo nível!",bc_map,"0xff0000";
 	end;
 OnTimer120000:
-	mapannounce instance_mapname("1@tower"), "Notice : In any abnormal situation where you defeat a monster, you can't advance to the next level!",bc_map,"0xff0000";
+	mapannounce instance_mapname("1@tower"), "Aviso: Em situações anormais quando você derrota um monstro, você não pode avançar para o próximo nível!",bc_map,"0xff0000";
 	stopnpctimer;
 	end;
 }
@@ -1374,46 +1374,46 @@ OnTimer120000:
 	.@i = callfunc("F_GM_NPC","dmc2008",1);
 	next;
 	if (.@i == 1) {
-		mes "This NPC manages the tower from the 1st to the 25th Level.";
-		mes "Please enter the Level number to open.";
-		mes "(i.g.: 1F->1, 25F->25)";
+		mes "Este NPC controla a torre do 1° ao 25° andar.";
+		mes "Por favor, digite o número do andar que queira abrir:";
+		mes "(ex.: 1F->1, 25F->25)";
 		input .@input,1,25;
 		next;
 		if (.@input < 1 || .@input > 25)
-			mes "You can only enter a number from 1 to 25.";
+			mes "Digite apenas números entre 1 e 25.";
 		else {
 			donpcevent instance_npcname(.@input+"FGate102tower")+"::OnEnable";
-			mes "*** Level "+ .@input + " is now being opened. ***";
+			mes "*** "+ .@input + "° andar está abrindo. ***";
 		}
 	}
 	close;
 }
 
-// Levels 26-50
+// Andar 26-50
 //============================================================
-2@tower,29,365,2	script	Immortal Furnace#1	CLEAR_NPC,{
+2@tower,29,365,2	script	Fornalha Imortal#1	CLEAR_NPC,{
 	end;
 
 OnInstanceInit:
 	callfunc "F_Tower_Monster",
 		26,
 		instance_mapname("2@tower"),
-		instance_npcname("Immortal Furnace#1")+"::OnMyMobDead";
+		instance_npcname("Fornalha Imortal#1")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
 	.@map$ = instance_mapname("2@tower");
-	.@mob_dead_num = mobcount(.@map$,instance_npcname("Immortal Furnace#1")+"::OnMyMobDead");
+	.@mob_dead_num = mobcount(.@map$,instance_npcname("Fornalha Imortal#1")+"::OnMyMobDead");
 	if (.@mob_dead_num < 1) {
 		initnpctimer;
 		//SetItemPartyInMap in_102floor 26
 	}
 	else
-		mapannounce .@map$, "Remaining Monsters on the 26th Level - " + .@mob_dead_num,bc_map,"0x00ff99";
+		mapannounce .@map$, "Monstros vivos no 26° andar: " + .@mob_dead_num,bc_map,"0x00ff99";
 	end;
 
 OnTimer5000:
-	mapannounce instance_mapname("2@tower"), "All Monsters on the 26th Level have been defeated.",bc_map,"0xffff00";
+	mapannounce instance_mapname("2@tower"), "Todos os monstros no 26° andar foram derrotados.",bc_map,"0xffff00";
 	donpcevent instance_npcname("26FGate102tower")+"::OnEnable";
 	stopnpctimer;
 	end;
@@ -1490,46 +1490,46 @@ OnTouch_:
 	.@i = callfunc("F_GM_NPC","dmc2008",1);
 	next;
 	if (.@i == 1) {
-		mes "This NPC manages the tower from the 26st to the 50th Level.";
-		mes "Please enter the Level number to open.";
-		mes "(i.g.: 26F->26, 50F->50)";
+		mes "Este NPC controla a torre do 26° até o 50° andar.";
+		mes "Por favor, digite o número do andar que queira abrir.";
+		mes "(ex.: 26F->26, 50F->50)";
 		input .@input,26,50;
 		next;
 		if (.@onput < 26 || .@input > 50)
-			mes "You can only enter a number from 26 to 50.";
+			mes "Você deve digitar apenas números entre 26 e 50.";
 		else {
 			donpcevent instance_npcname(.@input+"FGate102tower")+"::OnEnable";
-			mes "*** Level "+ .@input + " is now being opened. ***";
+			mes "*** "+ .@input + "° andar está sendo aberto. ***";
 		}
 	}
 	close;
 }
 
-// Levels 51-75
+// Andar 51-75
 //============================================================
-3@tower,29,365,2	script	Immortal Furnace#2	CLEAR_NPC,{
+3@tower,29,365,2	script	Fornalha Imortal#2	CLEAR_NPC,{
 	end;
 
 OnInstanceInit:
 	callfunc "F_Tower_Monster",
 		51,
 		instance_mapname("3@tower"),
-		instance_npcname("Immortal Furnace#2")+"::OnMyMobDead";
+		instance_npcname("Fornalha Imortal#2")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
 	.@map$ = instance_mapname("3@tower");
-	.@mob_dead_num = mobcount(.@map$,instance_npcname("Immortal Furnace#2")+"::OnMyMobDead");
+	.@mob_dead_num = mobcount(.@map$,instance_npcname("Fornalha Imortal#2")+"::OnMyMobDead");
 	if (.@mob_dead_num < 1) {
 		initnpctimer;
 		//SetItemPartyInMap in_102floor 51
 	}
 	else
-		mapannounce .@map$, "Remaining Monsters on the 51st Level - " + .@mob_dead_num,bc_map,"0x00ff99";
+		mapannounce .@map$, "Monstros vivos no 51° andar: " + .@mob_dead_num,bc_map,"0x00ff99";
 	end;
 
 OnTimer5000:
-	mapannounce instance_mapname("3@tower"), "All Monsters on the 51st Level have been defeated.",bc_map,"0xffff00";
+	mapannounce instance_mapname("3@tower"), "Todos os monstros no 51° andar foram derrotados.",bc_map,"0xffff00";
 	donpcevent instance_npcname("51FGate102tower")+"::OnEnable";
 	stopnpctimer;
 	end;
@@ -1606,46 +1606,46 @@ OnTouch_:
 	.@i = callfunc("F_GM_NPC","dmc2008",1);
 	next;
 	if (.@i == 1) {
-		mes "This NPC manages the tower from the 51st to the 75th Level.";
-		mes "Please enter the Level number to open.";
-		mes "(i.g.: 51F->51, 75F->75)";
+		mes "Este NPC controla a torre do 51° ao 75° andar.";
+		mes "Por favor, digite o número do andar que queira abrir.";
+		mes "(ex.: 51F->51, 75F->75)";
 		input .@input,51,75;
 		next;
 		if (.@input < 51 || .@input > 75)
-			mes "You can only enter a number from 51 to 75.";
+			mes "Você deve digitar apenas números entre 51 e 75.";
 		else {
 			donpcevent instance_npcname(.@input+"FGate102tower")+"::OnEnable";
-			mes "*** Level "+ .@input + " is now being opened. ***";
+			mes "*** "+ .@input + "° andar está sendo aberto. ***";
 		}
 	}
 	close;
 }
 
-// Levels 76-99
+// Andares 76-99
 //============================================================
-4@tower,29,365,2	script	Immortal Furnace#3	CLEAR_NPC,{
+4@tower,29,365,2	script	Fornalha Imortal#3	CLEAR_NPC,{
 	end;
 
 OnInstanceInit:
 	callfunc "F_Tower_Monster",
 		76,
 		instance_mapname("4@tower"),
-		instance_npcname("Immortal Furnace#3")+"::OnMyMobDead";
+		instance_npcname("Fornalha Imortal#3")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
 	.@map$ = instance_mapname("4@tower");
-	.@mob_dead_num = mobcount(.@map$,instance_npcname("Immortal Furnace#3")+"::OnMyMobDead");
+	.@mob_dead_num = mobcount(.@map$,instance_npcname("Fornalha Imortal#3")+"::OnMyMobDead");
 	if (.@mob_dead_num < 1) {
 		initnpctimer;
 		//SetItemPartyInMap in_102floor 76
 	}
 	else
-		mapannounce .@map$,"Remaining Monsters on the 76th Level - " + .@mob_dead_num,bc_map,"0x00ff99";
+		mapannounce .@map$,"Monstros vivos no 76° andar: " + .@mob_dead_num,bc_map,"0x00ff99";
 	end;
 
 OnTimer5000:
-	mapannounce instance_mapname("4@tower"),"All Monsters on the 76th Level have been defeated.",bc_map,"0xffff00";
+	mapannounce instance_mapname("4@tower"),"Todos os monstros no 76° andar foram derrotados.",bc_map,"0xffff00";
 	donpcevent instance_npcname("76FGate102tower")+"::OnEnable";
 	stopnpctimer;
 	end;
@@ -1721,59 +1721,59 @@ OnTouch_:
 	.@i = callfunc("F_GM_NPC","dmc2008",1);
 	next;
 	if (.@i == 1) {
-		mes "This NPC manages the tower from the 76th to the 99th Level.";
-		mes "Please enter the Level number to open.";
-		mes "(i.g.: 76F->76, 99F->99)";
+		mes "Este NPC controla a torre do 76° ao 99° andar.";
+		mes "Por favor, digite o número do andar que queira abrir.";
+		mes "(ex.: 76F->76, 99F->99)";
 		input .@input,76,99;
 		next;
 		if (.@input < 76 || .@input > 99)
-			mes "You can only enter a number from 76 to 99.";
+			mes "Você deve digitar apenas números entre 76 e 99.";
 		else {
 			donpcevent instance_npcname(.@input+"FGate102tower")+"::OnEnable";
-			mes "*** Level "+ .@input + " is now being opened. ***";
+			mes "*** "+ .@input + "° andar está sendo aberto. ***";
 		}
 	}
 	close;
 }
 
-// Level 100
+// Centésimo Andar
 //============================================================
-5@tower,106,109,2	script	Lucid Crystal#102	CLEAR_NPC,{
+5@tower,106,109,2	script	Cristal Translúcido#102	CLEAR_NPC,{
 	if (in_102tower < 10) {
-		mes "^0000ffA mysterious voice echoes through the room as you touch the lucid crystal radiating a strong light.^000000";
+		mes "^0000ff*Uma misteriosa voz ecoa pela sala dizendo para você tocar o cristal translúcido que está irradiando uma luz forte.*^000000";
 		next;
-		mes "[Mysterious Voice]";
-		mes "Welcome to my place, intruders. I've had fun watching you endure all the difficulties I've set before you.";
+		mes "[Voz Misteriosa]";
+		mes "Bem-vindo ao meu lar, intrusos. Eu me diverti vendo vocês suportarem todas as dificuldades que eu tenho posto diante de vocês.";
 		next;
-		mes "[Mysterious Voice]";
-		mes "Unfortunately, the time has come to end the show.";
+		mes "[Voz Misteriosa]";
+		mes "Infelizmente, chegou a hora de terminar o show.";
 		next;
-		mes "[Mysterious Voice]";
-		mes "It's still too early to celebrate your victory against my right-hand man Knothen because he isn't completely destroyed!";
+		mes "[Voz Misteriosa]";
+		mes "Ainda é muito cedo para comemorar a vitória contra o meu braço direito Knothen porque ele não está completamente destruído!";
 		next;
-		mes "[Mysterious Voice]";
-		mes "I shall resurrect him for your next show. Defeat him again, and then I'll gladly accept your challenge.";
+		mes "[Voz Misteriosa]";
+		mes "Vou ressuscitá-lo para o próximo show. Derrote-o novamente, e então aceitarei com prazer o desafio de vocês.";
 		next;
-		mes "[Mysterious Voice]";
-		mes "Good-bye for now.";
-		mes "Once again, I had such a great time, humans. I look forward to seeing you again.";
+		mes "[Voz Misteriosa]";
+		mes "Até logo.";
+		mes "Mais uma vez, havia um bom tempo, os seres humanos. Estou ansioso para vê-los novamente.";
 		next;
-		mes "^0000ffAs soon as the voice stopped talking, an irresistible force lifted and moved you somewhere else.";
+		mes "^0000ff*Assim que a voz parou de falar, uma força irresistível o levantou e lhe moveu para algum lugar.*";
 		close2;
 		in_102tower = 10;
 		warp "alberta",223,36;
 	}
 	else {
-		mes "^0000ffThe radiating crystal piece seems to beckon you, just like last time.^000000";
+		mes "^0000ff*A peça de cristal irradiando parece acenar para você, assim como da última vez.*^000000";
 		next;
-		mes "[Mysterious Voice]";
-		mes "I must have underestimated you... I didn't expect to see you again.";
+		mes "[Voz Misteriosa]";
+		mes "Devo ter subestimado você... Eu não esperava vê-lo novamente.";
 		next;
-		mes "[Mysterious Voice]";
-		mes "I can smell your sweat, hear the gasps of your exhaustion in combat. Ah~ The human desire for victory always excites me.";
+		mes "[Voz Misteriosa]";
+		mes "Posso sentir o seu suor, ouvir os suspiros de cansaço em combate. Ah~ O desejo humano pela vitória sempre me excita.";
 		next;
-		mes "[Mysterious Voice]";
-		mes "I now allow you to come receive an audience from me. Come to me, to Nacht Sieger the Hegemon-King of the Darkness!";
+		mes "[Voz Misteriosa]";
+		mes "Agora permito que você venha ao meu encontro. Venha até mim, para o grande Naght Sieger o Rei dos reis das Trevas!";
 		close2;
 		warp instance_mapname("6@tower"),32,12;
 	}
@@ -1781,11 +1781,11 @@ OnTouch_:
 
 OnInstanceInit:
 OnDisable:
-	disablenpc instance_npcname("Lucid Crystal#102");
+	disablenpc instance_npcname("Cristal Translúcido#102");
 	end;
 
 OnEnable:
-	enablenpc instance_npcname("Lucid Crystal#102");
+	enablenpc instance_npcname("Cristal Translúcido#102");
 	donpcevent instance_npcname("#102Effect1")+"::OnEnable";
 	end;
 }
@@ -1848,9 +1848,9 @@ OnMyMobDead:
 	.@map$ = instance_mapname("5@tower");
 	.@mob_dead_num = mobcount(.@map$,instance_npcname("#102FShadowDust1")+"::OnMyMobDead");
 	if (.@mob_dead_num < 1) {
-		mapannounce .@map$, "Mysterious Voice: Who are you to dare intrude upon my sanctuary?!",bc_map,"0xffff00";
+		mapannounce .@map$, "Voz misteriosa: Quem é você para ousar invadir o meu santuário?!",bc_map,"0xffff00";
 		donpcevent instance_npcname("#102FShadowDust")+"::OnDisable";
-		donpcevent instance_npcname("Lucid Crystal#102")+"::OnEnable";
+		donpcevent instance_npcname("Cristal Translúcido#102")+"::OnEnable";
 		//SetItemPartyInMap in_102floor 100
 	}
 	end;
@@ -1869,70 +1869,70 @@ OnDisable:
 
 OnEnable:
 	.@map$ = instance_mapname("5@tower");
-	monster .@map$,72,93,"Thorny Skeleton",1958,1;
-	monster .@map$,70,87,"Thorn of Magic",1960,1;
-	monster .@map$,68,83,"Thorn of Pureness",1961,1;
-	monster .@map$,70,80,"Thorny Skeleton",1958,1;
-	monster .@map$,74,81,"Thorn of Magic",1960,1;
-	monster .@map$,78,72,"Thorn of Magic",1960,1;
-	monster .@map$,81,70,"Thorny Skeleton",1958,1;
-	monster .@map$,78,84,"Thorn of Recovery",1959,1;
-	monster .@map$,85,72,"Thorn of Magic",1960,1;
-	monster .@map$,91,74,"Thorny Skeleton",1958,1;
-	monster .@map$,79,77,"Thorn of Pureness",1961,1;
-	monster .@map$,82,80,"Thorn of Recovery",1959,1;
-	monster .@map$,87,83,"Thorn of Recovery",1959,1;
-	monster .@map$,80,92,"Thorn of Pureness",1961,1;
-	monster .@map$,81,89,"Thorny Skeleton",1958,1;
-	monster .@map$,85,93,"Thorn of Magic",1960,1;
-	monster .@map$,86,90,"Thorn of Recovery",1959,1;
-	monster .@map$,88,88,"Thorny Skeleton",1958,1;
-	monster .@map$,91,87,"Thorn of Magic",1960,1;
-	monster .@map$,95,94,"Thorn of Magic",1960,1;
-	monster .@map$,91,96,"Thorny Skeleton",1958,1;
-	monster .@map$,90,82,"Thorn of Pureness",1961,1;
-	monster .@map$,96,98,"Thorn of Magic",1960,1;
-	monster .@map$,83,76,"Thorny Skeleton",1958,1;
-	monster .@map$,74,85,"Thorny Skeleton",1958,1;
+	monster .@map$,72,93,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,70,87,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,68,83,"Esqueleto Espinhoso",1961,1;
+	monster .@map$,70,80,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,74,81,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,78,72,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,81,70,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,78,84,"Esqueleto Espinhoso",1959,1;
+	monster .@map$,85,72,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,91,74,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,79,77,"Esqueleto Espinhoso",1961,1;
+	monster .@map$,82,80,"Esqueleto Espinhoso",1959,1;
+	monster .@map$,87,83,"Esqueleto Espinhoso",1959,1;
+	monster .@map$,80,92,"Esqueleto Espinhoso",1961,1;
+	monster .@map$,81,89,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,85,93,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,86,90,"Esqueleto Espinhoso",1959,1;
+	monster .@map$,88,88,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,91,87,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,95,94,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,91,96,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,90,82,"Esqueleto Espinhoso",1961,1;
+	monster .@map$,96,98,"Esqueleto Espinhoso",1960,1;
+	monster .@map$,83,76,"Esqueleto Espinhoso",1958,1;
+	monster .@map$,74,85,"Esqueleto Espinhoso",1958,1;
 	switch(rand(1,3)) {
-		case 1: monster .@map$,82,85,"Thorny Skeleton",1958,1; break;
-		case 2: monster .@map$,82,85,"Thorn of Magic",1960,1; break;
-		case 3: monster .@map$,82,85,"Thorn of Pureness",1961,1; break;
+		case 1: monster .@map$,82,85,"Esqueleto Espinhoso",1958,1; break;
+		case 2: monster .@map$,82,85,"Esqueleto Espinhoso",1960,1; break;
+		case 3: monster .@map$,82,85,"Esqueleto Espinhoso",1961,1; break;
 	}
 	switch(rand(1,3)) {
-		case 1: monster .@map$,84,85,"Thorny Skeleton",1958,1; break;
-		case 2: monster .@map$,84,85,"Thorn of Magic",1960,1; break;
-		case 3: monster .@map$,84,85,"Thorn of Pureness",1961,1; break;
+		case 1: monster .@map$,84,85,"Esqueleto Espinhoso",1958,1; break;
+		case 2: monster .@map$,84,85,"Esqueleto Espinhoso",1960,1; break;
+		case 3: monster .@map$,84,85,"Esqueleto Espinhoso",1961,1; break;
 	}
 	end;
 }
 
 5@tower,71,1,0	script	#Manager Mode5	CLEAR_NPC,{
 	callfunc "F_GM_NPC";
-	mes "This NPC manages the crystal on the 100th Level. Please enter the password.";
+	mes "Este NPC controla o cristal no 100° andar. Por favor, digite a senha.";
 	.@i = callfunc("F_GM_NPC","dmc2008",1);
 	next;
 	if (.@i == 1) {
-		donpcevent instance_npcname("Lucid Crystal#102")+"::OnEnable";
-		mes "The 100th Level's crystal has been activated.";
+		donpcevent instance_npcname("Cristal Translúcido#102")+"::OnEnable";
+		mes "O cristal do 100° andar foi ativado.";
 	} else
-		mes "Please enter the correct password.";
+		mes "Por favor, digite a senha correta.";
 	close;
 }
 
-// Level 101
+// Andar 101
 //============================================================
-6@tower,45,89,2	script	Life Spring#1	CLEAR_NPC,{
-	mes "^0066ffYou took a sip of the spring's clear water, and you feel invigorated.^000000";
+6@tower,45,89,2	script	Fonte da Vida#1	CLEAR_NPC,{
+	mes "^0066ff*Você tomou um gole de água límpida e sentiu-se revigorado.*^000000";
 	heal (MaxHp-Hp),(MaxSp-Sp);
 	close;
 
 OnInstanceInit:
-	donpcevent instance_npcname("Life Spring#2")+"::OnEnable";
+	donpcevent instance_npcname("Fonte da Vida#2")+"::OnEnable";
 	end;
 }
 
-6@tower,45,89,2	script	Life Spring#2	CLEAR_NPC,{
+6@tower,45,89,2	script	Fonte da Vida#2	CLEAR_NPC,{
 	end;
 
 OnEnable:
@@ -1942,11 +1942,11 @@ OnEnable:
 
 OnTimer2000:
 	stopnpctimer;
-	donpcevent instance_npcname("Life Spring#3")+"::OnEnable";
+	donpcevent instance_npcname("Fonte da Vida#3")+"::OnEnable";
 	end;
 }
 
-6@tower,45,89,2	script	Life Spring#3	CLEAR_NPC,{
+6@tower,45,89,2	script	Fonte da Vida#3	CLEAR_NPC,{
 	end;
 
 OnEnable:
@@ -1956,24 +1956,24 @@ OnEnable:
 
 OnTimer2000:
 	stopnpctimer;
-	donpcevent instance_npcname("Life Spring#2")+"::OnEnable";
+	donpcevent instance_npcname("Fonte da Vida#2")+"::OnEnable";
 	end;
 }
 
 6@tower,32,100,0	warp	102FGate102tower	2,2,6@tower,155,64
 
-6@tower,156,151,2	script	Tyrant's Throne#	CLEAR_NPC,{
+6@tower,156,151,2	script	Trono do Tirano#	CLEAR_NPC,{
 	end;
 
 OnInstanceInit:
-	areamonster instance_mapname("6@tower"),154,73,156,75,"Watcher's Son",1627,10,instance_npcname("Tyrant's Throne#")+"::OnMyMobDead";
+	areamonster instance_mapname("6@tower"),154,73,156,75,"Anopheles",1627,10,instance_npcname("Trono do Tirano#")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
-	.@mob_dead_num = mobcount(instance_mapname("6@tower"),instance_npcname("Tyrant's Throne#")+"::OnMyMobDead");
+	.@mob_dead_num = mobcount(instance_mapname("6@tower"),instance_npcname("Trono do Tirano#")+"::OnMyMobDead");
 	if (.@mob_dead_num < 1) {
 		donpcevent instance_npcname("#1st Beeper")+"::OnEnable";
-		disablenpc instance_npcname("Tyrant's Throne#");
+		disablenpc instance_npcname("Trono do Tirano#");
 	}
 	end;
 }
@@ -1986,27 +1986,27 @@ OnEnable:
 	end;
 
 OnTimer500:
-	mapannounce instance_mapname("6@tower"),"Guests, huh? I hope you've come here knowing that you'll be buried in this place. If you didn't know, well... it's too late!",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Hóspedes, hein? Eu espero que vocês venham aqui, sabendo que vocês serão enterrados neste lugar. Se vocês não sabem, bem... é tarde demais!",bc_map,"0x00ffcc";
 	end;
 
 OnTimer5500:
-	mapannounce instance_mapname("6@tower"),"This is why you adventurers always end up dead.",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"É por isso que vocês, aventureiros, sempre acabam mortos.",bc_map,"0x00ffcc";
 	end;
 
 OnTimer10500:
-	mapannounce instance_mapname("6@tower"),"I may applaud you for your courage... Of course, I intend to play with you a little bit first.",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Pretendo aplaudi-los por sua coragem... Mas é claro que, antes, pretendo brincar um pouco com vocês.",bc_map,"0x00ffcc";
 	end;
 
 OnTimer15500:
-	mapannounce instance_mapname("6@tower"),"You know, I like watching humans running around in fear.",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Sabem, gosto de ver seres humanos correndo com medo.",bc_map,"0x00ffcc";
 	end;
 
 OnTimer20500:
 	.@map$ = instance_mapname("6@tower");
-	mapannounce .@map$,"Let's see who runs fastest. Are you ready?",bc_map,"0x00ffcc";
+	mapannounce .@map$,"Vamos ver quem corre mais rápido. Estão prontos?",bc_map,"0x00ffcc";
 	stopnpctimer;
-	areamonster .@map$,151,66,153,106,"Bone Guardian",1152,50,instance_npcname("#1st Beeper")+"::OnMyMobDead";
-	areamonster .@map$,158,66,160,106,"Bone Guardian",1152,50,instance_npcname("#1st Beeper")+"::OnMyMobDead";
+	areamonster .@map$,151,66,153,106,"Guardião de Ossos",1152,50,instance_npcname("#1st Beeper")+"::OnMyMobDead";
+	areamonster .@map$,158,66,160,106,"Guardião de Ossos",1152,50,instance_npcname("#1st Beeper")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
@@ -2017,7 +2017,7 @@ OnMyMobDead:
 		//SetItemPartyInMap in_102floor 101
 	}
 	else
-		mapannounce .@map$,"Remaining Targets " + .@mob_dead_num + "ea",bc_map,"0x00ff99";
+		mapannounce .@map$,"Monstros vivos: " + .@mob_dead_num + "ea",bc_map,"0x00ff99";
 	end;
 }
 
@@ -2029,19 +2029,19 @@ OnEnable:
 	end;
 
 OnTimer500:
-	mapannounce instance_mapname("6@tower"),"Well, I guess they aren't too challenging for you.",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Bem, acho que eles não foram muito desafiadores para vocês.",bc_map,"0x00ffcc";
 	end;
 
 OnTimer5500:
-	mapannounce instance_mapname("6@tower"),"Let's speed up a little bit, shall we?",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Vamos acelerar um pouco, vamos?",bc_map,"0x00ffcc";
 	end;
 
 OnTimer10500:
 	.@map$ = instance_mapname("6@tower");
-	mapannounce .@map$,"I demand an encore!",bc_map,"0x00ffcc";
+	mapannounce .@map$,"Quero bis!",bc_map,"0x00ffcc";
 	stopnpctimer;
-	areamonster .@map$,151,66,153,106,"Wind Guardian",1263,30,instance_npcname("#2nd Beeper")+"::OnMyMobDead";
-	areamonster .@map$,158,66,160,106,"Wind Guardian",1263,30,instance_npcname("#2nd Beeper")+"::OnMyMobDead";
+	areamonster .@map$,151,66,153,106,"Guardião de Vento",1263,30,instance_npcname("#2nd Beeper")+"::OnMyMobDead";
+	areamonster .@map$,158,66,160,106,"Guardião de Vento",1263,30,instance_npcname("#2nd Beeper")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
@@ -2052,7 +2052,7 @@ OnMyMobDead:
 		//SetItemPartyInMap in_102floor 102
 	}
 	else
-		mapannounce .@map$,"Remaining Targets " + .@mob_dead_num + "ea",bc_map,"0x00ff99";
+		mapannounce .@map$,"Monstros vivos: " + .@mob_dead_num + "ea",bc_map,"0x00ff99";
 	end;
 }
 
@@ -2064,19 +2064,19 @@ OnEnable:
 	end;
 
 OnTimer500:
-	mapannounce instance_mapname("6@tower"),"Yes, this is getting exciting!",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Sim, isso está ficando emocionante!",bc_map,"0x00ffcc";
 	end;
 
 OnTimer5500:
-	mapannounce instance_mapname("6@tower"),"I'll remember you as one of a few that have managed to entertain me.",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Lembrarei de vocês como uns dos poucos que conseguiram me entreter.",bc_map,"0x00ffcc";
 	end;
 
 OnTimer10500:
 	.@map$ = instance_mapname("6@tower");
-	mapannounce .@map$,"How would you like to play one more round?",bc_map,"0x00ffcc";
+	mapannounce .@map$,"Como quer jogar comigo o próximo round?",bc_map,"0x00ffcc";
 	stopnpctimer;
-	areamonster .@map$,151,66,153,106,"Sword Edge Guardian",1132,20,instance_npcname("#3rd Beeper")+"::OnMyMobDead";
-	areamonster .@map$,158,66,160,106,"Sword Edge Guardian",1132,20,instance_npcname("#3rd Beeper")+"::OnMyMobDead";
+	areamonster .@map$,151,66,153,106,"Guardião da Espada Gêmea",1132,20,instance_npcname("#3rd Beeper")+"::OnMyMobDead";
+	areamonster .@map$,158,66,160,106,"Guardião da Espada Gêmea",1132,20,instance_npcname("#3rd Beeper")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
@@ -2087,7 +2087,7 @@ OnMyMobDead:
 		//SetItemPartyInMap in_102floor 103
 	}
 	else
-		mapannounce .@map$,"Remaining Targets " + .@mob_dead_num + "ea",bc_map,"0x00ff99";
+		mapannounce .@map$,"Monstros vivos: " + .@mob_dead_num + "ea",bc_map,"0x00ff99";
 	end;
 }
 
@@ -2099,101 +2099,101 @@ OnEnable:
 	end;
 
 OnTimer500:
-	mapannounce instance_mapname("6@tower"),"Okay, the time has come to make my appearance!",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Ok, chegou o momento de fazer a minha aparição!",bc_map,"0x00ffcc";
 	end;
 
 OnTimer5500:
-	mapannounce instance_mapname("6@tower"),"Do you want to know who I am?",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"Vocês querem saber quem sou?",bc_map,"0x00ffcc";
 	end;
 
 OnTimer10500:
 	.@map$ = instance_mapname("6@tower");
-	mapannounce .@map$,"You'll soon know. Mine is the face of death!",bc_map,"0x00ffcc";
+	mapannounce .@map$,"Saberão em breve. Tenho a face da morte!",bc_map,"0x00ffcc";
 	stopnpctimer;
 	monster .@map$,156,147,"Nacht Sieger",1956,1,instance_npcname("#4th Beeper")+"::OnMyMobDead";
 	end;
 
 OnMyMobDead:
-	donpcevent instance_npcname("Lost Soul#102")+"::OnEnable";
+	donpcevent instance_npcname("Alma Perdida#102")+"::OnEnable";
 	end;
 }
 
-6@tower,169,127,2	script	Lost Soul#102	4_M_NFDEADSWDMAN,{
+6@tower,169,127,2	script	Alma Perdida#102	4_M_NFDEADSWDMAN,{
 	if (checkweight(1201,1) == 0) {
-		mes "You're carrying too much stuff. Why don't you put some of it away, and then come back?";
+		mes "Você está carregando muito equipamento. Porque não joga alguns fora e depois retorna?";
 		close;
 	}
-	mes "[Lost Souls]";
-	mes "It's you that have liberated us from the evil Nacht Sieger.";
+	mes "[Alma Perdida]";
+	mes "Foram vocês que nos libertaram do terrível Naght Sieger.";
 	next;
-	mes "[Lost Souls]";
-	mes "Thank you so much. Now we can escape from this cold and dark place... to heaven.";
+	mes "[Alma Perdida]";
+	mes "Muito obrigado. Agora podemos escapar deste lugar frio e escuro... para o céu.";
 	next;
 	if ((countitem(13412) > 0) && (countitem(13413) > 0)) {
-		mes "[Lost Souls]";
-		mes "Hey, you have the remnants of Nacht Sieger with you.";
+		mes "[Alma Perdida]";
+		mes "Ei, você tem os restos de Naght Sieger com você.";
 		next;
-		mes "[Lost Souls]";
-		mes "They may appear to be one-handed swords, but I can put them together to make a two-handed one if you want. That's the only way I can repay you for freeing me.";
+		mes "[Alma Perdida]";
+		mes "Elas podem parecer espadas de uma mão, mas posso colocá-las juntas para fazer uma de duas mãos se quiser. Essa é a única maneira para que eu possa retribuir-lhes por me libertar.";
 		next;
-		switch(select("Make a Two-Handed Sword.:No, thanks.")) {
+		switch(select("Faça uma espada de 2 mãos.:Não, obrigado.")) {
 		case 1:
-			mes "[Lost Souls]";
-			mes "If it is already upgraded or has a card inside, those effects will be disappear. Is this ok with you?";
+			mes "[Alma Perdida]";
+			mes "Se sua arma já foi aprimorada ou tem uma carta inserida, estes efeitos desaparecerão. Tudo bem pra você?";
 			next;
-			switch(select("It's fine with me. Please make one.:No way!")) {
+			switch(select("Por mim, está tudo bem. Por favor, crie uma.:De forma alguma!")) {
 			case 1:
-				mes "[Lost Souls]";
-				mes "Good, then I'll combine these to create a two-handed sword.";
+				mes "[Alma Perdida]";
+				mes "Bom, então eu vou combiná-las para criar uma espada de duas mãos.";
 				next;
-				delitem 13412,1; //Twin_Edge_B
-				delitem 13413,1; //Twin_Edge_R
-				getitem 1185,1; //Violet_Fear
+				delitem 13412,1; //Lâmina Gêmea de Naght Sieger [3] - Azul
+				delitem 13413,1; //Lâmina Gêmea de Naght Sieger [3] - Vermelha
+				getitem 1185,1;  //Terror Violeta [2]
 				break;
 			case 2:
-				mes "[Lost Souls]";
-				mes "I see. I guess you aren't as greedy or ambitious as those other adventurers.";
+				mes "[Alma Perdida]";
+				mes "Entendo. Acho que você não é tão ganancioso ou ambicioso quanto os outros aventureiros.";
 				next;
 				break;
 			}
 			break;
 		case 2:
-			mes "[Lost Souls]";
-			mes "I see. I guess you aren't as greedy or ambitious as those other adventurers.";
+			mes "[Alma Perdida]";
+			mes "Entendo. Acho que você não é tão ganancioso ou ambicioso quanto os outros aventureiros.";
 			next;
 			break;
 		}
 	}
-	mes "[Lost Souls]";
-	mes "I'd like to talk to you more, but I've... I've got to go now.";
+	mes "[Alma Perdida]";
+	mes "Gostaria de falar mais com vocês, mas tenho... Tenho que ir agora.";
 	next;
-	mes "[Lost Souls]";
-	mes "Farewell, young adventurer. I wish you good luck.";
+	mes "[Alma Perdida]";
+	mes "Adeus, jovens aventureiros. Desejo-lhes boa sorte.";
 	close2;
 	warp "alberta",223,36;
 	end;
 
 OnInstanceInit:
-	disablenpc instance_npcname("Lost Soul#102");
+	disablenpc instance_npcname("Alma Perdida#102");
 	end;
 
 OnEnable:
 	initnpctimer;
-	enablenpc instance_npcname("Lost Soul#102");
+	enablenpc instance_npcname("Alma Perdida#102");
 	donpcevent instance_npcname("#Effect30")+"::OnEnable";
 	//SetItemPartyInMap in_102floor 104
 	end;
 
 OnTimer500:
-	mapannounce instance_mapname("6@tower"),"This... This can't be happening! I can't be defeated!",bc_map,"0xffff00";
+	mapannounce instance_mapname("6@tower"),"Isso... isso não pode estar acontecendo! Não posso ser derrotado!",bc_map,"0xffff00";
 	end;
 
 OnTimer5500:
-	mapannounce instance_mapname("6@tower"),"Nooo! My soul... My shell...! Nooo~!",bc_map,"0xffff00";
+	mapannounce instance_mapname("6@tower"),"Nããão! Minha alma... Meu corpo...! Nããããoo!",bc_map,"0xffff00";
 	end;
 
 OnTimer10500:
-	mapannounce instance_mapname("6@tower"),"Nacht Sieger's body has turned into dark ashes that scattered in the wind.",bc_map,"0x00ffcc";
+	mapannounce instance_mapname("6@tower"),"O corpo de Naght Sieger se transformou em cinzas escuras que se espalharam ao vento.",bc_map,"0x00ffcc";
 	stopnpctimer;
 	end;
 }
