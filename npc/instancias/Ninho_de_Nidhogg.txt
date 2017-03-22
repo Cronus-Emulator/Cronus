@@ -29,13 +29,13 @@
 1@nyd	mapflag	src4instance
 2@nyd	mapflag	src4instance
 
-nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
+nyd_dun02,100,201,3	script	Portão Enigmático	HIDDEN_NPC,8,8,{
 	if (ins_nyd == 0) {
 		mes "Um grande portão de pedra está diante de ti. Você olha a escultura de um dragão terrível com suas asas abertas.";
 		next;
-		mes "Perto do fundo do portão, as mulheres da tribo Laphine foram transformadas em pedra e agora parece que fazem parte da grande porta.";
+		mes "Perto do fundo do portão, as mulheres da tribo Laphine foram transformadas em pedra e agora parece que fazem parte do grande portão.";
 		next;
-		switch(select("Aproxime-se mais para olhar com mais cuidado.", "Recuar.")) {
+		switch(select("Aproximar-se para olhar com mais cuidado.", "Recuar.")) {
 		case 1:
 			specialeffect2 EF_HOLYHIT;
 			pushpc 3,3;
@@ -48,7 +48,7 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 			mes "Seria melhor voltar ao acampamento para informar aos outros e pedir ajuda.";
 			if (ep13_1_edq != 15) {
 				next;
-				mes "Você vai ter que obter a confiança dos outros no acampamento de expedição com um duro trabalho.";
+				mes "Você vai ter que obter a confiança dos outros no acampamento de expedição trabalhando duro.";
 			}
 			ins_nyd = 1;
 			close;
@@ -66,7 +66,7 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 			close;
 		}
 		next;
-		mes "Você vai ter que obter a confiança dos outros no acampamento de expedição com um duro trabalho.";
+		mes "Você vai ter que obter a confiança dos outros no acampamento de expedição trabalhando duro.";
 		close;
 	} else if (ins_nyd == 111 || ins_nyd == 112) {
 		specialeffect2 EF_CHANGECOLD;
@@ -82,15 +82,15 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 			mes "[??????]";
 			mes "Por nossas promessas ditas... Feitiço Guardião... A prova de sua existência.";
 			next;
-			mes "[Portão de Yggdrasil]";
+			mes "[Portão Enigmático]";
 			mes "Em nome de Yggdrasiliad, posso aceitá-lo como um servo do Guardião.";
 			next;
 			specialeffect2 EF_CHANGECOLD;
 			ins_nyd = 200;
-			mes "[Portão de Yggdrasil]";
+			mes "[Portão Enigmático]";
 			mes "Eu aceito sua entrada pelo portão Guardião. Agora você é considerado um fiel servo do Guardião de Nidhoggur.";
 			next;
-			mes "A voz desapareceu, e o poder obscuro está se acalmando por detrás do portão de pedra.";
+			mes "A voz desapareceu e o poder obscuro está se acalmando por detrás do portão de pedra.";
 			close;
 		case 2:
 			close;
@@ -98,35 +98,35 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 	} else if (ins_nyd == 131 || ins_nyd == 132 || ins_nyd > 199) {
 
 		.@party_id = getcharid(1);
-		.@md_name$ = "Nidhoggur's Nest";
+		.@md_name$ = "Ninho de Nidhogg";
 
-		.@ins_nyd_check = questprogress(3135,PLAYTIME); // 3 Day cooldown
-		.@ins_nyd_check2 = questprogress(3136,PLAYTIME); // 4 Hour play limit
+		.@ins_nyd_check = questprogress(3135,PLAYTIME); // 3 Dias de intervalo ou ciclo
+		.@ins_nyd_check2 = questprogress(3136,PLAYTIME); // 4 Limite de hora para jogar
 
 		mes "Quando coloquei minhas mãos no portão de pedra, uma voz resoou no fundo do meu coração.";
 		next;
 		if (!.@ins_nyd_check && !.@ins_nyd_check2) {
 			if (!instance_check_party(.@party_id,2,70)) {
-				mes "[Portão de Yggdrasil]";
-				mes "Onde estão os outros membros, para que vocês possam trabalhar juntos? Grupos não podem ser admitidos aqui individualmente...";
+				mes "[Portão Enigmático]";
+				mes "Onde estão os outros membros, para que vocês possam trabalhar juntos? Servos não são admitidos aqui individualmente...";
 				next;
-				mes "[Portão de Yggdrasil]";
-				mes "Venha com pelo menos mais 1 membro... Só os líderes de grupos podem aceitar a admissão no Nidhoggur's Nest.";
+				mes "[Portão Enigmático]";
+				mes "Venha com pelo menos mais 1 membro... Só o líder de grupo pode aceitar a admissão no Ninho de Nidhogg.";
 				next;
-				mes "[Portão de Yggdrasil]";
-				mes "E apenas 1 representante de vocês precisa falar comigo, então não me aborreça...";
+				mes "[Portão Enigmático]";
+				mes "E apenas o representante de vocês precisa falar comigo, então não me aborreça...";
 				close;
 			}
 			if (getcharid(0) == getpartyleader(.@party_id,2)) {
-				mes "[Portão de Yggdrasil]";
+				mes "[Portão Enigmático]";
 				mes "Fiéis servos do Guardião... O que posso fazer por vocês?";
 				next;
 				switch(select("Por favor, permita-me entrar.","Quero entrar","Quero ir embora.")) {
 				case 1:
 					.@instance = instance_create(.@md_name$, .@party_id);
 					if (.@instance < 0) {
-						mes "[Portão de Yggdrasil]";
-						mes "O Guardião parece querer ficar sozinho. Vou entrar e verificar, por favor, espere aqui.";
+						mes "[Portão Enigmático]";
+						mes "O Guardião parece querer ficar sozinho. Vou entrar e verificar, espere aqui por favor.";
 						close;
 					}
 					for (.@i = 1; .@i <= 2; ++.@i) {
@@ -139,10 +139,10 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 					}
 					instance_set_timeout 144000,300,.@instance;
 					instance_init(.@instance);
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "Registrei sua requisição, você está pronto para entrar?";
 					next;
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "Se você estiver pronto, poderei permitir que entre.";
 					close;
 				case 2:
@@ -151,7 +151,7 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 					close;
 				}
 			}
-			mes "[Portão de Yggdrasil]";
+			mes "[Portão Enigmático]";
 			mes "Se você já tiver os requisitos do calabouço pronto, você pode entrar nele.";
 			next;
 			if(select("Quero entrar.", "Quero deixar.") == 2)
@@ -160,14 +160,14 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 		} else {
 			if (.@ins_nyd_check == 1) {
 				if ('ins_nyd2 == 3 || 'ins_nyd2 == 4) {
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "Com a derrota da Sombra de Nidhogg, as raízes da Árvore de Yggdrasil talvez sejam afetadas.";
 					next;
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "Depois que a Sombra de Nidhogg desaparecer, pelo menos 3 dias são necessários para se estabilizar.";
 					close;
 				}
-				mes "[Portão de Yggdrasil]";
+				mes "[Portão Enigmático]";
 				mes "Se você já tiver os requisitos do calabouço pronto, você pode entrar nele.";
 				next;
 				if(select("Quero entrar.", "Quero deixar.") == 2)
@@ -175,14 +175,14 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 				goto L_Enter;
 			} else if (.@ins_nyd_check == 2) {
 				if (.@ins_nyd_check2 == 1) {
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "O limite de tempo para entrar no calabouço expirou. Você deve esperar que a Árvore de Yggdrasil estabilize seu poder antes de tentar voltar a entrar.";
 					close;
 				} else if (.@ins_nyd_check2 == 2) {
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "A Árvore do Mundo Yggdrasil estabilizou. Deseja entrar novamente no Ninho de Nidhogg?";
 					next;
-					mes "[Portão de Yggdrasil]";
+					mes "[Portão Enigmático]";
 					mes "Se você quiser entrar novamente, registre-se comigo.";
 					erasequest 3135;
 					erasequest 3136;
@@ -195,9 +195,9 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 	} else {
 		mes "Um grande portão de pedra está diante de ti. Você olha a escultura de um dragão terrível com suas asas abertas.";
 		next;
-		mes "Perto do fundo do portão, as mulheres da tribo Laphine foram transformadas em pedra e agora parece que fazem parte da grande porta.";
+		mes "Perto do fundo do portão, as mulheres da tribo Laphine foram transformadas em pedra e agora parece que fazem parte do grande portão.";
 		next;
-		switch(select("Aproxime-se mais para olhar com mais cuidado.", "Recuar.")) {
+		switch(select("Aproximar-se para olhar com mais cuidado.", "Recuar.")) {
 		case 1:
 			specialeffect2 EF_HOLYHIT;
 			pushpc 3,3;
@@ -213,7 +213,7 @@ nyd_dun02,100,201,3	script	Yggdrasil Gatekeeper	HIDDEN_NPC,8,8,{
 
 L_Enter:
 	if (has_instance("1@nyd") == "") {
-		mes "[Portão de Yggdrasil]";
+		mes "[Portão Enigmático]";
 		mes "Você não registrou sua entrada. Por favor fale ao seu líder para requerer sua entrada.";
 		close;
 	} else {
@@ -232,60 +232,60 @@ OnTouch_:
 	end;
 }
 
-mid_camp,271,299,3	script	Historian Magnifier#edq	4_M_SAGE_C,3,3,{
-	mes "[Historiador Magnifíco]";
+mid_camp,271,299,3	script	Historiador Magnifier#edq	4_M_SAGE_C,3,3,{
+	mes "[Historiador Magnifier]";
 	if (ins_nyd == 1) {
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Certo, no continente existem muitas aventuras interessantes... Olá, eu sou Magnifier, um historiador enviado pela corte real de Prontera.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Encontrar outra linha de trabalho pode fazer um trabalho realmente digno, mas apenas um historiador pode conhecer o mundo...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Como este mundo é organizado... caminhando para o futuro! Com nossos estudos do passado e do presente podemos prever o que está por vir.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Estamos esperando muito de você, seu especialista em aventureiras. Então, se você encontrar alguma coisa... apenas me diga.";
 		close;
 	} else if (ins_nyd == 2) {
 		mes "O Comandante Agip quer falar comigo? Vou ouvir a sua história.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Você encontrou a caverna que as fadas da tribos tratam como um lugar santo? Você é realmente um osso duro de roer. O que você achou?";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "...";
 		next;
 		mes "... ...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Espera um segundo... Tive uma idéia brilhante.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Vamos ver... Este livro... Não... este outro...? Hmm... Talvez este...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "... ...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Oh, Aqui está! A Árvore do Mundo de Yggdrasil e os Deuses das Tribos... Este é o seu livro!";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Talvez você tenha encontrado uma passagem para entrar no Mundo de Yggdrasil";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Se isso for verdade, Você encontrou a maior descoberta desde o aproveitamento de mana. Isso não é excitante?";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Mais nós precissamos de mais informações... Estão recusando sua admissão?";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Leve uma menssagem para meu asssistente que está na Bibliotéca de Prontera. Talvez, a ajuda dele dê mais informações.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Definitivamente vou ajudá-lo a encontrar uma maneira de entrar na Árvore do Mundo, basta acreditar em mim! Ok ~!";
 		ins_nyd = 3;
 		close;
@@ -295,55 +295,55 @@ mid_camp,271,299,3	script	Historian Magnifier#edq	4_M_SAGE_C,3,3,{
 	} else if (ins_nyd == 4) {
 		mes "Você voltou ... Bom, como está Naomi? Na verdade, eu não preciso me preocupar com ela. Ela é sempre alegre. Haha.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Você parece ter muitas coisas na cabeça... Seu rosto me diz que está cheio de curiosidade e perguntas.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Então, você leu toda a história que eu preparei?";
 		next;
 		switch(select("Not yet.", "I read all the stories.")) {
 		case 1:
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Sheesh ~ Eu preparei essa história para você com cuidado, mas você não se incomodou em olhar qualquer coisa o que você fez?";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Seria melhor que você retornasse depois de ler todo ele. São dados muito básicos do que devemos fazer no futuro.";
 			close;
 		case 2:
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Hm, bom trabalho. Talvez eu não precise verificar mais nada, certo?";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Enviei-lhe para descobrir quais materiais básicos serão necessários para os trabalhos à nossa frente. Você deve trazer relatórios de pesquisa ...";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Você pode reclamar por que eu não trouxe comigo mesmo... Mas é porque eu confio em suas habilidades, nunca tenha nada como garantido.";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Mas há algum tempo, enquanto voce estava carregando relatórios do Comandante Agip para o continente, voce perdeu alguns relatórios ... lembra?";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Até agora, nada aconteceu... Alguém que te atacou?";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "De toda forma, a verdade vai aparecer, mas devemos ter cuidado com os nativos para não assusta-los ao ir lá sem aviso prévio e eles não são preparados para a nossa chegada.";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Eu já falei demais ... De qualquer forma, como você sabe com meu relatório, é encontrada uma boa coisa!";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Primeiramente, devemos descobrir mais sobre o lugar. Espero que possamos... Mas, não podemos fazer muito sem a ajuda dos outros.";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Ouvi falar de expedições recentes de aventureiros que tentaram entrar em contato com as tribos... Você já ouviu alguma coisa sobre isso?";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Enfim, vamos tentar acha-los, para ficar esclarecidos sobre algumas cavernas ou tesouros.";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Por agora, você deve tentar contato com as tribos Sapha e Laphine, para conseguir informações deles.";
 			next;
-			mes "[Historiador Magnifíco]";
+			mes "[Historiador Magnifier]";
 			mes "Continuarei procurando aqui. Se você encontrar alguma coisa, volte e me avise.";
 			ins_nyd = 5;
 			close;
@@ -351,38 +351,38 @@ mid_camp,271,299,3	script	Historian Magnifier#edq	4_M_SAGE_C,3,3,{
 	} else if ((ins_nyd == 5) || (ins_nyd == 51) || (ins_nyd == 52)) {
 		mes "Enfim, vamos tentar acha-los, para ficar esclarecidos sobre algumas cavernas ou tesouros.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Por agora, você deve tentar contato com as tribos Sapha e Laphine, para conseguir informações deles.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Continuarei procurando aqui. Se você encontrar alguma coisa, volte e me avise.";
 		close;
 	} else if ((ins_nyd == 61) || (ins_nyd == 62)) {
 		mes "Ah, você chegou a uma hora certa. Eu encontrei uma coisa curiosa enquanto olhava nos relatórios de Arunafeltz.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Bem agora, estamos em cima de uma parte de uma das raízes da Árvore de Yggdrasil.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Este ponto está ligado à Árvore de Yggdrasil pela raiz. Acho que podemos esperar confrontos entre o Sapha e Laphine aqui, eventualmente, você não acha?";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Como eu esperava, a caverna é a entrada para ir para dentro de uma das raízes de Yggdrasil ...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Você encontrou alguma coisa de Sapha e Laphine?";
 		next;
 		mes "...";
 		next;
 		mes "... ...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Ambos os lados agem de forma ambígua, então... Estou ficando preocupado...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "As duas tribos têm algum problema entre seus líderes. Não é nada oficial, mas ...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Vamos informar ao comandante Agip sobre a situação até agora. Então, veremos a sua decisão.";
 		ins_nyd = 7;
 		close;
@@ -392,29 +392,29 @@ mid_camp,271,299,3	script	Historian Magnifier#edq	4_M_SAGE_C,3,3,{
 	} else if ((ins_nyd == 121) || (ins_nyd == 122) || (ins_nyd == 131) || (ins_nyd == 132) || (ins_nyd ==14)) {
 		mes "Então é assim que é ... estávamos certos sobre algumas partes disto ... é chamado de Ninho do Guardião.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Nós ganhamos uma grande quantidade de conhecimento hoje, mas...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "O que descobrimos... como isso vai influenciar a humanidade? É tão imprevisível...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Este é apenas o começo... ficaremos muito ocupados a partir de agora.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Em primeiro lugar, informe ao Comandante Agip, em seguida, agiremos de acordo com a situação. Deixe-me organizar os resultados da minha pesquisa ...";
 		close;
 	} else {
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Certo, no continente existem muitas aventuras interessantes... Olá, eu sou Magnifier, um historiador enviado pela corte real de Prontera.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Encontrar outra linha de trabalho pode fazer um trabalho realmente digno, mas apenas um historiador pode conhecer o mundo...";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Como este mundo é organizado... caminhando para o futuro! Com nossos estudos do passado e do presente podemos prever o que está por vir.";
 		next;
-		mes "[Historiador Magnifíco]";
+		mes "[Historiador Magnifier]";
 		mes "Estamos esperando muito de você, seu especialista em aventureiras. Então, se você encontrar alguma coisa... apenas me diga.";
 		close;
 	}
