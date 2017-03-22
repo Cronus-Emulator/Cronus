@@ -88,7 +88,7 @@ nyd_dun02,100,201,3	script	Portão Enigmático	HIDDEN_NPC,8,8,{
 			specialeffect2 EF_CHANGECOLD;
 			ins_nyd = 200;
 			mes "[Portão Enigmático]";
-			mes "Eu aceito sua entrada pelo portão Guardião. Agora você é considerado um fiel servo do Guardião de Nidhoggur.";
+			mes "Aceito sua entrada pelo portão Guardião. Agora você é considerado um fiel servo do Guardião de Nidhoggur.";
 			next;
 			mes "A voz desapareceu e o poder obscuro está se acalmando por detrás do portão de pedra.";
 			close;
@@ -180,7 +180,7 @@ nyd_dun02,100,201,3	script	Portão Enigmático	HIDDEN_NPC,8,8,{
 					close;
 				} else if (.@ins_nyd_check2 == 2) {
 					mes "[Portão Enigmático]";
-					mes "A Árvore do Mundo Yggdrasil estabilizou. Deseja entrar novamente no Ninho de Nidhogg?";
+					mes "A Grande Árvore Yggdrasil estabilizou. Deseja entrar novamente no Ninho de Nidhogg?";
 					next;
 					mes "[Portão Enigmático]";
 					mes "Se você quiser entrar novamente, registre-se comigo.";
@@ -235,23 +235,22 @@ OnTouch_:
 mid_camp,271,299,3	script	Historiador Magnifier#edq	4_M_SAGE_C,3,3,{
 	mes "[Historiador Magnifier]";
 	if (ins_nyd == 1) {
-		mes "[Historiador Magnifier]";
-		mes "Certo, no continente existem muitas aventuras interessantes... Olá, eu sou Magnifier, um historiador enviado pela corte real de Prontera.";
+		mes "Certamente, no continente existem muitas aventuras interessantes... Olá, sou Magnifier, um historiador enviado pela corte real de Prontera.";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Encontrar outra linha de trabalho pode fazer um trabalho realmente digno, mas apenas um historiador pode conhecer o mundo...";
+		mes "Encontrar outra linha de trabalho pode tornar um trabalho realmente digno, mas apenas um historiador pode conhecer o mundo...";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Como este mundo é organizado... caminhando para o futuro! Com nossos estudos do passado e do presente podemos prever o que está por vir.";
+		mes "Como este mundo é organizado... e caminha para o futuro! Com nossos estudos do passado e presente, podemos prever o que está por vir.";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Estamos esperando muito de você, seu especialista em aventureiras. Então, se você encontrar alguma coisa... apenas me diga.";
+		mes "Esperamos muito de você, aventureiro especialista. Então, se você encontrar alguma coisa... apenas me informe.";
 		close;
 	} else if (ins_nyd == 2) {
-		mes "O Comandante Agip quer falar comigo? Vou ouvir a sua história.";
+		mes "O Comandante Agip quer falar comigo? Vamos ouvir sua história.";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Você encontrou a caverna que as fadas da tribos tratam como um lugar santo? Você é realmente um osso duro de roer. O que você achou?";
+		mes "Você encontrou a caverna que as fadas da tribos tratam como um lugar sagrado? Você é realmente um osso duro de roer. O que você achou lá?";
 		next;
 		mes "[Historiador Magnifier]";
 		mes "...";
@@ -259,7 +258,7 @@ mid_camp,271,299,3	script	Historiador Magnifier#edq	4_M_SAGE_C,3,3,{
 		mes "... ...";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Espera um segundo... Tive uma idéia brilhante.";
+		mes "Espere um segundo... Tive uma idéia brilhante.";
 		next;
 		mes "[Historiador Magnifier]";
 		mes "Vamos ver... Este livro... Não... este outro...? Hmm... Talvez este...";
@@ -271,59 +270,59 @@ mid_camp,271,299,3	script	Historiador Magnifier#edq	4_M_SAGE_C,3,3,{
 		mes "... ...";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Oh, Aqui está! A Árvore do Mundo de Yggdrasil e os Deuses das Tribos... Este é o seu livro!";
+		mes "Oh, Aqui está! A Grande Árvore Yggdrasil e as Tribos Divinas... Este é o seu livro!";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Talvez você tenha encontrado uma passagem para entrar no Mundo de Yggdrasil";
+		mes "Talvez você tenha encontrado uma passagem para entrar na Grande Árvore Yggdrasil";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Se isso for verdade, Você encontrou a maior descoberta desde o aproveitamento de mana. Isso não é excitante?";
+		mes "Se isso for verdade, Você encontrou a maior descoberta desde o aproveitamento da mana. Isso não é excitante?";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Mais nós precissamos de mais informações... Estão recusando sua admissão?";
+		mes "Mas precissamos de mais informações... Estão recusando sua admissão?";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Leve uma menssagem para meu asssistente que está na Bibliotéca de Prontera. Talvez, a ajuda dele dê mais informações.";
+		mes "Leve uma menssagem para minha asssistente que está na Bibliotéca de Prontera. Então, ajude-a a encontrar mais informações.";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Definitivamente vou ajudá-lo a encontrar uma maneira de entrar na Árvore do Mundo, basta acreditar em mim! Ok ~!";
+		mes "Definitivamente vou ajudá-lo a encontrar uma maneira de entrar na Grande Árvore, apenas acredite em mim! Ok ~!";
 		ins_nyd = 3;
 		close;
 	} else if (ins_nyd == 3) {
-		mes "Porque está parado aqui? Vá até meu assistente na Bibliotéca de Prontera!";
+		mes "Porque está parado aí? Vá até minha assistente na Biblioteca de Prontera!";
 		close;
 	} else if (ins_nyd == 4) {
-		mes "Você voltou ... Bom, como está Naomi? Na verdade, eu não preciso me preocupar com ela. Ela é sempre alegre. Haha.";
+		mes "Você voltou... Bom, como está a Naomi? Na verdade, não preciso me preocupar com ela. Ela é sempre alegre. Haha.";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Você parece ter muitas coisas na cabeça... Seu rosto me diz que está cheio de curiosidade e perguntas.";
+		mes "Você parece ter muitas coisas na cabeça... Seu rosto me diz que está cheio de curiosidades e perguntas.";
 		next;
 		mes "[Historiador Magnifier]";
-		mes "Então, você leu toda a história que eu preparei?";
+		mes "Então, você leu alguma das histórias que preparei?";
 		next;
-		switch(select("Not yet.", "I read all the stories.")) {
+		switch(select("Ainda não.", "Li todas as histórias")) {
 		case 1:
 			mes "[Historiador Magnifier]";
-			mes "Sheesh ~ Eu preparei essa história para você com cuidado, mas você não se incomodou em olhar qualquer coisa o que você fez?";
+			mes "Sheesh ~ Preparei estas histórias para você com muito cuidado, mas você leu alguma?";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Seria melhor que você retornasse depois de ler todo ele. São dados muito básicos do que devemos fazer no futuro.";
+			mes "Seria melhor se você voltasse aqui somente depois de ler todas. São dados básicos, porém muito importantes, que iremos utilizar futuramente.";
 			close;
 		case 2:
 			mes "[Historiador Magnifier]";
-			mes "Hm, bom trabalho. Talvez eu não precise verificar mais nada, certo?";
+			mes "Hm, bom trabalho. Talvez nem precise verificar mais nada, certo?";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Enviei-lhe para descobrir quais materiais básicos serão necessários para os trabalhos à nossa frente. Você deve trazer relatórios de pesquisa ...";
+			mes "Separei alguns materiais básicos que serão necessários para os trabalhos que iremos fazer. Você deve trazer relatórios de pesquisa...";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Você pode reclamar por que eu não trouxe comigo mesmo... Mas é porque eu confio em suas habilidades, nunca tenha nada como garantido.";
+			mes "Você deve estar se perguntando porque eu não trouxe nada comigo... Isso é porque confio em suas habilidades, mas também não podemos nos precipitar.";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Mas há algum tempo, enquanto voce estava carregando relatórios do Comandante Agip para o continente, voce perdeu alguns relatórios ... lembra?";
+			mes "Há um tempo atrás, enquanto você estava carregando relatórios do Comandante Agip para o continente, você perdeu eles... lembra?";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Até agora, nada aconteceu... Alguém que te atacou?";
+			mes "Até agora, nada foi encontrado... Alguma coisa te atacou?";
 			next;
 			mes "[Historiador Magnifier]";
 			mes "De toda forma, a verdade vai aparecer, mas devemos ter cuidado com os nativos para não assusta-los ao ir lá sem aviso prévio e eles não são preparados para a nossa chegada.";
@@ -332,16 +331,16 @@ mid_camp,271,299,3	script	Historiador Magnifier#edq	4_M_SAGE_C,3,3,{
 			mes "Eu já falei demais ... De qualquer forma, como você sabe com meu relatório, é encontrada uma boa coisa!";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Primeiramente, devemos descobrir mais sobre o lugar. Espero que possamos... Mas, não podemos fazer muito sem a ajuda dos outros.";
+			mes "Primeiramente, devemos descobrir mais sobre o lugar. Espero que consigamos, mas... não podemos fazer muito sem a ajuda dos outros.";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Ouvi falar de expedições recentes de aventureiros que tentaram entrar em contato com as tribos... Você já ouviu alguma coisa sobre isso?";
+			mes "Ouvi falar sobre outras expedições que recentemente tentaram explorar as tribos... Você sabe alguma coisa a respeito?";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Enfim, vamos tentar acha-los, para ficar esclarecidos sobre algumas cavernas ou tesouros.";
+			mes "Enfim, vamos tentar falar com eles primeiro, para sabermos mais sobre cavernas ou tesouros.";
 			next;
 			mes "[Historiador Magnifier]";
-			mes "Por agora, você deve tentar contato com as tribos Sapha e Laphine, para conseguir informações deles.";
+			mes "Por agora, você deve tentar contato com as tribos Sapha e Laphine, para conseguir alguma informação deles.";
 			next;
 			mes "[Historiador Magnifier]";
 			mes "Continuarei procurando aqui. Se você encontrar alguma coisa, volte e me avise.";
