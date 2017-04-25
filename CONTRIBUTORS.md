@@ -1,0 +1,158 @@
+# Contribuidores
+Estes são os nomes das pessoas que ajudaram este projeto a chegar onde ele está hoje.
+
+- Alex – kaveira33
+- André Novelino – Spoxys
+- Anoildo Pecinali – Kamus
+- Bernardo Guimarães – BerChampz
+- Bruno – Oliver
+- Bruno – Olivete
+- Bruno – ZidaneTribal
+- Bruno – Sicks
+- Bryan Suhett – Mitsuke
+- Brendo – Brendorox
+- Cainã Costa – Sryche
+- Caio Duarte – Banned
+- Caio Mateus – Cainho
+- Caio Monteiro – EragoN
+- Carlos Costa – DaemonBSD
+- Carlos Heitor – Raizen
+- Christian Andrade – ChrisPif
+- Cristiano – TeTsU
+- César Bolt – .kurono~
+- Daniel – Danizeenho
+- Daniel Briam – Digooz
+- Daniel Madureira – Madureira
+- Danniel – DennyLoko
+- Davi de Bittencourt – Ansen
+- Denner Mardones – Denner
+- Diego Filipe – TecnoCronus
+- Diego Strobelt – Mr. Torture
+- DinO
+- Diogo Freire – Asus
+- Diovane Gualberto – Squall
+- Dominik Reller – ZaweOwnedz
+- Douglas Santos – DodO X
+- Dário Freitas – Reply.
+- Edvaldo Júnior – Edvaldo
+- Erich – MaxDragon
+- Felipe – Reploid
+- Fernanda – Frizz
+- Fernando – mozoco
+- Fernando Cezarro – Devilz
+- Filipi Pinheiro – Lich
+- Frederico Goldfeld – Shack
+- Fábio – Hurican Dooders
+- Fábio Braga – Cold
+- Gabriel Barbosa – deltaoxy
+- Gabriel Matsumura – Tet
+- Gabriel Vianna – Vianna
+- Gabriel de Freitas – MrGB
+- Guilherme – Pudim
+- Guilherme – Zeus
+- Guilherme Maia – Chaoseiro
+- Guilherme Silva – Mooka
+- Gustavo Bucci – Kooler
+- Gustavo Henrique – Yeuzin
+- Hallei Douglas – GiM
+- Henrique Vasconcelos – Dubugras
+- Hiago – fReak
+- Hugo – TioHugo
+- Humberto Machado – Snails
+- Iago – Hildds
+- Iago Borges – Forest
+- Iago Queiroz – Floozie
+- Igor Freire – Spike
+- Ian Kawanami – Ian Kawanami
+- Iuri dos Santos – Puncker
+- Janderson Santos – J4ND3RS0N
+- Janilson – skankilson
+- Jean Santos – ace_killer
+- Joaquim – Zeff
+- Jonathan Lima – GreenBox
+- João Angelo – JAF
+- João Senos – Wolf
+- João Pedro – Joao Pedro
+- Juan Fontes – ~ pecado
+- Juliana Peralta – Keroleen
+- Julio Carvalho – ItachiSan
+- Júlio Fornazier – JulioCF
+- Júlio Melo – Sirius
+- Júlio Turolla – JúliosS
+- Leandro Otonii – Otonii
+- Leonardo – DoJo
+- Leonardo Macêdo – LEOzinn
+- Ligleyson – Golen Maker
+- Luann Peixe – YuM
+- Lucas Gabriel – rental
+- Lucas Limma – Okuz
+- Luiz Fernando – LyDe
+- Luiz Lago – Linus
+- Márcio – I am Cold
+- Marcelo – MaminhA
+- Marcos Moraes – socramjunio
+- Mateus Ruas – Matsyll
+- Matheus – Mimeu
+- Matheus Lambertucci – Cardoso
+- Matheus Macabu – mkbu95
+- Matheus Marques – Lord
+- Matheus Silva – Matheus
+- Maxwell Baliza – Qoff
+- Nícolas – Nicko
+- Patrick Ferreira – PaTriX
+- Paulo – ComeTower
+- Paulo – PauloCrow
+- Paulo César – Nike
+- Paulo Torres – P4UL4O
+- Paulo Vitor – Overflow
+- Pedro Brandão – Pedro xD
+- Pedro Lima – Jojø
+- Percio Andrade – ScouTSK
+- Rafael – FrozenCirius
+- Rafael – Rafoka
+- Rafael Gonçalo – Jokker
+- Rafael Gorges – Kenshim
+- Rafael Perrella – Rafael
+- Rafael Renan – Pixel
+- Ramon Guedes – Ramon
+- Raphael – Katsumoto
+- Raphael Bman – Takyia Genji
+- Renan Mesquita – Merakk
+- Renato Machado – Mehah
+- Ricardo – Nefir
+- Ricardo – Page
+- Roberto Lima – dnkroz
+- Rodrigo – Asuchan
+- Rodrigo – Heaven
+- Rodrigo Azevedo – Kamper
+- Rodrigo Feitosa – Uadafoqui
+- Rodrigo Lindoso – Radija
+- Ryan Camilo – NightK
+- Rômulo Mangueira – SBK
+- Rômulo Vitoi – RoM
+- Samuel Soares – .twink
+- Sávio Lucas – Lanter
+- The BussinesS
+- Thiago – ToTTi
+- Thiago Miranda – Mayon
+- Thiago Silva – ragnaproxy
+- Tiago – Dynasty
+- Thiago – Schrwaizer
+- Valderson – Beck
+- Victor – LimitLine
+- Victor Ferreira – Tiu TuTs
+- Vinícius Dantas – MidNight
+- Vinícius – vdg007
+- Vinícius Ruedas – Keoy
+- WLP
+- Wagner Passos – WhiteRabit
+- Walcir Neto – Skull
+- Wellington Alves – TheNew
+- Wesley Oliveira – fetish
+- Wilk Maia – Wilk Maia
+- William Duarte – Níquel
+- Williams – Will
+- Willians Dortt – d0rtt
+- Ygor Scantolin – Minos
+- rDrake
+- Wallace – webChaos
