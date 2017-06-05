@@ -45,6 +45,11 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 - Ominous Slex
 - Roberto
 
+###### Desenvolvedores
+
+- Matsuy (Core)
+- Wolf 	 (Script)
+
 ###### Moderadores
 
 - Spell Master
