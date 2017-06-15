@@ -5,7 +5,7 @@
 //               | |   | '__/ _ \| '_ \| | | / __|
 //               | \__/\ | | (_) | | | | |_| \__ \
 //                \____/_|  \___/|_| |_|\__,_|___/
-//                     DB Bloody Branch            
+//                     DB Galho Sangrento - RE            
 //===============================================================
 // = Banco de Dados de monstros invocados pelo Galho Sangrento.
 // = Tradução: Spell Master
@@ -54,7 +54,7 @@
 1708,Memória de Thanatos,1000000
 1719,Detardeurus,1000000
 1734,Kiel D-01,1000000
-1751,Valkyrie Randgris,1000000
+1751,Valquíria Randgris,1000000
 1768,Pesar Noturno,1000000
 1779,Ktullanux,1000000
 1785,Atroce,1000000
@@ -63,5 +63,5 @@
 1873,Belzebu,1000000
 1885,Gorynych,1000000
 2022,Sombra de Nidhogg,1000000
-2068,Boitata,1000000
+2068,Boitatá,1000000
 2087,Rainha Scaraba,1000000
