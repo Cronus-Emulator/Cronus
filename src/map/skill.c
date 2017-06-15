@@ -14052,18 +14052,19 @@ int skill_check_condition_castend(struct map_session_data* sd, uint16 skill_id, 
 		case NC_MAGICDECOY: {
 				int c = 0;
 				int maxcount = skill->get_maxcount(skill_id,skill_lv);
-				int mob_class = 2042;
-				if( skill_id == NC_MAGICDECOY )
-					mob_class = 2043;
-
+				
 				if( battle_config.land_skill_limit && maxcount > 0 && ( battle_config.land_skill_limit&BL_PC ) ) {
-					if( skill_id == NC_MAGICDECOY ) {
+					if( skill_id == NC_MAGICDECOY ) 
+					{
 						int j;
-						for(j = mob_class; j <= 2046; j++)
+						for(j = MOBID_MAGICDECOY_FIRE; j <= MOBID_MAGICDECOY_WIND; j++)
 							map->foreachinmap(skill->check_condition_mob_master_sub, sd->bl.m, BL_MOB, sd->bl.id, j, skill_id, &c);
-					} else
-						map->foreachinmap(skill->check_condition_mob_master_sub, sd->bl.m, BL_MOB, sd->bl.id, mob_class, skill_id, &c);
-					if( c >= maxcount ) {
+					} 
+					else
+						map->foreachinmap(skill->check_condition_mob_master_sub, sd->bl.m, BL_MOB, sd->bl.id, MOBID_SILVERSNIPER, skill_id, &c);
+					
+					if( c >= maxcount )
+					{
 						clif->skill_fail(sd , skill_id, USESKILL_FAIL_LEVEL, 0);
 						return 0;
 					}
@@ -17583,7 +17584,7 @@ void skill_toggle_magicpower(struct block_list *bl, uint16 skill_id) {
 }
 
 int skill_magicdecoy(struct map_session_data *sd, int nameid) {
-	int x, y, i, class_, skill_id;
+	int x, y, i, class_ = 0, skill_id;
 	struct mob_data *md;
 	nullpo_ret(sd);
 	skill_id = sd->menuskill_val;
@@ -17603,7 +17604,21 @@ int skill_magicdecoy(struct map_session_data *sd, int nameid) {
 	sd->sc.comet_x = sd->sc.comet_y = 0;
 	sd->menuskill_val = 0;
 
-	class_ = (nameid == ITEMID_BOODY_RED || nameid == ITEMID_CRYSTAL_BLUE) ? 2043 + nameid - ITEMID_BOODY_RED : (nameid == ITEMID_WIND_OF_VERDURE) ? 2046 : 2045;
+	switch (nameid) 
+	{
+	case ITEMID_SCARLET_PTS:
+		class_ = MOBID_MAGICDECOY_FIRE;
+		break;
+	case ITEMID_INDIGO_PTS:
+		class_ = MOBID_MAGICDECOY_WATER;
+		break;
+	case ITEMID_YELLOW_WISH_PTS:
+		class_ = MOBID_MAGICDECOY_EARTH;
+		break;
+	case ITEMID_LIME_GREEN_PTS:
+		class_ = MOBID_MAGICDECOY_WIND;
+		break;
+	}
 
 	md =  mob->once_spawn_sub(&sd->bl, sd->bl.m, x, y, sd->status.name, class_, "", SZ_SMALL, AI_NONE);
 	if( md ) {
