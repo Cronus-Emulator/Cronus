@@ -1,0 +1,5064 @@
+//====================================================================\\
+||                _____                                               ||
+||               /  __ \                                              ||
+||               | /  \/_ __ ___  _ __  _   _ ___                     ||
+||               | |   | '__/ _ \| '_ \| | | / __|                    ||
+||               | \__/\ | | (_) | | | | |_| \__ \                    ||
+||                \____/_|  \___/|_| |_|\__,_|___/                    ||
+||                     Comandos de Script -> PT-BR                    ||
+||====================================================================||
+||= Créditos pela estrutura deste documento                           ||
+||--------------------------------------------------------------------||
+||- TecnoCronus														  ||
+\\====================================================================//
+
+=== [Notas]
+ 
+- Este documento contém os comandos de script, traduzidos numa versão
+mais direta pelo 'TecnoCronus' no tempo do eAthena. A versão atual do Cronus 
+contém a maioria dos comandos encontrados nesta documentação, mas lembrando que
+o Cronus é baseado no Hercules, portanto os comandos não descritos, serão disponibi-
+lizados sempre que possível, bem como, a atualização da documentação de forma geral.
+
+=== [Atenção]
+
+- Se você deseja ajudar, com traduções de algum comando ou uma tradução melhor, 
+me mande no email: slexfiredev@gmail.com que analisarei e se for o caso de 
+adicioná-la, adicionaremos seus créditos.
+
+- Se você encontrar algum erro e/ou informação incompleta, pode abrir um tópico
+normalmente na área de scripts.
+
+=== [Changelog]
+
+1.0 -> 2009/08/25
+     - Documento Criado [TecnoCronus]
+2.0 -> 2011/07/14
+     - Atualizado/Adicionado alguns comandos [TecnoCronus]
+2.1 -> 2017/06/16
+     - Reformulação das informações iniciais [SlexFire]
+	 - Correções [SlexFire]
+====================================
+
+Esta documentação não ensinará a programar, ela é um referencial para as funções usadas
+em scripts de NPC do emulador e sua estrutura em geral.
+
+Estrutura do Documento
+--------- -- ---------
+
+Os Comandos e funções são listados em uma ordem não particular:
+
+*Nome do comando e como chamá-lo.
+
+Texto Descritivo
+
+    Pequeno exemplo se possível. Estará geralmente incompleto. é apenas
+    uma idéia de como funciona na prática.
+
+Para achar um comando específico, use Ctrl+F, (ou qualquer atalho que chame
+uma função de pesquisa, dependo do software que você está usando para ler) ponha um 
+* seguido do nome do comando para achar a descrição do comando que você deseja.
+
+
+Sintaxe
+-------
+
+Através deste documento, quando um comando necessitar de um argumento, será
+dado em <parênteses angulados>, ou seja "<>". Isso não quer dizer que esse argumento
+tem que ser usado, se o argumento for opcional ele virá {entre colchetes}. Você
+verá ambos em alguns comandos. Se o comando tiver alguns argumentos opcionais, 
+você verá uma lista como essa:
+
+comando <argumento>,{<argumento>...<argumento>};
+
+
+Eles devem ser separados por vírgulas.
+
+Quando o comando quiser uma string, ela será dada em "aspas duplas", se for um número,
+será dada normalmente sem elas. Todos os comandos terminam com ponto e vírgula ';'
+
+Quando fizer referência à um mapa, por favor use "mapa".
+(Por Favor não use .gat, isto é desnecessário.)
+
+
+Estrutura de Carregamento do Script
+-----------------------------------
+
+Scripts são carregados pelo map server como referenciado em 'conf/map-server.conf',
+o arquvo de configuração, mas na configuração padrão, ele não carrega nenhum script
+por ele mesmo. No lugar, ele carrega o arquivo 'npc/Scripts_Main.conf' nesse arquivo
+contém referência á outros, os atuais scripts são carregados em arquivos txt, que são
+linkados desse jeito:
+
+npc: <caminho do arquivo>
+
+Qualquer linha como essa, escrita em 'map-server.conf' vai carregar o arquivo
+contido nesse caminho, se o script tiver erros ele não será carregado, e
+será mostrada mensagens de erro no map-server.
+
+Tudo que estiver escrito depois de duas barras // será considerado comentário,
+ou seja, todo o resto da linha após // será ignorado.
+
+
+** Criando um mapflag:
+
+Para evitar confusão, a partir daqui o botão do seu teclado tab será renomeado
+para %TAB%, ou seja, onde estiver escrito %TAB% você deve apertar o botão tab
+do seu teclado e não escrever %TAB%.
+
+<nome do mapa>%TAB%mapflag%TAB%<flag>
+
+Isso vai criar um mapflag nesse mapa, essas mapflags estão geralmente dentro
+de arquivos listados em 'npc/mapflag', mas esse comando Top pode ser usado dentro
+de scripts fora dos colchetes {}
+
+** Criar um invocamento de monstro permanente
+
+<nome do mapa>,<x>,<y>,<xs>,<ys>%TAB%monster%TAB%<nome do monstro>%TAB%<mob id>,<quantidade>,<delay1>,<delay2>,<evento>
+
+nome do mapa é o nome do mapa onde os monstros serão invocados. x,y são
+as coordenadas do mapa, se x e y for igual à 0 os monstros serão invocados
+numa coordenada x e y randômicas. Note que esta será as coordenadas iniciais,
+pois os monstros são livres para andar além da região que foram invocados.
+
+nome do monstro é o nome que será mostrado na tela, mob id é o "número de
+identificação do monstro", todos esse ids são listados em 'db/Mob_DB/Mob_RE.conf ou Mob_PRE.conf'.
+
+Se você adicionar 20000 ao id do monstro, ele será invocado como uma 'versão
+gigante' (o tamanho do monstro será aumentado) e se você adicionar 1000, o
+monstro será invocado numa versão pequena, mas isso não é recomendado.
+
+quantidade é a quantidade de monstros que serão invocados, quando esse comando
+é executado ele é afetado pelos rates de spwan em 'conf/battle.conf'.
+
+Delay1 e Delay2 são os delays de invocação do monstro - O primeiro conta o tempo
+desde que um monstro foi invocado até a última invocação. O segundo conta o tempo
+desde sua invocação até a morte do monstro. O Tempo é dado em milésimos de segundo.
+
+Você pode especificar um nível de monstro custom, indicando o nível custom após o nome.
+Exemplo: "Poring,50" esse monstro terá o nome "Poring" mas com nível 50.
+
+evento é o rótulo a ser chamado quando o monstro morrer, note o jogador que matar
+o monstro será "anexado ao script", ou seja, como se ele tivesse clicado no
+npc que tem esse comando. O nome do evento deve seguir o seguinte modelo:
+"NOMEDONPC::OnNome", suponhamos que o nome do nosso npc seja "Crn" e o nome da
+label(Rótulo) seja Ragnarok, então ficaria assim: "Crn::Ragnarok".
+
+
+** Nomes de NPC ***
+
+/!\ ATENÇÃO: Isto é aplicado para warps, npcs, duplicates e shops /!\
+
+Os nomes de NPC são de um tipo especial e formatados desse jeito:
+
+<Nome para mostrar>{::<nome único>}
+
+Todos os NPCS tem um nome único que é usado para motivos de identificação.
+Quando você quiser identificar um npc, você deverá usar o seu nome único.
+Se não existe um nome único, o nome para mostrar será usado no lugar.
+
+O Client tem um aspecto especial quando mostra nomes:
+se o nome para mostrar tiver um '#', isso vai esconder essa parte do nome.
+ex: Se o nome do seu npc for 'Hunter#hunter1' só será mostrado 'Hunter'.
+
+<Nome para mostrar> deve ter no máximo 24 caracteres
+<nome único> deve ter no máximo 24 caracteres
+
+** Definir um ponto de warp
+
+<nome do mapa>,<deX>,<deY>,<direção>%TAB%warp%TAB%<nome do warp>%TAB%<spanx>,<spany>,<para o mapa>,<paraX>,<paraY>
+
+Isso vai criar um NPC de warp que vai teleportar um jogador entre mapas, e todos
+os argumentos são óbvios, exceto span x e y que são: Spanx e y vai deixar essas
+coordenadas sensíveis ao jogador que andar diretamente sobre ela, ou seja, quando
+o jogador andar dentro dessa àrea o npc será ativado.
+
+Esses NPCs de warp tem um nome, por que quando você quiser ter uma referência,
+leia depois com 'enablenpc/disablenpc'.
+
+A Direção para esse tipo NPC é irrelevante, pois de qualquer ângulo que o jogador
+olhar enxergará o npc do mesmo jeito.
+
+
+** Definir um NPC
+
+<nome do mapa>,<x>,<y>,<direção>%TAB%script%TAB%<Nome do NPC>%TAB%<sprite id>,{<código>}
+<nome do mapa>,<x>,<y>,<direção>%TAB%script%TAB%<Nome do NPC>%TAB%<sprite id>,<triggerX>,<triggerY>,{<código>}
+
+Este comando vai criar um NPC no mapa especificado, isso é um comando "top-lvel"
+Direção é a direção que o NPC vai olhar,
+
+Um '-1' em sprite id vai criar um NPC invisível e não-clicável.
+Um '111' em sprite id vai criar um NPC sem sprite mas ainda clicável.
+
+TriggerX e TriggerY, se dados, define uma área, centrada no NPC e entre
+a área triggerX até atrás da coord x do npc e triggerY atrás da direção da
+coord y do npc, Andando nessa área o NPC deve ser executado.
+
+código é o conjuto de funções que serão implementadas no NPC.
+
+** Definir um NCP invisível e não-clicável:
+
+-%TAB%script%TAB%<Nome do NPC>%TAB%-1,{<código>}
+
+Isso vai definir um npc não clicável e invisível, sendo assim, executados
+somente por Rótulos especiais como: OnPCLoadMapEvent, OnPCLoginEvent entre
+outros.
+
+** Definir um NPC dos tipos loja/loja de cash.
+
+-%TAB%shop%TAB%<Nome do NPC>%TAB%<sprite id>,<itemid>:<preço>{,<itemid>:<preço>...}
+<nome do mapa>,<x>,<y>,<direção>%TAB%shop%TAB%<Nome do NPC>%TAB%<sprite id>,<itemid>:<preço>{,<itemid>:<preço>...}
+
+Este comando "top-level", a diferença desse tipo de NPC para o tipo Script é que
+quando o jogador clicar nele, ao invés de aparecer uma janela de mensagem, aparece um
+mini-menu com as opções de comprar ou vender.
+
+O Item id é o id do item em 'db/Item_DB/Item_RE.conf ou Item_PRE.conf'. Se o preço for igual à -1, o preço será
+o padrão especificado na database de items (item_db), se não, será vendido pelo preço especificado.
+
+Você pode usar "cashshop" no lugar de "shop" para usar a interfance do shop de cash,
+isso permite você comprar os items com a variável #CASHPOINTS e #KAFRAPOINTS. Esse
+tipo de shop não permite que você não venda nada, só compre, e <preço> cotinua
+sendo o preço, mas agora não em zenys, mas sim em pontos.
+
+** Definir um NPC duplicado de: warp/shop/cashshop/NPC.
+
+warp: <nome do mapa>,<x>,<y>,<direção>%TAB%duplicate(<rótulo>)%TAB%<Nome do NPC>%TAB%<spanx>,<spany>
+shop/cashshop/npc: -%TAB%duplicate(<rótulo>)%TAB%<Nome do NPC>%TAB%<sprite id>
+shop/cashshop/npc: <nome do mapa>,<x>,<y>,<direção>%TAB%duplicate(<rótulo>)%TAB%<Nome do NPC>%TAB%<sprite id>
+npc: -%TAB%duplicate(<rótulo>)%TAB%<Nome do NPC>%TAB%<sprite id>,<triggerX>,<triggerY>
+npc: <nome do mapa>,<x>,<y>,<direção>%TAB%duplicate(<rótulo>)%TAB%<Nome do NPC>%TAB%<sprite id>,<triggerX>,<triggerY>
+
+Esse comando vai duplicar um NPC do tipo warp/shop/cashshop/NPC referenciado ao rótulo.
+um NPC warp duplicado, herda a localização do NPC Original.
+Shop/cashop herda a lista de items.
+NPC Duplicados herdam o código de script.
+o resto (nome, localização, direção, id do sprite, àrea de spawn/trigger)
+é obtido pela difinição do NPC duplicado.
+
+** Definir uma função.
+
+function%TAB%script%TAB%<nome da função>%TAB%{<código>}
+
+Isso vai definir uma função, chamável pelo comando 'callfunc'. Esse objeto
+vai ser carregado em todo map-server separadamente, então você pode chamar
+a função de qualquer lugar.
+
+O Código é a parte do script que vai ser executado sempre que que a função for
+chamada pelo comando 'callfunc', ela deve estar entre colchetes, apesar do
+código estar em colchetes, isto não significa que é um argumento opcional.
+
+~ RID? GID? ~
+
+O que é RID e porque você precisa conhecer
+------------------------------------------
+
+A Maioria dos comandos de script e funções, pedirão dados sobre um char para
+guardar variáveis referenciadas ao char, enviar coisas ao cliente conectado
+à esse especificado char. Sempre que um script é invocado por um jogador, esse
+passa a ser chamado RID - Este é o número do char (char id) que invocou
+o script, clicando no npc, andando em sua área de "disparagem" ou sendo
+invocado por Labels(Rótulos) especicais.
+
+Se você estiver escrevendo scripts de NPCs comuns, você não precisa se preocupar
+com isso. Contudo, se você estiver usando funções, se você usa contadores, scripts
+ativados por contagem de tempo, você precisa saber de todos os casos quando a
+execução de um script pode ser feita sem um RID anexado. Isso vai fazer uma boa
+parte de comandos e funções não-usáveis, desde que eles precisarem de dados vindos
+de um char específico, e esse comandos e funções não "saberão" como funcionar, já
+que não há nenhum RID anexado.
+
+A Não ser que você use o comando 'attachrid' para atachar um char específico no
+começo do script.
+
+Todas vezes que falamos "jogador que invocou","char/jogador anexado ao script"
+nós estamos falando do RID.
+
+Mas sobre GID?
+--- ----- ---
+
+GID encontra o ID do jogo de algo, isto pode ser um ou outro: o GID obtido
+direto de uma invocação de monstro, ou o ID da conta de um char.
+Outro jeito pode ser um clique com o botão direito em cima do monstro,
+NPC ou CHAR com sprite de GM para ver o GID.
+
+Isso é na maioria dos casos usados para as novas versões de habilidades e
+comandos de controle de monstros implementados.
+
+Item e scripts de PET
+---------------------
+
+Cada item no banco de dados tem os rótulos especiais - OnUnequipScript, OnEquipScript 
+e Script. O primeiro é o código que vai ser executado toda vez que o char usar o item,
+com o RID do char. Toda vez que ele desequipa um item, todos os bônus temporários
+do item são limpos, e todos os scripts são executados quando o char equipá-lo/usá-lo
+novamente.
+
+Script é a parte do código do script que executa quando o jogador usa o item,
+dando um clique duplo nele.
+
+Nem todos comandos de scripts funcionam propriamente em scripts de item. há
+comandos e funções que são usados especificamente para scripts de items.
+
+Todos os pets no banco de dados de pet, tem um campo chamado pet_script, que determina
+a conduta do pet. Isso é invocado toda vez que um PET é invocado.
+
+Números
+-------
+
+Junto dos números decimas comuns, que não tem nada especial, há os números
+hexadecimais, que podem ser usados da seguinte forma: 
+0x<digit hex>
+
+onde <digit hex> equivale aos dígitos hexadecimais.
+
+Exemplo:
+
+	mes "O Número imprimido será 16";
+	mes "aqui está o número: 0x16";//Imprime: aqui está o número 16.
+
+variáveis
+---------
+
+Variáveis é um espaço guardado na memória usado para armazenar dados.
+variáveis são divididas em:
+
+prefixo  - Determina o escopo e o tempo da variável
+nome 	 - Um identificador que consistem '_' e caracteres alfa-numéricos.
+pós-fixo - Determina o tipo de variável: string ou inteiro
+
+Escopo pode ser:
+global    - global para todos os servidores.
+local     - local para o servidor.
+conta	  - atachada na conta do RID identificado.
+character - atachada ao char identificado pelo RID.(char)
+npc	  	  - atachada ao NPC
+escopo	  - atachada ao escopo do instante.
+
+Extenção pode ser:
+permanente - Ela ainda existe quando o servidor reseta
+temporária - Ela não existe quando o servidor reseta
+
+Prefixo: escopo e extenção
+nada - Uma variável permanente atachada ao jogador, o tipo padrão de variável.
+
+"@"	 - Uma variável temporária atachada ao jogador.
+ 
+"$"	 - Uma variável global permanente. Elas são guardadas na tabela de banco de dados `mapreg`.
+
+"$@" - Uma variável global temporária.
+
+"."	 - Uma variável de NPC, elas existem no NPC e desaparecem quando o servidor reiniciar ou o npc for recarregado. Pode ser acessada pelo comando 'getvariableofnpc'.
+
+".@" - Uma variável de Escopo/ NPC
+
+"#"	 - Uma variável de conta permanente. Elas são salvas na tabela 'global_reg_value'
+
+"##" - Uma variável permanente global, guardada no login-server. Elas são guardadas na tabela 'global_reg_value'.
+
+Pós-fixo: inteiro ou string
+nada    - variável inteira, pode guardar número positivos/negativos, mas somente números inteiro.
+
+'$'     - variável string, pode guardar texto alfanumérico
+
+Exemplos:
+  nome  - variável de char permanente e inteira
+  nome$ - variável de char permanente e string
+ @nome  - variável de char temporária e inteira
+ @nome$ - variável de char temporária e string
+ $nome  - variável permanente, global e inteira
+ $nome$ - variável permanente, global e string
+$@nome  - variável temporária global e inteira
+$@nome$ - variável temporária global e string
+ .nome  - variável de npc inteira
+ .nome$ - variável de npc string
+.@nome  - variável de escopo/npc inteira
+.@nome$ - variável de escopo/npc inteira
+ #nome  - variável de conta, inteira, permanente e local
+ #nome$ - variável de conta, string, permanente e local
+##nome  - variável de conta, inteira, permanente e global
+##nome$ - variável de conta, string, permanente e global
+
+Se uma variável nunca foi definida, ela terá valor 0 para variáveis inteiras
+e "" (vazia) para strings.
+
+Algumas variáveis são especiais, eis elas:
+
+StatusPoint - Quantidade de pontos de status restante.
+BaseLevel   - Nível base atual.
+SkillPoint  - Quantidade de pontos de habilidades restante.
+Class       - Emprego (job) atual.
+Upper       - 1 se o char for de classe avançada.
+Zeny        - Quantidade de Zeny atual.
+Sex         - Sexo, 1 se for homem 0 se for mulher.
+Weight      - O Peso atual que o jogador carrega.
+MaxWeight   - O Peso máximo que o jogador pode carregar.
+JobLevel    - Nível de emprego (job lvl) do jogador.
+BaseExp     - A Quantidade de pontos experiência, se 0 o char acabou de upar.
+NextBaseExp - Quantidade de exepriência que o jogador precisa para upar para o próximo nível.
+NextJobExp  - O Mesmo para nível de emprego (job lvl).
+Hp          - Quantidade de HP
+MaxHp       - Quantidade máxima de hp
+Sp          - Quantidade de sp
+MaxSp       - Quantidade máxia de sp
+BaseJob     - Isso não é confiável, aparentemente usado para suporte de classes baby.
+Karma	    - O Karma do char, o sistema de karma não é completamente funcional.
+Manner	    - A taxa de delicadeza do char. Se torna negativa se o jogador proferir palavras probidas de 'manner.txt' (fica na pasta do jogo).
+
+
+Essas variáveis são definidas automaticamente. Se você tentar definir Zeny com
+um número negativo, o script vai concluir que é um erro.
+
+Strings
+-------
+
+Para incluir as aspas "" em uma string você deve usar o prefixo \
+
+Exemplo:
+
+	mes "O Meu nome \"TecnoCronus\" vai ser mostrado entre aspas";
+
+
+Arrays
+------
+
+Arrays são essencialmente um grupo de variáveis, as posições dos valores dentro
+de um array são determinadas pelo índice do array:
+
+<nome da variável>[<índice da variável>]
+
+Variáveis são salvas deste jeito, dentro de um array, elas são até chamadas de
+'elementos de array' são especificamente úteis, para guardar um grupo de dados
+similares (como vários ids de items por exemplo). Você pode endereçar qualquer
+array com variáveis, se elas forem definidas com números inteiros normais.
+
+    setarray @array[0],1;
+
+Exemplo 2:
+    setarray @x,100;
+    setarray @array2[@x],10;
+
+Isso faz com que @array2[100] seja igual à 10
+Note que os índices de array começam em 0. Os Arrays podem comportar  um pouco
+mais que 2 bilhões de variáveis, ou seja, você pode guardar até 2,147,483,647 dados em um array.
+
+Índices de array não podem ser negativos.
+
+Arrays podem guardar strings normalmente:
+
+Arrays podem armazenar strings naturalmente:
+
+	setarray @texto$[0],"Meu nome é";
+
+O Exemplo a seguir vai mostrar como usar arrays string como "texto completo":
+
+	for( set @c, 0; @texto$[@c]; set @c, @c + 1)
+	mes @texto$[@c];
+
+Supondo que o array especificado tenha as seguintes strings:
+
+"olá","como você vai","eu não te vejo há muito tempo"
+
+sendo definidas desse jeito:
+
+setarray @texto$[0],"olá","como você vai ?","eu não te vejo há muito tempo";
+
+o exemplo será igual à fazermos isto:
+
+		mes "Olá";
+		mes "Como você vai ?";
+		mes "eu não te vejo há muito tempo";
+
+Resumo dos arrays permitidos e escopos de arrays
+------ --- ------ ---------- - ------- -- ------
+
+/=========================\
+|Tipo      |Normal| Array |
+|==========|======|=======|
+|$Str$     | OK!  | OK!   |
+|----------|------|-------|
+|$@Str$    | OK!  | OK!   |
+|----------|------|-------|
+|@Str$     | OK!  | OK!   |
+|----------|------|-------|
+|#Str$     | OK!  | FALHA |
+|----------|------|-------|
+|Str$      | OK!  | FALHA |
+|----------|------|-------|
+|$Int      | OK!  | OK!   |
+|----------|------|-------|
+|$@Int     | OK!  | OK!   |
+|----------|------|-------|
+|@Int      | OK!  | OK!   |
+|----------|------|-------|
+|#Int      | OK!  | FALHA |
+|----------|------|-------|
+|Int       | OK!  | FALHA |
+|----------|------|-------|
+|.Str$     | OK!  | OK!   |
+|----------|------|-------|
+|.Int      | OK!  | OK!   |
+|----------|------|-------|
+|.@Str$    | OK!  | OK!   |
+|----------|------|-------|
+|.@Int     | OK!  | OK!   |
+\=========================/
+
+
+Operadores
+----------
+
+Operadores são coisas que você pode usar em números, string, variáveis:
+
++	Vai somar números, se usado em string, une uma ou mais strings, resultando
+	em uma só. É o único operador que se pode usar em strings.
+-	Vai diminuir números.
+*	Vai multiplicar números.
+/	Vai dividir números.
+%	é o resto da divisão. 7%2 será igual à 1.
+
+Há também operadores condicionais, usados para checar strings, variáves, números:
+
+==	(exatamente igual) Se ambos lados forem igual o retorno será verdadeiro
+	usado para string ,número, variáveis.
+>=	(maior ou igual) se o primeiro valor for igual ou maior ao segundo, o
+	retorno será verdadeiro
+<=	(menor ou igual) se o primeiro valor for menor ou igual, o retorno será
+	verdadeiro
+>	(maior que) se o primeiro valor for maior que o segundo, o retorno será
+	verdadeiro (operador válido somente para números).
+<	(menor que) se o primeiro valor for menor que o segundo, o retorno será
+	verdadeiro (operador válido somente para números).
+!=	(diferente) se os valores forem diferentes, o retorno será verdadeiro.
+
+Exemplos:
+	if(1==1)		VERDADEIRO
+	if(1<2)			VERDADEIRO
+	if(@x<2)		VERDADEIRO se @x for menor que 2.
+	if(@x$ == @y$)	VERDADEIRO se o valor de ambas variáveis forem guais
+
+As comparações podem ser empilhadas numa mesma checagem, usando certos operadores.
+
+ && - é verdadeiro se todos os lados forem iguais.
+ || - é verdadeiro se pelo menos um lado for verdadeiro.
+
+ 1==1 && 2==2 é verdadeiro.
+ 1==1 && 2==1 é falso
+ 1==1 || 2==1 é verdadeiro, pois a primeira condição é verdadeira.
+
+Operadores lógicos de "parte" só funcionam com números:
+
+ << - Mudança para esquerda.
+ >> - Mudança para direita.
+
+	Vamos entender melhor em um exemplo:
+		set b, 2;
+		set a, b << 3;
+		mes a;
+		set a, a >> 2;
+		mes a;
+
+	O Primeiro "mes a" vai mostrar 16, pois fará o seguinte cálculo: 2 x (2 x 2 x 2) = 16.
+	e o segundo mostrará 4, pois fará o seguinte cálculo: 16 / 2 = 8. 8 / 2 = 4..
+
+ &  - e.
+ |  - ou.
+		Entenderemos melhor esses dois operadores em exemplos:
+
+		& checa se dentro da variável há certo valor.
+		set @options,2|4|16; //(isso é o mesmo que 2+4+16, ou 22)
+		if (@options&1) mes "Opção 1 ativada";
+		if (@options&2) mes "Opção 2 ativada";
+		if (@options&4) mes "Opção 4 ativada";
+		if (@options&8) mes "Opção 8 ativada";
+		if (@options&16) mes "Opção 16 ativada";
+	
+		essa checagem acima deve mostrar "Opção 2 ativada"
+						 "Opção 4 ativada"
+						 "Opção 16 ativada"
+ ^  - Xor.
+	Também entederemos melhor com exemplos.
+	
+	Examplos:
+
+		set inProgress,1|8|16; // quests 1,8,16 em proguesso
+
+		if( inProgress&2 == 0 ){
+			// Isso vai definir que o jogador está na quest 2
+			set inProgress,inProgress^2;
+			mes "Quest 2: procure alguém e mate";
+			close;
+		}
+		//depois de um tempo ele matou alguém e  ganhou a variável isComplete
+		if( inProgress&1 && isComplete ){
+			// isso vai  desgrupar o pedaço da quest 1 (inProgress tinha esse pedaço definido como 1)
+			set inProgress,inProgress^1;
+			mes "Quest 1 completa";
+			close;
+		}
+
+Concatenação
+------------
+
+Algumas vezes será preciso que você retorne o valor de uma função ou inserir o valor de uma
+variável dentro de uma string, para fazer isso você precisa concatenar, exemplo:
+
+	+----------------------------+
+	+ mes "Olá "+strcharinfo(0); +
+	+----------------------------+
+
+O Exemplo acima deve mostrar Olá + nome do jogador anexado, esse exemplo é simples é aplicado
+tanto à variáveis quanto à funções, agora veja como fazer uma concatenação entre strings:
+
+	+-----------------------------------------------------+
+	+ mes "Olá "+strcharinfo(0)+", Como posso te ajudar ?";
+	+-----------------------------------------------------+
+
+Você percebeu que deve inserir um sinal de '+' antes e depois da função/variável neste caso.
+
+Rótulos(Label)
+-------
+
+Nos Scripts, algumas linhas podem ser rótulos:
+
+<nome do rótulo>:
+
+Rótulos são pontos de referência em um script, esse pontos podem ser direcionados
+com o comando 'goto' e 'jump_zero', um rótulo pode conter no máximo 22 caracteres
+sendo que o 23º teria que ser dois pontos ":"
+
+
+OnClock<hora><minuto>:
+OnMinute<minuto>:
+OnHour<hora>:
+On<diadasemana><hora><minuto>:
+OnDay<mês><dia>:
+
+Esses rótulos serão executados, quando a data do servidor ou hora, for igual
+á do label, horas e minutos são dados em tempo militar. (0105 é igual à 01:05 AM).
+Os dias da semanas são: Sun,Mon,Tue,Wed,Thu,Fri,Sat. Meses vão de 01 à 12, dias
+de 01 à 31, nunca esqueça o zero.
+
+OnInit:
+OnInterIfInit:
+OnInterIfInitOnce:
+
+O Rótulo OnInit vai ser executado quando o script for carregado completamente.
+OnInterifInit vai ser executado quando o map server se conectar ao char server.
+OnInterifInitOnce é o mesmo de OnInterIfInit, só que vai ser executado só uma vez.
+
+OnAgitStart:
+OnAgitEnd:
+OnAgitInit:
+OnAgitStart2:
+OnAgitEnd2:
+OnAgitInit2:
+
+OnAgitStart será executado toda vez que o servidor entrar no modo WOE, que pode
+ser pelo comando de GM @agistart ou pelo comando se script 'agitstart'. OnAgitEnd
+será executado toda vez que a WOE termiar. OnAgitInit vai ser executado toda vez
+que um dado de castelo for carregado do char-server pelo map-server.
+ 
+Nenhum RID vai ser anexado quando esse rótulos de WOE acima forem executados
+
+OnTouch:
+
+Esse rótulo vai ser executado se uma "àrea de disparo" for definida pelo NPC que
+tem esse rótulo, se essa área não existir, a execução vai começar pelo começo do script
+esse label tem RID anexado.
+
+OnPCLoginEvent:
+OnPCLogoutEvent:
+OnPCBaseLvUpEvent:
+OnPCJobLvUpEvent:
+
+Isto é um pouco óbvio, esses rótulos são executados especialmente, de acordo
+com a ação do jogador, ele pode invocar esse rótulos.
+
+OnPCDieEvent:
+
+Esse rótulo é chamado toda vez que um jogador morre. a variável 'killerrid' é
+definida com o ID de quem o matou.
+
+OnPCKillEvent:
+
+Esse rótulo é chamado toda vez que um jogador mata outro. a variável 'killedrid'
+é definida com o ID do jogador que ele matou.
+
+OnNPCKillEvent:
+
+Esse rótulo é chamado toda vez que um jogador mata um monstro. a variável 'killedrid'
+é especificada com a classe do monstro morto.
+
+OnPCLoadMapEvent:
+
+Esse rótulo é chamado toda vez que um jogador muda de mapa.
+
+On<nome do label>:
+
+Esse erótulo especial é usado na maoria das vezes em comandos de monstro.
+
+Exemplo:
+
+monster "prontera",123,42,"Poringz0rd",2341,23,"Master::OnThisMobDeath";
+
+amatsu,13,152,4	script	Master	767,{
+	mes "Oi";
+	close;
+
+OnThisMobDeath:
+	announce "Ei, "+strcharinfo(0)+" você matou um Poringz0rd!",bc_blue|bc_all;
+	end;
+}
+
+toda vez que você matar um, o npc anunciará a mensagem.
+
+-----------------------
+
+A Partir daqui, nós teremos os comandos organizados respectivamente:
+
+1.- Comandos Básicos.
+2.- Comandos de Recuperação de Informações.
+3.- Comandos de Checagem.
+4.- Comandos Relativos aos jogadores.
+5.- Comandos Relativos à NPC/MOBS.
+6.- Outros Comandos.
+
+=======================\
+|1.- Comandos Básicos. |
+=======================/
+---------------------------------------
+
+
+*mes "<string>";
+
+Esse comando irá mostrar um quadrado na tela do jogador invocado, com a string
+especificada no comando, ele não mostra nenhum buttom 'next' ou 'close' a não
+ser que você use esses comandos. Se a string estiver vazia, o comando mostrará
+uma caixa vazia.
+
+    mes "O Texto vai aparecer no quadrado";
+
+Dentro da string você pode por cores, todos os códigos das cores são em RGB e
+começam com um '^', e depois da string que deseja colorir deverá terminar com
+preto (^000000).
+(^FF00FF é considerado invisível)
+
+    mes "Isso é ^FF0000 Vermelho ^000000 e isso ^00FF00 Verde ^000000";
+
+---------------------------------------
+
+*next;
+
+Esse comando vai criar um botão 'next' na Janela de menssagem do jogador anexado
+ao script, se não estiver nenhuma janela na tela, ela será criada, esse comando
+é usado juntamente com o comando 'mes', serve para segmentar o Texto, ou seja,
+quando o jogador clicar em 'next' a janela será "limpa" e mostrará as próxmas
+strings contidas em mes (se houver próximas).
+
+
+    mes "[TecnoCronus]";
+    mes "Isso Deve aparecer na Tela";
+    next;
+    // Aqui o comando "limpará" a janela e aparecerá as seguintes strings:
+    mes "[TecnoCronus]";
+    mes "Isso deverá aparecer na segunda janela";
+
+---------------------------------------
+
+*close;
+
+Esse comando criará um botão 'close' na janela de mensagem do jogador anexado
+ao script,se não estiver nenhuma janela na tela, ela será criada. Esse comando
+é muito usado com 'mes', sua utilidade é: Fechar a janela criada pelo comando
+'mes' e terminar o script. Quando o Jogador clicar em 'close' a caixa de janela
+irá desaparecer e o script será terminado.
+
+    mes "[TecnoCronus]";
+    mes "Ok Não vou falar mais com você clique em close para acabar a conversa";
+    close;
+    mes "Isso não será mostrado, pois o script já foi encerrado";
+
+---------------------------------------
+
+*close2;
+
+Esse comando é bastante parecido com o comando 'close' a diferença é que a única
+utilidade dele é para fechar a janela de messagem ('mes'), esse comando não
+enecerrará o script.
+
+    mes "[TecnoCronus]";
+    mes "Vou te teleportar agora";
+    close2;
+    warp "prontera",50,50;
+    end;
+    
+Você deverá, para encerrar o script, usar o comando 'end' ou close, pois o close2 só
+serve para fehcar a janela.
+
+---------------------------------------
+
+*end;
+
+Esse comando serve para encerrar um script, ele é geralmente usado quando não se usa o comando
+'mes', e após o comando 'close2', como no exemplo do comando 'close2'.
+
+        dispbottom "Ei Você consegue ler isso ?";
+	end;
+
+---------------------------------------
+
+*set <variável>,<valor>;
+
+Esse comando vai estabelecer um variável, com um o valor indicado, é um dos comando mais
+usados em scripts, os valores podem ser números e/ou strings, strings são um conjunto de
+caracteres, incluindo ou não números, todas as strings devem ser delcaradas entre aspas:
+
+set @nick$, "TecnoCronus";
+
+Veja que no exemplo a variável '@nick$' terá o valor de TecnoCronus, se você fizesse sem
+as aspas, nenhum erro de map-server seria mostrado, mas a variável não estaria incorreta
+e provavelmente ocorreria erros, porque o valor dela, sem aspas, seria considerada outra
+variável.
+
+Nota: variáveis que contém "-" irão mostrar um erro no map-server, então nunca defina uma
+variável com esse character. [TecnoCronus]
+
+---------------------------------------
+
+*setd "<nome da variável>",<valor>;
+
+Funciona identicamente ao comando 'set',a diferença é que o nome da variável é
+identificada com string.
+
+Exemplo
+set $var$, "Poring";
+
+setd "$var$", "Poporing";
+mes $var$; // será mostrado Poporing
+
+setd "$" + $var$ + "123$", "Poporing é legal";
+mes $Poporing123$; // vai mostrar Poporing é legal
+
+---------------------------------------
+
+*getd("<nome da variável>")
+
+Retorna uma referência da variável, o nome pode ser construído dinâmicamente.
+
+Exemplo:
+set getd("$referenciadavar"), 1;
+set @i, getd("$pikachu");
+
+---------------------------------------
+
+*getvariableofnpc(<variável>,"<Nome do NPC>")
+
+Retorna uma referência da variável do NPC (prefixo .) especificado
+Isso só é usado para variáveis do tipo NPC.
+
+---------------------------------------
+
+*goto <rótulo>;
+
+Esse comando faz com que o script "pule" para um rótulo, e é usalmente usado
+com o comando 'if', os rótulos podem ter qualquer nome, mas evite rótulos com
+traço "-", isso às vezes buga:
+
+	mes "Isto será visto normalmente";
+	goto L_Label;
+	mes "Isso não será visto";
+
+	L_Label:
+	mes "O Script pulará pra cá";
+
+exemplo 2:
+	mes "Deixe me ver se você tem zeny suficiente.";
+	if(Zeny < 10) goto L_Zeny;
+	mes "Sim você tem 10 ou mais zenys !!";
+	close;
+
+	L_Zeny;
+	mes "me desculpe você tem menos de 10 zenys, não posso continuar";	
+	close;
+
+---------------------------------------
+
+*menu "<Texto da Opção>",<rótulo_alvo>{,"<texto da opção>",<rótulo_alvo>,...};
+
+Esse comando vai criar um menu na tela com varias opções. A opção escolhida direciona
+o jogador para um rótulo específicado.
+
+Duas opções podem ser direcionadas à um mesmo rótulo, separadas pelo caractere ':'
+
+      mes "[Nagato]";
+      mes "O Que você deseja";
+      mes "senhor "+strcharinfo(0);
+      menu "Dinheiro:Money",L_Money,"Nada",L_Nada;//Aparecerá 3 opções: Dinheiro, Money e Nada
+						//Sendo que as 2 primeiras irão pro mesmo rótulo.
+      L_Money:
+      mes "[Nagato]";
+      mes "Vai trabalhar!";
+      close;
+
+      L_Nada:
+      mes "[Nagato]";
+      mes "Então vá embora oras !";
+      close;
+
+Existe também uma variavel especial @menu, ela contém o numero da opção escolhida.
+
+      mes "[Nagato]";
+      mes "O Que você deseja";
+      mes "senhor "+strcharinfo(0);
+      menu "Dinheiro:Money",L_Money,"Nada",L_Nada;//Aparecerá 3 opções: Dinheiro, Money e Nada
+						//Sendo que as 2 primeiras irão pro mesmo rótulo.
+
+      L_Money:// aqui @menu será 1
+      mes "[Nagato]";
+      mes "Vai trabalhar!";
+      close;
+
+      L_Nada:// aqui 2.
+      mes "[Nagato]";
+      mes "Então vá embora oras !";
+      close;
+
+Você pode espeficar, para o rótulo o valor '-', isso fará com que o script continue,
+não seguindo para nenhum rótulo:
+
+	menu "oi",l_oi,"tchau",-;
+
+	mes "tchau";//se ele escolher tchau o script continua.
+	close;
+
+	l_oi:
+	mes "oi";
+	close;
+
+---------------------------------------
+
+*select("<opção"{,"<opção>",...})
+*prompt("<opção>"{,"<opção>",...})
+
+Essas duas funções são idênticas ao comando 'menu', úteis quando você mão precisa
+de uma complexa estruturas de rótulos, essas funções ainda definem a variável @menu
+seu uso é empregado, geralmente, para checagem rápida.
+
+Exemplo:
+	mes "Você vai me dar 5000 Zenys ?";
+	if(select("Sim","Não")==2) {
+		mes "que pena, eu estou precisando de dinheiro";
+		close;
+	}
+	mes "Que deus te abençoe !";
+	set Zeny, Zeny - 5000;
+	mes "Muito obrigado";
+	close;
+
+o comando prompt trabalha quase identicalmente ao select, a diferença é que quando
+o jogador clicar em 'cancel' essa função retorna 255.
+
+---------------------------------------
+
+*input (<variável>{,<mínimo>{,<máximo>}})
+
+Esse comando vai criar uma caixa de "inserção" no RID anexado ao script,
+o valor inserido será guardado na variável definida.
+
+Para inserir textos a variável tem que ser do tipo string (pós-fixo $):
+
+	mes "digite seu nome";
+	input @nome$;
+	if(@nome$ == strcharinfo(0)) {
+		mes "Você acertou seu nome";
+		close;
+	} else {
+	mes "Como assim ? você não sabe seu nome ?";
+	close;
+	}
+
+Normalmente você talvez não vai inserir um número negativo com esse comando
+Isso é feito para evitar bugs, por exemplo um input negativo pode fazer
+com que o jogador receba zenys.
+
+O Comando tem 2 argumentos opcionais. o valor padrão de 'mínimo' e 'máximo'
+podem ser definidos com 'input_min_value' e 'input_max_value' em
+'script_athena.conf'.
+Se o número inserido for maior que 'máximo', o comando retorna 1 e -1 se o
+valor for menor que 'min' e 0 de outro jeito (isso se 'mínimo' e 'máximo'
+existirem).
+
+Exemplo:
+	mes "Insira um número maior que 1 e menor que 10";
+	input @num;
+	if(@num > 1 && @num < 10) {
+		mes "parabéns você fez o que eu disse !";
+		close;
+	}
+	mes "Você não me obedeceu !";
+	close;
+
+---------------------------------------
+
+*callfunc "<função>"{,<argumento>,...<argumento>};
+*callfunc("<função>"{,<argumento>,...<argumento>})
+
+Esse comando deixa você chamar uma função de NPC. Uma função de NPC pode ser
+chamada por qualquer script em qualquer map-server. Usando o comando 'return'
+ele te devolve para onde a função foi chamada.
+
+Exemplo:
+
+prontera,174,215,6	script	Loteria	98,{
+	mes "[Loteria]";
+	mes "Digite um número menor que 100":
+	input @numero;
+	if(@numero < 0 || @numero > 100) {
+		mes "ERRO !!!";
+		close;
+	}
+	callfunc ("Sorteio",@numero);
+	mes "parabéns você ganhou !";
+	set Zeny, Zeny + 5000;
+	mes "você recebeu 5000 Zenys";
+	close;
+
+function	script	Sorteio	{
+	set @ganhou, rand(100);
+	if(getarg(0) <= @ganhou) return;
+	mes "que pena você perdeu";
+	close;
+	}
+}
+
+---------------------------------------
+
+*callsub <rótulo>{,<argumento>,...<argumento>};
+*callsub(<rótulo>{,<argumento>,...<argumento>});
+
+Esse comando vai chamar um rótulo específico no script que ele é usado ( não
+use para chamar um rótulo de outro script), a diferença de 'goto' é que esse
+comando pode passar argumentos.
+
+		mes "[NPC]";
+		mes "vamos ver se você ganhou";
+		callsub Check, 100;
+		mes "Ganhou";
+		close;
+	Check:
+		set @win, rand(100);
+		if(@win<=getarg(0)) return;
+		mes "Perdeu";
+		close;
+
+---------------------------------------
+
+*getarg(<índice>{,<valor padrão>})
+
+Esse comando é usado com os comandos 'callsub' ou 'callfunc', essa função pega
+os argumentos passados pelos comandos 'callsub' ou 'callfunc'.
+
+o primeiro argumento terá índice 0, se nenhum argumento é dado, 0 será retornado.
+
+Exemplo:
+
+	aldebaran,123,145,6%TAB%script%NPC1%TAB%718,{
+		mes "[NPC]";
+		mes "Vamo ver se você ganha";
+		callfunc "funcNPC",2;
+		mes "você ganhou";
+
+	...
+	}
+
+	morocc,123,145,6%TAB%script%NPC2%TAB%718,{
+		mes "[NPC]";
+		mes "Vamo ver se você ganha";
+		callfunc "funcNPC",3;
+		mes "você ganhou";
+
+	...
+	}
+
+	function%TAB%script%TAB%funcNPC%TAB%{
+		set @win, rand(getarg(0));
+		if(@win==0) return;
+		mes "Perdeu";
+
+Você pode passa múltiplos argumento quando chamar uma função:
+
+	callfunc "funcNPC",5,4,3;
+
+getarg(0) será 5, getarg(1) será 4 e getarg(2) será 3.
+
+getarg tem um parâmetro opcional, se o argumento existe, ele é retornado,
+de outro modo, se o <valor padrão> existir o argumento não existir, esse
+valor padrão é retornado no lugar.
+
+No exemplo anterior (callfunc "funcNPC",5,4,3;),getarg(2,-1) será igual à 3
+e getarg(3,-1) será -1, pois não existe "getarg(3)",ou seja, um quarto argumento.
+
+---------------------------------------
+
+*return {<valor>};
+
+Quando você usa os commandos 'callsub' ou 'callfunc', esse comando permite
+que você retorne um valor ou uma variável.
+
+Exemplo:
+	mes "digite um número";
+	input @n;
+	callfunc "quadrado",@n;
+	mes "o quadrado de "+@n+" é "+@q;
+	close;
+
+	function%TAB%script%TAB%quadrado%TAB%{
+	set @q, @n * @n;
+	return @q;
+	}
+
+---------------------------------------
+
+*function <nome da função>;
+*<nome da função>;
+*function <nome da função> {
+<código>
+}
+
+Isso funciona como 'callfunc', mas não suporta argumento como 'callfunc', isso é usado para
+scripts rápidos que não requer argumentos para funcionar, essas função funcionam como rótulos.
+
+---------------------------------------
+
+*if (<condição>) <código>;
+
+Isso serve para checar condições e se elas forem verdadeiras ou falsas, o script
+faz algo.
+
+Exemplos:
+
+	// Checa se o nome do jogador é "noob"
+	if(strcharinfo(0) == "noob") mes "Sim seu nome é noob";
+
+	// Checa se o Jogador tem mais de 10 zenys
+	if(Zeny > 10) {
+		mes "Você tem mais de 10 zenys";
+		close;
+	}
+	
+	Perceba nesse segundo exemplo, ouso de colchetes, bem esses colchetes
+	servem para executar mais de um comando se a condição for verdadeira,
+	ou seja, se a condição for verdadeira, o script executará todos os
+	comandos/funções que estiverem dentro dos colchetes.
+
+	// Checa se o jogador tem nível maior que 10.
+	if(BaseLevel > 10) {
+		mes "Seu nível é maior que 10";
+	} else {
+		mes "Seu nível é menor que 10";
+	}
+	close;
+
+	Esse terceiro exemplo tem um comando "novo" o 'else', essa função
+	vai fazer o contrário de if, ou seja se a condição for negativa
+	o conjunto de comandos contido nos colchetes que vem depois dela
+	será executado, nesse exemplo o 'close' será exibido independentemente
+	da condição.
+
+
+	// Checa a opção escolhida
+
+	set @menu, select("1","2","3");
+	if(@menu == 1) {
+		mes "você escolheu 1";
+	} else if (@menu == 2) {
+		mes "você escolheu 2";
+	} else if (@menu == 3) {
+		mes "você escolheu 3";
+	}
+	close;
+
+	Esse quarto exemplo, tem uma coisa nova: "else if", isso funciona,
+	basicamente como outro if, isso quer dizer "se a condição anterior
+	for falsa e se a próxima condição for verdadeira".
+
+---------------------------------------
+
+*jump_zero (<condição>),<rótulo>;
+
+Esse comando funciona como a junção dos comandos 'if' + 'goto'.
+
+Exemplo:
+
+	jump_zero(Zeny < 10),L_Zeny;
+	mes "você tem mais de 10 zenys !!!";
+	close;
+
+	L_Zeny;
+	mes "você tem menos que 10 zenys";
+	close;
+
+---------------------------------------
+
+*while (<condição>) <código>;
+
+A estrutura de controle while é o loop (volta) básico. Fica dando voltas até que a condição seja verdadeira ou falsa.
+
+Exemplo:
+
+prontera.gat,150,150,5    script    While    751,{
+
+set @var,15;
+set @i,0;
+while (@i < 15) {
+    dispbottom "Posição do while "+@i+"";
+    set @i,@i+1;
+	}
+}
+
+
+Resultado final:
+
+Posição do while 0
+Posição do while 1
+... // Assim vai até chegar ao 15
+
+
+Ele irá repitir 15x o loop até que @i chegue em 15, irá repitir também 15x o dispbottom mostrando
+a cada loop a posição que @i está. Se eu não tivesse colocado set @i,@i+1[b] para incrementar+1
+a cada LOOP, chamariamos de Loop Infinito,ou seja não teria fim e causaria um lag imenso.
+
+Agora outro exemplo de Loop:
+
+set @var,15;
+set @i,@var; // Recebe o valor 15
+while (@i) {
+    dispbottom "Posição do while "+@i+"";
+    set @i,@i-1;
+}
+
+
+Resultado final:
+
+Posição do while 15
+Posição do while 14
+... // Assim vai até chegar ao 1, pois 0 é considerado falso
+
+---------------------------------------
+
+*for (<inicialização>; <condição>; <aumento/declínio da variável>) <código>;
+
+Esse comando é quase que similar à while.
+É um while só que em uma Estrutura só.
+
+Exemplo:
+<inicialização> = set @i,0; // Começará do 0
+<condição> = @i < 15 // Irá repetir @i 15x novamente
+<incremento> = set @i,@i+1
+<decremento> = set @i,@i-1
+
+for (set @i,0; @i < 15;set @i,@i+1 ) dispbottom "Posição do for "+@i+"";
+
+Isso terá o mesmo resultado do exemplo 1 de 'while', as diferenção são
+que o aumento/declínio da variável é feita por ele mesmo, e que esse
+declínio/aumento da variável não precisa de ponto e vírgula ';'
+
+---------------------------------------
+
+*do { <código>; } while (<condição>);
+
+o 'faça ...enquanto' é o único loop (volta) avaliável nesse linguagem de script
+ele executa um código enquanto a condição for verdadeira, ele executa uma vez e
+checa se a condição é verdadeira, vai fazendo isso até a condição se tornar falsa
+
+
+Exemplo:
+	mes "Vai fazer uma contagem regressiva de 1 até 10.";
+	set .@i, 10;
+	do {
+		mes .@i;
+		set .@i, .@i - 1;
+	} while (.@i > 0);
+
+---------------------------------------
+
+*setarray <nome do array>[<primeiro valor>],<valor>{,<valor>...<valor>};
+
+Esse comando permite você criar um array.
+
+    setarray @array[0], 100, 200, 300, 400, 500, 600;
+Onde:
+
+	@array[0] = 100
+	@array[1] = 200
+	@array[2] = 300
+	@array[3] = 400
+	@array[4] = 500
+	@array[5] = 600
+
+examplo:
+
+    setarray @array[0],200,200,200;
+    setarray @array[1],300,150;
+    
+resultará em:
+
+ @array[0]=200
+ @array[1]=300
+ @array[2]=150
+
+---------------------------------------
+
+*cleararray <nome do array>[<primeiro valor para alterar>],<valor>,<número de valores para definir>;
+
+Esse comando vai mudar muito valores de arrays ao mesmo tempo para o mesmo valor.
+
+    setarray @array[0], 100, 200, 300, 400, 500, 600;
+    // Isso vai definir os 6 valores para 0.
+    cleararray @array[0],0,6;
+    // Isso muda o valor do elemento do array 0 para 245
+    cleararray @array[0],245,1;
+    // isso faz os elementos 1 e 2 com o valor 345
+    cleararray @array[1],345,2;
+
+veja 'setarray'
+
+---------------------------------------
+
+*copyarray <array de destino>[<primeiro valor>],<array fonte>[<primeiro valor>],<número de elemento a serem copiados>;
+
+Esse comand deixa você estabelecer muitos dados entre arrays.
+
+    setarray @array[0], 100, 200, 300, 400, 500, 600;
+    // criamos o array @array[]
+    copyarray @array2[0],@array[2],2;
+    
+    // Agora, @array2[0] vai ser igual à @array[2] (300) e
+    // @array2[1] vai ser igual À @array[3].
+
+Usando os exemplos acima, teremos:
+ @array[0]  = 100
+ @array[1]  = 200
+ @array[2]  = 300
+ @array[3]  = 400
+ @array[4]  = 500
+ @array[5]  = 600
+ 
+Novo Array:
+ @array2[0] = 300
+ @array2[1] = 400
+ @array2[2] = 0
+ @array2[3] = 0
+
+Note que @array[4] e @array[5] não será copiado para o segundo array, e vai retorna
+0.
+
+---------------------------------------
+
+*deletearray <nome do array>[<primeiro valor>],<quantidade a ser deletada>
+
+Esse comando vai deletar um número específico de elementos do  array, totalmente
+de um array.
+
+    // isso vai deletar o elemento do array 0 , e mover todos os outro elementos 
+    deletearray @array[0],1
+
+// Isso deve deletar o elemento do array 1,2,3, deixa o elemento 0 no lugar dele
+// e move os outros elementos, então não há uma brecha.
+
+    deletearray @array[1],3
+
+IMPORTANTE: 'deletearray' está horrivelmente bugado, ele tende a remover varáveis
+que ele não devia remover, entre outros bugs.
+
+---------------------------------------
+
+============================================
+|2.- Comandos de Recuperação de Informações.|
+============================================
+---------------------------------------
+
+*strcharinfo(<tipo>)
+
+Essa função retorna algumas informações sobre o jogador que estiver executando o npc.
+
+Os tipos possível são:
+
+ 0 - Nome do Jogador.
+ 1 - O Nome do grupo, se ele estiver em um.
+ 2 - O Nome da guilda, se ele estiver em uma.
+ 3 - O Nome do mapa, se ele estuver em um.
+ 
+Se o jogador não estiver em nenhuma guilda, ou nenhum grupo, uma string vazia será
+retornada.
+
+---------------------------------------
+
+*strnpcinfo(<tipo>)
+
+Essa função vai retornar as várias partes de nome do npc, qualquer um é
+retornado, dependendo do tipo.
+
+ 0 - O Nome para mostrar do NPC (visível#escondido)
+ 1 - A Parte visível do nome do NPC
+ 2 - A Parte invisível do nome do NPC
+ 3 - O Nome único do NPC
+
+---------------------------------------
+
+*getarraysize(<nome do array>)
+
+Essa função retorna o número de valores que estão contidos dentro do array
+específico, Note que zeros e strings vazias no fim desse array não
+são contadas para esse número.
+
+Exenplo:
+
+    setarray @array[0], 100, 200, 300, 400, 500, 600;
+    set @arraysize,getarraysize(@array);
+
+Isso vai fazer com qye @arraysize == 6. Mas se você tentar isso:
+
+    setarray @array[0], 100, 200, 300, 400, 500, 600, 0;
+    set @arraysize,getarraysize(@array);
+    
+@arraysize ainda vai ser igual à 6, apesar que você tenha definido 7 valores
+
+---------------------------------------
+
+*getelementofarray(<nome do array>,<índice>)
+
+Essa função vai retornar um elemento do array dado pelo índice.
+
+    // Isso vai procurar o segundo valor do array
+    getelementofarray(@array,1)
+
+agira temos
+
+    @array[1]
+
+Com o mesmo efeito.
+
+---------------------------------------
+
+*readparam(<número do parâmetro>)
+
+Essa função vai retornar os stats básicos do jogador invocado, referenciado pelo
+número do parâmetro. No lugar do número, você pode usar o nome do parâmetro se ele
+estiver definido em 'db\const.txt'.
+
+Por referência, Essas variáveis são definidas:
+
+StatusPoint, BaseLevel, SkillPoint, Class, Upper, Zeny, Sex, Weight, MaxWeight,
+JobLevel, BaseExp, JobExp, NextBaseExp, NextJobExp, Hp, MaxHp, Sp, MaxSp,
+BaseJob, Karma, Manner, bVit, bDex, bAgi, bStr, bInt, bLuk
+
+Exemplo:
+
+    if(readparam(bVit)<=77) goto L_End;
+    mes "Só possoas com mais de 77 de vit leram isso";
+L_End:
+    close;
+
+---------------------------------------
+
+*getcharid(<tipo>{,"<nome do char>"})
+
+Essa função vai retornar um id único do char anexado, ou se um nome for especificado
+o id desse char especificado será retornado.
+
+Os tipos podem ser:
+
+ 0 - id do char.
+ 1 - id do grupo.
+ 2 - id da guilda.
+ 3 - id da conta.
+
+Essa função retornará 0 quando: o char especificado não existe,o char não está
+em nenhuma guilda/grupo
+
+if( getcharid(2) == 0 ) mes "Vejo que você não participa de nenhuma guilda";
+
+---------------------------------------
+
+*getchildid()
+*getmotherid()
+*getfatherid()
+
+Essas funções retornam o id do filho, pai, mãe.
+
+    if (getmotherid()) mes "O id da sua mãe é:"+getmotherid();
+
+---------------------------------------
+
+*ispartneron()
+
+Essa função retorna 1 se o companheiro (marido ou mulher) estiver online
+e 0 se não.
+
+---------------------------------------
+
+*getpartnerid()
+
+Essas funções retornam o id do companheiro (se ele tiver um/uma), se ele/ela
+não tiver um companheiro/companheira o retorno será 0.
+
+    if (getpartnerid()==0) mes "você não tem uma namorado(a) que pena";
+
+---------------------------------------
+
+*getpartyname(<id do grupo>)
+
+Essa função vai retornar o nome do grupo que o jogador anexado ao script está.
+
+Se ele não estiver em nenhum grupo a string "null" será retornada.
+
+Exemplo:
+	if(getcharid(1) > 0) mes "Você está no grupo "+getpartyname(getcharid(1));
+
+---------------------------------------
+
+*getpartymember <id do grupo>{,<tipo>};
+
+Esse comando procura todos os membros de um grupo específico e retorna seus
+nomes (ou id da conta, dependendo do tipo), dentro de uns arrays:
+
+$@partymembername$[] 	contém o nome de todos os membros do grupo.(tipo 0)
+
+$@partymembercid[] 	contém todos os ids dos chars dos membros do grupo.  (tipo 1)
+
+$@partymemberaid[]	contém todos os ids das contas dos membros do grupo. (tipo 2)
+
+$@partymembercount   	número de membros do grupo encontrados.
+
+Os membros vão ser chados (aparentemente) estando ou não onlines.
+
+Exemplo:
+
+   // pega o id do grupo
+       getpartymember(getcharid(1));
+
+   // copia $@partymembername para um novo array
+       copyarray @partymembername$[0],$@partymembername$[0],@partymembercount;
+
+       set @count,0;
+	//mostra o nome de todos os membros do grupo
+   L_DisplayMember:
+       if(@count == @partymembercount) goto L_DisplayMemberEnd;
+       mes (@count + 1) + ". ^0000FF" + @partymembername$[@count] + "^000000";
+       set @count,@count+1;
+       goto L_DisplayMember;
+   L_DisplayMemberEnd:
+       close;
+
+---------------------------------------
+
+*getpartyleader(<id do grupo>{,<tipo>});
+
+Essa função retorna algumas informações sobre  líder do id do grupo dado.
+Quando o tipo for omitido, o nome do líder do grupo será dado.
+
+Os tipos possíveis são:
+
+	1: id da conta do líder
+	2: id do char do líder
+	3: Classe do líder
+	4: Mapa atual do Líder
+	5: Nível atual do líder como salvo na estrutura do grupo (talvez não seja
+	   o nível atual se o líder upou ultimamente).
+
+Se houver falhas (líder não encontrado ou grupo não existe), essa função retorna o
+valor "null" para o nome e -1 para os outros tipos.
+
+---------------------------------------
+
+*getlook(<tipo>);
+
+Essa função, retornará o número do visual do RID anexado, veja 'setlook'
+para ver os tipos válidos de tipo.
+
+---------------------------------------
+
+*getsavepoint(<tipo de informação>);
+
+Essa função retornará informações sobre o ponto de salvamento do jogador.
+As Informações usadas são:
+
+ 0 - nome do mapa (string)
+ 1 - Coordenada X
+ 2 - Coordenada Y
+
+---------------------------------------
+\\
+2,2 Comandos relacionados à items
+\\
+---------------------------------------
+
+*getequipid(<slot do equipamento>);
+
+
+Essa função retorna o id do item do item quipado no slot especificado
+se nada estiver equipado nesse slot, retorn -1.
+
+EQI_HEAD_TOP (1)  - Superior Cabeça
+EQI_ARMOR (2)     - Armadura
+EQI_HAND_L (3)    - O que estiver na mão esquerda
+EQI_HAND_R (4)    - O Que estiver na mão direita
+EQI_GARMENT (5)   - O Slot do Vestuàrio (Manto)
+EQI_SHOES (6)     - O Que estiver equipado no pé
+EQI_ACC_L (7)     - Accessório 1.
+EQI_ACC_R (8)     - Accessório 2.
+EQI_HEAD_MID (9)  - Meio da Cabeça
+EQI_HEAD_LOW (10) - Baixo da Cabeça
+
+
+Usado para checar se tem algum item equipado.
+
+        if(getequipid(EQI_HEAD_TOP)==2234) goto L_WearingTiara;
+        mes "Volte quando estiver usando uma Tiara";
+        close;
+    L_WearingTiara:
+        mes "Você está usando uma Tiara adorável";
+        close;
+
+---------------------------------------
+
+*getequipname(<equpment slot>);
+
+Retorna o nome do item que está no slot especificado.
+        if( getequipname(EQI_HEAD_TOP) != "" )
+	        mes "Você tem um "+getequipname(EQI_HEAD_TOP)+" na sua cabeça";
+	else
+	        mes "Você não tem nada em sua cabeça";
+
+---------------------------------------
+
+*getitemname(<item id>);
+
+Retorna o nome do item, especificado pelo id, vai retornar o nome em inglês do
+item.
+
+---------------------------------------
+
+*getbrokenid(<número>);
+
+Essa função vai procurar no inventório do jogador, algum equipamento quebrado, se achá-lo
+vai retornar o id dele, se o jogador tiver mais de um equipamento quebrado, o número 1
+pe dado como argumento para o primeiro item quebrado, 2 para o segundo ...
+
+Exemplo:
+
+    // Vamos mostrar todos os equipamento quebrados.
+        if (getbrokenid(1)==0) goto Skip;
+	for (set @i, 1; getbrokenid(@i); set @i, @i + 1)
+        mes "O Equipamento que você tem no inventório,"+getitemname(getbrokenid(1))+", está quebado";
+    Skip:
+        mes "Você não carrega nada quebrado em seu inventório";
+
+---------------------------------------
+
+*getequipisequiped(<slot do equipamento>)
+
+Essa função retorna 1 se há algum equipamento no slot de equipamento indicado.
+se não estiver nada no slot, retorna 0.
+
+    if (getequipisequiped(EQI_HEAD_TOP)) goto L_equipped;
+        mes "[Refinador]";
+        mes "Você não está usando nenhum chapéu";
+        close;
+    L_equipped:
+        mes "[Refiner]";
+        mes "Esse é um ótimo chapéu para ser refinado...";
+        close;
+
+
+---------------------------------------
+
+*getequipisenableref(<slot do equipamento>)
+
+Essa função vai retornar 1 se o equipamento que estiver no slot especificado
+é refinável e 0 se não for. Veja 'getequipid', para uma lista completa de todos
+os slot.
+
+        if (getequipisenableref(EQI_HEAD_TOP)) goto L_Refine;
+        mes "[Refinador]";
+        mes "Eu não posso refinar este chapéu";
+        close;
+    L_Refine:
+        mes "[Refinador]";
+        mes "Certo, eu posso refinar esse chapéu";
+        close;
+
+---------------------------------------
+
+*getequiprefinerycnt(<slot do equipamento>)
+
+Retorna o número atual de refines do item, especificado pelo slot do equipamento
+Veja a lista completa de Script no comando 'getequipid'.
+
+Pode ser usado para checar se você alcançou o limite máximo de refines, que
+é por padrão 10.
+
+        if(getequiprefinerycnt(EQI_HEAD_TOP) < 10) goto L_Refine_HeadGear;
+        mes "Não é possível refinar seu equipamento, ele já está no limite";
+        close;
+    L_Refine_HeadGear:
+        mes "Ok, Eu vou refinar seu "+getequipname(EQI_HEAD_TOP);
+
+---------------------------------------
+
+*getequipweaponlv(<slot do equipamento>)
+
+Essa função retorna o nível da arma especificada no slot especificado. veja
+'getequipid' para ver a lista de todos SLOTS.
+
+O Comando tem sentido, normalmente com EQI_HAND_L e EQI_HAND_R, pois esses dois
+slots são os únicos que o jogador pode usar armas.
+Se não tiver um nível de arma de acordo com o banco de dados 0 é retornado.
+
+    switch (getequipweaponlv(EQI_HAND_R)) {
+		case 1: mes "Você está usando uma arma de nível 1"; break;
+		case 2: mes "Você está usando uma arma de nível 2"; break;
+		case 3: mes "Você está usando uma arma de nível 3"; break;
+      		case 4: mes "Você está usando uma arma de nível 4"; break;
+		case 5: mes "Você está usando uma arma de nível 5"; break;
+		default: mes "Você não está usando nenhuma arma"; break;
+
+para mão esquerda, pode ser usado se o jogador está usando escudo.
+
+        if(getequipid(EQI_HAND_R)==0) goto L_NothingEquiped;
+        switch (getequipweaponlv(EQI_HAND_L)) {
+          case 0: mes "Você está usando um escudo, pois escudos não tem nível"; break;
+          case 1: mes "Você está usando uma arma de nível 1"; break;
+	  case 2: mes "Você está usando uma arma de nível 2"; break;
+	  case 3: mes "Você está usando uma arma de nível 3"; break;
+      	  case 4: mes "Você está usando uma arma de nível 4"; break;
+	  case 5: mes "Você está usando uma arma de nível 5"; break;
+		  }
+        close;
+    L_NothingEquiped:
+        mes "Você não tem nada equipado em sua mão direita";
+        close;
+
+---------------------------------------
+
+*getequippercentrefinery(<slot do equipamento>)
+
+Essa função calcula e retorna a porcetagem de valor da chance para refinar esse
+equipamento com sucesso +1, especificado no slot, a taxa de chance de sucesso
+para refinar é encontrada em 'db/refine_db.txt'. Veja a lista completa de slots
+no comando 'getequipid'.
+
+Esse valores podem ser mostrados ao jogador, ou usado para calcular a chance
+randômica de sucesso de refinagem
+
+// Isso vai procurar um número randômico entre 0 - 99 e se isso for igual ou maior
+// que o valor pego por esse comando ele te leva ao rótulo  L_Fail;
+    if (getequippercentrefinery(EQI_HAND_L)<=rand(100)) goto L_Fail;
+
+    L_Fail:
+	mes "Falha";
+	close;
+
+---------------------------------------
+
+*getareadropitem("<nome do mapa>",<x1>,<y1>,<x2>,<y2>,<item>)
+
+Essa função vai contar todos os items, especificado pelo id, no quadrado feito
+por x1,y1,x2,y2, e retorna a quantidade.
+
+---------------------------------------
+
+*getequipcardcnt(<slot do equipamento>)
+
+Essa função vai retornar o número de cartas que foram equipadas em um slot de
+equipamento especificado. Veja 'getquipid' para ver todos os equipamentos de slot.
+
+---------------------------------------
+
+*getinventorylist;
+
+Esse comando define vários arrays com uma lista completa de tudo o que
+o char invocado tiver no inventório dele, incluindo todos os dados para
+recriar esses items perfeitamente se eles forem destruídos. aqui está
+os arrays retornados:
+
+@inventorylist_id[]        - array com o id dos items.
+@inventorylist_amount[]    - suas quantidades respectivas.
+@inventorylist_equip[]     - se os items estão equipado ou não.
+@inventorylist_refine[]    - quantidade de refines.
+@inventorylist_identify[]  - se está identificado.
+@inventorylist_attribute[] - se estiver quebrado.
+@inventorylist_card1[]     - Estes quatros arrays contém dados das cartas
+@inventorylist_card2[]       esses dados de slot são até usados para guardar nomes
+@inventorylist_card3[]       increvidos nos items, então você pode checar se
+@inventorylist_card4[]       um char ganhou um item feito por um específico
+                             npc.
+@inventorylist_count       - o número de items contados
+
+---------------------------------------
+
+*cardscnt()
+
+Essa função vai retornar o número de cartas inseridas na atual arma que o jogador usa.
+
+    if (cardscnt()==4) mes "Você tem 4 cartas em sua arma ...";
+
+---------------------------------------
+
+*getrefine()
+
+Essa função vai retornar o número de refines da arma atual que o char usa.
+
+    if (getrefine()==10) mes "Wow. Você tem uma arma poderosa.";
+
+---------------------------------------
+
+*getnameditem(<item id>,"<nome para inserir>");
+*getnameditem("<nome do item>","<nome para inserir>");
+
+Essa função é equivalente à 'getitem', de qualquer forma, essa função não
+vai apenas dar um item ao jogador, mais vai increver um nome, essa função
+retorna 1 se o nome foi escrito com sucesso e 0 se ocorreu algum erro.
+
+---------------------------------------
+
+*getitemslots(<item ID>)
+
+Essa função vai procurar o item especificado pelo id no banco de dados e retorna
+o número de slots que este item tem, retorna 0 se o item não tiver slot, e -1 se
+o item não existir.
+
+---------------------------------------
+
+*getiteminfo(<item ID>,<tipo>)
+
+Essa função vai retornar determinador dado do item dado, de acordo com o tipo
+
+Os tipos válidos são:
+
+	0 - Preço de Compra; 
+	1 - Preço de Venda;
+	2 - Tipo do Item;
+	3 - maxchance (Chance máxima de drop desse item e.g. 1 = 0.01% , etc..
+		se = 0, Nenhum monstro joga esse item.
+		se = 10000, Este item só é vendido por NPCs
+	4 - sexo;
+	5 - equip;
+	6 - peso;
+	7 - ataque;
+	8 - defesa;
+	9 - range;
+	10 - slot;
+	11 - posição em que o equipamento vai ficar;
+	12 - nível requerido para usar esse item;
+	13 - nível da arma;
+
+---------------------------------------
+
+*getequipcardid (<slot do equipamento>,<card slot>);
+
+Retorna o valor de um item equipado no slot indicado:
+
+getequipcardid(número,slot)
+
+onde
+	número = posição do slot
+	slot = 0,1,2,3 (Slot de Carta N)
+	
+---------------------------------------
+
+*getitemslots (<item id>);
+
+Retorna a quantidade de slots que um item tem.
+
+Exemplo:
+
+//a variável @slots vai ter a quantidade de slots que o item com o id 1205 tem:
+	set @slots, getItemSlots(1205);
+	
+---------------------------------------
+//
+2,1.- Fim dos comandos relacionados à items
+//
+---------------------------------------
+
+*getmapxy("<variável para o nome do mapa>",<variable para x>,<variable para y>,<tipo>{,"<string para procurar>"})
+
+Essa função vai localizar algo, de acordo com o tipo, retornando o mapa, as coordenadas
+x e y, respectivamente em: "<variável para o nome do mapa>",<variable para x>,<variable para y>
+
+Estes são os tipos
+
+  0 - Jogador
+  1 - NPC 
+  2 - Pet 
+  3 - Monstro
+
+Se você usar o tipo 3, apesar de este comando suportar o tipo 3, ele ainda não está
+implementado completamente, então se você usar o tipo 3 o comando retornará -1.
+
+A String para procurar é opcional. Se você não especificá-la e usar o tipo 0, o npc
+retornará os valores para o jogador que está executando o NPC, mas é obrigatório
+para os tipos 1 e 2.
+
+Exemplo de como usar:
+
+   	mes "Vamos procurar o jogador chamado TecnoCronus";
+        if (getmapxy(@nomedomapa$,@mapax,@mapay,1,"TecnoCronus")!=0) goto Notfound;
+        mes "Achei-o no mapa "+@nomedomapa$+" na coordenada X:"+@mapax+" e Y:"+@mapay+" !";
+        close;
+    Notfound:
+        mes "eu não encontrei-o ele deve estar offline";
+        close;
+   }
+
+---------------------------------------
+
+*getgmlevel()
+*getgroupid() //Funciona da mesma forma que o getgmlevel(). (Usado atualmente)
+
+Esse comando retorna o nível de GM do jogador, caso o jogador não seja GM
+retornará 0, se for retornará o nível de GM
+
+   if (getgmlevel() == 99) mes "Vejo que você é um Administrador do servidor";
+   if (getgmlevel() == 0) mes "Você é um jogador comum";
+
+---------------------------------------
+
+*gettimetick(<tick type>)
+
+Essa função vai retornar o tempo do sistema em UNIX (tempo época), se o tipo
+for 2, ou o tempo desde o começo do dia corrente em segundos se o tipo for 1.
+Passadno 0 vai fazer com que retorne o tempo do servidor, que é medido em milésimos
+de segundos, que é usado pelo sistema de tempo do servidor. esse sistema dá um
+loop (volta) de 50 em 50 dias.
+
+---------------------------------------
+
+*gettime(<tipo>)
+
+Essa função vai retornar uma informação específica sobre o tempo atual do sistema.
+Os tipos são:
+
+1 - Segundos (de um minto)
+2 - Minutos (de uma hora)
+3 - Hora (de um dia)
+4 - Dia da semana (0 para domingo, 6 é sábado)
+5 - Dia do mês
+6 - Número do mês
+7 - Ano.
+8 - Dia do ano.
+
+Só retornará números:
+
+    if (gettime(4)==6) {
+	mes "Hoje é sábado, eu não trabalho dia de sábado";
+	close;
+	}
+
+---------------------------------------
+
+*gettimestr(<Formato da string>,<max length>)
+
+Essa função vai retornar uma string contendo dados de tempo como especificado
+pelo formato da string.
+
+Ela usa a função de C 'strfmtime', a qual obedece o formato dos caracteres
+da string. para uma descrição completa veja, por exemplo, a descrição da
+função 'strftime' em:
+http://www.delorie.com/gnu/docs/glibc/libc_437.html
+Todos os formatos dos caracteres dados aki deve funcionar propriamente.
+Max leght é o máximo suporte de um tempo de string.
+
+Exemplo:
+
+  mes gettimestr("%Y-%m/%d %H:%M:%S",21);
+  
+Isso vai imprimir uma mensagem no formato 'YYYY-MM/DD HH:MM:SS'.
+
+---------------------------------------
+
+*getusers(<tipo>)
+
+Essa função retornará o número de jogadores no servidor.
+
+Os tipos são:
+
+  8 - Contará todos os jogadores que estiverem no mesmo mapa do NPC.
+
+  7 - Contará todos os jogadores que estiverem no servidor.
+
+	set @meumapa, getusers(8);
+	mes "tem "+@meumapa+" pessoas aki";
+
+---------------------------------------
+
+*getmapusers("<nome do mapa>")
+
+Essa Função retorna o número de jogadores no mapa especificado.
+
+	if(getmapusers("prontera")==0) 
+	mes "Que estranho, não tem ninguém em Prontera agora ...";
+
+---------------------------------------
+
+*getareausers("<nome do mapa>",<x1>,<y1>,<x2>,<y2>)
+
+Essa função vai retornar o número de jogadores que estiver no "quadrado" feito
+por x1,y1,x2,y2, no mapa especifiacado.
+
+---------------------------------------
+
+*getusersname;
+
+Essa função vai criar uma lista de nomes de todos os jogadores conectado, dentro
+da janela do comando 'mes', pageando por 10 nomes se existir o comando 'next'.
+
+---------------------------------------
+\\
+2,2.- Guild-related commands
+\\
+---------------------------------------
+
+*getguildname(<id da guilda>)
+
+Essa função retorna o nome da guilda, procurando pelo id especificado, se o jogador
+não estiver em nenhuma guilda, retornara a string "NULL".
+
+   // Vai imprimir o nome da guilda que tem o id 10007
+   mes "A Guilda que tem o id 10007 se chama: "+getguildname(10007);
+
+---------------------------------------
+
+*getguildmaster(<id da guilda>)
+
+Essa função retorna o nome do Líder da Guilda, se a guilda não exister, o comando
+retornará "NULL"
+
+// Vamos usar o mesmo id da guilda, 10007
+    mes "O "+getguildmaster(10007)+" é Líder da Guilda "+getguildname(10007);
+
+Como usar para checar se o jogador é líder da guilda que ele está:
+
+        set @GID,getcharid(2);
+        if(@GID==0) goto L_NoGuild;
+        if(strcharinfo(0)==getguildmaster(@GID)) goto L_GuildMaster;
+        mes "Você não é Líder da guilda que você está";
+        close;
+    L_NoGuild:
+        mes "SVocê não tem guilda";
+        close;
+    L_GuildMaster:
+        mes "Bem vindo líder da guilda "+GetGuildName(@GID);
+        close;
+
+---------------------------------------
+
+*getguildmasterid(<id da guilda>);
+
+Essa função retornará o número do char líder da guilda especificada no comando.
+
+---------------------------------------
+
+*getcastlename("<nome do mapa>")
+
+Essa função retorna o nome do castelo do mapa dado, os castelo ficam em
+'db/castle_db.txt'.
+
+---------------------------------------
+
+*getcastledata("<nome do mapa>",<tipo de dado>)
+*setcastledata "<nome do mapa>",<tipo de dado>,<valor>;
+
+Essa função retorna informações sobre o castelo, referenciado pelo nome dele.
+As informações dos castelo são armazenadas em 'save\castle.txt' nas versões TXT
+nas versões SQL, são guardas na tabela 'guild_castle'.
+
+Tipos válidos de dados são:
+
+ 0 - Vai fazer o map-server pedir os dados do castelos do char-server, e sempre
+     sempre retorna 0, isso, aparentemente, vai causar indiretamente a execução
+     do rótulo 'OnAgitInit:'.
+ 1 - ID da Guilda dona do castelo.
+ 2 - o score de economia.
+ 3 - o score de defesa.
+ 4 - Número de vezes que a economia foi investida hoje.
+ 5 - Número de vezes que a defesa foi investida hoje.
+ 9 - Vai retornar 1 se a kafra foi escondida e 0 se não.
+10 - Retorna 1 se o 1º guardião estiver presente (Guardião Soldado)
+11 - Retorna 1 se o 2º guardião estiver presente (Guardião Soldado)
+12 - Retorna 1 se o 3º guardião estiver presente (Guardião Soldado)
+13 - Retorna 1 se o 4º guardião estiver presente (Guardião Arqueiro)
+14 - Retorna 1 se o 5º guardião estiver presente (Guardião Arqueiro)
+15 - Retorna 1 se o 6º guardião estiver presente (Guardião Cavaleiro)
+16 - Retorna 1 se o 7º guardião estiver presente (Guardião Cavaleiro)
+17 - Retorna 1 se o 8º guardião estiver presente (Guardião Cavaleiro)
+
+
+Os tipos entre 18~25 vai retorna os atuais pontos de hit para os guardiões 1-8
+repectivamente.
+
+O Comando 'setcastledata' será procedido identicamente, mais no lugar de retornar
+valores ele define valores para o específico tipo de data acessível.
+
+---------------------------------------
+
+*getgdskilllv(<id da guilda>,<id da habilidade>)
+*getgdskilllv(<id da guilda>,"<nome da habilidade>")
+
+Essa função retorna o nível da habilidade dada, da guilda dada
+Se a guilda não tiver a skill 0 será rertornado.
+Se a guilda não existir, -1 será retornado.
+Todas as habilidades das guldas podem ser encontradas em 'db/skill_db.txt'
+(GD_* são as habilidades das Guildas)
+
+---------------------------------------
+
+*requestguildinfo <id da guilda>,"<rótulo de evento>";
+
+Esse comando pede dados da guilda do char-server e continua com a execução. Sempre
+que as informações da guilda se tornam avaliáveis, esse comando vai executar o 
+rótulo de evento específio como no 'doevent'.
+
+---------------------------------------
+
+*getmapguildusers <nome do mapa>,<id da guilda>;
+
+Retorna a quantidade de pessoas da guild dada no mapa dado. se ninguem da guilda
+estiver no mapa, retornará 0.
+
+// Vai definir a variável @quantos com a quantidade de jogadores da guilda
+// com o id 10007 que estiver em prontera
+
+	set @quantos,getMapGuildUsers "prontera",10007;
+	mes "Hà "+@quantos+" membros da guilda "+getguildname(10007)+" em Prontera";
+
+---------------------------------------
+//
+2,2.- Fim dos comando relacionados à guildas.
+//
+---------------------------------------
+
+*getskilllv(<id da habilidade>)
+*getskilllv("<nome da habilidade>")
+
+Essa função vai retornar o nível de uma habilidade específica do jogador anexado
+ao script. A Lista completas de habilidades é salva em 'db\skill_db.txt'. Se
+o jogador não tiver a habilidade 0 é retornado.
+
+Exemplo:
+
+        if (getskilllv(28)==10) mes "você tem cura no nível 10!!";
+
+---------------------------------------
+
+*getskilllist;
+
+Esse comando defina vários arrays com uma lista completa de habilidades
+que o RID tem.
+
+Aqui são os arrays recebidos:
+
+
+@skilllist_id[]   - ids das habilidades.
+@skilllist_lv[]   - níveis das habilidades
+@skilllist_flag[] - veja 'skill' para conhecer as flags.
+@skilllist_count  - quantidade de habilidades que o jogador tem.
+
+---------------------------------------
+
+*getpetinfo(<tipo>)
+
+Essa função vai retornar informações sobre o PET do char invocador do script
+
+Os tipos válidos são:
+
+ 0 - ID único do PET que é guardado pelo char-server, isso distingui ele de
+     todos os outro pets.
+ 1 - Número da classe do pet, vai te dizer o tipo de pet('db\pet_db.txt').
+ 2 - Nome do pet, retornará "null" se não tiver pet.
+ 3 - Nível de amigável do pet. 1000 é totalmente fiel.
+ 4 - Nível de esfomiado do pet. 100 ele está quase morrendo de fome :)
+ 5 - Flag de renome do pet. se 0 quer dizer que ele não foi renomeado ainda.
+
+---------------------------------------
+
+*gethominfo(<tipo>)
+
+Essa função funciona como uma parte de 'getpetinfo':
+
+Os tipos válidos são:
+
+ 0 - id único do Homunculus.
+ 1 - classe do Homunculus.
+ 2 - Nome
+ 3 - Nível de amigável.
+ 4 - Nível de esfomiado.
+ 5 - Flag de renome.
+ 6 - Nível do Homunculus.
+
+---------------------------------------
+
+
+*petstat(<flag>)
+
+Retorna o estado atual do pet. todos retornam números inteiros, execeto nome.
+retorna "" se o jogador não tem um pet.
+
+Flags usadas:
+
+PET_CLASS
+PET_NAME
+PET_LEVEL
+PET_HUNGRY
+PET_INTIMATE
+
+Exemplo:
+set @i, petstat(PET_CLASS);
+
+
+---------------------------------------
+
+*getmonsterinfo(<mob ID>,<tipo>)
+
+Essa função vai procurar o monstro especificado pelo id no banco de dados de
+monstros e retornar a informações definida pelo tipo de argumento.
+Vai retornar -1 se você pedir pelo nome, retorna "null".
+
+Tipos válidos em 'db\const.txt'
+
+	MOB_NAME	0		MOB_LV	1
+	MOB_MAXHP	2		MOB_BASEEXP	3
+	MOB_JOBEXP	4		MOB_ATK1	5
+	MOB_ATK2	6		MOB_DEF	7
+	MOB_MDEF	8		MOB_STR	9
+	MOB_AGI		10		MOB_VIT		11
+	MOB_INT		12		JOB_DEX		13
+	MOB_LUK		14		MOB_RANGE	15
+	MOB_RANGE2	16		MOB_RANGE3	17
+	MOB_SIZE	18		MOB_RACE	19
+	MOB_ELEMENT	20		MOB_MODE	21
+
+---------------------------------------
+
+*getmobdrops(<mob id>)
+
+Esse comando vai procurar por todos os drops do monstro especificado pelo id
+e retornará os ids e as porcentagem de taxa de drop. retornar 1 se o comando
+foi executado com sucesso e 0 se o id do monstro não existir.
+
+Arrays retornados:
+
+$@MobDrop_item[] Contém os ids dos item dropados
+
+$@MobDrop_rate[] Contém a taxa de drop dos items.
+
+$@MobDrop_count  Quantidade de items encontrados.
+
+
+Exemplo:
+
+	// pega o mob id do jogador
+	input .@mob_id;
+	
+	if (getmobdrops(.@mob_id)) {	// 'getmobdrops' retorna 1 se foi com sucesso.
+		set .@count, $@MobDrop_count;
+		copyarray .@item[0],$@MobDrop_item[0],.@count;
+		copyarray .@rate[0],$@MobDrop_rate[0],.@count;
+		
+		mes getmonsterinfo(.@mob_id,MOB_NAME) + " - " + .@count + " drops encontrados:";
+		for( set .@i,0; .@i < .@count; set .@i,.@i +1 ) {
+			mes .@item[.@i] + " (" + getitemname(.@item[.@i]) + ") " + .@rate[.@i]/100 + ((.@rate[.@i]%100 < 10) ? ".0":".") + .@rate[.@i]%100 + "%";
+		}
+	} else {
+		mes "ID de monstro desconhecido.";
+	}
+	close;
+
+---------------------------------------
+
+*getmapmobs("<nome do mapa>")
+
+Essa função retorna a quantidade de monstros no mapa especificado, se você especificar
+o mapa como "this", o mapa do RID será usado, se o mapa não for achado retorna -1.
+
+---------------------------------------
+
+*getstrlen("<string>")
+
+Essa função vai retornar o comprimento da string dada.
+
+Exemplo:
+	mes "digite um nome com no máximo 10 caracteres";
+	input @n$;
+	if(getstrlen(@n$) > 10) {
+		mes "Você pôs mais que 10 caracteres";
+		close;
+	}
+	mes "ok, podemos continuar";
+
+---------------------------------------
+
+*skillpointcount; 
+
+retorna a quantidade de pontos de habilidades que o RID tem (Pontos de Habilidade (SkillPoints+SP usado em habilidades)
+esse comando é usado para checar a quatidade de pontos de habilidades (var SkillPoint)
+
+Exemplo:
+
+	set @skillPoints, skillPointCount();
+	mes "Você tem "+@skillPoints+" Pontos de Habilidade!";
+
+---------------------------------------
+
+*getscrate(<tipo de efeito>,<taxa base>{,<target ID number>})
+
+Esa função vai retornar a chance de efeito de status afetada ao char anexado
+ao script, em porcentagem, a 'taxa base' é uma base da chance de esse efeitos
+serem aplicados,
+
+
+    if (rand(100) > getscrate(Eff_Blind, 50)) goto BlindHimNow;
+	mes "não vou fazer nada";
+
+	BlindHimNow:
+	mes "eu vou te cegar agora !!!";
+  
+Veja a lista completa de efeitos em:
+'db/const.txt' debaixo de 'Eff_'.
+
+---------------------------------------
+
+==========================
+|3.- Comando de Checagem.|
+==========================
+-------------------------
+
+*playerattached;
+
+Retorna o ID do jogador que está anexado ao script. vai retornar 0, se nenhum
+jogador estiver anexado ao script, ou se o jogador não existir no map-server.
+Note que esse id dado é id da conta do jogador.
+
+---------------------------------------
+
+*isloggedin(<ID Da Conta>{,<char id>});
+
+Essa função retorna 1 se a conta especificada está logada e 0 se não estiver.
+Você pode até passar o id do char para checar ambos.
+
+---------------------------------------
+
+*checkweight(<item id>,<quantidade>)
+*checkweight("<nome do item>",<quantidade>)
+
+Essa função vai computar e retornar 1 se o peso total de um item não execede
+o peso que o jogador anexado ao script pode carregar.
+Essa função aceita o nome em inglês do item.
+
+    checkweight(502,10) // 10 maças
+
+        if (checkweight(502,10) == 0 ) goto L_OverWeight;
+        getitem 502,10;
+        close;
+    L_OverWeight:
+        mes "Me desculpe você não pode carregar essa quantidade de maças";
+        close;
+
+---------------------------------------
+
+*basicskillcheck()
+
+Essa função vai retornar o estado da configuração de opção 'basic_skill_check'
+em 'battle_athena.conf'. Retorna 1 se a opção estiver ativa e 0 se não.
+
+---------------------------------------
+
+*checkoption(<número da opção>)
+*checkoption1(<número da opção>)
+*checkoption2(<número da opção>)
+*setoption <número da opção>{,<flag>};
+
+O 'setoption' define algumas opções ativas no jogador. 'opções' são usadas
+para guardar condições de status.
+
+Número de Opções válidos
+
+0x1     - Sight ativo.
+0x2     - Hide ativo
+0x4     - Cloaking ativo
+0x8     - Cart number 1 present.
+0x10    - Falcon present.
+0x20    - Peco Peco presente.
+0x40    - Ocultação perfeita de GM
+0x80    - Carroça número 2 presente.
+0x100   - Carroça número 3 presente.
+0x200   - Carroça número 4 presente.
+0x400   - Carroça número 5 presente.
+0x800   - Cabeça de orc presente.
+0x1000  - Usand sprite de casamento
+0x2000  - Ruwach presente
+0x4000  - Chasewalk ativa
+0x8000  - suit de xmas ou flying ativos
+0x10000 - Sighttrasher.
+
+Número de opções válidas para a segunda versão desse comando:
+
+1 - Petrificado.
+2 - Congelado.
+3 - Atordoado.
+4 - Dormindo.
+6 - Petrificando.
+
+Mais número de opções:
+
+0x1  - Envenenado.
+0x2  - Amaldiçoado.
+0x4  - Silenciado.
+0x8  - Signum Crucis
+0x10 - Cegado.
+0x80 - Usando EDP.
+
+Encontre uma lista completa de opção de flag em:
+src/map/status.h
+
+---------------------------------------
+
+*setcart {<tipo>};
+*checkcart()
+
+Se <tipo> dor 0 este comando vai remover a carroça do jogador.
+de outro mdo esse comando dá uma carroça ao jogador se ele tiver
+a habilidade "MC_PUSHCART"
+
+Essa função retorna 1 se o jogador já tiver um carroça.
+
+    if (checkcart()) mes "Mas você já tem uma carroça";
+
+---------------------------------------
+
+*setfalcon {<flag>};
+*checkfalcon()
+
+Descrição quase idêntica à 'setcart' e 'checkcart' a diferença é que a habilidade
+requerida é 'HT_FALCON'
+
+Exemplo:
+	mes "você quer um falcão ?";
+	if(select("sim","não")==2) {
+		mes "ok então";
+		close;
+	}
+	if (checkfalcon()) mes "mas você já tem um falcão!";
+
+---------------------------------------
+
+*setriding {<flag>};
+*checkriding()
+
+Comando semelhante à 'setfalcon' e 'checkfalcon' a diferença é que a habilidade
+requerida é KN_RIDING.
+
+    if (checkriding()) mes "Você tem um belo peco-peco";
+
+---------------------------------------
+
+*checkvending ({"<player name>"})
+*checkchatting ({"<Player Name>"})
+
+Se o nome do jogador é dado, esse comando checa por esse jogador
+se ele estiver vendendo/conversando.
+se não dado checa o RID atachad ao script.
+Retorna 1 se estiver e 0 se não.
+	
+---------------------------------------
+
+*agitcheck()
+*agitcheck2()
+
+Essas funções vão deixar você checar se o servidor está atulamente no mode WOE.
+se sim retorna 1 e se não retorna 0.
+
+---------------------------------------
+
+*isnight()
+*isday()
+
+Essas funções retornam 1 se estiver de dia/noite e 0 se não estiver.
+
+ 
+    if (isday()== 1) mes "belo dia não ?";
+    if (isnight()== 1) mes "bela noite não";
+
+---------------------------------------
+\\
+3,1.- Comandos relacionados à item
+\\
+---------------------------------------
+*isequipped(<id>{,<id>{,<id>{,<id>}}})
+
+Esta função vai retorna 1 se o jogador invoado tem todos os items especificados
+equipados e retorna 0 se um deles não estiver equipado.
+
+---------------------------------------
+
+*isequippedcnt(<ID Da Carta>{,<ID Da Carta>{,<ID Da Carta>{,<ID Da Carta>}}})
+
+Essa função é similar à 'isequiped', mas no lugar de 1 ou 0, isso vai retornar
+o número de cartas na lista dada que foram encontradas no jogador.
+
+---------------------------------------
+
+*checkequipedcard(<ID Da Carta>)
+
+Essa função retorna 1 se a carta especificada pelo id está inserida em algum
+equipamento no inventório do RID.
+
+---------------------------------------
+
+*getequipisidentify(<slot do equipamento>)
+
+Essa função retorna 1 se um item especifcado pelo slot é identificado e 0
+se não for, veja alista completa de slots no comadno 'getequipid'.
+
+---------------------------------------
+//
+3,1.- Fim dos comando relacionados à items.
+//
+---------------------------------------
+
+==============================
+|4.- Player-related commands.|
+==============================
+-------------------------
+
+*attachrid(<ID Da Conta>)
+*detachrid;
+
+Esse comando "atacham" e "desatacham" um jogador ao script, ou seja, "mudam o RID"
+se o jogador for anexado com sucesso 'attachrid' retorna 1.
+
+---------------------------------------
+
+*rid2name(<rid>)
+
+Converte RID para nome. Nota: O joador/monstro/npc deve estar online/ativo.
+nota: RID é o id da conta.
+
+---------------------------------------
+
+*message "<character name>","<mensagem>";
+
+Esse comando vai enviar uma mensagem para a janela de conversa do jogado 
+especificado pelo nome. vai aparecer em cima da cabeça dele, não vai ser visto
+por ninguém mais.
+
+---------------------------------------
+
+*dispbottom "<mensagem>";
+
+Esse comando mostrará uma mensagem na janela de chat do jogador.
+
+---------------------------------------
+
+*warp "<nome do mapa>",<x>,<y>;
+
+Esse comando teleporta o jogador invocado para o mapa especificado, para
+as coordenadas <x> e <y> se x e y forem 0, essas coordenadas serão randômicas
+
+Há "nomes de mapas" especiais que você pode usar:
+
+"Random" vai teleportar o jogador para uma coordenada randomica do atual mapa dele
+"Save" e "SavePoint" vai teleportá-los para seus pontos que são salvos.
+
+---------------------------------------
+
+*areawarp "<do mapa>",<x1>,<y1>,<x2>,<y2>,"<para o mapa>",<x3>,<y3>;
+
+Esse comando é similar à 'warp'. Porém, ele não é referenciado ao jogador anexado ao script
+mas todos os jogadores que estiverem no "quadrado" criado por <x1>,<y1>,<x2>,<y2>
+mapa <"do mapa">, eles serão teleportados para o mapa "<para o mapa>" nas coordenadas
+<x3>,<y3>, sendo que x3 e y3 se forem 0 as coordenadas para o mapa será randômica.
+
+---------------------------------------
+ 
+*warpparty "<nome do mapa>",<x>,<y>,<id do grupo>;
+
+Teleporta um grupo para o mapa especificado, nas coordenadas x e y.
+
+Há "mapas" especiais:
+
+Random:       Todos os membros do grupo serão teleportado para o mapa que eles
+	      estão, mas em uma coordenada randômica.
+SavePointall  Todos os membros serão teleportados para seus respectivos ponto que
+	      são salvos.
+SavePoint     Todos os membros do grupo serão teleportado para o ponto de salvamento
+	      do jogador anexado ao script.
+Leader	      Todos os membros do grupo serão teleportado para onde o líder está,
+	      o líder deve estar online.
+ 
+---------------------------------------
+ 
+*warpchar "<nome do mapa>",<x>,<y>,<char_id>;
+
+Teleporta outro jogador para o mapa especificado, nas coordenadas dadas, o jogador é especificado
+pelo id do char.
+
+Exemplo:
+ 
+warpchar "prontera",150,100,20000001;
+ 
+---------------------------------------
+ 
+*warpguild "<nome do mapa>",<x>,<y>,<id da guilda>;
+
+Teleporta a guilda especificada pelo id para o mapa especificado nas coordenadas especificadas.
+ 
+Exemplo:
+
+// Teleporta a guilda do jogador anexado ao script para Prontera
+// nas coordenadas 174 215
+
+	set Guild_ID, getcharid(2);
+	warpguild "prontera",174,215,Guild_ID;
+
+// Teleporta a Guilda do jogador TecnoCronus para o mesmo lugar do exemplo anterior.
+
+	set @guildid, getcharid(2,"TecnoCronus");
+	warpguild "prontera",174,215,@guildid;
+
+---------------------------------------
+
+*warppartner("<nome do mapa>",<x>,<y>);
+
+Essa função vai procurar o companheiro(a) do char anexado ao script, retorna
+1 se o companheiro(a) foi teleportado com sucesso, retorna 0 se o jogador
+não for casado, ou o companheiro(a) não estiver online. E o teleporta para
+o mapa especificado nas coordenadas especificadas.
+
+Exemplo:
+
+	set @warp, warppartner "prontera",0,0;
+	if(@warp == 1) {
+		if(Sex == 0) 	mes "seu marido foi teleportado com sucesso";
+		else		mes "sua mulher foi teleportada com sucesso";
+		close;
+	}
+	mes "você não está casado ou seu/sua companheiro(a) não está online";
+	close;
+
+---------------------------------------
+
+*savepoint "<nome do mapa>",<x>,<y>;
+*save "<nome do mapa>",<x>,<y>;
+
+Esses comandos criam um "ponto de salvamento" para o jogador anexado ao script
+ele/ela será salvo no mapa e coordenadas especificados.
+
+Exemplo:
+
+    savepoint "prontera",350,75;
+
+---------------------------------------
+
+*heal <hp>,<sp>;
+
+Esse comando vai curar o jogador, seu HP/SP, a quantidade especificada.
+
+    heal 30000,0; // Isso vai curar 30,000 HP
+    heal 0,30000; // Isso vai curar 30,000 SP
+    heal 300,300; // Isso vai curar 300 HP e 300 SP
+
+---------------------------------------
+
+*itemheal <hp>,<sp>;
+
+Esse comando funciona com o RId como em 'heal' a diferença é que esse comando não é
+normalmente usado em scripts de NPC e não vai funcionar como esperado, mas é
+usado em muitos scripts de items.
+
+Não como em 'heal' esse comando além de curar ele mostrar os efeitos de animação
+para porções
+
+Exemplo:
+
+    // Cura uma quantidade de HP randômica entre 100-150 e não cura SP
+    itemheal rand(100,150),0; 
+
+---------------------------------------
+
+*percentheal <hp>,<sp>;
+
+Esse comando trabalha quase identicamente ao comando heal, a única diferença
+é que nele se cura por porcentagem.
+
+    percentheal 100,0; // Isso vai curar 100% HP
+    percentheal 0,100; // Isso vai curar 100% SP
+    percentheal 50,50; // Isso vai curar 50% HP e de 50% SP
+
+---------------------------------------
+
+*recovery;
+
+Esse comando vai reviver e restorar completamente o HP e SP todos os jogadores
+conectados ao servidor.
+
+---------------------------------------
+
+*jobchange <número do job>{,<upper flag>};
+
+Esse comando vai mudar a classe de emprego do jogador invocado.
+
+
+    jobchange 1; 	// Muda a classe to jogador para espadachim.
+    jobchange 4002; 	// Muda a classe to jogador para super espadachim.
+
+Esse comando não funciona com números, você pode usar nomes de empregos, a
+lista completa de nome de empregos pode ser encontrada em 'db/const.txt'.
+
+A 'upper flag' pode ser usada alternadamente para especificar o tipo de emprego
+que será mudado. Os valores dessa flag são:
+
+-1 preserva o job atual, (normalmente omitida)
+0: Classes Normais
+1: Classes Avançadas
+2: Classes bebês.
+
+Esse comando define uma variável do tipo permanente e de char, chamada
+'jobchange_level' que contém o nível de emprego no tempo antes de mudar
+o emprego.
+
+---------------------------------------
+
+*jobname (<número do job>)
+
+
+This command retrieves the name of the given job using the msg_athena entries 550->650.
+
+		mes "[Kid]";
+		mes "I never thought I'd met a "+jobname(Class)+" here of all places.";
+		close;
+
+---------------------------------------
+
+*eaclass ({<número do job>})
+
+Esse comando retornar o número de emprego do eA correspondendo a classe dada ( se nenhuma é dada, usa
+a classe do jogador anexado ao script) o número de emprego do eA é um sistema de número de classes, mas
+esse é um que conjunto que vem com constantes fáceis de ser convertidas. O Comando retorna -1 se você
+passar um número de classe que não tem um número de job no sistema eA.
+
+	set @eac, eaclass();
+	if ((@eac&EAJ_BASEMASK) == EAJ_SWORDMAN)
+		mes "Você deve ser um espadachim, cavaleiro, paladino, super espadachim, lord cavalheiro";
+		mes "espadachim bebê, cavalheiro bebê, ou cruzeiro bebê";
+	if (@eac&EAJL_UPPER)
+		mes "Você tem um emprego do tipo renascido.";
+	if ((@eac&EAJ_UPPERMASK) == EAJ_SWORDMAN)
+		mes "Você deve ser um espadachim ou espadachim bebê ou um super espadachim";
+
+Para mais detalhes sobre o sistema veja o arquivo 'docs/ea_job_system.txt'.
+
+---------------------------------------
+*roclass <número do job> {,<sexo>}
+
+Faz o contrário de 'eaclass'. Isso é, dado a classe de emprego do eA, isso retorna com a classe correspondente ao
+número de emprego RO, um sexo é requerido por que ambos bardo e dançarinas compartilham o mesmo valor do sistema
+de emprego do eA (EAJ_BARDDANCER), se ele não for dado, o sexo do jogador é pego, esse comando retorna -1 quando não
+é dada uma classe válida, por exemplo , se você quer pegar a versão bebê do Taekwon.
+
+
+	set @eac, eaclass();
+	// Checa se a classe já é do tipo "renascida"
+	if (@eac&EAJL_UPPER) {
+		mes "Você parece forte.";
+		close;
+	}
+	set @eac, roclass(@eac|EAJL_UPPER);
+	// Chega se a classe tem uma versão renascida.
+	if (@eac != -1) {
+		mes "Você não pode esperar para se tornar um "+jobname(@eac)+"!";
+		close;
+	}
+
+---------------------------------------
+
+*changebase <número de id do job>;
+
+Esse comando vai mudar a aparência do jogador invocado para o do emprego especificado.
+Esse comando só funciona dentro de item de scripts.
+
+---------------------------------------
+
+*classchange <view id>,<tipo>;
+
+Esse comando é bem velho, misterioso, ele vai enviar um packet,
+'id de mudança de aparência', que supostamente faz o npc mudar de sprite, ou
+um monstro. Esse efeito não é salvo em nenhum lugar e não vai persistir, ele
+não vai funcionar perfeitamente.
+
+---------------------------------------
+
+*changesex;
+
+Esse comando vai mudar o sexo do jogador anexado ao script, se masculino vira
+feminino e vice-versa, o jogador será kicado do servidor automaticamente, quando
+ele logar novamente ele já terá mudado de sexo.
+
+Se ele for Bardo/Dançarina  Palhaço/Cigana eles vão ter sua classe mudada.
+
+---------------------------------------
+
+*getexp <base xp>,<job xp>;
+
+Esse comando vai dar ao char invocador do script um número específico de nível
+ou nível de emprego, valores negativos não funcionam.
+
+Exemplo:
+
+    getexp 10000,5000;
+
+Você também pode "definir" usando as variáveis de 'db\const.txt':
+
+    set BaseExp,BaseExp+10000;
+    set JobExp,JobExp+5000;
+
+os dois exemplos tem o mesmo efeito, mais para se tirar terá que usar o comando
+'set':
+
+    set BaseExp,BaseExp-10000;
+
+---------------------------------------
+
+*setlook <tipo de visual>,<pallete>;
+*changelook <tipo de visual>,<pallete>;
+
+'setlook'/'changelook' vai alterar o dado de aparência do jogador anexado ao script,
+Isso é uso principalmente para mudar o pallete usado na cabeça e roupa.
+
+
+Aqui está os tipos de visual existentes:
+ 
+ 0 - sprite base
+ 1 - Estilo de Cabelo
+ 2 - arma
+ 3 - base da cabeça
+ 4 - topo da cabeça
+ 5 - meio da cabeça
+ 6 - cor do cabelo
+ 7 - cor da roupa
+ 8 - escudo
+ 9 - sapatos
+
+---------------------------------------
+
+*pushpc <direção>,<células>;
+
+Este comando vai empurrar o jogador anexado ao npc para a direção dada em quantas
+celúlas for especificadas em <células>. A direção é a mesma das direções do NPC,
+pode ser passadas como número ou como uma constante DIR_* (db/const.txt)
+
+O "pulo" não é restringido por mapflags ou items, só os obstáculos dos mapas pode
+parar o jogador, se não há espaço suficiente para o "empurrão" (ex. por causa de
+uma parade) o jogador é empurrado até o obstáculo.
+
+    // Empurra o jogador em 5 células na direção leste
+    pushpc DIR_EAST, 5;
+
+---------------------------------------
+\\
+4,1.- Comando Relacionados à item.
+\\
+---------------------------------------
+
+*getitem <item id>,<quantidade>{,<ID Da Conta>};
+*getitem "<nome do item>",<quantidade>{,<ID Da Conta>};
+
+Esse comando vai dar uma quantidade de item específica do item especificado
+pelo nome/id, se o ID da conta for omitido, o jogador anexado ao script
+receberá o item.
+
+Exemplo:
+
+    getitem 502,10 // A pessoa recebe 10 Maças
+
+Dando um id de item -1, o script dará um item randômico da Caixa velha azul.
+
+Passando um id de item -2 vai produzir e dar o efeito da Caixa velha violeta
+Passando um id de item -3 vai produzir e dar o efeito da Caixa velha de Cartas
+Passando um id de item -4 vai produzir e dar o efeito da Caixa de Presentes
+Passando um id de item -5 vai produzir e dar o efeito da Caixa Pergaminho, que
+so da jellops de qualquer jeito.
+
+Você pode usar o nome em inglês do item para especificá-lo:
+
+    getitem "RED_POTION",10;
+
+---------------------------------------
+
+*getitem2 <item id>,<quantidade>,<identificável>,<refine>,<atributo>,<card1>,<card2>,<card3>,<card4>{,<ID Da Conta>};
+*getitem2 "<nome do item>",<quantidade>,<identificável>,<refine>,<atributo>,<card1>,<card2>,<card3>,<card4>{,<ID Da Conta>};
+
+Esse comando vai dar uma quantidade específica de item ao char anexado ao script.
+Se um parâmetro opcional (id da conta) for dado, os item serão entregues à essa
+conta. comando bastante similar à 'getitem'.
+
+Esse parâmetros que não estão contidos em 'getitem' são:
+
+identificável	- Se o item está identificad ou não 1 se tiver e 0 se não. 
+refine      	- Quantas vezes o item virá refinado. ele não vai refinar mais
+		que +10, se você por mais que 10 ele virá 10.
+atributo	- Se o item está quebrado ou não 1 se estiver e 0 se não.
+card1,2,3,4 	- Se você quiser um combo de cartas equipado, especifique-as.
+
+Exemplo:
+		mes "Diga o nome do jogador que vai ganhar esse item";
+		input @name$;
+		mes "agora diga o id do item";
+		input @id;
+		set @cid, getcharid(0,@name$);
+		getitem2 @id,1,0,0,0,0,0,0,0,@cid;
+		mes "item entregue";
+		close;
+
+---------------------------------------
+
+*getnameditem <nome do item|id do item>,<nome do char|id do char>;
+
+-Nota: Há uma no total 4 possibilidades de combinações nesse comando.
+Cria um item com o nome do char dado, sendo que o jogador tem que
+estar online.
+
+Retorna 1 se o item foi criado com sucesso ou 0 quando houver falha
+
+Exemplo:
+
+// Vai dar ao jogador anexado uma maça com o nome Aaron, se Aaron estiver online.
+	getnameditem "Apple","Aaron";
+
+---------------------------------------
+
+*rentitem <item id>,<tempo>;
+*rentitem "<nome do item>",<tempo>;
+
+Cria um item alugado no inventório do jogador anexado, o item vai expirar
+em <tempo> segundos e vai ser automaticamente deletado, o jogador receberá
+mensagems de que o item vai ser pego antes de ele ser deletado.
+Esse comando não pode tirar o item do jogador se o item tiver a trade mask 123
+em 'db\item_trade.txt'.'delitem' ainda pode remover este item.
+
+---------------------------------------
+
+*makeitem <item id>,<quantidade>,"<nome do mapa>",<X>,<Y>;
+*makeitem "<nome do item>",<quantidade>,"<nome do mapa>",<X>,<Y>;
+
+Esse comando vai um item em torno do mapa especificado na locação espeficada
+
+ itemid   	- achado em 'db/item_db.txt'
+ quantidade   	- quantidade
+ nome do mapa 	- Mapa
+ X        	- Coordenada x
+ Y        	- Coordenada y
+
+se o mapa "this" for dado, o mapa que o jogador anexado está será usado.
+
+---------------------------------------
+
+*searchitem <nome do array>,"<nome do item>";
+
+
+Este comando vai procura um item, de acordo com o nome do item dado, no array especificado,
+ele retorna o número de item encontrado. Por questões de desempenho o array the resultado
+é limitado em 10 items.
+
+	mes "O Que você está procurando ?";
+	input @name$;
+	set @qty, searchitem(@matches[0],@name$);
+	mes "Encontrei "+@qty+" items:";
+	for (set @i, 0; @i < @qty; set @i, @i+1)
+		//Nome de Exibiçao (ex: "Maça[0]")
+		mes getitemname(@matches[@i])+"["+getitemslots(@matches[@i])+"]";
+
+---------------------------------------
+
+*delitem <item id>,<quantidade>{,<ID Da Conta>};
+*delitem "<nome do item>",<quantidade>{,<ID Da Conta>};
+
+Esse comando é quase idêntico à 'getitem' a diferença que ao invés de dar items ele tira.
+
+    delitem 502,10 // A pessoa perde 10 Maças
+
+---------------------------------------
+
+*delitem2 <item id>,<quantidade>,<identificável>,<refine>,<atributo>,<card1>,<card2>,<card3>,<card4>{,<ID Da Conta>};
+*delitem2 "<nome do item>",<quantidade>,<identificável>,<refine>,<atributo>,<card1>,<card2>,<card3>,<card4>{,<ID Da Conta>};
+
+Esse comando vai pegar items do jogador. Veja 'getitem2'  para entender os argumentos.
+
+---------------------------------------
+
+*countitem(<item id>)
+*countitem("<nome do item>")
+
+Essa função retornará a quantidade de items que o jogador tem em seu inventório.
+
+    mes "[Devil]";
+    mes "Você tem"+countitem(502)+" maçãs";
+    close;
+
+Exemplo 2:
+
+    mes "[Devil]";
+    mes "Você tem"+countitem(APPLE)+" maçãs";
+    close;
+    
+---------------------------------------
+
+*countitem2(<item id>,<identificável>,<refine>,<atributo>,<card1>,<card2>,<card3>,<card4>)
+*countitem2("<nome do item>",<identificável>,<refine>,<atributo>,<card1>,<card2>,<card3>,<card4>)
+
+Essa função retorna a quantidade de items especificado pelo id ou nome que o jogador
+anexado tem, veja 'getitem2' para entender os parâmetros necessários.
+    
+---------------------------------------
+
+*groupranditem <id do grupo>;
+
+Retorna o id do item de um item randômico pego no grupo especificado. os
+diferentes grupos e seus número podem ser pegos em 'db\item_group_db.txt'
+
+Exemplo:
+
+	// Pega uma isca de pet randômica.
+
+getitem groupranditem(15),1;
+
+---------------------------------------
+
+*enable_items;
+*disable_items;
+
+Esse comandos ativam e desativam o uso de item enquanto o jogador estiver anexado
+ao NPC 'enable_item' ativa e 'desable_item' desativa.
+
+---------------------------------------
+
+*itemskill <id da habilidade>,<nível da habilidade>;
+*itemskill "<nome da habilidade>",<nível da habilidade>;
+
+Este comando é usado em scripts de item para usar uma habilidade uma vez. Esse
+comando não vai funcionar propriamente em Scripts de NPC muitas vezes por causa
+de uma caixa de mensagem ou menu exibido na tela.
+
+Exemplo:
+	// Usando em NPC de scripts.
+		mes "Ok Vamos usar endure em você !!";
+		close2;
+		itemskill 8,1;
+		mes "ok você já usou !";
+		close;
+
+
+---------------------------------------
+
+*produce <nível de item>;
+
+Esse comando vai criar uma janela no cliente conectado ao char invocado. Para
+criar items.
+
+Tipos válidos de nível são:
+
+ 1   - Armas de nível 1
+ 2   - Armas de nível 2
+ 3   - Armas de nível 3
+ 16  - Pedras de Ferreiros ou metal
+ 32  - Porções de alquimistas
+ 64  - Moedas de Ferrero
+ 123 - Pepita de Ferreiro
+ 256 - Porção da Morte dos Assassinos.
+
+---------------------------------------
+
+*successremovecards <slot do equipamento>;
+
+Esse comando vai remover todas as cartas do item encontrado no slot especificado
+vai até mostrar um efeito de sucesso.
+
+---------------------------------------
+
+*failedremovecards <slot do equipamento>,<tipo>;
+
+Esse comando vai remover todas as cartas do item encontrado no slot especificado
+com uma certa diferença de 'sucessremovecard', é que ele pode quebrar ambos
+(item e cartas) ou um dos dois, dependendo do tipo.item and the cards:
+
+ 0 - Vai destruit a carta e o item
+ 1 - vai guardar o item e destruir as cartas
+ 2 - vai guardar as cartas, mas vai destruir o item.
+  
+Independente do tipo, o comando mostrará um efeito de falha.
+
+---------------------------------------
+
+*repair <id do item quebrado>;
+
+Esse comando concerta o item quebrado especificado pelo id, usando a mesma lista
+de 'getbrokenid'.
+
+---------------------------------------
+
+*successrefitem <slot do equipamento>;
+
+Esse comando vai refinar o item que estiver no slot especificamente, no char
+anexado ao script, +1. Veja a lista completo de slot de equipamentos em
+'getquipid', um efeito de sucesso vai ser mostrado ao cliente.
+
+---------------------------------------
+
+*failedrefitem <slot do equipamento>;
+
+Esse comando vai falhar em refnar um item no slot especificado do char anexado
+O Item vai ser destruído, vai até ser mostrado um efeito de falha no char.
+
+---------------------------------------
+
+*unequip <slot do equipamento>;
+
+Esse comando vai desiquipar o que tiver equipado no slot especificado do
+char anexado, veja a lista completa de equipamentos de slots em 'getequipid'.
+
+---------------------------------------
+
+*clearitem;
+
+Esse comando vai destroir todos os item que estiver no invetório do jogador
+anexado ao script, incluindo os item equipados, não vai mostrar nenhum
+efeito especial.
+
+---------------------------------------
+
+*equip <item id>;
+*autoEquip <item id>,<opção>;
+
+Esses comando são para equipar um item no char anexado ao script.
+o item deve estar no inventório dele,a opção do comando 'autoequip'
+são 1 e 0, 1 para equipar o item quando pego e 0 para desequipar.
+
+Exemplo(s):
+
+// Vai equipar uma falchion no char se ele tiver uma no inventório.
+	equip 1104;
+	
+// vai equipar uma fachion automaticamente quando o jogador pegar ela.
+	autoequip 1104,1;
+	
+// Não vai equipar uma fachion automaticamente quando o jogador pegar ela.
+	autoequip 1104,0;
+
+---------------------------------------
+//
+4,1.- Fim dos comandos relacionados à item.
+//
+---------------------------------------
+
+*openstorage;
+
+Este vai abrir uma janela do armazém no char atachad ao script. Não é
+certo se esse comando funciona em scripts de item.
+
+Exemplo:
+
+    mes "Eu vou abrir seu armazpem depois que você fechar esta janela";
+    close2;
+    openstorage;
+    end;
+
+---------------------------------------
+
+*openmail;
+
+Esse comando vai abrir a caixa de e-mail do jogador
+
+    mes "Clique em close para abrir a caixa de e-mails";
+    close2;
+    openmail;
+    end;
+
+---------------------------------------
+
+*openauction;
+
+Este comando vai abrir a janela de leilão do jogador anexado ao script.
+
+    mes "Feche esta janela para abrir a janela de leilão";
+    close2;
+    openauction;
+    end;
+
+---------------------------------------
+\\
+4,2.- Comando relacionados à Guildas.
+\\
+---------------------------------------
+
+*guildopenstorage()
+
+Esta função funciona como 'openstorage' mas vai abrir o armazém da guilda.
+retorna 0 se o armazém da guilda foi aberto com sucesso e 1 se não foi.o
+armazém da guilda só pode ser aberto por um  jogador, se outro membro da guilda
+tenta abrir, enquanto um estiver usando, vai falhar. retorna 2 se o jogador
+não estiver em nenhuma guilda.
+
+---------------------------------------
+
+*guildchangegm(<id da guilda>,<nome do novo líder>)
+
+Essa função muda o Mestre da Guilda, especificada pelo id e o mestre pelo
+nome, retorna 1 se foi trocar com sucesso e 0 se não.
+
+---------------------------------------
+
+*guildgetexp <quantidade>;
+
+Essa função vai dar uma quantidade especificada de taxa de experiência de guilda,
+para a guilda do jogador anexado ao script, vai falhar se o jogador não estiver
+em nenhuma guilda.
+
+---------------------------------------
+
+*guildskill <id da habilidade>,<nível>
+*guildskill "<nome da habilidade>",<nível>
+
+Essa função dá à guilda do jogador anexado ao script, somente se ele for o líder 
+dela, se não for a função irá falhar.
+
+Exemplo:
+
+   // da a skill "guild aproval" para a guilda do jogador se ele for líder dela.
+	
+    guildskill 10000,1,0;
+
+---------------------------------------
+//
+4,2 Fim dos comandos relacionados à Guildas.
+//
+---------------------------------------
+
+*resetlvl <tipo de ação>;
+
+Esse é um comando de resetagem do char, vai resetar o nível e status do char
+dependendo do tipo de ação dado.
+
+ 1 - nível base  1, nível de emprego 1, 0 pontos de habilidade, 0 de base xp, 0 de xp emprego,
+     limpa o efeito de status, define todos os status para 1. se o novo emprego for super noviço
+     da 100 pontos de status, habilidade primeiros socorros e habilidade ginfir de morto.
+ 2 - nível base 1, nível de emprego 1, 0 pontos de habilidade, 0 de base xp, 0 de xp de emprego. 
+     habilidadades e outros atributos não são alterados
+ 3 - nível base 1, xp de base 0.
+ 4 - nível de emprego 1, xp de job 0.
+
+Em todos os casos, vai desequipar tudo o que o char estiver usando.
+
+---------------------------------------
+
+*resetstatus;
+
+Este comando reseta os status do char anexado e devolve todos os pontos de status
+usados para construir ele previamente.
+
+---------------------------------------
+
+*resetskill;
+
+Esse comando retira todos os pontos de habilidade do char invocado, e todas
+as habilidades também, o jogador só fica com a habilidade básica.
+
+---------------------------------------
+
+*sc_start 	<tipo de efeito>,<ticks>,<argumento extra>{,<id do alvo>};
+*sc_start2 	<tipo de efeito>,<ticks>,<argumento extra>,<chance porcentual>{,<id do alvo>};
+*sc_start4	<tipo de efeito>,<ticks>,<valor 1>,<valor 2>,<valor 3>,<valor 4>{,<id do alvo>};
+*sc_end 	<tipo de efeito>{,<id do alvo>};
+
+Esse comando dispõe um efeito no jogador invocado. Esse comando é usado em muitos
+scripts de item.
+
+    // Isso deve envenenar por 10 minutos
+    sc_start SC_Poison,600000,0;
+
+Tipo de efeito é um número do efeito, 'db\const.txt' lista todos os efeito
+usados normalmente.
+
+Argumentos extras diferem de acordo com o tipo de efeito, para a maioria dos
+efeitos causadas por uma habilidade do jogador, o argumento extra quer dizer
+o nível da habilidade.
+
+O id do alvo, se dado, vai causar o efeito de statu, nesse char especificado
+no lugar do jogador anexado ao script.
+
+'sc_start2' é perfeitamente equivalente, execeto que 'sc_start', um efeito
+de mudança de status só vai ocorrer com uma chance em porcentagem especificada
+por '<chance percentual>'. dando 10000 é equivalente à 100% 0 é zero.
+
+'sc_start4' é como 'sc_start', porém ela tem 4 parâmetro no lugar de um, esses
+valores dependem do status em questão. Por exemplo, a defesa elemental da armadura
+tem os quatro seguintes valores:
+
+- val1 é o primeiro elemento, val2 é a resistência ao elemento de val1.
+- val3 é o segundo elemento, val4 é a resistência ao elemento val3.
+
+
+ex: sc_start4 SC_DefEle,60000,Ele_Fire,20,Ele_Water,-15;
+
+'sc_end'  vai remover o efeito de status especificado, se 'SC_ALL' ou -1 é usado,
+ele vai remover todos os status.
+
+Você pode ver a lista de efeito de status completa em: 'src\map\status.h'.
+
+---------------------------------------
+
+*skilleffect <id da habilidade>,<número>;
+*skilleffect "<nome da habilidade>",<número>;
+
+Este comando vai mostrar os efeitos visuais e sonoros da habilidade especificada
+(veja a lista completa de habilidades em 'db\skill_db.txt') no char invocado.
+Se o efeito da habilidade mostrar um número, você pode especificado passando esse
+número.
+
+---------------------------------------
+
+*npcskilleffect <id da habilidade>,<número>,<x>,<y>;
+*npcskilleffect "<nome da habilidade>",<número>,<x>,<y>;
+
+Esse comando é conduzido identicalmente à 'skilleffect', Porém, o efeito não vai
+ser centralizado no jogador invocado pelo script, mas sim no sprite do NPC.
+se as coordenadas forem dadas, os efeitos serão centralizados nelas.
+
+---------------------------------------
+
+*specialeffect <número do efeito>{,<enviar_alvo>};
+
+Esse comando vai mostrar um efeito especial pelo número dado, centralizado
+nas cooordenadas específicadas do NPC, Veja a lista completa de efeitos em
+'doc\effect_list.txt', Alguns efeitos não funcionam em alguns clientes.
+
+---------------------------------------
+
+*specialeffect2 <effect number>{,<send_target>};
+
+Esse comando é conduzido identicalmente à 'specialeffect', mas o efeito vai ser centralizado
+no sprite do char anexado ao script.
+
+---------------------------------------
+
+*statusup <status>;
+
+Esse comando vai aumentar um status especificado, vai aumentar +1.
+será aplicado ao jogador anexado.
+
+status válidos:
+
+bStr -  Força
+bVit -  Vitalidade
+bInt -  Inteligência
+bAgi -  Agilidade
+bDex -  Destreza
+bLuk -  Sorte
+
+---------------------------------------
+
+*statusup2 <status>,<quantidade>;
+
+Esse comando vai mudar o status especificado na quantidade especificado do jogador
+anexado, ele aceita valores negativos, veja os status em 'statusup'.
+
+Exemplo:
+
+	mes "Eu não gostei de você, vou diminuir 1 ponto de sua força";
+	close2;
+	statusup2 bStr,-1;
+	end;
+
+---------------------------------------
+
+*bonus <tipo de bônus>,<val1>;
+*bonus2 <tipo de bônus>,<val1>,<val2>;
+*bonus3 <tipo de bônus>,<val1>,<val2>,<val3>;
+*bonus4 <tipo de bônus>,<val1>,<val2>,<val3>,<val4>;
+*bonus5 <tipo de bônus>,<val1>,<val2>,<val3>,<val4>,<val5>;
+
+Estes comandos são usados em scripts de item. Eles provávelmente funcionaram
+em scripts de NPC, mas o bônus não vai durar muito. Esse comando são aplicados
+ao jogador anexado ao script.
+
+Você pode achar a lista de todos os bônus possível em 'doc\item_bonus.txt'
+
+---------------------------------------
+
+*autobonus <script do bônus>,<taxa>,<duração>{,<flag>,{<outro script>}};
+*autobonus2 <script do bônus>,<taxa>,<duração>{,<flag>,{<outro script>}};
+*autobonus3 <script do bônus>,<taxa>,<duração>,<id da habilidade>,{<outro script>};
+*autobonus3 <script do bônus>,<taxa>,<duração>,"<nome da habilidade>",{<outro script>};
+
+Esse comandos são usados em scripts de item. Eles vão funcionar provavelmente
+em scripts de NPC, mas o bônus não irá durar muito, Eles se referem ao char
+anexado ao script.
+
+O Que esse comandos fazem é 'atachar' um script ao jogador que vai ser executado
+quando ele atacar (ou quando for atacado no caso do 'autobonus2').
+
+Taxa é a taxa de execução do script (1000 = 100%).
+
+Duração é o temo que o bônus vai durar.
+
+O Parâmetro opcional 'flag' é usado para classificar o tipo de ataque que o script
+vai usar para se executar.
+
+Critéio de Distância:
+
+	BF_SHORT:  Executa em ataques de perto
+	BF_LONG:   Executa em ataques de longe (arco)
+	Default:   BF_SHORT+BF_LONG
+
+Critério de ataque:
+
+	BF_WEAPON: Executam em habilidades de arma
+	BF_MAGIC:  Executa em habilidades
+	BF_MISC:   Trigger on misc skills
+	Default:   BF_WEAPON
+
+Critérios de Habilidade:
+
+	BF_NORMAL: Executados em ataques normais
+	BF_SKILL:  Executado em ataques de habilidade
+	default:   se o tipo de ataque for BF_WEAPON (somente) BF_NORMAL é usado,
+		   de outro modo BF_SKILL+BF_NORMAL é usado.
+
+A Diferença entre o argumento opcional 'outro script' e 'script do bônud' é que,
+a forma que executa quando só ataca ou é atacado e o outro é executado com uma calculação
+de status, o 'outro script' é usado geralmente para mostrar efeitos.
+
+Em todos os casos, quando o script for executado, o jogador anexado será o único
+que vai ter o bônus.
+
+Exemplo:
+
+// Garante 1% de chance de começar o estado "todos estados +10" por 10 segundos quando
+// estiver usando armas ou ataques "misc" (ambas habilidades de extenção (longe)) e
+// mostra o efeito do estado.
+
+	autobonus "{ bonus bAllStats,10; }",10,10000,BF_WEAPON|BF_MISC,"{ specialeffect2 EF_FIRESPLASHHIT; }";
+
+---------------------------------------
+
+*skill <id da habilidade>,<nível>{,<flag>};
+*skill "<nome da habilidade>",<nível>{,<flag>};
+*addtoskill <id da habilidade>,<nível>{,<flag>};
+*addtoskill "<nome da habilidade>",<nível>{,<flag>};
+
+Estes comandos vão dar ao char invocador uma habilidade específica, é usado até
+em scripts de comandos.
+
+nível é óbvio, id da habilidade é o número da habilidade em questão como em
+'db\skill_db.txt'. Isso não é certo se dá certa skill à monstros, mas você pode
+tentar, veja as habilidades de monstros em 'db\mob_skill_db.txt'.
+
+Flag é 0 se a habilidade é dada permanentemente ou 1 se for temporária (será perdida
+eventualmente, usado geralmente em scripts de cartas) o 'FLAG' é um parâmetro opcional,
+e o padrão é 1 em 'skill' e 2 em 'addtoskill'.
+
+A flag 2 quer dizer que o parâmetro 'nível' pode ser mudado.
+
+Exemplo:
+
+	// dá a skill endure permanentemente:
+    	skill 8,1,0;
+
+---------------------------------------
+
+*nude; 
+
+Esse comando vai desiquipar tudo o que estiver equipado no jogador.
+isso não é requerido para o comando 'jochange' pois ele já faz isso.
+
+---------------------------------------
+
+*disguise <id do monstro>;
+*undisguise;
+
+Esse comando transforma o Jogador em um monstro (troca o sprite).
+a transformação só sai quando o comando 'undisguise' for executado
+ou quando o jogador deslogar.
+
+Exemplo:
+
+disquise 1002; // Transforma o RID em um poring
+next;
+undisquise; // Transforma o RID em humano de novo
+
+---------------------------------------
+\\
+4,3 Comandos relacionados ao matrimônio.
+\\
+---------------------------------------
+
+*marriage("<nome>");
+
+Essa função vai casar dois jogadores, o que estiver anexado ao script e o
+especificado pelo nome. Essa função retorna 1 se voi executada com sucesso
+e 0 se o casamento não pode ser completo, que pode ser que o char não foi
+encontrado ou ele/ela já está casado(a).
+
+---------------------------------------
+
+*wedding;
+
+Esse comando vai invocar os efeitos do casamento - a música e os confeites , centralizado
+no jogador invocador do script.
+
+---------------------------------------
+
+*divorce()
+
+Essa função vai divorciar o jogador anexado ao script e seu companheiro(a).
+retorna 1 se o divórcio foi feito com sucesso ou 0 se não.
+
+Essa função vai destruit os anéis de casamento e mandar uma mensagem para ambos
+jogadores, disendo que eles estão divorciados.
+
+---------------------------------------
+
+*adopt "<nome do pai>","<nome da mãe>","<nome do noviço>";
+*adopt("<nome do pai>","<nome da mãe>","<nome do noviço>");
+
+Esse comando vai transformar um novice como um bebê de um par de casal. toda
+essa família é referenciada pelo nome. Toda a família deve estar online.
+
+---------------------------------------
+//
+4,3.- Fim dos comando relacionados ao Casamento
+//
+---------------------------------------
+
+*pcfollow <id>,<id do alvo>;
+*pcstopfollow <id>; 
+
+Faz um char seguir ou para de seguir alguém. Esse comando faz a mesma coisa que o @follow.
+As principais diference entre @follow, é que este usa nomes, e este comando precisa do id da
+conta do alvo.
+
+Exemplo:
+
+//	Vai fazer com que o Mish siga TecnoCronus
+	PCFollow getCharID(3,"Mish"),getCharID(3,"TecnoCronus");
+	
+//	Vai fazer com que "Mish" pare de seguir "TecnoCronus".
+	PCStopFollow getCharID(3,"Mish");
+	
+---------------------------------------
+
+*pcblockmove <id>,<opção>;
+
+Previne o id dado de mover quando a opção for diferente de 0, 0 permite o id a se mover
+novamente, sendo que o id pode ser de monstro/npc ou de Alguma conta de um char.
+
+Example(s):
+
+// Prevente o char atual de se mover.
+	pcblockmove getcharid(3),1;
+	
+// Deixa o char atual se mover.
+	pcblockmove getcharid(3),0;
+
+--------------------------------------- 
+
+====================================
+|5.- Comandos Relativos à NPC/MOBS.|
+====================================
+---------------------------------------
+
+*monster     "<nome do mapa>",<x>,<y>,"<name to show>",<mob id>,<quantidade>{,"<rótulo de evento>"};
+*areamonster "<nome do mapa>",<x1>,<y1>,<x2>,<y2>,"<name to show>",<mob id>,<quantidade>{,"<rótulo de evento>"};
+
+Esse comando vai invocar um monstro especificadom no mapa especificado e nas
+coordenadas especificadas, se o script for invocado por um char, um nome especial
+"this" será definido como o nome do mapa que esse jogador está. Esse comando
+funciona perfeitamente em scripts de items.
+
+Os mesmos argumentos de comandos usados para invocar um monstro permanentemente
+no começo do documento são usados aqui. Monstros invocados aqui não serão permanentes.
+
+Não como no monstro invocados permanentes, se o id do mob for -1, um monstro randômico
+será escolhido do banco de dado de monstros ('db\mod_db') de acordo com as regras
+configuradas no servidor para o galho seco. Isso vai funcionar para todos os tipos
+de monstros não invocados permanentemente.
+
+A única coisa especial sobre esse comando é o rótulo de evento, que é dado como
+um parâmetro opcional, esse rótulo de evento segue a seguinte regra:
+
+		"<nome_do_npc>::<Onnome_do_rótulo>"
+
+Esse rótulo será executado quando esse monstro invocado morrer, o rótulo
+terá anexado o RID do jogador que matou o monstro, ou seja, é como se ele
+tivesse clicado no NPC depois de ter matado o monstro, só que ele será
+redirecionado para o rótulo especificado.
+
+O Comando 'areamonster' funciona como 'monster' a diferença é que os monstros
+serão invocado no quadrado feito por suas coordenadas especificadas por 
+<x1/y1-x2/y2>.
+
+Exemplo:
+
+prontera,174,215,6	script	TecnoCronus	718,{
+
+		mes "[Invocador]";
+		mes "vou invocar um poring quando você";
+		mes "matálo eu falarei com você novamente";
+		close2;
+		getmapxy(@m$,@x,@y,0);
+		monster @m$,@x,@y,"Poring Teste",1002,1,"TecnoCronus::OnQuandoPoringMorrer";
+		end;
+
+		OnQuandoPoringMorrer:
+		mes "[Invocador]";
+		mes "Parabéns você acabou de matar o poring que eu invoquei";
+		close;
+}
+
+Esse exemplo acima vai invocar um poring, mas com o nome "Poring Teste", nas coordenadas que o jogador está
+e quando ele morrer o jogador que o matou será anexado ao script e redirecionado para o rótulo especificado
+ele não "irá" para o começo do script.
+
+---------------------------------------
+
+*areamobuseskill "<nome do mapa>",<x>,<y>,<extensão>,<mob id>,<id da habilidade>,<nível da habilidade>,<tempo de conjurar>,<emoção>,<tipo de alvo>;
+*areamobuseskill "<nome do mapa>",<x>,<y>,<extensão>,<mob id>,"<nome da habilidade>",<nível da habilidade>,<tempo de conjurar>,<cancelável>,<emoção>,<tipo de alvo>;
+
+Esse comando vai fazer todos os monstros especificado pelo id do mob, na área
+especificada, usar a habilidade especificada, a extensão é até onde as células
+serão criadas (extensão 3 cria um quadrado 7x7), a habilidade pode ser especificada
+pelo nome ou pelo id, <tempo de conjurar> é em milésimos de segundos (1000 = 1s),
+e o resto é auto-explicatibvo.
+
+<tipo de alvo> pode ser:
+
+	0 = em si mesmo
+	1 = o atual alvo do monstro
+	2 = o monstro mestre
+	3 = alvo randômico
+
+Exemplo:
+
+	// Sumona uma Shining Plant.
+
+	areamonster "prontera",153,186,157,190,"Shining Plant",1083,1;
+
+	// faz a planta usa a habilidade dardos de gelo em um alvo randômico:
+
+	areamobuseskill "prontera",155,188,2,1083,"MG_COLDBOLT",10,3000,1,e_gg,3;
+
+---------------------------------------
+
+*killmonster "<nome do mapa>","<rótulo de evento>"{,<tipo>};
+
+Esse comando vai matar todos os monstro que foram sumonados pelos comandos
+'monster' ou 'addmonster' e têm um rótulo de evento específico para eles.
+
+Se o rótulo for dado como "All", todos os monstros com seus respectivos tempo
+de invocação definido como -1 no mapa especificado, serão mortos e executarão
+seus rótulos de evento.
+
+Tipo é usado 1 para executar o rótulo "OnMyMobDead" quando morrerem.
+
+---------------------------------------
+
+*killmonsterall "<nome do mapa>"{,<tipo>};
+
+Esse comando vai matar todos os monstros no mapa especificado, indepedentemente
+de como eles são invocados, se você quiser usar o novo rótulo defina o tipo como
+1, qualquer outro número não fará o mesmo.
+
+---------------------------------------
+
+*strmobinfo(<tipo>,<id do monstro>);
+
+Essa função vai retornar informações sobre um monstro salvas em 'db\mob_db.txt'
+Tipo é o tipo de informação que vai ser retornada.
+
+Os tipos válidos são:
+
+ 1 - O Campo 'english name' do banco de dados, uma string.
+ 2 - O Campo 'japonese name' do banco de dados, uma string.
+ 3 - nível do monstro.
+ 4 - HP Máximo.
+ 5 - SP Máximo.
+ 6 - Experiência de recompensa.
+ 7 - Experiência de job como recompensa.
+
+---------------------------------------
+
+*mobcount("<nome do mapa>","<rótulo de evento>")
+
+Esta função vai contar todos os monstros no mapa especificado, que tem o rótulo
+de evento especificado, se você não der o rótulo de evento, a função
+vai retornar todos os monstro que estiverem nesse mapa, independentes de terem
+ou não esse rótulo de evento especificado. retorna 0 se o mapa não existir
+ou se não houver monstro lá.
+
+---------------------------------------
+
+*clone "<nome do mapa>",<x>,<y>,"<evento>",<id do char>{,<id do mestre>{,<modo>{,<flag>,<duração>}}}
+
+Esse comando criar um monstro que é a cópia de outro jogador. os quatro
+primeiro argumentos servem para o mesmo propósito que o comando de script
+'monster', o <id do char> é o do char que será clonado, sendo que este deve
+estar online. se o <id do mestre> for dado, o clone será um 'escravo' dele.
+o char que tem o <id do mestre> deve estar online também.
+
+O Modo pde ser especificado para determinar o comportamente do clone, os
+valores dele é o mesmo usado em 'db\mod_db.txt'. o modo padrão é
+agressivo, ajuda, pode se mover, pode atacar.
+
+A <flag> pode ser 0 ou 1 correntemente. Se 0, o clone é um monstro normal
+que vai alvejars os jogadoresm se 1, ele é considerado um monstro sumonado,
+ele vai alvejar outros monstro, o padrão é zero.
+
+O Valor retornado é os id do clone invocado. se o comando falhar, retorna
+o valor 0.
+
+---------------------------------------
+
+*summon "Monster name",<id do monstro>{,<Time Out>{,"rótulo de evento"}};
+
+Esse comando vai invocar um monstro. (veja 'monster') não como em monstro
+sumonados por outros comando, esse comando vai invocar o monstro para lutar
+protegendo o jogador invocador do script. o nome do monstro e o id dele
+obedecem a mesmas regras das dadas no começo desse documento, na parte de
+como invocar um monstro permanentemente.
+
+O Efeito da habilidade 'Chamar homunculus' vai ser mostrada, centralizada no
+char invocador.
+
+<Time Out> é o tempo em milésimos de segundos que o monstro vive, e é definida
+por padrão 60000 (1 minuto), se você definir o tempo como 0 o padrão 
+será usado, não é possível para este comando criar um monstro permanentemente.
+Se um rótulo de evento é dado, quando o monstro for morto, o rótulo de evento
+será executado, como no comando 'donpcevent'.
+
+// Vai sumonar um monstro do galho seco para lutar com o jogador:
+	summon "--ja--",-1;
+
+---------------------------------------
+
+*homevolution;
+
+Este comando vai tentar evoluir o homunculus atual do jogador. se o comando
+não funcionar o emoticon /swt será mostrado.
+
+Para evoluir o homunculus, o jogador anexado tem que ter um homunculus.
+e este não tem que estar no nível máximo e ter no mínimo 91000/10000
+de intimidade com seu dono.
+
+---------------------------------------
+
+*unitwalk <GID>,<x>,<y>;
+*unitwalk <GID>,<mapid>;
+
+Este é um comando só, mas pode ser usado de duas formas, se só o primeiro argumento
+é dado, a unidade percente do GID começa a andar em direção ao mapa com o mapid dado
+(veja todos os mapids em 'db\map_index.txt').
+
+Quando os dois argumentos são dado. a unidade dada vai andar para as coordenad x,y onde
+a unidade atualmente está.
+
+Exemplo:
+
+// Vai mover o poring que fizemos nas coordenadas 150,150
+	unitwalk .GID,150,150;
+
+// Vai mover o poring em direção à alberta.
+	unitwalk .GID,3;
+
+---------------------------------------
+
+*unitkill <GID>;
+*unitwarp <GID>,<nome do mapa>,<x>,<y>;
+*unitattack <GID>,<id do alvo>;
+*unitstop <GID>;
+*unittalk <GID>,<Texto>;
+*unitemote <GID>,<Emoção>;
+
+esses comandos são auto-explicatórios, veja a lista completa de emoticons
+em 'db\const.txt'.
+
+---------------------------------------
+
+*disablenpc "<NPC object name>";
+*enablenpc "<NPC object name>";
+
+Esses dois comando vão ativar e desativar, respectivamente, um NPC
+especificado pelo nome. O NPC desativado vai desaparecer de vista e não
+será executado pelo jeito normal.'disablenpc' desativa e 'enablenpc'
+ativa.
+
+---------------------------------------
+
+*hideonnpc "<Nome do NPC>";
+*hideoffnpc "<Nome do NPC>";
+
+Estes comandos vão fazer o NPC especificado pelo nome como escondido/visível,
+
+---------------------------------------
+
+*doevent "<Nome do NPC>::<rótulo de evento>";
+
+Esse cp,amdp vai começar a execução do script do NPC especificado apartir do
+rótulo de evento especificado.
+
+
+Exemplo:
+
+	alberta,50,50,6%TAB%script%TAB%teste%TAB%98,{
+	mes "você vai ler isso se clicar em mim";
+	close;
+
+	OnRotulo_evento:
+	mes "você lerá isso se usar o comando doevent";
+	close;
+	}
+
+Para fazer o jogador ir para o rótulo "OnRotulo_evento" é necessário usar o comando
+
+donpcevent "teste:OnRotulo_evento";
+
+---------------------------------------
+
+*donpcevent "{NOMEDONPC}::<rótulo de evento>";
+
+Se o rótulo de evento é usado como "::<nome_do_rótulo>", todos os NPC que tiverem
+esse rótulo especificado vão ser executados, mas nenhum RID vai ser anexado.
+
+De outro jeito, se o rótulo é dado como "<Nome do NPC>"::<nome do rótulo.", o rótulo
+no NPC especificado é executado. nenhum RID será anexado também.
+
+
+    mapa,100,100,1%TAB%script%TAB%NPC%TAB%53,{
+        mes "Ei npc2 copie o que eu faço";
+        close2;
+        set @emo, rand(1,30);
+        donpcevent "NPC2::Emo";
+    Emo:
+        emotion @emo;
+        end;
+    }
+
+    mapa,102,100,1%TAB%script%TAB%NPC2%TAB%53,{
+        mes "ei NPC copie o que eu faço";
+        close2;
+        set @emo, rand(1,30);
+        donpcevent "NPC::Emo";
+    Emo:
+        emotion @emo;
+        end;
+    }
+
+Esse comando vai fazer com que ambos npc facem com que o emoticon vai ser mostrado emcima
+de suas cabeças.
+
+---------------------------------------
+
+*cmdothernpc "<Nome do NPC>","<comando>";
+
+Esse comando é similar à "donpcevent <NomedoNPC>::OnComand<comando>".
+
+---------------------------------------
+
+*npctalk "<mensagem>";
+
+Esse comando vai mostrar uma mensagem para a area circundante à que o npc está
+a mensagem será mostrada para todos que estiverem nessa área verem, e será
+mostrada em cima da cabeça do NPC.
+
+/ vai fazer com que todo mundo que esteja perto do npc veja mensagem
+// como se o npc estivesse falando.
+
+    npctalk "Olá "+strcharinfo(0)+" Como você está";
+
+---------------------------------------
+
+*setnpcdisplay("<Nome do NPC>", "<nome para mostrar>", <id da classe>, <tamanho>)
+*setnpcdisplay("<Nome do NPC>", "<nome para mostrar>", <id da classe>)
+*setnpcdisplay("<Nome do NPC>", "<nome para mostrar>")
+*setnpcdisplay("<Nome do NPC>", <id da classe>)
+
+Muda o nome para mostrar do npc e/ou sua classe.
+retorna 0 se foi executada com sucesso e 1 se o npc não existir.
+
+Os tamanhos são:
+
+ 0 - Normal
+ 1 - Pequeno
+ 2 - Grande
+
+---------------------------------------
+\\
+5,1.- Comandos relacionados à tempo.
+\\
+---------------------------------------
+*addtimer <ticks>,"<NPC object name>::<rótulo>";
+*deltimer "<NPC object name>::<rótulo  de evento>";
+*addtimercount <ticks>,"<NPC object name>::<rótulo  de evento>";
+
+Estes comando vão criar, destruir, um delay uma contagem regressiva - 'addtimer'
+para criar, 'deltimer' para destruir e 'addtimercount' para atrasar isso pelo
+número especificado de ticks. Para todos os três casos, o rótulo de evento dado
+é o identificador desse tempo.
+
+Quando o tempo acabar, um nova execução vai começar no NPC especificado, no 
+rótulo de evento especificado, em todos os casos o rótulo é executado sem um
+RID.
+
+os ticks são dados em milésimos de segundos.
+
+Mas uma coisa, esses contadores de tempo são salvo como parte dos dados dos
+jogadores, quando o jogador deslogar, estes dados são apagados, se este comportamento
+for indesejável use outros comandos como 'sleep'.
+
+---------------------------------------
+
+*initnpctimer{ "<Nome do NPC>" {, <Attach Flag>} } |
+             { "<Nome do NPC>" | <Attach Flag> };
+*stopnpctimer{ "<Nome do NPC>" {, <Detach Flag>}  } |
+             { "<Nome do NPC>" | <Detach Flag> };
+*startnpctimer{ "<Nome do NPC>" {, <Attach Flag>} } |
+              { "<Nome do NPC>" | <Attach Flag> };
+*setnpctimer <tick>{,"<Nome do NPC>"};
+*getnpctimer(<tipo de informação>{,"<Nome do NPC>"})
+*attachnpctimer {"<nome do jogador>"};
+*detachnpctimer {"<Nome do NPC>"};
+
+Este grupo de comandos e funções vai criar e dirigir um contador de tempo baseado em NPC
+o nome do npc pode ser omitido, nos casos que o npc chamado é usado como alvo.
+
+Ao Contrário dos comandos 'addtimer'/'deltimer' nos quais deixa você ter vários
+contadores de tempo, referenciando diferemtes rótulos no mesmo NPC cada qual
+com sua contagem regressiva, 'initnpctimer' pode ter só um por NPC, mas ele pode
+executar vários rótulos "OnTimer<tempo>:" no NPC que o comando está inserto.
+
+Para criar o contador de tempo, use o 'initnpctimer', que vai começar a conta.
+'stopnpctimer' vai pausar o contador, sem limpar o tempo, enquanto que o comando
+'startnpctimer' vai para a pausa e vai continuar a contagem.
+
+Por padrão, contadores não tem nenhum RID anexado, para atachar um RID ao
+contador, você pode usar o parâmetro opcional <attach flag>, quando estiver
+usando 'initnpctimer'/'startnpctimer', ou fazer isso manualmente com o comando
+'attachnpctimer', do mesmo modo, a flag opcional do 'stopnpctimer' deixa que
+você desatache qualquer RID depois do tempo parar, e usando 'detachnpctimer'
+você pode desatachar um RID à qualquer hora.
+
+Normalmente à apenas um contador por NPC, mas como exeção, o quanto que você
+atachar um jogador ao contador, você pode ter mútiplos contadores funcionando
+em um só, porque eles serão salvos no jogador e não no NPC.
+NOTA: você precisa atachar o RID antes do contador para ter um contador com
+o jogador anexado, de outro jeito o contador continua um de NPC.
+
+Se o jogador que estiver anexado ao contador de npc deslogar, o rótulo
+de evento "OnTimerQuit:" desse NPC será executado, então você pode limpar
+o tempo apropriadamente (o jogador ainda vai continuar anexado).
+
+O comando 'setnpctimer' vai definir explicitamente o contador para um tick
+dado.
+'getnpctimer' fornece informações do contador. Esse parâmetro definem qual
+tipo:
+
+ 0 - Vai retornar o tick atual do contador.
+ 1 - Vai retornar 1 se há "OnTimer<ticks>:" ticks remanescentes no npc
+     especificado
+ 2 - Vai retornar o número de vezes que o contador foi disparado e vai
+     vai disparar um rótulo "OnTimer<tick>:" no NPC especificado.
+
+Exemplo 1:
+
+     {
+        initnpctimer;
+        npctalk "Eu não posso falar agora, me dê 10 segundos";
+        end;
+    OnTimer5000:
+        npctalk "Mais 5 segundos";
+        end;
+    OnTimer6000:
+        npctalk "4";
+        end;
+    OnTimer7000:
+        npctalk "3";
+        end;
+    OnTimer8000:
+        npctalk "2";
+        end;
+    OnTimer9000:
+        npctalk "1";
+        end;
+    OnTimer10000:
+	stopnpctimer; // Esse comando é de fato não necessário aqui, porque o contador é automaticamente parado devido à não existir eventos
+		      // remanescentes (rótulos remanescentes).
+        mes "[Dev]";
+        mes "Podemos falar agora";
+    }
+
+Exemplo 2:
+
+    OnTimer15000:
+				npctalk "Outros 15 segundos foram passados.";
+        initnpctimer; // Você tem que usar 'initnpctimer' no lugar de 'npctimer 0;'.
+        // Isso é  igual à 'setnpctimer 0;' + 'startnpctimer'.
+        // Alternativamente, você pode inserir outro rótulo 'OnTimer1500:', então o contador não vai parar.
+        end;
+       
+
+    OnInit:
+        initnpctimer;
+        end;
+
+Example 3:
+
+    mes "[Homen]";
+    mes "Eu estive esperando "+(getnpctimer(0)/1000)+" segundos por você !";
+    // dividimos por 1000 pois o retornado é dado em milésimos de segundos.
+    close;
+
+Example 4:
+
+    mes "[Man]";
+    mes "Vou permitir que você tenha mais 30 segundos";
+    close2;
+    setnpctimer (getnpctimer(0)-30000); 
+    end;
+ 
+---------------------------------------
+ 
+*sleep {<milésimos de segundos>};
+*sleep2 {<milésimos de segundos>};
+*awake "<Nome do NPC>";
+
+Estes comandos são usados para controlar a pausa de um NPC.
+'sleep' e 'sleep2'  vão pausar o script pelos milésimos de segundos dados,
+'awake' é usado para cancelar o "sono'. Quando o 'awake' é chamado em um NPC,
+ele vai ser executado como se o tempo de "dormir" acabasse, e assim fazendo
+o script continuar. 'sleep' e 'sleep2' são basicamente os mesmos, a diferença
+é que 'sleep2' vai continuar com o RID anexado, diferente de 'sleep'.
+
+Exemplos:
+	sleep 10000; // pausa o script por 10 segundos e desatacha o RID.
+	sleep2 5000; // pausa o script por 5 segundos e continua com o RID anexado.
+	awake "Contador"; // Cancela a pausa do NPC chamado "Contador"
+
+---------------------------------------
+
+*progressbar "<cor>",<segundos>;
+
+Este comando funciona quase como sleep2, mas mostra um barra de progresso
+em cima da cabeça do jogador anexado ao script (Como a barra de cast)
+quando os segundos dados passam, a barra some, se o se mover enquano a
+barra está sob a cabeça dele a barra some e o script é terminado, a
+cor é dada em RGB, mas atualmente o client ignora a cor e só aparece
+em verde.
+
+---------------------------------------
+//
+5,1.-Fim dos comandos relacionados à tempo
+//
+---------------------------------------
+
+*announce "<texto>",<flag>{,<cor>};
+
+Este comando vai difundir uma mensagem para todos ou a maioria dos jogadores,
+similar aos comandos de GM '@kami'/'@kamib'.
+
+A região que a mensagem vai ser difundida e a cor da mensagem são determinadas
+pelos arguments:
+
+	announce "Esta mensagem vai ser mostrada para todo mundo em amarelo",0;
+
+Os valores de <flag> podem ser encontradas em 'db\const.txt':
+
+- bc_all: Difunde uma mensagem para todos os jogadores online
+- bc_map: A Mensagem é enviada para todos os jogadores que estiverem
+	  no mesmo mapa do NPC que usou o comando.
+- bc_area: Mensagem é enviada para os jogadores da àrea.
+- bc_self: Mensagem é enviada para o RID anexado ao script.
+
+- bc_npc: A Fonte da difusão é o NPC, não o jogador anexado ao script.
+   (útil quando um jogador não é anexado ou a mensagem deve ser enviada para
+   aqueles perto do npc)
+
+- bc_yellow: O Padrão é difundir a mensagem em amarelo
+- bc_blue: A Difusão alternativa é a mensagem em azul.
+
+O Parâmetro opcional, cor, permite o uso da mensagem em qualquer cor.
+Sendo que as cores são dadas de acordo com o sistema RGB (Vermelho
+Verde Azul) do seguinte modo (0xRRGGBB) com o prefixo '0x'.
+
+Exemplo:
+	announce "Essa mensagem será enviada para todos em vermelho",bc_all,0xFF0000;
+
+---------------------------------------
+
+*mapannounce "<nome do mapa>","<texto>",<flag>{,<cor>};
+
+Este comando funciona como 'announce' só que o mapa em que a mensagem será
+difundida pode ser especificado <nome do mapa>, os outros parâmetros podem
+ser lidos em 'announce'.
+
+---------------------------------------
+
+*areaannounce "<nome do mapa>",<x1>,<y1>,<x2>,<y2>,"<text>",<flag>[,<color>];
+
+Esse comando funcionar como 'announce' mas vai difundir a mensagem para
+os jogadores no mapa especificados, que estiverem dentro do quadrado
+formado por <x1>,<y1>,<x2>,<y2>, os parâmetro restantes podem ser lidos
+em 'announce'.
+
+Exemplo:
+
+    areaannounce "prt_church",0,0,350,350,"Olá à todos da igreja !!",0;
+
+---------------------------------------
+
+*callshop "<nome>",<opção>;
+
+Esta função chama um shop visível, como se o jogador tivesse clicado nele.
+
+Opções:
+	0 = A janela normal (comprar, vender, e cancel)
+	1 = A Janela de comprar.
+	2 = A Janela de vender.
+	
+Exemplo:
+
+callshop "DaShop",1;	// Vai chamar o shop de cash "DaShop" só com o botão de comprar.
+
+Há rótulos que são executados, dependo da ação do jogador:
+
+ OnBuyItem - Dois arrays são definidos (@bought_nameid e @bought_quantity) o primeiro
+	     contém os ids dos item comprados e o segundo a quantidade respectivamente.
+
+ OnSellItem - Dois Arraus são defindos (@sold_nameid and @sold_quantity) o primeiro
+              contém os ids dos items que foram vendidos e o segundo a quantidade respectivamente.
+
+O Rótulo 'OnBuyItem:' é executado toda vez que o jogadr comprar o item e 'OnSellItem:' todas as
+vezes que o jogador vender um item para esse shop.
+
+Sendo que estes rótulos só são executados quando os item são adicionados pelo comando 
+'npcshopitem'.
+
+---------------------------------------
+
+*npcshopitem "<nome>",<item id>,<preço>{,<item id>,<preço>{,<item id>,<preço>{,...}}}
+
+Esta função adiciona os items especificados, com os preços especificados ao NPC
+especificado.
+
+A Função retorna 1 se o shop foi atualizado com sucesso ou 0 se não foi.
+
+Nota: você não pode usar -1, para definir o preço padrão como preço.
+
+---------------------------------------
+
+*npcshopadditem "<nome>",<item id>,<preço>{,<item id>,<preço>{,<item id>,<preço>{,...}}}
+
+Este comando funciona exatamente como 'npcshopitem' ele adiciona os item dados
+ao npc especificado, este comando segue as mesmas regras de 'npcshopitem'.
+
+---------------------------------------
+
+*npcshopdelitem "<nome>",<item id>{,<item id>{,<item id>{,...}}}
+
+Este comando vai remover os items dados do shop especificado pelo nome.
+
+Retorna 1 se os item não foram removidos.
+
+---------------------------------------
+
+*npcshopattach "<nome>"{,<flag>}
+
+Este comando vai atachar o scrip corrente ao npc de shop dado.
+quando um script é anexado à um shop, os rótulos de evento
+"OnBuyItem" e "OnSellItem" desse script serão executados.
+
+O Parâmetro opcional 'flag' é usado para atachar se for 1 e para desatachar
+
+se for 0, essa função retorna 0 se o shop não foi encontrado e 1 se foi.
+
+---------------------------------------
+
+*waitingroom "<nome da sala de conversa>",<limite>{,<"rótulo de evento>,<disparos>};
+
+Esse comando vai criar uma sala de conver, pertencente ao NPC que estiver executando
+este comando e será mostrada em cima da cabeça do NPC.
+O Tamanho máximo de caracteres que o nome da sala pode ter é 60.
+
+o <limite> é o limite máximo do número de pessoas que poderão entrar na sala de conversa
+se os parâmetros opcionais <rótulo de evento>,<disparos> forem dados, esse rótulo
+de evento será executado quando o limite for alcançado.
+
+Exemplo:
+
+// O NPC vai mostrar uma caiva com o Texto Oi, e quando clicado pelo
+// jogador não vai acontecer nada, pois o limite é 0.
+    waitingroom "Oi",0;
+
+// vai fazer quase a mesma coisa que o exemplo anterior, mais clicando
+// nele o rótulo de evento "OnStart" no NPC "Bouncer" será executado
+// toda vez que o jogador clicar no NPC.
+
+    waitingroom "Disco - Waiting Room",8,"Bouncer::OnStart",8;
+
+ A crição desse comando não faz o NPC parar, a linha seguinte de comando
+será executada normalmente.
+
+---------------------------------------
+
+*delwaitingroom {"<Nome do NPC>"};
+
+Este comando vai deletar um sala de espera, se nenhum parâmetro é dado
+o NPC que estiver executando o comando terá a sala de espera deletada
+se o parâmetro <Nome do NPC> é dado, esse NPC terá sua sala deletada.
+
+---------------------------------------
+
+*enablewaitingroomevent {"<Nome do NPC>"};
+*disablewaitingroomevent {"<Nome do NPC>"};
+*enablearena;
+*disablearena;
+
+Estes comandos ativam e desativam a sala de conversa do npc especificado, se
+nenhum npc é especificado, o que estiver executando esse comando será usado.
+
+---------------------------------------
+
+*getwaitingroomstate(<tipo de informação>{,"<Nome do NPC>"})
+
+Esta Função vai retorna informações sobre o estado da sala de espera do
+NPC dado, se o Nome do npc não for dado, o que estiver executando este
+comando será usado.
+
+Os tipos válidos de tipo de informação é:
+
+ 0  - Números de usuários anexados
+ 1  - Número máximo de usuários permitidos.
+ 2  - Retorna 1 se o NPC tem um disparo definido 0 se não.
+ 3  - Retorna 1 se a sala de espera atula estiver desativada.
+      0 se não.
+ 4  - O Título da sala de espera (uma string)
+ 5  - A senha da sala de espera.
+ 16 - Event name of the waiting room (string)
+ 32 - Se a sala estiver cheia ou não.
+ 33 - se o número de usuários é maior do que o número de disparos.
+
+---------------------------------------
+
+*warpwaitingpc "<nome do mapa>",<x>,<y>{,<número de pessoas>};
+
+Este comando vai teleportar a quantidade de char igual ao número de pessoas
+da sala de espera anexado ao NPC que executa esse comando para o mapa especificado
+e nas coordenadas especificados, kicando eles da sala. Aquele que estiver esperando
+à mais tempo será o primeiro à ser teleportado. Este comando aceita "mapas especicais"
+com "Random" e "SavePoint".
+
+A Lista de chars para teleportar é pega da lista de membros da sala de conversa.
+aqueles que não tiverem na sala de conversa não serão considerados, mesmo se
+eles tiverem falando com o NPC em questão. Se o número de pessoas é dado, este
+tanto de pessoas que vão teleportadas.
+
+Este comando ainda vai definir quem foi teleportado, definindo as variáveis:
+
+$@warpwaitingnpc[]	é um array que contém o id dos chars que foram teleportados
+
+$@warpwaitingnpcnum	contém a quantidade de jogadores teleportados.
+
+
+Veja 'getpartymember' pra saber o que fazer com essas variáveis.
+
+---------------------------------------
+
+*kickwaitingroomall {"<Nome do NPC>"};
+
+Este comando deve kicar todo mundo que estiver na sala de conversa do NPC especificado
+se ele não for, o npc que estiver executando este comando será usado.
+
+---------------------------------------
+
+*setmapflagnosave "<nome do mapa>","<mapa alternado>",<x>,<y>;
+
+Este comando define uma flag 'nosave' para o mapa especificado e dá um ponto
+de salvamento alternativo (segundo argumento em diante).
+
+Nota: o 'savepoint' ainda vai continuar funcionando nesse mapa.
+
+---------------------------------------
+
+*setmapflag "<nome do mapa>",<flag>;
+
+Este comando marca o mapa especificado com uma flag dada. Veja  todas as mapflags
+em 'db\const.txt' debaixo de 'mf_'.
+
+---------------------------------------
+
+*removemapflag "<nome do mapa>",<flag>;
+
+Esse comando remove um mapflag de um mapa específico, veja o
+comando 'setmapflag' mapa  uma lista de todos os mapflags.
+
+---------------------------------------
+
+*getmapflag("<nome do mapa>",<flag>)
+
+Este comando checa o statu de uma mapflag dada no mapa especificado, retorna 1
+se a mapflag estiver ativada e 0 se não.
+
+Exemplo:
+
+	mes "[NPC]";
+	set @flag, "mf_nowarp";
+	set @warp, getmapflag("prontera",@flag);
+	if(@warp == 1 ) {
+		mes "Não posso te teleportar pra esse lugar";
+		close;
+	}
+	mes "Ok vou te teleportar agora";
+	close2;
+	warp "prontera",0,0;
+	end;
+
+---------------------------------------
+
+*setbattleflag "<battle flag>",<valor>;
+*getbattleflag("<battle flag>")
+
+Define ou retorna o falor da battle flag dada.
+Battle flags são flags encontradas nos arquivos 'battle/*.conf'.
+
+Exemplo:
+
+// vai definir a base da taxa de experiência para 20x + (2000%).
+	setBattleFlag "base_exp_rate",2000;
+	
+// vai retorna o valor da base de taxa de experiência.
+	getBattleFlag "base_exp_rate";
+
+---------------------------------------
+
+*warpportal <x>,<y>,"<nome do mapa>",<x>,<y>;
+
+Cria um portal de warp como se um Noviço fez isso.
+O primeiro x e y são as respectivas coordenas do mapa onde o
+portal aparecerá, os dois últimos x e y são para onde o
+jogador será teleportado quando passar/clicar no portal.
+
+Exemplo:
+
+	warpPortal 150,150,"prontera",150,180;
+
+---------------------------------------
+
+*mapwarp "<do mapa>","<para o mapa>",<x>,<y>;
+
+Este comando seleciona todos os chars localizados no mapa '<do mapa>' e os manda
+para o mapa '<para o mapa>' nas coordenadas x e y dadas.
+
+---------------------------------------
+\\
+5,2.- Comandos relacionados à Guilda.
+\\
+---------------------------------------
+
+*maprespawnguildid "<nome do mapa>",<id da guilda>,<flag>;
+
+Este comando vai teleportar os memebros da guilda dada do mapa especificado.
+
+As flags são:
+
+ 1 - teleporta todos os membros da guilda para seus pontos de salvamento.
+ 2 - teleporta todos os não-membros da guilda para seus pontos de salvamentos.
+ 3 - remove todos os monstros que não são guardiões ou empério.
+ 7 - apaga todos os monstros mas guardiões e empério não e kica todos os chars.
+
+---------------------------------------
+
+*agitstart;
+*agitend;
+*agitstart2;
+*agitend2;
+
+Estes quatros comandos vai começar e terminar a Guerra do Empério ou a 
+guerra do empério segunda edição.
+
+---------------------------------------
+
+*gvgon "<nome do mapa>";
+*gvgoff "<nome do mapa>";
+
+Estes comandos vão por o mapa em modo GVG ou tirá-los desse modo GVG.
+
+---------------------------------------
+
+*flagemblem <id da guilda>;
+
+Este comando só funciona com NPCs com o id de sprite 722, cria uma bandeira 3D
+com o emblema da guilda especificado pelo id.
+
+---------------------------------------
+
+*guardian("<nome do mapa>",<x>,<y>,"<nome para mostrar>",<id do mob>,<quantidade>{,"<rótulo  de evento>"}{,<índice do guardião>})
+
+Este comando é rudemente equivalente à 'monster' mais é para ser usado com
+os guardiões de castelo. Ele vai definir as características dos guardiões
+de acordo com o os valores de investimento do castelo.
+
+Retorna 0 se ocorreu um erro.
+
+---------------------------------------
+
+*guardianinfo("<nome do mapa>", <número do guardião>, <tipo>)
+
+Esta função vai retornar várias informações sobre o guardião especificado
+no mapa dado,ou -1 se isso falhar por algum motivo.
+
+os tipos válidos são:
+
+ 0 - visibilidade (se o guardião foi instalado ou não)
+ 1 - hp máx.
+ 2 - hp atual.
+
+---------------------------------------
+//
+5,2.- Fim dos comandos relacionados à Guilda.
+//
+---------------------------------------
+
+*npcspeed <speed value>;
+*npcwalkto <x>,<y>;
+*npcstop;
+
+Estes comandos faz o NPC em questão se mover pelo mapa.
+
+'npcspeed' vai definir a velocidade que o npc anda. 100 é o padrão. 'npcstop'
+vai fazer o NPC parar de andar.
+
+enquanto estiver andando o NPC será clicável, mas clicando nele o npc para de
+correr.
+
+'npcwalkto' faz o npc andar paras as coordenadas especificadas.
+
+Nem todos os NPCs tem frames no sprite andando então algums pareção que estão
+flutuando.
+
+---------------------------------------
+
+*movenpc <Nome do NPC>,x,y;
+
+Este comando parece muito com 'npcwalkto', mas é um pouco diferente.
+
+enquanto 'npcwalkto' faz apenas o npc andar para as coordenadas dadas
+este comando teleporta o npc para as coordenadas dadas no mapa
+atual no qual o NPC se encontra.
+
+Exemplo:
+
+//	Move o npc Tecno para as coordenadas 100, 200
+	moveNPC "Tecno",100,200;
+	
+---------------------------------------
+
+======================
+|6.- Outros Comandos.|
+======================
+---------------------------------------
+
+*debugmes "<mensagem>";
+
+Este comando vai enviar uma mensagem para o console do servidor (a janela do map-server)
+ninguém dentro do jogo verá essa mensagem.
+
+Exemplo:
+
+ // Exemplo pego do sistema de rops do TecnoCronus
+
+		set .@AutoD, query_sql("select version()");
+		if(.@AutoD < 0) { 
+		set $@UseMySQL,0; 
+		debugmes "Sistema Rops trabalhando em TXT"; 
+		} else { 
+		set $@UseMySQL,1; 
+		debugmes "Sistema Rops trabalhando em SQL";
+		}
+		end;
+
+Este exemplo  de código vai detectar se o servidor é do tipo TXT ou SQL, executando uma query.
+vai enviar uma mensagem pro map-server disendo se o script vai trabalhar em TXT ou SQL.
+
+---------------------------------------
+
+*logmes "<mensagem>";
+
+Este comando vai escrever uma mensagem dado para o arquivo de log do map-server,
+especificado em 'conf/log_athena.conf'. nas versões TXT, o arquiv de log é 'log/npclog'
+por padrão. nas SQL as mensagem serão salvas na tabela 'npclog', se os logs não estão
+ativados, nada acontece.
+
+---------------------------------------
+
+*globalmes "<mensagem>"{,"<Nome do NPC>"};
+
+Este comando vai enviar uma mensagem para a janela de conversão de todos os
+jogadores que estiverem conectados.
+
+Se o nome do NPC é dado, a mensagem vai ser envianda como se o enviador fosse
+o npc.
+
+---------------------------------------
+
+*rand(<número>{,<número>});
+
+Esta função retorna um número, randômicamente posicionado entre 0 e o número
+que você especificar ( se você especificar só 1). se especificar 2 será
+um número randômico entre esse dois números dados.
+
+Exemplos:
+
+rand(10) 	vai resultar em 0,1,2,3,4,5,6,7,8 ou 9
+
+rand(2,10) 	vai resultar em 2,3,4,5,6,7,8,9 or 10
+
+---------------------------------------
+
+*viewpoint <ação>,<x>,<y>,<número do ponto>,<cor>;
+
+Este comando vai marcar lugar no mini mapa do cliente conectado ao char anexado.
+Usa as coordenadas X e Y do mini mapa, as cores para marcar são definidas por
+número hexadecimais do sistema RGB (0xRRGGBB).
+
+Ação é o que você quer fazer com um ponto, 1 vai definir isso, enquanto 2 vai deletar
+
+isso. Número do ponto do ponto. Se mais de um ponto é desenhado na mesma coordenada
+eles vão ser "rodados".
+
+Exemplo:
+
+    // Este comando vai mostrar uma marca nas coordenadas 30 e 40, vai ser vermelho.
+    
+    viewpoint 1,30,40,1,0xFF0000;
+
+   // Este comando vai remover a marca anterior.
+
+    viewpoint 2,30,40,1,0xFF0000;
+
+---------------------------------------
+
+*cutin "<filename>",<posição>;
+
+Este comando vai mostrar uma foto salva no arquivo GRF do cliente para o jogador.
+
+Os arquivos são pegos do diretório '\data\texture\À¯ÀúÀÎÅÍÆäÀÌ½º\illust' no arquivo
+de GRF, também pega do dir \cardbmp. Somente fotos do tipo bitmap serão mostradas
+
+A Cor com o RGB (FF00FF) é considerada nvisível.
+
+A Posição determina onde a foto vai ser mostrada
+
+  0 - no ângulo base esquerdo
+  1 - no ângulo do meio
+  2 - no ângulo base direito
+  3 - no meio da tela, em uma janela movível sem um título
+  4 - no meio da tela, sem o cabeçário da janela, ainda movível
+  255 - vai remover o cutin da tela.
+
+Dando uma string vazia e a posição 255, vai remover a foto mostrada anteriormente.
+
+Exemplo:
+
+    // vai mostrar a foto da 7ª kafra no lado direito
+    cutin "kafra_7",2;
+
+    // vai remover essa 7ª kafra
+    cutin "Kafra_7",255;
+
+    // vai remover toda as as fotos mostradas anteriormente.
+    cutin "",255;
+
+---------------------------------------
+
+*pet <pet id>;
+
+Este comando va fazer o RID pegar um pet especificado pelo id.
+a lista completa de pets pode ser encontrada em 'db\pet_db.txt'.
+
+---------------------------------------
+
+*emotion <número da emoçãor>{, alvo};
+
+Este comando mostra um emoticon especificado em cima da cabeça do alvo
+se o alvo for 0 ou omitido o NPC usará o emoticon, se 1 o jogador anexado
+ao script usará o emoticon.
+
+Veja a lista de emoticons em 'db\const.txt' em baixo de 'e_'.
+
+---------------------------------------
+
+*misceffect <número do efeito>;
+
+This command, if run from an NPC object that has a sprite, will call up a 
+specified effect number, centered on the NPC sprite. If the running code does 
+not have an object ID (a 'floating' npc) or is not running from an NPC object at 
+all (an item script) the effect will be centered on the character who's RID got 
+attached to the script, if any. For usable item scripts, this command will 
+create an effect centered on the player using the item.
+
+A full list of known effects is found in 'doc/effect_list.txt'. The list of 
+those that actually work may differ greatly between client versions.
+
+---------------------------------------
+
+*soundeffect "<nome do arquivo de efeito>",<tipo>
+*soundeffectall "<nome do arquivo de efeito>",<tipo>{,"<nome do mapa>"}{,<x0>,<y0>,<x1>,<y1>}
+
+Estes dois comando vai mostrar os efeitos visuais para o rid somente ('soundeffect')
+ou múltiplos chars ('soundeffectall'). O Som será centralizado no char com o RID
+anexado ao script. se não no NPC.
+
+nome do arquivo de efeito é o nome do arquivo .wav no GRF
+
+---------------------------------------
+
+*pvpon "<nome do mapa>";
+*pvpoff "<nome do mapa>";
+
+Estes comando vão ativar/desativar o modo PVP no mapa especficiado.
+'pvpon' ativa e 'pvpoff' desativa.
+
+---------------------------------------
+
+*atcommand "<linha de comando>";
+
+Este comando vai executar o comando dado da linha de comando no RID anexado.
+o comando será executado como se o jogador fosse do nível de GM 99.
+
+Exemplo:
+
+    // vai perguntar o nome do jogador e vai usar o comando @nuke nele.
+
+    input @player$;
+    atcommand "@nuke "+@player$;
+
+---------------------------------------
+
+*charcommand <comando>;
+
+Esse comando é bastante parecido com o 'atcommand' a diferença é que ele pode ser
+executado em alguns casos sem um RID anexado.
+
+Exemplo:
+
+//este comando faz o mesmo do que está à cima mais não precisa de um RID anexado
+
+	charCommand "#option 0 0 0 Roy";
+
+---------------------------------------
+
+*unitskilluseid <GID>,<id da habilidade>,<nível da habilidade>{,<id do alvo>};
+*unitskilluseid <GID>,"<nome da habilidade>",<nível da habilidade>{,<id do alvo>};
+*unitskillusepos <GID>,<id da habilidade>,<nível da habilidade>,<x>,<y>;
+*unitskillusepos <GID>,"<nome da habilidade>",<nível da habilidade>,<x>,<y>;
+
+Estes comando vã fazer o GID dado usar uma habilidade, em 'unitskillusepos'
+fará com que o GID use a habilidade das coordendas passadas.
+
+---------------------------------------
+
+*day;
+*night;
+
+Estes dois comandos vão fazer o servidor ficar de "dia" ou "noite".
+
+Este exemplo vai definir noite entre 03AM até 08 AM:
+
+-%TAB%script%TAB%DayNight%TAB%-1,{
+        
+	end;
+
+OnClock0300:
+    
+OnClock0800:
+    
+OnInit:
+
+        set $@minutesfrommidnight, gettime(3)*60+gettime(2);
+
+        set $@night_start, 180; // 03:00
+        set $@night_end, 480;   // 08:00
+
+        if ($@minutesfrommidnight>=$@night_start && $@minutesfrommidnight<$@night_end) goto StartNight;
+
+        goto StartDay;
+	StartNight:	
+	night;
+	end;
+	StartDay:
+	day;
+	end;
+}
+
+---------------------------------------
+
+*defpattern <número para definir>,"<expressão regular modelo>","<rótulo  de evento>";
+*activatepset <número para definir>;
+*deactivatepset <número para definir>;
+*deletepset <número para definir>;
+
+Este grupo de comandos só é usável se o servidor fo compilado com a biblioteca
+de expressões regulares.
+
+Eles vão fazer o NPC ouvir o texto dito pelo jogador e checar se é igual ao
+da expressão regular dada, a execução do rótulo pe associada com essas expressões
+regular modelo.
+
+Esses modelos são organizados em definições, são referenciado com um número definido
+você pode ter múltiplos modelos definidos, e todos eles podem ser ativados com um só
+
+'defpattern' vai associar a expressão regular dada com o rótulo de evento
+o rótulo será executado quando algum jogador falar algo e isso for igual ao
+que estiver definido pela expressão regular modelo.
+
+'activatepset' vai fazer o modelo especificado ativo. Um modelo ativo vai
+ativar a execução do rótulo definido com 'defpattern'.
+
+'deactivatepset' vai desativar um modelo específico definido, dando -1 como
+número para definir, vai desativar todos os modelos ativos.
+
+'deletepset' vai deletar um modelo definido da memória, então você pode criar
+um novo modelo definido no lugar deste.
+
+O Uso de expressões regular é bastante difícil. Veja os sites abaixo que poderão
+ajudar:
+
+
+http://www.regular-expressions.info/
+http://www.weitz.de/regex-coach/
+
+para um exemplo veja: 'npc\Exemplos\npc_test_pcre.txt'.
+
+---------------------------------------
+
+*pow(<número>,<vezes>)
+
+Vai multiplicar o número dado por ele mesmo, quantas vezes for dada
+
+Exenplo:
+
+set @i, pow(2,3); // @i vai ser 8.
+
+---------------------------------------
+
+*sqrt(<número>)
+
+Retorna a raíz quadrada do número dado
+
+Example:
+set @i, sqrt(25); // @i vai ser 5.
+
+---------------------------------------
+
+*distance(<x0>,<y0>,<x1>,<y1>)
+
+Retorna a distânca entre dois pontos.
+
+Exemplo:
+
+set @i, distance(100,200,101,202);
+
+---------------------------------------
+
+*md5("<string>")
+
+Retorna o checksum md5 de um número ou string
+
+Exemplo:
+	mes md5(12345);
+	mes md5("12345"); 	// vai mostrar 827ccb0eea8a706c4c34a16891f84e7b
+	mes md5("qwerty"); 	// vai mostrar d8578edf8458ce06fbc5bb76a58c5ca4
+
+---------------------------------------
+
+*query_sql "sua query de MySQL", <array> {,<array>, ...};
+*query_logsql "sua query de MySQL", <array> {,<array>, ...};
+
+Executa uma query de sql, se o seu servidor for do tipo MySQL se não for
+nada vai acontecer.
+
+Exemplo:
+
+set @nb, query_sql("select name,fame from `char` ORDER BY fame DESC LIMIT 5", @name$, @fame);
+mes "Top5 dos mais famosos";
+mes "1."+@name$[0]+"("+@fame[0]+")";
+mes "2."+@name$[1]+"("+@fame[1]+")";
+mes "3."+@name$[2]+"("+@fame[2]+")";
+mes "4."+@name$[3]+"("+@fame[3]+")";
+mes "5."+@name$[4]+"("+@fame[4]+")";
+
+Ele pode definir arrays guardando as iformações pegas, lembrando que um array pode conter no
+máximo 127 índices.
+
+---------------------------------------
+
+*escape_sql("<string>")
+
+Escapa caracteres especias de uma string, então isso é seguro de usar em query_sql(),
+e retorna a forma escapa da string.
+
+
+Exemplo 1:
+	set .@str$, "John's Laptop";
+	set .@esc_str$, escape_sql(.@name$);	// String escapada: John\'s Laptop
+
+---------------------------------------
+
+*setitemscript(<id do item>,<"{ novo script de item }">{,<tipo>});
+
+Definie um novo script de bônus para o item especificado.
+Para remover o novo bônus use uma string vazia "".
+
+Os tipos definem em qual script de item será usado
+
+ 0 - Script
+ 1 - OnEquip_Script
+ 2 - OnUnequip_Script
+
+Exemplo:
+
+setitemscript 2637,"{ if(isequipped(2236)==0)end; if(getskilllv(26)){skill 40,1;}else{skill 26,1+isequipped(2636);} }";
+setitemscript 2637,"";
+
+---------------------------------------
+
+*atoi ("<string>")
+*axtoi ("<string>")
+
+Estes comando usados para converter string para números.
+'atoi' vai converter string usando número normais (0,1,2,3,etc) enquanto 'axtoi' converte
+eles para números hexadecimais (0,11,1,01).
+
+
+Exemplos:
+
+	mes atoi("11"); 		// vai mostrar 11
+	set @var, axtoi("FF"); 		// vai definir @var como 255
+	mes axtoi("11"); 		// vai mostrar 17.
+
+*atoi  = Ascii TO Integer
+
+---------------------------------------
+
+*compare (<string>,<substring>)
+
+Este comando retorna 1 se as substring estiver contida na string se não retorna 0.
+
+---------------------------------------
+
+*charisalpha("<string>",<posição>)
+
+Essa função retorna 1 se a posição do caracter da string dada é uma letra, 0
+se isso  for um espaço ou dígito.
+
+---------------------------------------
+
+*setfont <fonte>
+
+Este comando define a fonte do jogador anexo ao script para uma das
+fonte salvas em data\.eot usando o ID da fonte. Quando o ID da fonte
+usada atualmente é usada, a fonte padrão é usada de novo.
+
+    0 - Default
+    1 - RixLoveangel
+    2 - RixSquirrel
+    3 - NHCgogo
+    4 - RixDiary
+    5 - RixMiniHeart
+    6 - RixFreshman
+    7 - RixKid
+    8 - RixMagic
+    9 - RixJJangu
+
+---------------------------------------
+
+*** Comandos relacionados à PET.
+
+Estes comandos só funcionaram se o jogador anexado tiver um PET, eles devem 
+ser executaods em scripts de PET, eles vão modificar a Inteligência Artifical
+de decisão do PET.
+
+
+*petskillbonus <tipo de bônus>,<valor>,<duração>,<delay>;
+
+Este comando vai fazer o PET dar um bônus de status ao seu dono, veja a lista
+completa de bônus em 'db\const.txt'.
+
+*petrecovery <status type>,<delay>;
+
+Este comando vai fazer o PET curar um condição de status específica.
+a cura vai ocorrer de <Delay> em <delay> segundos, veja 'db\const.txt'
+debaixo de 'sc_' para conhecer os status.
+
+
+*petloot <items máximo>;
+
+Este comando vai deixar que o PET junte items do chão, tendo como limite
+o <item máximos> especificado.
+
+*petskillsupport <id da habilidade>,<nível da habilidade>,<delay>,<porcentagem de hp>,<porcentagem de sp>;
+*petskillsupport "<nome da habilidade>",<nível da habilidade>,<delay>,<porcentagem de hp>,<porcentagem de sp>;
+*petheal <nível>,<delay>,<porcentagem de hp>,<porcentagem de sp>;
+
+Estes comandos vão fazer um PET suportar uma habilidade no dono sempre que
+o Hp e Sp estiverem inferiores aos valores em porcentagens dados, com um delay
+especificado, os ids das habilidades sã encontrados em 'db\skill_db'.
+
+'petheal' funcional como 'petskillsupport' mais a habilidade usada é cura.
+
+*petskillattack <id da habilidade>,<nível da habilidade>,<taxa>,<taxa de bônus>;
+*petskillattack "<nome da habilidade>",<nível da habilidade>,<taxa>,<taxa de bônus>;
+*petskillattack2 <id da habilidade>,<damage>,<número de ataques>,<taxa>,<taxa de bônus>;
+*petskillattack2 "<nome da habilidade>",<dano>,<número de ataques>,<taxa>,<taxa de bônus>;
+
+Estes dois comandos vão fazer o PET atacar com uma habilidade no inimigo do dono
+do pet. '<taxa de bônus>' é adicionada se a intimidade do pet é a máxima possível
+'<taxa>' é a chance desse ataque ocorrer.
+
+Os comandos só irão funcionar se o pet for fiel e as configurações de 'battle_athena.conf'
+estiverem propriamente definidas.
+
+---------------------------------------
+
+*bpet;
+
+Este comando abre uma janela de "chocar" do jogador anexado. é usado em script
+de items, mais especificamente na incubadora, vai mostrar uma lista de todos
+os ovos de PET que o jogador tem em seu invetório. Mas é usável em Scripts de
+NPC.
+
+---------------------------------------
+
+*makepet <pet id>;
+
+Este comando cria um ovo de pet e o põe no invetório do char anexado ao script.
+
+veja a lista de pets disponíveis em 'db\pet_db.txt'.
+
+Exemplo:
+
+    // dá um ovo de poring.
+    makepet 1002;
+
+---------------------------------------
+
+*homshuffle;
+
+Isso vai recaulcular os status dos homunculus de acordos com o nível dele
+o pet usado é do char anexado ao script.
+
+---------------------------------------
+
+*setcell "<nome do mapa>",<x1>,<y1>,<x2>,<y2>,<tipo>,<flag>;
+
+Este comando deixa você "burlar" algumas flags que estiverem definas no mapa
+dado, somente funcionando nas coordenadas dadas, no quadrado gerado por elas.
+
+
+A Flag pode ser 0 para tirar e 1 para pôr.
+
+O Tipo define a flag a ser modificada, veja em 'db\const.txt' debaixo de
+'cell_' os tipos possíveis.
+
+Exemplos:
+
+	setcell "arena",0,0,300,300,cell_basilica,1;
+	setcell "arena",140,140,160,160,cell_basilica,0;
+	setcell "arena",135,135,165,165,cell_walkable,0;
+	setcell "arena",140,140,160,160,cell_walkable,1;
+
+---------------------------------------
+
+*checkcell ("<nome do mapa>",<x>,<y>,<tipo>);
+
+Essa função retorna 1 ou 0, dependendo se as células especificadas tem
+um tipo de flag definidas ou não. há vários tipos de células, os tipos
+podem ser encontrados em 'db\const.txt'.
+
+O Significado de cada tipo pode ser confuso, aqui vai uma explicação:
+
+  - cell_chwall/water/cliff 
+  Essas checam por um componente de chuva da célula especificada.
+
+  - cell_chkpass/reach/nopass/noreach
+  passável = sem parede e sem penhasco, atingível = passável, sem pilhas.
+
+  - cell_chknpc/basilica/landprotector/novending/nochat
+  estes checam por flags dinâmicas específicas.
+
+
+Exemplo:
+
+	mes "Escolha um mapa de destino";
+	input .@map$;
+	mes "me dê as coordenadas";
+	input .@x;
+	input .@y;
+	if( !checkcell(.@map$,.@x,.@y,cell_chkpass) )
+	{
+		mes "Não posso te teleportar pra esse  lugar";
+		close;
+	}
+	else
+	{
+		mes "ok, teleportando ...";
+		close2;
+		warp .@map$, .@x, .@y;
+		end;
+	}
+
+---------------------------------------
+
+*setwall "<nome do mapa>",<x>,<y>,<tamanho>,<dir>,<atirável>,"<nome>";
+*delwall "<nome>";
+
+Cria um muro invisível, um array de 'setcell' começando de x,y e fazendo a
+linha do tamanho dado na direção dada. A diferença entre setcell é que
+este atualiza a parte do cliente também.
+
+---------------------------------------
+
+*readbook <book id>,<página>;
+
+Esse comando vai abrir certo livro em certa página.
+
+---------------------------------------
+*showevent <status>,<cor>;
+
+Mostra uma marca colorida no mini-map como "viewpoint" e um emoticon no topo do NPC.
+Isto é usado para indicar que um NPC tem uma quest ou evento para um certo jogador.
+
+status pode ser:
+	0 = desativado
+	1 = exclamação
+	2 Interrogação
+
+cores podem ser:
+	0 = amarelo
+	1 = laranja
+	2 = verde
+	3 = azul
+	outros valores mostram uma marca transparte no mini-map
+
+----------------------------------------
