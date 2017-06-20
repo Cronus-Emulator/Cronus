@@ -12,7 +12,7 @@
 // Estrutura do banco de dados:
 // SkillID,HPCost,MaxHPTrigger,SPCost,HPRateCost,SPRateCost,ZenyCost,RequiredWeapons,RequiredAmmoTypes,RequiredAmmoAmount,RequiredState,SpiritSphereCost,RequiredItemID1,RequiredItemAmount1,RequiredItemID2,RequiredItemAmount2,RequiredItemID3,RequiredItemAmount3,RequiredItemID4,RequiredItemAmount4,RequiredItemID5,RequiredItemAmount5,RequiredItemID6,RequiredItemAmount6,RequiredItemID7,RequiredItemAmount7,RequiredItemID8,RequiredItemAmount8,RequiredItemID9,RequiredItemAmount9,RequiredItemID10,RequiredItemAmount10
 //
-// Se a taxa do custo de HP/SP for positiva, sera uma porcentagem da vida atual, caso contrario sera uma porcentagem da vida total.
+// Se a taxa do custo de HP/SP for positiva, será uma porcentagem da vida atual, caso contrário será uma porcentagem da vida total.
 //
 // 01 ID
 // 02 Custo de HP
