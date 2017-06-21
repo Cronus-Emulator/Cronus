@@ -1,102 +1,115 @@
-//===== Hercules Documentation ===============================
-//= WoE Time Explanation
-//===== By: ==================================================
-//= erKURITA
-//===== Current Version: =====================================
-//= 20120717
-//===== Description: =========================================
-//= Details on the behavior of the default WoE controller.
-//============================================================
+//====================================================================\\
+||                _____                                               ||
+||               /  __ \                                              ||
+||               | /  \/_ __ ___  _ __  _   _ ___                     ||
+||               | |   | '__/ _ \| '_ \| | | / __|                    ||
+||               | \__/\ | | (_) | | | | |_| \__ \                    ||
+||                \____/_|  \___/|_| |_|\__,_|___/                    ||
+||                          Explicação de tempo da WoE                ||
+||====================================================================||
+||= Herc/Cronus                                                       ||
+\\====================================================================//
 
-There are 2 main commands that determine WoE times:
-OnClock<time>: and gettime(<type>).
+=== [Changelog/Créditos]
 
-OnClock<time> triggers when <time> is reached.
-The format is HHMM, where H = hour, M = minute.
-OnClock2350: would run at 23:50, server time.
+1.0 -> 2012/07/17
+     - Criação do Documento [erKURITA]
+1.1 -> 2017/06/21
+     - Tradução [SlexFire]
 
-gettime(<type>) is a function that checks for certain
-information regarding time. The types are:
+=== [Explicação]
 
-	1 - Seconds (of a minute)
-	2 - Minutes (of an hour)
-	3 - Hour (of a day), ranging from 0 to 23
-	4 - Weekday, ranging from 0 (Sunday) to 6 (Saturday)
-	5 - Day of the month
-	6 - Number of the month
-	7 - Year
-	8 - Day of the year
+Detalhes do funcionamento padrão do controlador da WoE.
 
-This way, we can check for a desired minute, hour, day, month, etc.
+Existem dois comandos principais que determinam o tempo da WoE:
+OnClock<hora><minuto>: e gettime(<tipo>).
+
+OnClock<hora><minuto>: dispara quando chegar a <hora><minuto>.
+O formato é HHMM, onde H = Hora, M = Minuto.
+OnClock2350: roda às 23:50, hora do servidor.
+
+gettime(<tipo>) Essa função vai retornar uma informação 
+específica sobre o tempo atual do sistema. Os tipos são:
+
+	1 - Segundos (de um minto)
+	2 - Minutos (de uma hora)
+	3 - Hora (de um dia), variando de 0 a 23
+	4 - Dia da semana (0 para domingo, 6 para sábado)
+	5 - Dia do mês
+	6 - Número do mês
+	7 - Ano
+	8 - Dia do ano
+
+Desta forma a verificação pode ser feita por: minuto, hora, dia, mês, etc.
 
 -------------------------------------------------------------------------------
 
-Now the structure:
+Estrutura:
 
-	OnClock2100:	// Start time for Tues(2), Thurs(4)
-	OnClock2300:	// End time for Tues(2), Thurs(4)
-	OnClock1600:	// Start time for Sat(6)
-	OnClock1800:	// End time for Sat(6)
+	OnClock2100:	// Hora de início  Terça(2), Quinta(4)
+	OnClock2300:	// Hora de término Terça(2), Quinta(4)
+	OnClock1600:	// Hora de início  Sábado(6)
+	OnClock1800:	// Hora de término Sábado(6)
 
-These 4 labels will run one after the other, reaching the next check:
+Essas 4 labels serão executadas uma após a outra, realizando a próxima verificação:
 
 	if((gettime(4)==2) && (gettime(3)>=21 && gettime(3)<23)) goto L_Start;
 	if((gettime(4)==4) && (gettime(3)>=21 && gettime(3)<23)) goto L_Start;
 	if((gettime(4)==6) && (gettime(3)>=16 && gettime(3)<18)) goto L_Start;
 
-This part will check for the times. Since both Start and End times run
-through the same chain of commands, these are important checks to ensure
-it's the right time. Let's take the following example:
+Esta parte verificará os horários. Uma vez que os tempos de Início e Fim 
+são executados pela mesma cadeia de comandos, estas verificações são importantes
+para garantir o tempo certo. Vejamos o seguinte exemplo:
 
 	if((gettime(4)==2) && (gettime(3)>=21 && gettime(3)<23))
 
-The first gettime() is checking for a type 4, the day of the week, and it's
-comparing it to the one desired, which is 2 (Tuesday). The function will
-return either 1 (true) or 0 (false).
+O primeiro gettime() com tipo 4, está verificando o dia da semana, e está
+comparando com um número desejado, que é 2(Terça). A função retornará
+1 (verdadeiro) ou 0 (falso).
 
-The second gettime is checking type 3, the hour, and it's comparing
-it to 21. If the first part is greater than or equal to (>=) the second part,
-the comparison will return 1.
+O segundo gettime() está checando o tipo 3, a hora, e está comparando a 21.
+Se a primeira parte for maior ou igual (>=) a segunda parte, a comparação
+retornará 1.
 
-The third and last gettime is checking again for the hour, but the time has to be less
-than the specified time (in this case, 23).
+O terceiro e último gettime() está checando novamente a hora, mas o tempo deve ser 
+inferior ao tempo especificado (neste caso, 23).
 
-Now, look at the parentheses. Parentheses are very important when making comparisons
-and conditions. Check the order of these. I'll place dummy characters for this example:
+Agora, observe os parênteses. Parênteses são muito importantes ao fazer comparações e
+condições. Verifiquem esta ordem. Colocarei caracteres fictícios para este exemplo:
 
 	if ((X && (Y && Z)) goto L_Start;
 
-It's saying, if Y and Z are true, the condition is met. Now let's use another set
-of dummy characters. We're checking if (Y && Z) = G:
+Está dizendo, se Y e Z forem verdadeiros, a condição é cumprida. Agora vamos usar outro 
+conjunto de caracteres fictícios. Estamos verificando se (Y && Z) = G:
 
 	if (X && G) goto L_Start;
 
-It's saying that if X and G are true, the condition is met, thus proceeding to L_Start.
+Está dizendo que se X e G são verdadeiros, a condição é cumprida, portanto proceda para L_Start.
 
-Now, the last part of the script, regarding the end of WoE time:
+Agora, a última parte do script, o final da WoE:
 
 	if((gettime(4)==2) && (gettime(3)==23)) goto L_End;
 	if((gettime(4)==4) && (gettime(3)==23)) goto L_End;
 	if((gettime(4)==6) && (gettime(3)==18)) goto L_End;
 	end;
 
-This is the same as before, but it's checking for the day in the first gettime() and
-the hour on the second. If both conditions are true, WoE will end. We're checking 
-here for the end time, not the start.
+Isto é a mesma coisa que antes, porém está chacando o dia no primeiro gettime() e
+a hora no segundo. Se ambas as condições são verdadeiras, a WoE será finalizada. Aqui estamos 
+checando o fim do tempo e não o início.
 
-Another important thing is "OnAgitInit:". This special label will be run as soon as the
-castle data is loaded from the char data. It will check for the above start and end times
-to see if it's in WoE time, hence why the hours have to be checked.
+Outra coisa importante é o "OnAgitInit:". Esta label especial será executada assim que os 
+dados do castelo forem carregados a partir dos dados do personagem. Ela verificará o tempo de início e término
+para ver se a WoE está acontecendo, por isso as horas devem ser verificadas.
 
 -------------------------------------------------------------------------------
 
-An example of how to set the WoE so it starts on Monday, at 4 pm and ends up at 10 pm:
+Um exemplo de como configurar a WoE para começar Segunda, às 16:00 horas e terminar às 22:00 horas:
 
 	OnClock1600: // 16:00 = 4 pm
 	OnClock2200: // 22:00 = 10 pm
 
-	OnAgitInit: // This can only be written once: put OnClock above and the checks below.
+	OnAgitInit: // Isso só pode ser escrito uma vez: Coloque "OnClock" acima e as verificações abaixo.
 
 	if ((gettime(4)==1) && (gettime(3)>=16 && gettime(3)<22)) goto L_Start;
 	if ((gettime(4)==1) && (gettime(3)==22) goto L_End;
-	end; // Don't forget this!
+	end; // Não esqueça isto!
