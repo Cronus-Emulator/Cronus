@@ -1,52 +1,63 @@
-//===== Hercules Documentation ===============================
-//= NPC Whisper System
-//===== By: ==================================================
-//= lordalfa
-//===== Current Version: =====================================
-//= 20120904
-//===== Description: =========================================
-//= A description of Hercules' NPC whispering system.
-//============================================================
+//====================================================================\\
+||                _____                                               ||
+||               /  __ \                                              ||
+||               | /  \/_ __ ___  _ __  _   _ ___                     ||
+||               | |   | '__/ _ \| '_ \| | | / __|                    ||
+||               | \__/\ | | (_) | | | | |_| \__ \                    ||
+||                \____/_|  \___/|_| |_|\__,_|___/                    ||
+||                                  Whisper System                    ||
+||====================================================================||
+||= Herc/Cronus                                                       ||
+\\====================================================================//
 
-This piece of code to allows characters to execute events in NPCs by whispering 
-them up to ten parameters. The NPC must have an "OnWhisperGlobal" label, or an 
-"event not found" error will result.
+=== [Changelog/Créditos]
 
-	NPC:<NPC Name>		<String>{#String 2{#...{#String 10}}}
+1.0 -> 2012/09/04
+     - Criação do Documento [lordalfa]
+1.1 -> 2017/06/21
+     - Tradução [SlexFire]
+	 
+=== [Explicação]
+
+Este trecho de código permite que os personagens executem eventos de NPCs via
+PM (Personal Message -> Mensagem Pessoal), onde pode-se usar até dez parâmetros. 
+O NPC deve ter uma label "OnWhisperGlobal", ou resultará no erro "evento não encontrado".
+
+	NPC:<nome do npc>		<String>{#String 2{#...{#String 10}}}
 	
-The whispered strings are separated by the "#" character, and are each stored
-into separate temporary character string variables:
+Os comandos são separados pelo caractere "#", e são armazenados em variáveis temporárias
+separadas.
 
 	@whispervar0$, @whispervar1$, ... @whispervar9$
 
 ---------------------------------------------------------------------------------
 
-Below is an example of how this feature might be used.
-You whisper an NPC "NPCCommander" in-game with the following instructions:
+Abaixo está um exemplo de como esse recurso pode ser usado.
+Você digita um comando para o NPC "NPCCommander" no jogo com as seguintes instruções:
 
 	NPC:NPCCommander	Report#Killstealing#Lordalfa
 
-The parameters are passed on to the "OnWhisperGlobal" label of the NPC, and can
-be processed accordingly:
+Os parâmetros são passados para a label "OnWhisperGlobal" do NPC, e pode ser processado
+de acordo:
 
 -	script	NPCCommander	-1,{
 OnWhisperGlobal:
-	// Inform player "Lordalfa" that he has been reported for killstealing.
+	// Informe ao jogador "Lordalfa" que ele foi reportado por KS.
 	if (@whispervar0$ == "Report")
-		message @whispervar2$,"You have been reported for "+@whispervar1$+".";
+		message @whispervar2$,"Você foi reportado por "+@whispervar1$+".";
 	end;
 }
 
-This could also be used for hidden event triggers:
+Também pode ser usado para desencadeadar eventos ocultos:
 
 -	script	EventManager	-1,{
 OnWhisperGlobal:
 	if (getgmlevel() < 80) end;
 	if (@whispervar0$ == "pvp") {
-		// Script for a PVP event.
+		// Script para evento PvP.
 	}
 	else if (@whispervar0$ == "mvp") {
-		// Script for an MVP summoning event.
+		// Script para invocar um eventto de MVP.
 	}
 	end;
 }
