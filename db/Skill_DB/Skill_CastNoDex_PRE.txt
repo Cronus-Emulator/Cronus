@@ -1,49 +1,62 @@
-// <Skill id>,<Cast>,<Delay (optional)>
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     DB CastNoDex -> Pré-Renewal               ||
+//===============================================================||
+// Banco de Dados do tempo de cast sem destreza                  ||
+//===============================================================//
+// Estrutura do banco de dados:
+// SkillID,Cast,Delay (opcional)
 //
-// Cast:  0 - everything affects the skill's cast time
-//        1 - skill's cast time is not affected by dex
-//        2 - skill's cast time is not affected by statuses (Suffragium, etc)
-//        4 - skill's cast time is not affected by item bonuses (equip, cards)
+// Cast:  0 - qualquer coisa afeta o tempo de conjuração da habilidade
+//        1 - a conjuração não é afetada por destreza
+//        2 - a conjuração não é afetada por status (Suffragium, etc)
+//        4 - a conjuração não é afetada por bônus de itens (equip, cartas)
 //
-// Delay: 0 - everything affects the skill's delay
-//        1 - skill's delay is not affected by dex
-//        2 - skill's delay is not affected by Magic Strings / Bragi
-//        4 - skill's delay is not affected by item bonuses (equip, cards)
+// Delay: 0 - qualquer coisa afeta o delay da habilidade
+//        1 - o delay da habilidade não é afetado por destreza
+//        2 - o delay da habilidade não é afetado por magias / bragi
+//        4 - o delay da habilidade não é afetado por bônus de itens (equip, cartas)
 //
-// Note: Values are bit fields, add them up to combine their effects.
-// Note: Delay setting '1' only makes sense when delay_dependon_dex is enabled.
-// Example: 46,1,1 = Double Strafe's cast time and delay is not affected by dex.
+// NOTA: Os valores são em bit, some para combinar diferentes efeitos.
+// NOTA: Configurando o Delay para '1' só fara sentido se delay_dependon_dex estiver habilitado.
+// Exemplo: 46,1,1 =  O Tempo de Conjuração de Rajada Dupla não é afetada pela destreza
+//---------------------------------------------------------
 
-136,0,2	//AS_SONICBLOW
-263,0,2	//MO_TRIPLEATTACK
-272,0,2	//MO_CHAINCOMBO
-273,0,2	//MO_COMBOFINISH
-336,1	//WE_CALLPARTNER
-366,3	//HW_MAGICPOWER
-370,1	//CH_PALMSTRIKE
-371,0,2	//CH_TIGERFIST
-372,0,2	//CH_CHAINCRUSH
-394,0,2	//CG_ARROWVULCAN
-403,3	//PF_MEMORIZE
-408,1	//WE_BABY
-409,1	//WE_CALLPARENT
-410,1	//WE_CALLBABY
-482,1	//PF_DOUBLECASTING
-462,1	//SL_KAIZEL
-496,1	//AM_TWILIGHT1
-497,1	//AM_TWILIGHT2
-498,1	//AM_TWILIGHT3
-512,3	//GS_TRACKING
-1014,1	//PR_REDEMPTIO
+136,0,2		//AS_SONICBLOW
+263,0,2		//MO_TRIPLEATTACK
+272,0,2		//MO_CHAINCOMBO
+273,0,2		//MO_COMBOFINISH
+336,1		//WE_CALLPARTNER
+366,3		//HW_MAGICPOWER
+370,1		//CH_PALMSTRIKE
+371,0,2		//CH_TIGERFIST
+372,0,2		//CH_CHAINCRUSH
+394,0,2		//CG_ARROWVULCAN
+403,3		//PF_MEMORIZE
+408,1		//WE_BABY
+409,1		//WE_CALLPARENT
+410,1		//WE_CALLBABY
+482,1		//PF_DOUBLECASTING
+462,1		//SL_KAIZEL
+496,1		//AM_TWILIGHT1
+497,1		//AM_TWILIGHT2
+498,1		//AM_TWILIGHT3
+512,3		//GS_TRACKING
+1014,1		//PR_REDEMPTIO
 2534,7,7	//RETURN_TO_ELDICASTES
 2536,7,7	//ALL_GUARDIAN_RECALL
 //2537,0,7	//ALL_ODINS_POWER
-10010,3	//GD_BATTLEORDER
-10011,3	//GD_REGENERATION
-10012,6	//GD_RESTORE
-10013,7	//GD_EMERGENCYCALL
+10010,3		//GD_BATTLEORDER
+10011,3		//GD_REGENERATION
+10012,6		//GD_RESTORE
+10013,7		//GD_EMERGENCYCALL
 
-// Mercenary Skills
+// Skills de Mercenário
 8214,7	//MA_CHARGEARROW
 8215,7	//MA_SHARPSHOOTING
 8217,7	//ML_BRANDISHSPEAR

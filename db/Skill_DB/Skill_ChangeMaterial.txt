@@ -1,13 +1,23 @@
-// Change Material Database
-//
-// Structure of Database:
-//        ProductID,BaseRate,MakeAmount1,MakeAmountRate1,MakeAmount2,MakeAmountRate2
-//        MakeAmount3,MakeAmountRate3,MakeAmount4,MakeAmountRate4,MakeAmount5,MakeAmountRate5
-//====================================================
-// NOTE:
-// Up to 5 ID/Amount pairs can be specified.
-// Rate = n/10%
-//====================================================
+//===============================================================\\
+//                _____                                          ||
+//               /  __ \                                         ||
+//               | /  \/_ __ ___  _ __  _   _ ___                ||
+//               | |   | '__/ _ \| '_ \| | | / __|               ||
+//               | \__/\ | | (_) | | | | |_| \__ \               ||
+//                \____/_|  \___/|_| |_|\__,_|___/               ||
+//                     DB Alterações de Materiais                ||
+//===============================================================||
+// Banco de Dados para Alterações de Materiais                   ||
+//===============================================================//
+//---------------------------------------------------------
+// Estrutura do banco de dados:
+// 	ProductID,BaseRate,MakeAmount1,MakeAmountRate1,MakeAmount2,MakeAmountRate2
+// 	MakeAmount3,MakeAmountRate3,MakeAmount4,MakeAmountRate4,MakeAmount5,MakeAmountRate5
+//---------------------------------------------------------
+// Nota: 
+// 	Até 5 ID/Quantidade pode ser especificado.
+// 	Rate = n/10%
+//---------------------------------------------------------
 
 703,4,800,2,200                        // Hinalle
 958,800,9,1000                         // Horrendous_Mouth
