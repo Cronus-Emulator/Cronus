@@ -632,6 +632,7 @@ void clif_authok(struct map_session_data *sd)
 #if PACKETVER >= 20080102
 	p.font = sd->status.font;
 #endif
+// Some clients smaller than 20160330 cant be tested [4144]
 #if PACKETVER >= 20141016 && PACKETVER < 20160330
 	p.sex = sd->status.sex;
 #endif
@@ -11424,12 +11425,7 @@ void clif_parse_NpcStringInput(int fd, struct map_session_data* sd) __attribute_
 /// 01d5 <packet len>.W <npc id>.L <string>.?B
 void clif_parse_NpcStringInput(int fd, struct map_session_data* sd)
 {
-// [4144] não pode confirmar a versão exata do cliente. Pelo menos está correto para 20150513
-#if PACKETVER >= 20151029
-	int message_len = RFIFOW(fd, 2) - 7;
-#else
-	int message_len = RFIFOW(fd, 2) - 8;
-#endif
+	int message_len = RFIFOW(fd,2)-8;
 	int npcid = RFIFOL(fd,4);
 	const char* message = (char*)RFIFOP(fd,8);
 
