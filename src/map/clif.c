@@ -11425,7 +11425,6 @@ void clif_parse_NpcStringInput(int fd, struct map_session_data* sd) __attribute_
 /// 01d5 <packet len>.W <npc id>.L <string>.?B
 void clif_parse_NpcStringInput(int fd, struct map_session_data* sd)
 {
-// [4144] não pode confirmar a versão exata do cliente. Pelo menos está correto para 20150513
 #if PACKETVER >= 20151029
 	int message_len = RFIFOW(fd, 2) - 7;
 #else
