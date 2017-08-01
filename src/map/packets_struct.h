@@ -7,22 +7,22 @@
 //                   \____/_|  \___/|_| |_|\__,_|___/               ||
 //                        Source - 2016                             ||
 //==================================================================||
-// = Código Base:                                                   ||
+// = CÃ³digo Base:                                                   ||
 // - eAthena/Hercules/Cronus                                        ||
 //==================================================================||
 // = Sobre:                                                         ||
-// Este software é livre: você pode redistribuí-lo e/ou modificá-lo ||
+// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo ||
 // sob os termos da GNU General Public License conforme publicada   ||
-// pela Free Software Foundation, tanto a versão 3 da licença, ou   ||
-// (a seu critério) qualquer versão posterior.                      ||
+// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou   ||
+// (a seu critÃ©rio) qualquer versÃ£o posterior.                      ||
 //                                                                  ||
-// Este programa é distribuído na esperança de que possa ser útil,  ||
-// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de     ||
-// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a        ||
-// GNU General Public License para mais detalhes.                   ||
+// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,  ||
+//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de     ||
+//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a        ||
+//Â GNU General Public License para mais detalhes.                   ||
 //                                                                  ||
-// Você deve ter recebido uma cópia da Licença Pública Geral GNU    ||
-// juntamente com este programa. Se não, veja:                      ||
+// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU    ||
+// juntamente com este programa. Se nÃ£o, veja:                      ||
 // <http://www.gnu.org/licenses/>.                                  ||
 //==================================================================*/
 
@@ -144,8 +144,11 @@ enum packet_headers {
 	authokType = 0x73,
 #elif PACKETVER < 20141022
 	authokType = 0x2eb,
-#else
+// Some clients smaller than 20160330 cant be tested [4144]
+#elif PACKETVER < 20160330
 	authokType = 0xa18,
+#else
+	authokType = 0x2eb,
 #endif
 	script_clearType = 0x8d6,
 	package_item_announceType = 0x7fd,
@@ -401,7 +404,8 @@ struct packet_authok {
 #if PACKETVER >= 20080102
 	short font;
 #endif
-#if PACKETVER >= 20141022
+// Some clients smaller than 20160330 cant be tested [4144]
+#if PACKETVER >= 20141022 && PACKETVER < 20160330
 	unsigned char sex;
 #endif
 } __attribute__((packed));
