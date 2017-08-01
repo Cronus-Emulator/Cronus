@@ -7,22 +7,22 @@
 //                   \____/_|  \___/|_| |_|\__,_|___/               ||
 //                        Source - 2016                             ||
 //==================================================================||
-// = Código Base:                                                   ||
+// = CÃ³digo Base:                                                   ||
 // - eAthena/Hercules/Cronus                                        ||
 //==================================================================||
 // = Sobre:                                                         ||
-// Este software é livre: você pode redistribuí-lo e/ou modificá-lo ||
+// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo ||
 // sob os termos da GNU General Public License conforme publicada   ||
-// pela Free Software Foundation, tanto a versão 3 da licença, ou   ||
-// (a seu critério) qualquer versão posterior.                      ||
+// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou   ||
+// (a seu critÃ©rio) qualquer versÃ£o posterior.                      ||
 //                                                                  ||
-// Este programa é distribuído na esperança de que possa ser útil,  ||
-// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de     ||
-// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a        ||
-// GNU General Public License para mais detalhes.                   ||
+// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,  ||
+//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de     ||
+//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a        ||
+//Â GNU General Public License para mais detalhes.                   ||
 //                                                                  ||
-// Você deve ter recebido uma cópia da Licença Pública Geral GNU    ||
-// juntamente com este programa. Se não, veja:                      ||
+// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU    ||
+// juntamente com este programa. Se nÃ£o, veja:                      ||
 // <http://www.gnu.org/licenses/>.                                  ||
 //==================================================================*/
 
@@ -5000,36 +5000,36 @@ int clif_skill_damage(struct block_list *src, struct block_list *dst, int64 tick
 #endif
 
 /*=================================================
-- Implementação OnPCUseSkillEvent (Skill de Dano)
-- Referência: clif_skill_damage
-- Créditos: [Alukas] - Adaptação[Redx]
+- ImplementaÃ§Ã£o OnPCUseSkillEvent (Skill de Dano)
+- ReferÃªncia: clif_skill_damage
+- CrÃ©ditos: [Alukas] - AdaptaÃ§Ã£o[Redx]
 ==================================================*/
   	sd = BL_CAST(BL_PC, src);
-  		if(dst->type == BL_PC)  //Checa se o alvo é um personagem
+  		if(dst->type == BL_PC)  //Checa se o alvo Ã© um personagem
         sd = BL_CAST(BL_PC, dst);
 
     if(sd && damage != 0)
     {
-        pc_setglobalreg(sd, script->add_str("lskillid"), skill_id); //Variável que recebe o id da skill = lskillid
+        pc_setglobalreg(sd, script->add_str("lskillid"), skill_id); //VariÃ¡vel que recebe o id da skill = lskillid
 
 				if(dst->type == BL_PC)
         {
-            pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sd->status.name);  //Variável que recebe o "nome" da última skill usada no alvo (na tabela global) = lskilldest$ 
+            pc_setglobalreg_str(sd, script->add_str("lskilldest$"), sd->status.name);  //VariÃ¡vel que recebe o "nome" da Ãºltima skill usada no alvo (na tabela global) = lskilldest$ 
            	npc->script_event(sd, NPCE_USESKILL);
         }
 
-				else if(dst->type == BL_MOB) //Checa se o alvo é um monstro
+				else if(dst->type == BL_MOB) //Checa se o alvo Ã© um monstro
         {
-            pc_setglobalreg(sd, script->add_str("lskilldest"), dst->id);  //Isto definirá a variável "lskilldest", que contém o ID da última skill usada no alvo
+            pc_setglobalreg(sd, script->add_str("lskilldest"), dst->id);  //Isto definirÃ¡ a variÃ¡vel "lskilldest", que contÃ©m o ID da Ãºltima skill usada no alvo
             npc->script_event(sd, NPCE_USESKILL);
         }
 
-        pc_setglobalreg_str(sd, script->add_str("lskilldest$"), ""); //"Zera" a variável "lskilldest$"
-        pc_setglobalreg(sd, script->add_str("lskilldest"), 0); //"Zera" a variável "lskilldest"
-        pc_setglobalreg(sd, script->add_str("lskillid"), 0); //"Zera" a variável "lskillid"
+        pc_setglobalreg_str(sd, script->add_str("lskilldest$"), ""); //"Zera" a variÃ¡vel "lskilldest$"
+        pc_setglobalreg(sd, script->add_str("lskilldest"), 0); //"Zera" a variÃ¡vel "lskilldest"
+        pc_setglobalreg(sd, script->add_str("lskillid"), 0); //"Zera" a variÃ¡vel "lskillid"
     }
 	
-/* --- Fim da implementação da label OnPCUseSkillEvent --- */
+/* --- Fim da implementaÃ§Ã£o da label OnPCUseSkillEvent --- */
 
 
 	//Because the damage delay must be synced with the client, here is where the can-walk tick must be updated. [Skotlex]
@@ -5124,9 +5124,9 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 	}
 	
 /*=================================================
-- Implementação OnPCUseSkillEvent (Skill sem Dano)
-- Referência: clif_skill_nodamage
-- Créditos: [Alukas] - Adaptação[Redx]
+- ImplementaÃ§Ã£o OnPCUseSkillEvent (Skill sem Dano)
+- ReferÃªncia: clif_skill_nodamage
+- CrÃ©ditos: [Alukas] - AdaptaÃ§Ã£o[Redx]
 ==================================================*/
 
 	sd = BL_CAST(BL_PC, src);
@@ -5155,7 +5155,7 @@ int clif_skill_nodamage(struct block_list *src,struct block_list *dst,uint16 ski
 
 	}
 
-/* --- Fim da implementação da label OnPCUseSkillEvent --- */
+/* --- Fim da implementaÃ§Ã£o da label OnPCUseSkillEvent --- */
 
 
 	return fail;
@@ -5184,14 +5184,14 @@ void clif_skill_poseffect(struct block_list *src, uint16 skill_id, int val, int 
 		clif->send(buf,packet_len(0x117),src,AREA);
 	
 /*====================================================
-- Implementação OnPCUseSkillEvent (Animação da Skill)
-- Referência: clif_skill_poseffect
-- Créditos: [Alukas] - Adaptação[Redx]
+- ImplementaÃ§Ã£o OnPCUseSkillEvent (AnimaÃ§Ã£o da Skill)
+- ReferÃªncia: clif_skill_poseffect
+- CrÃ©ditos: [Alukas] - AdaptaÃ§Ã£o[Redx]
 =====================================================*/
 
   sd = BL_CAST(BL_PC, src);
 
-  //Na animação da skill
+  //Na animaÃ§Ã£o da skill
   if(sd)
   {
     pc_setglobalreg(sd, script->add_str("lskillid"), skill_id);
@@ -5199,7 +5199,7 @@ void clif_skill_poseffect(struct block_list *src, uint16 skill_id, int val, int 
     pc_setglobalreg(sd, script->add_str("lskillid"), 0);
   }
 
-/* --- Fim da implementação da label OnPCUseSkillEvent --- */
+/* --- Fim da implementaÃ§Ã£o da label OnPCUseSkillEvent --- */
 
 }
 
@@ -11424,7 +11424,12 @@ void clif_parse_NpcStringInput(int fd, struct map_session_data* sd) __attribute_
 /// 01d5 <packet len>.W <npc id>.L <string>.?B
 void clif_parse_NpcStringInput(int fd, struct map_session_data* sd)
 {
-	int message_len = RFIFOW(fd,2)-8;
+// [4144] nÃ£o pode confirmar a versÃ£o exata do cliente. Pelo menos estÃ¡ correto para 20150513
+#if PACKETVER >= 20151029
+	int message_len = RFIFOW(fd, 2) - 7;
+#else
+	int message_len = RFIFOW(fd, 2) - 8;
+#endif
 	int npcid = RFIFOL(fd,4);
 	const char* message = (char*)RFIFOP(fd,8);
 
@@ -11467,7 +11472,7 @@ void clif_parse_ItemIdentify(int fd,struct map_session_data *sd)
 	clif_menuskill_clear(sd);
 }
 
-///	Identifica o item com o botão direito do mouse (CZ_REQ_ONECLICK_ITEMIDENTIFY).
+///	Identifica o item com o botÃ£o direito do mouse (CZ_REQ_ONECLICK_ITEMIDENTIFY).
 ///	0A35 <index>.W
 void clif_parse_OneClick_ItemIdentify(int fd, struct map_session_data *sd)
 {
@@ -18928,7 +18933,7 @@ void do_final_clif(void)
 }
 
 /*===================================\
-Função: dipbottom color - [Slexfire] |
+FunÃ§Ã£o: dipbottom color - [Slexfire] |
 ====================================*/
 int clif_dispbcfunc(struct map_session_data *sd, const char* msg, unsigned int cor) {   	 
 
