@@ -42,7 +42,6 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Administradores
 
-- SlexFire
 - Roberto
 
 ###### Desenvolvedores
@@ -52,5 +51,5 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Moderadores
 
-- Spell Master
+- Tonnynho
 - Psyz
