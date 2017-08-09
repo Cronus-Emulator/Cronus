@@ -50,12 +50,12 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Desenvolvedores
 
-- Denner (Core/Script)
-- Evanio (Core/Script)
-- Envolvents (Core/Script)
-- Mihael (Core/Script)
-- ragnaproxy (Core/Script)
-- Wolf (Core/Script)
+- Denner
+- Evanio
+- Envolvents
+- Mihael
+- ragnaproxy
+- Wolf
 
 ###### Moderadores
 
