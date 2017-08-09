@@ -50,10 +50,10 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Desenvolvedores
 
-- Matsuy (Core/Script)
+- Denner (Core/Script)
 - Evanio (Core/Script)
 - Envolvents (Core/Script)
-- Leahim (Core/Script)
+- Mihael (Core/Script)
 - ragnaproxy (Core/Script)
 - Wolf (Core/Script)
 
