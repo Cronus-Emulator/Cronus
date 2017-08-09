@@ -44,12 +44,21 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 - Roberto
 
+###### Coordenador de Desenvolvimento
+
+- MaatSF
+
 ###### Desenvolvedores
 
 - Matsuy (Core/Script)
 - Evanio (Core/Script)
+- Envolvents (Core/Script)
+- Leahim (Core/Script)
+- ragnaproxy (Core/Script)
+- Wolf (Core/Script)
 
 ###### Moderadores
 
-- Tonnynho
 - Psyz
+- Tonnynho
+
