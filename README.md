@@ -60,5 +60,6 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 ###### Moderadores
 
 - Psyz
+- Pixel
 - Tonnynho
 
