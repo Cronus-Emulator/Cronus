@@ -42,14 +42,24 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 ###### Administradores
 
-- Ominous Slex
 - Roberto
+
+###### Coordenador de Desenvolvimento
+
+- MaatSF
 
 ###### Desenvolvedores
 
-- Matsuy (Core)
-- Wolf 	 (Script)
+- Denner
+- Evanio
+- Envolvents
+- Mihael
+- ragnaproxy
+- Wolf
 
 ###### Moderadores
 
-- Spell Master
+- Psyz
+- Pixel
+- Tonnynho
+
