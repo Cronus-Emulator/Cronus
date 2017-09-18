@@ -4902,9 +4902,9 @@ bool mob_parse_row_mobskilldb(char** str, int columns, int current)
 void mob_readskilldb(void) {
 	int fi;
 	#ifdef RENEWAL // [ New DB ]
-		const char *filename[] = { "Mob_DB/Mob_Skill_RE.txt", "Mob_SkillDB2.txt", };
+		const char *filename[] = { "Mob_DB/Mob_Skill_RE.txt", "Mob_DB/Mob_SkillDB2.txt", };
 	#else
-		const char *filename[] = { "Mob_DB/Mob_Skill_PRE.txt", "Mob_SkillDB2.txt", };
+		const char *filename[] = { "Mob_DB/Mob_Skill_PRE.txt", "Mob_DB/Mob_SkillDB2.txt", };
 	#endif
 
 	if( battle_config.mob_skill_rate == 0 ) {
