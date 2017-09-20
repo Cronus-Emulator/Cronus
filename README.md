@@ -44,9 +44,10 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 
 - Roberto
 
-###### Coordenador de Desenvolvimento
+###### Coordenação
 
-- MaatSF
+- MaatSF (Desenvolvimento)
+- Pixel (Comunidade)
 
 ###### Desenvolvedores
 
@@ -60,6 +61,6 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 ###### Moderadores
 
 - Psyz
-- Pixel
+- Lecter
 - Tonnynho
 
