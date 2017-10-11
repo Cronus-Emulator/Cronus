@@ -7,22 +7,22 @@
 //                   \____/_|  \___/|_| |_|\__,_|___/               ||
 //                        Source - 2016                             ||
 //==================================================================||
-// = Código Base:                                                   ||
+// = CÃ³digo Base:                                                   ||
 // - eAthena/Hercules/Cronus                                        ||
 //==================================================================||
 // = Sobre:                                                         ||
-// Este software é livre: você pode redistribuí-lo e/ou modificá-lo ||
+// Este software Ã© livre: vocÃª pode redistribuÃ­-lo e/ou modificÃ¡-lo ||
 // sob os termos da GNU General Public License conforme publicada   ||
-// pela Free Software Foundation, tanto a versão 3 da licença, ou   ||
-// (a seu critério) qualquer versão posterior.                      ||
+// pela Free Software Foundation, tanto a versÃ£o 3 da licenÃ§a, ou   ||
+// (a seu critÃ©rio) qualquer versÃ£o posterior.                      ||
 //                                                                  ||
-// Este programa é distribuído na esperança de que possa ser útil,  ||
-// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de     ||
-// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a        ||
-// GNU General Public License para mais detalhes.                   ||
+// Este programa Ã© distribuÃ­do na esperanÃ§a de que possa ser Ãºtil,  ||
+//Â mas SEM QUALQUER GARANTIA; mesmo sem a garantia implÃ­cita de     ||
+//Â COMERCIALIZAÃ‡ÃƒO ou ADEQUAÃ‡ÃƒO A UM DETERMINADO FIM. Veja a        ||
+//Â GNU General Public License para mais detalhes.                   ||
 //                                                                  ||
-// Você deve ter recebido uma cópia da Licença Pública Geral GNU    ||
-// juntamente com este programa. Se não, veja:                      ||
+// VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral GNU    ||
+// juntamente com este programa. Se nÃ£o, veja:                      ||
 // <http://www.gnu.org/licenses/>.                                  ||
 //==================================================================*/
 
@@ -870,7 +870,8 @@ struct clif_interface {
 	void (*messageln) (const int fd, const char* mes);
 	/* message+s(printf) */
 	void (*messages) (const int fd, const char *mes, ...) __attribute__((format(printf, 2, 3)));
-	bool (*process_message) (struct map_session_data *sd, int format, char **name_, size_t *namelen_, char **message_, size_t *messagelen_);
+	const char *(*process_chat_message) (struct map_session_data *sd, const struct packet_chat_message *packet, char *out_buf, int out_buflen);
+	bool (*process_whisper_message) (struct map_session_data *sd, const struct packet_whisper_message *packet, char *out_name, char *out_message, int out_messagelen);
 	void (*wisexin) (struct map_session_data *sd,int type,int flag);
 	void (*wisall) (struct map_session_data *sd,int type,int flag);
 	void (*PMIgnoreList) (struct map_session_data* sd);
