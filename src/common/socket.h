@@ -1,27 +1,36 @@
-/**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
- *
- * Copyright (C) 2012-2016  Hercules Dev Team
- * Copyright (C)  Athena Dev Teams
- *
- * Hercules is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/*==================================================================\\
+//                   _____                                          ||
+//                  /  __ \                                         ||
+//                  | /  \/_ __ ___  _ __  _   _ ___                ||
+//                  | |   | '__/ _ \| '_ \| | | / __|               ||
+//                  | \__/\ | | (_) | | | | |_| \__ \               ||
+//                   \____/_|  \___/|_| |_|\__,_|___/               ||
+//                        Source - 2016                             ||
+//==================================================================||
+// = Código Base:                                                   ||
+// - eAthena/Hercules/Cronus                                        ||
+//==================================================================||
+// = Sobre:                                                         ||
+// Este software é livre: você pode redistribuí-lo e/ou modificá-lo ||
+// sob os termos da GNU General Public License conforme publicada   ||
+// pela Free Software Foundation, tanto a versão 3 da licença, ou   ||
+// (a seu critério) qualquer versão posterior.                      ||
+//                                                                  ||
+// Este programa é distribuído na esperança de que possa ser útil,  ||
+// mas SEM QUALQUER GARANTIA; mesmo sem a garantia implícita de     ||
+// COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM DETERMINADO FIM. Veja a        ||
+// GNU General Public License para mais detalhes.                   ||
+//                                                                  ||
+// Você deve ter recebido uma cópia da Licença Pública Geral GNU    ||
+// juntamente com este programa. Se não, veja:                      ||
+// <http://www.gnu.org/licenses/>.                                  ||
+//==================================================================*/
+
 #ifndef COMMON_SOCKET_H
 #define COMMON_SOCKET_H
 
-#include "common/hercules.h"
+#include "common/cronus.h"
+#include "common/conf.h"
 #include "common/db.h"
 
 #ifdef WIN32
@@ -33,9 +42,7 @@
 #	include <sys/types.h>
 #endif
 
-/* Forward Declarations */
 struct hplugin_data_store;
-struct config_setting_t;
 
 #define FIFOSIZE_SERVERLINK 256*1024
 
@@ -47,16 +54,16 @@ struct config_setting_t;
 			sockt->realloc_writefifo((fd), (size)); \
 	} while(0)
 
-#define RFIFOP(fd,pos) ((const void *)(sockt->session[fd]->rdata + sockt->session[fd]->rdata_pos + (pos)))
-#define WFIFOP(fd,pos) ((void *)(sockt->session[fd]->wdata + sockt->session[fd]->wdata_size + (pos)))
+#define RFIFOP(fd,pos) (sockt->session[fd]->rdata + sockt->session[fd]->rdata_pos + (pos))
+#define WFIFOP(fd,pos) (sockt->session[fd]->wdata + sockt->session[fd]->wdata_size + (pos))
 
-#define RFIFOB(fd,pos) (*(const uint8*)RFIFOP((fd),(pos)))
+#define RFIFOB(fd,pos) (*(uint8*)RFIFOP((fd),(pos)))
 #define WFIFOB(fd,pos) (*(uint8*)WFIFOP((fd),(pos)))
-#define RFIFOW(fd,pos) (*(const uint16*)RFIFOP((fd),(pos)))
+#define RFIFOW(fd,pos) (*(uint16*)RFIFOP((fd),(pos)))
 #define WFIFOW(fd,pos) (*(uint16*)WFIFOP((fd),(pos)))
-#define RFIFOL(fd,pos) (*(const uint32*)RFIFOP((fd),(pos)))
+#define RFIFOL(fd,pos) (*(uint32*)RFIFOP((fd),(pos)))
 #define WFIFOL(fd,pos) (*(uint32*)WFIFOP((fd),(pos)))
-#define RFIFOQ(fd,pos) (*(const uint64*)RFIFOP((fd),(pos)))
+#define RFIFOQ(fd,pos) (*(uint64*)RFIFOP((fd),(pos)))
 #define WFIFOQ(fd,pos) (*(uint64*)WFIFOP((fd),(pos)))
 #define RFIFOSPACE(fd) (sockt->session[fd]->max_rdata - sockt->session[fd]->rdata_size)
 #define WFIFOSPACE(fd) (sockt->session[fd]->max_wdata - sockt->session[fd]->wdata_size)
@@ -85,23 +92,13 @@ struct config_setting_t;
 #define WP2PTR(fd) WFIFO2PTR(fd)
 
 // buffer I/O macros
-static inline const void *RBUFP_(const void *p, int pos) __attribute__((const, unused));
-static inline const void *RBUFP_(const void *p, int pos)
-{
-	return ((const uint8 *)p) + pos;
-}
-#define RBUFP(p,pos) RBUFP_(p, (int)(pos))
-#define RBUFB(p,pos) (*(const uint8 *)RBUFP((p),(pos)))
-#define RBUFW(p,pos) (*(const uint16 *)RBUFP((p),(pos)))
-#define RBUFL(p,pos) (*(const uint32 *)RBUFP((p),(pos)))
-#define RBUFQ(p,pos) (*(const uint64 *)RBUFP((p),(pos)))
+#define RBUFP(p,pos) (((uint8*)(p)) + (pos))
+#define RBUFB(p,pos) (*(uint8*)RBUFP((p),(pos)))
+#define RBUFW(p,pos) (*(uint16*)RBUFP((p),(pos)))
+#define RBUFL(p,pos) (*(uint32*)RBUFP((p),(pos)))
+#define RBUFQ(p,pos) (*(uint64*)RBUFP((p),(pos)))
 
-static inline void *WBUFP_(void *p, int pos) __attribute__((const, unused));
-static inline void *WBUFP_(void *p, int pos)
-{
-	return ((uint8 *)p) + pos;
-}
-#define WBUFP(p,pos) WBUFP_(p, (int)(pos))
+#define WBUFP(p,pos) (((uint8*)(p)) + (pos))
 #define WBUFB(p,pos) (*(uint8*)WBUFP((p),(pos)))
 #define WBUFW(p,pos) (*(uint16*)WBUFP((p),(pos)))
 #define WBUFL(p,pos) (*(uint32*)WBUFP((p),(pos)))
@@ -225,13 +222,13 @@ struct socket_interface {
 	uint32 (*lan_subnet_check) (uint32 ip, struct s_subnet *info);
 	bool (*allowed_ip_check) (uint32 ip);
 	bool (*trusted_ip_check) (uint32 ip);
-	int (*net_config_read_sub) (struct config_setting_t *t, struct s_subnet_vector *list, const char *filename, const char *groupname);
+	int (*net_config_read_sub) (config_setting_t *t, struct s_subnet_vector *list, const char *filename, const char *groupname);
 	void (*net_config_read) (const char *filename);
 };
 
-#ifdef HERCULES_CORE
+#ifdef CRONUS_CORE
 void socket_defaults(void);
-#endif // HERCULES_CORE
+#endif // CRONUS_CORE
 
 HPShared struct socket_interface *sockt;
 
