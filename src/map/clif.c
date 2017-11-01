@@ -10383,15 +10383,14 @@ void clif_parse_EquipItem(int fd,struct map_session_data *sd) __attribute__((non
 /// 00a9 <index>.W <position>.W
 /// 0998 <index>.W <position>.L
 void clif_parse_EquipItem(int fd,struct map_session_data *sd) {
-const struct packet_equip_item *p = P2PTR(fd);
-int index = 0;
+	struct packet_equip_item *p = P2PTR(fd);
 
 	if(pc_isdead(sd)) {
 		clif->clearunit_area(&sd->bl,CLR_DEAD);
 		return;
 	}
 
-	index = p->index - 2;
+	p->index = p->index - 2;
 	if (p->index >= MAX_INVENTORY)
 		return; //Out of bounds check.
 
