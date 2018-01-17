@@ -109,3 +109,6 @@ Thumbs.db
 /vcproj-*/map-server
 /vcproj-*/mapcache
 /vcproj-*/plugin-*/
+
+# logs
+/logs

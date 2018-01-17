@@ -27,17 +27,38 @@ Qualquer bug encontrado deve ser postado em: https://github.com/Cronus-Emulator/
 ===============
 
 ###### Linux
- - Compilador gcc (4.8v++) ou clang (3.1v++) 
+ - Compilador gcc (4.8v++) ou clang (3.1v++)
  - make           (Padrão)
  - mysql-client   (Arquivos base para o mysql)
  - mysql-devel    (Cabeçalhos/Bibliotecas)
  - mysql-server   (Servidor para a base de dados)
  - pcre-devel     (Dependência 3rdparty)
  - zlib-devel     (Dependência 3rdparty)
- 
+
 PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura correta na sua distribuição linux.
 
 ===============
+
+###### Docker
+
+ - docker
+ - docker-compose
+
+ Para buildar o projeto execute: `docker-compose build`
+
+ Para executar o sevidor execute: `docker-compose up`
+
+ Se preferir executar em background: `docker-compose up -d`
+
+ Para finalizar o servidor quando em background `docker-compose down`
+
+ Caso modifique algum arquivo da pasta conf: `docker-compose restart`
+
+Executando o servidor pelo `docker-compose` o banco de dados já é iniciado e é possível acessá-lo pelo gerenciador de banco de dados *Adminer* no url `http://localhost`
+
+
+===============
+
 #### Equipe Atual
 
 ###### Administradores
@@ -63,4 +84,3 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 - Psyz
 - Lecter
 - Tonnynho
-
