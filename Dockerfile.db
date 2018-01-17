@@ -1,0 +1,11 @@
+FROM mariadb
+
+ENV MYSQL_USER=ragnarok \
+    MYSQL_PASSWORD=ragnarok \
+    MYSQL_ROOT_PASSWORD=ragnarok \
+    MYSQL_DATABASE=ragnarok
+
+COPY ./sql-files/logs.sql /docker-entrypoint-initdb.d/
+COPY ./sql-files/main.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306

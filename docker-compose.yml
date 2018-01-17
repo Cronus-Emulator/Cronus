@@ -1,0 +1,36 @@
+version: '2.1'
+services:
+  server:
+    image: cronus:latest
+    build:
+      context: .
+    depends_on:
+     db:
+       condition: service_healthy
+    ports:
+      - 6121:6121
+      - 5121:5121
+      - 6900:6900
+    volumes:
+      - ./conf:/home/cronus/conf
+      - ./npc:/home/cronus/npc
+      - ./logs:/home/cronus/logs
+  db:
+    image: cronus-db:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    ports:
+      - 3306:3306
+    volumes:
+      - ./cronus-database:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 80:8080
