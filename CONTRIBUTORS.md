@@ -65,6 +65,7 @@ Estes são os nomes das pessoas que ajudaram este projeto a chegar onde ele est�
 - Igor Freire – Spike
 - Ian Kawanami – Ian Kawanami
 - Iuri dos Santos – Puncker
+- Junior Savio -  Psyz
 - Janderson Santos – J4ND3RS0N
 - Janilson – skankilson
 - Jean Santos – ace_killer
