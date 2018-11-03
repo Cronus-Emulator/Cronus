@@ -13,7 +13,7 @@ O Cronus-Emulator é um projeto de desenvolvimento colaborativo com objetivo de 
 a comunidade Brasileira.
 
 Nossos agradecimentos especiais a equipe do eAthena por desenvolver a base deste emulador e a todos que contribuem e/ou um dia contribuiram ao Cronus-Emulator.
-- Contribuidores: https://github.com/Cronus-Emulator/Cronus/blob/master/CONTRIBUTORS.md
+- Contributors: https://github.com/Cronus-Emulator/Cronus/blob/master/CONTRIBUTORS.md
 
 Qualquer bug encontrado deve ser postado em: https://github.com/Cronus-Emulator/Cronus/issues
 
