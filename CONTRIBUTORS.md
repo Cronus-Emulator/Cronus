@@ -48,7 +48,7 @@ Estes são os nomes das pessoas que ajudaram este projeto a chegar onde ele est�
 - Gabriel Matsumura – Tet
 - Gabriel Vianna – Vianna
 - Gabriel de Freitas – MrGB
-- Guilherme – Pudim
+- Guilherme Ferreira – Pudim
 - Guilherme – Zeus
 - Guilherme Maia – Chaoseiro
 - Guilherme Silva – Mooka
@@ -108,7 +108,7 @@ Estes são os nomes das pessoas que ajudaram este projeto a chegar onde ele est�
 - Pedro Brandão – Pedro xD
 - Pedro Lima – Jojø
 - Percio Andrade – ScouTSK
-- Rafael – FrozenCirius
+- Rafael Zago – FrozenCirius
 - Rafael – Rafoka
 - Rafael Gonçalo – Jokker
 - Rafael Gorges – Kenshim
