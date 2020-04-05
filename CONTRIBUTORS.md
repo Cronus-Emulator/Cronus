@@ -76,7 +76,7 @@ Estes são os nomes das pessoas que ajudaram este projeto a chegar onde ele est�
 - Juan Fontes – ~ pecado
 - Juliana Peralta – Keroleen
 - Julio Carvalho – ItachiSan
-- Júlio Fornazier – JulioCF
+- Júlio Fornazier – JulioCF ou Jonyll
 - Júlio Melo – Sirius
 - Júlio Turolla – JúliosS
 - Leandro Otonii – Otonii
