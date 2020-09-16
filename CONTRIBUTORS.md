@@ -70,6 +70,7 @@ Estes são os nomes das pessoas que ajudaram este projeto a chegar onde ele est�
 - Jean Santos – ace_killer
 - Joaquim – Zeff
 - Jonathan Lima – GreenBox
+- Jota Gois - Axl
 - João Angelo – JAF
 - João Senos – Wolf
 - João Pedro – Joao Pedro
