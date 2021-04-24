@@ -43,24 +43,27 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 ###### Administradores
 
 - Roberto
+- JulioCF
+- Carlos Heitor Lain
 
 ###### Coordenação
 
-- MaatSF (Desenvolvimento)
-- Pixel (Comunidade)
+- 
+- 
 
 ###### Desenvolvedores
 
-- Denner
-- Evanio
-- Envolvents
-- Mihael
-- ragnaproxy
-- Wolf
+- 
+- 
+- 
+- 
+- 
+- 
 
 ###### Moderadores
 
-- Psyz
-- Lecter
-- Tonnynho
+- 
+- 
+- 
 
+##### Projeto Descontinuado
