@@ -43,8 +43,8 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 ###### Administradores
 
 - Roberto
-- JulioCF
 - Carlos Heitor Lain
+- Julio Cesar Fornazier(JulioCF)
 
 ###### Coordenação
 
