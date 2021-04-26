@@ -1,5 +1,6 @@
 Cronus-Emulator
 ===============
+##### Projeto Descontinuado
 
 [![Build Status](https://travis-ci.org/Cronus-Emulator/Cronus.png?branch=master)](https://travis-ci.org/Cronus-Emulator/Cronus) [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/cronus-emulator/cronus.svg)](http://isitmaintained.com/project/cronus-emulator/cronus "Average time to resolve an issue") [![Percentage of issues still open](http://isitmaintained.com/badge/open/cronus-emulator/cronus.svg)](http://isitmaintained.com/project/cronus-emulator/cronus "Percentage of issues still open")
 
@@ -40,30 +41,6 @@ PS: Certificar-se de realizar o download dos pacotes de acordo com a arquitetura
 ===============
 #### Equipe Atual
 
-###### Administradores
+###### Administrador
 
-- Roberto
-- Carlos Heitor Lain
 - Julio Cesar Fornazier(JulioCF)
-
-###### Coordenação
-
-- 
-- 
-
-###### Desenvolvedores
-
-- 
-- 
-- 
-- 
-- 
-- 
-
-###### Moderadores
-
-- 
-- 
-- 
-
-##### Projeto Descontinuado
